@@ -1,0 +1,27 @@
+## ========== How to install this framework ==========
+
+First of all: This is a Java Framework and it uses only java tools to compile
+and create the framework and the examples.
+
+# ===== What you need =====
+The project is created with maven (http://maven.apache.org).
+
+To build the project you need only maven. All other dependencies should
+be automaticly installed from maven.
+
+# ===== Hot to compile it =====
+There is a default goal "jar" which is executed if you run simple
+
+> maven
+
+Do you have questions or the framework will not be build on your system?
+
+Contact me:
+
+waffel@users.sf.net
+
+or over the columba homepage
+http://columba.sf.net
+
+Thanks and a lot of fun!
+Waffel

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <pomVersion>1</pomVersion>
+  <id>jscf</id>
+  <name>Java Security Component Framework</name>
+  <currentVersion>0.3</currentVersion>
+  <groupId>columba</groupId>
+  <url>http://columba.sf.net</url>
+  <siteAddress>www.ancoso-development.de</siteAddress>
+  <siteDirectory>/home/webmaster/webroot/ancoso-dev/opensource/jscf</siteDirectory>
+  <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  <organisation>
+    <name>columba</name>
+    <url>http://columba.sf.net</url>
+    <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  </organisation>
+  <inceptionYear>2004</inceptionYear>
+  <package>org.waffel.jscf</package>
+  <gumpRepositoryId>columba</gumpRepositoryId>
+  <description>Java Security Component Framework</description>
+  <shortDescription>Java Security Component Framework</shortDescription>
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/columba:jscf</connection>
+    <url>http://cvs.sourceforge.net/viewcvs.py/columba/jscf/</url>
+  </repository>
+  <mailingLists>
+    <mailingList>
+      <name>columba developer mailinglist</name>
+      <archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+      <subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <name>Thomas Wabner</name>
+      <id>waffel</id>
+      <email>waffel@users.sourceforge.net</email>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <url>http://sourceforge.net/projects/junit/</url>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+        <include>**/*.zip</include>
+        <include>**/*.xml</include>
+      </includes>
+       <filtering>false</filtering>
+    </unitTest>
+    <integrationUnitTest />
+   </build>
+  <reports>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+  </reports>
+</project>
+

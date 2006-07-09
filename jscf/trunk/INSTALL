@@ -1,0 +1,51 @@
+## ========== How to install this framework ==========
+
+First of all: This is a Java Framework and it uses only java tools to compile
+and create the framework and the examples.
+
+# ===== What you need =====
+You need the cool ant program from apache
+
+http://ant.apache.org
+
+# ===== Hot to compile it =====
+To see what targets you can use try
+
+  ant -projecthelp
+  
+which should list you all neccesary targets you need to compile the framework
+and use it.
+
+As the default in the cvs there is only a "build.properties.template" file
+included, which is copied to "build.properties" if you run ant the first time
+for this project. 
+
+Please edit the newly created "build.properties" and make you own settings.
+
+After finish to made your own setting you can run ant again. The default target
+is "build" and creates all classes you need, to use the framework, the example
+application and the simple gpg commandline wrapper library.
+
+Try 
+  
+  ant create-jar
+  
+to create a jar file which includes the framework, the examples and the
+simple gpg-commandline warpper. You can use the jar file simple with the
+
+  java -jar <theFramework>-<version>.jar
+  
+which sould starts any examples.
+
+
+Do you have questions or the framework will not be build on your system?
+
+Contact me:
+
+waffel@users.sf.net
+
+or over the columba homepage
+http://columba.sf.net
+
+Thanks and a lot of fun!
+Waffel

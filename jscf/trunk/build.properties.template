@@ -1,0 +1,44 @@
+#######################################
+# variables to edit
+# 
+#######################################
+
+##
+# Name of the project
+##
+project = JSCF
+
+##
+# current version
+##
+version=0.1
+
+##
+# directory in which the sources lives. This dir is relative to the project.home.
+##
+srcdir = src
+
+##
+# directory where the build should goes. This dir is relative to the project.home.
+##
+builddir = classes
+
+##
+#  directory where the javadoc should goes
+##
+docdir = doc
+
+##
+# title for the documentation
+##
+doctitle = Java Security Component Framework
+
+##
+# name of the jar file, which schould be created. Please set the name without the .jar!
+##
+jarfile = jscf
+
+##
+# start point of the main file for one example. Thus you can run java -jar <jarfile>
+##
+mainfile = org.waffel.jscf.examples.SimpleJSCFExample

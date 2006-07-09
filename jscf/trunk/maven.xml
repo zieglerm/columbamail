@@ -1,0 +1,19 @@
+<project
+  xmlns:ant="jelly:ant"
+  default="jscf">
+  
+  <goal name="jscf">
+    <attainGoal name="jar:jar"/>
+    <attainGoal name="site"/>
+    <attainGoal name="dist"/>
+  </goal>
+<!--  
+ <preGoal name="dist">
+    <attainGoal name="ant"/> 
+ </preGoal>
+-->
+ <postGoal name="dist:prepare-src-filesystem">
+    <copy file="${basedir}/INSTALL.txt" todir="${maven.dist.src.archive.dir}/${pom.artifactId}-${pom.currentVersion}"/>
+    <ant:delete dir="${maven.dist.src.archive.dir}/${pom.artifactId}-${pom.currentVersion}/src/org"/>
+ </postGoal>
+</project>

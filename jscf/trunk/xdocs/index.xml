@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Java Security Component Framework</title>
+  <author email="waffel@users.sf.net">Thomas Wabner</author>
+ </properties>
+
+ <body>
+
+ <section name="What is JSCF?">
+ <p>
+  JSCF called Java Security Component Framework is a framework 
+  which encapsulates methods like sign, verify, encrypt and decrypt from a underlaying implementation.
+ </p>
+ </section>
+ <section name="Powered by">
+ <p>
+  The project page is powered by <a href="http://www.ancoso-development.de">Ancoso Development GmbH</a>.
+ </p>
+ </section>
+ 
+ </body>
+ </document>

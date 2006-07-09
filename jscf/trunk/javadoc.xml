@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <target name="javadoc"
+        description="craetes the java documentation for this project">
+        <javadoc access="public" author="true" 
+          destdir="${docdir}" doctitle="${doctitle}" nodeprecated="false" 
+          nodeprecatedlist="false" noindex="false" nonavbar="false" 
+          notree="false" 
+          packagenames="org.waffel.jscf" 
+          source="1.4" 
+          sourcepath="${srcdir}" splitindex="true" use="true" 
+          version="true">
+          <classpath refid="compile.classpath"/>
+        </javadoc>
+    </target>

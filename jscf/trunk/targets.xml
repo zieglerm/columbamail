@@ -1,0 +1,79 @@
+<!-- targets.xml: Referenced by the build.xml file, this file 
+  contains targets common for building a JSCF -->
+  
+<!-- CLASSPATH -->
+  <path id="compile.classpath">
+    <pathelement location="${srcdir}"/>
+  </path>
+  
+  <target name="prepare-build" description="Creates the build directory if it not exists">
+    <echo message="create directory ${builddir} if it not exists"/>
+    <mkdir dir="${builddir}"/>
+  </target>
+  
+  <target name="prepare-doc" description="Creates the doc directory if it not exists">
+    <echo message="create directory ${docdir} if it not exists"/>
+    <mkdir dir="${docdir}"/>
+  </target>
+  
+  <target name="prepare" depends="check-property,prepare-build, prepare-doc"
+    description="Creates the all required directories if there are not exists">
+  </target>
+  
+  <target name="compile-program" depends="prepare" description="compiles all sources from ${srcdir} to ${builddir}">
+      <echo message="Compiling the source code from ${srcdir} to ${builddir}"/>
+      <javac srcdir="${srcdir}"
+             destdir="${builddir}"
+             debug="yes"
+             encoding="ISO-8859-1"
+             includes="**/*.java">
+         <classpath refid="compile.classpath"/>
+      </javac>
+  </target>
+  
+  <target name="create-jar" depends="compile-program"
+    description="creates a jar file from the project">
+    <delete file="${jarfile}-${version}.jar"/>
+		<echo message="the jar file is going to be ${jarfile}-${version} "/>
+		<jar basedir="${builddir}" jarfile="${jarfile}-${version}.jar">
+			<include name="**"/>
+			<exclude name="${jarfile}-${version}.jar"/>
+			<exclude name="README"/>
+			<exclude name="CHANGES"/>
+			<exclude name="LICENSE"/>
+			<exclude name="AUTHORS"/>
+			<exclude name="**/*.zip"/>
+			<exclude name="docs/**"/>
+			<manifest>
+				<attribute name="Main-Class" value="${mainfile}"/>
+				<attribute name="Sealed" value="false"/>
+			</manifest>
+		</jar>
+	</target>
+
+  <target name="check-property">
+    <available property="properties.ok" file="build.properties"/>
+    <copy file="build.properties.template" tofile="build.properties" 
+      overwrite="no" filtering="no"/>
+    <fail unless="properties.ok" 
+      message="the file build.properties.template is copied to build.properties.
+ Please edit the build.properties file and run ant again."/>
+  </target>
+  
+  <target name="build-program" depends="clean-all,compile-program"
+     description="creates all what you need to use the framework">
+  </target>
+  
+  <target name="clean-classes" 
+     description="Removes all files from the build directory">
+    <delete dir="${builddir}" />
+  </target>
+  
+  <target name="clean-doc"
+    description="Removes the documentation for this project">
+    <delete dir="${docdir}"/>
+   </target>
+   
+   <target name="clean-all" depends="clean-classes, clean-doc"
+    description="Removes all genereated files">
+  </target>

@@ -1,0 +1,15 @@
+<!DOCTYPE project [
+	<!ENTITY buildtargets SYSTEM "targets.xml">
+  <!ENTITY javadoc SYSTEM "javadoc.xml">
+]>
+
+<project name="Java Security Component Framework" default="build" basedir=".">
+	<property file="build.properties"/>
+	
+	&buildtargets;
+  &javadoc;
+	
+	<target name="build" depends="build-program"
+		description="Executes the targets needed to build the program">
+	</target>
+</project>
