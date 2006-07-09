@@ -1,0 +1,10 @@
+<project
+ 
+  default="ristretto">
+  
+  <goal name="ristretto">
+    <attainGoal name="jar:jar"/>
+    <attainGoal name="site"/>
+  </goal>
+  
+</project>

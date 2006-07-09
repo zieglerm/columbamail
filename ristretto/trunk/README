@@ -1,0 +1,114 @@
+-----------------------------------------------------------------------------------------
+                         RISTRETTO
+-----------------------------------------------------------------------------------------
+
+ Ristretto is a low-level mail api for Java. It offers a fast
+ and easy way to enhance your software with SMTP, POP3 and IMAP 
+ capabilities.
+
+ For the latest information on new releases, website or ressource changes, 
+ please visit http://columba.sourceforge.net
+
+
+ TABLE OF CONTENTS
+ *****************
+
+1. Disclaimer
+2. Requirements
+3. Getting Started
+4. Including Ristretto in your project
+5. Getting Help
+6. Obtaining Ristretto
+7. License
+8. Contact Email
+
+Appendix
+A  Compiling Ristretto 
+
+
+1. Disclaimer
+-------------
+We are not liable for any damage caused by the use of this program.
+
+
+2. Requirements
+---------------
+Ristretto requires a Java 1.4 or later compatible virtual machine for
+your operating system (Java 1.4.2 is recommended)
+
+The most recent version of Java can be obtained from 
+http://java.sun.com/j2se/.
+
+
+3. Getting Started
+---------------
+The best way of getting to now how to use the Ristretto mail
+API is by having a look at the examples in the example directory.
+See also the README in the examples directory.
+
+The API docs can be found in the doc directory.
+
+
+4. Including Ristretto in your project
+---------------
+Put the ristretto-1.0-all.jar in the classpath. 
+
+
+If you only need support for some mail protocols there is also the
+option to use the respective jars only.
+
+IMPORTANT:  Always include the ristretto-1.0-common.jar when not using
+			the ristretto-1.0-all.jar!
+
+Example:
+	Joe needs SMTP support to send a mail from his application:
+	 ristretto-1.0-common.jar + ristretto-1.0-smtp.jar
+
+
+5. Getting Help
+---------------
+
+Our forum offers a great wealth of support material
+http://columba.sourceforge.net/phpBB2/
+
+For the latest information on new releases, website or resource changes, 
+please visit http://columba.sourceforge.net
+
+
+6. Obtaining Ristretto
+--------------------
+The website of Ristretto can be found at http://columba.sourceforge.net.
+
+
+7. License
+----------
+For legal and licensing issues, please read the LICENSE file.
+
+
+8. Contact Email
+----------------
+Timo Stich		tstich@users.sourceforge.net
+
+For more information please visit
+http://columba.sourceforge.net/index.php?page=subprojects_ristretto
+
+
+Appendix A: Compiling Ristretto (src-version only)
+---------------------
+To complie Ristretto you need Apache ANT (http://ant.apache.org)
+and a Java SDK 1.4 or above.
+
+The CVS repository has the following directory structure:
+
+/              	Development directory that contains project, build and source files
+/src            Source Root
+/src/examples   Examples
+/lib            Libraries used by Ristretto
+/build          compiled classes will be put here
+
+o Unix/Linux type operating systems:
+  bash# ant
+
+o Windows type operating systems:
+  shell# ant
+

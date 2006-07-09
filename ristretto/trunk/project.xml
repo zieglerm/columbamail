@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <pomVersion>1</pomVersion>
+  <id>ristretto</id>
+  <name>Ristretto</name>
+  <currentVersion>1.0_RC2</currentVersion>
+  <groupId>columba</groupId>
+  <url>http://columba.sf.net</url>
+  <siteAddress>www.ancoso-development.de</siteAddress>
+  <siteDirectory>/home/webmaster/webroot/opensource/ristretto</siteDirectory>
+  <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  
+  <organisation>
+    <name>columba</name>
+    <url>http://columba.sf.net</url>
+    <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  </organisation>
+  
+  <inceptionYear>2003</inceptionYear>
+  <package>org.columba.ristretto</package>
+  
+  <gumpRepositoryId>columba</gumpRepositoryId>
+  <description> Ristretto is a low-level mail api for Java. It offers a fast and easy way to enhance your software with SMTP, POP3 and IMAP capabilities.
+  </description>
+  <shortDescription>Low-Level mail api for Java.</shortDescription>
+  
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/columba:ristretto</connection>
+    <url>http://cvs.sourceforge.net/viewcvs.py/columba/ristretto/</url>
+  </repository>
+  
+   <mailingLists>
+    <mailingList>
+      <name>columba developer mailinglist</name>
+      <archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+      <subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+    </mailingList>
+  </mailingLists>
+  
+   <developers>
+    <developer>
+      <name>Timo Stich</name>
+      <id>tstich</id>
+      <email>tstich@users.sourceforge.net</email>
+      <roles>
+        <role>Project Leader</role>
+        <role>Developer</role>
+      </roles>
+    </developer>
+   </developers>
+   
+   <dependencies>
+     <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <url>http://sourceforge.net/projects/junit/</url>   
+     </dependency>
+     <dependency>
+       <groupId>junit-addons</groupId>
+       <artifactId>junit-addons</artifactId>
+       <version>1.4</version>
+     </dependency> 
+   </dependencies>
+
+   <build>
+    <sourceDirectory>src/core</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes/>
+    </unitTest>
+    <integrationUnitTestSourceDirectory/>
+    <integrationUnitTest/>
+    <aspectSourceDirectory/>
+   </build>
+   
+   <reports>    
+    <report>maven-jdepend-plugin</report>    
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-multiproject-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+   </reports>
+  
+</project>

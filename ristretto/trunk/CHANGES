@@ -1,0 +1,66 @@
+Ristretto v1.2
+- Added Implementation of IMAP HasChildren RFC3348
+- Improved speed in StreamUtils (Pete Buletza)
+- Added the IDLE command to the IMAP protocol (RFC2177)
+- Temporary files are deleted as soon as possible and not
+  when the VM shuts down. Thanks to Mark Breitner to pointing
+  out the problem.
+
+Bugs fixed:
+- QuickIMAP example: Exchange server sends a 0 when no unseen message in mailbox (Olivier)
+- UTF7 Encoder, error when using more then one umlaut (Mark Breitner)
+- Download of Messages from POP3 was broke if the estimated size was off by a larger percentage
+- More failure safe when parsing mailbox lists of addresses
+
+
+
+Ristretto v1.0
+- Added CramMD5 Authentication
+- Separate packages for each protocol
+
+Bugs fixed:
+Zeros padding in server response while authenticaion fixed.
+Java 1.5 import problems for Sasl fixed.
+
+
+Ristretto v1.0 RC3
+- Added a SequenceSet parser
+- POP3 synchornous download of messages (Jerome Bonnet)
+- GETUID extension for IMAP (Jerome Bonnet)
+- UIDPLUS extension for IMAP (so far only for the append command) (Jerome Bonnet)
+- added support for IMAP command line length checking
+- IMAPDisconnectionException is now also thrown while checking the correct state for the IMAP command
+- SequenceSets functionality enhanced with getLength() and toArray()
+- add SMTP drop Connection
+- More robust date parser
+- Lots of API docs added: more or less complete now
+
+Bugs fixed:
+#1021471 Problem with boundary in spam email
+#1016572 IMAP timeout exception
+MailboxInfo of IMAP select response: isWriteAccess() incorrect
+Mutex release problems when failure in IMAPInputStream's readBodyNonBlocking()
+Bogus implementation of SequenceSets fixed
+Dateparser had Array-Index-Out-Of-Bounds-Exception if the month is an invalid string
+IMAP append command only worked in SELECTED state although AUTHENTICATED suffices
+Some unwanted IMAPListener calls are fixed
+
+Ristretto v1.0 RC2
+
+- added IMAPListener Interface to handle unsolicited Messages from Server
+- added IMAPDisconnectedException for better exception handling
+- RFC822Date daylight saving bug (kastanie)
+- Parser bug in IMAP MimeTreeParser with quoted parenthesises
+- Changed behaviour of FileSourceModel to auto-close the files
+- POP3 now also uses asynchronous download for messages
+- Progress of download/upload can now completely monitored over the InputStreams
+- added IMAP Namespace support (RFC 2342)
+- changed License to MPL/LGPL/GPL tri-license
+- more JavaDocs added (still not complete...)
+
+Ristretto v1.0 RC1
+
+- Supports IMAP, POP3, SMTP
+- extendable AUTH mechanism
+- Logging
+- SSL support

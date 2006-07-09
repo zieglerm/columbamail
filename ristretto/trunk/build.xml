@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+
+<project name="ristretto" default="compile">
+	<property name="src.dir" location="src" />
+	<property name="build.dir" location="build" />
+	<property name="dist.dir" location="dist" />
+	<property name="lib.dir" location="lib" />
+	<property name="docs.dir" location="docs" />
+
+	<property name="debug" value="true" />
+
+	<!-- Properties for all source dirs -->
+	<property name="src.core" value="${src.dir}/core" />
+	
+	<property name="src.test" value="${src.dir}/test" />
+	<property name="src.examples" value="${src.dir}/examples" />
+
+	<!-- Properties for all build dirs -->
+	<property name="build.core" value="${build.dir}/core" />
+	<property name="build.test" value="${build.dir}/test" />
+
+	<!-- Properties for all dist dirs -->
+	<property name="dist.bin" value="${dist.dir}/ristretto-${version}-bin" />
+	<property name="dist.src" value="${dist.dir}/ristretto-${version}-src" />
+	<property name="dist.doc" value="${dist.dir}/ristretto-${version}-doc" />
+
+	<!-- Properties for the report generation -->
+	<property name="reports.dir" value="reports" />
+	<property name="reports.test" value="${reports.dir}/testresults" />
+	<property name="reports.coverage" value="${reports.dir}/testcoverage" />
+
+	<!-- Properties for all temporary file folders -->
+	<property name="build.coverage.instrumented.dir" value="${build.dir}/instrumented-classes" />
+	<property name="build.junit.xmlreport.dir" value="${build.dir}/testreport-xml" />
+
+
+	<!-- Common targets =================================== -->
+	<target name="init">
+		<tstamp/>
+		<property name="version" value="${DSTAMP}" />		
+	</target>
+	
+	<target name="clean" depends="temp-clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${build.core}" />
+		<delete dir="${build.test}" />
+		<delete dir="${reports.dir}" />
+     	 <delete>
+		    <fileset dir="${src.examples}" includes="**/*.class"/>
+		  </delete>		
+	</target>
+
+	<!-- Cleans temporary files that is used for report generation -->
+	<target name="temp-clean">
+		<delete>
+			<fileset dir="." includes="jcoverage**" />
+		</delete>
+		<delete dir="${build.coverage.instrumented.dir}" />
+		<delete dir="${build.junit.xmlreport.dir}" />
+	</target>
+
+
+	<!-- Build targets =================================== -->
+	<target name="build-common" depends="init" >
+		<mkdir dir="${build.core}" />
+		<javac source="1.5" target="1.5" srcdir="${src.core}" destdir="${build.core}" encoding="ISO-8859-1" debug="${debug}">
+			<include name="org/columba/ristretto/auth/**"/>			
+			<include name="org/columba/ristretto/coder/**"/>			
+			<include name="org/columba/ristretto/concurrency/**"/>			
+			<include name="org/columba/ristretto/config/**"/>			
+			<include name="org/columba/ristretto/io/**"/>			
+			<include name="org/columba/ristretto/log/**"/>			
+			<include name="org/columba/ristretto/message/**"/>			
+			<include name="org/columba/ristretto/parser/**"/>			
+			<include name="org/columba/ristretto/ssl/**"/>			
+		</javac>
+	</target>
+	
+	<target name="build-smtp" depends="build-common" >
+		<mkdir dir="${build.core}" />
+		<javac source="1.5" target="1.5" srcdir="${src.core}" destdir="${build.core}" encoding="ISO-8859-1" debug="${debug}">
+			<include name="org/columba/ristretto/composer/**"/>			
+			<include name="org/columba/ristretto/smtp/**"/>			
+		</javac>
+	</target>
+
+	<target name="build-pop3" depends="build-common" >
+		<mkdir dir="${build.core}" />
+		<javac source="1.5" target="1.5" srcdir="${src.core}" destdir="${build.core}" encoding="ISO-8859-1" debug="${debug}">
+			<include name="org/columba/ristretto/pop3/**"/>			
+		</javac>
+	</target>
+	
+	<target name="build-imap" depends="build-common" >
+		<mkdir dir="${build.core}" />
+		<javac source="1.5" target="1.5" srcdir="${src.core}" destdir="${build.core}" encoding="ISO-8859-1" debug="${debug}">
+			<include name="org/columba/ristretto/imap/**"/>			
+		</javac>
+	</target>
+
+	
+	<target name="compile" depends="build-common, build-smtp, build-pop3, build-imap">
+	</target>
+
+
+	<!-- Test targets =================================== -->
+	<target name="compile-tests" depends="compile">
+		<echo message="compile ristretto test code" />
+		<mkdir dir="${build.test}" />
+		<javac source="1.5" target="1.5" srcdir="${src.test}" classpath="${build.core}:${lib.dir}/junit.jar:${lib.dir}/junit-addons-1.4.jar" destdir="${build.test}" encoding="ISO-8859-1" debug="yes" />
+	</target>
+
+	<target name="test" depends="compile-tests" description="--> run tests">
+		<junit printsummary="off" fork="yes" haltonfailure="no">
+			<formatter type="brief" usefile="false" />
+			<classpath>
+				<pathelement path="${build.core}" />
+				<pathelement path="${build.test}" />
+				<pathelement path="${lib}/junit.jar" />
+				<pathelement path="${lib}/junit-addons-1.4.jar" />				
+			</classpath>
+			<batchtest todir="${build.junit.xmlreport.dir}">
+				<fileset dir="${src.test}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="compile-examples" depends="compile">
+		<echo message="compile ristretto example code" />
+		<javac source="1.5" target="1.5" srcdir="${src.examples}" classpath="${build.core}:${lib.dir}/junit.jar" encoding="ISO-8859-1" debug="yes" />
+	</target>
+	
+	
+	<!-- JavaDoc targets =================================== -->
+	<target name="doc">
+		<javadoc packagenames="org.columba.ristretto.*"
+			sourcepath="${src.core}"
+			destdir="${docs.dir}"
+			author="true"
+			version="true"
+			use="true"
+			windowtitle="Ristretto API"
+			link="http://java.sun.com/j2se/1.5.0/docs/api"
+			>
+			<doctitle><![CDATA[<h1>Ristretto Mail API, v ${version}</h1><div>This document is the API specification for the Ristretto Mail API, version ${version}.</div>]]></doctitle>
+		</javadoc>
+	</target>
+	
+	<!-- Distribution targets =================================== -->
+	<!-- pack the files into one jar file with automatic manifest file -->
+	<target name="jar-common" depends="build-common" description="creates the ristretto-common.jar file">
+		<mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/ristretto-${version}-common.jar" />
+		<jar basedir="${build.core}" jarfile="${dist.dir}/ristretto-${version}-common.jar">
+			<include name="org/columba/ristretto/auth/**"/>			
+			<include name="org/columba/ristretto/coder/**"/>			
+			<include name="org/columba/ristretto/concurrency/**"/>			
+			<include name="org/columba/ristretto/config/**"/>			
+			<include name="org/columba/ristretto/io/**"/>			
+			<include name="org/columba/ristretto/log/**"/>			
+			<include name="org/columba/ristretto/message/**"/>			
+			<include name="org/columba/ristretto/parser/**"/>			
+			<include name="org/columba/ristretto/ssl/**"/>			
+		</jar>
+	</target>
+
+	<target name="jar-smtp" depends="build-smtp" description="creates the ristretto-smtp.jar file">
+		<mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/ristretto-${version}-smtp.jar" />
+		<jar basedir="${build.core}" jarfile="${dist.dir}/ristretto-${version}-smtp.jar">
+			<include name="org/columba/ristretto/composer/**"/>			
+			<include name="org/columba/ristretto/smtp/**"/>			
+		</jar>
+	</target>
+
+	<target name="jar-pop3" depends="build-pop3" description="creates the ristretto-pop3.jar file">
+		<mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/ristretto-${version}-pop3.jar" />
+		<jar basedir="${build.core}" jarfile="${dist.dir}/ristretto-${version}-pop3.jar">
+			<include name="org/columba/ristretto/pop3/**"/>			
+		</jar>
+	</target>
+
+	<target name="jar-imap" depends="build-imap" description="creates the ristretto-imap.jar file">
+		<mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/ristretto-${version}-imap.jar" />
+		<jar basedir="${build.core}" jarfile="${dist.dir}/ristretto-${version}-imap.jar">
+			<include name="org/columba/ristretto/imap/**"/>			
+		</jar>
+	</target>
+
+	<target name="jar-all" depends="compile" description="creates the ristretto.jar file">
+		<mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/ristretto-${version}-all.jar" />
+		<jar basedir="${build.core}" jarfile="${dist.dir}/ristretto-${version}-all.jar">
+			<include name="org/columba/ristretto/**" />
+		</jar>
+	</target>
+
+	<target name="release-bin" depends="jar-all, jar-common, jar-smtp, jar-pop3, jar-imap, doc, compile-examples">
+		<mkdir dir="${dist.bin}" />
+		<copy todir="${dist.bin}">
+			<fileset dir="${basedir}">
+				<include name="README" />
+				<include name="CHANGES" />
+				<include name="LICENSE" />
+				<include name="AUTHORS" />
+			</fileset>
+		</copy>
+		<copy todir="${dist.bin}">			
+			<fileset dir="${dist.dir}">				
+				<include name="ristretto-${version}*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${dist.bin}/doc/">
+		    <fileset dir="${docs.dir}"/>
+   	    </copy>
+		<copy todir="${dist.bin}/examples/">
+		    <fileset dir="${src.examples}"/>
+   	    </copy>
+		
+		<zip destfile="${dist.dir}/ristretto-${version}-bin.zip">
+			<zipfileset dir="${dist.bin}" prefix="ristretto-${version}-bin" />
+		</zip>
+	</target>
+
+	<target name="release-src">
+		<mkdir dir="${dist.src}" />
+		<copy todir="${dist.src}">
+			<fileset dir="${basedir}">
+				<include name="src/**" />
+				<include name="lib/**" />
+				<include name="CHANGES" />
+				<include name="LICENSE" />
+				<include name="AUTHORS" />
+				<include name="COMPILE" />
+				<include name="build.xml" />
+			</fileset>
+		</copy>
+		<zip destfile="${dist.dir}/ristretto-${version}-src.zip" >
+			<zipfileset dir="${dist.src}" prefix="ristretto-${version}-src" />
+			</zip>
+	</target>
+
+	<target name="release-doc" depends="doc" >
+		<zip destfile="${dist.dir}/ristretto-${version}-doc.zip" >
+			<zipfileset dir="${docs.dir}" prefix="ristretto-${version}-docs" />
+			</zip>
+	</target>
+
+	<target name="release" depends="release-bin, release-src, release-doc" >
+	</target>
+	
+	
+		<!-- Report generation =================================== -->
+
+	<taskdef classpath="${lib.dir}/jcoverage.jar" resource="tasks.properties" />
+	<target name="test-reports" depends="compile-tests" description="--> generates reports about testing">
+
+		<!-- Instrument all classes prior to testing. -->
+		<instrument todir="${build.coverage.instrumented.dir}">
+			<fileset dir="${build.core}">
+				<include name="**/*.class" />
+			</fileset>
+		</instrument>
+
+		<!-- Start testing and generate a HTML report from tests -->
+		<mkdir dir="${build.junit.xmlreport.dir}" />
+		<junit printsummary="no" fork="yes" haltonerror="no">
+			<classpath>
+				<pathelement path="${build.coverage.instrumented.dir}" />
+				<pathelement path="${build.core}" />
+				<pathelement path="${build.test}" />
+				<pathelement path="${lib}/junit.jar" />
+				<pathelement path="${lib}/junit-addons-1.4.jar" />
+			</classpath>
+			<classpath location="lib\jcoverage.jar" />
+			<formatter type="xml" />
+			<batchtest todir="${build.junit.xmlreport.dir}">
+				<fileset dir="${src.test}">
+					<include name="**/*Test.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<mkdir dir="${reports.test}" />
+		<junitreport todir="${reports.test}">
+			<fileset dir="${build.junit.xmlreport.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.test}" />
+		</junitreport>
+
+		<!-- Generate a coverage report -->
+		<report srcdir="${src.core}" destdir="${reports.coverage}" />
+		<antcall target="temp-clean" />
+	</target>
+	
+	<target name="upload_sf" description="Uploads all packages in the relase folder to Sourceforge">
+		<ftp password="mail@columbamail.org" server="upload.sourceforge.net" userid="anonymous" remotedir="incoming" verbose="true">
+			<fileset dir="${dist.dir}"><include name="*"/></fileset>
+		</ftp>
+	</target>
+	
+</project>
