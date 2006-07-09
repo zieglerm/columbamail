@@ -1,0 +1,5 @@
+You need ant to compile Columba (http://www.apache.org):
+
+   #bash: ant
+
+will compile the sources to /build.
