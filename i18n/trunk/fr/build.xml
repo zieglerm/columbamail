@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="columba" default="jar" basedir=".">
+
+ <property name="src" value="."/>
+ <property name="build" value="build"/>
+ <property name="user.name" value="The columba Team"/>
+ <property name="version" value="1.0"/>
+
+ <target name="jar">
+  <jar basedir="${src}" jarfile="../langpack_fr.jar">
+   <include name="**"/>
+   <exclude name="build.xml"/>
+   <manifest>
+   </manifest>
+  </jar>
+ </target>
+
+</project>

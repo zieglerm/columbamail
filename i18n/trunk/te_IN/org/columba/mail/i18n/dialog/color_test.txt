@@ -1,0 +1,18 @@
+నీలము=నీలము
+
+choose_background_color_title= Colorవెనుకవున్న ర౦గు ని ఎ౦చుకో
+
+custom=Custom
+
+బూడిద ర౦గు=బూడిద ర౦గు
+
+ఆకుపచ్చ=ఆకుపచ్చ
+
+menu_color_message=ర౦గు గల మెసెజు
+
+none=ఏదీ కాదు
+
+red=ఎరుపు
+
+yellow=పసుపు
+

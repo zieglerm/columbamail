@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="columba" default="jar" basedir=".">
+
+ <property name="src" value="."/>
+ <property name="build" value="build"/>
+ <property name="user.name" value="The Columba Team"/>
+ <property name="version" value="1.0"/>
+
+ <target name="i18n" description="create es translation package">
+  <native2ascii 
+	encoding="iso8859-15" 
+	src="." 
+	dest="./dist"
+	includes="**/*.properties"/>
+ </target>
+	
+ <target name="jar" depends="i18n">
+  <jar basedir="${src}/dist" jarfile="../langpack_es.jar">
+   <include name="**"/>
+   <exclude name="build.xml"/>
+   <manifest>
+   </manifest>
+  </jar>
+  <delete dir="./dist"/>
+ </target>
+
+</project>
