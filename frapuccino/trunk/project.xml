@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <pomVersion>1</pomVersion>
+  <id>frapuccino</id>
+  <name>FrapuCcino</name>
+  <currentVersion>1.0-M1</currentVersion>
+  <groupId>columba</groupId>
+  <url>http://columba.sf.net</url>
+  <siteAddress>www.ancoso-development.de</siteAddress>
+  <siteDirectory>/home/webmaster/webroot/ancoso-dev/opensource/frappucino</siteDirectory>
+  <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  
+  <organisation>
+    <name>columba</name>
+    <url>http://columba.sf.net</url>
+    <logo>http://columba.sourceforge.net/img/logo3.gif</logo>
+  </organisation>
+  
+  <inceptionYear>2003</inceptionYear>
+  <package>org.frapuccino</package>
+  
+  <gumpRepositoryId>columba</gumpRepositoryId>
+  <description>FrapucCino is a library containing useful swing components useful for desktop applications.</description>
+  <shortDescription>Java Desktop Component Library</shortDescription>
+  
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.columba.sourceforge.net:/cvsroot/columba:frapuccino</connection>
+    <url>http://cvs.sourceforge.net/viewcvs.py/columba/frapuccino/</url>
+  </repository>
+  
+   <mailingLists>
+    <mailingList>
+      <name>columba developer mailinglist</name>
+      <archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+      <subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+    </mailingList>
+  </mailingLists>
+  
+   <developers>
+    <developer>
+      <name>Frederik Dietz</name>
+      <id>fdietz</id>
+      <email>fdietz@users.sourceforge.nett</email>
+      <roles>
+        <role>Project Leader</role>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Erik Mattsson</name>
+      <id>redsolo</id>
+      <email>redsolo@users.sourceforge.net</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+   </developers>
+   
+   <dependencies>
+     <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <url>http://sourceforge.net/projects/junit/</url>   
+      </dependency>
+   </dependencies>
+
+   <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes/>
+    </unitTest>
+    <integrationUnitTestSourceDirectory/>
+    <integrationUnitTest/>
+    <aspectSourceDirectory/>
+   </build>
+   
+   <reports>
+	<report>maven-jdepend-plugin</report>    
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-multiproject-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+   </reports>
+  
+</project>

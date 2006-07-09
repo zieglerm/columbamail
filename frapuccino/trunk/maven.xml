@@ -1,0 +1,14 @@
+<project
+  xmlns:j="jelly:core"
+  xmlns:m="maven"
+  xmlns:u="jelly:util"
+  xmlns:maven="jelly:maven"
+  default="frappucino">
+  
+  <goal name="frapuccino">
+    <attainGoal name="jar:jar"/>
+    <attainGoal name="site"/>
+    <attainGoal name="dist"/>
+  </goal>
+  
+</project>

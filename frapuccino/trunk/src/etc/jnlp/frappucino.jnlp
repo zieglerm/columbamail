@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp codebase="http://columba.sourceforge.net/webstart" href="frappucino.jnlp">
+
+	<information>
+		<title>Frappucino Widget Demo Application</title>
+		<vendor>Free Software (MPL1.1)</vendor>
+		<homepage href="http://columba.sourceforge.net" />
+		<description>Frappucino Widget demo</description>
+		<description kind="short">A demo of the capabilities of the widgets in the Frappucino package.</description>
+		<icon href="images/swingset2.jpg" />
+		<icon kind="splash" href="images/splash.gif" />
+		<offline-allowed />
+	</information>
+	
+	<security>
+		<all-permissions />
+	</security>
+
+	<resources>
+		<j2se version="1.4+" />
+		<jar href="frappucino-demo.jar" />
+	</resources>
+
+	<application-desc main-class="org.frappucino.AllDemos" />
+
+</jnlp>
