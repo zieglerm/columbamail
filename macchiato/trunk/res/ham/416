@@ -1,0 +1,122 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 23020 invoked by uid 65534); 3 Oct 2003 17:17:28 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx019) with SMTP; 03 Oct 2003 19:17:28 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id C7544124B3E; Fri,  3 Oct 2003 13:17:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id D3B05124B38; Fri,  3 Oct 2003 13:16:50 -0400 (EDT)
+Received: from sidewinder.lpcorp.com (sidewinder.lpcorp.com [63.86.107.226])
+	by listsmx.ximian.com (Postfix) with ESMTP id 584FD1241B6
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 13:16:18 -0400 (EDT)
+Received: from proxy.lpcorp.com (root@localhost)
+	by sidewinder.lpcorp.com with ESMTP id h93HGHkx011106
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 10:16:17 -0700 (PDT)
+Received: from nitrogen.vancouver.lpcorp.com (nitrogen.vancouver.lpcorp.com [209.51.99.11])
+	by proxy.lpcorp.com with ESMTP id h93G4wl7027148
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 09:04:58 -0700 (PDT)
+Received: from NIGHTHAWK.lpcorp.com (unverified [209.51.99.54]) by nitrogen.vancouver.lpcorp.com
+ (Rockliffe SMTPRA 4.5.6) with ESMTP id <B0029875486@nitrogen.vancouver.lpcorp.com> for <evolution@lists.ximian.com>;
+ Fri, 3 Oct 2003 09:00:22 -0700
+Received: from 32.73.190.182 by NIGHTHAWK.lpcorp.com with ESMTP (
+ Tumbleweed MMS SMTP Relay (MMS v5.5.3)); Fri, 03 Oct 2003 09:05:14
+ -0700
+From: "Alan Millar" <alan.millar@lpcorp.com>
+To: evolution@lists.ximian.com
+Message-ID: <1065197084.4697.21.camel@millaadi4>
+MIME-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5
+X-WSS-ID: 136341B3190085-01-01
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-6.3 required=5.0
+	tests=USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] How to import tasks/appts non-interactively?
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 09:04:44 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+As has been mentioned before, one really useful feature in MS Outlook is
+the ability to drag an e-mail to a calendar or tasks folder and have it
+be changed into one of those items.  Generally, the subject becomes the
+title of the item and the email body becomes the notes.
+
+I need that feature for myself, and I'm trying to figure out how I can
+do it.  I'm not a developer, so I'm not up to modifying/patching Evo. 
+But I can write Perl scripts, so I'm working on a strategy for an
+external hack.
+
+Here's the idea I came up with so far.  Assume one main Tasks folder and
+one main Calendar folder.  Create two maildir folders for messages to
+transform, such as "appts-from-email" and "tasks-from-email".  Drag any
+emails you want into those folders.  Run my proposed script that reads
+the messages and converts them into vCal/iCal files (perhaps from a rule
+if possible or perhaps from cron every few minutes), and then import
+those into the appropriate Evolution folders.  For appointments, set
+them for the current hour, and then let the user move them to the
+appropriate day/time.
+
+In Perl, I can handle (and have written) the part of reading the maildir
+folder and transforming the messages into iCal format (extract only the
+plain/text body, etc).  Here's where I am stuck: how do I get the iCal
+data into Evolution?
+
+I could attempt to write directly to the Calendar and Tasks .ics files
+behind Evo's back, but I'm not going to even attempt that due to file
+sync issues. 
+
+I can do File-Import by hand for each one; it works but doesn't
+accomplish the drag-and-drop goal.  
+
+I can create new mail messages in a third folder with MIME text/calendar
+attachments.  This is clean, but still requires opening each message and
+hitting the "OK" button on the attachment.  This is the best method I
+have come up with so far, but I want to figure out how to bypass hitting
+OK on each one.  Plus I still have to delete each email after hitting
+OK.
+
+I could write directly to a new .ics file (an "Incoming Tasks" and
+"Incoming Appts" native Evo folder).  But you'd still have to drag the
+items into your main Tasks and Calendar folders from there, and still
+possibly have sync issues on the new folders between multiple runs of
+the script.
+
+I'd really like to just be able to run Evo with a command line option to
+import a .ics file into the default folder for that type, but I can't
+seem to find out if or how I can do that.  I know I can run Evo with a
+command-line URI, which can at least open a folder if you can discover
+the magic URI, but I can't find any references to importing or what
+possible URI's exist.
+
+Any ideas or suggestions?  Thanks
+
+- Alan
+
+-- 
+Alan Millar                  Email: Alan.Millar@LPCorp.com
+System Administrator         Voice: 503-821-5450
+Louisiana-Pacific            Fax:   509-692-3948
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

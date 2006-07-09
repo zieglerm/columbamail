@@ -1,0 +1,40 @@
+Return-Path: <mailcentral@optin-global.net>
+Delivered-To: em-ca-bruceg@em.ca
+Received: (qmail 3167 invoked from network); 25 Jan 2002 21:07:19 -0000
+Received: from outbound37.optin-global.net (HELO optin-global.net) (209.114.204.187)
+  by agamemnon.bfsmedia.com with SMTP; 25 Jan 2002 21:07:19 -0000
+Date: 26 Jan 2002 10:08:18 -0000
+X-Sender: optin-global.net
+X-MailID: 438540.1
+Errors-To: report@optin-global.net
+Complain-To: abuse@optin-global.com
+To: bruceg@em.ca
+From: EasilyFree <easilyfree@optin-global.net>
+Subject: bruceg, you've been chosen to be a contestant
+Content-Type: text/html;
+Content-Length: 1171
+
+
+<html>
+<body bgcolor="#FFFFFF">
+<table border=0 align="center" width=80%>
+<tr>
+<td>
+<font face=Verdana size=2>
+<h3><a href="http://ctrack.optin-global.net/cgi-bin/ef?e=bruceg@em.ca">You've been selected to enter our contest!!!</a></h3>
+<p>You've been selected to enter our "Win a 911 Porsche or Mercedes 500SL Contest !!!"
+<p><a href="http://ctrack.optin-global.net/cgi-bin/ef?e=bruceg@em.ca">Click here to enter!</a>
+<p>All you need to do is to fill out a short registration form...it takes less than 30 seconds!
+<p>Don't forget about your FREE Cell Phone you'll receive just for continuing to the next page and completing that form!!!
+<p>Its easy!  
+<p><a href="http://ctrack.optin-global.net/cgi-bin/ef?e=bruceg@em.ca">Click here to enter!</a>
+</font>
+</td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><font face=Arial size=1>You received this email because you signed up at one of Optin Global's websites or you signed up with a party that has contracted with Optin Global. To unsubscribe from our email newsletter, please visit <a href=http://opt-out.optin-global.net/?e=bruceg@em.ca>http://opt-out.optin-global.net/?e=bruceg@em.ca</a>. </font>
+</body>
+</html>
+	

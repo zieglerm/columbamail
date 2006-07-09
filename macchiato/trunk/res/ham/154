@@ -1,0 +1,77 @@
+Return-Path: <kroupware-bounces-+fdietz=gmx.de@mail.kde.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1500 invoked by uid 65534); 2 Oct 2003 18:30:29 -0000
+Received: from kde.informatik.uni-kl.de (HELO ktown.kde.org) (131.246.103.200)
+  by mx0.gmx.net (mx020-rz3) with SMTP; 02 Oct 2003 20:30:29 +0200
+Received: (qmail 5335 invoked from network); 2 Oct 2003 18:29:16 -0000
+Received: from localhost (HELO ktown.kde.org) (127.0.0.1)
+  by localhost with SMTP; 2 Oct 2003 18:29:16 -0000
+Received: (qmail 4281 invoked from network); 2 Oct 2003 18:27:52 -0000
+Received: from 0x50c49648.adsl-fixed.tele.dk (HELO servMC.mc.cx)
+	(80.196.150.72)
+	by kde.informatik.uni-kl.de with SMTP; 2 Oct 2003 18:27:50 -0000
+Received: from indbakke.dk (unknown [10.10.35.12])
+	by servMC.mc.cx (Postfix) with ESMTP id 187098ECA3
+	for <kroupware@mail.kde.org>; Thu,  2 Oct 2003 20:30:39 +0200 (CEST)
+Message-ID: <3F7C6E36.5010300@indbakke.dk>
+Date: Thu, 02 Oct 2003 20:28:06 +0200
+From: Morten Christensen <mckalender@indbakke.dk>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US;
+	rv:1.5) Gecko/20030924 Thunderbird/0.3
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Kolab Server and KDE Client development issues <kroupware@mail.kde.org>
+Subject: Re: [Kroupware] New testing packages of Kolab
+References: <Pine.LNX.4.53.0310010138220.12289@gw.hq.erfrakon.de>
+In-Reply-To: <Pine.LNX.4.53.0310010138220.12289@gw.hq.erfrakon.de>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Checker-Version: SpamAssassin 2.60-rc3 (1.202-2003-08-29-exp) on
+	ktown.kde.org
+X-Spam-Status: No, hits=0.0 required=5.5 tests=none autolearn=no
+	version=2.60-rc3
+X-BeenThere: kroupware@mail.kde.org
+X-Mailman-Version: 2.1.1
+Precedence: list
+Reply-To: Kolab Server and KDE Client development issues
+	<kroupware@mail.kde.org>
+List-Id: Kolab Server and KDE Client development issues
+	<kroupware.mail.kde.org>
+List-Unsubscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=unsubscribe>
+List-Archive: <http://mail.kde.org/pipermail/kroupware>
+List-Post: <mailto:kroupware@mail.kde.org>
+List-Help: <mailto:kroupware-request@mail.kde.org?subject=help>
+List-Subscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=subscribe>
+Sender: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+Errors-To: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+konold@erfrakon.de wrote:
+
+>Hi,
+>
+>P.S.: We are currently in the process of defining our feature list for
+>Kolab 2.0. Now is time to speak up with your wishes.
+>
+
+More flexible user-ID's.
+
+Medium-sized companies fights to standardize their user-id's.
+Users want short simple ID's and many other systems cannot
+work with ID's that contain a @ .
+
+
+--
+mvh
+Morten Christensen
+
+
+_______________________________________________
+Kroupware mailing list
+Kroupware@mail.kde.org
+http://mail.kde.org/mailman/listinfo/kroupware
+

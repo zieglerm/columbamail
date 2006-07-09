@@ -1,0 +1,141 @@
+Return-Path: <rhythmbox-devel-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8555 invoked by uid 65534); 16 Oct 2003 08:18:31 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx019) with SMTP; 16 Oct 2003 10:18:31 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 662F318536; Thu, 16 Oct 2003 04:18:11 -0400 (EDT)
+Delivered-To: rhythmbox-devel@gnome.org
+Received: from smtp0.libero.it (smtp0.libero.it [193.70.192.33])
+	by mail.gnome.org (Postfix) with ESMTP id EEF60182E1
+	for <rhythmbox-devel@gnome.org>; Thu, 16 Oct 2003 04:17:03 -0400 (EDT)
+Received: from ppp-88-206.98-62.inwind.it (62.98.206.88) by smtp0.libero.it (7.0.020-DD01)
+        id 3F6F1CE700844A06 for rhythmbox-devel@gnome.org; Thu, 16 Oct 2003 10:17:19 +0200
+From: Luca Ferretti <elle.uca@infinito.it>
+To: RHYTHMBOX mailing list <rhythmbox-devel@gnome.org>
+Content-Type: multipart/mixed; boundary="=-iP/V6nyWQIO9vNcKTvLf"
+Message-Id: <1063699549.2920.49.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.5 
+Subject: [Rhythmbox-devel] Smart playlist dialog
+Sender: rhythmbox-devel-admin@gnome.org
+Errors-To: rhythmbox-devel-admin@gnome.org
+X-BeenThere: rhythmbox-devel@gnome.org
+X-Loop: rhythmbox-devel@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:rhythmbox-devel-request@gnome.org?subject=help>
+List-Post: <mailto:rhythmbox-devel@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=subscribe>
+List-Id: Rhythmbox developer discussion <rhythmbox-devel.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/rhythmbox-devel/>
+Date: Tue, 16 Sep 2003 10:08:11 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--=-iP/V6nyWQIO9vNcKTvLf
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+It's just a test and unfinished 
+
+--=-iP/V6nyWQIO9vNcKTvLf
+Content-Disposition: attachment; filename=smart-pl.glade.bz2
+Content-Type: application/x-bzip; name=smart-pl.glade.bz2
+Content-Transfer-Encoding: base64
+
+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
+
+
+--=-iP/V6nyWQIO9vNcKTvLf--
+
+_______________________________________________
+rhythmbox-devel mailing list
+rhythmbox-devel@gnome.org
+http://mail.gnome.org/mailman/listinfo/rhythmbox-devel
+

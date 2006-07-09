@@ -1,0 +1,150 @@
+Return-Path: <kroupware-bounces-+fdietz=gmx.de@mail.kde.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 6633 invoked by uid 65534); 2 Oct 2003 10:14:56 -0000
+Received: from kde.informatik.uni-kl.de (HELO ktown.kde.org) (131.246.103.200)
+  by mx0.gmx.net (mx011-rz3) with SMTP; 02 Oct 2003 12:14:56 +0200
+Received: (qmail 3804 invoked from network); 2 Oct 2003 10:14:54 -0000
+Received: from localhost (HELO ktown.kde.org) (127.0.0.1)
+  by localhost with SMTP; 2 Oct 2003 10:14:54 -0000
+Received: (qmail 3537 invoked from network); 2 Oct 2003 10:14:25 -0000
+Received: from aktaia.intevation.org (HELO mail.intevation.de) (212.95.126.10)
+  by kde.informatik.uni-kl.de with SMTP; 2 Oct 2003 10:14:19 -0000
+Received: from localhost (localhost [127.0.0.1])
+	by mail.intevation.de (Postfix) with ESMTP id 2BE18373BD
+	for <kroupware@mail.kde.org>; Thu,  2 Oct 2003 12:14:18 +0200 (CEST)
+Received: from mail.intevation.de ([127.0.0.1])
+	by localhost (kymodoke [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 14789-02 for <kroupware@mail.kde.org>;
+	Thu, 2 Oct 2003 12:14:16 +0200 (CEST)
+Received: from hipponoe.hq (hipponoe.hq [192.168.11.16])
+	by mail.intevation.de (Postfix) with ESMTP id A71E3373BA
+	for <kroupware@mail.kde.org>; Thu,  2 Oct 2003 12:14:16 +0200 (CEST)
+From: Bernhard Reiter <bernhard@intevation.de>
+Organization: Intevation GmbH
+To: kroupware@mail.kde.org
+Subject: Re: [Kroupware] Kolab Server + Outlook + Passwords
+Date: Thu, 2 Oct 2003 12:14:16 +0200
+User-Agent: KMail/kroupware-1.0.1
+References: <311985A08E8BD211A6FB0000832F4E1E05B65B01@SRVNTEXC>
+In-Reply-To: <311985A08E8BD211A6FB0000832F4E1E05B65B01@SRVNTEXC>
+MIME-Version: 1.0
+Message-Id: <200310021214.16326.bernhard@intevation.de>
+X-Spam-Checker-Version: SpamAssassin 2.60-rc3 (1.202-2003-08-29-exp) on
+	ktown.kde.org
+X-Spam-Status: No, hits=0.0 required=5.5 tests=none autolearn=no
+	version=2.60-rc3
+X-BeenThere: kroupware@mail.kde.org
+X-Mailman-Version: 2.1.1
+Precedence: list
+Reply-To: Kolab Server and KDE Client development issues
+	<kroupware@mail.kde.org>
+List-Id: Kolab Server and KDE Client development issues
+	<kroupware.mail.kde.org>
+List-Unsubscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=unsubscribe>
+List-Archive: <http://mail.kde.org/pipermail/kroupware>
+List-Post: <mailto:kroupware@mail.kde.org>
+List-Help: <mailto:kroupware-request@mail.kde.org?subject=help>
+List-Subscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============51884853828261779=="
+Sender: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+Errors-To: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+
+--===============51884853828261779==
+Content-Type: multipart/signed;
+  protocol="application/pkcs7-signature";
+  micalg=sha1;
+  boundary="Boundary-02=_4p/e/gpgE6Z6Wm/";
+  charset="iso-8859-15"
+Content-Transfer-Encoding: 7bit
+
+
+--Boundary-02=_4p/e/gpgE6Z6Wm/
+Content-Type: text/plain;
+  charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: signed data
+Content-Disposition: inline
+
+On Thursday 02 October 2003 12:22, Keller Alexander wrote:
+
+> I'm running Kolab Server with OutlookXP Clients and Connector-Plugin.
+> Now a user changes his password using the Kolab Webinterface, so
+> far so good :) After changing the password, also die Outlook Mail
+> Accounts and die Connector Password have to be updated with the
+> new password. But actually I would like to change these passwords
+> automatically - so the user only needs to change one item.
+>
+> Is there any way to do this?  Any idea?=20
+
+No idea, how you could make them all point
+to one place within windows.
+I believe that it will be very hard to solve.
+
+
+--Boundary-02=_4p/e/gpgE6Z6Wm/
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Description: signature
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIIG5zCCA24w
+ggLXoAMCAQICAQEwDQYJKoZIhvcNAQEEBQAwPTELMAkGA1UEBhMCREUxGDAWBgNVBAoMD0ludGV2
+YXRpb24gR21iSDEUMBIGA1UEAwwLV3VyemVsIFpTIDMwHhcNMDMwNjI4MTczMjAxWhcNMDgwNjI3
+MTczMjAxWjA2MQswCQYDVQQGEwJERTEYMBYGA1UECgwPSW50ZXZhdGlvbiBHbWJIMQ0wCwYDVQQD
+DARaUyA0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD43bxDYhcb0rC4InYfDPX+TCd+TBVU
+fzCjsS4e6LS3Xmf3kC9W0LtcvBtYDhwU1pjYgAQUZy3qEOkicQcgP6CzileDs9uzZ15n+Nd1Ye6g
+xAoEtxY4TDm9J1FsNRycuHPNvOVcF8X/TtWGG1Fw1H+w4RBNUTvm6wKdRc+E1DXSlQIDAQABo4IB
+gzCCAX8wDwYDVR0TAQH/BAUwAwEB/zALBgNVHQ8EBAMCAQYwawYDVR0fBGQwYjBgoF6gXIZabGRh
+cDovL2NhLmludGV2YXRpb24ub3JnL2NuPVd1cnplbCBaUyAzLCBvPUludGV2YXRpb24gR21iSCwg
+Yz1ERT9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0MB0GA1UdDgQWBBTpC2Y1APybXfobl6bvbeei
+CAqfFjBlBgNVHSMEXjBcgBSg1pV9tld6qf8t9ZykEbqfB+8Jz6FBpD8wPTELMAkGA1UEBhMCREUx
+GDAWBgNVBAoMD0ludGV2YXRpb24gR21iSDEUMBIGA1UEAwwLV3VyemVsIFpTIDOCAQAwNQYDVR0R
+BC4wLIEQY2FAaW50ZXZhdGlvbi5kZYYYaHR0cDovL2NhLmludGV2YXRpb24ubmV0MDUGA1UdEgQu
+MCyBEGNhQGludGV2YXRpb24uZGWGGGh0dHA6Ly9jYS5pbnRldmF0aW9uLm5ldDANBgkqhkiG9w0B
+AQQFAAOBgQCnwZPGbBIMrPLMXW3Z6w4JPiW/Crd8hR3He8BPY5N7u3ZRSo+mdkAzZ8YwfIJ9Fipj
+cl2IxQstvE38NAWFdsogdTMOJODVdJpjFEVcVK/u8bZOKismP4eo8X9Y4m0p+WMCG7C6PNMM/+l/
+uawHwEbZs4Lp1leIeI8v2/QFP6nMWDCCA3EwggLaoAMCAQICAQEwDQYJKoZIhvcNAQEEBQAwNjEL
+MAkGA1UEBhMCREUxGDAWBgNVBAoMD0ludGV2YXRpb24gR21iSDENMAsGA1UEAwwEWlMgNDAeFw0w
+MzA2MzAxNjE3MzVaFw0wNTA2MjkxNjE3MzVaMEExCzAJBgNVBAYTAkRFMRgwFgYDVQQKEw9JbnRl
+dmF0aW9uIEdtYkgxGDAWBgNVBAMTD0Jlcm5oYXJkIFJlaXRlcjCBnzANBgkqhkiG9w0BAQEFAAOB
+jQAwgYkCgYEAxfEm4PybLti0jk+zmKPB+9Qu+nyjfsOf+VQ2/q5wPlGgQlAmA1xfjfAWCfS7KR1i
+3BZmsx/HzW1dv1gNAVqYIk0V0Ls9TGJr8Z0IW1hR0UXY7qRCGAFJwiIKj0kwJepMpH22K/jHjQcn
+RX8VOdBo8dXyJPQcWcHkj2W8vdonrzUCAwEAAaOCAYIwggF+MAwGA1UdEwEB/wQCMAAwDgYDVR0P
+AQH/BAQDAgXgMGQGA1UdHwRdMFswWaBXoFWGU2xkYXA6Ly9jYS5pbnRldmF0aW9uLm9yZy9jbj1a
+UyA0LCBvPUludGV2YXRpb24gR21iSCwgYz1ERT9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0ME8G
+CWCGSAGG+EIBDQRCFkBFLU1haWwgQ2VydGlmaWNhdGVzIGZvciBJbnRldmF0aW9uIGFuZCBmcmll
+bmRzIChub24tcHJvZHVjdGlvbikuMB0GA1UdDgQWBBSkusKJJedJL1PF+eXAiDJj6tJ9sDBlBgNV
+HSMEXjBcgBTpC2Y1APybXfobl6bvbeeiCAqfFqFBpD8wPTELMAkGA1UEBhMCREUxGDAWBgNVBAoM
+D0ludGV2YXRpb24gR21iSDEUMBIGA1UEAwwLV3VyemVsIFpTIDOCAQEwIQYDVR0RBBowGIEWYmVy
+bmhhcmRAaW50ZXZhdGlvbi5kZTANBgkqhkiG9w0BAQQFAAOBgQAd4yqTmH1n1flB/7NtXTlYh5nl
+x/dS6qALdMLB0ZdSuPKsargeb+Nb7VQ2uL8+N9c1N2unMn6mTeNtrXx98/gkGgQlLAyfEZ7JRX2y
+28zFpAM/n1nay//M6Q+nUC28QwvfaxzPsIZo3t5+wC1RZcRndCOlBMSbmpmHwcf72Log7TGCATww
+ggE4AgEBMDswNjELMAkGA1UEBhMCREUxGDAWBgNVBAoMD0ludGV2YXRpb24gR21iSDENMAsGA1UE
+AwwEWlMgNAIBATAHBgUrDgMCGqBdMCMGCSqGSIb3DQEJBDEWBBSPTwk5IxhBJbaQpNkBdFNA7wx1
+KDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wMzEwMDIxMDE0MTZa
+MAsGCSqGSIb3DQEBAQSBgJdVGdnmFYZD+dY3sxhTkLGjl1QcDnJEZMND7tBp8fImpC6RwAYUvibL
+vGgXcwpS/7ypLrzy0ST/PTl75sLaL9Ej2WIZFI1rZRvXWyR/iUdfKZNogj57RHWm6tUafuZnOI6M
+ysWMJlt915xYeohA6DFUBo181ahDyZh6jX82rNloAAAAAAAA
+
+--Boundary-02=_4p/e/gpgE6Z6Wm/--
+
+
+--===============51884853828261779==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Kroupware mailing list
+Kroupware@mail.kde.org
+http://mail.kde.org/mailman/listinfo/kroupware
+
+--===============51884853828261779==--
+

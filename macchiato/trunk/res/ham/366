@@ -1,0 +1,107 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 30675 invoked by uid 65534); 2 Oct 2003 15:44:10 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx022-rz3) with SMTP; 02 Oct 2003 17:44:10 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 6E9851240E7; Thu,  2 Oct 2003 11:44:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 9312C12400E; Thu,  2 Oct 2003 11:43:36 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 44C42124060
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 11:43:25 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 3A41A6313E; Thu,  2 Oct 2003 11:43:25 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 3397C63120
+	for <evolution-hackers@ximian.com>; Thu,  2 Oct 2003 11:43:25 -0400 (EDT)
+Received: (qmail 2428 invoked from network); 2 Oct 2003 15:43:24 -0000
+Received: from dmz.ximian.com (HELO narcissus.boston.ximian.com) (141.154.95.1)
+  by peabody.ximian.com with SMTP; 2 Oct 2003 15:43:24 -0000
+Subject: Re: [Evolution-hackers] Appointment and Meeting Editors -- 2.0
+	Thoughts
+From: Anna Marie Dirks <anna@ximian.com>
+To: Adam Williams <awilliam@whitemice.org>
+Cc: evolution-hackers@ximian.com
+In-Reply-To: <1065058545.5161.37.camel@localhost.localdomain>
+References: <1064954351.4874.296.camel@narcissus.boston.ximian.com>
+	 <1064959549.2761.77.camel@twelve-monkeys.boston.ximian.com>
+	 <1064985477.20296.27.camel@ronald.kuetemeier.com>
+	 <1065023280.4874.1375.camel@narcissus.boston.ximian.com>
+	 <1065058545.5161.37.camel@localhost.localdomain>
+Content-Type: text/plain
+Message-Id: <1065109377.4874.6165.camel@narcissus.boston.ximian.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 11:42:58 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hi Adam.
+
+Thank you for replying. I'd like to ask you a few more questions about
+your alarm usage. 
+
+On Wed, 2003-10-01 at 21:35, Adam Williams wrote:
+
+> I also use "count down alarms" all the time.  If I have a speaking
+> engagement I'll set an alarm for when the information needs to be
+> submitted, an alarm for when I think I should have it to editing,  a few
+> days before so it doesn't slip my mind to take care of any last minute
+> things, and one that morning to eliminate the possiblity of just
+> forgetting.  
+
+Do each of these alarms contain a different message? Or is it the case
+that you have one alarm which you repeat at the intervals that you
+specified above?
+
+> The "To Do" part of evolution is really too simple for
+> anything resembling a 'project' so multiple alarms are useful to augment
+> the functionality.
+
+So it sounds to me like what you are telling me is that if you could use
+the "To Do" (or "Tasks") part of Evolution to help you remember and plan
+your speaking engagements, then you would. Is that right? 
+
+Besides alarms, is there anything else that the appointment editor
+provides to you that the task editor doesn't, which you need to help you
+plan a speaking engagement? 
+
+(I'm trying to figure out if tweaks to the task editor would ultimately
+be more useful to you than tweaks to the appointment editor. I am a bit
+wary of trying to compensate for the inadequacies of the Tasks component
+in this design. Ultimately, the appointment and task editors have
+different intended functionality.) 
+
+thanks and cheers,
+Anna
+-- 
+Anna Marie Dirks <anna@ximian.com>
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

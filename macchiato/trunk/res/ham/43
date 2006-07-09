@@ -1,0 +1,105 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1225 invoked by uid 65534); 2 Oct 2003 08:46:06 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx034-rz3) with SMTP; 02 Oct 2003 10:46:06 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 16B4F3AB95; Thu,  2 Oct 2003 10:45:57 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Thu, 02 Oct 2003 10:45:48 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from ensieta.fr (auvergne.ensieta.fr [193.52.45.6])
+	by zen.via.ecp.fr (Postfix) with ESMTP id CD3523AB7A
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 10:45:15 +0200 (CEST)
+Received: from ensieta.fr (localhost [127.0.0.1])
+          by ensieta.fr (8.9.3/jtpda-5.3.1) with ESMTP id KAA22993
+          for <streaming@videolan.org>; Thu, 2 Oct 2003 10:45:15 +0200 (MET DST)
+Received: from ensieta.fr (auvergne.ensieta.fr [193.52.45.6])
+          by ensieta.fr (8.9.3/jtpda-5.3.1) with SMTP id KAA22988
+          for <streaming@videolan.org>; Thu, 2 Oct 2003 10:45:15 +0200 (MET DST)
+From: shingnja@ensieta.fr
+To: streaming@videolan.org
+Subject: [streaming] Re: prob : .trp files convert??
+X-Mailer: Quality Web Email v3.0t, http://netwinsite.com/refw.htm
+Date: Thu, 02 Oct 2003 08:45:15 GMT
+Priority: normal
+Message-id: <3f7be59b.59ca.14488@ensieta.fr>
+X-Spam-Status: No, hits=0.8 required=5.0
+	tests=NO_REAL_NAME
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 871
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: shingnja@ensieta.fr
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Jean-Paul,
+Thnx for your reply.Constraints involved in the availibilty
+of the test equipment makes me reply late and i apologize
+for it. 
+I tried running the same .trp files on a different PC and it
+works but blocks in between and once blocked , is unable to
+continue.
+
+Heres what  is displayed in the messages as i try to run the
+..trp file:
+
+PTS is out of range (8210966706), dropping buffer
+PTS is out of range (8210942758), dropping buffer
+PTS is out of range (8210918831), dropping buffer
+late picture skipped (486580)
+...
+...
+...
+...
+.....
+
+As i found on an earlier post, this should be coz the system
+is slow and the decoder is unable to receive the packets on
+time.
+Could there be another reason and what could be the possible
+solution?
+Thnx a lot,
+JS
+
+
+> shingnja@ensieta.fr wrote:
+> 
+> >Hi all,
+> >Well, my .trp files are still not working :( so i thought
+> i >could probably change these files into some other
+> >format(.mpeg??) that would work.
+> >  
+> >
+> Send us the logging and then we will be able to tell you
+> what the  problem is. Without logging it just guessing.
+> 
+> >Can someone please help and tell me about "something"
+> that i >could use to convert these files?
+> >  
+> >
+> I doubt converting the file would solve your problem.
+> 
+> Grtz,
+> Jean-Paul Saman.
+> 
+> -- 
+> This is the streaming mailing-list, see
+> http://www.videolan.org/streaming/ To unsubscribe, please
+> read http://www.videolan.org/support/lists.html If you are
+> in trouble, please contact <postmaster@videolan.org>
+> 
+> 
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

@@ -1,0 +1,67 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 19149 invoked by uid 65534); 2 Oct 2003 14:32:29 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx007-rz3) with SMTP; 02 Oct 2003 16:32:29 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 8C8F8185C9; Thu,  2 Oct 2003 10:32:05 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from alfa.fastwebnet.it (alfa.fastwebnet.it [213.140.2.42])
+	by mail.gnome.org (Postfix) with ESMTP id 7BCBF1851F
+	for <nautilus-list@gnome.org>; Thu,  2 Oct 2003 10:31:18 -0400 (EDT)
+Received: from tiscalinet.it (37.0.232.41) by alfa.fastwebnet.it (6.7.019)
+        id 3F69EE4D00315261 for nautilus-list@gnome.org; Thu, 2 Oct 2003 16:31:30 +0200
+Message-ID: <3F7C36C4.6000604@tiscalinet.it>
+From: Mazzoni Perseo <mazzoni.perseo@tiscalinet.it>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.4) Gecko/20030930 Debian/1.4-5
+X-Accept-Language: it, en-us, en
+MIME-Version: 1.0
+To: nautilus-list@gnome.org
+Subject: nautilus-ssh
+Content-Type: text/plain; charset=ISO-8859-15; format=flowed
+Content-Transfer-Encoding: 8bit
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Thu, 02 Oct 2003 16:31:32 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+I wanted to use nautilus-ssh... but if I type, for example,
+in the nautilus location bar
+
+ssh://username@host.domain:/home/students/username
+
+nautilus tells me that he can't show the location....
+Need some packages? I have a debian unstable, tryed to
+apt-get install nautilus-ssh but there isn't anything with
+this name.... help?
+
+ciao
+-- 
+Perseo Mazzoni
+  www.cs.unibo.it/~pmazzoni
+  ICQ #175133495
+
+"Soprattutto siate sempre capaci di sentire nel più profondo di
+  voi stessi qualsiasi ingiustizia commessa contro qualsiasi
+persona, in qualsiasi parte del mondo." [E. 'Che' Guevara]
+
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

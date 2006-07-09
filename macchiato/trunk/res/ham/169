@@ -1,0 +1,860 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 11823 invoked by uid 65534); 2 Oct 2003 21:19:15 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx001) with SMTP; 02 Oct 2003 23:19:15 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5ApT-0000Lh-00; Thu, 02 Oct 2003 14:17:43 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5AoY-0002iO-00
+	for <jython-users@lists.sourceforge.net>; Thu, 02 Oct 2003 14:16:46 -0700
+Received: from sbcsmtp2.sbc.com ([209.184.203.4])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A5AoW-0008Jq-PZ
+	for jython-users@lists.sourceforge.net; Thu, 02 Oct 2003 14:16:44 -0700
+Received: from sbc.com (localhost [127.0.0.1])
+	by sbcsmtp2.sbc.com (8.12.10/8.12.10) with ESMTP id h92LGDVO024503
+	for <jython-users@lists.sourceforge.net>; Thu, 2 Oct 2003 16:16:13 -0500 (CDT)
+Received: from MSGSTLHUB02.ITServices.sbc.com (msgstlhub02.sbc.com [132.201.87.59])
+	by sbcsmtp2.sbc.com (8.12.10/8.12.10) with ESMTP id h92LG8mF024423
+	for <jython-users@lists.sourceforge.net>; Thu, 2 Oct 2003 16:16:08 -0500 (CDT)
+Received: by msgstlhub02.sbc.com with Internet Mail Service (5.5.2654.52)
+	id <T7Y40TBP>; Thu, 2 Oct 2003 16:16:08 -0500
+Message-ID: <94CD4E5ED1A1534ABB4FBA69D5F5A2081C751F@mostls1msgusr01.itservices.sbc.com>
+From: "CHIDIPI, RAMJEE (SBCSI)" <rc5145@sbc.com>
+To: "'jython-users@lists.sourceforge.net'"
+	 <jython-users@lists.sourceforge.net>
+MIME-Version: 1.0
+X-Mailer: Internet Mail Service (5.5.2654.52)
+Content-Type: multipart/mixed;
+	boundary="----_=_NextPart_000_01C3892A.5FCA934D"
+X-Spam-Score: 0.7 (/)
+X-Spam-Report: 0.7/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	FROM_ENDS_IN_NUMS  (0.7 points)  From: ends in numbers
+Subject: [Jython-users] Help with applets
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 2 Oct 2003 16:15:58 -0500
+Date: Thu, 2 Oct 2003 16:15:58 -0500
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+This message is in MIME format. Since your mail reader does not understand
+this format, some or all of this message may not be legible.
+
+------_=_NextPart_000_01C3892A.5FCA934D
+Content-Type: text/plain
+
+Hi guys
+Its kind of very urgent :( 
+I am basically have to write a Jython Script for applet which login,
+password and submit which sends request to servlet for authorisation.
+I am having problem how to write Jython Scripts for APPLETS. Can some one
+help with some java source with corrsponding Jython code.
+Thank you
+Ramjee
+
+ <<Toolbar.java>>  <<ToolbarLoginResponse.java>>  
+<<ToolbarLogoutRequest.java>> 
+
+------_=_NextPart_000_01C3892A.5FCA934D
+Content-Type: application/octet-stream;
+	name="Toolbar.java"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="Toolbar.java"
+
+//Title:       ToolBar Prototype
+//Version:
+//Copyright:   Copyright (c) 1998
+//Author:      Kevin Welker
+//Company:     SBC
+//Description: Your description
+
+package com.sbc.toolbar.applet;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+import java.net.URL;
+import java.net.MalformedURLException;
+
+import com.sbc.toolbar.shared.*;
+import com.sbc.toolbar.framework.shared.*;
+import com.sbc.toolbar.framework.applet.*;
+
+/**
+ * <code>Toolbar</code> is the applet that logs a user into the Toolbar =
+system,
+ * subsequently launching a <code>TBDashboard</code>.  Keep the applet =
+on the
+ * screen while using the Toolbar, otherwise the Toolbar and any open
+ * applications will close.
+ *
+ * @see TBDisplayFramework
+ *
+ * @version  1.0
+ * @author   Kevin Welker
+ * @author   Lynn Carmichael
+ */
+public class Toolbar extends JApplet implements TimerListener {
+	private String m_UserName;
+	private String m_UserPwd;
+
+	private TBLogonPanel logPanel;
+	private Session tbSession;
+	private boolean fLoggedIn;
+	private boolean fAllowChangePassword;
+	private boolean fIdleLock;
+
+	static private Collection clientInfos;
+	static private int instanceCount;
+
+	public Toolbar() {
+		ToolbarUtilities.setToolbar(this);
+		instanceCount++;
+	}
+
+	public void init() {
+		if (instanceCount > 1) {
+			JOptionPane.showMessageDialog(null, "Cannot run this applet multiple =
+times", "Fatal Applet Error", JOptionPane.ERROR_MESSAGE);
+			throw new Error("Can't run this applet multiple times");
+		}
+		try {
+			jbInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void jbInit() throws Exception {
+		try {
+			URL cb =3D getCodeBase();
+
+			String strIdleLock =3D getParameter("idle_timer");
+			if ((strIdleLock =3D=3D null) || (strIdleLock.length() =3D=3D 0) || =
+(!((strIdleLock.startsWith("y")) || (strIdleLock.startsWith("Y"))))) {
+				fIdleLock =3D false;
+			} else {
+				fIdleLock =3D true;
+			}
+
+			String servletPath =3D getParameter("toolbar_servlet");
+			String servletURL =3D new String((cb.getPort() =3D=3D -1) ?
+			cb.getProtocol() + "://" + cb.getHost() + servletPath :
+			cb.getProtocol() + "://" + cb.getHost() + ":" + cb.getPort() + =
+servletPath);
+			tbSession =3D new /*Secured*/Session(servletURL, this);
+			this.setSize(400,400);
+
+			logPanel =3D new TBLogonPanel();
+			getContentPane().add(logPanel);
+			logPanel.addLogonActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					m_UserName =3D logPanel.getUser();
+					m_UserPwd =3D logPanel.getPassword();
+					boolean fLogonSucceeded =3D logon();
+					setCursor(Cursor.getDefaultCursor());
+					logPanel.setInitialFocus();
+					if(fLogonSucceeded =3D=3D true) {
+						fLoggedIn =3D true;
+						logPanel.removeUserControls();
+						repaint();
+						logPanel =3D null;
+					}
+				}
+			});
+			logPanel.setInitialFocus();
+
+		} catch (SecurityException se) {
+			String choices[] =3D new String[2];
+			choices[0] =3D "Read the Instructions";
+			choices[1] =3D "Exit";
+			String messages[] =3D new String[3];
+			messages[0] =3D "Security settings required by Toolbar have not been =
+set.";
+			messages[1] =3D "Please run the Toobar installation program before";
+			messages[2] =3D "attempting to run Toolbar.";
+			JOptionPane pane =3D new =
+JOptionPane(messages,JOptionPane.ERROR_MESSAGE,JOptionPane.OK_CANCEL_OPT=
+ION,null,choices,choices[0]);
+			JDialog dialog =3D pane.createDialog(null,"Installation problem");
+			dialog.show();
+			if (pane.getValue() =3D=3D choices[0]) {
+				try {
+					getAppletContext().showDocument(new =
+URL(ToolbarUtilities.expandAppletURL("instructions.html")),"ToolbarHelp"=
+);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,"Help document not available.", =
+"Application Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Called when the user hits the login button on the =
+<code>TBLogonPanel</code>.
+	 * Attempts to log the user in to the Toolbar system using the ID and =
+password
+	 * entered in the TBLogonPanel.  If successful, it launches an =
+instance of
+	 * <code>TBDisplayFramework</code>.
+	 */
+	private boolean logon() {
+		boolean retVal =3D false;
+		clientInfos =3D retrieveClientInfos();
+		if (clientInfos !=3D null && clientInfos.isEmpty() =3D=3D false) {
+			retVal =3D true;
+			TBDisplayFramework.setSingleApp(false);
+			TBDisplayFramework display =3D new TBWindowFW();
+			display.setToolbar(this);
+			display.addAppButtons(clientInfos);
+			Dimension screen =3D Toolkit.getDefaultToolkit().getScreenSize();
+			display.setLocation(screen.width/8, screen.height/8);
+		}
+		return retVal;
+	}
+
+	String getUser() {=20
+		return m_UserName;=20
+	}
+
+	String getPwd() {=20
+		return m_UserPwd;=20
+	}
+
+	/**
+	 * Returns the <code>TBClientInfo</code> set returned by the Toolbar =
+Servlet
+	 * in response to a <code>ToolbarLoginRequest</code>.  Returns null if =
+the
+	 * login request failed.
+	 */
+	private Collection retrieveClientInfos() {
+		Vector infos =3D null;
+		try {
+			ToolbarLoginRequest loginReq =3D new ToolbarLoginRequest(m_UserName, =
+m_UserPwd);
+			GraceServletResponse loginResp =3D null;
+			loginResp =3D sendRequest(loginReq);
+			if (loginResp instanceof ToolbarLoginResponse) {
+				ToolbarLoginResponse tbLoginRsp =3D =
+(ToolbarLoginResponse)loginResp;
+
+				if (tbLoginRsp.getEnableChgPass() =3D=3D true) {=20
+					fAllowChangePassword =3D true;=20
+				}
+
+				switch(tbLoginRsp.getType()) {
+					case ToolbarResponseCode.LOGIN_RESPONSE_OK:
+						tbSession.startHeartBeat();
+						if (fIdleLock) {
+							tbSession.startInactivityTimer();
+						}
+						infos =3D tbLoginRsp.getClientInfos();
+						getAndDisplayTips();
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_ALREADY_LOGGED_ON:
+						JOptionPane.showMessageDialog(null, "User ID "+m_UserName+" has =
+already logged in.  Please call the help desk for assistance.",=20
+													"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_EXPIRED_PASS:
+						JOptionPane.showMessageDialog(null, "Your password has expired.", =
+"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						int changeAttempts =3D 0;
+						int changeLimit =3D 3;
+						boolean passwordChanged =3D false;
+						while ((passwordChanged =3D=3D false) && (changeAttempts < =
+changeLimit)) {
+							passwordChanged =3D changePassword(true);
+							changeAttempts++;
+						}
+						if (changeAttempts >=3D changeLimit) {
+							JOptionPane.showMessageDialog(null, "Failed to change password.  =
+Please call help desk.", "", JOptionPane.ERROR_MESSAGE);
+							destroy();
+							return null;
+						}
+						tbSession.startHeartBeat();
+						if (fIdleLock) {
+							tbSession.startInactivityTimer();
+						}
+						infos =3D tbLoginRsp.getClientInfos();
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_ID_RETIRED:
+						JOptionPane.showMessageDialog(null, "User ID " + m_UserName + " =
+has been retired", "Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_ID_REVOKED:
+						JOptionPane.showMessageDialog(null, "User ID "+m_UserName+" has =
+been revoked.  Call the help desk for assistance.",=20
+													"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_INVALID_ID_PASS:
+						// get # of login failures, if 3 or more, revoke this id
+						if (tbLoginRsp.getUnsuccessfulTries() > 2) {
+							ToolbarLoginFailuresRequest loginFailReq =3D new =
+ToolbarLoginFailuresRequest(m_UserName, 3);
+							GraceServletResponse none =3D sendRequest(loginFailReq);
+							JOptionPane.showMessageDialog(null, "Too many failed attempts.  =
+Please call the help desk for assistance.",=20
+														"Error Logging In", JOptionPane.ERROR_MESSAGE);
+							break;
+						}
+						JOptionPane.showMessageDialog(null, "Invalid user ID or password. =
+ Please call the help desk for assistance.",=20
+													"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_NO_APP_ACCESS:
+						JOptionPane.showMessageDialog(null, "You do not have access to =
+any applications.  Call the help desk for assistance.",=20
+													"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					case ToolbarResponseCode.LOGIN_RESPONSE_EXPIRED_UNABLE_TO_CHANGE:
+						JOptionPane.showMessageDialog(null, "Your password is out of =
+date.  Please change it using the Classic Toolbar.",=20
+													"Error Logging In", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					default:
+						JOptionPane.showMessageDialog(null, "Unknown error logging in.  =
+Please call the help desk.", "Fatal Applet Error",=20
+													JOptionPane.ERROR_MESSAGE);
+						System.out.println("Unknown login response:  " + =
+tbLoginRsp.getType());
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Error logging in to server.  =
+Call the help desk for assistance", "Server Error",=20
+											JOptionPane.ERROR_MESSAGE);
+				throw(new Exception("Error: received GraceServletResponseCode " + =
+Integer.toString(loginResp.getType())));
+			}
+		} catch (Exception e) {=20
+			infos =3D null;=20
+			e.printStackTrace();=20
+		}
+		return infos;
+	}
+
+	private void getAndDisplayTips() {
+		try {
+			ToolbarTipListRequest tiplistReq =3D new =
+ToolbarTipListRequest(m_UserName);
+			GraceServletResponse gsResp =3D null;
+			gsResp =3D sendRequest(tiplistReq);
+			if (gsResp instanceof ToolbarTipListResponse) {
+				ToolbarTipListResponse tiplistResp =3D =
+(ToolbarTipListResponse)gsResp;
+				if (tiplistResp.getCount() !=3D 0) {
+					int[] tipList =3D tiplistResp.getTipList();
+					for (int i=3D0; i<tiplistResp.getCount(); i++) {
+// FNORD we should put in some kind "don't show me this again", and =
+only display ones we want to see again,
+// FNORD but let's wait until we can actually see tips before we try =
+getting fancy.
+						ToolbarTipTextRequest tiptextReq =3D new =
+ToolbarTipTextRequest(m_UserName, tipList[i]);
+						gsResp =3D sendRequest(tiptextReq);
+						if (gsResp instanceof ToolbarTipTextResponse) {
+							ToolbarTipTextResponse tiptextResp =3D =
+(ToolbarTipTextResponse)gsResp;
+							JTextArea tipTextArea =3D new =
+JTextArea(tiptextResp.getTipText().trim(), 2, 80);
+							tipTextArea.setEditable(false);
+							tipTextArea.setLineWrap(true);
+							JOptionPane.showMessageDialog(null, tipTextArea);
+						} else {
+							JOptionPane.showMessageDialog(null, "Error logging in to server. =
+ Call the help desk for assistance", "Server Error",=20
+														JOptionPane.ERROR_MESSAGE);
+							throw(new Exception("Error: received GraceServletResponseCode " =
++ Integer.toString(gsResp.getType())));
+						}
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(null,"Error logging in to server. =
+Call the help desk for assistance","Server =
+Error",JOptionPane.ERROR_MESSAGE);
+				throw(new Exception("Error: received GraceServletResponseCode " + =
+Integer.toString(gsResp.getType())));
+			}
+		} catch (Exception e) {=20
+			e.printStackTrace();=20
+		}
+	}
+
+	boolean changePassword() {
+		return changePassword(false);
+	}
+
+	boolean changePassword(Frame frame) {
+		return changePassword(frame, false);
+	}
+
+	boolean changePassword(boolean required) {
+		return changePassword(JOptionPane.getFrameForComponent(null), =
+required);
+	}
+
+	boolean changePassword(Frame frame, boolean required) {
+		boolean retVal =3D false;
+		final TBPasswordChangeDialog pwdChangeDialog =3D new =
+TBPasswordChangeDialog(frame, m_UserName, required);
+		pwdChangeDialog.setVisible(true);
+
+		if (pwdChangeDialog.getValue().equals("OK")) {
+			String newPassword =3D pwdChangeDialog.getNewPassword();
+			String oldPassword =3D pwdChangeDialog.getOldPassword();
+			retVal =3D requestPasswordChange(m_UserName, oldPassword, =
+newPassword);
+		}
+		pwdChangeDialog.dispose();
+		return retVal;
+	}
+
+	private boolean requestPasswordChange(String userName, String =
+oldPassword, String newPassword) {
+		boolean retVal =3D false;
+		ToolbarChangePasswordRequest req =3D
+		new ToolbarChangePasswordRequest(userName, oldPassword, newPassword);
+		GraceServletResponse response =3D null;
+		try {
+			response =3D sendRequest(req);
+			if (response instanceof ToolbarChangePasswordResponse) {
+				ToolbarChangePasswordResponse pwdChangeResponse =3D =
+(ToolbarChangePasswordResponse)response;
+				switch (pwdChangeResponse.getType()) {
+					case ToolbarResponseCode.CHANGE_PASSWORD_RESPONSE_OK:
+						m_UserPwd =3D newPassword;
+						retVal =3D true;
+						break;
+					case ToolbarResponseCode.CHANGE_PASSWORD_RESPONSE_ILLEGAL_PASS:
+						JOptionPane.showMessageDialog(null, "Illegal password.", "", =
+JOptionPane.ERROR_MESSAGE);
+						break;
+					case ToolbarResponseCode.CHANGE_PASSWORD_RESPONSE_REUSE_OF_PASS:
+						JOptionPane.showMessageDialog(null, "You may not use the same =
+password.", "", JOptionPane.ERROR_MESSAGE);
+						break;
+					case ToolbarResponseCode.CHANGE_PASSWORD_RESPONSE_PASS_TOO_YOUNG:
+						JOptionPane.showMessageDialog(null, "You can not change your =
+password yet.", "", JOptionPane.ERROR_MESSAGE);
+						break;
+					case =
+ToolbarResponseCode.CHANGE_PASSWORD_RESPONSE_UNABLE_TO_CHANGE:
+						JOptionPane.showMessageDialog(null, "Unable to change password.  =
+Please contact help desk.", "", JOptionPane.ERROR_MESSAGE);
+						break;
+					default:
+						JOptionPane.showMessageDialog(null, "Unknown problem changing =
+password.  Please contact help desk.", "", JOptionPane.ERROR_MESSAGE);
+						System.out.println("Received ToolbarResponseCode:  " +
+						Integer.toString(pwdChangeResponse.getType()));
+				}
+			} else if (response instanceof ToolbarLoginResponse) {
+				ToolbarLoginResponse resp =3D (ToolbarLoginResponse) response;
+				switch (resp.getType()) {
+					case ToolbarResponseCode.LOGIN_RESPONSE_INVALID_ID_PASS:
+						JOptionPane.showMessageDialog(null, "User name or password is =
+incorrect.", "", JOptionPane.ERROR_MESSAGE);
+						break;
+
+					default:
+						JOptionPane.showMessageDialog(null, "Unexpected response while =
+logging in to server.  Please contact help desk.", "", =
+JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Unexpected response while =
+changing password.  Please contact help desk.", "", =
+JOptionPane.ERROR_MESSAGE);
+			}
+		} catch(Exception e) {
+			TBErrorDialog errorDialog =3D new TBErrorDialog(null, "Error =
+Changing Password",
+				"An error occured while trying to change your password.", =
+e.toString());
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+
+	private GraceServletResponse sendRequest(final GraceServletRequest =
+request) throws Exception {
+		GraceServletResponse resp =3D null;
+		if (tbSession !=3D null) {
+			resp =3D (GraceServletResponse)tbSession.send(request);  =20
+			switch (resp.getType()) {
+				case GraceServletResponseCode.SERVLET_ERROR:
+					GraceServletErrorResponse gser =3D =
+(GraceServletErrorResponse)resp;
+					TBErrorDialog errorDialog =3D new TBErrorDialog(null, "Servlet =
+Error",
+					gser.getErrorMessage(), gser.getTechMessage());
+					errorDialog.show();
+					break;
+
+				case GraceServletResponseCode.SERVICE_TIMEOUT:
+					JOptionPane.showMessageDialog(null, "Server timed out.  Please =
+call the help desk.", "Server Error", JOptionPane.ERROR_MESSAGE);
+					break;
+
+				case GraceServletResponseCode.GENERAL_FAILURE:
+					JOptionPane.showMessageDialog(null, "An error occured.  Please =
+call the help desk.", "Server Error", JOptionPane.ERROR_MESSAGE);
+					break;
+
+				case GraceServletResponseCode.UNEXPECTED_EVENT:
+					JOptionPane.showMessageDialog(null, "No response received from the =
+server.  Please contact the help desk.", "Server Error", =
+JOptionPane.ERROR_MESSAGE);
+					break;
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Session disconnected.  Please =
+log in again or contact the help desk.", "Error Sending Request", =
+JOptionPane.ERROR_MESSAGE);
+		}
+		return resp;
+	}
+
+	void finalExit() {
+		TBClientApp.shutDown();
+		try {
+			sendRequest(new ToolbarLogoutRequest(m_UserName));
+			fLoggedIn =3D false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void destroy() {
+		if (fLoggedIn) finalExit();
+		instanceCount--;
+	}
+
+	public void timerExpired(TimerEvent event) {
+		final TBLoginDialog login =3D new =
+TBLoginDialog(TBDisplayFramework.getDefaultDisplayFramework(), =
+m_UserPwd);
+		login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("OK")) {
+					login.dispose();
+					tbSession.restartInactivityTimer();
+				} else {
+					JOptionPane.showMessageDialog(null, "Failed to reconnect.  Please =
+call help desk.", "Login Failure", JOptionPane.ERROR_MESSAGE);
+					login.dispose();
+					destroy();
+					TBDisplayFramework.getDefaultDisplayFramework().dispose();
+				}
+			}
+		});
+		login.setVisible(true);
+	}
+
+	boolean isPasswordChangeAllowed() {=20
+		return fAllowChangePassword;=20
+	}
+
+} // endof : final public class Toolbar
+
+------_=_NextPart_000_01C3892A.5FCA934D
+Content-Type: application/octet-stream;
+	name="ToolbarLoginResponse.java"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="ToolbarLoginResponse.java"
+
+package com.sbc.toolbar.shared;
+
+import com.sbc.toolbar.framework.shared.*;
+import java.util.Vector;
+
+public class ToolbarLoginResponse extends GraceServletResponse {
+	private String strVersion;
+	private int unsuccessfulTries;
+	private String strDesc;
+	private boolean fAutoLogon;
+	private boolean fAllowAutoStart;
+	private boolean fEnableChgPass;
+	private Vector clientInfos;
+
+	public ToolbarLoginResponse() {
+		super(ToolbarResponseCode.LOGIN_RESPONSE_OK);
+		strVersion =3D null;
+		unsuccessfulTries =3D 0;
+		strDesc =3D null;
+		fAutoLogon =3D false;
+		fAllowAutoStart =3D true;
+		fEnableChgPass =3D true;
+		clientInfos =3D null;
+	}
+
+	public ToolbarLoginResponse(int newCode) {
+		super(newCode);
+		strVersion =3D null;
+		unsuccessfulTries =3D 0;
+		strDesc =3D null;
+		fAutoLogon =3D false;
+		fAllowAutoStart =3D true;
+		fEnableChgPass =3D true;
+		clientInfos =3D null;
+	}
+
+	public ToolbarLoginResponse(int newCode, String newVersion, int =
+unsuccessfulTries, String newDesc, String newAutoLogon, String =
+newAllowAutoStart, String newEnableChgPass, Vector newClientInfos) {
+		super(newCode);
+		strVersion =3D newVersion;
+		this.unsuccessfulTries =3D unsuccessfulTries;
+		strDesc =3D newDesc;
+		if (newAutoLogon.startsWith("Y") || newAutoLogon.startsWith("y")) =
+fAutoLogon =3D true; else fAutoLogon =3D false;
+		if (newAllowAutoStart.startsWith("Y") || =
+newAllowAutoStart.startsWith("y")) fAllowAutoStart =3D true; else =
+fAllowAutoStart =3D false;
+		if (newEnableChgPass.startsWith("Y") || =
+newEnableChgPass.startsWith("y")) fEnableChgPass =3D true; else =
+fEnableChgPass =3D false;
+		clientInfos =3D newClientInfos;
+	}
+
+	public ToolbarLoginResponse(int newCode, String newVersion, int =
+unsuccessfulTries, String newDesc, boolean newAutoLogon, boolean =
+newAllowAutoStart, boolean newEnableChgPass, Vector newClientInfos) {
+		super(newCode);
+		strVersion =3D newVersion;
+		this.unsuccessfulTries =3D unsuccessfulTries;
+		strDesc =3D newDesc;
+		fAutoLogon =3D newAutoLogon;
+		fAllowAutoStart =3D newAllowAutoStart;
+		fEnableChgPass =3D newEnableChgPass;
+		clientInfos =3D newClientInfos;
+	}
+
+	public ToolbarLoginResponse(int newCode, String newVersion, String =
+newDesc, String newAutoLogon, String newAllowAutoStart, String =
+newEnableChgPass, Vector newClientInfos) {
+		super(newCode);
+		strVersion =3D newVersion;
+		this.unsuccessfulTries =3D 0;
+		strDesc =3D newDesc;
+		if (newAutoLogon.startsWith("Y") || newAutoLogon.startsWith("y")) =
+fAutoLogon =3D true; else fAutoLogon =3D false;
+		if (newAllowAutoStart.startsWith("Y") || =
+newAllowAutoStart.startsWith("y")) fAllowAutoStart =3D true; else =
+fAllowAutoStart =3D false;
+		if (newEnableChgPass.startsWith("Y") || =
+newEnableChgPass.startsWith("y")) fEnableChgPass =3D true; else =
+fEnableChgPass =3D false;
+		clientInfos =3D newClientInfos;
+	}
+
+	public ToolbarLoginResponse(int newCode, String newVersion, String =
+newDesc, boolean newAutoLogon, boolean newAllowAutoStart, boolean =
+newEnableChgPass, Vector newClientInfos) {
+		super(newCode);
+		strVersion =3D newVersion;
+		this.unsuccessfulTries =3D 0;
+		strDesc =3D newDesc;
+		fAutoLogon =3D newAutoLogon;
+		fAllowAutoStart =3D newAllowAutoStart;
+		fEnableChgPass =3D newEnableChgPass;
+		clientInfos =3D newClientInfos;
+	}
+
+	public ToolbarLoginResponse(int newCode, String newDesc) {
+		super(newCode);
+		strVersion =3D null;
+		this.unsuccessfulTries =3D 0;
+		strDesc =3D newDesc;
+		fAutoLogon =3D false;
+		fAllowAutoStart =3D true;
+		fEnableChgPass =3D true;
+		clientInfos =3D null;
+	}
+
+	public ToolbarLoginResponse(int newCode, int unsuccessfulTries, String =
+newDesc) {
+		super(newCode);
+		strVersion =3D null;
+		this.unsuccessfulTries =3D unsuccessfulTries;
+		strDesc =3D newDesc;
+		fAutoLogon =3D false;
+		fAllowAutoStart =3D true;
+		fEnableChgPass =3D true;
+		clientInfos =3D null;
+	}
+
+	public String getVersion() {
+		return strVersion;
+	}
+
+	public String getDesc() {
+		return strDesc;
+	}
+
+	public boolean getAutoLogon() {
+		return fAutoLogon;
+	}
+
+	public boolean getAllowAutoStart() {
+		return fAllowAutoStart;
+	}
+
+	public boolean getEnableChgPass() {
+		return fEnableChgPass;
+	}
+
+	public void setVersion(String newVersion) {
+		strVersion =3D newVersion;
+	}
+
+	public void setDesc(String newDesc) {
+		strDesc =3D newDesc;
+	}
+
+	public void setAutoLogon(boolean newAutoLogon) {
+		fAutoLogon =3D newAutoLogon;
+	}
+
+	public void setAutoLogon(String newAutoLogon) {
+		if (newAutoLogon.startsWith("Y") || newAutoLogon.startsWith("y")) =
+fAutoLogon =3D true; else fAutoLogon =3D false;
+	}
+
+	public void setAllowAutoStart(boolean newAllowAutoStart) {
+		fAllowAutoStart =3D newAllowAutoStart;
+	}
+
+	public void setAllowAutoStart(String newAllowAutoStart) {
+		if (newAllowAutoStart.startsWith("Y") || =
+newAllowAutoStart.startsWith("y")) fAllowAutoStart =3D true; else =
+fAllowAutoStart =3D false;
+	}
+
+	public void setEnableChgPass(boolean newEnableChgPass) {
+		fEnableChgPass =3D newEnableChgPass;
+	}
+
+	public void setEnableChgPass(String newEnableChgPass) {
+		if (newEnableChgPass.startsWith("Y") || =
+newEnableChgPass.startsWith("y")) fEnableChgPass =3D true; else =
+fEnableChgPass =3D false;
+	}
+
+	public Vector getClientInfos() {
+		return clientInfos;
+	}
+
+	public void setClientInfos(Vector newClientInfos) {
+		clientInfos =3D newClientInfos;
+	}
+
+	public int getUnsuccessfulTries() {
+		return unsuccessfulTries;
+	}
+
+	public void setUnsuccessfulTries(int unsuccessfulTries) {
+		this.unsuccessfulTries =3D unsuccessfulTries;
+	}
+
+}
+
+------_=_NextPart_000_01C3892A.5FCA934D
+Content-Type: application/octet-stream;
+	name="ToolbarLogoutRequest.java"
+Content-Disposition: attachment;
+	filename="ToolbarLogoutRequest.java"
+
+package com.sbc.toolbar.shared;
+
+import com.sbc.toolbar.framework.shared.*;
+
+public class ToolbarLogoutRequest extends GraceServletRequest
+{
+  /** @serial The user ID for this request. */
+  private String strUserID;
+
+  /**
+  * Creates a <code>ToolbarLogoutRequest</code> using the user ID given.
+  *
+  * @since 1.0
+  */
+  public ToolbarLogoutRequest(String strNewUserID)
+  {
+    super(ToolbarRequestCode.LOGOUT_REQUEST);
+    strUserID = strNewUserID;
+  }
+
+  /**
+  * Sets the user ID.
+  *
+  * @since 1.0
+  */
+  public void setUserID(String strNewUserID)
+  {
+    strUserID = strNewUserID;
+  }
+
+  /**
+  * Returns the user ID.
+  *
+  * @since 1.0
+  */
+  public String getUserID()
+  {
+    return strUserID;
+  }
+}
+
+------_=_NextPart_000_01C3892A.5FCA934D--
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

@@ -1,0 +1,105 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28693 invoked by uid 65534); 3 Oct 2003 15:35:55 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx012) with SMTP; 03 Oct 2003 17:35:55 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5Ry2-0003QN-00; Fri, 03 Oct 2003 08:35:42 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5Rwn-000143-00
+	for <jython-users@lists.sourceforge.net>; Fri, 03 Oct 2003 08:34:25 -0700
+Received: from mail4.skillsoft.com ([12.160.193.185])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A5Rwm-0002H5-Dd
+	for jython-users@lists.sourceforge.net; Fri, 03 Oct 2003 08:34:24 -0700
+Received: from [10.0.3.160] ([10.0.3.160]) by mail4.skillsoft.com with Microsoft SMTPSVC(5.0.2195.5329);
+	 Fri, 3 Oct 2003 11:33:49 -0400
+Mime-Version: 1.0
+X-Sender: ktjohnson@12.160.193.185
+Message-Id: <a06002008bba345f7919f@[10.0.3.160]>
+To: jython-users@lists.sourceforge.net
+From: Kent Johnson <kent_johnson@skillsoft.com>
+Content-Type: text/plain; charset="us-ascii" ; format="flowed"
+X-OriginalArrivalTime: 03 Oct 2003 15:33:49.0254 (UTC) FILETIME=[BDCE2E60:01C389C3]
+X-Spam-Score: 0.0 (/)
+X-Spam-Report: 0.0/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+Subject: [Jython-users] Re: Problem with globals
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Fri, 3 Oct 2003 11:33:51 -0400
+Date: Fri, 3 Oct 2003 11:33:51 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+(This is a reply to Mike Kopack's question about sharing global data 
+between modules)
+
+What Python calls global variables are not what you expect. The scope 
+of a global is the current module, not the entire runtime. That is 
+why you get a name error when you try to reference a variable that is 
+defined in a calling module.
+
+One way around this is to use another module as a container for 
+shared variables - there is only one instance of a module in the 
+runtime and you can get access to its variables by importing it. For 
+example, using D.py as a container:
+
+#A.py
+
+import D
+
+D.systemname = "abc"
+execfile('B.py')
+
+
+# B.py:
+from C import *
+import D
+
+print 'B:', D.systemname     # will show "abc" on the output...
+connection = C()
+
+
+# C.py
+import D
+
+class C:
+     def __init__(self):
+         self.sysname = D.systemname
+         print 'C:', self.sysname
+
+# D.py
+
+# empty module
+
+
+Kent
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

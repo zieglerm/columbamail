@@ -1,0 +1,46 @@
+Return-Path: <saybiz2000655567@prontomail.com>
+Delivered-To: em-ca-bruceg@em.ca
+Received: (qmail 4730 invoked from network); 30 Jan 2002 19:08:16 -0000
+Received: from unknown (HELO prontomail.com) (210.0.186.157)
+  by agamemnon.bfsmedia.com with SMTP; 30 Jan 2002 19:08:16 -0000
+Received: from rly-xr01.mx.aol.com ([207.248.206.82])
+	by sparc.isl.net with local; Thu, 31 Jan 2002 00:05:16 -0500
+Received: from unknown (HELO n9.groups.yahoo.com) (165.67.81.148)
+	by mail.gmx.net with NNFMP; Thu, 31 Jan 2002 01:59:47 -0700
+Received: from mta6.snfc21.pbi.net ([36.167.145.44])
+	by q4.quik.com with esmtp; 30 Jan 2002 09:54:19 +0900
+Received: from unknown (129.98.3.179)
+	by rly-xl04.mx.aol.com with smtp; Wed, 30 Jan 2002 23:48:51 -0500
+Reply-To: <saybiz2000655567@prontomail.com>
+Message-ID: <005e56a20dee$1444c6b5$8eb17ea2@svxbno>
+From: <saybiz2000655567@prontomail.com>
+To: <bruceg@em.ca>
+Subject: Re: Mikrosoft products (2415WoGb1-655TlFx7006PhB@23)
+MiME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_00B5_55A72B7E.E6170C67"
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 5.50.4522.1200
+Importance: Normal
+Content-Length: 980
+
+------=_NextPart_000_00B5_55A72B7E.E6170C67
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: base64
+
+V2h5IG5vdCB5b3VyIG93biBCZXN0IHNlbGxpbmcgc2l0ZXMNCkJ1bGsgRW1h
+aWwgQWR2ZXJ0aXNpbmcsIEFkdWx0ICYgQ2FzaW5vIFNpdGVzLCAhIQ0KDQot
+IFJlbWFpbiBDb21wbGV0ZWx5IEFub255bW91cywgDQotIE5ldmVyIGxvb2sg
+YXQgYW55dGhpbmcgb2ZmZW5zaXZlLA0KLSBOZXZlciBXb3JyeSBhYm91dCB0
+aGUgbWFpbnRlbmFuY2Ugb3IgdGhlIGNvbnRlbnQuDQotIE5ldmVyIFdvcnJ5
+IGFib3V0IElTUCwgRmxhbWVzLCBvciBTaHV0IGRvd24uDQotV2UgcHJvdmlk
+ZSBiYWNrZW5kIHdvcmsgZm9yIHlvdQ0KDQpUaGlzIGlzIGFuIG9mZmVyIHRo
+YXQgeW91IGp1c3QgY2FuJ3QgcmVmdXNlIQ0KDQpUaGUgQ29zdCAtIE9ubHkg
+JDkuNjAgcGVyIG1vbnRoLSBVTkJFTElFVkFCTEUhISEhDQoNCk1vbnRobHkg
+ZWFybmluZ3MgKyQzMDAwIC0gJDYwIDAwMCBwZXIgbW9udGggDQpJIHdpbGwg
+c2hvdyB5b3UgV2hhdCB0byBkbyBhbmQgd2hhdCB3ZSBhcmUgZG9pbmcNCnNl
+bmQgbWFpbCBtYWlsdG86b3NheWUyMDAwQHlhaG9vLmNvbT9TdWJqZWN0PUhh
+bmRib29rLXRleHQNCg0KVG8gYmUgcmVtb3ZlZC4gbWFpbHRvOnNheWJpejIw
+MDBAeWFob28uY29tP1N1YmplY3Q9UmVtb3ZlDQpbNjc3NUlDdW1AOF0NCg==
+

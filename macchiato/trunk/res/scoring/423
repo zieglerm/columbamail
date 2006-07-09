@@ -1,0 +1,67 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 26618 invoked by uid 65534); 17 Dec 2003 23:09:16 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx001-rz3) with SMTP; 18 Dec 2003 00:09:16 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 96F921247EE; Wed, 17 Dec 2003 18:09:06 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 50EF212410E; Wed, 17 Dec 2003 18:08:05 -0500 (EST)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id 0D94B1247DE
+	for <evolution-hackers@lists.ximian.com>; Wed, 17 Dec 2003 18:07:54 -0500 (EST)
+Received: (qmail 1492 invoked from network); 17 Dec 2003 23:07:53 -0000
+Received: from localhost (HELO ?192.168.0.101?) (rodrigo@127.0.0.1)
+  by localhost with SMTP; 17 Dec 2003 23:07:53 -0000
+Subject: Re: [Evolution-hackers] same files in evo and e-d-s
+From: Rodrigo Moya <rodrigo@ximian.com>
+To: Sivaiah Nallagatla <snallagatla@novell.com>
+Cc: evolution-hackers@lists.ximian.com
+In-Reply-To: <sfdfe959.008@prv-mail25.provo.novell.com>
+References: <sfdfe959.008@prv-mail25.provo.novell.com>
+Content-Type: text/plain
+Message-Id: <1071702459.27517.26.camel@azkoyen.home>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 18 Dec 2003 00:07:39 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Wed, 2003-12-17 at 13:27, Sivaiah Nallagatla wrote:
+> Hi, 
+> i see e-account.[ch] and e-account-list.[ch] present both in evolution
+> module (under e-util )and evolution data server module  (under
+> libedataserver) . which header file s i have to include if i am  adding
+> a new .c file and i need those headers?
+> 
+I think the ones in e-util are redundant, so if nobody says nothing
+against it, go ahead and remove them. But make sure you change the
+places that are using it, so that CVS still compiles.
+
+cheers
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

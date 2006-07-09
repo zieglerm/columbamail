@@ -1,0 +1,90 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 5181 invoked by uid 65534); 3 Oct 2003 14:54:40 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx027-rz3) with SMTP; 03 Oct 2003 16:54:40 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5RJS-0004Rr-00; Fri, 03 Oct 2003 07:53:46 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5RIj-0006Ln-00
+	for <jython-users@lists.sourceforge.net>; Fri, 03 Oct 2003 07:53:01 -0700
+Received: from marvin.estec.esa.nl ([131.176.13.52])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A5RIi-0003sq-8t
+	for jython-users@lists.sourceforge.net; Fri, 03 Oct 2003 07:53:00 -0700
+Received: from rssd.esa.int ([131.176.13.8]) by
+          marvin.estec.esa.nl (Netscape Messaging Server 4.15) with ESMTP
+          id HM6RZ800.CLH for <jython-users@lists.sourceforge.net>; Fri, 3
+          Oct 2003 16:52:20 +0200 
+Message-ID: <3F7D8D23.7030403@rssd.esa.int>
+From: "Nicola de Candussio" <ndecandu@rssd.esa.int>
+User-Agent: Mozilla/5.0 (X11; U; SunOS sun4u; en-US; rv:1.0.1) Gecko/20020920 Netscape/7.0
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: jython-users@lists.sourceforge.net
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Score: -0.1 (/)
+X-Spam-Report: -0.1/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	USER_AGENT_MOZILLA_UA (0.0 points)  User-Agent header indicates a non-spam MUA (Mozilla)
+	X_ACCEPT_LANG      (-0.1 points) Has a X-Accept-Language  header
+Subject: [Jython-users] Memory Exceptions
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Fri, 03 Oct 2003 16:52:19 +0200
+Date: Fri, 03 Oct 2003 16:52:19 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hi all,
+
+I am using jython within a java application.
+
+I works just fine but with the exception of the memory errors handling,
+as far as I understand memory errors in jython are trapped and handled by
+calling System.exit() (Py.java).
+This is not acceptable by my application where users need to be notified
+before closing the application.
+I wonder if there'is any workaround or setting that could change this
+behavior.
+
+thans in advance
+
+
+-- 
+Nicola de Candussio
+Location: Dd019, Estec/SCI-SDH
+Internal extension: 56264
+External Phone Number : +31 71 565 6264
+www.estec.esa.nl
+
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

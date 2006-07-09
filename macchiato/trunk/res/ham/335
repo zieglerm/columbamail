@@ -1,0 +1,87 @@
+Return-Path: <garnome-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 5513 invoked by uid 65534); 4 Oct 2003 11:43:35 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx029-rz3) with SMTP; 04 Oct 2003 13:43:35 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 9424E182A7; Sat,  4 Oct 2003 07:43:14 -0400 (EDT)
+Delivered-To: garnome-list@gnome.org
+Received: from mwinf0801.wanadoo.fr (smtp1.wanadoo.fr [193.252.22.23])
+	by mail.gnome.org (Postfix) with ESMTP id 863AA18156
+	for <garnome-list@gnome.org>; Sat,  4 Oct 2003 07:42:08 -0400 (EDT)
+Received: from tangerine.coulon.evette (ADijon-107-1-6-168.w81-248.abo.wanadoo.fr [81.248.48.168])
+	by mwinf0801.wanadoo.fr (SMTP Server) with ESMTP
+	id 1F55B1800053; Sat,  4 Oct 2003 13:42:21 +0200 (CEST)
+Received: from localhost ([127.0.0.1] helo=tangerine)
+	by tangerine.coulon.evette with esmtp (Exim 4.22)
+	id 1A5knj-0003LO-JP; Sat, 04 Oct 2003 13:42:19 +0200
+From: "Jean-Luc Coulon (f5ibh)" <jean-luc.coulon@wanadoo.fr>
+To: Chris Deigan <chris@deigan.id.au>
+Cc: garnome-list@gnome.org
+Subject: =?iso-8859-1?B?UmWg?=
+	=?iso-8859-1?Q?=3A?= PTLib headers missing while compiling gnomemeeting
+Message-ID: <20031004114218.GA8887@tangerine.coulon.evette>
+References: <20031004085539.GA20610@tangerine.coulon.evette> <20031004092448.GB1888@thump.bur.st>
+Mime-Version: 1.0
+Content-Type: text/plain; Format=Flowed; DelSp=Yes; charset=ISO-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20031004092448.GB1888@thump.bur.st> (from chris@deigan.id.au on sam, oct 04, 2003 at 11:24:49 +0200)
+X-Mailer: Balsa 2.0.15
+Lines: 31
+Sender: garnome-list-admin@gnome.org
+Errors-To: garnome-list-admin@gnome.org
+X-BeenThere: garnome-list@gnome.org
+X-Loop: garnome-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:garnome-list-request@gnome.org?subject=help>
+List-Post: <mailto:garnome-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=subscribe>
+List-Id: For users and developers of the GARNOME distribution of GNOME <garnome-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/garnome-list/>
+Date: Sat, 4 Oct 2003 13:42:18 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hi Chris and Bart,
+
+Thank you for the informations.
+I've had some problems to download the debian packages : both galeon  
+and epiphany display the code in full screen and I've to do a 'save as'  
+to save the files. But I got them corrupted. Does not work with mozilla  
+neither.. I've used Opera to get them....
+
+--
+Regards
+				- Jean-Luc
+
+> >I've a Debian sid system and I cannot figure out where to find the
+> >ptlib.
+> 
+> You'll need the debs from gnomemeeting.org
+> 
+>  - Chris
+> chris@deigan.id.au
+> --
+> garnome-list mailing list
+> garnome-list@gnome.org
+> http://mail.gnome.org/mailman/listinfo/garnome-list
+>
+
+>It's in PWlib, part of the OpenH323 project:
+>http://www.openh323.org/code.html#source
+>
+>
+>Bart
+>
+-- 
+garnome-list mailing list
+garnome-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/garnome-list
+

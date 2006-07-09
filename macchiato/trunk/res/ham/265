@@ -1,0 +1,111 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 27143 invoked by uid 65534); 3 Oct 2003 17:07:25 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx013) with SMTP; 03 Oct 2003 19:07:25 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id E4663124B32; Fri,  3 Oct 2003 13:07:07 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id B1DFE124B11; Fri,  3 Oct 2003 13:06:44 -0400 (EDT)
+Received: from seraph2.grc.nasa.gov (seraph2.grc.nasa.gov [128.156.10.11])
+	by listsmx.ximian.com (Postfix) with ESMTP id 9C36C124A12
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 13:06:13 -0400 (EDT)
+Received: from lombok-fi.lerc.nasa.gov (lombok-fi.grc.nasa.gov [139.88.112.33])
+	by seraph2.grc.nasa.gov (Postfix) with ESMTP id 2887168982
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 13:06:13 -0400 (EDT)
+Received: from salderman.lerc.nasa.gov (salderman.grc.nasa.gov [139.88.188.22])
+	by lombok-fi.lerc.nasa.gov (NASA GRC TCPD 8.12.10/8.12.9) with ESMTP id h93H6CGZ002670
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 13:06:12 -0400 (EDT)
+Received: (from smalder@localhost)
+	by salderman.lerc.nasa.gov (8.11.6/8.11.6) id h93H74k10677
+	for evolution@lists.ximian.com; Fri, 3 Oct 2003 13:07:04 -0400
+X-Authentication-Warning: salderman.lerc.nasa.gov: smalder set sender to sean.m.alderman@grc.nasa.gov using -f
+Subject: Re: [Evolution] camel-pop3-provider-WARNING
+From: "Sean M. Alderman" <sean.m.alderman@grc.nasa.gov>
+To: evolution@lists.ximian.com
+In-Reply-To: <1065200152.14870.5.camel@tazmanian-devil.boston.ximian.com>
+References: <blk4nb$o6g$1@sea.gmane.org>
+	 <1065200152.14870.5.camel@tazmanian-devil.boston.ximian.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Message-Id: <1065200824.5796.292.camel@salderman.lerc.nasa.gov>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+X-Spam-Status: No, hits=-33.9 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN,X_AUTH_WARNING
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 13:07:04 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Out of curiosity, (and word recognition), I'm getting this message in
+maillog daily (shows up in logwatch report) since about the time I
+upgraded to 1.4....
+
+Unknown users:
+    1027519064.5309.106.camel@myhost.grc.nasa.gov: 7 Times(s)
+
+I wondered if that might be related to this.  Evo's not setup to uses
+POP on my system, I collect from /var/spool/mail/ instead.
+
+On Fri, 2003-10-03 at 12:55, Jeffrey Stedfast wrote:
+> no, this isn't related to a bad header or anything. it just means that a
+> failure occured reading from the tcp stream.
+> 
+> if this happens often, try:
+> 
+> export CAMEL_VERBOSE_DEBUG=1; evolution
+> 
+> and then send us the log that gets dumped to the xterm
+> 
+> Jeff
+> 
+> On Fri, 2003-10-03 at 11:35, Olivier Hallot wrote:
+> > Hello
+> > After I upgraded to the latest RedCarpet evolution, I have my mail that 
+> > hangs almost everytime on downloading my mail. My system is MDK 9.1. The 
+> > message I get from Evo is
+> > 
+> > [olivier@svrdir olivier]$ evolution
+> > 
+> > (evolution:3924): camel-pop3-provider-WARNING **: POP3 retrieval failed: 
+> > Interrupted system call
+> > 
+> > (evolution:3912): GLib-GObject-WARNING **: gsignal.c:2010: instance 
+> > `0x842c0c0'
+> > has no handler with id `2526'
+> > 
+> > Is this caused by an ill-behaved mail header? Evo start downloadign mail 
+> > but hangs ramdomly after a some mails are received. It worth noting that 
+> > the account I am using receives a lot of spam though.
+> > 
+> > Any help is welcome.
+--
+Sean M. Alderman
+ITRACK Systems Analyst
+PACE/NCI - NASA Glenn Research Center
+(216) 433-2795
+
+Government [is] an illusion the governed should not encourage. -- John
+Updike, "Couples"
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

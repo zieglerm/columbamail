@@ -1,0 +1,87 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 18407 invoked by uid 65534); 3 Oct 2003 16:41:14 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx017) with SMTP; 03 Oct 2003 18:41:14 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 3E8A712427E; Fri,  3 Oct 2003 12:41:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id B17501241F5; Fri,  3 Oct 2003 12:40:46 -0400 (EDT)
+Received: from main.gmane.org (main.gmane.org [80.91.224.249])
+	by listsmx.ximian.com (Postfix) with ESMTP id B077F1240E9
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 12:40:34 -0400 (EDT)
+Received: from root by main.gmane.org with local (Exim 3.35 #1 (Debian))
+	id 1A5Syn-0006jV-00
+	for <evolution@lists.ximian.com>; Fri, 03 Oct 2003 18:40:33 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: evolution@lists.ximian.com
+Received: from sea.gmane.org ([80.91.224.252])
+	by main.gmane.org with esmtp (Exim 3.35 #1 (Debian))
+	id 1A5RtM-0005wn-00
+	for <gmane-comp-gnome-evolution-general@m.gmane.org>; Fri, 03 Oct 2003 17:30:52 +0200
+Received: from news by sea.gmane.org with local (Exim 3.35 #1 (Debian))
+	id 1A5RtM-0006Rs-00
+	for <gmane-comp-gnome-evolution-general@m.gmane.org>; Fri, 03 Oct 2003 17:30:52 +0200
+From: Olivier Hallot <olivier@ig.com.br>
+Lines: 25
+Message-ID: <blk4nb$o6g$1@sea.gmane.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Complaints-To: usenet@sea.gmane.org
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.3.1) Gecko/20030428
+X-Accept-Language: pt-br, fr-fr, en-us
+X-Spam-Status: No, hits=-5.2 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_MOZILLA_UA
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] camel-pop3-provider-WARNING
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 12:35:13 -0300
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hello
+After I upgraded to the latest RedCarpet evolution, I have my mail that 
+hangs almost everytime on downloading my mail. My system is MDK 9.1. The 
+message I get from Evo is
+
+[olivier@svrdir olivier]$ evolution
+
+(evolution:3924): camel-pop3-provider-WARNING **: POP3 retrieval failed: 
+Interrupted system call
+
+(evolution:3912): GLib-GObject-WARNING **: gsignal.c:2010: instance 
+`0x842c0c0'
+has no handler with id `2526'
+
+Is this caused by an ill-behaved mail header? Evo start downloadign mail 
+but hangs ramdomly after a some mails are received. It worth noting that 
+the account I am using receives a lot of spam though.
+
+Any help is welcome.
+-- 
+Olivier Hallot
+Rio de Janeiro, Brasil
+http://www.scinergy.com.br
+Linux User #245166
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

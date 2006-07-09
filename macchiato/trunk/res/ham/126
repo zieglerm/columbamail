@@ -1,0 +1,92 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28688 invoked by uid 65534); 2 Oct 2003 16:33:16 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx017-rz3) with SMTP; 02 Oct 2003 18:33:16 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 47981124924; Thu,  2 Oct 2003 12:33:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id AC50512491D; Thu,  2 Oct 2003 12:32:20 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id C83341247FC
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 12:31:49 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id B5F7E63077; Thu,  2 Oct 2003 12:31:49 -0400 (EDT)
+Delivered-To: evolution@ximian.com
+Received: from mailout09.sul.t-online.com (mailout09.sul.t-online.com [194.25.134.84])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 88FD563073
+	for <evolution@ximian.com>; Thu,  2 Oct 2003 12:31:49 -0400 (EDT)
+Received: from fwd03.aul.t-online.de 
+	by mailout09.sul.t-online.com with smtp 
+	id 1A55nP-0000tm-02; Thu, 02 Oct 2003 17:55:15 +0200
+Received: from keller.lan (VTo6cOZZweJEgMnYp0yP9kCvhaabWsBnmdDu7eiaY0CJLIkYo0S+gW@[80.130.126.183]) by fwd03.sul.t-online.com
+	with esmtp id 1A55nI-1qgDb60; Thu, 2 Oct 2003 17:55:08 +0200
+Subject: Re: [Evolution] Install backuped data to palm
+From: Martin.Bitter@t-online.de (Martin Bitter)
+Reply-To: martin.bitter@forth-ev.de
+To: Evolution User Mailing-List <evolution@ximian.com>
+In-Reply-To: <1065042424.1426.26.camel@millaadi4>
+References: <1064942164.4400.4.camel@keller.lan>
+	 <1065042424.1426.26.camel@millaadi4>
+Content-Type: text/plain
+Message-Id: <1065110110.2588.6.camel@keller.lan>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Seen: false
+X-ID: VTo6cOZZweJEgMnYp0yP9kCvhaabWsBnmdDu7eiaY0CJLIkYo0S+gW
+X-Spam-Status: No, hits=-24.1 required=5.0
+	tests=IN_REP_TO,QUOTED_EMAIL_TEXT,RCVD_IN_NJABL,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN,X_NJABL_DIALUP
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 17:55:10 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Allan Thanks!
+
+Your hint hit it. By looking for command line apps I found pilot-xfer
+that is 'mightier'. I can recommend that for lot of things related to
+Palm.
+
+regards Martin
+
+Am Mit, den 01.10.2003 schrieb Alan Millar um 23:07:
+> On Tue, 2003-09-30 at 10:16, Martin.Bitter@t-online.de wrote:
+> > what is the right way to re-transfer backuped datas to  a palm using the
+> > palm-conduits installed in evolution?
+> > 
+> > How can I copy files from PC to palm? 
+> > I have some palm-programs I want to install on the pilot but don't know
+> > how.
+> 
+> Evolution doesn't really talk to your Palm directly.  Evolution has
+> conduits which are plug-ins to the Gnome Pilot software, which is what
+> really talks to your Palm.  Gnome Pilot is a set of programs which takes
+> the place of the Palm Desktop on Windows.
+> 
+> To figure out how to install files, take a look at gpilot-install-file.
+> 
+> - Alan
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

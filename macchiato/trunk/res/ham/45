@@ -1,0 +1,456 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 32236 invoked by uid 65534); 2 Oct 2003 08:48:13 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx008-rz3) with SMTP; 02 Oct 2003 10:48:13 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 238BD3ABDC; Thu,  2 Oct 2003 10:48:02 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 10:47:53 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from dbmail-mx1.orcon.co.nz (loadbalancer-VIP.orcon.net.nz [219.88.242.2])
+	by zen.via.ecp.fr (Postfix) with ESMTP id A47773AB98
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 10:47:20 +0200 (CEST)
+Received: from gigabyte (port-219-88-249-147.jet.net.nz [219.88.249.147])
+	by dbmail-mx1.orcon.co.nz (8.12.6/8.12.6/Debian-7) with ESMTP id h928jwmc014013
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 20:45:58 +1200
+From: "Bruce Benson" <bruce@teambenson.com>
+To: <vlc@videolan.org>
+Subject: [vlc] Can not play audio stream
+Date: Thu, 2 Oct 2003 20:47:05 +1200
+Message-ID: <001a01c388c1$c1bb9e70$0201a8c0@gigabyte>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_001B_01C38926.56F07E70"
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook, Build 10.0.4510
+Importance: Normal
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+X-Spam-Score: 0.9 () HTML_50_60,HTML_MESSAGE,MIME_LONG_LINE_QP
+X-Scanned-By: MIMEDefang 2.32 (www . roaringpenguin . com / mimedefang)
+X-Spam-Status: No, hits=0.8 required=5.0
+	tests=HTML_50_60,HTML_MESSAGE,MIME_LONG_LINE_QP
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5691
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bruce@teambenson.com
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_001B_01C38926.56F07E70
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_001C_01C38926.56F07E70"
+
+
+------=_NextPart_001_001C_01C38926.56F07E70
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+I'm trying to play an audio stream from the internet with a view to
+capturing something from it to a file. I can play this stream with windows
+media player or any number of other things but not with vlc. (the stream in
+question is mms://203.167.213.229/coolblue). Attempting to play this using
+vlc gets some sound but it is very broken up.
+
+ 
+
+The message log generates a bunch of stuff which I have attached to this
+message. 
+
+ 
+
+If anyone has any ideas what is going on I'd appreciate the help.
+
+ 
+
+BB.
+
+ 
+
+ 
+
+
+------=_NextPart_001_001C_01C38926.56F07E70
+Content-Type: text/html;
+	charset="US-ASCII"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+
+<head>
+<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Dus-ascii">
+
+
+<meta name=3DGenerator content=3D"Microsoft Word 10 (filtered)">
+
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{font-family:Arial;
+	color:windowtext;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple>
+
+<div class=3DSection1>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>I&#8217;m trying to play an audio stream from the =
+internet
+with a view to capturing something from it to a file. I can play this =
+stream
+with windows media player or any number of other things but not with =
+vlc. (the
+stream in question is <a =
+href=3D"mms://203.167.213.229/coolblue">mms://203.167.213.229/coolblue</a=
+>).
+Attempting to play this using vlc gets some sound but it is very broken =
+up.</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>&nbsp;</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>The message log generates a bunch of stuff which I =
+have
+attached to this message&#8230; </span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>&nbsp;</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>If anyone has any ideas what is going on I&#8217;d
+appreciate the help.</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>&nbsp;</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>BB.</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>&nbsp;</span></font></p>
+
+<p class=3DMsoNormal><font size=3D2 face=3DArial><span =
+style=3D'font-size:10.0pt;
+font-family:Arial'>&nbsp;</span></font></p>
+
+</div>
+
+</body>
+
+</html>
+
+------=_NextPart_001_001C_01C38926.56F07E70--
+
+------=_NextPart_000_001B_01C38926.56F07E70
+Content-Type: application/octet-stream;
+	name="messages"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="messages"
+
+main: playlist item `mms://203.167.213.229/coolblue'=0A=
+ipv4 warning: cannot connect socket (No error)=0A=
+ipv6 warning: cannot create socket (No error)=0A=
+access_mms error: failed to open a connection (tcp)=0A=
+access_mms debug: waiting for connection...=0A=
+main debug: looking for network module=0A=
+main debug: probing 2 candidates=0A=
+ipv4 warning: cannot connect socket (Bad file descriptor)=0A=
+ipv6 warning: cannot create socket (Bad file descriptor)=0A=
+access_mms error: failed to open a connection (tcp)=0A=
+access_mms error: cannot connect to server=0A=
+access_mms debug: waiting for connection...=0A=
+main debug: looking for network module=0A=
+main debug: probing 2 candidates=0A=
+main debug: using network module "ipv4"=0A=
+main debug: unlocking module "ipv4"=0A=
+access_mms debug: connection with "203.167.213.229:80" successful=0A=
+access_mms debug: another try 1/2=0A=
+access_mms debug: another try 2/2=0A=
+access_mms debug: another try 3/2=0A=
+access_mms debug: stream type =3D broadcast=0A=
+access_mms debug: complete header size=3D796=0A=
+access_mms debug: packet count=3D-1 packet size=3D0=0A=
+access_mms debug: starting stream=0A=
+access_mms debug: waiting for connection...=0A=
+main debug: looking for network module=0A=
+main debug: probing 2 candidates=0A=
+main debug: using network module "ipv4"=0A=
+main debug: unlocking module "ipv4"=0A=
+access_mms debug: connection with "203.167.213.229:80" successful=0A=
+access_mms debug: filling buffer=0A=
+access_mms debug: body found=0A=
+main debug: using access module "access_mms"=0A=
+access_mms debug: waiting data (buffer =3D 0 bytes=0A=
+access_mms debug: waiting data (buffer =3D 808 bytes=0A=
+access_mms warning: packet lost ?=0A=
+access_mms debug: waiting data (buffer =3D 2150 bytes=0A=
+access_mms debug: waiting data (buffer =3D 3492 bytes=0A=
+main debug: looking for demux module=0A=
+main debug: probing 17 candidates=0A=
+mp4 warning: MP4 plugin discarded (unseekable)=0A=
+avi warning: avi module discarded (invalid header)=0A=
+asf debug: Found Object guid: =
+0x75b22630-0x668e-0x11cf-0xa6d900aa0062ce6c size:746=0A=
+asf debug: Read "Header Object" subobj:7, reserved1:1, reserved2:2=0A=
+asf debug: Found Object guid: =
+0x75b22633-0x668e-0x11cf-0xa6d900aa0062ce6c size:134=0A=
+asf debug: Read "Content Description Object" title:"CoolBlue" =
+author:"TRN" copyright:"TRN" description:"Streaming Audio for CoolBlue =
+FM" rating:""=0A=
+asf debug: Found Object guid: =
+0x7bf875ce-0x468d-0x11d1-0x8d82006097c9a2b2 size:32=0A=
+asf warning: Unknown asf object (not loaded)=0A=
+asf debug: Found Object guid: =
+0x8cabdca1-0xa947-0x11cf-0x8ee400c00c205365 size:104=0A=
+asf debug: Read "File Properties Object" =
+file_id:0x5da37414-0x98f2-0x4d81-0xb4956c061287148b file_size:796 =
+creation_date:127059080996320000 data_packets_count:4294967295 =
+play_duration:0 send_duration:0 preroll:2599 flags:9 =
+min_data_packet_size:1330 max_data_packet_size:1330 max_bitrate:16373=0A=
+asf debug: Found Object guid: =
+0x5fbf03b5-0xa92e-0x11cf-0x8ee300c00c205365 size:46=0A=
+asf debug: Read "Header Extention Object" =
+reserved1:0xabd3d211-0xa9ba-0x11cf-0x8ee600c00c205365 reserved2:6 =
+header_extention_size:0=0A=
+asf debug: Found Object guid: =
+0xb7dc0791-0xa9b7-0x11cf-0x8ee600c00c205365 size:114=0A=
+asf debug: Read "Stream Properties Object" =
+stream_type:0xf8699e40-0x5b4d-0x11cf-0xa8fd00805f5c442b =
+error_correction_type:0xbfc3cd50-0x618f-0x11cf-0x8bb200aa00b4e220 =
+time_offset:0 type_specific_data_length:28 =
+error_correction_data_length:8 flags:0x1 stream_number:1=0A=
+asf debug: Found Object guid: =
+0xd2d0a440-0xe307-0x11d2-0x97f000a0c95ea850 size:140=0A=
+asf warning: Unknown asf object (not loaded)=0A=
+asf debug: Found Object guid: =
+0x86d15240-0x311d-0x11d0-0xa3a400a0c90348f6 size:146=0A=
+asf debug: Read "Codec List Object" =
+reserved_guid:0x86d15241-0x311d-0x11d0-0xa3a400a0c90348f6 =
+codec_entries_count:1=0A=
+asf debug: Read "Codec List Object" codec[0] audio name:"Windows Media =
+Audio V8" description:" 16 kbps, 22 kHz, mono" information_length:2=0A=
+asf debug: Found Object guid: =
+0x75b22636-0x668e-0x11cf-0xa6d900aa0062ce6c size:50=0A=
+asf debug: Read "Data Object" =
+file_id:0x5da37414-0x98f2-0x4d81-0xb4956c061287148b total data packet:0 =
+reserved:257=0A=
+asf debug: found 1 streams=0A=
+asf debug: adding new audio stream(codec:0x161,ID:1)=0A=
+main debug: selecting ES 0x1=0A=
+main debug: looking for decoder module=0A=
+main debug: probing 17 candidates=0A=
+main debug: using decoder module "ffmpeg"=0A=
+main debug: thread 2260 (decoder) created at priority 2 =
+(src/input/input_dec.c:112)=0A=
+main debug: using demux module "asf"=0A=
+access_mms debug: waiting data (buffer =3D 4834 bytes=0A=
+ffmpeg debug: libavcodec initialized (interface 4673)=0A=
+ffmpeg debug: ffmpeg codec (Windows Media Audio 2) started=0A=
+main debug: no aout present, spawning one=0A=
+main debug: looking for audio output module=0A=
+main debug: probing 4 candidates=0A=
+aout_directx debug: OpenAudio=0A=
+aout_directx debug: device supports 2 channels=0A=
+aout_directx debug: device supports 1 channel=0A=
+aout_directx debug: couldn't use hardware sound buffer=0A=
+aout_directx debug: creating DirectSoundThread=0A=
+main debug: thread 2788 (DirectSound Notification Thread) created at =
+priority 15 (directx.c:351)=0A=
+aout_directx debug: DirectSoundThread ready=0A=
+main debug: using audio output module "aout_directx"=0A=
+main debug: output 'fl32' 22050 Hz Stereo/Mono frame=3D1 samples/8 bytes=0A=
+main debug: mixer 'fl32' 22050 Hz Stereo/Mono frame=3D1 samples/8 bytes=0A=
+main debug: no need for any filter=0A=
+main debug: looking for audio mixer module=0A=
+main debug: probing 3 candidates=0A=
+main debug: using audio mixer module "trivial_mixer"=0A=
+main debug: input 's16l' 22050 Hz Mono frame=3D1 samples/2 bytes=0A=
+main debug: filter(s) 's16l'->'fl32' 22050 Hz->22050 Hz Mono->Stereo/Mono=0A=
+main debug: looking for audio filter module=0A=
+main debug: probing 21 candidates=0A=
+main debug: looking for audio filter module=0A=
+main debug: probing 21 candidates=0A=
+main debug: using audio filter module "s16tofloat32"=0A=
+main debug: looking for audio filter module=0A=
+main debug: probing 21 candidates=0A=
+main debug: using audio filter module "trivial_channel_mixer"=0A=
+main debug: found 2 filters for the whole conversion=0A=
+main debug: filter(s) 'fl32'->'fl32' 24255 Hz->22050 Hz =
+Stereo/Mono->Stereo/Mono=0A=
+main debug: looking for audio filter module=0A=
+main debug: probing 21 candidates=0A=
+main debug: using audio filter module "bandlimited_resampler"=0A=
+main debug: found a filter for the whole conversion=0A=
+access_mms debug: waiting data (buffer =3D 6176 bytes=0A=
+access_mms debug: waiting data (buffer =3D 7518 bytes=0A=
+access_mms debug: waiting data (buffer =3D 8860 bytes=0A=
+main warning: PTS is out of range (153000), dropping buffer=0A=
+main warning: output date isn't PTS date, requesting resampling (84630)=0A=
+access_mms debug: waiting data (buffer =3D 10202 bytes=0A=
+main warning: computed PTS is out of range (761092), clearing out=0A=
+main warning: output PTS is out of range (769801), clearing out=0A=
+access_mms debug: waiting data (buffer =3D 11544 bytes=0A=
+main debug: audio output is starving (345800), playing silence=0A=
+main warning: output date isn't PTS date, requesting resampling (-69520)=0A=
+main warning: buffer is 264303 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+access_mms debug: waiting data (buffer =3D 12886 bytes=0A=
+main warning: resampling stopped after 391000 usec=0A=
+main warning: buffer is 330756 late, triggering upsampling=0A=
+access_mms debug: waiting data (buffer =3D 14228 bytes=0A=
+access_mms debug: waiting data (buffer =3D 15570 bytes=0A=
+access_mms debug: waiting data (buffer =3D 16912 bytes=0A=
+access_mms debug: waiting data (buffer =3D 18254 bytes=0A=
+access_mms debug: waiting data (buffer =3D 19596 bytes=0A=
+access_mms debug: waiting data (buffer =3D 20938 bytes=0A=
+access_mms debug: waiting data (buffer =3D 22280 bytes=0A=
+access_mms debug: waiting data (buffer =3D 23622 bytes=0A=
+access_mms debug: waiting data (buffer =3D 24964 bytes=0A=
+main warning: PTS is out of range (95023), dropping buffer=0A=
+main warning: buffer is 47659 late, triggering upsampling=0A=
+access_mms debug: waiting data (buffer =3D 26306 bytes=0A=
+access_mms debug: waiting data (buffer =3D 27648 bytes=0A=
+access_mms debug: waiting data (buffer =3D 28990 bytes=0A=
+main warning: computed PTS is out of range (154300), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (135678), dropping buffer=0A=
+main warning: output PTS is out of range (182737), clearing out=0A=
+main warning: input PTS is out of range (154300), trashing=0A=
+main warning: buffer is 322250 in advance, triggering downsampling=0A=
+main warning: output date isn't PTS date, requesting resampling (106832)=0A=
+access_mms debug: waiting data (buffer =3D 30332 bytes=0A=
+access_mms debug: waiting data (buffer =3D 31674 bytes=0A=
+access_mms debug: waiting data (buffer =3D 33016 bytes=0A=
+main warning: computed PTS is out of range (240897), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (-14188), dropping buffer=0A=
+main warning: output PTS is out of range (242122), clearing out=0A=
+main warning: input PTS is out of range (347729), trashing=0A=
+main warning: computed PTS is out of range (215459), clearing out=0A=
+main debug: audio output is starving (376848), playing silence=0A=
+main warning: output date isn't PTS date, requesting resampling (-90488)=0A=
+main warning: buffer is 285271 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+access_mms debug: waiting data (buffer =3D 34358 bytes=0A=
+access_mms debug: waiting data (buffer =3D 35700 bytes=0A=
+access_mms debug: waiting data (buffer =3D 37042 bytes=0A=
+main warning: computed PTS is out of range (652034), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (350445), dropping buffer=0A=
+main warning: output PTS is out of range (736163), clearing out=0A=
+main warning: PTS is out of range (-12366), dropping buffer=0A=
+main warning: input PTS is out of range (652034), trashing=0A=
+main warning: computed PTS is out of range (491860), clearing out=0A=
+main debug: audio output is starving (304631), playing silence=0A=
+main warning: buffer is 233908 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (46755)=0A=
+main warning: mixer start isn't output start (8247)=0A=
+access_mms debug: waiting data (buffer =3D 38384 bytes=0A=
+access_mms debug: waiting data (buffer =3D 39726 bytes=0A=
+access_mms debug: waiting data (buffer =3D 41068 bytes=0A=
+main warning: computed PTS is out of range (381552), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (141367), dropping buffer=0A=
+main warning: output PTS is out of range (474252), clearing out=0A=
+main warning: input PTS is out of range (381552), trashing=0A=
+main warning: computed PTS is out of range (94402), clearing out=0A=
+main debug: audio output is starving (294780), playing silence=0A=
+main warning: buffer is 194783 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+access_mms debug: waiting data (buffer =3D 42410 bytes=0A=
+access_mms debug: waiting data (buffer =3D 43752 bytes=0A=
+access_mms debug: waiting data (buffer =3D 45094 bytes=0A=
+main warning: computed PTS is out of range (314913), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (96000), dropping buffer=0A=
+main warning: output PTS is out of range (399223), clearing out=0A=
+main warning: input PTS is out of range (314913), trashing=0A=
+main warning: computed PTS is out of range (120083), clearing out=0A=
+main debug: audio output is starving (300146), playing silence=0A=
+main warning: buffer is 194783 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+access_mms debug: waiting data (buffer =3D 46436 bytes=0A=
+access_mms debug: waiting data (buffer =3D 47778 bytes=0A=
+access_mms debug: waiting data (buffer =3D 49120 bytes=0A=
+main warning: computed PTS is out of range (395697), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (167845), dropping buffer=0A=
+main warning: output PTS is out of range (433657), clearing out=0A=
+main warning: input PTS is out of range (395697), trashing=0A=
+main warning: computed PTS is out of range (77547), clearing out=0A=
+main debug: audio output is starving (312751), playing silence=0A=
+main warning: buffer is 194783 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+main warning: output date isn't PTS date, requesting resampling (-40710)=0A=
+access_mms debug: waiting data (buffer =3D 50462 bytes=0A=
+access_mms debug: waiting data (buffer =3D 51804 bytes=0A=
+access_mms debug: waiting data (buffer =3D 53146 bytes=0A=
+main warning: computed PTS is out of range (329996), clearing out=0A=
+main warning: timing screwed, stopping resampling=0A=
+main warning: PTS is out of range (56400), dropping buffer=0A=
+main warning: output PTS is out of range (414442), clearing out=0A=
+main warning: input PTS is out of range (289286), trashing=0A=
+main warning: computed PTS is out of range (63577), clearing out=0A=
+main debug: audio output is starving (315306), playing silence=0A=
+main warning: buffer is 194783 in advance, triggering downsampling=0A=
+main warning: the mixer got a packet in the past (17730)=0A=
+main warning: mixer start isn't output start (3127)=0A=
+main warning: output date isn't PTS date, requesting resampling (-40464)=0A=
+access_mms debug: waiting data (buffer =3D 54488 bytes=0A=
+access_mms debug: waiting data (buffer =3D 55830 bytes=0A=
+
+------=_NextPart_000_001B_01C38926.56F07E70--
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

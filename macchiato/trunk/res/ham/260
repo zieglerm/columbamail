@@ -1,0 +1,98 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 18002 invoked by uid 65534); 3 Oct 2003 16:53:19 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx021-rz3) with SMTP; 03 Oct 2003 18:53:19 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 8928B124B09; Fri,  3 Oct 2003 12:53:06 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 9261F12409E; Fri,  3 Oct 2003 12:52:58 -0400 (EDT)
+Received: from MM01SNLNTO.son.sandia.gov (mm01snlnto.sandia.gov [132.175.109.20])
+	by listsmx.ximian.com (Postfix) with ESMTP id 9EE89124094
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 12:52:46 -0400 (EDT)
+Received: from 132.175.109.1 by mm02snlnto.son.sandia.gov with ESMTP (
+ Tumbleweed MMS SMTP Relay 01 (MMS v5.5.3)); Fri, 03 Oct 2003 10:52:42
+ -0600
+Received: from scico.sandia.gov (scico.sandia.gov [134.253.161.235]) by
+ sass165.sandia.gov (8.12.10/8.12.10) with SMTP id h93Gqfit010306 for
+ <evolution@lists.ximian.com>; Fri, 3 Oct 2003 10:52:41 -0600 (MDT)
+Received: (qmail 7758 invoked from network); 3 Oct 2003 16:52:40 -0000
+Received: from sahp4671.sandia.gov (134.253.161.70) by scico.sandia.gov
+ with SMTP; 3 Oct 2003 16:52:40 -0000
+Subject: Re: [Evolution] NVIDIA driver and Evolution
+From: "Phil Sackinger" <pasacki@sandia.gov>
+To: evolution@lists.ximian.com
+In-Reply-To: <3F7B2A33.3080107@cablelynx.com>
+References: <3F7B2A33.3080107@cablelynx.com>
+Message-ID: <1065199959.14100.10.camel@sahp4671.sandia.gov>
+MIME-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4
+X-PMX-Version: 4.0.4.76838
+X-WSS-ID: 136376D01593655-01-01
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 10:52:40 -0600
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+I'm running nVidia driver with Evo 1.4 under RH 7.3 without that
+problem.
+
+You might check to see you have a recent driver. Some of the earlier
+ones were alternatively squirrely for either 3D OpenGL apps or plain old
+2D X stuff. The 4496 one seems pretty good to me so far.
+
+I have:
+glxinfo | grep 'OpenGL version string'
+OpenGL version string: 1.4.0 NVIDIA 44.96
+
+
+
+On Wed, 2003-10-01 at 13:25, mmyoung wrote:
+> I am using Mandrake 9.1 and just recently downloaded Evolution 1.4. 
+> Everything was working fine until I installed the NVIDIA drivers for my 
+> GeForce FX video card. Now everytime I select "Summary" I get the 
+> following message, "evolution (process 3048) has crashed due to a fatal 
+> error (Floation point exception)". Of course the process number varies 
+> each time it happens. Luckily I was at my "Inbox" the last time I closed 
+> Evolution so that it returns to that point at startup now. This never 
+> happened until I installed the NVIDIA driver (as opposed to using the 
+> "generic" driver that comes with MDK).
+> 
+> Has anyone else experienced this sort of thing, and if so, what did you 
+> do to "fix" it? BTW, switching back to the generic driver doesn't help.
+> 
+> Thanks in advance,
+> MMYoung
+> 
+> _______________________________________________
+> evolution maillist  -  evolution@lists.ximian.com
+> http://lists.ximian.com/mailman/listinfo/evolution
+> 
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

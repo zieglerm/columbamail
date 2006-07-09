@@ -1,0 +1,81 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 24649 invoked by uid 65534); 6 Oct 2003 10:17:28 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx020-rz3) with SMTP; 06 Oct 2003 12:17:28 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 7DC34187F3; Mon,  6 Oct 2003 06:17:06 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from ms001msg.fastwebnet.it (ms001msg.fastwebnet.it [213.140.2.51])
+	by mail.gnome.org (Postfix) with ESMTP id 2F06C1833C
+	for <nautilus-list@gnome.org>; Mon,  6 Oct 2003 06:16:27 -0400 (EDT)
+Received: from tiscalinet.it (37.0.232.41) by ms001msg.fastwebnet.it (6.7.019)
+        id 3F69F0990031E7A8 for nautilus-list@gnome.org; Mon, 6 Oct 2003 12:16:40 +0200
+Message-ID: <3F81410B.1080106@tiscalinet.it>
+From: Mazzoni Perseo <mazzoni.perseo@tiscalinet.it>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.4) Gecko/20030930 Debian/1.4-5
+X-Accept-Language: it, en-us, en
+MIME-Version: 1.0
+To: nautilus-list@gnome.org
+Subject: Re: nautilus-ssh
+References: <Pine.GSO.4.10.10310022041280.15170-100000@dali>
+In-Reply-To: <Pine.GSO.4.10.10310022041280.15170-100000@dali>
+Content-Type: text/plain; charset=ISO-8859-15; format=flowed
+Content-Transfer-Encoding: 8bit
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Mon, 06 Oct 2003 12:16:43 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Daniel Balsiger wrote:
+> ciao perseo
+> 
+> I had the same problem two weeks ago ...
+> one possibility to solce the problem,
+> is to connect with a public key to the ssh-server.
+> So no password is needed. This worked for me.
+> (man ssh-keygen, man sshd)
+> 
+> Another possibility, which I didn't try
+> is using the gnome-ssh-askpass program
+> in conjunction with ssh-agent.
+> 
+> If you get it with the second possibility 
+> please let me know ;)
+
+Installed ssh-gnome-askpass but doesn't work...
+Note that i'm not in the same subnetwork of the host
+i want to connect to... but this isn't important in my
+opinion....
+The host i want to connect need a password, 'cause it's
+my account at the university...
+
+-- 
+Perseo Mazzoni
+  www.cs.unibo.it/~pmazzoni
+  ICQ #175133495
+
+"Soprattutto siate sempre capaci di sentire nel più profondo di
+  voi stessi qualsiasi ingiustizia commessa contro qualsiasi
+persona, in qualsiasi parte del mondo." [E. 'Che' Guevara]
+
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

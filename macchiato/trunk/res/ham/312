@@ -1,0 +1,113 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 14125 invoked by uid 65534); 3 Oct 2003 23:31:09 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx025-rz3) with SMTP; 04 Oct 2003 01:31:09 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 9F5AC124268; Fri,  3 Oct 2003 19:30:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id F2A50124211; Fri,  3 Oct 2003 19:29:25 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 77F17124233
+	for <evolution-hackers@lists.ximian.com>; Fri,  3 Oct 2003 19:29:14 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 571E863151; Fri,  3 Oct 2003 19:29:14 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from gw.kuetemeier.com (12-254-105-101.client.attbi.com [12.254.105.101])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP
+	id 05187630E9; Fri,  3 Oct 2003 19:29:14 -0400 (EDT)
+Received: from ron-notebook.kuetemeier.com (ronald [192.168.1.4])
+	by gw.kuetemeier.com (8.12.10/8.12.10) with ESMTP id h93NTCqW016573;
+	Fri, 3 Oct 2003 17:29:13 -0600
+Subject: Re: [Evolution-hackers] Appointment and Meeting Editors -- 2.0
+	Thoughts
+From: Ronald Kuetemeier <ronald@kuetemeier.com>
+To: Federico Mena Quintero <federico@ximian.com>
+Cc: evolution-hackers@ximian.com
+In-Reply-To: <1065222432.2714.1914.camel@localhost.localdomain>
+References: <1064954351.4874.296.camel@narcissus.boston.ximian.com>
+	 <1064959549.2761.77.camel@twelve-monkeys.boston.ximian.com>
+	 <1064985477.20296.27.camel@ronald.kuetemeier.com>
+	 <1065023280.4874.1375.camel@narcissus.boston.ximian.com>
+	 <1065058545.5161.37.camel@localhost.localdomain>
+	 <1065109377.4874.6165.camel@narcissus.boston.ximian.com>
+	 <1065205785.2714.1699.camel@localhost.localdomain>
+	 <1065212570.3313.38.camel@ronald.kuetemeier.com>
+	 <1065222432.2714.1914.camel@localhost.localdomain>
+Content-Type: text/plain
+Message-Id: <1065223748.3310.50.camel@ronald.kuetemeier.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Fri, 03 Oct 2003 17:29:09 -0600
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Fri, 2003-10-03 at 17:07, Federico Mena Quintero wrote:
+> On Fri, 2003-10-03 at 15:22, Ronald Kuetemeier wrote:
+> 
+> > The question which will come up is, do you want the alarm before due or
+> > start time?  I took it, as getting the task alarm and better get going
+> > to be finished in time, if you use due time you have to calculate back
+> > when you have to start working to be done at due time and set the alarm
+> > accordingly. Sounds like a personal pref. to me what you call start time
+> > for a task. I don't know if there is consensus on it.
+> 
+> The spec is not terribly clear on it :(
+> 
+> I understand it to be as follows.  As an example, in Mexico City you
+> have to take your car for an emissions check twice a year.  The period
+> when you have to take your car in depends on the last digit in the
+> license plate -- 0 and 1 must have it checked by January, 2 and 3 by
+> March, 4 and 5 by June, etc.  (Those dates are almost certainly not
+> accurate, but it works in a similar way).
+> 
+> You have two months to take your car for the emissions check.  Say that
+> my car needs to be taken in during October or November.  I am not
+> allowed to take it in before October, and I'll get a fine if I don't
+> have the emissions check done by the end of November.  So, the start
+> date for the task would be October 1, and the due date would be November
+> 30.
+> 
+
+Right, that's also my understanding.  But the question is, when do you
+want the alarm to trigger?
+Let's say it takes you 2 hours to do the test. Would you like the alarm
+trigger say 4 hours before close of business on November 30. Or would
+you like a general reminder before 1st of October that you have to have
+your car checked.
+Maybe there should be an option to  set the alarm for due or start
+date/times, otherwise it will be utterly confusing for new users.
+I made just a rule for me on how to use it since there was only one
+option without editing the isc file and maybe I'm biased to that
+solution since I'm used it.
+Ronald
+
+>   Federico
+> 
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

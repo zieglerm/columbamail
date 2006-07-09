@@ -1,0 +1,72 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 11024 invoked by uid 65534); 4 Oct 2003 10:47:28 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx027-rz3) with SMTP; 04 Oct 2003 12:47:28 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 67F963AC79; Sat,  4 Oct 2003 12:47:18 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Sat, 04 Oct 2003 12:47:10 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from haddock (cpc2-cmbg3-5-0-cust222.cmbg.cable.ntl.com [81.96.65.222])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 7DF863AC7B
+	for <vlc@videolan.org>; Sat,  4 Oct 2003 12:46:37 +0200 (CEST)
+Received: from [127.0.0.1] (helo=haddock.mynet ident=gbazin)
+	by haddock with esmtp (Exim 3.36 #1 (Debian))
+	id 1A5juB-0000Ix-00
+	for <vlc@videolan.org>; Sat, 04 Oct 2003 12:44:55 +0200
+From: Gildas Bazin <gbazin@netcourrier.com>
+To: vlc@videolan.org
+Subject: [vlc] Re: VLC, Win2K, Video capture card
+Date: Sat, 4 Oct 2003 12:44:54 +0200
+User-Agent: KMail/1.5.3
+References: <FNEBJENEOEFCAMEEDHCDMECFCEAA.jhayter@tveyes.com>
+In-Reply-To: <FNEBJENEOEFCAMEEDHCDMECFCEAA.jhayter@tveyes.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+  charset="windows-1252"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Message-Id: <200310041244.54789.gbazin@netcourrier.com>
+X-Spam-Status: No, hits=-2.5 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_KMAIL
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5747
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: gbazin@netcourrier.com
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Saturday 04 October 2003 12:03, James Hayter wrote:
+> Thanks for the note, I'll take a look at using the direct show input.
+> James 
+> 
+
+You can use one of the daily builds:
+http://www.videolan.org/~videolan/build/win32/
+
+To try it, simply type "dshow://" in the MRL field in the "Open" dialog.
+
+Keep in mind that the dshow input is still experimental so it might not be 
+working out of the box for you. But if you have problems with it I will try 
+to fix them, just send me the full log from the messages window in this 
+case.
+
+Regards,
+
+--
+Gildas
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

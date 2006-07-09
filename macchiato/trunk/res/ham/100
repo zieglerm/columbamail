@@ -1,0 +1,78 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 23644 invoked by uid 65534); 2 Oct 2003 13:04:30 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx016-rz3) with SMTP; 02 Oct 2003 15:04:30 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 0C74D3ABA0; Thu,  2 Oct 2003 15:04:20 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Thu, 02 Oct 2003 15:04:11 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from gw-nl6.philips.com (gw-nl6.philips.com [212.153.235.103])
+	by zen.via.ecp.fr (Postfix) with ESMTP id B88903AB98
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 15:03:42 +0200 (CEST)
+Received: from smtpscan-nl2.philips.com (smtpscan-nl2.philips.com [130.139.36.22])
+	by gw-nl6.philips.com (Postfix) with ESMTP id 934FC5D082
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 15:03:42 +0200 (MET DST)
+Received: from smtpscan-nl2.philips.com (localhost [127.0.0.1])
+	by localhost.philips.com (Postfix) with ESMTP id 2286019C48
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 15:03:42 +0200 (MEST)
+Received: from smtprelay-nl1.philips.com (smtprelay-eur1.philips.com [130.139.36.3])
+	by smtpscan-nl2.philips.com (Postfix) with ESMTP id BD94219C46
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 15:03:41 +0200 (MEST)
+Received: from prle4.natlab.research.philips.com (prle4.natlab.research.philips.com [130.145.137.96]) 
+	by smtprelay-nl1.philips.com (8.9.3-p1/8.8.5-1.2.2m-19990317) with ESMTP id PAA08483
+	for <streaming@videolan.org>; Thu, 2 Oct 2003 15:03:41 +0200 (MET DST)
+Received: from smtpmon (smtpmon [130.145.137.150])
+	by prle4.natlab.research.philips.com (8.11.6/8.11.6) with ESMTP id h92D3fC28307
+	for <streaming@videolan.org>; Thu, 2 Oct 2003 15:03:41 +0200
+Received: from pc7867.ddns.htc.nl.philips.com ([130.145.195.51])
+	by smtpmon (MailMonitor for SMTP v1.2.0 ) ;
+	Thu, 2 Oct 2003 15:03:41 +0200 (CEST)
+Message-ID: <3F7C222C.4080201@natlab.research.philips.com>
+Date: Thu, 02 Oct 2003 15:03:40 +0200
+From: Jean-Paul Saman <saman@natlab.research.philips.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.1) Gecko/20021003
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: streaming@videolan.org
+Subject: [streaming] Re: prob : .trp files convert??
+References: <3f7c1e4b.3a33.4175@ensieta.fr>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-0.5 required=5.0
+	tests=EMAIL_ATTRIBUTION,RCVD_IN_OSIRUSOFT_COM,REFERENCES,
+	      USER_AGENT_MOZILLA_UA,X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 882
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: saman@natlab.research.philips.com
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+shingnja@ensieta.fr wrote:
+
+> What do you suggest?
+Fix your audio setup  ;-) and get a good TS file.
+
+You could also convert dolby_trailers.mpeg to a ts file with VLC and
+use this as test file for your streaming setup.
+
+-- 
+Kind greetings,
+
+Jean-Paul Saman
+
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

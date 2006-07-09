@@ -1,0 +1,79 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 25540 invoked by uid 65534); 2 Oct 2003 22:10:26 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx035-rz3) with SMTP; 03 Oct 2003 00:10:26 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id EB56A124971; Thu,  2 Oct 2003 18:10:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 745451242AE; Thu,  2 Oct 2003 18:10:00 -0400 (EDT)
+Received: from skynet.usb.ve (skynet.usb.ve [159.90.200.7])
+	by listsmx.ximian.com (Postfix) with ESMTP id E8A1B1240A1
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 18:09:48 -0400 (EDT)
+Received: from gnat.dst.usb.ve (gnat.dst.usb.ve [159.90.200.11])
+	by skynet.usb.ve (Postfix) with ESMTP
+	id 06FB939700E; Thu,  2 Oct 2003 18:09:48 -0400 (VET)
+Subject: Re: [Evolution] "group by this field" option
+From: Patrick O'Callaghan <poc@usb.ve>
+To: Wagga Wagga <WaggaWagga@gmx.net>
+Cc: Dan Winship <danw@ximian.com>, evolution@lists.ximian.com
+In-Reply-To: <6861.1065129249@www35.gmx.net>
+References: <1065114253.4220.107.camel@twelve-monkeys.boston.ximian.com>
+	 <6861.1065129249@www35.gmx.net>
+Content-Type: text/plain
+Organization: Universidad Simón Bolívar
+Message-Id: <1065132587.1472.118.camel@gnat.dst.usb.ve>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 18:09:47 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Thu, 2003-10-02 at 17:14, Wagga Wagga wrote:
+> hm so there is little hope in seeing this feature again in the near future?!
+> is there an other way of organizing my inbox apporpriately? i've got some 30
+> mails in my inbox and i'm not able to disply them on one screen anymore,
+> that doesn't give a good overview? how do you handle this?
+
+How about using Virtual Folders? You can define several for
+the categories of messages you want (and not just from the
+Inbox). Of course you're not going to see all messages in
+all the categories at once but do you really want that?
+
+For example I have regular exchanges with one of my colleagues on
+various work-related issues and have defined a VF to show all
+messages from him and all replies from me (selected from the Sent
+folder). It's really useful to be able to follow both sides
+of an extended conversation in this way. Pity it needs a little
+work to set up so you're probably not going to have too many
+of these. It would be nice if Evo could generate them on the fly,
+or have a "show me recent messages to/from this address" button.
+
+poc
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

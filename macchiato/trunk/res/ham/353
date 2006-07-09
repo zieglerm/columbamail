@@ -1,0 +1,100 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 22939 invoked by uid 65534); 11 Oct 2003 04:56:28 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx006-rz3) with SMTP; 11 Oct 2003 06:56:28 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 5A03B18657; Sat, 11 Oct 2003 00:56:05 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from web80202.mail.yahoo.com (web80202.mail.yahoo.com [66.218.79.37])
+	by mail.gnome.org (Postfix) with SMTP id 9DC1418367
+	for <nautilus-list@gnome.org>; Sat, 11 Oct 2003 00:55:21 -0400 (EDT)
+Message-ID: <20031011045535.13539.qmail@web80202.mail.yahoo.com>
+Received: from [67.121.136.74] by web80202.mail.yahoo.com via HTTP; Fri, 10 Oct 2003 21:55:35 PDT
+From: Dennis Cranston <dennis_cranston@yahoo.com>
+Subject: Nautilus incorrecting displaying a warning dialog?
+To: Alexander Larsson <alexl@redhat.com>
+Cc: Nautilus <nautilus-list@gnome.org>
+In-Reply-To: <20031010203237.26438.qmail@web80210.mail.yahoo.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="0-93741046-1065848135=:11040"
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Fri, 10 Oct 2003 21:55:35 -0700 (PDT)
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+--0-93741046-1065848135=:11040
+Content-Type: text/plain; charset=us-ascii
+Content-Id: 
+Content-Disposition: inline
+
+Hi,
+
+Today, I added drag and drop support using the middle mouse button (GDK_BUTTON2_MASK) to
+gnome-search-tool.  I wanted to include support for the GDK_ACTION_ASK drag action so that users
+could select copy, move, link or cancel from nautilus' popup menu.
+
+I have this working, but I am seeing an oddity when I select the cancel menu item.  If I drop a
+file on the desktop and select cancel, nautilus will display the warning dialog, "An invalid drag
+type was used."   Nautilus should not display this warning if a user selects cancel.
+
+After a little research, I found in the file nautilus/src/file-manager/fm-icon-view.c that the
+function nautilus_drag_drop_action_ask() is returning 0 (an invalid GdkDragAction) which triggers
+the warning dialog. 
+
+Any ideas why nautilus isn't handling cancel correctly?  I am attached a proposed patch to disable
+the the warning dialog if no GdkDragAction is selected.
+
+Thanks,
+Dennis
+--0-93741046-1065848135=:11040
+Content-Type: application/octet-stream; name="nautilus.diff"
+Content-Transfer-Encoding: base64
+Content-Description: nautilus.diff
+Content-Disposition: attachment; filename="nautilus.diff"
+
+SW5kZXg6IGZpbGUtbWFuYWdlci9mbS1pY29uLXZpZXcuYwo9PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09ClJDUyBmaWxlOiAvY3ZzL2dub21lL25hdXRpbHVzL3Ny
+Yy9maWxlLW1hbmFnZXIvZm0taWNvbi12aWV3LmMsdgpyZXRyaWV2aW5nIHJl
+dmlzaW9uIDEuMjg3CmRpZmYgLXUgLXAgLXIxLjI4NyBmbS1pY29uLXZpZXcu
+YwotLS0gZmlsZS1tYW5hZ2VyL2ZtLWljb24tdmlldy5jCTMwIFNlcCAyMDAz
+IDIwOjM4OjAwIC0wMDAwCTEuMjg3CisrKyBmaWxlLW1hbmFnZXIvZm0taWNv
+bi12aWV3LmMJMTEgT2N0IDIwMDMgMDE6MjA6MzYgLTAwMDAKQEAgLTI1NjAs
+OSArMjU2MCwxMiBAQCBpY29uX3ZpZXdfaGFuZGxlX3VyaV9saXN0IChOYXV0
+aWx1c0ljb25DCiAJICAgIChhY3Rpb24gIT0gR0RLX0FDVElPTl9DT1BZKSAm
+JgogCSAgICAoYWN0aW9uICE9IEdES19BQ1RJT05fTU9WRSkgJiYKIAkgICAg
+KGFjdGlvbiAhPSBHREtfQUNUSU9OX0xJTkspKSB7Ci0JCWVlbF9zaG93X3dh
+cm5pbmdfZGlhbG9nIChfKCJBbiBpbnZhbGlkIGRyYWcgdHlwZSB3YXMgdXNl
+ZC4iKSwKLQkJCQkJIF8oIkRyYWcgYW5kIERyb3AgZXJyb3IiKSwKLQkJCQkJ
+IGZtX2RpcmVjdG9yeV92aWV3X2dldF9jb250YWluaW5nX3dpbmRvdyAoRk1f
+RElSRUNUT1JZX1ZJRVcgKHZpZXcpKSk7CisJCSAvKiBEb24ndCBkaXNwbGF5
+IHRoZSB3YXJuaW5nIGRpYWxvZyBpZiBubyBkZWZpbmVkIGFjdGlvbiB0eXBl
+LiAqLworCSAgICAJaWYgKGFjdGlvbiAhPSAwKSB7CisJCQllZWxfc2hvd193
+YXJuaW5nX2RpYWxvZyAoXygiQW4gaW52YWxpZCBkcmFnIHR5cGUgd2FzIHVz
+ZWQuIiksCisJCQkJCQkgXygiRHJhZyBhbmQgRHJvcCBlcnJvciIpLAorCQkJ
+CQkJIGZtX2RpcmVjdG9yeV92aWV3X2dldF9jb250YWluaW5nX3dpbmRvdyAo
+Rk1fRElSRUNUT1JZX1ZJRVcgKHZpZXcpKSk7CisJCX0KIAkJZ19mcmVlIChj
+b250YWluZXJfdXJpKTsKIAkJcmV0dXJuOwogCX0K
+
+--0-93741046-1065848135=:11040--
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

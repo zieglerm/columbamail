@@ -1,0 +1,38 @@
+Return-Path: <fdietz@gmx.de>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 13878 invoked by uid 65534); 3 Oct 2003 15:49:10 -0000
+Received: from p50841414.dip.t-dialin.net (EHLO localhost.localdomain) (80.132.20.20)
+  by mail.gmx.net (mp015) with SMTP; 03 Oct 2003 17:49:10 +0200
+X-Authenticated: #1411367
+X-Priority: Normal
+Subject: signiert
+From: fdietz@gmx.de
+Mime-Version: 1.0
+Date: Fri, 3 Oct 2003 19:49:43 +0100
+Message-Id: <dlcilavt.yz5zutamfvgf@frd>
+X-Mailer: Columba v0.13.0-cvs
+Content-Type: multipart/signed; boundary="siMZdPxx5CXDsy7MsYWK3cTIzufV853VM3ibGU1bxz4=";
+  micalg="pgp-md5"; protocol="application/pgp-signature"
+To: fdietz@gmx.de
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--siMZdPxx5CXDsy7MsYWK3cTIzufV853VM3ibGU1bxz4=
+Content-Type: text/plain; charset="ISO-8859-15"
+
+signiert
+--siMZdPxx5CXDsy7MsYWK3cTIzufV853VM3ibGU1bxz4=
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.2 (GNU/Linux)
+
+iD8DBQA/fba+1AtIHFWDMCIRAkAxAJ0QnlCrRVtpVaO8SE8Ydd3f+fMGPACfZ68k
+djQZGatTdPZ71hiAYvp0dhE=
+=NhmH
+-----END PGP SIGNATURE-----
+
+--siMZdPxx5CXDsy7MsYWK3cTIzufV853VM3ibGU1bxz4=--
+

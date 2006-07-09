@@ -1,0 +1,82 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 10223 invoked by uid 65534); 2 Oct 2003 16:10:12 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx012) with SMTP; 02 Oct 2003 18:10:12 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 28D91124242; Thu,  2 Oct 2003 12:10:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 6FF54124012; Thu,  2 Oct 2003 12:09:42 -0400 (EDT)
+Received: from mailout10.sul.t-online.com (mailout10.sul.t-online.com [194.25.134.21])
+	by listsmx.ximian.com (Postfix) with ESMTP id 453FC1240E7
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 12:09:11 -0400 (EDT)
+Received: from fwd03.aul.t-online.de 
+	by mailout10.sul.t-online.com with smtp 
+	id 1A560r-0001dM-06; Thu, 02 Oct 2003 18:09:09 +0200
+Received: from keller.lan (SU1A7MZcresWURbUV8+wo8cOSN6oZRQEKHUg8B-t82d2+WnfOPc44s@[80.130.126.183]) by fwd03.sul.t-online.com
+	with esmtp id 1A560n-18fZI00; Thu, 2 Oct 2003 18:09:05 +0200
+From: Martin.Bitter@t-online.de (Martin Bitter)
+Reply-To: martin.bitter@forth-ev.de
+To: evolution@lists.ximian.com
+In-Reply-To: <1065070561.3065.6.camel@localhost.localdomain>
+References: <1065070561.3065.6.camel@localhost.localdomain>
+Content-Type: text/plain
+Message-Id: <1065110947.2588.20.camel@keller.lan>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Seen: false
+X-ID: SU1A7MZcresWURbUV8+wo8cOSN6oZRQEKHUg8B-t82d2+WnfOPc44s
+X-Spam-Status: No, hits=-15.0 required=5.0
+	tests=IN_REP_TO,RCVD_IN_NJABL,REFERENCES,USER_AGENT_XIMIAN,
+	      X_NJABL_DIALUP
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] Syncinc Palm calendar ignores 'empty'  apointments
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 18:09:07 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi list,
+
+using the EVO (1.4.5) calendar with Palm I've found the following
+'feature'.
+
+I made some appointments in EVO calendar which repeat weekly.
+Than I deleted some of them esp. that on Christmas Evening.
+After syncing with my Palm the deleted appointments are still there (on
+the Palm).
+
+Even when I deleted all appointments (start a rare Palm) and make a sync
+these deleted appointments are visible on the Palm.
+
+Same when I tried 'copy to pilot'.
+
+I guess that EVO ignores the internal 'exception' flag that binds to the
+'deleted' appointments when transferring them to the Palm.
+
+Is this bug?
+I couldn't remember if this behavior was there in EVO 1.4.0
+
+Regards Martin
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

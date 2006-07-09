@@ -1,0 +1,131 @@
+Return-Path: <6c864dzc@msn.com>
+Delivered-To: em-ca-bait@em.ca
+Received: (qmail 24946 invoked from network); 31 Jan 2002 08:34:07 -0000
+Received: from unknown (HELO pw-exchange.primeinternal.com) (216.183.127.30)
+  by agamemnon.bfsmedia.com with SMTP; 31 Jan 2002 08:34:07 -0000
+Received: from jtdpw.msn.com (nitro.net.excite.com [199.172.146.130]) by pw-exchange.primeinternal.com with SMTP (Microsoft Exchange Internet Mail Service Version 5.5.2653.13)
+	id D0JML5AK; Thu, 31 Jan 2002 03:30:14 -0500
+From: 6c864dzc@msn.com
+To: 8ui48a@msn.com
+Reply-To: ruebencoates1039@altavista.com
+Subject: Are Creditors calling you day in and day out?                                                    [ykzbn]
+Content-type: text/html; charset=ISO-8859-1
+X-Mailer: Microsoft Outlook, Build 10.0.2627
+Content-Length: 3665
+Lines: 115
+
+<HTML><HEAD><TITLE>Imagine if you were debt free!</TITLE>
+
+
+<SCRIPT language=JavaScript>
+<!-- Begin
+function checkrequired(which) {
+var pass=true;
+if (document.images) {
+for (i=0;i<which.length;i++) {
+var tempobj=which.elements[i];
+if (tempobj.name.substring(0,8)=="required") {
+if (((tempobj.type=="text"||tempobj.type=="textarea")&&
+tempobj.VALUE=='')||(tempobj.type.toString().charAt(0)=="s"&&
+tempobj.selectedIndex==0)) {
+pass=false;
+break;
+         }
+      }
+   }
+}
+if (!pass) {
+shortFieldNAME=tempobj.name.substring(8,30).toUpperCase();
+alert("Please make sure the "+shortFieldName+" field was properly completed.");
+return false;
+}
+else
+return true;
+}
+//  End -->
+</SCRIPT>
+
+</HEAD>
+
+
+<BODY BGCOLOR=#993366 TEXT=#993366 LINK=#0000ff ALINK=#0000ff VLINK=#0000ff>
+
+<CENTER>
+<TABLE BGCOLOR=#ffffff BORDER=1 BORDERCOLOR=#000080 CELLPADDING=0 CELLSPACING=0 WIDTH="77%">
+<TR><TD ALIGN="CENTER" WIDTH="100%">
+
+
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 HEIGHT=606 WIDTH="97%">
+<TR><TD HEIGHT=19 WIDTH="100%"></TD></TR>
+
+<TR><TD ALIGN="CENTER" HEIGHT=25 WIDTH="100%">
+<B><FONT COLOR=#000080 FACE=Verdana SIZE=5>Imagine yourself debt free!</FONT><BR>
+<FONT COLOR=#993366 FACE=Verdana SIZE=4>Click <A href="#consult">here</A> for your FREE consultation!</FONT></B>
+</TD></TR>
+
+<TR><TD><BR><BR></TD></TR>
+<TR><TD ALIGN="CENTER" HEIGHT=522 WIDTH="100%">
+
+
+<TABLE BORDER=0 CELLPADDING=10 CELLSPACING=0 WIDTH="97%">
+<TR><TD ALIGN="RIGHT" WIDTH="50%"><IMG src="http://www.bbc.co.uk/education/work/images/careers-money-coins.jpg" WIDTH=240 HEIGHT=156 BORDER=0></TD>
+<TD ALIGN="LEFT" WIDTH="50%"><FONT COLOR=#000080 FACE=Verdana SIZE=1>
+We have helped thousands of people get out of debt and live that way for the rest of their lives!<BR><BR>
+We have special relationships with credit card companies, and we know how to negotiate lower interest rates for you. You can pay off your debt sooner than you think!<BR><BR>
+We can also set up a <FONT COLOR=#993366>REALISTIC</FONT> payment plan that matches your income and budget - one that won't put extra stress on your family.
+</FONT></TD></TR>
+
+<TR><TD WIDTH="50%">
+<CENTER><FONT COLOR=#993366 FACE=Verdana SIZE=4><B>We can help you:</B></FONT></CENTER>
+
+<FONT COLOR=#000080 FACE=Verdana SIZE=1><UL>
+<LI>Create a plan to get rid of your debt - now and forever 
+<LI>Cut your monthly bill payments in half 
+<LI>Stop your creditors from calling and harassing you 
+<LI>Drastically lower your interest rates 
+<LI>Be completely debt free in just a few years - no matter what your income 
+<LI>Get your peace of mind back again 
+<LI>Give you renewed hope about the future for you and your family 
+</UL></FONT>
+
+</TD>
+<TD ALIGN="CENTER" VALIGN=center WIDTH="50%"><IMG src="http://partner.logicinternet.com/images/money.gif" WIDTH=203 HEIGHT=236 BORDER=0></TD></TR>
+
+<TR><TD ALIGN="CENTER" COLSPAN=2 WIDTH="100%">
+<B><FONT COLOR=#993366 FACE=Verdana SIZE=4><A NAME=consult></A>FREE Debt Consolidation Consultation!</FONT></B><BR>
+<FONT COLOR=#000080 FACE=Verdana SIZE=1>There is absolutely no obligation! Start down your path to financial freedom!<BR>
+<B>** YOU MUST HAVE AT LEAST $4,000 IN DEBT TO APPLY **</B></FONT><br>
+Click Reply and include Your:<BR>
+NAME:							<BR>
+ADDRESS:						<BR>
+CITY:							<BR>
+STATE:						<BR>
+ZIP CODE:						<BR>
+PHONE NUMBER:					<BR>
+BEST TIME TO CALL:				<BR>	
+TOTAL DEBT AMMOUNT:				<BR>
+
+</TD></TR>
+<TR><TD COLSPAN="2"><BR><BR><B><FONT COLOR=#993366 FACE=Verdana SIZE=2>Please verify your information. We look forward to helping you become debt free! Thank you!</FONT></B></TD></TR>
+
+
+</TABLE>
+
+</FORM>
+
+
+</TABLE>
+
+</TD></TR>
+</TABLE>
+
+</TD></TR> 
+</TABLE>
+</CENTER>
+
+</BODY>
+</HTML>
+
+
+
+6c864dzc

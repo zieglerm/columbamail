@@ -1,0 +1,113 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8837 invoked by uid 65534); 3 Oct 2003 17:37:11 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx021-rz3) with SMTP; 03 Oct 2003 19:37:11 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 1F546124B51; Fri,  3 Oct 2003 13:37:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 35F9B124B48; Fri,  3 Oct 2003 13:36:52 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id CE162124B3F
+	for <evolution-hackers@lists.ximian.com>; Fri,  3 Oct 2003 13:36:40 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id C91856308B; Fri,  3 Oct 2003 13:36:40 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from brmea-mail-2.sun.com (brmea-mail-2.Sun.COM [192.18.98.43])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 7B1EC6308F
+	for <evolution-hackers@ximian.com>; Fri,  3 Oct 2003 13:36:40 -0400 (EDT)
+Received: from phys-eris-2 ([129.156.85.26])
+	by brmea-mail-2.sun.com (8.12.10/8.12.9) with ESMTP id h93HacaX029376
+	for <evolution-hackers@ximian.com>; Fri, 3 Oct 2003 11:36:39 -0600 (MDT)
+Received: from cdelab89.Ireland.Sun.COM
+ (cdelab89.Ireland.Sun.COM [129.156.226.189])
+ by eris-mail1.uk.sun.com (iPlanet Messaging Server 5.2 HotFix 1.14 (built Mar
+ 18 2003)) with ESMTP id <0HM600AWLZL2LR@eris-mail1.uk.sun.com> for
+ evolution-hackers@ximian.com; Fri, 03 Oct 2003 18:36:38 +0100 (BST)
+From: Calum Benson <Calum.Benson@Sun.COM>
+Subject: Re: [Evolution-hackers] spam filtering
+In-reply-to: <1065116059.4874.6453.camel@narcissus.boston.ximian.com>
+To: Anna Marie Dirks <anna@ximian.com>
+Cc: Evolution Hackers Mailing List <evolution-hackers@ximian.com>
+Message-id: <1065202781.6098.89.camel@slec-gm-test.ireland.sun.com>
+Organization: Sun Microsystems Ireland Ltd
+MIME-version: 1.0
+X-Mailer: Ximian Evolution 1.4.5
+Content-type: text/plain
+Content-transfer-encoding: 7bit
+References: <1065025639.2375.198.camel@aquarius>
+ <1065039397.1697.26.camel@boatswain>
+ <1065040346.4874.1713.camel@narcissus.boston.ximian.com>
+ <1065096131.1140.9.camel@aquarius>
+ <1065111638.4874.6271.camel@narcissus.boston.ximian.com>
+ <1065112538.1319.16.camel@boatswain>
+ <1065116059.4874.6453.camel@narcissus.boston.ximian.com>
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Fri, 03 Oct 2003 18:39:42 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Thu, 2003-10-02 at 18:34, Anna Marie Dirks wrote:
+
+> It would be really nice to know what logic informed the creators of the
+> HIG when they decided this; is this a working memory issue? a muscle
+> control issue? just a nice sounding number? 
+
+More of a searching issue than a memory issue really... a looong time
+ago I helped do a little study in which we looked at how quickly people
+could find things on a fairly-randomly-ordered list which was known to
+contain the the thing they were looking for, and performance was shown
+to drop off more rapidly if it was longer than about ten items.  
+
+Of course, if the menu's contents are constant (as they are on an
+application's menu bar), memory plays into this over time and you can
+usually get away with longer ones.  And searching is easier if things
+are more strongly grouped too, as they can be on context menus.  But
+nonetheless context menus can vary quite a lot depending on where you
+happen to click and the current state of the app, so there tends to be a
+bit more searching involved than with a regular menu.  
+
+But, basically, it's just a guideline I've carried around and blindly
+quoted since then :)
+
+The suggestion not to use submenus on right-click menus is partly an
+extension of this, and partly just a fiddliness issue... submenus can be
+tricky and time-consuming to navigate at the best of times.  So to me it
+just seems logical that you shouldn't force the user to navigate them in
+the context of something that, by definition, is supposed to make their
+task quicker and easier.
+
+Cheeri,
+Calum.
+
+-- 
+CALUM BENSON, Usability Engineer       Sun Microsystems Ireland
+mailto:calum.benson@sun.com            GNOME Desktop Group
+http://ie.sun.com                      +353 1 819 9771
+
+Any opinions are personal and not necessarily those of Sun Microsystems
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

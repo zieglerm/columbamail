@@ -1,0 +1,72 @@
+Return-Path: <may_ramsey@soon.com>
+Delivered-To: em-ca-bait@em.ca
+Received: (qmail 14013 invoked from network); 22 Jan 2002 08:24:59 -0000
+Received: from dialin-160-173.vancouver.primus.ca (HELO soon.com) (209.90.160.173)
+  by agamemnon.bfsmedia.com with SMTP; 22 Jan 2002 08:24:59 -0000
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 22 Jan 2002 00:28:33 -0800
+To: bait@em.ca
+From: Domain Administrator <may_ramsey@soon.com>
+X-Mailer: Version 5.0
+Subject: pertinent new domain info
+Organization: 
+Content-Length: 2080
+Lines: 57
+
+Dear Internet User:
+
+The three new Internet domain extension formats - .NAME .BIZ .INFO . have now been introduced to the Internet.  However, many users are still unfamiliar with how these names work.  The following are some tips on what these names are and where you can register.
+
+
+###############
+.NAME Extension
+###############
+- Currently in pre-registration stage.
+- Designed for personal use.
+- 2-level registration format (eg. FirstName.LastName.name)
+- Used for web URL (www.FirstName.Lastname.name) or email (FirstName@LastName.name)
+- Registry accepts submissions once a week, first come first serve basis.
+- Where to pre-register:  http://www.NamesForEveryone.com.
+
+##############
+.BIZ Extension
+##############
+- Currently operational.
+- Designed for business use.
+- No registration restrictions.
+- Works just like a .COM name
+- Where to register:  http://www.DotBizToday.com
+
+###############
+.INFO Extension
+###############
+- Currently operational.
+- Designed for information on products / organizations
+- No registration restrictions
+- Works just like a .COM name
+- Where to register:  http://www.InfoGrab.com
+
+Over a million names of these new extensions have already been registered. Therefore, if your name is still available, please secure it immediately to avoid possible disputes.
+
+
+Yours truly,
+
+
+
+Domain Administrator
+
+
+#######################################################################
+We strongly oppose the continued sending of unsolicited email and do 
+not want tosend email to anyone who does not wish to receive our special 
+mailings. As a result, we have retained the services of an independent 
+3rd party to administer our list management and removal services at 
+http://www.autoemailremoval.com/cgi-bin/remove_email.pl?email=bait@em.ca. 
+This is not unsolicited email. If you do not wish to receive further 
+mailings, please click this link. The removal administrator can then 
+preclude your email address from future mailings. Auto Email Removal 
+Company. Ref# 011130
+#######################################################################
+
+
+

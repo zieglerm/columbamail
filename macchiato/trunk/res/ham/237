@@ -1,0 +1,98 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28051 invoked by uid 65534); 3 Oct 2003 15:00:23 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx011) with SMTP; 03 Oct 2003 17:00:23 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 2506412441F; Fri,  3 Oct 2003 11:00:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id EEE69124222; Fri,  3 Oct 2003 10:59:30 -0400 (EDT)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id E321E1240AE
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 10:59:18 -0400 (EDT)
+Received: (qmail 15133 invoked from network); 3 Oct 2003 14:59:18 -0000
+Received: from dmz.ximian.com (HELO tazmanian-devil.boston.ximian.com) (fejj@141.154.95.1)
+  by peabody.ximian.com with RC4-MD5 encrypted SMTP; 3 Oct 2003 14:59:18 -0000
+Subject: RE: [Evolution] e-mail settings
+From: Jeffrey Stedfast <fejj@ximian.com>
+To: Ow Mun Heng <ow.mun.heng@wdc.com>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <C386328088ED7F4E9F81AFBABDDF60DA02AFA9E6@wdmyexch02.my.asia.wdc.com>
+References: 
+	 <C386328088ED7F4E9F81AFBABDDF60DA02AFA9E6@wdmyexch02.my.asia.wdc.com>
+Content-Type: text/plain
+Organization: Ximian, Inc.
+Message-Id: <1065193132.14875.0.camel@tazmanian-devil.boston.ximian.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 10:58:52 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+add a "Local Delivery" account and it will work that way.
+
+On Fri, 2003-10-03 at 04:32, Ow Mun Heng wrote:
+> >>"Delete messages on server
+> 
+> What about.. Automatically moving messages from my /var/spool/mail directly
+> into my Evolution Local Folder? Like in M$ Outlook? (as opposed to manually
+> moving them and then deleting them from the loack spool via ctrl-E??
+> 
+> Cheers,
+> Mun Heng, Ow
+> H/M Engineering
+> Western Digital M'sia 
+> DID : 03-7870 5168
+> 
+> 
+> -----Original Message-----
+> From: Eric Lambart [mailto:ximian@nomeaning.net]
+> Sent: Friday, October 03, 2003 12:03 PM
+> To: evolution@lists.ximian.com
+> Subject: Re: [Evolution] e-mail settings
+> 
+> 
+> Someone else asked the same question two hours later, and I answered
+> that one first.  But the answer's the same: No, you can't do that now.
+> =(
+> 
+> Eric
+> 
+> On Wed, 2003-09-24 at 00:11, fedele@fis.unical.it wrote:
+> > Hi,
+> > i'm new here and with evolution and this is my question...
+> > Can i have in Evolution the following option that i use with Mozilla
+> > "Delete messages on server when they are deleted or moved from Inbox"
+> > in Mail account settings?
+> > Fedele
+-- 
+Jeffrey Stedfast
+Evolution Hacker - Ximian, Inc.
+fejj@ximian.com  - www.ximian.com
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

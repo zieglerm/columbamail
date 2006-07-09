@@ -1,0 +1,76 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 7720 invoked by uid 65534); 3 Oct 2003 03:36:21 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx008) with SMTP; 03 Oct 2003 05:36:21 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 778401249DC; Thu,  2 Oct 2003 23:36:07 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 178BD1249DB; Thu,  2 Oct 2003 23:35:15 -0400 (EDT)
+Received: from lambserver.nomeaning.net (adsl-63-205-78-98.dsl.snfc21.pacbell.net [63.205.78.98])
+	by listsmx.ximian.com (Postfix) with SMTP id F07B512408F
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 23:34:39 -0400 (EDT)
+Received: (qmail 29592 invoked from network); 3 Oct 2003 03:33:40 -0000
+Received: from unknown (HELO wwd.hitbox.com) (192.168.0.188)
+  by lambserver.nomeaning.net with SMTP; 3 Oct 2003 03:33:40 -0000
+Subject: Re: [Evolution] Image/pjpeg
+From: Eric Lambart <ximian@nomeaning.net>
+To: Evolution List <evolution@lists.ximian.com>
+In-Reply-To: <1065058255.5161.31.camel@localhost.localdomain>
+References: <1065001934.12585.2.camel@hagrid.tellytart.co.uk>
+	 <1065006371.2705.5.camel@Doomed.home>
+	 <1065016237.27824.1.camel@twelve-monkeys.boston.ximian.com>
+	 <1065058255.5161.31.camel@localhost.localdomain>
+Content-Type: text/plain
+Organization: No Meaning, Discorporate.
+Message-Id: <1065152077.3497.220.camel@wkstn1>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.3 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: 02 Oct 2003 20:34:37 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Wed, 2003-10-01 at 18:30, Adam Williams wrote:
+> > > As has been reported before, this is not a bug.
+> > No, it is. Writing an email client is all about supporting other
+> > people's non-standard crap. If other widely-used systems send
+> > "image/pjpeg", then we should support displaying it.
+> 
+> Yep, we get image/pjpegs all the time?  Counldn't one just add it to the
+> GNOME associations.
+
+I understand that for security, Evolution has its list of recognized
+MIME types--at least when it comes with images which may be viewed
+"inline".  I believe the GNOME settings affect what you can open via
+Evolution using an external viewer.
+
+Eric
+-- 
+Eric Lambart <ximian@nomeaning.net>
+No Meaning, Discorporate.
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

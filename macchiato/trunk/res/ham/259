@@ -1,0 +1,91 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 20299 invoked by uid 65534); 3 Oct 2003 16:58:20 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx002) with SMTP; 03 Oct 2003 18:58:20 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 89CA33AD46; Fri,  3 Oct 2003 18:58:09 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Fri, 03 Oct 2003 18:58:01 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from hpcc2.hpcc.noaa.gov (hpcc2.hpcc.noaa.gov [140.90.74.9])
+	by zen.via.ecp.fr (Postfix) with ESMTP id ED3573AD3A
+	for <streaming@videolan.org>; Fri,  3 Oct 2003 18:57:25 +0200 (CEST)
+Received: from Cube96501 (cube9650-1.hpcc.noaa.gov [140.90.111.68])
+	by hpcc2.hpcc.noaa.gov (8.11.6/8.11.6) with ESMTP id h93HAnr05526
+	for <streaming@videolan.org>; Fri, 3 Oct 2003 13:10:49 -0400
+From: "Larry Kelly" <larry.kelly@noaa.gov>
+To: <streaming@videolan.org>
+Subject: [streaming] VLC multicast to unicast to multicast?
+Date: Fri, 3 Oct 2003 12:52:18 -0400
+Message-ID: <GLEHKPMAHOAINDELKJNMOEIBCPAA.larry.kelly@noaa.gov>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook IMO, Build 9.0.2416 (9.0.2911.0)
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+Importance: Normal
+X-Spam-Status: No, hits=-0.4 required=5.0
+	tests=MSGID_GOOD_EXCHANGE
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 896
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: larry.kelly@noaa.gov
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi All...
+
+  Does anyone know if VLC can be properly configured to stream a file (or
+PVR input) to a multicast address, with a second VLC (running on a different
+system) able to pick up that multicast, and forward on as a unicast to
+another system?  We have a configuration where some networks would be able
+to support multicast, but others would have to just do unicast's to the
+clients (and/or another fanout multicast server).
+
+  I've tried configuring VLC on machine A with the following:
+
+../vlc ./saar.mpg --sout '#transcode{vcodec=mp4v,ac
+odec=mpga,vb=1150,vt=1500,ab=128}:standard{access=udp,mux=ts,url=224.1.1.12:
+1
+234,sap=Teststream2}' --ttl 20 --intf rc 2>/dev/null
+
+  I then execute the following on machine B:
+
+../vlc udp:@224.1.1.12 --sout '#transcode{vcodec=mp4v,ac
+odec=mpga,vb=800,vt=700,ab=128}:standard{access=udp,mux=ts,url=W.X.Y.Z:1
+234,sap=Teststream2}' --ttl 20 --intf rc 2>/dev/null
+
+  (W.X.Y.Z is a valid target IP).  VLC does not seem to pick up the original
+stream to re-send.  Can VLC do this at all?
+
+  Thanks!
+
+  -Larry
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Larry Kelly
+Contractor
+RGII Technologies, Inc., A Computer Horizons Company
+System Administrator
+OCIO, Office of High Performance Computing and Communications
+National Oceanic and Atmospheric Administration
+Phone:  301-713-3573
+Fax:    301-713-4040
+
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

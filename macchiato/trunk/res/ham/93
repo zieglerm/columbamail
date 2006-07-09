@@ -1,0 +1,295 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 17616 invoked by uid 65534); 2 Oct 2003 11:50:59 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx007-rz3) with SMTP; 02 Oct 2003 13:50:59 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id BAA343AC1E; Thu,  2 Oct 2003 13:50:47 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 13:50:39 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from ra.abo.fi (ra.abo.fi [130.232.213.1])
+	by zen.via.ecp.fr (Postfix) with ESMTP id CFF723ABE7
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 13:50:10 +0200 (CEST)
+Received: from humboldt.abo.fi (humboldt.abo.fi [130.232.213.83])
+	by ra.abo.fi (8.12.5/8.12.5) with ESMTP id h92Bo8f1007205
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 14:50:08 +0300 (EET DST)
+Received: (from nobody@localhost)
+	by humboldt.abo.fi (8.11.6/8.8.7) id h92Bivu25409
+	for vlc@videolan.org; Thu, 2 Oct 2003 14:44:57 +0300
+X-Authentication-Warning: humboldt.abo.fi: nobody set sender to jusuomin@abo.fi using -f
+Received: from stream.cs.abo.fi (stream.cs.abo.fi [130.232.85.133]) 
+	by webmail.abo.fi (IMP) with HTTP 
+	for <jusuomin@localhost>; Thu,  2 Oct 2003 14:44:57 +0300
+Message-ID: <1065095097.3f7c0fb91adcf@webmail.abo.fi>
+Date: Thu,  2 Oct 2003 14:44:57 +0300
+From: jusuomin@abo.fi
+To: vlc@videolan.org
+Subject: [vlc] Re: Streaming a dvb-t channel with vlc?
+References: <1065082691.3f7bdf4327137@webmail.abo.fi> <3F7BE7E6.7060603@natlab.research.philips.com> <1065086612.3f7bee948b2ba@webmail.abo.fi> <1065090345.3f7bfd295cc89@webmail.abo.fi> <3F7C017E.9020403@natlab.research.philips.com>
+In-Reply-To: <3F7C017E.9020403@natlab.research.philips.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2.1
+X-Originating-IP: 130.232.85.133
+X-Spam-Checking-Host: melitta.abo.fi
+X-Spam-Status: No, hits=-1.3 required=5.0
+	tests=IN_REP_TO,NO_REAL_NAME,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_IMP,X_AUTH_WARNING
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5699
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: jusuomin@abo.fi
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Quoting Jean-Paul Saman <saman@natlab.research.philips.com>:
+
+> I agree, just made a change to that code in the CVS. Use that one!
+>
+> The code that is in there works for QPSK (DVB-S) tuning. For DVB-T it
+> could be that we have to do that somewhat different.
+
+OK. I tried the CVS version, and by commenting out the DVB-S part of
+ioctl_SetFrontend I got the tuning to work. (Well, at least it reports
+that tuning was succesful.)
+
+I think that it was the hiband assignments that messed up the frequency
+assignment for DVB-T.
+
+Here's what i snipped out from dvb.c
+
+    // These won't be needed with DVB-T, JP - 02.10.2003
+    
+/*     /\* Set the frequency of the transponder, taking into account the */
+/*        local frequencies of the LNB *\/ */
+/*     hiband = (fep.frequency >= u_lnb_slof); */
+
+/*     if ((ret=ioctl_SetupSwitch (p_input, front, 0, b_polarisation,
+hiband))<0) */
+/*     { */
+/*         msg_Err(p_input, "ioctl_SetupSwitch failed (%d)", ret); */
+/*         return -1; */
+/*     } */
+
+/*     if (hiband) */
+/*         fep.frequency -= u_lnb_lof2; */
+/*     else */
+/*         fep.frequency -= u_lnb_lof1; */
+
+I think there should propably be a test to see what kind of a dvb card
+(DVB-T/S/C) you have, and set up the dvb_frontend_parameters structure
+according to that?
+
+I still have a problem, though. I don't get any output (video, that is..)
+
+Screen dump:
+
+[root@blumlein vlc]# vlc -vvv --program 512
+terrestrial:714000000:0:3:27500000 --lnb-lof2=715000000
+--lnb-lof1=9750000 --lnb-slof=11700000
+
+VideoLAN Client 0.6.3-cvs Trevelyan
+[00000000] main root debug: VLC media player - version 0.6.3-cvs
+Trevelyan - (c) 1996-2003 VideoLAN
+[00000000] main root debug: libvlc was configured with ./configure
+--enable-v4l --enable-dvb --enable-lirc --prefix=/usr/local
+[00000001] main vlc debug: translation test: code is "C"
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000000] main root debug: checking builtin modules
+[00000000] main root debug: checking plugin modules
+[00000000] main root debug: recursively browsing `modules'
+[00000000] main root debug: recursively browsing `/usr/local/lib/vlc'
+[00000207] main module warning: cannot find symbol
+"vlc_entry__0_6_3_cvs" in file
+`/usr/local/lib/vlc/audio_output/libarts_plugin.so' (vlc: undefined
+symbol: _vlc_entry__0_6_3_cvs)
+[00000000] main root warning: cannot open
+`/usr/local/lib/vlc/gui/libqt_plugin.so'
+(/usr/local/lib/vlc/gui/libqt_plugin.so: undefined symbol:
+_ZN11QMainWindow5eventEP6QEvent)
+[00000248] main module warning: cannot find symbol
+"vlc_entry__0_6_3_cvs" in file `/usr/local/lib/vlc/gui/libkde_plugin.so'
+(vlc: undefined symbol: _vlc_entry__0_6_3_cvs)
+[00000275] main module warning: cannot find symbol
+"vlc_entry__0_6_3_cvs" in file
+`/usr/local/lib/vlc/packetizer/libpacketizer_a52_plugin.so' (vlc:
+undefined symbol: _vlc_entry__0_6_3_cvs)
+[00000279] main module warning: cannot find symbol
+"vlc_entry__0_6_3_cvs" in file
+`/usr/local/lib/vlc/packetizer/libpacketizer_vorbis_plugin.so' (vlc:
+undefined symbol: _vlc_entry__0_6_3_cvs)
+[00000000] main root debug: recursively browsing `plugins'
+[00000001] main vlc debug: module bank initialized, found 268 modules
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000001] main vlc debug: CPU has capabilities 486 586 MMX 3DNow!
+MMXEXT SSE FPU
+[00000001] main vlc debug: looking for memcpy module
+[00000001] main vlc debug: probing 5 candidates
+[00000010] main module debug: using memcpy module "memcpymmxext"
+[00000305] main playlist debug: waiting for thread completion
+[00000305] main playlist debug: thread 16386 (playlist) created at
+priority 0 (src/playlist/playlist.c:88)
+[00000305] main playlist debug: adding playlist item «
+terrestrial:714000000:0:3:27500000 » ( terrestrial:714000000:0:3:27500000 )
+[00000305] main playlist debug: creating new input thread
+[00000306] main input: playlist item `terrestrial:714000000:0:3:27500000'
+[00000306] main input debug: waiting for thread completion
+[00000306] main input debug: thread 32771 (input) created at priority 0
+(src/input/input.c:247)
+[00000306] main input warning: cmd=state old=10 new=1
+[00000306] main input debug: playing at normal rate
+[00000307] main interface debug: looking for interface module
+[00000307] main interface debug: probing 4 candidates
+[00000103] main module debug: using interface module "gtk"
+[00000307] main interface debug: interface initialized
+[00000306] main input debug: access `terrestrial', demux `', name
+`714000000:0:3:27500000'
+[00000306] main input debug: looking for access module
+[00000306] main input debug: probing 16 candidates
+[00000306] dvb input debug: using default values for frontend info
+[00000306] dvb input debug: method of access is terrestrial
+[00000306] dvb input warning: DVV Input syntax has changed, please see
+documentation for further informations
+[00000306] dvb input debug: terrestrial (OFDM) frontend found on
+/dev/dvb/adapter0/frontend0
+[00000306] dvb input debug: opening DVR device '/dev/dvb/adapter0/dvr0'
+[00000306] dvb input debug: Opening frontend /dev/dvb/adapter0/frontend0
+[00000307] main interface debug: thread 49156 (manager) created at
+priority 0 (src/interface/interface.c:139)
+[00000306] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000306] dvb input debug: ioctl_SetFrontend: tuning status == 0x1f!!!
+....tuning succeeded
+[00000306] dvb input debug: setting filter on PAT
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 0
+[00000015] main module debug: using access module "dvb"
+[00000306] main input debug: looking for demux module
+[00000306] main input debug: probing 34 candidates
+[00000306] mp4 input warning: MP4 plugin discarded (not a valid file)
+[00000306] mp4 input warning: MP4 plugin discarded (not a valid file)
+[00000306] avi input warning: avi module discarded (invalid header)
+[00000306] avi input warning: avi module discarded (invalid header)
+[00000306] v4l input warning: v4l plugin discarded (not a valid stream)
+[00000306] v4l input warning: v4l plugin discarded (not a valid stream)
+[00000306] asf input warning: ASF plugin discarded (not a valid file)
+[00000306] v4l input warning: v4l plugin discarded (not a valid stream)
+[00000306] v4l input warning: v4l plugin discarded (not a valid stream)
+[00000306] asf input warning: ASF plugin discarded (not a valid file)
+[00000306] main input debug: looking for mpeg-system module
+[00000306] main input debug: probing 2 candidates
+[00000086] main module debug: using mpeg-system module "mpeg_system"
+[00000091] main module debug: using demux module "ts_dvbpsi"
+[00000306] mpeg_system input warning: first packet for PID 0 received by
+TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 13, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PAT version 0
+[00000306] ts_dvbpsi input debug: New program: 0
+[00000306] ts_dvbpsi input debug: New program: 17
+[00000306] ts_dvbpsi input debug: New program: 33
+[00000306] ts_dvbpsi input debug: New program: 81
+[00000306] ts_dvbpsi input debug: New program: 193
+[00000306] ts_dvbpsi input debug: New program: 209
+[00000306] ts_dvbpsi input debug: New program: 272
+[00000306] ts_dvbpsi input debug: New program: 274
+[00000306] ts_dvbpsi input debug: New program: 275
+[00000306] ts_dvbpsi input debug: New program: 276
+[00000306] ts_dvbpsi input debug: New program: 289
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 256
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 257
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 260
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 265
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 266
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 267
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 262
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 263
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 264
+[00000306] dvb input debug: Opening demux device /dev/dvb/adapter0/demux0
+[00000306] dvb input debug: ioctl_SetDMXFilter: DMX_PES_OTHER for PMT 259
+[00000306] mpeg_system input warning: first packet for PID 256 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 6, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 17 version 12
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000306] mpeg_system input warning: first packet for PID 257 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 7, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 33 version 19
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000307] gtk interface warning: cannot determine input method
+[00000307] gtk interface debug: stream has changed, refreshing interface
+[00000306] mpeg_system input warning: first packet for PID 260 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 7, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 81 version 23
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000306] mpeg_system input warning: first packet for PID 265 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 13, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 193 version 24
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000306] mpeg_system input warning: first packet for PID 266 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 209 version 11
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000306] mpeg_system input warning: first packet for PID 259 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 289 version 3
+[00000306] ts_dvbpsi input warning: Unknown codec/type for Private PES
+stream
+[00000306] mpeg_system input warning: first packet for PID 267 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 272 version 3
+[00000306] mpeg_system input warning: first packet for PID 262 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 274 version 3
+[00000307] gtk interface warning: cannot determine input method
+[00000307] gtk interface debug: stream has changed, refreshing interface
+[00000306] mpeg_system input warning: first packet for PID 263 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 275 version 3
+[00000306] mpeg_system input warning: first packet for PID 264 received
+by TS demux
+libdvbpsi error (PSI decoder): TS discontinuity (received 2, expected 0)
+[00000306] ts_dvbpsi input debug: Processing PMT for program 276 version 3
+[00000307] gtk interface warning: cannot determine input method
+[00000307] gtk interface debug: stream has changed, refreshing interface
+
+
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

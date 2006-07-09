@@ -1,0 +1,140 @@
+Return-Path: <professionals@hotmail.com>
+Delivered-To: em-ca-bruceg@em.ca
+Received: (qmail 23558 invoked from network); 31 Jan 2002 07:04:24 -0000
+Received: from unknown (HELO hotmail.com) (211.248.141.130)
+  by agamemnon.bfsmedia.com with SMTP; 31 Jan 2002 07:04:24 -0000
+Received: from [81.185.146.192] by smtp-server6.tampabay.rr.com with local; 31 Jan 2002 11:07:54 -0400
+Received: from unknown (HELO a231242.upc-a.chello.nl) (127.248.75.240)
+	by rly-xr01.mx.aol.com with SMTP; Thu, 31 Jan 2002 05:57:18 +0100
+Reply-To: <professionals@hotmail.com>
+Message-ID: <001b56b48dad$1326a7d5$6be48ec0@xiagsk>
+From: <professionals@hotmail.com>
+To: BusinessProfessionals
+Subject: Your inclusion
+MiME-Version: 1.0
+Content-Type: text/html; charset="iso-8859-1"
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2462.0000
+Importance: Normal
+Content-Length: 6282
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="robots" content="index,follow">
+   <meta http-equiv="Keywords" content="actuaries, actuary, actuarial, actuary search, actuarial search, actuary jobs, actuarial jobs, actuary careers, actuarial careers, actuarial consulting, actuarial position, actuary position, actuary consulting, life, health, pension, investment, investing, student, students, entry-level, recruiters, recruiting, recruiter, asset, assets, liability, firm, firms, region, regional, dividend, claim, claims, dividends, employment, insurance, consulting, jobs, pension, health, Chicago, jacobsen, steffke, ezra, morand, ueki, cho, insurance, jobs, job, career, careers, recruiters, employment, FSA, F.S.A., FCIA, F.C.I.A., evidence, law, medical, asset, assets, society, life, investment, employer, benefits, student, students, FCAS, ACAS, ASA, AVP, property, casualty, health, salary, survey, carriers, HMO,  simpson, location, fill, compensation, actuarial business, actuary opportunity, actuarial opportunity, actuary, aktuar, fcas, acas, asa, fsa, fcia, fia, simpson, entry level, math, physics, statistics, probability">
+   <meta name="Description" content="Serving the actuarial profession nationwide in all disciplines, and at all levels from entry-level  through fellowship. Established in 1989. All fees paid by the hiring company.">
+   <meta name="Classification" content="Actuary, Actuaries, Pensions, Retirement, Employee Benefits, Benefits, Consultants, Business Consulting, Compensation, Human Resource">
+   <meta name="GENERATOR" content="Mozilla/4.78 [en]C-CCK-MCD {Cablevision Optimum Online}  (Win98; U) [Netscape]">
+   <title>Registration Form - D.W. Simpson &amp; Company, Inc. - Actuarial Search, Actuary,
+Actuaries, Aktuar, Jobs, Employment, Job, Mexico Actuary, Canada Actuary, UK Actuary,
+Europe Actuary, Australia Actuary, Asia Actuary, resume</title>
+<!-- actuary, actuary, actuaries, actuarial, aktuar, jobs, employment, recruiter -->
+</head>
+<body text="#000000" bgcolor="#C0C0C0" link="#000080" vlink="#000080" alink="#FF0000">
+<h1 align="left"><font face="Arial, Helvetica, sans-serif">Dear 
+  Candidate,</font></h1>
+<p><font face="Arial, Helvetica, sans-serif">You 
+  have recently become a candidate for inclusion 
+  in the upcoming Edition of The Metropolitan 
+  Directory of Executives, Professionals, 
+  and Entrepreneurs.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">It 
+  is free of charge to be listed in The Directory 
+  which spotlights thousands of highly accomplished 
+  individuals from around the world.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">If 
+  you feel that you have demonstrated achievement 
+  in your field, and would like to be considered 
+  for inclusion in The Directory so that you 
+  can gain exposure for your business, network 
+  with others, and be listed with other notable 
+  individuals from around the world please 
+  fill out the attached form and submit it 
+  back to our offices.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">We 
+  look forward to your appearance in The Directory. 
+  Best Wishes for your continued success.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Regards,</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Lisa 
+  Anderson<br>
+  Profile Coordinator</font></p>
+<p><font face="Arial, Helvetica, sans-serif">P.S. 
+  Remember, there is no charge or obligation 
+  for your appearance in The Directory.</font><br>
+</p>
+<p align="center">&nbsp; </p>
+<center>
+<h1>
+<u><font color="#000000"><font size=+4>Registration Form</font></font></u></h1></center>
+
+<center><b>Please Fill In The Following Information To Receive Your Free
+Listing In</b>
+<br><b>The Metropolitan Directory Of Executives &amp; Profesionals.</b></center>
+
+<p><form action="http://www.response-o-matic.com/cgi-bin/rom.pl" method="POST">
+  <input type="hidden" name="your_email_address" value="eeexecutive@yahoo.com">
+  <input type="hidden" name="your_name" value="Metropolitan">
+  <input type="hidden" name="_ads" value="off">
+  <input type="hidden" name="email_subject_line" value="Candidate Form">
+  <input type="hidden" name="thank_you_title" value="Thank you for your submission. We will contact you shortly.">
+  <input type="hidden" name="background_color" value="#FFFFFF">
+  <input type="hidden" name="text_color" value="#000000"><input type="hidden" name="link_color" value="#0000FF">
+  <input type="hidden" name="visited_link_color" value="#8000FF">
+  <input type="hidden" name="active_link_color" value="#0000FF">
+<center><table BORDER=0 WIDTH="500" >
+<tr>
+<td><b>Name:&nbsp;</b><input TYPE="input" NAME="visitor_name" SIZE="30">
+<br><b>Address:&nbsp;</b><input 
+      TYPE="input" NAME="Address" SIZE="40">
+<br><b>City:&nbsp;</b><input TYPE="input" NAME="City" SIZE="21">
+<br><b>State/Prov:&nbsp;</b><input TYPE="input" NAME="State" SIZE="7">
+<br><b>Postal Code:</b><input TYPE="input" NAME="Zip" SIZE="10">
+<br><b>Country:&nbsp;</b><input TYPE="input" NAME="Country" SIZE="20">
+<br><b>Bus Phone:&nbsp;</b><input TYPE="input" NAME="PhoneHome" SIZE="12">
+<br><b>Email:&nbsp;</b><input TYPE="input" NAME="visitor_email_address" SIZE="30">
+<br>&nbsp;
+<p><b>Company Name:&nbsp;</b><input TYPE="input" NAME="Company" SIZE="75">
+<p><b>Type of Business/Industry:&nbsp;</b><input 
+      TYPE="input" NAME="Type of Business" SIZE="75">
+<p><b>Major Product/Service:&nbsp;</b><input 
+      TYPE="input" NAME="Prod/Svce" SIZE="75">
+<p><b>Personal Business/Professional Expertise::&nbsp;</b><input 
+      TYPE="input" NAME="Expertise" SIZE="75">
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0 >
+<tr>
+<td WIDTH="116"></td>
+
+<td></td>
+</tr>
+</table>
+
+<hr SIZE="4">
+<center><b><i>Please tell us about yourself in the space below:</i> (optional)</b></center>
+
+<hr SIZE="4" align="center">
+<center>(Additionally, you may cut and paste your resume here)&nbsp;
+<br><textarea NAME="Resume" ROWS="5" COLS="60"></textarea>
+<p><input TYPE="submit" NAME="Submit" VALUE="Submit"></center>
+</td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+</table></center>
+</form>
+<hr align="center">
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>
+

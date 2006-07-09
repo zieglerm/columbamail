@@ -1,0 +1,82 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 22184 invoked by uid 65534); 3 Oct 2003 11:18:09 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx005-rz3) with SMTP; 03 Oct 2003 13:18:09 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 24F2212411B; Fri,  3 Oct 2003 07:18:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 6522A12405E; Fri,  3 Oct 2003 07:17:47 -0400 (EDT)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id C2DA3124045
+	for <evolution-hackers@lists.ximian.com>; Fri,  3 Oct 2003 07:17:35 -0400 (EDT)
+Received: (qmail 13237 invoked from network); 3 Oct 2003 11:17:35 -0000
+Received: from localhost (HELO thomas) (michael@127.0.0.1)
+  by localhost with SMTP; 3 Oct 2003 11:17:35 -0000
+Subject: Re: [Evolution-hackers] how to debug evolution-wombat freeze
+From: Michael Meeks <michael@ximian.com>
+To: Dan Winship <danw@ximian.com>
+Cc: evolution-hackers@lists.ximian.com
+In-Reply-To: <1065117607.5166.5.camel@twelve-monkeys.boston.ximian.com>
+References: <1064580536.25599.2.camel@monster.koto.lan>
+	 <1064599252.2938.4.camel@mentor.gurulabs.com>
+	 <1064601760.1648.12.camel@localhost.localdomain>
+	 <1064869320.4696.72.camel@milkplus>
+	 <1064923711.21650.1001.camel@michael.home>
+	 <1064944766.28349.5.camel@twelve-monkeys.boston.ximian.com>
+	 <1064988000.30419.13.camel@michael.home>
+	 <1065117607.5166.5.camel@twelve-monkeys.boston.ximian.com>
+Content-Type: text/plain
+Organization: Ximian.
+Message-Id: <1065179289.31259.191.camel@michael.home>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Fri, 03 Oct 2003 12:08:10 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+On Thu, 2003-10-02 at 19:00, Dan Winship wrote:
+> OK, got a new one, CVS ORBit2 from yesterday or so. Looks like the stack
+> may be a little trashed...
+
+	Irredeemably so unfortunately; the DynamicAny stuff looks like a
+red-herring, unblock source would never call that; giop_recv_buffer_get
+can never call ORBit_POA_new_from which shows several times, impossibly,
+CORBA_ORB_shutdown is bogus in mid-flow etc.
+
+	Can you reproduce / get a better trace at all ?
+
+	Thanks,
+
+		Michael.
+
+-- 
+ michael@ximian.com  <><, Pseudo Engineer, itinerant idiot
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

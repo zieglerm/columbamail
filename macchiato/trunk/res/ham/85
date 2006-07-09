@@ -1,0 +1,55 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1512 invoked by uid 65534); 2 Oct 2003 10:30:18 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx005) with SMTP; 02 Oct 2003 12:30:18 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 86B0A3AB72; Thu,  2 Oct 2003 12:29:56 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Thu, 02 Oct 2003 12:29:48 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 10142)
+	id D13453ABE6; Thu,  2 Oct 2003 12:29:47 +0200 (CEST)
+Date: Thu, 2 Oct 2003 12:29:47 +0200
+From: Benjamin PRACHT <bigben@via.ecp.fr>
+To: streaming@videolan.org
+Subject: [streaming] Re: DVB input/output error
+Message-ID: <20031002102947.GB30861@via.ecp.fr>
+References: <616E8968A2CBD011A1FD00805FC135DC405C0F@PUBLIC>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <616E8968A2CBD011A1FD00805FC135DC405C0F@PUBLIC>
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-3.5 required=5.0
+	tests=IN_REP_TO,REFERENCES,USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 876
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: bigben@via.ecp.fr
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Well, I've had the same issues.  satscan from libdvb-0.2.2 is buggy. The
+solution is to  use the version from libdvb-0.4.x, and  the to "convert"
+it  to the  old format  using a  likst od  sed commands.  I've posted  a
+example of command that worked for me  a while ago, but I cannot find it
+anymore. (archives seem broken).
+
+-- 
+$(echo "BigBen")
+
+Oui je quote, et alors ?
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

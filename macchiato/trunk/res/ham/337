@@ -1,0 +1,71 @@
+Return-Path: <garnome-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 3369 invoked by uid 65534); 4 Oct 2003 14:32:30 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx018-rz3) with SMTP; 04 Oct 2003 16:32:30 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id DD5A718308; Sat,  4 Oct 2003 10:32:10 -0400 (EDT)
+Delivered-To: garnome-list@gnome.org
+Received: from pfepc.post.tele.dk (pfepc.post.tele.dk [193.162.153.4])
+	by mail.gnome.org (Postfix) with ESMTP id 37DD718274
+	for <garnome-list@gnome.org>; Sat,  4 Oct 2003 10:31:46 -0400 (EDT)
+Received: from x1-6-00-e0-06-f2-ca-b9.k246.webspeed.dk (unknown [80.162.55.9])
+	by pfepc.post.tele.dk (Postfix) with ESMTP id 6C0802629E4
+	for <garnome-list@gnome.org>; Sat,  4 Oct 2003 16:31:58 +0200 (CEST)
+Subject: Re: PTLib headers missing while compiling gnomemeeting
+From: Jens Bech Madsen <jbm@oncable.dk>
+To: garnome-list@gnome.org
+In-Reply-To: <20031004085539.GA20610@tangerine.coulon.evette>
+References: <20031004085539.GA20610@tangerine.coulon.evette>
+Content-Type: text/plain
+Message-Id: <1065277917.1894.0.camel@blood>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+Sender: garnome-list-admin@gnome.org
+Errors-To: garnome-list-admin@gnome.org
+X-BeenThere: garnome-list@gnome.org
+X-Loop: garnome-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:garnome-list-request@gnome.org?subject=help>
+List-Post: <mailto:garnome-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=subscribe>
+List-Id: For users and developers of the GARNOME distribution of GNOME <garnome-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/garnome-list/>
+Date: Sat, 04 Oct 2003 16:31:58 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Sat, 2003-10-04 at 10:55, Jean-Luc Coulon (f5ibh) wrote:
+> Hi,
+> 
+> I get the following error :
+> checking for long... yes
+> checking size of long... 4
+> checking whether OS type is supported... yes
+> checking for PTLib includes...
+> checking for /usr/include/ptlib/pprocess.h... no
+> configure: error: You need PTLib's header files to build GnomeMeeting
+> make: *** [configure-work/main.d/gnomemeeting-0.98.5/configure]
+> 							Erreur 1
+> 
+> I've a Debian sid system and I cannot figure out where to find the  
+> ptlib.
+
+Install libpt-dev
+
+/Jens
+
+
+
+-- 
+garnome-list mailing list
+garnome-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/garnome-list
+

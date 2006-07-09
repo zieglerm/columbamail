@@ -1,0 +1,97 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 23227 invoked by uid 65534); 3 Oct 2003 08:34:19 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx031-rz3) with SMTP; 03 Oct 2003 10:34:19 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id BC662124A50; Fri,  3 Oct 2003 04:34:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 6B50612415B; Fri,  3 Oct 2003 04:33:25 -0400 (EDT)
+Received: from WDSCEXBHCL01.sc.wdc.com (unknown [129.253.202.20])
+	by listsmx.ximian.com (Postfix) with ESMTP id 3C1A91242C9
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 04:32:54 -0400 (EDT)
+Received: from wdmyexch02.my.asia.wdc.com ([129.253.105.23]) by WDSCEXBHCL01.sc.wdc.com with Microsoft SMTPSVC(5.0.2195.6713);
+	 Fri, 3 Oct 2003 01:32:53 -0700
+X-MimeOLE: Produced By Microsoft Exchange V6.0.6249.0
+content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Subject: RE: [Evolution] e-mail settings
+Message-ID: <C386328088ED7F4E9F81AFBABDDF60DA02AFA9E6@wdmyexch02.my.asia.wdc.com>
+Thread-Topic: [Evolution] e-mail settings
+Thread-Index: AcOJY70OIGK3a8DYRniFwC2C+bzwigAJQCWQ
+From: "Ow Mun Heng" <ow.mun.heng@wdc.com>
+To: <evolution@lists.ximian.com>
+X-OriginalArrivalTime: 03 Oct 2003 08:32:53.0443 (UTC) FILETIME=[F02B4130:01C38988]
+X-Spam-Status: No, hits=-9.0 required=5.0
+	tests=EMAIL_ATTRIBUTION,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_UNCONFIRMED_DSBL
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 3 Oct 2003 16:32:59 +0800
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+>>"Delete messages on server
+
+What about.. Automatically moving messages from my /var/spool/mail =
+directly
+into my Evolution Local Folder? Like in M$ Outlook? (as opposed to =
+manually
+moving them and then deleting them from the loack spool via ctrl-E??
+
+Cheers,
+Mun Heng, Ow
+H/M Engineering
+Western Digital M'sia=20
+DID : 03-7870 5168
+
+
+-----Original Message-----
+From: Eric Lambart [mailto:ximian@nomeaning.net]
+Sent: Friday, October 03, 2003 12:03 PM
+To: evolution@lists.ximian.com
+Subject: Re: [Evolution] e-mail settings
+
+
+Someone else asked the same question two hours later, and I answered
+that one first.  But the answer's the same: No, you can't do that now.
+=3D(
+
+Eric
+
+On Wed, 2003-09-24 at 00:11, fedele@fis.unical.it wrote:
+> Hi,
+> i'm new here and with evolution and this is my question...
+> Can i have in Evolution the following option that i use with Mozilla
+> "Delete messages on server when they are deleted or moved from Inbox"
+> in Mail account settings?
+> Fedele
+--=20
+Eric Lambart <ximian@nomeaning.net>
+No Meaning, Discorporate.
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

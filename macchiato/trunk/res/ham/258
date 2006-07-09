@@ -1,0 +1,65 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 9238 invoked by uid 65534); 3 Oct 2003 16:52:30 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx012-rz3) with SMTP; 03 Oct 2003 18:52:30 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 5B6603AD3C; Fri,  3 Oct 2003 18:51:06 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 18:50:57 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from mail.fr.IPricot.com (imaps.fr.IPricot.com [195.154.74.8])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 774FC3AD36
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 18:50:29 +0200 (CEST)
+Received: from dvb01.fr.ipricot.com (lchaptal.fr.IPricot.com [192.168.31.172])
+	by mail.fr.IPricot.com (8.12.9/8.12.9) with SMTP id h93GoTMi056925
+	for <vlc@videolan.org>; Fri, 3 Oct 2003 18:50:29 +0200 (CEST)
+	(envelope-from Lionnel.Chaptal@IPricot.com)
+Date: Fri, 3 Oct 2003 18:50:28 +0200
+From: Lionnel CHAPTAL <Lionnel.Chaptal@IPricot.com>
+To: vlc@videolan.org
+Subject: [vlc] Re: Video stream from a capture card Win2K
+Message-Id: <20031003185028.7f2e3e51.Lionnel.Chaptal@IPricot.com>
+In-Reply-To: <NGBBJNKFLBODEKKDCHPGEEGHDJAA.jhayter@tveyes.com>
+References: <20031003153621.GA21076@via.ecp.fr>
+	<NGBBJNKFLBODEKKDCHPGEEGHDJAA.jhayter@tveyes.com>
+Organization: IPricot
+X-Mailer: Sylpheed version 0.8.10claws (GTK+ 1.2.10; i386-portbld-freebsd4.3)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-1.9 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5727
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: Lionnel.Chaptal@IPricot.com
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Fri, 3 Oct 2003 11:54:32 -0400
+"James Hayter" <jhayter@tveyes.com> wrote:
+
+> Hey Everyone,
+> 
+> Does anyone know how to get vlc in Windows2K to stream/unicast a live
+> video feed from a capture card?
+
+In my case, I do not use Windows for receiving the stream: a satellite
+router is receiving it and it embeds a PES/PS/TS -> rtp streamer.
+
+Lionnel.
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

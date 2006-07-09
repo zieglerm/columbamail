@@ -1,0 +1,64 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 27708 invoked by uid 65534); 3 Oct 2003 13:21:15 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx007-rz3) with SMTP; 03 Oct 2003 15:21:15 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id B9EEF124A93; Fri,  3 Oct 2003 09:21:05 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id A9C64124A39; Fri,  3 Oct 2003 09:20:55 -0400 (EDT)
+Received: from zok.sgi.com (zok.SGI.COM [204.94.215.101])
+	by listsmx.ximian.com (Postfix) with ESMTP id 353FA1240AA
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 09:20:44 -0400 (EDT)
+Received: from sgoslo.oslo.sgi.com (sgoslo.oslo.sgi.com [144.253.213.2])
+	by zok.sgi.com (8.12.9/8.12.9/linux-outbound_gateway-1.1) with ESMTP id h93DKfq0014102
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 06:20:42 -0700
+Received: from no-kristian-rh9 ([134.15.176.126])
+	by sgoslo.oslo.sgi.com (SGI-8.12.5/8.12.5) with ESMTP id h93DKV6n7119656
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 15:20:40 +0200 (MEST)
+From: Kristian Styrvoll <kristian@sgi.com>
+To: evolution@lists.ximian.com
+Content-Type: text/plain
+Organization: SGI Norge AS
+Message-Id: <1065187228.6148.16.camel@no-kristian-rh9>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-5.7 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] Change / Add program for opening attachments
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 15:20:53 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi!
+
+Just installed OpenOffice 1.1, and want Evolution to open attachment
+with 1.1 instead of 1.0.
+
+Any idea?
+
+Regards
+Kristian
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

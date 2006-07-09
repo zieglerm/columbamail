@@ -1,0 +1,118 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1628 invoked by uid 65534); 2 Oct 2003 18:04:28 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx007-rz3) with SMTP; 02 Oct 2003 20:04:27 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 38FB2124961; Thu,  2 Oct 2003 14:04:06 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 7803912496A; Thu,  2 Oct 2003 14:03:23 -0400 (EDT)
+Received: from skynet.usb.ve (skynet.usb.ve [159.90.200.7])
+	by listsmx.ximian.com (Postfix) with ESMTP id C0EDE124963
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 14:02:51 -0400 (EDT)
+Received: from gnat.dst.usb.ve (gnat.dst.usb.ve [159.90.200.11])
+	by skynet.usb.ve (Postfix) with ESMTP
+	id 3966B397235; Thu,  2 Oct 2003 14:02:39 -0400 (VET)
+Subject: Re: [Evolution] Upgrading Evolution
+From: Patrick O'Callaghan <poc@usb.ve>
+To: Eric Lambart <ximian@nomeaning.net>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065056781.1071.14.camel@wkstn1>
+References: <3F78368B.9080703@aristesoftware.com>
+	 <1064849560.10797.4.camel@tazmanian-devil.boston.ximian.com>
+	 <1064854147.16292.19.camel@gnat.dst.usb.ve>
+	 <3F78969B.9090909@aristesoftware.com>  <1065056781.1071.14.camel@wkstn1>
+Content-Type: text/plain
+Organization: Universidad Simón Bolívar
+Message-Id: <1065117756.1472.100.camel@gnat.dst.usb.ve>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 14:02:37 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Good point. It's hard to know when this is necssary (I've
+often gotten away with not doing it) but it can't hurt.
+
+poc
+
+On Wed, 2003-10-01 at 21:06, Eric Lambart wrote:
+> I presume you're having problems with RH 9.0 (or maybe 8?)... there are
+> many known issues with RPM lockups on that platform.  Deleting the __db
+> files is the key, but I believe after that you should rebuild the
+> database by running "rpm --rebuilddb" as root.  If you're still having
+> problems, I'd try that.
+> 
+> Cheers
+> Eric
+> 
+> On Mon, 2003-09-29 at 13:31, Todd Cary wrote:
+> > Patrick -
+> > 
+> > I forgot to check the privileges!  They are correct: rw,r,r (I need to
+> > learn the octal equivalents).  However, I did change the owner but
+> > that made no difference - as expected.
+> > 
+> > Also, I did "ps - A | grep "rpm".
+> > 
+> > Hmmmmm....is there a way to run the rpm manually?  I am using
+> > 
+> > wget -q -O - http://go.ximian.com|sh
+> > 
+> > Todd
+> > 
+> > Patrick O'Callaghan wrote:
+> > > rpm can sometimes leave its database in a locked state, even
+> > > when no processes are active on it. If this happens, I've found
+> > > that the following works for me (as superuser):
+> > > 
+> > > 	rm /var/lib/rpm/__db.00?
+> > > 
+> > > (the files will be recreated next time rpm runs).
+> > > 
+> > > YMMV of course ...
+> > > 
+> > > poc
+> > > 
+> > > On Mon, 2003-09-29 at 11:32, Jeffrey Stedfast wrote:
+> > >   
+> > > > sounds like your rpm database is locked by another process. you'll have
+> > > > to kill that other process I guess. *shrug*
+> > > > 
+> > > > On Mon, 2003-09-29 at 09:41, Todd Cary wrote:
+> > > >     
+> > > > > When Ximian attempts to install a new version, it almosts gets to the 
+> > > > > end, but this error comes up:
+> > > > > 
+> > > > > Sep 26 12:41:28 Transaction failed: Unable to complete RPM transaction: 
+> > > > > unable to open RPM database: fcntl failed
+> > > > > 
+> > > > > Any suggestions?
+> > > > > 
+> > > > > Todd
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

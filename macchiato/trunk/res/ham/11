@@ -1,0 +1,185 @@
+Return-Path: <rhythmbox-devel-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 2387 invoked by uid 65534); 21 Oct 2003 17:21:18 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx029-rz3) with SMTP; 21 Oct 2003 19:21:18 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id A86EF189A8; Tue, 21 Oct 2003 13:20:53 -0400 (EDT)
+Delivered-To: rhythmbox-devel@gnome.org
+Received: from smtp3.libero.it (smtp3.libero.it [193.70.192.127])
+	by mail.gnome.org (Postfix) with ESMTP id 743E61816A
+	for <rhythmbox-devel@gnome.org>; Tue, 21 Oct 2003 13:19:59 -0400 (EDT)
+Received: from ppp-213-206.98-62.inwind.it (62.98.206.213) by smtp3.libero.it (7.0.020-DD01)
+        id 3F6F04A600A11317 for rhythmbox-devel@gnome.org; Tue, 21 Oct 2003 19:20:12 +0200
+Subject: Re: [Rhythmbox-devel] Rhythmbox artwork proposal and discussion
+From: Luca Ferretti <elle.uca@infinito.it>
+To: RHYTHMBOX mailing list <rhythmbox-devel@gnome.org>
+In-Reply-To: <1066570841.11247.4.camel@neo>
+References: <1066568749.2309.19.camel@localhost>
+	 <1066570841.11247.4.camel@neo>
+Content-Type: multipart/mixed; boundary="=-ppQOySvbvbMSNfb9x80u"
+Message-Id: <1064164913.12136.3.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.5 
+Sender: rhythmbox-devel-admin@gnome.org
+Errors-To: rhythmbox-devel-admin@gnome.org
+X-BeenThere: rhythmbox-devel@gnome.org
+X-Loop: rhythmbox-devel@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:rhythmbox-devel-request@gnome.org?subject=help>
+List-Post: <mailto:rhythmbox-devel@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=subscribe>
+List-Id: Rhythmbox developer discussion <rhythmbox-devel.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/rhythmbox-devel/>
+Date: Sun, 21 Sep 2003 19:23:33 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+On dom, 2003-10-19 at 08:40 -0500, Douglas McMorris wrote:
+> On Sun, 2003-10-19 at 08:07, Luca Ferretti wrote:
+> > I like some ideas/proposal/critics about those icons (24x24 pixels).
+> > 
+
+> Looks very nice.  I like all the icons and I think they get the point
+> across.  The smart playlist icon is a little odd, but I can't think of
+> anything better for it.
+> 
+
+A new five minutes work on smart playlist icon. Just add an 'emblem'
+over stock_new image. The 'emblem' can be used as menu icon (16x16
+pixels)
+
+Personally I love the magic wand one (rb-smart-playlist-4.png) :-)
+
+> Good work.
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Disposition: attachment; filename=rb-smart-playlist-2.png
+Content-Type: image/png; name=rb-smart-playlist-2.png
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+B3RJTUUH0wkVECMrPJosrAAAAzJJREFUeNqtlstvG1UUxn93YidxI0wQ5RUaBUKcTJBYsckKFLFh
+x6pVYIEUiSViE4mukLpHbGm74F+gi/wDLXk0uEmzCCoVSCQlU1LTOElT23ge9xwWMx47jp2H4I6O
+5kpz5nz3fOc7Zwb+hzUzM+Ocxe9TQM9hNeAwn8+r67o6Ozv7O9APmG4AurGxobVaTU9bvu+r79fV
+9+u6s7Ojnufp2tqajoyMeMBFoGNGZwreBKnr/v6e3rr1o5ZKJVVVnZ+f16mpKQvkGyBHkHK5XFf+
+VDW9i0iyh2q1Sl9fHwDT09PMzc052Wz2WyAHmMxphVHVxARjHFSFBItMJkMQhAwODra/9iEwCATm
+aCztGFiVNoDYLwwjtrY2eby9TXH1Hgb4y/uT72/+4AEfAY8ynU7sOM65pVosrrC7u8te+SnAANDT
+kSIRC8Daw22GLuYZyPUx0N9L+VmF0l6F/ec1ntd8nh5UOazWebD5hBtXr/Dm0BCBX+fFF/oBXmoA
+OMcBhPX1+7zvDrN7UCUII/7xA6woQRSDR1YII8uvWyVuXL3Cwk+3icKA4UuXuNAUynEVNQAmXZe1
+1Xu8NzZE+VmVILRkemJXP7T4oeXho7+5/vVllpYWGH1nNH3/jddfbWxNZwBrsWKZmJigWPyZiZHX
+KB/WYtX0OIgoDzaf8N1Xn7C4cIfRt9/CRpaeTGdBdsxArCAqjI8XWF5eojD8CgeVOr3ZDL/8scO1
+Lz5mceEOY2NjiAiOY9LeOBWgfU1OuqzcjUFq9YC5z6ZZXlrEdd0zqetYXpGNUp2T9EKhUACg7ocA
+jI8XiKIw7WoVQZPLJirsCmCtTQO3j4n137zEJ8Jam4zNOGijMdFTMhBrW2ZNYzLH68vLH6Q+qoKo
+Yq1t6Xo9A0VJ6q2nN8BjbwuDSWkQkSOm6f4EioIgSE8EisGAASuCMSYGM03FNALTqIUqehJFlUol
+rQGmOZekA4CBuLgpTc2h2FWmnueBSsxvFwq0dd/yjdBkjolo9wxW7t7mQq+JuU4LbBBNTpz0f/zM
+pHw3gooKq/fX0/K11/fzc370T7JvgHeBftOWzcuJZf/jn0wIlIHyvz/Vs1A80H5tAAAAAElFTkSu
+QmCC
+
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Disposition: attachment; filename=rb-smart-playlist-3.png
+Content-Type: image/png; name=rb-smart-playlist-3.png
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+B3RJTUUH0wkVECIvIuzZ9AAABCZJREFUeNqtlmloVFcUx3/vzUwyk2Uy0dQ1GrPYTLVUscTGlrRq
+NGqpbbWlRqhtBb8VChLsIpTST1HyQQhFu1BaKEJb6hpoDKSkFKy2dYOASxIXhhljzGKikzjvzbv3
+9MNMxpjNSHvhcA/c987//M//3PMe/A+rurranMpzWwF5DBsC7vr9fgkGg7J9+/Z2wAsYEwFIa2ur
+DA0NyaOWZVliWTGxrJh0dnZKOByWs2fPSkFBQRjIA8ZlNKXgD0BicudOnxw5cli6urpERKShoUHK
+y8sV4B8GeQjJ5/ONQb16+RD1e5bScennRBYiaK2TPgwODpKeng7AqlWrqKmpMT0eTx3gAwz3ZKIo
+5TA4FGLbjlpCNy5gxaK4PV5EEudutxvbjhMIBEa/+hIQAOwJAUSEntvtGOYg/sASXO6/uH6theKF
+65AkgmmaLF9eRlPjr/x95h8M4GY4xP6vvs0EMgHTPV5gpRyudZwgdv8e03N8mK5p+H059N6L0Hb5
+GAsK1+JJ8yFakZWVRXFxEbnTp9HT00NfbzfJ4K5xS9TW+gtKBrDsW5QULSAzsBXQzJ1fwLT73XR0
+HKPtYjvZ2cuYMaecQI4/oV9GBrYVIyfbC5A7DDCmnb77ppb7PSdZWDgTX9Z8kF6QfgzXbHxZyygt
+3UQaUX78YS/9XZdxuz3E43GcuM28/HwyHjSKCTCGwZtb3ufa9UbCPfU8V74af85C0rylOLErDPR3
+8OfpP9B6MSsr3yA7rwTLtrDjdur92bNmDLsG412Ixcuqqdq4n5LgbiK38ohELqCVEIpcpLNbEx2c
+RVNjE/MKytFaY1sxlKNwucfvlzEAWmtcLi/zi17Gl/E0NyNxYvf6CN3o4/y5EKur6nh3xwG2vFLG
+nc6raK0xTSN1Nx4JMHLNnLOCzKwyQqGbeL1LOfTTMa5cOs8zSyqo2V3Pq6uf5+6t0KQDbgwvRzmp
+PneZHuyhNE40nyA7O4d99b/x9uZKPvn8AJXrN9F9e4CKFypoOXkKf94TCILSanIApRSIpEBKl77O
+k0teQ2uFabr4/mATmzes47M64a1t73Ej0sWzZStobmlmbn5+Ys5OBqCVGjFrhidzwhcRcvMXcfBw
+I1VVG9izz2HXxx/hTvfx4so1dLRfmkKJnHgq++HABiAIBgaCMLMoyKHjDaxdv5GBaJSdOz+gdm8d
+ynHQo0r0kMi2baOUSpqDVgoRjaMctH6wK6UoLH2Ko8ePsuvD3cyYNY+vv/wiyXISBtFoNKUBRiJ7
+0zTRWmMYRoKNkWhJAwgGS2lvu4hKJpIA0BMzCIfDIBoRjdYPm4zYU76M0AfQWqG1TMzg9KnfyUgz
+ErVOCWygRSd1SNz/xJmRqvdwUC2aM+fOp+Qbre87j/nRn8w+BRYBXmMUm+lJ8/zHP5k40Av0/guU
+s4/3gdoV/wAAAABJRU5ErkJggg==
+
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Disposition: attachment; filename=rb-smart-playlist-4.png
+Content-Type: image/png; name=rb-smart-playlist-4.png
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+B3RJTUUH0wkVECk6rMXk1AAABGNJREFUeNqllmtsFFUUx3+zbWl3W9rSAoK0aRcEin6p+Ah+UEMw
+xKDEYDWgiQ8MiQkSsC4GTIClSgKlkc0mhJQCiaUmhg+2CibCByBEE5VSFZCkKC3ddksfuy3vZac7
+9x4/7HTapUUhTHJyz8ydOf9z/ucxFx7yWrFihet+3nsLkAeQGHAjNzdXysrKZOXKlf8AWYBxLwA5
+f/68xGIx+b/LNE0xzbiYZlx6enokHA5LS0uLlJSUhIHJwLgR3ZfxEZC4XL06KE1NjdLX1yciIkeO
+HJEFCxYoIHc0iKO43e578icizqq1tnW4ffs2mZmZACxcuBCfz+fKyMioAdzDdKXfbay9vZ1gMEgw
+GEREWLdu3bighmFQXl5Ofn7+3VsvAvnAEJAwRpwUxzhAIBBARCMCIhrDcNn3yWgSCYuOjst0d3Vx
++kwzBnAl3MmevQfCwCIgBJgpEXi9XgKBAJWVlWitEdH4fOvHeD8xqw1ttpCe9RTvr9rFpMICotEo
+gwMRgGwgbVyKtFbYDtq6ULOzGhHBMAxEBKUStP5Vi3fmatovNZOXn4Pb42HIjJM3MQtg0mgAVyqA
+RmuV5ExrRGu06ORze41G2kjPiJNX8CQTsjSdHaewEkMUFxXhGSmUsVU0DCBaU71j+4hhlTRuJRK0
+tx0jGjlHYX42rrQCct15mPFeuruOo9QQ06dNdWpgWEmlSCkEQbRdlggiwuXWw4hxk4TVz5zZs8jJ
+fxvQFJd6mfxIhL8vnuRKqIPEndiYfI2laNhjZWFZFqI1X3/1Jdb1Zsoem4EnpwRkAOQaRtp03Dnz
+mTevgly35veWo0yblAowpg9CoRB1+/azatUHFBcXs2mznwnGVL4/9gvlfb8xf/7zTJ7yBFnZ87Di
+F7l+7RI//XyCs+dg7tyn6b168d4AlrKo27efqio/fv9Wtvq3sNW/2a77GL3dp+gfbGPIOkupt4xQ
+1wVu3hDuxIvo7T6Nt/S1MRSlACil8G/ZxEA0ikiSsqrPt6V84MnsprQozNJXnuPkiTNkZs1g8ZIa
+Zs5uxffhGxR4YHBUKlI6ORrpI9TZSX19AxWvL6OsbI4zg5w+SMTpaPuO7ExNZPAmwV3b+GRjA888
+u5ijhw/h960lz8Wrv/ZzAriTkmTLSlBf3wDAt41NKKXQSqH1yIorHTOWQVPjcf5sbqVqWyOfrXmH
+4z82sujlZazZ8AWXrvPDC4VMS4nANE0i/T32rBEMDDCSNA17bxiGM02VUslmFGGg8wLvLX8Tf80e
+XlqylJ07qgkGdzMxjVlODm7duoVSKjmHjSQtLpdrXABjuNNFUEqR9+gcausPUVGxnB0Bi083biA9
+08326po2h6JwOAySHHDJkTEiMmp19FH/CAGmlMzGt/5jVn+0loMHG6isXJua5L21QTwTDAwMhyYw
+0GJ7bL+c3DOcmaXtrteiOdPyB3UHvrGnANTV7nby++4D/vT/SzYDj9uHACeCdKDQloyHPMkkgAFb
+rH8BrhzqdfZd8FMAAAAASUVORK5CYII=
+
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Disposition: attachment; filename=stock_filters.png
+Content-Type: image/png; name=stock_filters.png
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACOUlEQVR42mNgoBAwYxOc3sEaYqDN
+sio2mOXt5t1/r+IzgAldoK5UgEVQXF6/qGqFgLCUvGldmSAXSQZw80lqScrqGggIm4tLyugbSsnI
+BRLlhfpiDuaIMMVQUTElS31dI29+YVfB31+u/fr24/cvRztGMSOtbzcOHv/9F6sB/ZUMQeIy3LaS
+MnK2bu6xSSJS4eIMjOyM/HxfRWRlpcxYmJ8ZMjG85rIz+M6w4xDDQwwDBHgZFgf5R6aZmPsZcfKq
+cTIy/mdkZGRiYGD4y8DCJs0gIqTEzvSPS3XV2jO6sbYMF3afZ3iFYkCIC8P3hy+u///89YaKkMCn
+zyxM35gZGf8z//5+meH964MM+/Yt+Hfi2IEdPKy/N9bOZtiF4YKDZxguWRv/38LE/PfKh8+fP7Cx
+/VATEDDguv9gy9PHj64effVaROnY0VsycgL/a/ecZniPN2FMauPzWL1Qdv3H5wuer5gnv3PeDP//
+Tx5d+X/kwJr/5uoM/zt8GZTwJiRT7Z+P//3+ysbBLiV+6dy+rdt3XPdQ07BkMDJ2YhATk2OYMHd7
+foYGw+JDz/G4pDKeISLQkWFtqDPDnM4MBgMzVYb/65dN///25eP/U7ub/4uwM/wPlmKQJDq9t3sy
+GGgIM/xfPm/a/9cvHv8vLcj5z8bI8F+YBdU7eEGSOoOBMDvD/9nTJv1/9eLx/8ry0v8MDAz/Scp5
++rwMBqyMDP97utr+v3rxmHQDGBgYGDgZGQwYIRr/z5ox5T8A3LvN22bDAkYAAAAASUVORK5CYII=
+
+
+--=-ppQOySvbvbMSNfb9x80u
+Content-Disposition: attachment; filename=stock_standard-filter.png
+Content-Type: image/png; name=stock_standard-filter.png
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA+klE
+QVR42tWSPU7DQBBGH47FjyJRISFFQjRIINlUHIQKjkEJp0gNJ+AanCCicmJBkSBTxARD/myyXq+H
+AjsSgYiELl8zmp15rxgtrHzWiir/Ze2ya/gBtZ1tqlsbVDfXiQZjwrcx76OEUaLo9WOG8YRmu8vN
+1fnUYhXVPTna47Ufk+qMD5ViciHNDACZydGZodUJS9idFXiAe3xQIxrEpNpgV75GShuUNvhPL1xf
+npWwNyuYSg73d4mGCQB2xSLPhWa7S/3i9Ac8Lw4gj0FPWp1Q6rd3UhzZWebCDiANP/gTtua8ewAT
+pb/1ywgAuH94Xvgj/RZZcG/V8wkJB2s1ilAbYwAAAABJRU5ErkJggg==
+
+
+--=-ppQOySvbvbMSNfb9x80u--
+
+_______________________________________________
+rhythmbox-devel mailing list
+rhythmbox-devel@gnome.org
+http://mail.gnome.org/mailman/listinfo/rhythmbox-devel
+

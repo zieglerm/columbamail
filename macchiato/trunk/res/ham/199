@@ -1,0 +1,56 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 29439 invoked by uid 65534); 3 Oct 2003 09:11:30 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx010) with SMTP; 03 Oct 2003 11:11:30 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id D00D83AC89; Fri,  3 Oct 2003 11:11:18 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 11:11:10 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from smtp2.vol.cz (smtp2.vol.cz [195.250.128.42])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 8EE913AC69
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 11:10:38 +0200 (CEST)
+Received: from rfa.org (datela-1-4-58.dialup.vol.cz [212.20.98.93])
+	by smtp2.vol.cz (8.12.8p2/8.12.8) with ESMTP id h939AbQ2063162
+	for <vlc@videolan.org>; Fri, 3 Oct 2003 11:10:38 +0200 (CEST)
+	(envelope-from bill@rfa.org)
+Message-ID: <3F7D3D0B.4020102@rfa.org>
+Date: Fri, 03 Oct 2003 11:10:35 +0200
+From: Bill Eldridge <bill@rfa.org>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030624
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: vlc@videolan.org
+Subject: [vlc] Windows Mozilla plugin available?
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-0.1 required=5.0
+	tests=USER_AGENT_MOZILLA_UA,X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5706
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bill@rfa.org
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+Howdy,
+
+   Is there a binary of the Windows Mozilla plugin available yet?
+
+Thanks,
+Bill
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

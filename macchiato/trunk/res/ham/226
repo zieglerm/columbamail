@@ -1,0 +1,67 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 15287 invoked by uid 65534); 3 Oct 2003 13:53:13 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx006-rz3) with SMTP; 03 Oct 2003 15:53:13 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 77764124ABD; Fri,  3 Oct 2003 09:53:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 61BC0124ABB; Fri,  3 Oct 2003 09:52:39 -0400 (EDT)
+Received: from mail.exchange.ximian.com (mr-nutty.ximian.com [141.154.95.31])
+	by listsmx.ximian.com (Postfix) with ESMTP id E3C6C124AB6
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 09:52:27 -0400 (EDT)
+Subject: Re: [Evolution] Change / Add program for opening attachments
+From: Dan Winship <danw@ximian.com>
+To: Kristian Styrvoll <kristian@sgi.com>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065187228.6148.16.camel@no-kristian-rh9>
+References: <1065187228.6148.16.camel@no-kristian-rh9>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Message-Id: <1065189498.7740.10.camel@twelve-monkeys.boston.ximian.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 09:58:18 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Fri, 2003-10-03 at 09:20, Kristian Styrvoll wrote:
+> Hi!
+> 
+> Just installed OpenOffice 1.1, and want Evolution to open attachment
+> with 1.1 instead of 1.0.
+
+The easy hack way to do this is:
+
+        su
+        rm /usr/bin/ooffice
+        ln -s /usr/bin/ooo-wrapper1.1 /usr/bin/ooffice
+
+(This works for the Ximian OOo1.1 snaps at least.)
+
+-- Dan
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

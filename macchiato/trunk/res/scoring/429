@@ -1,0 +1,142 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8715 invoked by uid 65534); 18 Dec 2003 19:37:28 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx014-rz3) with SMTP; 18 Dec 2003 20:37:28 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 8E19D124203; Thu, 18 Dec 2003 14:37:05 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id CBA591241A5; Thu, 18 Dec 2003 14:36:36 -0500 (EST)
+Received: from simmts6-srv.bellnexxia.net (simmts6.bellnexxia.net [206.47.199.164])
+	by listsmx.ximian.com (Postfix) with ESMTP id E3CDD124203
+	for <evolution@lists.ximian.com>; Thu, 18 Dec 2003 14:36:05 -0500 (EST)
+Received: from ftimserv.fluidtec.nb.ca ([142.166.20.58])
+          by simmts6-srv.bellnexxia.net
+          (InterMail vM.5.01.06.05 201-253-122-130-105-20030824) with ESMTP
+          id <20031218193603.POXU13492.simmts6-srv.bellnexxia.net@ftimserv.fluidtec.nb.ca>
+          for <evolution@lists.ximian.com>; Thu, 18 Dec 2003 14:36:03 -0500
+From: Phil McClure <pmcclure@fluidtec.nb.ca>
+To: evolution@lists.ximian.com
+Content-Type: multipart/alternative; boundary="=-rbsC5NR4o4i20ICqaMMB"
+Organization: Fluid Technologies Inc.
+Message-Id: <1071761722.3469.15.camel@linuxhost.fluidtec.nb.ca>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+X-Spam-Status: No, hits=-5.1 required=5.0
+	tests=DATE_IN_PAST_03_06,HTML_30_40,HTML_MESSAGE,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] XD2 - Help
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 18 Dec 2003 11:35:24 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+
+--=-rbsC5NR4o4i20ICqaMMB
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+I insatlled XD2 and have been trying to get ghfaxviewer to print as it
+generates a number of error messages from gnome-print.
+
+I have tried to make system as uptodate as possible but the following is
+an endless circular
+
+Current is                                  
+gdk-pixbuf-0.18.0-223                    XD2 symbol beside rpm
+Red-carpet wants to install    gdk-0.22.0-0.ximian.7.8                 
+XD2 symbol beside rpm
+
+
+Red-Carpet also wants to install as required  gtk  & devel
+1.2.10-546.ximian.7.48 
+
+This is lower level than installed
+	________________________________________
+
+	gtk-devel-1.2.10-552
+	gtk-1.2.10-552
+
+If I do this I then get into endless loop as the Red-Carpet wants me to
+install
+
+gtk & gtk-devel 1.2.10-552 replacing gtk  & devel 1.2.10-546.ximian.7.48
+just installed 
+but also requiring gdk-pixbuf &  devel 0.18.0-233 which starts loop all
+over again
+
+Help
+
+-- 
+Phil McClure <pmcclure@fluidtec.nb.ca>
+Fluid Technologies Inc.
+
+--=-rbsC5NR4o4i20ICqaMMB
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN">
+<HTML>
+<HEAD>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
+  <META NAME="GENERATOR" CONTENT="GtkHTML/3.0.9">
+</HEAD>
+<BODY>
+I insatlled XD2 and have been trying to get ghfaxviewer to print as it generates a number of error messages from gnome-print.<BR>
+<BR>
+I have tried to make system as uptodate as possible but the following is an endless circular<BR>
+<BR>
+Current is&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gdk-pixbuf-0.18.0-223&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XD2 symbol beside rpm<BR>
+Red-carpet wants to install&nbsp;&nbsp;&nbsp; gdk-0.22.0-0.ximian.7.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XD2 symbol beside rpm<BR>
+<BR>
+<BR>
+Red-Carpet also wants to install as required&nbsp; gtk&nbsp; &amp; devel 1.2.10-546.ximian.7.48 <BR>
+<BR>
+This is lower level than installed<BR>
+	________________________________________<BR>
+<BR>
+	gtk-devel-1.2.10-552<BR>
+	gtk-1.2.10-552<BR>
+<BR>
+If I do this I then get into endless loop as the Red-Carpet wants me to install<BR>
+<BR>
+gtk &amp; gtk-devel 1.2.10-552 replacing gtk&nbsp; &amp; devel 1.2.10-546.ximian.7.48 just installed <BR>
+but also requiring gdk-pixbuf &amp;&nbsp; devel 0.18.0-233 which starts loop all over again<BR>
+<BR>
+Help<BR>
+<BR>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%">
+<TR>
+<TD>
+-- <BR>
+Phil McClure &lt;<A HREF="mailto:pmcclure@fluidtec.nb.ca"><U>pmcclure@fluidtec.nb.ca</U></A>&gt;<BR>
+Fluid Technologies Inc.
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+
+--=-rbsC5NR4o4i20ICqaMMB--
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

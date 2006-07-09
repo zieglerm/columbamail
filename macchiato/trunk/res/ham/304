@@ -1,0 +1,51 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 2399 invoked by uid 65534); 3 Oct 2003 22:01:02 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx019-rz3) with SMTP; 04 Oct 2003 00:01:02 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 7A92A3AC2D; Sat,  4 Oct 2003 00:00:50 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Sat, 04 Oct 2003 00:00:42 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 10142)
+	id BE0D23AB94; Sat,  4 Oct 2003 00:00:41 +0200 (CEST)
+Date: Sat, 4 Oct 2003 00:00:41 +0200
+From: Benjamin PRACHT <bigben@via.ecp.fr>
+To: vlc@videolan.org
+Subject: [vlc] Re: Romar Frazier
+Message-ID: <20031003220041.GF30659@via.ecp.fr>
+References: <1065201746.1136200fraziero@erau.edu>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1065201746.1136200fraziero@erau.edu>
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-3.5 required=5.0
+	tests=IN_REP_TO,REFERENCES,USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5734
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bigben@via.ecp.fr
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+You could try the http interface, using sockets...
+
+-- 
+$(echo "BigBen")
+
+Oui je quote, et alors ?
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

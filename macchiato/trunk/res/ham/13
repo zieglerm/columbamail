@@ -1,0 +1,122 @@
+Return-Path: <gnome-multimedia-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 31439 invoked by uid 65534); 6 Oct 2003 15:01:31 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx030-rz3) with SMTP; 06 Oct 2003 17:01:31 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 8C2CD189F8; Mon,  6 Oct 2003 11:01:10 -0400 (EDT)
+Delivered-To: gnome-multimedia@gnome.org
+Received: from rzaixsrv2.rrz.uni-hamburg.de (rzaixsrv2.rrz.uni-hamburg.de [134.100.32.71])
+	by mail.gnome.org (Postfix) with ESMTP id 78E371835C
+	for <gnome-multimedia@gnome.org>; Thu, 25 Sep 2003 10:02:04 -0400 (EDT)
+Received: from rzaixsrv6.rrz.uni-hamburg.de (rzaixsrv6.rrz.uni-hamburg.de [134.100.32.73])
+	by rzaixsrv2.rrz.uni-hamburg.de (8.12.10/8.12.9) with ESMTP id h8PE2Fg1026482
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 25 Sep 2003 16:02:15 +0200
+Received: (from http@localhost)
+	by rzaixsrv6.rrz.uni-hamburg.de (8.12.9/8.12.9/Submit) id h8PE2FZR031608;
+	Thu, 25 Sep 2003 16:02:15 +0200
+Received: from panoramix.lhsystems.com (panoramix.lhsystems.com [193.24.32.36]) 
+	by rzaixsrv6.rrz.uni-hamburg.de (IMP) with HTTP 
+	for <in7y118@public.uni-hamburg.de>; Thu, 25 Sep 2003 16:02:14 +0200
+Message-ID: <1064498534.3f72f566de54a@rzaixsrv6.rrz.uni-hamburg.de>
+From: in7y118@public.uni-hamburg.de
+To: gnome-multimedia <gnome-multimedia@gnome.org>,
+	gstreamer-devel <gstreamer-devel@lists.sourceforge.net>
+Subject: Re: [gst-devel] error handling in GStreamer
+References: <1063735565.31250.78.camel@ana.onshuis>  <1064483908.23019.285.camel@dhcp-116.surrey.redhat.com>  <1064487716.11236.26.camel@ana.onshuis> <1064488885.23019.315.camel@dhcp-116.surrey.redhat.com>
+In-Reply-To: <1064488885.23019.315.camel@dhcp-116.surrey.redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2
+Sender: gnome-multimedia-admin@gnome.org
+Errors-To: gnome-multimedia-admin@gnome.org
+X-BeenThere: gnome-multimedia@gnome.org
+X-Loop: gnome-multimedia@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:gnome-multimedia-request@gnome.org?subject=help>
+List-Post: <mailto:gnome-multimedia@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/gnome-multimedia>,
+	<mailto:gnome-multimedia-request@gnome.org?subject=subscribe>
+List-Id: GNOME Multimedia development <gnome-multimedia.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/gnome-multimedia>,
+	<mailto:gnome-multimedia-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/gnome-multimedia/>
+Date: Thu, 25 Sep 2003 16:02:14 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Quoting Bastien Nocera <hadess@hadess.net>:
+
+> > I've gotten a lot of "if it's a programming error".  The simple fact is
+> > that I've never regarded errors as either "programming" or "user"
+> > errors.  Especially for multimedia apps/libs, this is a wrong
+> > distinction to make.  Consider:
+> > a) a user tries to play a video file
+> > b) GStreamer tries to detect type and play it
+> > c) Suppose gst gets the type wrong and can't play the file.  The user
+> > will get a popup saying "This file cannot be played/is broken/...".  The
+> > user tries with some other app, and it plays.  What went wrong ?
+> > d) Suppose gst gets the type right, but there is some error in the file
+> > and it can't decode it properly.  User gets the same popup.  It plays
+> > mostly fine in another app.  What went wrong ?
+> 
+> You just need more fine-grained errors then.
+> 
+I thought about that a lot, too. And I think the "There's only user error or 
+application error" point of view makes sense for GUI apps, but this concept is 
+based on GUI apps.
+See, your average GUI app gets an event from the X server and reacts to it. So 
+if something goes wrong when reacting to the event, you can pretty much figure 
+out from the event and the state of your app what went wrong.
+But unfortunately GStreamer has a different way of working: It is possible for 
+GStreamer to do stuff for hours without user interaction. So the bug report 
+will most likely be "I pressed play, waited an hour and then got this error." 
+instead of "After marking this element and performing that operation, the 
+result wasn't what I expected.", which is not very helpful for us.
+
+The error will most likely be recoverable (clean up the pipeline, start over) 
+and in most cases does not require a bug report because it is an easily 
+detectable user error. So you can't automagically pop up bug buddy to file a 
+bug with that debug output attached unfortunately. You have to make it possible 
+to provide all this information to the user and allow him to decide if filing a 
+bug is the correct thing to do.
+
+Suppose a filesrc ! demuxer ! decoder pipeline and the decoder spitting out an 
+error. Was that because the demuxer has a programming error or because filesrc 
+read an invalid file? How do you know from "invalid data"? You only get an idea 
+by getting the file _and_ the detailed error message "Looking at position 0x3F 
+of header reported ID 0xFFFF instead of 0x7A2B", that the demuxer is not 64bit 
+safe and overwrites bounds in a memcpy on the users Itanium.
+(note: bug constructed ;))
+
+> That should be appearing in the debug info, on the command-line.
+[...]
+> You would tell the user: "Turn on debugging in the application, try
+> playing it again, and send us the output". Even xine is very quiet these
+> days when it comes to outputting debug.
+> 
+"Could you please restart your AVI with debugging enabled and wait another hour 
+and hopefully reproduce the error?"
+
+> When we get to the point where we have 5 webcam applications, I'll start
+> worrying ;)
+> 
+We're clever by design :p
+
+> I prefer hidden -> the user needs to explicitely ask for the debug info
+> to be shown.
+> 
+Agreed. But you can tell your app to not provide the debugging info anyway. It 
+doesn't force you. Though people'll probably need it ;)
+
+Benjamin
+_______________________________________________
+gnome-multimedia mailing list
+gnome-multimedia@gnome.org
+http://mail.gnome.org/mailman/listinfo/gnome-multimedia
+

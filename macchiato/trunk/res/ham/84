@@ -1,0 +1,121 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 5206 invoked by uid 65534); 2 Oct 2003 10:31:46 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx018) with SMTP; 02 Oct 2003 12:31:46 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id A198D3AC14; Thu,  2 Oct 2003 12:31:34 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 12:31:26 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from ra.abo.fi (ra.abo.fi [130.232.213.1])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 47FFE3ABF4
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 12:30:58 +0200 (CEST)
+Received: from humboldt.abo.fi (humboldt.abo.fi [130.232.213.83])
+	by ra.abo.fi (8.12.5/8.12.5) with ESMTP id h92AUuf1019120
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 13:30:57 +0300 (EET DST)
+Received: (from nobody@localhost)
+	by humboldt.abo.fi (8.11.6/8.8.7) id h92APjb10411
+	for vlc@videolan.org; Thu, 2 Oct 2003 13:25:45 +0300
+X-Authentication-Warning: humboldt.abo.fi: nobody set sender to jusuomin@abo.fi using -f
+Received: from stream.cs.abo.fi (stream.cs.abo.fi [130.232.85.133]) 
+	by webmail.abo.fi (IMP) with HTTP 
+	for <jusuomin@localhost>; Thu,  2 Oct 2003 13:25:45 +0300
+Message-ID: <1065090345.3f7bfd295cc89@webmail.abo.fi>
+Date: Thu,  2 Oct 2003 13:25:45 +0300
+From: jusuomin@abo.fi
+To: vlc@videolan.org
+Subject: [vlc] Re: Streaming a dvb-t channel with vlc?
+References: <1065082691.3f7bdf4327137@webmail.abo.fi> <3F7BE7E6.7060603@natlab.research.philips.com> <1065086612.3f7bee948b2ba@webmail.abo.fi>
+In-Reply-To: <1065086612.3f7bee948b2ba@webmail.abo.fi>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2.1
+X-Originating-IP: 130.232.85.133
+X-Spam-Checking-Host: melitta.abo.fi
+X-Spam-Status: No, hits=-1.3 required=5.0
+	tests=IN_REP_TO,NO_REAL_NAME,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_IMP,X_AUTH_WARNING
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5696
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: jusuomin@abo.fi
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Quoting jusuomin@abo.fi:
+
+> > It doesn't say it is an invalid frequency it says that tuning
+> > failed.
+> 
+> Well, it also says that the frequency is invalid:
+> 
+> [00000157] dvb input warning: invalid frequency 714000000 (Hz),
+> using
+> default one
+
+I think I found the reason for this. In modules/access/dvb/access.c
+lines: 146-149
+
+        frontend_info.frequency_max =   12999000;
+        frontend_info.frequency_min =    9750000;
+        frontend_info.symbol_rate_max = 30000000;
+        frontend_info.symbol_rate_min =  1000000;
+
+Why are these values hardcoded? Especially given the fact that e.g. here
+in Finland the terrestrial broadcasts come on frequencies between 538
+and 714 MHz, which are way higher than the maximum values above?
+
+I tried multiplying the frontend_info.frequency_max with 100 and
+remaking the executable. That took care of the invalid frequency report,
+but the tunig still fails, although with different statuc codes.
+
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x03!!!
+....tuning failed
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x03!!!
+....tuning failed
+[00000298] dvb input error: frontend returned a failure event
+[00000298] dvb input debug: using default values for frontend info
+[00000298] dvb input debug: method of access is terrestrial
+[00000298] main input error: option guard does not exist
+[00000298] dvb input debug: terrestrial dvb has guard interval not set,
+using auto
+[00000298] dvb input debug: terrestrial (OFDM) frontend found on
+/dev/dvb/adapter0/frontend0
+[00000298] dvb input debug: opening DVR device '/dev/dvb/adapter0/dvr0'
+[00000298] dvb input debug: Opening frontend /dev/dvb/adapter0/frontend0
+[00000298] dvb input debug: ioctl_SetupSwitch: switch pos 0, 13V, hiband
+[00000298] dvb input debug: ioctl_SetupSwitch: index 2
+[00000298] dvb input debug: DiseqcSendMsg(): e0 10 38 f1 00 00
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x03!!!
+....tuning failed
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x03!!!
+....tuning failed
+[00000298] dvb input debug: ioctl_SetFrontend: tuning status == 0x03!!!
+....tuning failed
+[00000298] dvb input error: frontend returned a failure event
+
+Where is the tuning code located? Is it in access.c or dvb.c (I haven't
+had time to look them through properly yet), and where is the code
+called from? I thought that I'd compare it with the dvbtune code and see
+if that would help me..
+
+-JP
+
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

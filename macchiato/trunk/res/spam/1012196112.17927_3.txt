@@ -1,0 +1,78 @@
+Return-Path: <mp3encoder-admin@minnie.tuhs.org>
+Delivered-To: lists-mp3encoder@bruce-guenter.dyndns.org
+Received: (qmail 27732 invoked from network); 25 Jan 2002 12:10:03 -0000
+Received: from minnie.tuhs.org (131.245.7.145)
+  by lorien.untroubled.org (192.168.1.3) with ESMTP; 25 Jan 2002 12:10:03 -0000
+Received: from minnie.tuhs.org (localhost [127.0.0.1])
+	by minnie.tuhs.org (8.11.3/8.11.3) with ESMTP id g0PC8pa23953;
+	Fri, 25 Jan 2002 22:08:52 +1000 (EST)
+	(envelope-from mp3encoder-admin@minnie.tuhs.org)
+Received: from guardian-ext.bond.edu.au (guardian-int.bond.edu.au [131.244.2.1])
+	by minnie.tuhs.org (8.11.3/8.11.3) with ESMTP id g0PBd8a23507
+	for <mp3encoder@minnie.tuhs.org>; Fri, 25 Jan 2002 21:39:08 +1000 (EST)
+	(envelope-from sales@thephonedome.com)
+Received: (from smap@localhost)
+	by guardian-ext.bond.edu.au (8.8.5/8.8.5) id VAA16533
+	for <mp3encoder@minnie.tuhs.org>; Fri, 25 Jan 2002 21:39:02 +1000
+Received: from host213-123-189-80.in-addr.btopenworld.com(213.123.189.80) by guardian-ext.bond.edu.au via smap (V2.1/2.1+anti-relay+anti-spam)
+	id xma016525; Fri, 25 Jan 02 21:38:57 +1000
+From: "The Phone Dome" <sales@thephonedome.com>
+To: mp3encoder@minnie.tuhs.org
+X-Mailer: Mach5 Mailer-2.50 PID{f4d082d0-1185-11d6-b0a2-0050fc20a23c} RC{Registered}
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----000000000000000000000"
+Message-ID: <200212511299802UFRDIWWBMWKG@M5Mailer>
+Subject: [MP3 ENCODER] Protect Yourself from mobile/cell phone radiation
+Sender: mp3encoder-admin@minnie.tuhs.org
+Errors-To: mp3encoder-admin@minnie.tuhs.org
+X-BeenThere: mp3encoder@minnie.tuhs.org
+X-Mailman-Version: 2.0.8
+Precedence: bulk
+Reply-To: mp3encoder@minnie.tuhs.org
+X-Reply-To: sales@thephonedome.com
+List-Help: <mailto:mp3encoder-request@minnie.tuhs.org?subject=help>
+List-Post: <mailto:mp3encoder@minnie.tuhs.org>
+List-Subscribe: <http://minnie.tuhs.org/mailman/listinfo/mp3encoder>,
+	<mailto:mp3encoder-request@minnie.tuhs.org?subject=subscribe>
+List-Id: MP3 encoders development list <mp3encoder.minnie.tuhs.org>
+List-Unsubscribe: <http://minnie.tuhs.org/mailman/listinfo/mp3encoder>,
+	<mailto:mp3encoder-request@minnie.tuhs.org?subject=unsubscribe>
+List-Archive: <http://minnie.tuhs.org/pipermail/mp3encoder/>
+Date: Fri, 25 Jan 2002 11:29:09 -0000
+Content-Length: 1403
+
+------000000000000000000000
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+ARE YOU BURNING YOUR BRAIN? GET THE PHONE DOME - ABSORBS 99% OF 
+HARMFUL RADIATION 
+
+www.thephonedome.com
+
+Mobile / Cell phones are bad for you - everyone knows it and research 
+has proven links with several forms of cancer. The world's leading 
+phone makers have even agreed to start publishing information about 
+the levels of radiation emitted by their phones. Recently launched 
+the PHONE DOME, a tiny anti-radiation safety accessory made up of 
+micro crystals that neutralise and change the negative effects of all 
+mobile/cell phones reducing harmful radiation by over 99% without any 
+adverse effects on the phone's functionality. Acting as an energy 
+cell the PHONE DOME creates a positive energy cell alteration within 
+the radiation fields emitted from the mobile/cell phones. The PHONE 
+DOME weighs less than a paperclip and simply sticks onto the back of 
+a phone.
+
+"The PHONE DOME is a Bio-Radiation shield the size of a button easily 
+attached to a mobile phone…for transforming the negative emissions 
+and thereby helping to protect you." John G Walker. H.F Rad. A.I.C.R.
+S.Hom. RADIONICS Expert.
+
+
+------000000000000000000000--
+_______________________________________________
+mp3encoder mailing list
+mp3encoder@minnie.tuhs.org
+http://minnie.tuhs.org/mailman/listinfo/mp3encoder

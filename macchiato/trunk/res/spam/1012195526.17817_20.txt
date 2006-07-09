@@ -1,0 +1,41 @@
+Return-Path: <owner-openssh-unix-dev@mindrot.org>
+Delivered-To: openssh-unix-dev-list-93873@shitei.mindrot.org
+Received: by shitei.mindrot.org (Postfix, from userid 1000)
+	id BC4332DF53; Sat, 15 Dec 2001 01:06:22 +1100 (EST)
+Received: from ns.russlan.com (ns.russlan.com [195.42.79.40])
+	by shitei.mindrot.org (Postfix) with ESMTP
+	id 959E72DF0E; Sat, 15 Dec 2001 01:06:06 +1100 (EST)
+Received: from user2 (user1.russlan.com [192.168.0.101])
+	by ns.russlan.com (8.10.1/8.8.7) with SMTP id fBEE23b13155;
+	Fri, 14 Dec 2001 17:02:03 +0300
+Message-Id: <200112141402.fBEE23b13155@ns.russlan.com>
+From: "Transcargo" <vitaliy21@yandex.ru>
+To: "Transcarco"@ns.russlan.com
+Subject: =?Windows-1251?Q?=D0=F3=EA=EE=E2=EE=E4=E8=F2=E5=EB=FE=20?=
+ =?Windows-1251?Q?=D1=D0=CE=D7=CD=CE!!!?=
+Date: Fri, 14 Dec 2001 17:02:35 Московское время (зима)
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="windows-1251"
+Content-Transfer-Encoding: 8bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: 'WE' Group Spamer
+Sender: owner-openssh-unix-dev@mindrot.org
+Precedence: bulk
+Content-Length: 504
+
+
+WWW.TRANSCARGO.RU
+
+
+Транспортно-экспедиторская компания "Руссланд Экспедитор" свидетельствует
+Вам свое почтение и предлагает  услуги по перевозке  грузов из любой точки до места назначения.
+
+Сфера деятельности компании "Руссланд Экспедитор" 
+-	организация международных  грузовых  перевозок,  перевозок по территории России
+и стран  СНГ всеми видами транспорта, таможенное оформление  экспортных, импортных и транзитных грузов, консолидированные перевозки по России ( 66 городов), складские услуги.
+
+
+
+

@@ -1,0 +1,48 @@
+Return-Path: <test675741@hotbot.com>
+Delivered-To: em-ca-bait@em.ca
+Received: (qmail 22323 invoked from network); 28 Jan 2002 03:15:00 -0000
+Received: from unknown (HELO hotbot.com) (217.66.164.43)
+  by agamemnon.bfsmedia.com with SMTP; 28 Jan 2002 03:15:00 -0000
+Received: from 98.37.68.60 ([98.37.68.60]) by rly-xw05.mx.aol.com with NNFMP; 28 Jan 2002 07:18:35 -0400
+Received: from unknown (HELO mta05bw.bigpond.com) (45.246.118.61)
+	by mta05bw.bigpond.com with NNFMP; Sun, 27 Jan 2002 15:05:13 +1200
+Reply-To: <test675741@hotbot.com>
+Message-ID: <007c74a35bea$6424b8e0$8cb18ba5@xqyacr>
+From: <test675741@hotbot.com>
+To: <bait@em.ca>
+Subject: INCREASED SENSATION (8258QkCu@8)
+MiME-Version: 1.0
+Content-Type: text/html; charset="iso-8859-1"
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2462.0000
+Importance: Normal
+Content-Length: 862
+Lines: 26
+
+<HTML>
+	<HEAD>
+		<TITLE>ViaPro</TITLE>
+		
+	</HEAD>
+	<BODY BGCOLOR="#FFFFFF">
+		<CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="502">
+			<TR>
+		<TD VALIGN=TOP>
+<a href="http://www.30-day-trial.com">
+<IMG SRC="http://www.30-day-trial.com/mail/1_1.jpg" WIDTH="226" HEIGHT="183" BORDER="0"></a></TD>
+				<TD VALIGN=TOP>
+<a href="http://www.30-day-trial.com">
+<IMG SRC="http://www.30-day-trial.com/mail/2_1.gif" WIDTH="276" HEIGHT="183" BORDER="0"></a></TD>
+			</TR>
+			<TR>
+		<TD COLSPAN="2" VALIGN=TOP>
+<a href="http://www.30-day-trial.com">
+<IMG SRC="http://www.30-day-trial.com/mail/1_1-2.gif" WIDTH="502" HEIGHT="126" BORDER="0"></a></TD>
+</TR></TABLE></CENTER>
+<font face="arial" size=1.5><p align="center">
+<b>To be removed from future mailings 
+<a href="http://www.30-day-trial.com/remove.html">CLICK HERE</a></b></p></font>
+</BODY>
+</HTML>
+

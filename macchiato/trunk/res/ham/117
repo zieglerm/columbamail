@@ -1,0 +1,78 @@
+Return-Path: <garnome-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 26264 invoked by uid 65534); 2 Oct 2003 12:18:35 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx011) with SMTP; 02 Oct 2003 14:18:35 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 57FDF18780; Thu,  2 Oct 2003 08:18:05 -0400 (EDT)
+Delivered-To: garnome-list@gnome.org
+Received: from mail.messagingengine.com (out2.smtp.messagingengine.com [66.111.4.26])
+	by mail.gnome.org (Postfix) with ESMTP id 1D89C1868B
+	for <garnome-list@gnome.org>; Thu,  2 Oct 2003 08:17:19 -0400 (EDT)
+Received: from mail.messagingengine.com (localhost [127.0.0.1])
+	by localhost.localdomain (Postfix) with ESMTP id 095A32562A9
+	for <garnome-list@gnome.org>; Thu,  2 Oct 2003 08:17:31 -0400 (EDT)
+Received: from 10.202.2.150 ([10.202.2.150] helo=mail.messagingengine.com) by messagingengine.com
+  with SMTP; Thu, 02 Oct 2003 08:17:31 -0400
+X-Epoch: 1065097051
+X-Sasl-enc: cRsol6JHIxCPqrmdOd8p7g
+Received: from slipstream.sandgarden (unknown [69.26.137.30])
+	by mail.messagingengine.com (Postfix) with ESMTP id 4B9F92578B3
+	for <garnome-list@gnome.org>; Thu,  2 Oct 2003 08:17:30 -0400 (EDT)
+From: BillG <wgerrard@f-m.fm>
+To: garnome-list@gnome.org
+Subject: Re: ORBit_zero_init Errors on SuSE 8.2 Compile of Epiphany
+Message-Id: <20031002081731.76450a06.wgerrard@f-m.fm>
+In-Reply-To: <1065042107.8654.3.camel@blood>
+References: <20031001165456.21cd9e80.wgerrard@f-m.fm>
+	<1065042107.8654.3.camel@blood>
+X-Mailer: Sylpheed version 0.8.10claws72 (GTK+ 1.2.10; i686-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Sender: garnome-list-admin@gnome.org
+Errors-To: garnome-list-admin@gnome.org
+X-BeenThere: garnome-list@gnome.org
+X-Loop: garnome-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:garnome-list-request@gnome.org?subject=help>
+List-Post: <mailto:garnome-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=subscribe>
+List-Id: For users and developers of the GARNOME distribution of GNOME <garnome-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/garnome-list/>
+Date: Thu, 2 Oct 2003 08:17:31 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+The entire build compiled and installed successfully after I upgraded the pre-release GCC that shipped with SuSE 8.2 with the GCC 3.3.1 that SuSE makes available from their ftp site. Exception: gnome-meeting complained it couldn't find ptlib.  I don't need it, so I commented it out.
+
+On Wed, 01 Oct 2003 23:01:47 +0200
+Jens Bech Madsen <jbm@oncable.dk> wrote:
+
+> On Thu, 2003-10-02 at 01:54, BillG wrote:
+> > Running through 0.27.1 on a fresh SuSE 8.2 installation (with SuSE's
+> > Mozilla 1.4 installed instead of the the 1.2.1 that ships with 8.2),
+> > all goes well until the Ephiphany build coughes this up:
+> > 
+> > EphyAutomation-common.c:11: warning: `ORBit_zero_int' defined but not used
+> > ......
+> > An identical problem was posted to the list on 15 September, prompting a suggestion to 
+> > remove the "-Werror" option in the makefiles.  I tried that, but it spawns other errors.
+> 
+> What other errors? The problem listed above should go away if you remove
+> -Werror from the makefiles. Can't say for your other problems without
+> seeing what they are.
+> 
+> 
+> /Jens
+-- 
+garnome-list mailing list
+garnome-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/garnome-list
+

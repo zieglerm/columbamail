@@ -1,0 +1,59 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 13197 invoked by uid 65534); 3 Oct 2003 22:00:17 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx004) with SMTP; 04 Oct 2003 00:00:17 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 162FC3AC29; Fri,  3 Oct 2003 23:59:55 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 23:59:46 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 10142)
+	id 5E72D3AB94; Fri,  3 Oct 2003 23:59:46 +0200 (CEST)
+Date: Fri, 3 Oct 2003 23:59:46 +0200
+From: Benjamin PRACHT <bigben@via.ecp.fr>
+To: vlc@videolan.org
+Subject: [vlc] Re: Questions about VLC
+Message-ID: <20031003215946.GE30659@via.ecp.fr>
+References: <1065199436.3f7da74cd1026@webmail.sce.carleton.ca>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1065199436.3f7da74cd1026@webmail.sce.carleton.ca>
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-3.5 required=5.0
+	tests=IN_REP_TO,REFERENCES,USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5733
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bigben@via.ecp.fr
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Well, everything  depends on what  you want  to do. About  the playback,
+something aroud a PII 300 should be  enough for MPEG 2 streams, PIII 500
+for MEPG4.
+
+About the server,  to stream files or digital  TV/satellite streams, you
+can stream several (4 - 5) channels on a PII 400.
+
+To transcode  a stream in real  time, you would need  something around a
+PIV 1.5 GHz.
+
+-- 
+$(echo "BigBen")
+
+Oui je quote, et alors ?
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

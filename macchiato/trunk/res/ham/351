@@ -1,0 +1,415 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 20846 invoked by uid 65534); 9 Oct 2003 12:14:51 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx033-rz3) with SMTP; 09 Oct 2003 14:14:51 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 5226E188C7; Thu,  9 Oct 2003 08:14:07 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from localhost.localdomain (unknown [195.64.36.203])
+	by mail.gnome.org (Postfix) with ESMTP id A8901186C8
+	for <nautilus-list@gnome.org>; Thu,  9 Oct 2003 08:13:39 -0400 (EDT)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by localhost.localdomain (8.11.6/8.11.6) with ESMTP id h99CDr411128
+	for <nautilus-list@gnome.org>; Thu, 9 Oct 2003 14:13:53 +0200
+Subject: [PATCH] Exif support for image_properties
+From: Hugo <nautilus@starbreeze.knoware.nl>
+To: nautilus-list@gnome.org
+Content-Type: multipart/mixed; boundary="=-pqauZSMcXCGhInmWPfpC"
+Message-Id: <1065701632.11068.12.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.0 
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: 09 Oct 2003 14:13:53 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--=-pqauZSMcXCGhInmWPfpC
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+Hey All,
+
+At home i regularly use EXIF tag in JPEG images. I wanted to view these
+tags from nautilus so i decided to hack in support for EXIF in the
+properties dialog. The most likely place was the image_properties dialog
+imho. The attached patch is the result of my hacking. I've used it for a
+few days now and it works ok for me. For those who are not familiar with
+EXIF, its a method of including details about a digital photo with the
+jpeg file. Stuff like flash level, exposure level en ISO rating.
+
+Is there a chance that this patch can be included in the nautilus
+distribution? If yes, is there someone who wants to help me get this
+patch ready for inclusion?
+
+To use the patch libexif 0.5.12 must be installed on the system.
+
+Regards,
+
+Hugo
+spark@knoware.nl
+
+--=-pqauZSMcXCGhInmWPfpC
+Content-Disposition: attachment; filename=nautilus-exif-patch
+Content-Type: text/plain; name=nautilus-exif-patch; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+
+? stamp-h1
+Index: acconfig.h
+===================================================================
+RCS file: /cvs/gnome/nautilus/acconfig.h,v
+retrieving revision 1.31
+diff -p -u -r1.31 acconfig.h
+--- acconfig.h	11 Jun 2003 11:05:23 -0000	1.31
++++ acconfig.h	8 Oct 2003 19:12:19 -0000
+@@ -22,3 +22,4 @@
+ #undef bzwrite
+ #define HAVE_GTK_MULTIHEAD /* needed for egg-screen-exec functions */
+ #undef HAVE_STARTUP_NOTIFICATION
++#undef HAVE_EXIF
+Index: configure.in
+===================================================================
+RCS file: /cvs/gnome/nautilus/configure.in,v
+retrieving revision 1.540
+diff -p -u -r1.540 configure.in
+--- configure.in	22 Sep 2003 17:44:34 -0000	1.540
++++ configure.in	8 Oct 2003 19:12:21 -0000
+@@ -20,6 +20,7 @@ MEDUSA_REQUIRED=0.5.1
+ RSVG_REQUIRED=2.0.1
+ XML_REQUIRED=2.4.7
+ STARTUP_NOTIFICATION_REQUIRED=0.5
++EXIF_REQUIRED=0.5.12
+ 
+ AC_SUBST(ART_REQUIRED)
+ AC_SUBST(BONOBO_ACTIVATION_REQUIRED)
+@@ -221,6 +222,17 @@ PKG_CHECK_MODULES(MEDUSA, medusa-2.0 >= 
+ if test "x$have_medusa" = "xyes"; then
+   AC_DEFINE(HAVE_MEDUSA,1)
+   EXTRA_CORE_MODULES="$EXTRA_CORE_MODULES medusa-2.0"
++fi
++
++dnl exif checking
++
++AC_MSG_CHECKING(for libExif)
++
++PKG_CHECK_MODULES(EXIF, libexif >= $EXIF_REQUIRED, have_exif=yes, have_exif=no)
++if test "x$have_exif" = "xyes"; then
++  AC_DEFINE(HAVE_EXIF,1)
++  AC_SUBST(EXIF_CFLAGS)
++  AC_SUBST(EXIF_LIBS)
+ fi
+ 
+ dnl ==========================================================================
+Index: components/image_properties/Makefile.am
+===================================================================
+RCS file: /cvs/gnome/nautilus/components/image_properties/Makefile.am,v
+retrieving revision 1.2
+diff -p -u -r1.2 Makefile.am
+--- components/image_properties/Makefile.am	3 May 2003 05:10:42 -0000	1.2
++++ components/image_properties/Makefile.am	8 Oct 2003 19:12:22 -0000
+@@ -11,7 +11,8 @@ INCLUDES =						\
+ 	-I$(top_srcdir)					\
+ 	-I$(top_builddir)				\
+ 	$(DISABLE_DEPRECATED_CFLAGS)			\
+-	$(COMPONENT_CFLAGS)
++	$(COMPONENT_CFLAGS)				\
++	$(EXIF_CFLAGS)
+ 
+ bonobodir = $(libdir)/bonobo
+ bonobo_LTLIBRARIES = libnautilus-image-properties-view.la
+@@ -23,7 +24,8 @@ libnautilus_image_properties_view_la_SOU
+ 
+ libnautilus_image_properties_view_la_LIBADD =			\
+ 	$(top_builddir)/libnautilus/libnautilus.la	\
+-	$(COMPONENT_LIBS)
++	$(COMPONENT_LIBS)				\
++	$(EXIF_LIBS)
+ 
+ libnautilus_image_properties_view_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+Index: components/image_properties/nautilus-image-properties-view.c
+===================================================================
+RCS file: /cvs/gnome/nautilus/components/image_properties/nautilus-image-properties-view.c,v
+retrieving revision 1.4
+diff -p -u -r1.4 nautilus-image-properties-view.c
+--- components/image_properties/nautilus-image-properties-view.c	8 Jun 2003 08:45:09 -0000	1.4
++++ components/image_properties/nautilus-image-properties-view.c	8 Oct 2003 19:12:23 -0000
+@@ -32,6 +32,39 @@
+ #include <eel/eel-gnome-extensions.h>
+ #include <string.h>
+ 
++#ifdef HAVE_EXIF
++  #include <libexif/exif-data.h>
++  #include <libexif/exif-ifd.h>
++  #include <libexif/exif-loader.h>
++  #include <gtk/gtkliststore.h>
++  #include <gtk/gtktreestore.h>
++  #include <gtk/gtktreeview.h>
++  #include <gtk/gtkscrolledwindow.h>
++  #include <gtk/gtkcellrenderertext.h>
++#endif
++
++#ifdef HAVE_EXIF
++  /* Copy from exif-loader.c */
++  typedef enum {
++          EL_READ = 0,
++          EL_READ_SIZE_HIGH_BYTE,
++	  EL_READ_SIZE_LOW_BYTE,
++	  EL_SKIP_BYTES,
++	  EL_EXIF_FOUND,
++	  EL_FAILED
++  } ExifLoaderState;
++
++struct _ExifLoader {
++        ExifLoaderState state;
++ 
++        int      size;
++        int      last_marker;
++        unsigned char *buf;
++        int      bytes_read;
++        unsigned int ref_count;
++};
++#endif
++
+ #define LOAD_BUFFER_SIZE 8192
+ 
+ struct NautilusImagePropertiesViewDetails {
+@@ -42,6 +75,13 @@ struct NautilusImagePropertiesViewDetail
+ 	GdkPixbufLoader *loader;
+ 	gboolean got_size;
+ 	char buffer[LOAD_BUFFER_SIZE];
++#ifdef HAVE_EXIF
++	ExifLoader *exifldr;
++	GtkWidget *exifwidget;
++	GtkWidget *exiflistwidget;
++	ExifData *exifdata;
++	gboolean got_exif;
++#endif /*HAVE_EXIF*/
+ };
+ 
+ enum {
+@@ -75,6 +115,109 @@ file_closed_callback (GnomeVFSAsyncHandl
+ {
+ }
+ 
++#ifdef HAVE_EXIF
++/* append row, exif_entry_cb and exif_content_cb copied from EOG */
++static void
++append_row (GtkListStore *store, const char *attribute, const char *value) {
++        GtkTreeIter iter;
++        char *utf_attribute = NULL;
++        char *utf_value = NULL;
++ 
++        if (!attribute) return;
++ 
++        gtk_list_store_append (store, &iter);
++ 
++        if (g_utf8_validate (attribute, -1, NULL)) {
++                utf_attribute = g_strdup (attribute);
++        }
++        else {
++                utf_attribute = g_locale_to_utf8 (attribute, -1, NULL, NULL, NULL);
++        }
++        gtk_list_store_set (store, &iter, 0, utf_attribute, -1);
++        g_free (utf_attribute);
++ 
++        if (value != NULL) {
++                if (g_utf8_validate (value, -1, NULL)) {
++                        utf_value = g_strdup (value);
++                }
++                else {
++                        utf_value = g_locale_to_utf8 (value, -1, NULL, NULL, NULL);
++                }
++                                                                                
++                gtk_list_store_set (store, &iter, 1, utf_value, -1);
++                g_free (utf_value);
++        }
++}
++
++static void
++exif_entry_cb (ExifEntry *entry, gpointer data)
++{
++        GtkListStore *store;
++                                                                                
++        store = GTK_LIST_STORE (data);
++                                                                                
++        append_row (store, exif_tag_get_name (entry->tag), exif_entry_get_value (entry));
++}
++                                                                                
++static void
++exif_content_cb (ExifContent *content, gpointer data)
++{
++        exif_content_foreach_entry (content, exif_entry_cb, data);
++}
++                                                                                
++static void
++fill_exifdata (NautilusImagePropertiesView *view)
++{
++	GtkListStore *store;
++	GtkTreeViewColumn *column;
++	GtkCellRenderer *renderer;
++	GtkWidget *treeview;
++
++
++	if (view->details->exifldr->state == EL_EXIF_FOUND) {
++		view->details->exifdata  = exif_loader_get_data (view->details->exifldr);
++		if (view->details->exifdata->ifd[0] && view->details->exifdata->ifd[0]->count) {
++			view->details->got_exif = TRUE;
++		}
++		else {
++			view->details->got_exif = FALSE;
++			return;
++		}
++		
++		/* create store and fill with data */
++		store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
++		exif_data_foreach_content (view->details->exifdata, exif_content_cb, store);
++
++		/* create and show the widget */
++		gtk_label_set_text(GTK_LABEL (view->details->exifwidget),_("EXIF data"));
++		view->details->exiflistwidget = gtk_scrolled_window_new(NULL, NULL);
++		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(view->details->exiflistwidget), 
++					       GTK_POLICY_NEVER,
++					       GTK_POLICY_AUTOMATIC);
++		treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
++		renderer = gtk_cell_renderer_text_new();
++		column = gtk_tree_view_column_new_with_attributes ("Attribute",
++								   renderer,
++								   "text",
++								   0,
++								   NULL);
++		gtk_tree_view_append_column(GTK_TREE_VIEW (treeview), column);
++		renderer = gtk_cell_renderer_text_new();
++		column = gtk_tree_view_column_new_with_attributes ("Value",
++								   renderer,
++								   "text",
++								   1,
++								   NULL);
++		gtk_tree_view_append_column(GTK_TREE_VIEW (treeview), column);
++		gtk_container_add(GTK_CONTAINER(view->details->exiflistwidget), treeview);
++		gtk_box_pack_start (GTK_BOX (view->details->vbox),
++				    view->details->exiflistwidget,
++				    TRUE, TRUE, 2);
++		gtk_widget_show_all(view->details->vbox);
++	}
++}
++#endif /*HAVE_EXIF*/
++
+ static void
+ load_finished (NautilusImagePropertiesView *view)
+ {
+@@ -83,6 +226,12 @@ load_finished (NautilusImagePropertiesVi
+ 		g_object_unref (view->details->loader);
+ 		view->details->loader = NULL;
+ 	}
++#ifdef HAVE_EXIF
++	if (view->details->exifldr != NULL) {
++		exif_loader_unref (view->details->exifldr);
++		view->details->exifldr = NULL;
++	}
++#endif /*HAVE_EXIF*/
+ 	
+ 	if (view->details->vfs_handle != NULL) {
+ 		gnome_vfs_async_close (view->details->vfs_handle, file_closed_callback, NULL);
+@@ -92,6 +241,11 @@ load_finished (NautilusImagePropertiesVi
+ 	if (!view->details->got_size) {
+ 		gtk_label_set_text (GTK_LABEL (view->details->resolution), _("Failed to load image information"));
+ 	}
++#ifdef HAVE_EXIF
++	if (!view->details->got_exif) {
++		gtk_label_set_text (GTK_LABEL (view->details->exifwidget), _("No EXIF data found"));
++	}
++#endif /*HAVE_EXIF*/
+ }
+ 
+ static void
+@@ -107,11 +261,17 @@ file_read_callback (GnomeVFSAsyncHandle 
+ 	view = NAUTILUS_IMAGE_PROPERTIES_VIEW (callback_data);
+ 
+ 	if (result == GNOME_VFS_OK && bytes_read != 0) {
++#ifdef HAVE_EXIF
++		exif_loader_write(view->details->exifldr,
++				  buffer,
++				  bytes_read);
++#endif
+ 		if (!gdk_pixbuf_loader_write (view->details->loader,
+ 					      buffer,
+ 					      bytes_read,
+ 					      NULL)) {
+ 			result = GNOME_VFS_ERROR_WRONG_FORMAT;
++#ifndef HAVE_EXIF
+ 		} else if (!view->details->got_size) {
+ 			gnome_vfs_async_read (view->details->vfs_handle,
+ 					      view->details->buffer,
+@@ -119,9 +279,22 @@ file_read_callback (GnomeVFSAsyncHandle 
+ 					      file_read_callback,
+ 					      view);
+ 			return;
++#else /*HAVE_EXIF*/
++		} else if (!view->details->got_size && 
++			   ((view->details->exifldr->state != EL_FAILED) &&
++			    (view->details->exifldr->state != EL_EXIF_FOUND))){
++			gnome_vfs_async_read (view->details->vfs_handle,
++					      view->details->buffer,
++					      sizeof (view->details->buffer),
++					      file_read_callback,
++					      view);
++			return;
+ 		}
++#endif /*HAVE_EXIF*/
+ 	}
+-
++#ifdef HAVE_EXIF
++	fill_exifdata(view);
++#endif /*HAVE_EXIF*/
+ 	load_finished (view);
+ }
+ 
+@@ -167,6 +340,9 @@ file_opened_callback (GnomeVFSAsyncHandl
+ 	}
+ 
+ 	view->details->loader = gdk_pixbuf_loader_new ();
++#ifdef HAVE_EXIF
++	view->details->exifldr = exif_loader_new();
++#endif /*HAVE_EXIF*/
+ 
+ 	g_signal_connect (view->details->loader, "size_prepared",
+ 			  G_CALLBACK (size_prepared_callback), view);
+@@ -257,6 +433,13 @@ nautilus_image_properties_view_init (Nau
+ 	gtk_box_pack_start (GTK_BOX (view->details->vbox),
+ 			    view->details->resolution,
+ 			    FALSE, TRUE, 2);
++#ifdef HAVE_EXIF
++	view->details->exifwidget = gtk_label_new(_("loading exif data..."));
++	gtk_box_pack_start (GTK_BOX (view->details->vbox),
++			    view->details->exifwidget,
++			    FALSE, TRUE, 2);
++#endif /*HAVE_EXIF*/
++
+ 	
+ 	gtk_widget_show_all (view->details->vbox);
+ 	
+
+--=-pqauZSMcXCGhInmWPfpC--
+
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

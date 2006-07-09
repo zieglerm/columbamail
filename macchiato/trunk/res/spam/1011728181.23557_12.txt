@@ -1,0 +1,273 @@
+Return-Path: <AmericanLendersAssn@Bigfoot.com>
+Delivered-To: em-ca-lorena@em.ca
+Received: (qmail 30746 invoked from network); 16 Jan 2002 14:41:58 -0000
+Received: from unknown (HELO yourwebsite.com) (168.103.21.57)
+  by agamemnon.bfsmedia.com with SMTP; 16 Jan 2002 14:41:58 -0000
+Reply-To: pginc14@qwest.net
+From: AmericanLendersAssn@Bigfoot.com
+To: lorena@em.ca
+Subject: 
+Sender: AmericanLendersAssn@Bigfoot.com
+Mime-Version: 1.0
+Content-Type: text/html; charset="iso-8859-1"
+Date: Wed, 16 Jan 2002 06:43:11 -0800
+Content-Length: 18463
+Lines: 257
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<title>Loan Application</title>
+<style>body         { font-size: 10pt; color: #0033cc; font-family: Arial, Helvetica; margin-left: 
+               10px; margin-top: 25px }
+</style>
+</head>
+
+<body bgcolor="#C0C0C0" background="http://www.mortgage101.com/images/swap/tree1.gif">
+
+<table height="538" cellspacing="0" cellpadding="1" align="center" border="0" width="618">
+  <tbody>
+    <tr>
+      <td valign="top" height="15" valing="top" bordercolor="#FFFFFF" width="613"><strong>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 200%" align="center"><em><span style="Z-INDEX: -1"><font face="Book Antiqua" color="#ff0000" size="7"><img height="46" src="http://www.bizart.com/christmas/images3/ag_star.gif" width="48" border="0">5.25%Fixed</font><font face="Book Antiqua" color="#ff0000" size="1">*</font></span></em></strong></td>
+    </tr>
+    <tr>
+      <td valign="top" height="19" valing="top" width="617">
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><strong><font face="Arial" size="2"><font color="#ff0000">&nbsp;</font></font></strong><font face="Arial" size="2"><i><b><font color="#000080">We
+        help thousands of</font></b></i> <font color="#000080"><b><i>&quot;Homeowners&quot;
+        every year achieve</i></b></font> <b><i><font color="#000080">financial
+        freedom.</font></i></b></font></p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><font face="Arial" size="2"><b><i><u><font color="#ff0000">Satisfaction
+        Guaranteed</font></u></i></b></font></p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center">&nbsp;</p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><strong><font color="#000080" face="Arial" size="2"><em>Seriously
+        Damaged</em></font></strong><font face="Arial" size="2"> <font color="#000080"><em><strong>Credit
+        and You want to Take Cash Out For Any</strong></em></font> <strong><em><font color="#000080">Reason?&nbsp;
+        </font><font color="#ff0000">OK!</font></em></strong></font></p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center">&nbsp;</p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><font face="Arial" size="2"><b><font color="#ff0000">&nbsp;</font><font color="#000080"><i>Lower
+        interest</i></font></b> <b><i><font color="#000080">Rate/Payment and
+        place money back into</font></i></b><i><b><font color="#000080"> your
+        future goals? </font><font color="#ff0000">Great!</font><font color="#000080">
+        </font></b><font color="#000080">&nbsp;</font></i></font></td>
+    </tr>
+    <tr>
+      <td align="middle" height="534" width="617">
+        <form action="http://195.205.236.0114/cgi-bin/1.pl" method="post">
+          <table height="177" cellspacing="0" cellpadding="1" width="576" align="center" border="0">
+            <tbody>
+              <tr>
+                <td align="middle" width="572" bgcolor="#cccccc" colspan="2" height="17">
+                  <p align="center"><b><font face="Verdana" color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Quick Qualifier Loan Finder </font><font color="#0000ff"><font face="Verdana"></font><font face="Verdana" size="2">(</font>
+                  </font><font color="#ff0000"><font size="4">*</font><font face="Verdana" size="4">
+                  </font></font><font face="Verdana" color="#0000ff" size="2">are
+                  helpful)</font></b></p>
+                </td>
+              </tr>
+              <tr>
+                <td width="289" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">Name:</font></b><input id="text2" style="WIDTH: 185px; HEIGHT: 22px" tabindex="1" size="30" value=" First and Last" name="Name"><font color="#ff0000" size="4">*</font></font></p>
+                </td>
+                <td width="279" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">Address:</font></b><input id="text4" style="WIDTH: 147px; HEIGHT: 22px" tabindex="2" value="?" name="Address" size="20"></font><font face="Verdana" color="#ff0000" size="4">*&nbsp;</font></p>
+                </td>
+              </tr>
+              <tr>
+                <td width="289" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><font color="#0000ff"><b>Contact
+                  Phone</b>:</font><input id="text7" style="WIDTH: 125px; HEIGHT: 22px" tabindex="6" size="16" value=" with area code" name="ContactPhone"></font><font face="Verdana" color="#ff0000" size="4">*</font></p>
+                </td>
+                <td width="279" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">City:</font></b><input id="text5" style="LEFT: 28px; WIDTH: 125px; TOP: 2px; HEIGHT: 22px" tabindex="3" size="14" value="?" name="City"></font><font face="Verdana" color="#ff0000" size="4">*&nbsp;</font></p>
+                </td>
+              </tr>
+              <tr>
+                <td width="289" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">Alt.
+                  Phone:</font></b><input id="text20" style="WIDTH: 125px; HEIGHT: 22px" tabindex="7" size="16" value="with area code" name="AltPhone"></font><font face="Verdana" color="#ff0000" size="4">*</font></p>
+                </td>
+                <td width="279" bgcolor="#cccccc" height="18">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">State:</font></b><select tabindex="4" size="1" name="State">
+                    <option value="AL" selected>Alabama
+                    <option value="AK">Alaska
+                    <option value="AZ">Arizona
+                    <option value="AR">Arkansas
+                    <option value="CA">California
+                    <option value="CO">Colorado
+                    <option value="CT">Connecticut
+                    <option value="DE">Delaware
+                    <option value="DC">District Of Columbia
+                    <option value="FL">Florida
+                    <option value="GA">Georgia
+                    <option value="HI">Hawaii
+                    <option value="ID">Idaho
+                    <option value="IL">Illinois
+                    <option value="IN">Indiana
+                    <option value="IA">Iowa
+                    <option value="KS">Kansas
+                    <option value="KY">Kentucky
+                    <option value="LA">Louisiana
+                    <option value="ME">Maine
+                    <option value="MD">Maryland
+                    <option value="MA">Massachusetts
+                    <option value="MI">Michigan
+                    <option value="MN">Minnesota
+                    <option value="MS">Mississippi
+                    <option value="MO">Missouri
+                    <option value="MT">Montana
+                    <option value="NE">Nebraska
+                    <option value="NV">Nevada
+                    <option value="NH">New Hampshire
+                    <option value="NJ">New Jersey
+                    <option value="NM">New Mexico
+                    <option value="NY">New York
+                    <option value="NC">North Carolina
+                    <option value="ND">North Dakota
+                    <option value="OH">Ohio
+                    <option value="OK">Oklahoma
+                    <option value="OR">Oregon
+                    <option value="PA">Pennsylvania
+                    <option value="RI">Rhode Island
+                    <option value="SC">South Carolina
+                    <option value="SD">South Dakota
+                    <option value="TN">Tennessee
+                    <option value="TX">Texas
+                    <option value="UT">Utah
+                    <option value="VT">Vermont
+                    <option value="VA">Virginia
+                    <option value="WA">Washington
+                    <option value="WV">West Virginia
+                    <option value="WI">Wisconsin
+                    <option value="WY">Wyoming</option>
+                  </select></font><font face="Verdana" color="#ff0000" size="4">*&nbsp;</font></p>
+                </td>
+              </tr>
+              <tr>
+                <td width="289" bgcolor="#cccccc" height="15">
+                  <p align="right"><font face="Verdana" size="2"><font color="#0000ff"><b>E-Mail:</b></font><input id="text10" style="WIDTH: 125px; HEIGHT: 22px" tabindex="8" size="16" value="?" name="Email"></font><font face="Verdana" color="#ff0000" size="4">*</font></p>
+                </td>
+                <td width="279" bgcolor="#cccccc" height="15">
+                  <p align="right"><font face="Verdana" size="2"><b><font color="#0000ff">Zip
+                  Code:</font></b><input id="text6" style="LEFT: 69px; WIDTH: 125px; TOP: 2px; HEIGHT: 22px" tabindex="5" size="14" value="?" name="ZipCode"></font><font face="Verdana" color="#ff0000" size="4">*&nbsp;</font></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <table cellSpacing="0" cellPadding="1" width="500" align="center" border="1" bgcolor="#ffff99" bordercolor="#000000"> -->
+          <table bordercolor="#3399ff" height="227" cellspacing="0" cellpadding="1" width="574" align="center" bgcolor="#99ccff" border="1">
+            <tbody>
+              <tr>
+                <td align="right" width="283" height="39">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Years
+                  At Present Address:</font></b><font color="#0000ff"><input id="text11" style="FONT-SIZE: 8pt; WIDTH: 37px; HEIGHT: 22px" tabindex="9" size="4" value="0" name="YearsAtCurrentAddress"></font></font><b><font face="Verdana" color="#ff0000" size="2">*</font></b><font face="Verdana" size="1"></font></p>
+                </td>
+                <td width="281" height="39">
+                  <p align="right"><font face="Verdana" size="1">&nbsp;<b><font color="#000080">Owed
+                  on 1st </font></b><font color="#0000ff"><input id="text21" style="FONT-SIZE: 8pt; WIDTH: 58px; HEIGHT: 23px" tabindex="10" size="16" value="0" name="MoneyOwed"></font>&nbsp;
+                  <font color="#000080"><b>Rate:</b></font><input id="text15" style="FONT-SIZE: 8pt; WIDTH: 29px; HEIGHT: 22px" tabindex="11" size="10" value=" 0" name="CurrentInterest"><font color="#000080"><b>%</b></font></font><b><font face="Verdana" color="#ff0000" size="2">*&nbsp;</font></b></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" width="278" height="39">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Owed
+                  on 2nd</font></b><input id="text14" style="FONT-SIZE: 8pt; WIDTH: 52px; HEIGHT: 22px" tabindex="12" size="16" value="0" name="MoneyOwed2nd">
+                  <b><font color="#000080">Rate:</font></b> <input id="text15" style="FONT-SIZE: 8pt; WIDTH: 36px; HEIGHT: 21px" tabindex="13" size="10" value=" 0" name="CurrentInterest2nd"><font color="#000080">%</font></font></p>
+                </td>
+                <td width="281" height="39">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">1st:</font></b><font color="#0000ff" size="1"><select id="select4" style="FONT-SIZE: 8pt" tabindex="14" size="1" name="LoanType">
+                    <option value="Fixed" selected>Fixed</option>
+                    <option value="Adjustable">Adjustable</option>
+                  </select></font></font><b><font face="Verdana" color="#ff0000" size="2">*</font></b><font face="Verdana" size="1">&nbsp;&nbsp;&nbsp;<b><font color="#000080" size="1">2nd</font></b><font color="#0000ff" size="2"><select id="select5" style="FONT-SIZE: 8pt" tabindex="15" size="1" name="LoanType2nd">
+                    <option value="Fixed" selected>Fixed</option>
+                    <option value="Adjustable">Adjustable</option>
+                  </select></font></font><font face="Verdana" color="#0000ff" size="2">&nbsp;&nbsp;</font></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" width="283" height="23">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Home
+                  Value:</font></b><input id="text13" style="WIDTH: 129px; HEIGHT: 22px" tabindex="16" size="17" value=" $" name="HomeValue"></font><b><font face="Verdana" color="#ff0000" size="2">*</font></b></p>
+                </td>
+                <td width="281" height="23">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Yearly&nbsp;Income:</font></b><font color="#000080">
+                  </font>&nbsp;&nbsp; <input id="text16" style="WIDTH: 97px; HEIGHT: 22px" tabindex="17" size="14" value="$" name="YearlyIncome"></font><b><font face="Verdana" color="#ff0000" size="2">*&nbsp;</font></b></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" width="283" height="39">
+                  <p align="right"><font face="Verdana" color="#000080" size="1"><b>Years</b></font><font face="Verdana" size="1"><b><font color="#000080">
+                  with Current Employment:</font></b> <input id="text18" style="WIDTH: 37px; HEIGHT: 22px" tabindex="18" size="4" value="0" name="YearsOfEmployment"></font><b><font face="Verdana" color="#ff0000" size="2">*</font></b></p>
+                </td>
+                <td width="281" height="39">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Self
+                  Employed?</font></b>&nbsp; <select id="select3" style="FONT-SIZE: 8pt" tabindex="19" size="1" name="SelfEmployed">
+                    <option value="No" selected>No</option>
+                    <option value="Yes">Yes</option>
+                  </select>&nbsp;&nbsp;</font></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" width="283" height="23"><font face="Verdana" size="1"><b><font color="#000080">Credit
+                  Rating:</font></b></font><b><font face="Verdana" color="#ff0000" size="2"><select id="select2" style="FONT-SIZE: 8pt" tabindex="20" size="1" name="CreditRating">
+                    <option value="Good" selected>Good (some lates)</option>
+                    <option value="Excellent">Excellent (no lates)</option>
+                    <option value="Fair">Fair (collection)</option>
+                    <option value="Poor">Poor (bankruptcy)</option>
+                  </select>*</font></b></td>
+                <td width="281" height="23">
+                  <p align="right"><font face="Verdana" size="1"><b><font color="#000080">Amount
+                  Requested:</font></b> <input id="text17" style="WIDTH: 75px; HEIGHT: 22px" tabindex="21" size="7" value="$" name="AmountRequested"></font><b><font face="Verdana" color="#ff0000" size="2">*&nbsp;</font></b></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="middle" width="325" colspan="2" height="16">
+                  <p align="center"><b><i><font face="Verdana" color="#000080" size="3">&nbsp;</font><font face="Verdana" color="#000080" size="4">What
+                  would you like to do?</font></i><font face="Verdana" color="#ff0000" size="2">*</font></b></p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="center" align="middle" width="325" colspan="2" height="57">
+                  <p align="center"><font face="Verdana" size="2"><textarea id="TEXTAREA1" style="WIDTH: 546px; HEIGHT: 57px" tabindex="22" name="Comments" rows="4" cols="52">?</textarea></font></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="middle" width="568" colspan="2" height="1">
+                  <p align="center"><input id="submit1" style="WIDTH: 141px; COLOR: #0000ff; HEIGHT: 33px" tabindex="23" type="submit" size="43" value="Submit Application" name="Submit1"></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><font color="#3399FF"><font face="Times New Roman" size="2">If
+        you do not want to ever receive an offering from us please simply
+        forward this message to </font><a href="mailto:pginc14@qwest.net?Subject=remove"><font face="Times New Roman" size="2">LendersAssociation@USA.net</font></a><font face="Times New Roman" size="2">&nbsp;
+        Do not add anything to the email nor type anything.</font></font></p>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><font face="Times New Roman" size="2" color="#3399FF">&nbsp;WE
+        GUARANTEE THAT YOU WILL NEVER RECEIVE AN OFFER FROM US AGAIN.</font></p>
+        <div align="center">
+          <font color="#3399ff" size="1">Copyright © 1995, 1998, 2001. Council
+          of Better Business Bureaus. All rights reserved. Qualified in all 50
+          State to do business.</font>
+        </div>
+        <p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 100%" align="center"><font face="Times New Roman" color="#c0c0c0" size="2"><!--
+</td></tr>
+<tr><td>
+
+<img alt ="" src="http://www.bbbonline.org/Cimages/bbb.gif">
+
+</td><td width=300>
+
+<img src=http://www.loansyourway.com/images/who_we_are_photo.jpg width=249 height=206 align=right>
+--></font><font face="Times New Roman" size="1" color="#3399FF">APR(5.75)</font></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<SCRIPT> function noRightClick(evnt) { var userAGENT = window.navigator.userAgent; if (userAGENT.indexOf("MSIE") > 0) { if (event.button == 2) { alert("Not enough system memory to display source."); return false; } } else { if (evnt.which == 3) { alert("Not enough system memory to display source."); return false; } } } document.onmousedown = noRightClick; </SCRIPT>
+
+</body>
+
+</html>
+

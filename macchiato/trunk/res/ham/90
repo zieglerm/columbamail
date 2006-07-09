@@ -1,0 +1,91 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 16527 invoked by uid 65534); 2 Oct 2003 11:12:19 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx005) with SMTP; 02 Oct 2003 13:12:19 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id AD52E3AC14; Thu,  2 Oct 2003 13:12:08 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Thu, 02 Oct 2003 13:12:00 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from ravintalo.eduart.de (unknown [62.146.91.2])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 741773ABC7
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 13:11:29 +0200 (CEST)
+Received: from spieleck.de (spieleck.de [81.17.108.76])
+	by ravintalo.eduart.de (ravintalo.eduart.de Postfix Mail Server on SuSE Linux) with ESMTP id 073E567337
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 13:11:29 +0200 (CEST)
+Received: from mixi.slipkontur.de (localhost [127.0.0.1])
+	by spieleck.de (spieleck.de Postfix) with ESMTP id C8C4395571
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 13:11:27 +0200 (CEST)
+Mime-Version: 1.0
+X-Newsreader: knews 1.0b.1
+References: <00e801c3863c$04fb6590$09da0bcb@sparhawk>
+    <20030929054119.GA11020@via.ecp.fr>
+    <20030929170846.74A8E93143@spieleck.de>
+    <004401c386d2$689bf010$09da0bcb@sparhawk> <3F79309E.1090908@rfa.org>
+    <017001c38725$903b2200$09da0bcb@sparhawk>
+    <u6jo41-g5f.ln1@message-id.slipkontur.de>
+    <r6lo41-7af.ln1@message-id.slipkontur.de>
+    <028701c3879c$75496ca0$09da0bcb@sparhawk>
+    <03a401c387db$d4c231f0$09da0bcb@sparhawk>
+    <4auq41-qrk.ln1@message-id.slipkontur.de>
+    <077a01c38869$d73ba5e0$09da0bcb@sparhawk>
+In-Reply-To: <077a01c38869$d73ba5e0$09da0bcb@sparhawk>
+From: "Stefan Seyfried" <seife@gmane0305.slipkontur.de>
+Subject: [streaming] Re: Controlling VLC
+X-Original-Newsgroups: gmane.comp.video.videolan.vls.general
+To: streaming@videolan.org
+Content-Type: text/plain; charset=us-ascii
+Message-Id: <20031002111127.C8C4395571@spieleck.de>
+Date: Thu,  2 Oct 2003 13:11:27 +0200 (CEST)
+X-Spam-Status: No, hits=-2.5 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 879
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: seife@gmane0305.slipkontur.de
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+"Richard Ham" <rich-lists@edit-co.com> writes:
+ 
+> Is there somewhere in the doco this is explained??? I'm sure I've
+> looked, but no can see........
+
+http://www.videolan.org/doc/vlc-user-guide/en/modules.html
+
+click "2.7 interface modules", scroll down to "2.7.7 rc" ;-)
+
+The documentation is good, but with this huge amount of functionality
+built into videolan, it is not easy to find what you are looking for.
+Its the same problem people are having with MPlayer/mencoder, although
+i think it's pretty intuitive ;-)
+
+> Thanks for your help Stefan!!!!!!
+
+No problem, i'm looking forward seeing your script :)
+
+regards,
+
+      Stefan
+-- 
+ Stefan Seyfried, seife@gmane0305.slipkontur.de
++----------------------------------------------+
+
+"If you want to travel around the world and be invited to speak at a lot of
+ different places, just write a Unix operating system." -- [Linus Torvalds]
+..
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

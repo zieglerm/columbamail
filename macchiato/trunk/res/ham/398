@@ -1,0 +1,68 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 3030 invoked by uid 65534); 3 Oct 2003 03:51:11 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx003) with SMTP; 03 Oct 2003 05:51:11 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 3A4351249F2; Thu,  2 Oct 2003 23:51:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 0520F1249E2; Thu,  2 Oct 2003 23:50:57 -0400 (EDT)
+Received: from sccrmhc13.comcast.net (sccrmhc13.comcast.net [204.127.202.64])
+	by listsmx.ximian.com (Postfix) with ESMTP id 5963A12401D
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 23:50:25 -0400 (EDT)
+Received: from pcp715421pcs.alxndr01.va.comcast.net ([68.49.224.100])
+          by comcast.net (sccrmhc13) with SMTP
+          id <2003100303502401600krv6he>; Fri, 3 Oct 2003 03:50:24 +0000
+Subject: Re: [Evolution] Trouble Syncing Kyocera
+From: Paul Harouff <pharouff@comcast.net>
+To: Evolution List <evolution@lists.ximian.com>
+In-Reply-To: <1064844625.1712.0.camel@keller.lan>
+References: <1064802382.5740.10.camel@BearTenor1.local>
+	 <1064844625.1712.0.camel@keller.lan>
+Content-Type: text/plain
+Message-Id: <1065153024.11686.3.camel@BearTenor1.local>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-27.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,RCVD_IN_RFCI,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 23:50:24 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Mon, 2003-09-29 at 10:10, Martin Bitter wrote:
+> Maybe you have to set the rights for your USB device?
+> (Silly but it helped me.)
+> Regards Martin
+> 
+
+I think the problem is the USB cable. Apparently Kyocera uses a
+proprietary pin setup which requires a proprietary driver that isn't
+available for Linux.
+
+I haven't given up, but it might be a losing battle at the moment.
+
+Paul
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

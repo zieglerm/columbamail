@@ -1,0 +1,65 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1209 invoked by uid 65534); 4 Oct 2003 04:55:14 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx003) with SMTP; 04 Oct 2003 06:55:14 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id E8D391242D6; Sat,  4 Oct 2003 00:55:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 999371242A4; Sat,  4 Oct 2003 00:54:33 -0400 (EDT)
+Received: from imf19aec.mail.bellsouth.net (imf19aec.mail.bellsouth.net [205.152.59.67])
+	by listsmx.ximian.com (Postfix) with ESMTP id 462F9124037
+	for <evolution@lists.ximian.com>; Sat,  4 Oct 2003 00:54:22 -0400 (EDT)
+Received: from [68.212.228.188] by imf19aec.mail.bellsouth.net
+          (InterMail vM.5.01.05.27 201-253-122-126-127-20021220) with ESMTP
+          id <20031004045424.IUHB1849.imf19aec.mail.bellsouth.net@[68.212.228.188]>
+          for <evolution@lists.ximian.com>; Sat, 4 Oct 2003 00:54:24 -0400
+From: "Robert G. Waycott" <rgwaycott@bellsouth.net>
+To: evolution@lists.ximian.com
+Content-Type: text/plain
+Message-Id: <1065243279.69077.15.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-5.7 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] Rather odd loss of settings ...
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Sat, 04 Oct 2003 00:54:40 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Evolution users,
+  I have configured Evo with a link for each of my folders in the
+'Shortcuts' bar. Today, I closed Evo, then reopened it several hours
+later. All of my shortcuts were gone. The folders were still present,
+but the shortcuts to each had disappeared from the bar. i closed and
+restarted Evo, thinking perhaps it was something a little buggy, but
+they were still gone. I thought perhaps I had missed a setting somewhere
+that tells Evo to preserve my layout, but I had set these links up days
+ago and have closed and opened the program numerous times without event.
+Thought I would share.
+
+Esse quam videri,
+--Bob.
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

@@ -1,0 +1,35 @@
+Return-Path: <dxn@redwoodsoft.com>
+Delivered-To: wg-pg@wg.archub.org
+Received: (qmail 21646 invoked from network); 11 Aug 2002 20:31:25 -0000
+Received: from unknown (HELO mail100.store.yahoo.com) (216.136.225.204)
+  by ip67-89-31-66.z31-89-67.customer.algx.net with SMTP; 11 Aug 2002 20:31:25 -0000
+Received: from pacman.redwoodsoft.com (pacman.redwoodsoft.com [63.150.15.206])
+        by mail100.store.yahoo.com (8.11.2/8.11.2) with SMTP id g7BKX1g08171
+        for <psg@paulgraham.com>; Sun, 11 Aug 2002 13:33:01 -0700 (PDT)
+Received: (qmail 11372 invoked from network); 11 Aug 2002 20:33:01 -0000
+Received: (QMFILT: 1.1); 11 Aug 2002 20:33:01 -0000
+Received: from localhost (127.0.0.1)
+  by localhost with SMTP; 11 Aug 2002 20:33:01 -0000
+Date: Sun, 11 Aug 2002 13:33:01 -0700 (PDT)
+From: Dru Nelson <dxn@redwoodsoft.com>
+To: psg@paulgraham.com
+Subject: Continuation style web programming
+Message-ID: <Pine.LNX.4.40.0208111331270.4728-100000@pacman.redwoodsoft.com>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+
+Hi,
+
+Do you have any examples online of that continuation style
+web programming that you describe?
+
+For example, you mention that you needed the user to go
+to a color picker screen and then return to the
+same spot. I'm interested on what was required to
+achieve that. Did you have to use real continuations
+to achieve that?
+
+
+Dru Nelson
+San Carlos, California

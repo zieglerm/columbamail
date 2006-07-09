@@ -1,0 +1,81 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 30125 invoked by uid 65534); 4 Oct 2003 15:10:21 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx019-rz3) with SMTP; 04 Oct 2003 17:10:21 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 9071012434D; Sat,  4 Oct 2003 11:10:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 21E921242F5; Sat,  4 Oct 2003 11:09:15 -0400 (EDT)
+Received: from smtp2.america.net (smtp2.america.net [199.170.121.150])
+	by listsmx.ximian.com (Postfix) with ESMTP id A80981240C4
+	for <evolution@lists.ximian.com>; Sat,  4 Oct 2003 11:08:44 -0400 (EDT)
+Received: from [65.82.45.189] (helo=192.168.1.101)
+	by smtp2.america.net with esmtp (Exim 4.10)
+	id 1A5o1T-0003nQ-00; Sat, 04 Oct 2003 11:08:44 -0400
+Subject: Re: [Evolution] Message Ordering ...
+From: Trey Sizemore <trey@fastmail.fm>
+To: "Robert G. Waycott" <rgwaycott@bellsouth.net>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065204483.43714.15.camel@localhost>
+References: <1065204483.43714.15.camel@localhost>
+Content-Type: text/plain
+Message-Id: <1065280162.3920.2.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4-8mdk 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-38.2 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,SIGNATURE_LONG_SPARSE,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Sat, 04 Oct 2003 11:09:22 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+I have found it easiest to set a folder to this view (sort by date) and
+then create a custom view (View -> Current View) and then apply this
+view to all folders.
+
+-Trey
+
+On Fri, 2003-10-03 at 14:08, Robert G. Waycott wrote:
+> Is there a way to make all folders order messages according to date,
+> with the newest message always at the top of the list?
+> 
+> --Bob.
+> 
+> _______________________________________________
+> evolution maillist  -  evolution@lists.ximian.com
+> http://lists.ximian.com/mailman/listinfo/evolution
+-- 
+Cheers,
+Trey
+---
+
+Today's Affirmation (selected automatically just for you):
+
+At a given moment I open my eyes and exist.
+And before that, during all eternity, what was there?
+Nothing.
+- Ugo Betti
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

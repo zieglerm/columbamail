@@ -1,0 +1,84 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 22199 invoked by uid 65534); 6 Oct 2003 12:12:30 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx012) with SMTP; 06 Oct 2003 14:12:30 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A6UCS-0002vr-00; Mon, 06 Oct 2003 05:10:52 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A2c42-0004eb-00
+	for <jython-users@lists.sourceforge.net>; Thu, 25 Sep 2003 12:46:10 -0700
+Received: from ptb-mailc05.plus.net ([212.159.14.211])
+	by sc8-sf-mx1.sourceforge.net with esmtp (TLSv1:AES256-SHA:256)
+	(Exim 4.22)
+	id 1A2c41-0000Ty-9O
+	for jython-users@lists.sourceforge.net; Thu, 25 Sep 2003 12:46:09 -0700
+Received: from [81.174.217.69] (helo=localhost.localdomain)
+	by ptb-mailc05.plus.net with esmtp (Exim 4.12)
+	id 1A2c3T-000B4F-00
+	for jython-users@lists.sourceforge.net; Thu, 25 Sep 2003 19:45:36 +0000
+Content-Type: text/plain;
+  charset="us-ascii"
+From: Dave Crane <dave@cranefamily.f9.co.uk>
+To: jython-users@lists.sourceforge.net
+User-Agent: KMail/1.4.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <200309251728.19881.dave@cranefamily.f9.co.uk>
+X-Spam-Score: 0.3 (/)
+X-Spam-Report: 0.3/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	USER_AGENT_KMAIL   (0.0 points)  User-Agent header indicates a non-spam MUA (KMail)
+	DATE_IN_PAST_03_06 (0.3 points)  Date: is 3 to 6 hours before Received: date
+Subject: [Jython-users] jython contract in netherlands
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 25 Sep 2003 17:28:19 +0100
+Date: Thu, 25 Sep 2003 17:28:19 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hi all,
+
+A guy approached me a couple of days back with a contract role requiring=20
+jython based in the Netherlands. As II couldn't take him up on him, anyon=
+e on=20
+the list available or interested?
+
+Hope it's OK to post this to the list~ a jython job seemed like a rare en=
+ough=20
+opportunity to announce and celebrate.
+
+Mail me off-list if interested.
+
+Thanks,
+
+Dave
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

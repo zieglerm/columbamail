@@ -1,0 +1,96 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 17714 invoked by uid 65534); 4 Oct 2003 08:47:06 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx014) with SMTP; 04 Oct 2003 10:47:06 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 93F033AC59; Sat,  4 Oct 2003 10:46:54 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Sat, 04 Oct 2003 10:46:46 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from sccrmhc11.comcast.net (sccrmhc11.comcast.net [204.127.202.55])
+	by zen.via.ecp.fr (Postfix) with ESMTP id A11EC3AB95
+	for <vlc@videolan.org>; Sat,  4 Oct 2003 07:07:34 +0200 (CEST)
+Received: from oemcomputer (c-67-160-195-174.client.comcast.net[67.160.195.174])
+          by comcast.net (sccrmhc11) with SMTP
+          id <20031004050732011006tovue>; Sat, 4 Oct 2003 05:07:33 +0000
+Message-ID: <000801c38a35$5b6129e0$aec3a043@comcast.net>
+From: "Ronell Reynoso" <FlukeMan2i2@comcast.net>
+To: <vlc@videolan.org>
+Subject: [vlc] Subtilte Files (.srt)
+Date: Fri, 3 Oct 2003 22:07:05 -0700
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0005_01C389FA.AE281E80"
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2800.1158
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+X-Spam-Status: No, hits=1.2 required=5.0
+	tests=HTML_40_50,HTML_MESSAGE
+	version=2.55
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: FlukeMan2i2@comcast.net
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0005_01C389FA.AE281E80
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Is there a way to move the Text from the lower right, and make it in the =
+center. Also everytime I try to get into =
+Settings-->Pref-->Plugins-->subtitle Demux--> Demuxsub --> advance =
+options. I get a USER.EXE error all the time, no matter what.
+
+
+
+---
+Other Email Address
+Flukeman2i2@yahoo.com
+------=_NextPart_000_0005_01C389FA.AE281E80
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.2800.1226" name=3DGENERATOR>
+<STYLE></STYLE>
+</HEAD>
+<BODY bgColor=3D#ffffff>
+<DIV><FONT face=3DArial>Is there a way to move the Text from the lower =
+right, and=20
+make it in the center. Also everytime I try to get into=20
+Settings--&gt;Pref--&gt;Plugins--&gt;subtitle Demux--&gt; Demuxsub =
+--&gt;=20
+advance options. I get a USER.EXE error all the time, no matter=20
+what.</FONT></DIV>
+<DIV><FONT face=3DArial></FONT>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=3DArial><BR>---<BR>Other Email Address<BR><A=20
+href=3D"mailto:Flukeman2i2@yahoo.com">Flukeman2i2@yahoo.com</A></FONT></D=
+IV></BODY></HTML>
+
+------=_NextPart_000_0005_01C389FA.AE281E80--
+
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

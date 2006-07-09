@@ -1,0 +1,160 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 717 invoked by uid 65534); 5 Oct 2003 04:11:47 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx019) with SMTP; 05 Oct 2003 06:11:47 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5Alb-0008TV-00; Thu, 02 Oct 2003 14:13:43 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5AkU-0002YG-00
+	for <jython-users@lists.sourceforge.net>; Thu, 02 Oct 2003 14:12:34 -0700
+Received: from maillnx-us312.fmr.com ([192.223.178.27])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A5AkR-0007dY-Qi
+	for jython-users@lists.sourceforge.net; Thu, 02 Oct 2003 14:12:31 -0700
+Received: from virmmk110nts.fmr.com (virmmk110nts.fmr.com [172.25.107.117])
+	by maillnx-us312.fmr.com (Switch-2.2.8/Switch-2.2.6) with SMTP id h92LBxL25596
+	for <jython-users@lists.sourceforge.net>; Thu, 2 Oct 2003 17:11:59 -0400
+Received: by MSGBOS102NTS.fmr.com with Internet Mail Service (5.5.2654.89)
+	id <T44AG9VB>; Thu, 2 Oct 2003 17:11:59 -0400
+Message-ID: <DB1F2EF3E2B78845A410EED3D69D604474A26A@MSGDALCLC2WIN.DMN1.FMR.COM>
+From: "Melchior, Joris" <Joris.Melchior@fmr.com>
+To: jython-users@lists.sourceforge.net
+Subject: RE: [Jython-users] Any experience with win32com API with Jython
+MIME-Version: 1.0
+X-Mailer: Internet Mail Service (5.5.2654.89)
+Content-Type: text/plain
+X-Spam-Score: -1.0 (-)
+X-Spam-Report: -1.0/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	QUOTED_EMAIL_TEXT  (-0.5 points) BODY: Contains what looks like a quoted email text
+	ORIGINAL_MESSAGE   (-0.5 points) Looks like a reply to a message
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 2 Oct 2003 17:11:54 -0400
+Date: Thu, 2 Oct 2003 17:11:54 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Thanks for the feedback Mike and Kent. I'll check out Jacob and see if it is
+easier to use than J-Integra.
+
+Regards,
+
+Joris Melchior
+
+
+-----Original Message-----
+From: Michael J. Kitchin [mailto:mkitchin@integ.com] 
+Sent: Thursday, October 02, 2003 3:42 PM
+To: jython-users@lists.sourceforge.net
+Subject: RE: [Jython-users] Any experience with win32com API with Jython
+
+
+I've used Jacob from Jython to drive the Microsoft Speech API. Implemented a
+simple Java class to provide some helper methods,
+called the methods from Jython. Badda-boom, badda-bing. Technically,
+could've gotten by without the Java code, but it was a
+time-saver.
+
+                                    -Regards,
+                                    MjK
+
+- - - - -
+
+"0 error(s), 0 warning(s)"
+
+Michael J. Kitchin (Senior Systems Engineer)
+mailto:mkitchin@integ.com
+Integral Systems, Inc.
+http://www.integ.com
+
+
+> -----Original Message-----
+> From: jython-users-admin@lists.sourceforge.net
+> [mailto:jython-users-admin@lists.sourceforge.net]On Behalf Of Kent
+> Johnson
+> Sent: Thursday, October 02, 2003 2:57 PM
+> To: Melchior, Joris; 'jython-users@lists.sourceforge.net'
+> Subject: Re: [Jython-users] Any experience with win32com API with Jython
+>
+>
+> The problem is that the win32api module is implemented in C so it is
+> not available from Jython.
+>
+> I have had good luck using jacob for COM access to Word documents, it
+> should work from Jython. Jacobgen can create wrapper classes for com
+> components.
+> http://danadler.com/jacob/
+> http://www.bigatti.it/projects/jacobgen/
+>
+> Kent
+>
+> At 2:19 PM -0400 10/2/03, Melchior, Joris wrote:
+> >Hi everyone,
+> >
+> >Has anybody successfully tried to use the win32com API's from Python
+> >in Jython. I'm working with Java and some products that create
+> >proxies but none of them are as easy to use and robust as the Python
+> >implementations.
+> >
+> >I tried putting the Python libraries in my path but as soon as I try
+> >to import win32com it starts complaining it cannot find the
+> >win32api. I can't find this module and I'm not sure if it is not
+> >generated on the fly.
+> >
+> >Anyhow, any suggestions are welcome.
+> >
+> >Thanks,
+> >
+> >Joris Melchior
+>
+>
+>
+> -------------------------------------------------------
+> This sf.net email is sponsored by:ThinkGeek
+> Welcome to geek heaven.
+> http://thinkgeek.com/sf
+> _______________________________________________
+> Jython-users mailing list
+> Jython-users@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/jython-users
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

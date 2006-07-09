@@ -1,0 +1,108 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 13579 invoked by uid 65534); 3 Oct 2003 18:42:58 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx034-rz3) with SMTP; 03 Oct 2003 20:42:58 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5Usz-00064I-00; Fri, 03 Oct 2003 11:42:41 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A5Ure-0006z8-00
+	for <jython-users@lists.sourceforge.net>; Fri, 03 Oct 2003 11:41:18 -0700
+Received: from brmea-mail-2.sun.com ([192.18.98.43])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A5Urd-0006IF-IH
+	for jython-users@lists.sourceforge.net; Fri, 03 Oct 2003 11:41:18 -0700
+Received: from esunmail ([129.147.156.34])
+	by brmea-mail-2.sun.com (8.12.10/8.12.9) with ESMTP id h93IfGaV026806
+	for <jython-users@lists.sourceforge.net>; Fri, 3 Oct 2003 12:41:16 -0600 (MDT)
+Received: from xpa-fe1 (esunmail [129.147.156.34]) by edgemail1.Central.Sun.COM
+ (iPlanet Messaging Server 5.2 HotFix 1.16 (built May 14 2003))
+ with ESMTP id <0HM700CJH2KR1C@edgemail1.Central.Sun.COM> for
+ jython-users@lists.sourceforge.net; Fri, 03 Oct 2003 12:41:16 -0600 (MDT)
+Received: from [10.0.1.3] ([12.236.16.56])
+ by mail.sun.net (iPlanet Messaging Server 5.2 HotFix 1.16 (built May 14 2003))
+ with ESMTPSA id <0HM7001B02KQTX@mail.sun.net> for
+ jython-users@lists.sourceforge.net; Fri, 03 Oct 2003 12:41:15 -0600 (MDT)
+From: Tom Ball <Tom.Ball@Sun.COM>
+Subject: Re: [Jython-users] Memory Exceptions
+In-reply-to: <3F7D8D23.7030403@rssd.esa.int>
+To: Nicola de Candussio <ndecandu@rssd.esa.int>
+Cc: jython-users@lists.sourceforge.net
+Message-id: <1065206473.2770.32.camel@lovebug.attbi.com>
+MIME-version: 1.0
+X-Mailer: Ximian Evolution 1.2.2 (1.2.2-5)
+Content-type: text/plain
+Content-transfer-encoding: 7BIT
+References: <3F7D8D23.7030403@rssd.esa.int>
+X-Spam-Score: -4.9 (----)
+X-Spam-Report: -4.9/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	IN_REP_TO          (-0.5 points) Has a In-Reply-To header
+	REFERENCES         (-0.5 points) Has a valid-looking References header
+	EMAIL_ATTRIBUTION  (-0.5 points) BODY: Contains what looks like an email attribution
+	QUOTED_EMAIL_TEXT  (-0.5 points) BODY: Contains what looks like a quoted email text
+	REPLY_WITH_QUOTES  (-0.5 points) Reply with quoted text
+	USER_AGENT_XIMIAN  (-2.4 points) Headers indicate a non-spam MUA (Ximian)
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Fri, 03 Oct 2003 11:41:14 -0700
+Date: Fri, 03 Oct 2003 11:41:14 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Doing anything with a UI after a Java memory exception is very
+problematic, since any UI interaction requires allocating more memory. 
+Even if you cached the error dialog and everything needed by the error
+handler, the UI events still need to be allocated as they are fired.  
+
+Although you could hack Py.java and try handling this exception, I
+suspect it will be a frustrating waste of your time.  I recommend
+instead following the advice of the out-of-memory error message to
+increase your app's heap using the "-Xmx" flag.
+
+Tom
+
+On Fri, 2003-10-03 at 07:52, Nicola de Candussio wrote:
+> Hi all,
+> 
+> I am using jython within a java application.
+> 
+> I works just fine but with the exception of the memory errors handling,
+> as far as I understand memory errors in jython are trapped and handled by
+> calling System.exit() (Py.java).
+> This is not acceptable by my application where users need to be notified
+> before closing the application.
+> I wonder if there'is any workaround or setting that could change this
+> behavior.
+> 
+> thans in advance
+> 
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

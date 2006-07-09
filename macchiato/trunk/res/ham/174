@@ -1,0 +1,109 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 14594 invoked by uid 65534); 2 Oct 2003 23:17:15 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx016) with SMTP; 03 Oct 2003 01:17:15 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id A86F81249A2; Thu,  2 Oct 2003 19:17:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 7879F12499F; Thu,  2 Oct 2003 19:16:09 -0400 (EDT)
+Received: from sitesuite.com.au (pat.sitesuite.net [203.52.132.2])
+	by listsmx.ximian.com (Postfix) with SMTP id CFD91124993
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 19:15:36 -0400 (EDT)
+Received: (qmail 31308 invoked from network); 2 Oct 2003 23:15:29 -0000
+Received: from unknown (HELO pingu.sitesuite.ss) (simran.list@reflectit.com@203.221.179.131)
+  by 0 with SMTP; 2 Oct 2003 23:15:29 -0000
+Subject: Re: [Evolution] Fonts...
+From: simran <simran.list@reflectit.com>
+To: Andrew Cowie <andrew@operationaldynamics.com>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1064941103.2735.8.camel@localhost>
+References: <1064792165.4593.39.camel@pingu>
+	 <1064941103.2735.8.camel@localhost>
+Content-Type: text/plain
+Message-Id: <1065136844.24357.313.camel@pingu>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 09:20:44 +1000
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi Andrew, 
+
+Nope.. no private responses... i have cc'd this message to the list as
+well (included my original question at the bottom) - as obviously more
+than 1 person is effected :-) 
+
+simran.
+
+On Wed, 2003-10-01 at 02:58, Andrew Cowie wrote:
+> Did you get any private responses
+> to the message you posted about fonts?
+> 
+> I've been having the same problem on one of my systems, no idea why.
+> It's almost as if evo is ignoring the system (er Gnome) font settings.
+> 
+> AfC
+
+------------------ my original question -------------------------------
+
+Hi All, 
+
+When i log into my X session (using gnome / sawfish - switched to it
+after 13 years of ctwm :-), and i start evolution, it starts in a large
+ugly font, however, if i do the following:
+
+* Gnome_Menu => Application => Desktop Preferences => Font
+
+Where i have the following set:
+
+  Applicaiton Font: Verdana 10
+  Desktop Font    : Verdana 10
+  Terminal Font   : Monospace 12
+  * Best Shapes
+
+* Click on "Details" and get Resolution which is set to "86".
+
+I change the resolution to something else, say 85, then close the font
+windows, then open again and change Resolution back to "86" then close
+the font windows and close evolution and open it again, i get evolution
+in the nice fonts i expect. 
+
+
+My assumption is that evolution (or possibly all of gnome stuff?) is not
+reading the font properties properly... until i make some changes and
+apply. 
+
+Question: Does anyone know if there is a font-start program i need to
+run at startup or if i can do anything in evo to tell it to use the
+correct fonts without all the rigmaroll mentioned above. 
+
+simran.
+
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

@@ -1,0 +1,106 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 359 invoked by uid 65534); 2 Oct 2003 09:29:05 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx002) with SMTP; 02 Oct 2003 11:29:05 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id B071E3ABA0; Thu,  2 Oct 2003 11:28:55 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 11:28:47 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from sanmx04.sanyo.co.jp (sanmx04.sanyo.co.jp [134.180.230.89])
+	by zen.via.ecp.fr (Postfix) with ESMTP id C3AAD3AB95
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 11:28:18 +0200 (CEST)
+Received: from sanmx04.sanyo.co.jp (localhost [127.0.0.1])
+	by localhost (Postfix) with ESMTP id 9B273658FC
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 18:28:14 +0900 (JST)
+Received: from mx-rdsrv.hr.rd.sanyo.co.jp (unknown [10.36.21.23])
+	by sanmx04.sanyo.co.jp (Postfix) with ESMTP id 45671658F6
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 18:28:14 +0900 (JST)
+Received: (from root@localhost)
+	by mx-rdsrv.hr.rd.sanyo.co.jp (8.10.2+Sun/3.7W) id h929SDO15088
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 18:28:13 +0900 (JST)
+Received: from localhost [127.0.0.1] by mx-rdsrv.hr.rd.sanyo.co.jp with SMTP id UAA15085 ; Thu, 2 Oct 2003 18:28:13 +0900
+Received: from gf.hm.rd.sanyo.co.jp
+	by cygnet.gf.hm.rd.sanyo.co.jp (8.9.3/3.7W/BUILD(02/27/2003)) with ESMTP id SAA03449;
+	Thu, 2 Oct 2003 18:28:04 +0900
+Message-ID: <3F7BEFFF.2030507@gf.hm.rd.sanyo.co.jp>
+Date: Thu, 02 Oct 2003 18:29:35 +0900
+From: Steven Brown <sbrown@gf.hm.rd.sanyo.co.jp>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030624
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: vlc@videolan.org
+Subject: [vlc] compiling vlc 6.2 - problems and solutions(?)
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=0.5 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_MOZILLA_UA,X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5693
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: sbrown@gf.hm.rd.sanyo.co.jp
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hey all,
+
+I just had a very difficult time compiling VLC 6.2 on RedHat9, but have
+finally done it. I noticed a couple people in the past have had a couple
+problems that I had (from looking at the mailing list archives), but I
+could not always find replies, so I thought I'd post what I can
+remember. Hope it's useful to someone.
+
+
+1) When "making" vlc, many errors with ffmpeg.c prevent compilation.
+
+This problem was reported just recently, and I used Clement Stenac's
+solution of making sure to configure vlc with a statically linked ffmpeg.
+../cofigure --with-ffmpeg-tree=/absolute/path/to/ffmpeg-source/
+Initially, this did not work for me, because I had been doing so much
+modifying of the vlc source tree, I'm assuming, trying to get it to
+work. After much frustration, I decided to start with a fresh source,
+and it worked. I also recommend NOT installing rpms if you are going to
+be compiling the source of any of the required packages (ffmpeg, for
+instance). I believe this caused further chaos to my system. Please,
+someone correct me on this, if I am wrong.
+
+
+
+2) After compiling/installing the required packages and vlc manages to
+compile, I got the following error when starting vlc.
+vlc: error while loading shared libraries: libavcodec.so: cannot open shared
+object file: No such file or directory
+
+Copy the libavcodec.so file from the previously compiled ffmpeg source
+directory to the default shared library directory. For me, this was the
+following:
+# cp /usr/src/ffmpeg-xxxx/libavcodec/libavcodec.so /usr/lib/
+
+
+
+Key steps as I remember them:
+1) ./configure, ./make, ./make install (or equivalent) for all required
+source packages
+- of particular interest for me, was ffmpeg. A couple other packages did
+not compile, but I ignored them and have been okay, so far. ^_^
+2) ..../vlc-0.6.2/cofigure
+--with-ffmpeg-tree=/absolute/path/to/ffmpeg-source/
+3) copy libavcodec.so from ffpmeg-source tree to /usr/lib/
+4) run vlc!
+
+Good luck!
+(sorry for long post)
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

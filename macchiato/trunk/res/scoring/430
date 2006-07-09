@@ -1,0 +1,94 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 21012 invoked by uid 65534); 18 Dec 2003 16:56:15 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx023-rz3) with SMTP; 18 Dec 2003 17:56:15 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id C17361248C8; Thu, 18 Dec 2003 11:56:05 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id DFEFE12440D; Thu, 18 Dec 2003 11:55:14 -0500 (EST)
+Received: from mail.gmx.net (mail.gmx.net [213.165.64.20])
+	by listsmx.ximian.com (Postfix) with SMTP id 0E0BC124220
+	for <evolution@lists.ximian.com>; Thu, 18 Dec 2003 11:55:03 -0500 (EST)
+Received: (qmail 12681 invoked by uid 65534); 18 Dec 2003 16:55:02 -0000
+Received: from pD9E33F18.dip.t-dialin.net (EHLO honk) (217.227.63.24)
+  by mail.gmx.net (mp006) with SMTP; 18 Dec 2003 17:55:02 +0100
+X-Authenticated: #1165889
+From: Thomas =?ISO-8859-1?Q?Pl=FCmpe?= <thomanski@gmx.de>
+To: evolution@lists.ximian.com
+Content-Type: text/plain; charset=
+Message-Id: <1071766676.3431.1141.camel@honk>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4-8mdk 
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, hits=-5.1 required=5.0
+	tests=RCVD_IN_NJABL,USER_AGENT_XIMIAN,X_NJABL_DIALUP
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] Problems with umlauts =?ISO-8859-1?Q?=28=E4=F6=FC=2E=2E=2E=29?= in
+ Evo 1.4.4
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 18 Dec 2003 17:57:56 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi there,
+
+I've been using Evolution 1.4.5 (a texstar rpm) without any problems
+under Mandrake 9.1, now under Mandrake 9.2 (which only has Evo 1.4.4 and
+no texstar rpm) umlauts get converted to strange characters, such as
+this:
+
+dotted	a	o	u	A	O	U
+	ä	ö	ü	Ä	Ö	Ü
+
+They look fine while I write the email, but the change is visible in my
+SENT box and to everybody I send emails to.
+
+I had the suspicion that this was caused by me boldly sharing the
+profile (by symlinking ~/evolution to the ~/evolution folder of my
+Mandrake 9.1 installation), so I temporarily renamed the link and
+created a new profile under 9.2, but the problem remains.
+
+I've tried killing all evolution processes and changing language related
+environment variables (when I noticed that LANG=de_DE under 9.2 and
+en_US under 9.1), but upon an evo restart from the console with the
+changed variables (LANG and LANGUAGE) I get the exact same behavior.
+Going back to 9.1 I find I can send umlauts without any problems. What's
+making this all the more confusing is that the umlauts in my name and in
+the subject don't get converted (or only occasionally), it's in the body
+of the emails.
+
+I've run out of ideas on how to track down the problem and I didn't find
+anything helpful wrt this on ximian's evolution support site or by
+googling. Any ideas what I might try next?
+
+I'd appreciate every little hint,
+Thomas
+
+
+PS: Is there a way to search this mailing list short of downloading the
+whole archive?
+PPS: The bug database contains some of this stuff with this being the
+most recent: http://bugzilla.ximian.com/show_bug.cgi?id=47646 "resolved,
+not a bug" from August this year.
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

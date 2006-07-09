@@ -1,0 +1,69 @@
+Return-Path: <b9414@olemail.com>
+Delivered-To: em-ca-bruceg@em.ca
+Received: (qmail 22485 invoked from network); 30 Jan 2002 13:18:32 -0000
+Received: from unknown (HELO mail.campusjoy.com) (211.239.169.15)
+  by agamemnon.bfsmedia.com with SMTP; 30 Jan 2002 13:18:32 -0000
+Received: from md6_[192.168.229.6] (2Cust101.tnt3.dfw9.da.uu.net [63.62.214.101])
+	by mail.campusjoy.com (8.11.0/8.11.0) with SMTP id g0UCu2409349;
+	Wed, 30 Jan 2002 21:56:03 +0900
+Received: from eon.dk by md6 with ESMTP; Wed, 30 Jan 2002 08:31:14 -0500
+Message-ID: <00004e7d478e$00006492$00000933@eon.dk>
+To: <gagnegigueres@em.agr.ca>
+Cc: <jkellar@em.agr.ca>, <fuck@em.all>, <sstephen@em.agr.ca>,
+   <rcw@magiclink.com>, <spaks@em.agr.ca>, <darklord@em.ca>,
+   <sponagleg@em.agr.ca>, <foxc@em.agr.ca>, <songj@em.agr.ca>,
+   <beh10@em.amdahl.com>, <bruceg@em.ca>, <spechte@em.agr.ca>,
+   <soncj@em.agr.ca>, <piendl@em.bi>, <gagnest@em.agr.ca>, <spicerm@em.agr.ca>,
+   <jburton@em.ca>, <spencerl@em.agr.ca>
+From: b9414@olemail.com
+Subject: Give Your Windows Operating System A Boost In Reliability Quickly                         2355
+Date: Wed, 30 Jan 2002 08:31:13 -0500
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 5.00.2615.200
+X-MimeOLE: Produced By Microsoft MimeOLE V5.00.2615.200
+Content-Length: 1179
+
+<html>
+<body>
+
+<p>Dear Windows User,<br>
+<br>
+Now you can boost the reliability of ordinary Windows 95, 98 and ME to nea=
+rly
+the level of Windows NT or 2000, Microsoft's professional and industrial v=
+ersion
+of Windows.<br>
+<br>
+The new WinFix is a very effective way to improve the reliability of Windo=
+ws,
+because it makes Windows fault-tolerant and self-repairing.<br>
+<br>
+And WinFix is very safe, because it operates completely independent of Win=
+dows.<br>
+<br>
+<u><font color=3D"#0000ff"><a href=3D"http://winf.steamboattech.com/">CLIC=
+K HERE</a></font></u> to find out more about WinFix, the safest, most effe=
+ctive way to keep you working, by keeping your PC working non-stop.<br>
+<br>
+Arlen Dixon, CEO<br>
+Pinewood Software Marketing<br>
+<br>
+-------------------------------------------------------<br>
+<br>
+This announcement is intended for PC users who asked to be kept<br>
+informed about new developments in Windows technology.<br>
+</p>
+<p><font size=3D"1">We apologize for any email you may have inadvertently
+received.<br>
+Please <a href=3D"http://takemeoff.steamboattech.com">CLICK HERE</a> to be=
+ removed from future mailings.</font></p>
+</body>
+</html>
+
+
+

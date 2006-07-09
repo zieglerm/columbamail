@@ -1,0 +1,93 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8295 invoked by uid 65534); 2 Oct 2003 09:08:40 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx006) with SMTP; 02 Oct 2003 11:08:40 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 0D44D3AC1C; Thu,  2 Oct 2003 11:08:29 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Thu, 02 Oct 2003 11:08:20 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from gw-nl4.philips.com (gw-nl4.philips.com [212.153.190.6])
+	by zen.via.ecp.fr (Postfix) with ESMTP id DB9723AB99
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 11:07:51 +0200 (CEST)
+Received: from smtpscan-nl3.philips.com (smtpscan-nl3.philips.com [130.139.36.23])
+	by gw-nl4.philips.com (Postfix) with ESMTP id 93E4F5A732
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 11:07:51 +0200 (MET DST)
+Received: from smtpscan-nl3.philips.com (localhost [127.0.0.1])
+	by localhost.philips.com (Postfix) with ESMTP id B587419C47
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 11:07:50 +0200 (MEST)
+Received: from smtprelay-nl1.philips.com (smtprelay-eur1.philips.com [130.139.36.3])
+	by smtpscan-nl3.philips.com (Postfix) with ESMTP id 5FA1719C45
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 11:07:50 +0200 (MEST)
+Received: from prle4.natlab.research.philips.com (prle4.natlab.research.philips.com [130.145.137.96]) 
+	by smtprelay-nl1.philips.com (8.9.3-p1/8.8.5-1.2.2m-19990317) with ESMTP id LAA06262
+	for <streaming@videolan.org>; Thu, 2 Oct 2003 11:07:50 +0200 (MET DST)
+Received: from smtpmon (smtpmon [130.145.137.150])
+	by prle4.natlab.research.philips.com (8.11.6/8.11.6) with ESMTP id h9297nC13750
+	for <streaming@videolan.org>; Thu, 2 Oct 2003 11:07:50 +0200
+Received: from pc7867.ddns.htc.nl.philips.com ([130.145.195.51])
+	by smtpmon (MailMonitor for SMTP v1.2.0 ) ;
+	Thu, 2 Oct 2003 11:07:49 +0200 (CEST)
+Message-ID: <3F7BEAE5.5090809@natlab.research.philips.com>
+Date: Thu, 02 Oct 2003 11:07:49 +0200
+From: Jean-Paul Saman <saman@natlab.research.philips.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.1) Gecko/20021003
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: streaming@videolan.org
+Subject: [streaming] Re: Real Time Streaming?
+References: <BAY9-F10dO6dBvHrkk5000141d1@hotmail.com>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-1.5 required=5.0
+	tests=EMAIL_ATTRIBUTION,QUOTED_EMAIL_TEXT,RCVD_IN_OSIRUSOFT_COM,
+	      REFERENCES,REPLY_WITH_QUOTES,USER_AGENT_MOZILLA_UA,
+	      X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 875
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: saman@natlab.research.philips.com
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Leung Chi Hung wrote:
+> Now i am connecting a notebook which act as a server, with an iPAQ which 
+> act as client
+> Both of them are running RedHat 7.3
+> I want to know if it's possible for me to stream the video from the web 
+> cam lively ( which is connecting to the notebook ) to the iPAQ through 
+> wirelessLAN?
+>  
+> Do videoLAN support real time streaming in this manner?
+
+Yes it supports it.
+
+You'll have to use the latest stable of vlc for the streaming part. 
+Unfortunately the VLC rpm's are build for RH 9.0. You'll have two 
+choices here:
+1) Update your RH 7.3 server to RH 9.0
+2) Compile vlc from source (you'll also need the additional libraries 
+and projects from the contrib directory).
+
+On the (iPaq) client part, you can use the latest stable for Familiar v6.x.
+
+-- 
+Kind greetings,
+
+Jean-Paul Saman
+VLC iPaq port maintainer.
+
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

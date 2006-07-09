@@ -1,0 +1,83 @@
+Return-Path: <garnome-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 7978 invoked by uid 65534); 2 Oct 2003 09:19:27 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx034-rz3) with SMTP; 02 Oct 2003 11:19:27 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 3E23118F26; Thu,  2 Oct 2003 05:19:06 -0400 (EDT)
+Delivered-To: garnome-list@gnome.org
+Received: from widget.gnome.org (widget.gnome.org [67.72.78.215])
+	by mail.gnome.org (Postfix) with ESMTP id E8EC218F14
+	for <garnome-list@gnome.org>; Thu,  2 Oct 2003 05:18:23 -0400 (EDT)
+Received: by widget.gnome.org (Postfix, from userid 48000)
+	id 0C50B40074; Thu,  2 Oct 2003 05:18:37 -0400 (EDT)
+From: bugzilla-daemon@widget.gnome.org
+To: garnome-list@gnome.org
+In-Reply-To: <bug-123694@bugzilla.gnome.org>
+X-Bugzilla-Product: GARNOME
+X-Bugzilla-Component: general
+X-Bugzilla-Status: NEW
+X-Bugzilla-Priority: Normal
+X-Bugzilla-Severity: normal
+X-Bugzilla-Target-Milestone: ---
+Subject: [Bug 123694] New - xft, xrender, render locations changed
+Message-Id: <20031002091837.0C50B40074@widget.gnome.org>
+Sender: garnome-list-admin@gnome.org
+Errors-To: garnome-list-admin@gnome.org
+X-BeenThere: garnome-list@gnome.org
+X-Loop: garnome-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:garnome-list-request@gnome.org?subject=help>
+List-Post: <mailto:garnome-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=subscribe>
+List-Id: For users and developers of the GARNOME distribution of GNOME <garnome-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/garnome-list/>
+Date: Thu,  2 Oct 2003 05:18:37 -0400 (EDT)
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Please do not reply to this email- if you want to comment on the bug, go to the
+URL shown below and enter your comments there.
+
+http://bugzilla.gnome.org/show_bug.cgi?id=123694
+
+Changed by danger.sys@hccnet.nl.
+
+--- shadow/123694	Thu Oct  2 05:18:37 2003
++++ shadow/123694.tmp.22254	Thu Oct  2 05:18:37 2003
+@@ -0,0 +1,24 @@
++Bug#: 123694
++Product: GARNOME
++Version: unspecified
++OS: Linux
++OS Details: 
++Status: NEW   
++Resolution: 
++Severity: normal
++Priority: Normal
++Component: general
++AssignedTo: jdub@perkypants.org                            
++ReportedBy: danger.sys@hccnet.nl               
++QAContact: garnome-list@gnome.org
++TargetMilestone: ---
++URL: 
++Summary: xft, xrender, render locations changed
++
++On my system, automatic downloading of the xft-2.1.2.tar.gz,
++xrender-0.8.3.tar.gz and render-0.8.tar.gz packages from freedesktop.org
++failed. Some of these are not in the specified locations, others result in
++a permission denied.
++
++The new location for these packages appears to be:
++http://pdx.freedesktop.org/software/fontconfig/releases/
+-- 
+garnome-list mailing list
+garnome-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/garnome-list
+

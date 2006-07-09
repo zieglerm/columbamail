@@ -1,0 +1,180 @@
+Return-Path: <kroupware-bounces-+fdietz=gmx.de@mail.kde.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28210 invoked by uid 65534); 3 Oct 2003 13:33:28 -0000
+Received: from kde.informatik.uni-kl.de (HELO ktown.kde.org) (131.246.103.200)
+  by mx0.gmx.net (mx009) with SMTP; 03 Oct 2003 15:33:28 +0200
+Received: (qmail 15282 invoked from network); 3 Oct 2003 13:33:27 -0000
+Received: from localhost (HELO ktown.kde.org) (127.0.0.1)
+  by localhost with SMTP; 3 Oct 2003 13:33:27 -0000
+Received: (qmail 14684 invoked from network); 3 Oct 2003 13:32:45 -0000
+Received: from unknown (HELO smtp.nedstat.nl) (194.109.98.184)
+  by kde.informatik.uni-kl.de with SMTP; 3 Oct 2003 13:32:44 -0000
+Received: from papuaos.org (nat.nedstat.nl [194.109.98.186])
+	by smtp.nedstat.nl (Postfix) with ESMTP id E9D2395A64
+	for <kroupware@mail.kde.org>; Fri,  3 Oct 2003 15:32:42 +0200 (CEST)
+Message-ID: <3F7D7A79.1070905@papuaos.org>
+Date: Fri, 03 Oct 2003 15:32:41 +0200
+From: Maarten Stolte <maarten.stolte@papuaos.org>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.5) Gecko/20030925 Thunderbird/0.3
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Kolab Server and KDE Client development issues <kroupware@mail.kde.org>
+Subject: Re: [Kroupware] Kolab WebClient RC1 release
+References: <3F7D7193.9020904@codefusion.co.za>
+In-Reply-To: <3F7D7193.9020904@codefusion.co.za>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Checker-Version: SpamAssassin 2.60-rc3 (1.202-2003-08-29-exp) on
+	ktown.kde.org
+X-Spam-Status: No, hits=0.0 required=5.5 tests=AWL autolearn=no
+	version=2.60-rc3
+X-BeenThere: kroupware@mail.kde.org
+X-Mailman-Version: 2.1.1
+Precedence: list
+Reply-To: Kolab Server and KDE Client development issues
+	<kroupware@mail.kde.org>
+List-Id: Kolab Server and KDE Client development issues
+	<kroupware.mail.kde.org>
+List-Unsubscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=unsubscribe>
+List-Archive: <http://mail.kde.org/pipermail/kroupware>
+List-Post: <mailto:kroupware@mail.kde.org>
+List-Help: <mailto:kroupware-request@mail.kde.org?subject=help>
+List-Subscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=subscribe>
+Sender: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+Errors-To: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hello Stuart (and list),
+
+so far it looks pretty nice, alot more modern then the previous horde, 
+and nicely adjusted to kolab with the logos etc.
+One gripe so far, I had Lorenzo's patches to the previous webclient 
+installed, which enabled more advanced user settings, like a sender 
+adress, reply-to adress and other personal data changes - posibility.
+Is it possible to port them to this horde version, which probably means 
+doing the same things he did; adding horde-person (iirc) to the ldap, 
+and enabling the functionality of horde that uses that...
+
+regards,
+
+Maarten
+
+
+Stuart Bingë wrote:
+
+> Hello all,
+>
+> We've just released a new version of the Kolab Webclient. If you 
+> consider our previous releases as being beta quality, then this 
+> release can be considered Release Candidate 1. I won't say all, but 
+> about 90%+ of the functionality is in - this is where you guys come 
+> in. We need as much testing & feedback as possible on this so that we 
+> can move quickly towards a stable `final' release.
+>
+> NOTE: This release is based on a CVS snapshot (from around mid-august) 
+> of the Horde code, so there may be some issues with that as well as 
+> with the horde/kolab 'glue' code. In either event, post any issues to 
+> the kolab-devel list so that we can try to resolve them as quickly as 
+> possible.
+>
+>
+>
+>
+>
+>  *** How to install *** :
+>
+>  - BEFORE YOU START, if you already have a previous Webclient release 
+> then you should uninstall/move it before continuing, or else it will 
+> be overwritten. If you've installed one of our previous RPM packages, 
+> then you can uninstall by doing the following:
+>
+> # rpm -e horde
+>
+> from withing the Kolab openpkg hierarchy.
+>
+>  - Download kolab-webclient-20031002.tar.bz2 from the following URL:
+>
+> http://www.erfrakon.de/projects/kolab/download/kolab-webclient/20031002/kolab-webclient-20031002.tar.bz2 
+>
+>
+>  - Move to your base kolab directory, e.g. /kolab.
+>  - Make sure you are a user with suitable permissions to write to the 
+> kolab directory tree (e.g. root) and then execute:
+>
+> # tar -xvjf /path/to/kolab-webclient-20031002.tar.bz2
+>
+> This will create two subdirectories, namely lib/php/pear containing 
+> all the Pear libraries that are needed, and var/kolab/www/horde, where 
+> the webclient resides.
+>  - Put the following in <KolabBase>/etc/kolab/httpd.conf.template, 
+> replacing <KolabBase> with the root of your kolab tree (e.g. /kolab):
+>
+> <Directory "<KolabBase>/var/kolab/www/horde">
+>    Options +FollowSymLinks
+>    AllowOverride None
+>
+>    php_value include_path '<KolabBase>/lib/php/pear/:.'
+>    php_flag magic_quotes_gpc Off
+>    php_flag track_vars On
+>    Order allow,deny
+>    Allow from all
+> </Directory>
+>
+>  - Execute:
+>
+> # <KolabBase>/etc/kolab/kolab -o -v
+>
+>  - Execute:
+>
+> # <KolabBase>/etc/rc.d/rc.apache reload
+>
+> - Edit <KolabBase>/var/kolab/www/horde/config/conf.php and change the 
+> relevant 'server' attributes (e.g. ldaphost, ldapbasedn, maildomain, 
+> etc) from their defaults if neccessary for your setup.
+>
+> That's it! Connect to http://your.web.server/horde/ and enjoy!
+>
+>
+>
+>
+>
+>  *** How to uninstall *** :
+>
+> # rm -rf <KolabBase>/lib/php/pear
+> # rm -rf <KolabBase>/var/kolab/www/horde
+>
+>  - Delete the ` <Directory "<KolabBase>/var/kolab/www/horde"> ' entry 
+> from your <KolabBase>/etc/kolab/httpd.conf.template
+>
+> # <KolabBase>/etc/kolab/kolab -o -v
+> # <KolabBase>/etc/rc.d/rc.apache reload
+>
+>
+>
+>
+>
+> Regards,
+>
+> -- 
+> Stuart Bingë
+> Code Fusion cc.
+> Tel: +27 11 391 1412
+> Email: s.binge@codefusion.co.za
+>
+> _______________________________________________
+> Kroupware mailing list
+> Kroupware@mail.kde.org
+> http://mail.kde.org/mailman/listinfo/kroupware
+
+
+
+_______________________________________________
+Kroupware mailing list
+Kroupware@mail.kde.org
+http://mail.kde.org/mailman/listinfo/kroupware
+

@@ -1,0 +1,83 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8692 invoked by uid 65534); 4 Oct 2003 10:22:15 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx022-rz3) with SMTP; 04 Oct 2003 12:22:15 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 6D4A312430A; Sat,  4 Oct 2003 06:22:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 12A8312426D; Sat,  4 Oct 2003 06:21:44 -0400 (EDT)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id BC1F412413C
+	for <evolution@lists.ximian.com>; Sat,  4 Oct 2003 06:21:32 -0400 (EDT)
+Received: (qmail 25097 invoked from network); 4 Oct 2003 10:21:32 -0000
+Received: from localhost (HELO privadas.nuria.telefonica-data.net) (rodrigo@127.0.0.1)
+  by localhost with SMTP; 4 Oct 2003 10:21:32 -0000
+Subject: Re: [Evolution] no custom coloring in calendar?
+From: Rodrigo Moya <rodrigo@ximian.com>
+To: Gabor Guzmics <cyb.org@gmx.net>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065206827.1971.9.camel@cyborg>
+References: <1065206827.1971.9.camel@cyborg>
+Content-Type: text/plain
+Message-Id: <1065262322.1134.28.camel@azkoyen.home>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Sat, 04 Oct 2003 12:12:02 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Fri, 2003-10-03 at 20:47, Gabor Guzmics wrote:
+> sorry for bringing it again but:
+> 
+> I find this feature is one of the most important features for a
+> calendar... its pretty unpretty, if everything got the same color...
+> there should be a way to pick certain colors for certain categories...
+> 
+> _there is no way to change the colors of categories via GUI, thats
+> something i already found out_
+> maybe there's a trick.
+> maybe this wont be developed ever
+> maybe it comes in 2.0
+> maybe nobody knows what I am talking about...
+> 
+> so if this is a low priority thing, which maybe comes in 2.0, and
+> there is no trick to make colored categories in the calendar, I have
+> to change to something similar, which does it now...
+> 
+> can I have colored categories somehow?
+> (I know I sound really silly*, but if you would see my calendar, you
+> would know, why I really want some colors for it)
+> 
+no, you cant in 1.4. You will be able to see different colors for
+different calendars in 2.0, not for categories, where we'll continue
+using the icons.
+
+cheers
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

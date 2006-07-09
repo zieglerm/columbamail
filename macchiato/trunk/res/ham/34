@@ -1,0 +1,316 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 27128 invoked by uid 65534); 2 Oct 2003 08:24:22 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx020-rz3) with SMTP; 02 Oct 2003 10:24:22 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 2EE2C3ABE6; Thu,  2 Oct 2003 10:24:04 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 10:23:56 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from ra.abo.fi (ra.abo.fi [130.232.213.1])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 07F7A3AB95
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 10:23:24 +0200 (CEST)
+Received: from humboldt.abo.fi (humboldt.abo.fi [130.232.213.83])
+	by ra.abo.fi (8.12.5/8.12.5) with ESMTP id h928NMf1019784
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 11:23:22 +0300 (EET DST)
+Received: (from nobody@localhost)
+	by humboldt.abo.fi (8.11.6/8.8.7) id h928IBM16115
+	for vlc@videolan.org; Thu, 2 Oct 2003 11:18:11 +0300
+X-Authentication-Warning: humboldt.abo.fi: nobody set sender to jusuomin@abo.fi using -f
+Received: from stream.cs.abo.fi (stream.cs.abo.fi [130.232.85.133]) 
+	by webmail.abo.fi (IMP) with HTTP 
+	for <jusuomin@localhost>; Thu,  2 Oct 2003 11:18:11 +0300
+Message-ID: <1065082691.3f7bdf4327137@webmail.abo.fi>
+Date: Thu,  2 Oct 2003 11:18:11 +0300
+From: jusuomin@abo.fi
+To: vlc@videolan.org
+Subject: [vlc] Streaming a dvb-t channel with vlc?
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2.1
+X-Originating-IP: 130.232.85.133
+X-Spam-Checking-Host: melitta.abo.fi
+X-Spam-Status: No, hits=0.1 required=5.0
+	tests=NO_REAL_NAME,USER_AGENT_IMP,X_AUTH_WARNING
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5690
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: jusuomin@abo.fi
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+
+Hi there.
+I'm having difficulties in streaming a dvb-t channel with videolan.
+I'm using a Nova-T card, and it is working fine (I can stream and watch
+channels with dvbstream + mplayer combo, but I would really like to use
+vlc instead)
+
+Im using the linuxTV dvb drivers (version 1.0.0, I think. Would an
+upgrade here help?)
+
+The problems I'm having (full output below) are that vlc complains that
+I'm giving it an invalid frequency (although I'm positive that it is
+correct) and symbol rate. 
+
+Also, I'm having difficulties in creating a .dvbrc file (mainly because
+I can't test it, since vlc won't stream dvb for me...), so if someone
+could give me either a working dvb-t .dvbrc for Finland, or point me
+somewhere that could help me creating one (the syntax just doesn't make
+sense to me, I'm afraid...) I'd be very grateful.
+
+And one last question. What is the correct value for symbol rate here in
+Finland?
+
+Here's the input/output from my system:
+(Sorry about the very long snip, but I'm not really sure what are the
+relevant parts here...)
+
+Well, thank you very much already. You have been very helpful so far!
+
+-JP
+
+[root@blumlein scan]# /usr/local/bin/vlc -vvv --program 8211
+dvb:12597000:0:3:27500000 --sout udp:192.168.0.12 --ttl 12
+
+VideoLAN Client 0.6.2 Trevelyan
+[00000000] main root debug: VLC media player - version 0.6.2 Trevelyan -
+(c) 1996-2003 VideoLAN
+[00000000] main root debug: libvlc was configured with ./configure
+--enable-v4l --enable-dvb --enable-arts --enable-qt --enable-kde
+--enable-lirc --prefix=/usr/local
+[00000001] main vlc debug: translation test: code is "C"
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000000] main root debug: checking builtin modules
+[00000000] main root debug: checking plugin modules
+[00000000] main root debug: recursively browsing `modules'
+[00000000] main root debug: recursively browsing `/usr/local/lib/vlc'
+[00000000] main root warning: cannot open
+`/usr/local/lib/vlc/gui/libqt_plugin.so'
+(/usr/local/lib/vlc/gui/libqt_plugin.so: undefined symbol:
+_ZN11QMainWindow5eventEP6QEvent)
+[00000000] main root debug: recursively browsing `plugins'
+[00000001] main vlc debug: module bank initialized, found 140 modules
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000001] main vlc debug: CPU has capabilities 486 586 MMX 3DNow!
+MMXEXT SSE FPU
+[00000001] main vlc debug: looking for memcpy module
+[00000001] main vlc debug: probing 4 candidates
+[00000010] main module debug: using memcpy module "memcpymmxext"
+[00000156] main playlist debug: waiting for thread completion
+[00000156] main playlist debug: thread 16386 (playlist) created at
+priority 0 (src/playlist/playlist.c:80)
+[00000156] main playlist debug: adding playlist item «
+dvb:12597000:0:3:27500000 » ( dvb:12597000:0:3:27500000 )
+[00000156] main playlist debug: creating new input thread
+[00000157] main input: playlist item `dvb:12597000:0:3:27500000'
+[00000157] main input debug: waiting for thread completion
+[00000157] main input debug: thread 32771 (input) created at priority 0
+(src/input/input.c:180)
+[00000157] main input debug: playing at normal rate
+[00000158] main interface debug: looking for interface module
+[00000158] main interface debug: probing 3 candidates
+[00000158] main interface debug: looking for gui-helper module
+[00000158] main interface debug: probing 1 candidate
+[00000157] main input debug: access `dvb', demux `', name
+`12597000:0:3:27500000'
+[00000157] main input debug: looking for access module
+[00000157] main input debug: probing 8 candidates
+[00000157] dvb input debug: using default values for frontend info
+[00000157] dvb input debug: method of access is dvb
+[00000157] dvb input debug: satellite (QPSK) frontend found on
+/dev/dvb/adapter0/frontend0
+[00000157] dvb input debug: opening DVR device '/dev/dvb/adapter0/dvr0'
+[00000157] dvb input debug: Opening frontend /dev/dvb/adapter0/frontend0
+[00000159] main private debug: waiting for thread completion
+[00000157] dvb input debug: ioctl_SetupSwitch: switch pos 0, 13V, hiband
+[00000157] dvb input debug: ioctl_SetupSwitch: index 2
+[00000157] dvb input debug: DiseqcSendMsg(): e0 10 38 f1 00 00
+[00000159] main private debug: thread 49156 (gtk_main) created at
+priority 0 (gtk_main.c:113)
+[00000118] main module debug: using gui-helper module "gtk_main"
+[00000101] main module debug: using interface module "gtk"
+[00000158] main interface debug: interface initialized
+[00000158] main interface debug: thread 65541 (manager) created at
+priority 0 (src/interface/interface.c:118)
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input error: frontend returned a failure event
+[00000157] dvdread input warning: cannot stat() source
+`12597000:0:3:27500000' (No such file or directory)
+[00000157] dvd input warning: cannot stat() device
+`12597000:0:3:27500000' (No such file or directory)
+[00000157] vcd input warning: could not open 12597000:0:3:27500000
+[00000157] cdda input warning: could not open 12597000:0:3:27500000
+[00000157] access_file input warning: cannot stat() file
+`12597000:0:3:27500000' (No such file or directory)
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input debug: video device=`12597000'
+[00000157] v4l input debug: audio device=`(null)'
+[00000157] v4l input error: cannot open device (No such file or directory)
+[00000157] main input warning: no access module matching "dvb" could be
+loaded
+[00000157] main input debug: looking for access module
+[00000157] main input debug: probing 7 candidates
+[00000157] dvdread input warning: cannot stat() source
+`dvb:12597000:0:3:27500000' (No such file or directory)
+[00000157] dvd input warning: cannot stat() device
+`dvb:12597000:0:3:27500000' (No such file or directory)
+[00000157] vcd input warning: could not open dvb:12597000:0:3:27500000
+[00000157] cdda input warning: could not open dvb:12597000:0:3:27500000
+[00000157] access_file input warning: cannot stat() file
+`dvb:12597000:0:3:27500000' (No such file or directory)
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input debug: video device=`dvb'
+[00000157] v4l input debug: audio device=`(null)'
+[00000157] v4l input error: cannot open device (No such file or directory)
+[00000157] main input error: no suitable access module for
+`/://dvb:12597000:0:3:27500000'
+[00000157] main input debug: thread 32771 joined (src/input/input.c:214)
+signal 2 received, terminating vlc - do it again in case it gets stuck
+[00000001] main vlc debug: removing all interfaces
+[00000158] main interface debug: thread 65541 joined
+(src/interface/interface.c:158)
+[00000159] main private debug: thread 49156 joined (gtk_main.c:148)
+[00000118] main module debug: unlocking module "gtk_main"
+[00000101] main module debug: unlocking module "gtk"
+[00000001] main vlc debug: removing all playlists
+[00000156] main playlist debug: thread 16386 joined
+(src/playlist/playlist.c:102)
+[00000001] main vlc debug: removing all video outputs
+[00000001] main vlc debug: removing all audio outputs
+[00000010] main module debug: unlocking module "memcpymmxext"
+[root@blumlein scan]# /usr/local/bin/vlc -vvv --program 512
+dvb:714000000:0:9 --sout udp:192.168.130.246 --ttl 12
+VideoLAN Client 0.6.2 Trevelyan
+[00000000] main root debug: VLC media player - version 0.6.2 Trevelyan -
+(c) 1996-2003 VideoLAN
+[00000000] main root debug: libvlc was configured with ./configure
+--enable-v4l --enable-dvb --enable-arts --enable-qt --enable-kde
+--enable-lirc --prefix=/usr/local
+[00000001] main vlc debug: translation test: code is "C"
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000000] main root debug: checking builtin modules
+[00000000] main root debug: checking plugin modules
+[00000000] main root debug: recursively browsing `modules'
+[00000000] main root debug: recursively browsing `/usr/local/lib/vlc'
+[00000000] main root warning: cannot open
+`/usr/local/lib/vlc/gui/libqt_plugin.so'
+(/usr/local/lib/vlc/gui/libqt_plugin.so: undefined symbol:
+_ZN11QMainWindow5eventEP6QEvent)
+[00000000] main root debug: recursively browsing `plugins'
+[00000001] main vlc debug: module bank initialized, found 140 modules
+[00000001] main vlc debug: opening config file /root/.vlc/vlcrc
+[00000001] main vlc warning: config file /root/.vlc/vlcrc does not exist yet
+[00000001] main vlc debug: CPU has capabilities 486 586 MMX 3DNow!
+MMXEXT SSE FPU
+[00000001] main vlc debug: looking for memcpy module
+[00000001] main vlc debug: probing 4 candidates
+[00000010] main module debug: using memcpy module "memcpymmxext"
+[00000156] main playlist debug: waiting for thread completion
+[00000156] main playlist debug: thread 16386 (playlist) created at
+priority 0 (src/playlist/playlist.c:80)
+[00000156] main playlist debug: adding playlist item « dvb:714000000:0:9
+» ( dvb:714000000:0:9 )
+[00000156] main playlist debug: creating new input thread
+[00000157] main input: playlist item `dvb:714000000:0:9'
+[00000157] main input debug: waiting for thread completion
+[00000157] main input debug: thread 32771 (input) created at priority 0
+(src/input/input.c:180)
+[00000157] main input debug: playing at normal rate
+[00000158] main interface debug: looking for interface module
+[00000158] main interface debug: probing 3 candidates
+[00000158] main interface debug: looking for gui-helper module
+[00000158] main interface debug: probing 1 candidate
+[00000157] main input debug: access `dvb', demux `', name `714000000:0:9'
+[00000157] main input debug: looking for access module
+[00000157] main input debug: probing 8 candidates
+[00000157] dvb input debug: using default values for frontend info
+[00000157] dvb input debug: method of access is dvb
+[00000157] dvb input warning: invalid frequency 714000000 (Hz), using
+default one
+[00000157] dvb input warning: invalid symbol rate, using default one
+[00000157] dvb input debug: satellite (QPSK) frontend found on
+/dev/dvb/adapter0/frontend0
+[00000157] dvb input debug: opening DVR device '/dev/dvb/adapter0/dvr0'
+[00000157] dvb input debug: Opening frontend /dev/dvb/adapter0/frontend0
+[00000157] dvb input debug: ioctl_SetupSwitch: switch pos 0, 13V, hiband
+[00000157] dvb input debug: ioctl_SetupSwitch: index 2
+[00000159] main private debug: waiting for thread completion
+[00000159] main private debug: thread 49156 (gtk_main) created at
+priority 0 (gtk_main.c:113)
+[00000118] main module debug: using gui-helper module "gtk_main"
+[00000101] main module debug: using interface module "gtk"
+[00000158] main interface debug: interface initialized
+[00000158] main interface debug: thread 65541 (manager) created at
+priority 0 (src/interface/interface.c:118)
+[00000157] dvb input debug: DiseqcSendMsg(): e0 10 38 f1 00 00
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input debug: ioctl_SetFrontend: tuning status == 0x01!!!
+....tuning failed
+[00000157] dvb input error: frontend returned a failure event
+[00000157] dvdread input warning: cannot stat() source `714000000:0:9'
+(No such file or directory)
+[00000157] dvd input warning: cannot stat() device `714000000:0:9' (No
+such file or directory)
+[00000157] vcd input warning: could not open 714000000:0:9
+[00000157] cdda input warning: could not open 714000000:0:9
+[00000157] access_file input warning: cannot stat() file `714000000:0:9'
+(No such file or directory)
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input debug: video device=`714000000'
+[00000157] v4l input debug: audio device=`(null)'
+[00000157] v4l input error: cannot open device (No such file or directory)
+[00000157] main input warning: no access module matching "dvb" could be
+loaded
+[00000157] main input debug: looking for access module
+[00000157] main input debug: probing 7 candidates
+[00000157] dvdread input warning: cannot stat() source
+`dvb:714000000:0:9' (No such file or directory)
+[00000157] dvd input warning: cannot stat() device `dvb:714000000:0:9'
+(No such file or directory)
+[00000157] vcd input warning: could not open dvb:714000000:0:9
+[00000157] cdda input warning: could not open dvb:714000000:0:9
+[00000157] access_file input warning: cannot stat() file
+`dvb:714000000:0:9' (No such file or directory)
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input warning: unknown option
+[00000157] v4l input debug: video device=`dvb'
+[00000157] v4l input debug: audio device=`(null)'
+[00000157] v4l input error: cannot open device (No such file or directory)
+[00000157] main input error: no suitable access module for
+`/://dvb:714000000:0:9'
+[00000157] main input debug: thread 32771 joined (src/input/input.c:214)
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

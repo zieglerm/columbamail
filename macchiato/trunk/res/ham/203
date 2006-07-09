@@ -1,0 +1,55 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28704 invoked by uid 65534); 3 Oct 2003 09:56:45 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx016-rz3) with SMTP; 03 Oct 2003 11:56:45 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id DD6E93AC84; Fri,  3 Oct 2003 11:56:31 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 11:56:23 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 10142)
+	id 311623ABC6; Fri,  3 Oct 2003 11:56:23 +0200 (CEST)
+Date: Fri, 3 Oct 2003 11:56:23 +0200
+From: Benjamin PRACHT <bigben@via.ecp.fr>
+To: vlc@videolan.org
+Subject: [vlc] Re: video filter
+Message-ID: <20031003095623.GB6327@via.ecp.fr>
+References: <000801c388c5$d49bc8e0$6401a8c0@jen>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <000801c388c5$d49bc8e0$6401a8c0@jen>
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-3.5 required=5.0
+	tests=IN_REP_TO,REFERENCES,USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5708
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bigben@via.ecp.fr
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Are you sure you enabled the plugin before you modifed the setting ?
+
+Go in the  video tab, in the preferences, ans  select the adjust module.
+Don't foreg to save the changes. You  need to restart the video in order
+the changes to be taken into account.
+
+-- 
+$(echo "BigBen")
+
+Oui je quote, et alors ?
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

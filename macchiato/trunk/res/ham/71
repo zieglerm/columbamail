@@ -1,0 +1,76 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 21341 invoked by uid 65534); 2 Oct 2003 09:43:09 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx013) with SMTP; 02 Oct 2003 11:43:09 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id EF6261248F6; Thu,  2 Oct 2003 05:43:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id D146C12475D; Thu,  2 Oct 2003 05:42:40 -0400 (EDT)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id B1A0B1248F4
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 05:42:28 -0400 (EDT)
+Received: (qmail 30882 invoked from network); 2 Oct 2003 09:42:28 -0000
+Received: from localhost (HELO gasteiz.home) (rodrigo@127.0.0.1)
+  by localhost with SMTP; 2 Oct 2003 09:42:28 -0000
+Subject: Re: [Evolution-hackers] Patch to enable send mail from calendar
+	alarms
+From: Rodrigo Moya <rodrigo@ximian.com>
+To: Ronald Kuetemeier <ronald@kuetemeier.com>
+Cc: evolution-hackers <evolution-hackers@lists.ximian.com>
+In-Reply-To: <1065054106.22156.6.camel@ronald.kuetemeier.com>
+References: <1065054106.22156.6.camel@ronald.kuetemeier.com>
+Content-Type: text/plain
+Message-Id: <1065087722.470.4.camel@gasteiz.home>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 11:42:56 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Thu, 2003-10-02 at 02:21, Ronald Kuetemeier wrote:
+> Hi Guys,
+> sorry this is a rather large patch.  But most of it is busy work.
+> It enables sending mail from calendar alarms.  I used a rather ugly work
+> around to wait for the shell if it's not running to get a shell
+> component, it's necessary at least for my SMP machine. If you know a
+> better way let me know. 
+> Any comments are welcome.
+>
+I dont understand very well the purpose of the getComposer method you
+added. If you look at calendar/gui/itip-utils.c, you'll see it activates
+the composer by using bonobo_activation_activate_from_id, there is no
+need to activate the shell and then get the composer.
+
+Also, I doubt this could be added to the 1.4.x series, since it is a new
+feature. So, I'd suggest you better work on adding this to HEAD, or,
+even better, to the new-ui-branch, which we'll merge to HEAD soon.
+
+saludos
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

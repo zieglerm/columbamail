@@ -1,0 +1,72 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 7922 invoked by uid 65534); 2 Oct 2003 16:56:29 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx012) with SMTP; 02 Oct 2003 18:56:29 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 55C3418465; Thu,  2 Oct 2003 12:56:06 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from mrelay-i1.mesd.k12.or.us (mrelay-v1.mesd.k12.or.us [198.236.68.98])
+	by mail.gnome.org (Postfix) with ESMTP id BFEAA181F3
+	for <nautilus-list@gnome.org>; Thu,  2 Oct 2003 12:55:24 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mrelay-i1.mesd.k12.or.us (Postfix) with ESMTP id 9D9C67CE
+	for <nautilus-list@gnome.org>; Thu,  2 Oct 2003 09:52:26 -0700 (PDT)
+Received: from mrelay-i1.mesd.k12.or.us ([127.0.0.1])
+ by localhost (mrelay-v1.mesd.k12.or.us [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 30104-09 for <nautilus-list@gnome.org>;
+ Thu,  2 Oct 2003 09:52:25 -0700 (PDT)
+Received: from mail.mesd.k12.or.us (mesd.k12.or.us [198.236.66.2])
+	by mrelay-i1.mesd.k12.or.us (Postfix) with ESMTP id 859127C9
+	for <nautilus-list@gnome.org>; Thu,  2 Oct 2003 09:52:25 -0700 (PDT)
+Received: from shahms.mesd.k12.or.us (shahms.mesd.k12.or.us [198.236.66.47])
+	by mail.mesd.k12.or.us (Postfix) with ESMTP id B49103289CB
+	for <nautilus-list@gnome.org>; Thu,  2 Oct 2003 09:55:33 -0700 (PDT)
+Subject: Re: Flash Backgrounds
+From: Shahms King <shahms@shahms.com>
+To: nautilus-list@gnome.org
+In-Reply-To: <1065087627.11175.2.camel@Monster>
+References: <1065087627.11175.2.camel@Monster>
+Content-Type: text/plain
+Message-Id: <1065113513.1979.1.camel@shahms.mesd.k12.or.us>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: by amavisd-new at mesd.k12.or.us
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Thu, 02 Oct 2003 09:51:54 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+I'm pretty sure nautilus can use any format supported by gdk-pixbuf for
+the background.  That being said, it certainly won't animate the
+background (at the moment?) and there is a flash plugin at:
+http://swfdec.sourceforge.net
+
+
+On Thu, 2003-10-02 at 02:40, David Durst wrote:
+> I was wondering if there had been any thought to supporting Flash
+> Backgrounds?
+-- 
+Shahms King <shahms@shahms.com>
+
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

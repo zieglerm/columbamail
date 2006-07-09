@@ -1,0 +1,90 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 5705 invoked by uid 65534); 3 Oct 2003 18:35:35 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx011) with SMTP; 03 Oct 2003 20:35:35 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id E8799124B89; Fri,  3 Oct 2003 14:35:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 6AEB0124144; Fri,  3 Oct 2003 14:34:02 -0400 (EDT)
+Received: from LX5054.heag.de (ns54.heag.de [193.25.234.54])
+	by listsmx.ximian.com (Postfix) with ESMTP id 013A2124B8A
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 14:33:51 -0400 (EDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by localhost (Postfix) with ESMTP
+	id 1DC1A800277; Fri,  3 Oct 2003 20:33:51 +0200 (CEST)
+Received: from main.davision.com (IP-213157026001.dialin.heagmedianet.de [213.157.26.1])
+	by mail.heag.de (Postfix) with ESMTP
+	id C5AEE80024F; Fri,  3 Oct 2003 20:33:50 +0200 (CEST)
+Received: from main.davision.com (main.davision.com [192.168.0.1])
+	by main.davision.com (Postfix) with ESMTP
+	id 1A36F20F; Fri,  3 Oct 2003 18:03:52 +0200 (CEST)
+Received: from main.davision.com (localhost [127.0.0.1])
+	by localhost (AvMailGate-2.0.1.11) id 10313-650CFF95;
+	Fri, 03 Oct 2003 18:03:51 +0200
+Received: from monkey (IP-213188098246.dialin.heagmedianet.de [213.188.98.246])
+	by main.davision.com (Postfix) with ESMTP
+	id 3F0DF14; Fri,  3 Oct 2003 18:03:51 +0200 (CEST)
+Subject: Re: [Evolution] Wrapping message lines?
+From: guenther <guenther@rudersport.de>
+To: "Robert G. Waycott" <rgwaycott@bellsouth.net>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065200313.43714.11.camel@localhost>
+References: <1065200313.43714.11.camel@localhost>
+Content-Type: text/plain
+Message-Id: <1065206027.24373.47.camel@monkey>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-AntiVirus: checked by AntiVir MailGate (version: 2.0.1.11; AVE: 6.21.0.1; VDF: 6.21.0.58; host: localhost)
+X-Spam-Status: No, hits=-15.6 required=5.0
+	tests=IN_REP_TO,RCVD_IN_OSIRUSOFT_COM,REFERENCES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 20:33:47 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+
+>   I am using Evo 1.4.5, and cannot find a setting to ensure
+> me messages will wrap at 72 characters, or any other number
+> for that matter. How can I set this?
+
+Use paragraph style "Normal" (which should be default for composing
+text/plain messages anyway) and lines will break at 72 chars.
+
+Quoted lines are set to "Preformat" by default, which will not wrap at
+all.
+
+
+As Jeff already said: The setting of 72 chars is hard coded and cannot
+be customized without recompiling...
+
+....guenther
+
+
+-- 
+char *t="\10pse\0r\0dtu\0.@ghno\x4e\xc8\x79\xf4\xab\x51\x8a\x10\xf4\xf4\xc4";
+main(){ char h,m=h=*t++,*x=t+2*h,c,i,l=*x,s=0; for (i=0;i<l;i++){ i%8? c<<=1:
+(c=*++x); c&128 && (s+=h); if (!(h>>=1)||!t[s+h]){ putchar(t[s]);h=m;s=0; }}}
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

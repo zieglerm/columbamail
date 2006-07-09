@@ -1,0 +1,57 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 29619 invoked by uid 65534); 3 Oct 2003 16:16:53 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx011) with SMTP; 03 Oct 2003 18:16:53 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 085771859C; Fri,  3 Oct 2003 12:16:07 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from mwinf0801.wanadoo.fr (smtp1.wanadoo.fr [193.252.22.23])
+	by mail.gnome.org (Postfix) with ESMTP id 4EFA718199
+	for <nautilus-list@gnome.org>; Fri,  3 Oct 2003 12:15:46 -0400 (EDT)
+Received: from localhost.localdomain (ALille-208-1-12-200.w81-48.abo.wanadoo.fr [81.48.189.200])
+	by mwinf0801.wanadoo.fr (SMTP Server) with ESMTP id 92479180012A
+	for <nautilus-list@gnome.org>; Fri,  3 Oct 2003 18:15:58 +0200 (CEST)
+From: Bertrand <anneetbertrand@wanadoo.fr>
+To: nautilus-list@gnome.org
+Subject: Is it possible to change the size of the desktop grid ?
+Message-ID: <20031003161525.GA2185@localhost.localdomain>
+Mime-Version: 1.0
+Content-Type: text/plain; format=flowed; charset=ISO-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Mailer: Balsa 2.0.11
+Lines: 8
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Fri, 3 Oct 2003 18:15:25 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+I'm running nautilus-2.4.0 on Mdk and I feel the size of the grid on 
+the desktop too large. There is too much space between each icon and I 
+can put  less icons on the desktop now when the snap-to-grid feature is 
+enabled (I'm feeling like falling back to a 800x600 desktop on a 15 
+inch screen...). I've quickly searched through the gconf keys but 
+didn't find any to change this size. Is it real ? I can't change this ?
+
+Bertrand Dekoninck
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

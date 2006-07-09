@@ -1,0 +1,120 @@
+Return-Path: <garnome-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 15580 invoked by uid 65534); 2 Oct 2003 20:27:26 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx003) with SMTP; 02 Oct 2003 22:27:26 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id 2450118513; Thu,  2 Oct 2003 16:27:05 -0400 (EDT)
+Delivered-To: garnome-list@gnome.org
+Received: from ms-smtp-03.tampabay.rr.com (unknown [65.32.1.41])
+	by mail.gnome.org (Postfix) with ESMTP id 7D5971838D
+	for <garnome-list@gnome.org>; Thu,  2 Oct 2003 16:26:16 -0400 (EDT)
+Received: from pluto (2416427hfc19.tampabay.rr.com [24.164.27.19])
+	by ms-smtp-03.tampabay.rr.com (8.12.10/8.12.5) with ESMTP id h92KQI1d010640
+	for <garnome-list@gnome.org>; Thu, 2 Oct 2003 16:26:18 -0400 (EDT)
+Subject: Re: Installing and starting 0.27.1 on Red Hat 9
+From: Karen <kas11@tampabay.rr.com>
+To: garnome-list <garnome-list@gnome.org>
+In-Reply-To: <3F7C6FD1.5000805@pubpow.com>
+References: <3F7C6FD1.5000805@pubpow.com>
+Content-Type: text/plain
+Message-Id: <1065126378.4493.21.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+Content-Transfer-Encoding: 7bit
+Sender: garnome-list-admin@gnome.org
+Errors-To: garnome-list-admin@gnome.org
+X-BeenThere: garnome-list@gnome.org
+X-Loop: garnome-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:garnome-list-request@gnome.org?subject=help>
+List-Post: <mailto:garnome-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=subscribe>
+List-Id: For users and developers of the GARNOME distribution of GNOME <garnome-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/garnome-list>,
+	<mailto:garnome-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/garnome-list/>
+Date: Thu, 02 Oct 2003 16:26:18 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Allen,
+
+On a similar setup, I needed to change the MASTER_SITES = to point to
+http://pdx.freedesktop.org/software/fontconfig/releases in the Makefile
+in each of ~/garnome-0.27.1/bootstrap/{render,xft,xrender}.  It is
+possible that the files have moved yet again so Google for the
+appropriate filenames and plug in the appropriate URLS as necessary.
+
+I did manage to get 2.4 and most everything else running here other than
+the mono-debugger...I'll get back to that someday when I have more
+patience...or some kind soul sets me on the right track.  Hope this
+helps.
+
+Karen
+
+who top posts cuz it seems the sensible thing to do
+
+On Thu, 2003-10-02 at 14:34, Allen Tam wrote:
+> Hi all,
+> 
+> I'm not sure if I've successfully installed 0.27.1. When I install on 
+> Red Hat 9, I get the following errors at the very end of the 
+> installation. Can I ignore these errors?
+> 
+> http://pdx.freedesktop.org/%7Efontconfig/release/xft-2.1.2.tar.gz
+>             => `download/partial/xft-2.1.2.tar.gz'
+> Resolving pdx.freedesktop.org... done.
+> Connecting to pdx.freedesktop.org[131.252.208.82]:80... connected.
+> HTTP request sent, awaiting response... 403 Forbidden
+> 11:05:22 ERROR 403: Forbidden.
+> 
+> make[5]: *** 
+> [http//pdx.freedesktop.org/~fontconfig/release/xft-2.1.2.tar.gz] Error 1
+> make[5]: Leaving directory `/home/testuser/garnome-0.27.1/bootstrap/xft'
+> *** GAR GAR GAR!  Failed to download download/xft-2.1.2.tar.gz!  GAR GAR 
+> GAR! ***
+> make[4]: *** [download/xft-2.1.2.tar.gz] Error 1
+> make[4]: Leaving directory `/home/testuser/garnome-0.27.1/bootstrap/xft'
+> make[3]: *** [../../bootstrap/xft/cookies/main.d/install] Error 2
+> make[3]: Leaving directory `/home/testuser/garnome-0.27.1/gnome/pango'
+> make[2]: *** [../../gnome/pango/cookies/main.d/install] Error 2
+> make[2]: Leaving directory `/home/testuser/garnome-0.27.1/gnome/gtk+'
+> make[1]: *** [../../gnome/gtk+/cookies/main.d/install] Error 2
+> make[1]: Leaving directory `/home/testuser/garnome-0.27.1/gnome/metacity'
+> make: *** [../../gnome/metacity/cookies/main.d/install] Error 2
+> 
+> My other problem is I can't seem to start Garnome. I've put the 
+> following script (from the Web site) in a "Garnome" file in 
+> /etc/X11/gdm/Session with the proper permissions. I log in through the 
+> GUI, select Garnome, but it says the session lasted less then 10 secs, 
+> and kicks me out to the log in screen.
+> 
+> #!/bin/sh
+> GARNOME=$HOME/garnome
+> 
+> PATH=$GARNOME/bin:$PATH
+> LD_LIBRARY_PATH=$GARNOME/lib:$LD_LIBRARY_PATH
+> PYTHONPATH=$GARNOME/lib/python2.2/site-packages
+> PKG_CONFIG_PATH=$GARNOME/lib/pkgconfig:/usr/lib/pkgconfig
+> GDK_USE_XFT=1
+> 
+> export PATH LD_LIBRARY_PATH PYTHONPATH PKG_CONFIG_PATH GDK_USE_XFT
+> 
+> exec $GARNOME/bin/gnome-session
+> 
+> What else do I need to do? Any help is much appreciated!
+> 
+> Allen
+> 
+> 
+
+-- 
+garnome-list mailing list
+garnome-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/garnome-list
+

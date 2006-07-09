@@ -1,0 +1,177 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 8109 invoked by uid 65534); 17 Dec 2003 23:58:51 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx012) with SMTP; 18 Dec 2003 00:58:51 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 00D3C124876; Wed, 17 Dec 2003 18:58:24 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id D67F012422C; Wed, 17 Dec 2003 18:57:55 -0500 (EST)
+Received: from misfit.dhs.org (adsl-63-193-116-102.dsl.snfc21.pacbell.net [63.193.116.102])
+	by listsmx.ximian.com (Postfix) with ESMTP id 8D29F124047
+	for <evolution@lists.ximian.com>; Wed, 17 Dec 2003 18:57:43 -0500 (EST)
+Received: from preston (preston [192.168.100.6])
+	by misfit.dhs.org (8.11.6+Sun/8.10.2) with ESMTP id hBHNvaJ15846;
+	Wed, 17 Dec 2003 15:57:36 -0800 (PST)
+Subject: Re: [Evolution] Remote Contacts/Calendar?
+From: Joseph Mocker <mock-gnome@misfit.dhs.org>
+To: Adam Williams <awilliam@whitemice.org>
+Cc: Tony Earnshaw <tonye@billy.demon.nl>,
+	evolution <evolution@lists.ximian.com>
+In-Reply-To: <1071689659.7456.16.camel@localhost.localdomain>
+References: <1070825059.4245.9.camel@dhcp-102>
+	 <1070842267.22893.12.camel@localhost>
+	 <1070844615.2892.6.camel@elias.freelock.lan>
+	 <1070850759.2037.10.camel@localhost>  <1071633589.3380.21.camel@dhcp-104>
+	 <1071666111.4636.52.camel@localhost>
+	 <1071689659.7456.16.camel@localhost.localdomain>
+Content-Type: text/plain
+Message-Id: <1071705724.4655.56.camel@preston>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4-8mdk 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Wed, 17 Dec 2003 16:02:04 -0800
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+I didn't mean to come down on Tony.
+
+Although I realize that the possibilities with 
+LDAP are endless, I don't think its too terrible
+to start to put together simple examples to help
+someone just starting out, to get integrated.
+
+Actually I found the OpenLDAP configuration to
+be the easiest part. I probably don't have a DIT
+that will work long term, but that wasn't my goal.
+
+It was those Evo gotchas like the v2 bind, and
+the flakiness of the connection code that drove me
+crazy.
+
+Those are the things that could be captured in
+an example so others don't pull their hair out.
+
+I would happily write up an example myself, if
+someone could direct me where it would be best
+hosted. Submit it to OpenLDAP? Ximian? Somewhere else?
+
+  --joe
+
+On Wed, 2003-12-17 at 11:34, Adam Williams wrote:
+> > > Thanks for the ideas on using OpenLDAP to store addresses. Being
+> > > somewhat of a novice to LDAP, it is a little daunting to dive into.
+> > > It's a shame that although you say this topic has been discussed
+> > > quite a bit on the opendlap aliases, there is no single document
+> > > that easily describes how to integrate Evolution and OpenLDAP.
+> > Setting up Openldap is the worst part, and Joseph seems to have done it.
+> > That has to happen long before one can begin to think of Evo, since a
+> > single Openldap directory database can form the basis of all user
+> > authentication within a whole organization, smtp, POP3 and IMAP AUTH,
+> > contacts, machines in a network, allowed workstations, buildings in an
+> > organization, through Samba v3 Windows PDC authorization - and much
+> > more. Therefore it's important firstly to have a plan for what is
+> 
+> I've published a good portion of Morrison Industries internal
+> "Enterprise Directory Manual" at - 
+> ftp://ftp.kalamazoolinux.org/pub/pdf/EDManual.pdf
+> - which might help if you need a example of what a working Dit might
+> look like, etc...  It isn't complete, but it might help;  in addition to
+> my other LDAP document.
+> 
+> Also McGraw Hills "Designing and Implementing Directory Enabled
+> Networks" (big huge tan book with a suspension bridge on it) is really a
+> good, albiet old, guide on basic LDAP issues.  And the LDAP issues seem
+> to really get people more than the OpenLDAP specific ones.
+> 
+> > intended with the database, and secondly how it is to be designed. This
+> > takes an awful lot of practice, swatting and *time* - and there's no
+> > single book or doc on it. Moreover, the more up-to-date one's Openldap
+> > and backend database software is, the more reliable and powerful it is.
+> 
+> Althougth anything relatively recent should work just fine.  We've used
+> OpenLDAP in production since 2.0.21 and while it has gotten faster and
+> more featureful it has always been stable and worked well once properly
+> configured.
+> 
+> > Once this has been done and one has discovered what lies behind LDAP,
+> > tools like GQ and directory_administrator and others, coupling Evo in is
+> > easy. Though Evo presents its own problems - even 1.4.5 is by no means
+> > stable yet and needs constant revision as to what connection mechanism
+> > is needed at a given moment - and if the LDAP server is restarted during
+> > an Evo session, the connection mechanism has to be redefined. If one
+> > doesn't know or realize this at first, it comes as a shock ("it worked
+> > yesterday, why doesn't it work today?"). More about this below.
+> 
+> This is true;  Evo is not really a very well behaved LDAP client.  Test
+> with things like ldapsearch and GQ, and when you think it works, then
+> fire up Evo and try it.  Don't initial-test with Evo, you'll end up bald
+> 'cause you ripped all your hair out.
+> 
+> > > I read Adam's document, alot of good LDAP info, but not much 
+> > > specific to Evolution.
+> > No, one has to do this parallel to Evo - first get it working, get used
+> > to it and then couple the two.
+> 
+> Other than the evolution schemas and enabling v2 binds there really
+> (honest, I mean it) isn't anything evolution specific.
+> 
+> > > 	[ID 217296 local4.debug] conn=1 op=0 RESULT tag=97 err=2
+> > > 	 text=requested protocol version not allowed
+> > > Googling once again, I found that I had to enable a specific
+> > > LDAP protocol version, that apparently Evolution uses. This is
+> > > done by adding the line:
+> > > 	allow bind_v2
+> > > to slapd.conf.
+> > Figures. Mozilla needs this too.
+> 
+> I'm pretty sure thats in my ldapv3.pdf document.
+> 
+> Most clients at this point don't support v3.
+> 
+> > > But that wasn't the end of my troubles. Apparently all the
+> > > attempts I made to authenticate with Evolution had caused 
+> > > evolution to cache some sort of credential or something, 
+> > > because even though it was prompting me to enter a password,
+> > > watching the openldap log files, and snoop, I didn't see
+> > > Evolution even try to talk to openldap.
+> 
+> We see that same kind of behaviour.  Hoping very much that it is better
+> in 2.0.  It is on my TODO list to document this misbehaviour in ldapv3
+> but other project have my time currently.
+> 
+> > When you get a bit more advanced with your ACLs, you'll find you can set
+> > up different directory subtrees for, say, Unix users and contacts, and
+> > be able to give privileges to power users to modify users, contacts
+> > whatever and others just to read - or not even see different directory
+> > trees. The best thing is, that you can make this available across an
+> > entire organization.
+> 
+> And from virtually any client - thats the best part: Mozilla, Evolution,
+> Pine, Outlook, Eudora.... everybody can utilize LDAP (at least to some
+> degree).
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

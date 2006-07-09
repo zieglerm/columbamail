@@ -1,0 +1,113 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 28338 invoked by uid 65534); 3 Oct 2003 23:28:25 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx010-rz3) with SMTP; 04 Oct 2003 01:28:25 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 78CF5124193; Fri,  3 Oct 2003 19:28:09 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 23DD8124114; Fri,  3 Oct 2003 19:27:47 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 95ADB124025
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 19:27:16 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 73CB6630DA; Fri,  3 Oct 2003 19:27:16 -0400 (EDT)
+Delivered-To: evolution@ximian.com
+Received: from lakecmmtar02.coxmail.com (lakecmmtar02.coxmail.com [68.99.120.49])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 4C1F0630C9
+	for <evolution@ximian.com>; Fri,  3 Oct 2003 19:27:16 -0400 (EDT)
+Received: from loki ([68.15.62.138]) by lakecmmtar02.coxmail.com
+          (InterMail vM.5.01.04.00 201-253-122-122-20010827) with ESMTP
+          id <20031003232701.SUVH1397.lakecmmtar02.coxmail.com@loki>
+          for <evolution@ximian.com>; Fri, 3 Oct 2003 19:27:01 -0400
+Subject: Re: [Evolution] 1.4.5 & conflict with Libgal2.0_5-1.99-10.x.rpm &
+	libplc4.so
+From: Bill Chmura <bill@explosivo.com>
+Reply-To: bill@explosivo.com
+Cc: Ximian Evolution Users <evolution@ximian.com>
+In-Reply-To: <C386328088ED7F4E9F81AFBABDDF60DA0264BA4D@wdmyexch02.my.asia.wdc.com>
+References: 
+	 <C386328088ED7F4E9F81AFBABDDF60DA0264BA4D@wdmyexch02.my.asia.wdc.com>
+Content-Type: text/plain
+Message-Id: <1065223635.3641.8.camel@loki>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.3 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,MISSING_HEADERS,
+	      QUOTED_EMAIL_TEXT,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 19:27:15 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+
+I had a similar problem with upgrading a mozilla or galeon or
+something...  It was completely unrelated to Evolution though.  The
+libraries were not longer there.
+
+ended up linking into the mozilla directory also...
+
+Strange...
+
+
+
+
+On Wed, 2003-09-24 at 21:29, Ow Mun Heng wrote:
+> Hi all,
+> 
+> 	Just wanted to point this one out..I'm not sure if it's a User
+> problem (meaning me!!) or an install problem.
+> 
+> I've got Ximian 1.4.4 from nyquist rpms. It installed libgal-1.99.9-x and
+> when I tried to upgrade to Evolution 1.4.5 from planetmirror, libgal2.0_5
+> stepped on libgal-1.99.9-x with the file libgal.2.so (or something like
+> that) I resorted to installing with --replacefiles. (not sure if it's the
+> right thing to do but....)
+> 
+> After it got upgraded to 1.4.5, evolution wouldn't start. Couldn't locate
+> libplc4.so. I searched for the libplc4.so file and found it in 2
+> places../usr/lib/openoffice/program and /usr/lib/mozilla-1.4. What I did was
+> just edit /etc/ld.so.conf and added in /usr/lib/mozilla-1.4 into the file
+> and then ran /sbin/ldconfig to relink the libraries.
+> 
+> That made evo 1.4.5 work again. 
+> 
+> Again, I'm not sure it's a bug or.... I downloaded all the rpms from
+> planetmirror and a rpm -qilp *.rpm | grep libplc4.so yielded Nothing!
+> 
+> 
+> 
+> Cheers,
+> Mun Heng, Ow
+> H/M Engineering
+> Western Digital M'sia 
+> DID : 03-7870 5168
+> 
+> 
+> _______________________________________________
+> evolution maillist  -  evolution@lists.ximian.com
+> http://lists.ximian.com/mailman/listinfo/evolution
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

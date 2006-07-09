@@ -1,0 +1,76 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 29256 invoked by uid 65534); 3 Oct 2003 07:06:06 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx003) with SMTP; 03 Oct 2003 09:06:06 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id A911A3AC74; Fri,  3 Oct 2003 09:05:04 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 09:04:56 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from hotmail.com (law12-f65.law12.hotmail.com [64.4.19.65])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 7AE683AC46
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 04:11:50 +0200 (CEST)
+Received: from mail pickup service by hotmail.com with Microsoft SMTPSVC;
+	 Thu, 2 Oct 2003 19:11:49 -0700
+Received: from 217.44.135.186 by lw12fd.law12.hotmail.msn.com with HTTP;
+	Fri, 03 Oct 2003 02:11:48 GMT
+X-Originating-IP: [217.44.135.186]
+X-Originating-Email: [littlelion007@hotmail.com]
+From: "Alexander Lopez" <littlelion007@hotmail.com>
+To: vlc@videolan.org
+Subject: [vlc] problem with ogm files
+Date: Fri, 03 Oct 2003 03:11:48 +0100
+Mime-Version: 1.0
+Content-Type: text/plain; format=flowed
+Message-ID: <Law12-F65tJAG8e3IzQ0000b9a4@hotmail.com>
+X-OriginalArrivalTime: 03 Oct 2003 02:11:49.0005 (UTC) FILETIME=[B3E6E3D0:01C38953]
+X-Spam-Status: No, hits=0.7 required=5.0
+	tests=FROM_ENDS_IN_NUMS
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: littlelion007@hotmail.com
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+To whomever it may concern,
+
+    I recently stated working for foreign television and am sent movie files 
+from abroad which use subtitles. Up until recently I have had no problem 
+with Videolan whatsoever until I was sent a file using OGG format.
+  The problem I had was that VLC would not play the videofile with timecode, 
+it would not produce a track which my subtitle format would play.
+  I was wondering whether you could tell me whether this was the file or 
+your program and could you advise me on the next course of action, as far as 
+I know the file is rendered perfectly using your software it is just solving 
+the problem of time.
+  In other packages I used the file was jumpy when i installed vosub and 
+Xvid rendering codecs.
+
+It would be most helpful if you could help me resolve this problem as I 
+don't speak Chinese so it is difficult to explain to my employer the 
+concerns I am having.
+
+
+Thank you
+
+A.Lopez
+
+_________________________________________________________________
+Use MSN Messenger to send music and pics to your friends 
+http://www.msn.co.uk/messenger
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

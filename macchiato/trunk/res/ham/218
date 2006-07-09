@@ -1,0 +1,77 @@
+Return-Path: <nautilus-list-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 31478 invoked by uid 65534); 3 Oct 2003 13:11:39 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx031-rz3) with SMTP; 03 Oct 2003 15:11:39 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id E5D8F189EE; Fri,  3 Oct 2003 09:11:05 -0400 (EDT)
+Delivered-To: nautilus-list@gnome.org
+Received: from nwkea-mail-1.sun.com (nwkea-mail-1.sun.com [192.18.42.13])
+	by mail.gnome.org (Postfix) with ESMTP id 4FEAE186F0
+	for <nautilus-list@gnome.org>; Fri,  3 Oct 2003 09:10:25 -0400 (EDT)
+Received: from phys-eris-2 ([129.156.85.26])
+	by nwkea-mail-1.sun.com (8.12.10/8.12.9) with ESMTP id h93DAbVo020804
+	for <nautilus-list@gnome.org>; Fri, 3 Oct 2003 06:10:38 -0700 (PDT)
+Received: from cdelab89.Ireland.Sun.COM
+ (cdelab89.Ireland.Sun.COM [129.156.226.189])
+ by eris-mail1.uk.sun.com (iPlanet Messaging Server 5.2 HotFix 1.14 (built Mar
+ 18 2003)) with ESMTP id <0HM6003DNN9P9X@eris-mail1.uk.sun.com> for
+ nautilus-list@gnome.org; Fri, 03 Oct 2003 14:10:37 +0100 (BST)
+From: Calum Benson <Calum.Benson@Sun.COM>
+Subject: Re: volumes mark 2
+In-reply-to: <1064236333.20200.213.camel@localhost.localdomain>
+To: Alexander Larsson <alexl@redhat.com>
+Cc: Havoc Pennington <hp@redhat.com>,
+	Nautilus <nautilus-list@gnome.org>
+Message-id: <1065186819.6100.22.camel@slec-gm-test.ireland.sun.com>
+Organization: Sun Microsystems Ireland Ltd
+MIME-version: 1.0
+X-Mailer: Ximian Evolution 1.4.5
+Content-type: text/plain
+Content-transfer-encoding: 7bit
+References: <1063978868.20200.30.camel@localhost.localdomain>
+ <1064075772.604.23.camel@dhcppc3>
+ <1064236333.20200.213.camel@localhost.localdomain>
+Sender: nautilus-list-admin@gnome.org
+Errors-To: nautilus-list-admin@gnome.org
+X-BeenThere: nautilus-list@gnome.org
+X-Loop: nautilus-list@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:nautilus-list-request@gnome.org?subject=help>
+List-Post: <mailto:nautilus-list@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=subscribe>
+List-Id: For developers and users of the Nautilus file manager <nautilus-list.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/nautilus-list>,
+	<mailto:nautilus-list-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/nautilus-list/>
+Date: Fri, 03 Oct 2003 14:13:41 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Mon, 2003-09-22 at 14:12, Alexander Larsson wrote:
+
+> Sounds like a good idea. Any sun or ximian people here?
+
+Well, for JDS, Sun are just hijacking the ~/Documents folder that SuSE
+creates for all new users anyway.  (Which contains Pictures,
+Presentations and Texts (sic) subdirectories).
+
+Cheeri,
+Calum.
+
+-- 
+CALUM BENSON, Usability Engineer       Sun Microsystems Ireland
+mailto:calum.benson@sun.com            GNOME Desktop Group
+http://ie.sun.com                      +353 1 819 9771
+
+Any opinions are personal and not necessarily those of Sun Microsystems
+
+-- 
+nautilus-list mailing list
+nautilus-list@gnome.org
+http://mail.gnome.org/mailman/listinfo/nautilus-list
+

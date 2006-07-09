@@ -1,0 +1,98 @@
+Return-Path: <kroupware-bounces-+fdietz=gmx.de@mail.kde.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 9363 invoked by uid 65534); 3 Oct 2003 15:48:43 -0000
+Received: from kde.informatik.uni-kl.de (HELO ktown.kde.org) (131.246.103.200)
+  by mx0.gmx.net (mx014-rz3) with SMTP; 03 Oct 2003 17:48:43 +0200
+Received: (qmail 24045 invoked from network); 3 Oct 2003 15:48:42 -0000
+Received: from localhost (HELO ktown.kde.org) (127.0.0.1)
+  by localhost with SMTP; 3 Oct 2003 15:48:42 -0000
+Received: (qmail 23795 invoked from network); 3 Oct 2003 15:48:25 -0000
+Received: from ctb-mesg1.saix.net (196.25.240.73)
+  by kde.informatik.uni-kl.de with SMTP; 3 Oct 2003 15:48:22 -0000
+Received: from mighty.co.za (unknown [165.165.177.142])
+	by ctb-mesg1.saix.net (Postfix) with ESMTP id AB205584B
+	for <kroupware@mail.kde.org>; Fri,  3 Oct 2003 17:47:53 +0200 (SAST)
+Message-ID: <3F7D9A2E.7050001@mighty.co.za>
+Date: Fri, 03 Oct 2003 17:47:58 +0200
+From: =?ISO-8859-1?Q?Stuart_Bing=EB?= <datura@mighty.co.za>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.5b) Gecko/20030920 Thunderbird/0.2
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Kolab Server and KDE Client development issues <kroupware@mail.kde.org>
+Subject: Re: [Kroupware] Kolab WebClient RC1 release
+References: <3F7D7193.9020904@codefusion.co.za> <3F7D7A79.1070905@papuaos.org>
+	<3F7D802F.4040309@mighty.co.za> <3F7D86D6.9000107@papuaos.org>
+In-Reply-To: <3F7D86D6.9000107@papuaos.org>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Checker-Version: SpamAssassin 2.60-rc3 (1.202-2003-08-29-exp) on
+	ktown.kde.org
+X-Spam-Status: No, hits=0.0 required=5.5 tests=none autolearn=no
+	version=2.60-rc3
+X-BeenThere: kroupware@mail.kde.org
+X-Mailman-Version: 2.1.1
+Precedence: list
+Reply-To: Kolab Server and KDE Client development issues
+	<kroupware@mail.kde.org>
+List-Id: Kolab Server and KDE Client development issues
+	<kroupware.mail.kde.org>
+List-Unsubscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=unsubscribe>
+List-Archive: <http://mail.kde.org/pipermail/kroupware>
+List-Post: <mailto:kroupware@mail.kde.org>
+List-Help: <mailto:kroupware-request@mail.kde.org?subject=help>
+List-Subscribe: <http://mail.kde.org/mailman/listinfo/kroupware>,
+	<mailto:kroupware-request@mail.kde.org?subject=subscribe>
+Sender: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+Errors-To: kroupware-bounces-+fdietz=gmx.de@mail.kde.org
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+The portal page does not currently work - we should have actually 
+removed it. We didn't work on it at all for this release, so I am not 
+entirely sure whether the missing functionality is a Horde issue (i.e. 
+non-working CVS code) or simply a preference storage issue (i.e. we'll 
+have to write Kolab drivers for storing the preferences, such as the 
+ldap stuff Lorenzo contributed). Although the functionality of the 
+portal is not critical to the project, it is a nice feature to have and 
+I personally feel that it should be in the final release, but it might 
+have to wait while we fix the more relevant problems.
+
+I'll take a look at the free/busy stuff - there is definitely a bug in 
+there that we need to fix (currently it looks for the free/busy 
+information in the file `user@maildomain.vfb', but the KDE client stores 
+it as `user.vfb'). Moment is however the most unstable component that we 
+are using (it's the only component we're using that doesn't have a 
+stable branch), so not every feature is present, and those that are are 
+not 100% stable - we can probablly expect most of the problems in this 
+release to be related to it.
+
+- Stuart
+
+Maarten Stolte wrote:
+> Hi,
+> 
+> I also have found two problem now, the meeting invitation didn't see 
+> free/busy time for my testuser whom i wanted to invite, this might be 
+> because I didn't publish that, but when I wanted to check the free/busy 
+> out by sending him a mail, I got the error that I didn't set my reply 
+> adress in the preferences.
+> Another problem is that the portal page didn't allow configuration, or I 
+> might have misunderstood how it worked, but I did press save twice, 
+> without anything new showing up on it...
+> 
+> Maarten
+
+-- 
+Stuart Bingë
+Code Fusion cc.
+Tel: +27 11 391 1412
+Email: s.binge@codefusion.co.za
+
+_______________________________________________
+Kroupware mailing list
+Kroupware@mail.kde.org
+http://mail.kde.org/mailman/listinfo/kroupware
+

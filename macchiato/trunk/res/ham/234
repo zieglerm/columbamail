@@ -1,0 +1,75 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 17573 invoked by uid 65534); 3 Oct 2003 14:53:05 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx035-rz3) with SMTP; 03 Oct 2003 16:53:05 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 0A90F3ACF2; Fri,  3 Oct 2003 16:52:52 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 16:52:43 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from sidekick.student.utwente.nl (sidekick.student.utwente.nl [130.89.168.212])
+	by zen.via.ecp.fr (Postfix) with ESMTP id EAF9E3ACBC
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 16:52:14 +0200 (CEST)
+Received: from thedj.student.utwente.nl
+	([130.89.163.167] helo=videolan.org ident=pjotr)
+	by sidekick.student.utwente.nl with esmtp (Exim 4.20)
+	id 1A5RHz-0001Ym-VY
+	for vlc@videolan.org; Fri, 03 Oct 2003 16:52:15 +0200
+Date: Fri, 3 Oct 2003 16:52:13 +0200
+Subject: [vlc] Re: World.mp4
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Mime-Version: 1.0 (Apple Message framework v552)
+From: Derk-Jan Hartman <hartman@videolan.org>
+To: vlc@videolan.org
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <A79CDCC4-F4D1-11D7-96D3-00039397093C@hiof.no>
+Message-Id: <2C4B4FC8-F5B1-11D7-8F50-0030656CFA88@videolan.org>
+X-Mailer: Apple Mail (2.552)
+X-Spam-Status: No, hits=-1.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REPLY_WITH_QUOTES,
+	      USER_AGENT_APPLEMAIL
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5717
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: hartman@videolan.org
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Pretty sure it is not.
+Files there are standard test files or problematic files reported to us.
+
+It is a strange file which has more than one problem. Short story it 
+was probably incorrectly created.
+
+DJ
+
+
+On donderdag, okt 2, 2003, at 14:12 Europe/Amsterdam, Nils-Odd Solberg 
+wrote:
+
+> hi,
+> is http://www.videolan.org/pub/videolan/streams/World.mp4 a vlc 
+> generated file?
+>
+> nils-odd
+
+---
+Videolan - VLC media player
+Derk-Jan Hartman (thedj@users.sourceforge.net)
+Co-Developer of the MacOS X port of vlc
+http://www.videolan.org/vlc
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

@@ -1,0 +1,93 @@
+Return-Path: <admin@webmasterdirect.org>
+Delivered-To: em-ca-bait-20010211231454@em.ca
+Received: (qmail 31062 invoked from network); 28 Jan 2002 14:42:42 -0000
+Received: from unknown (HELO linux) (61.132.118.134)
+  by agamemnon.bfsmedia.com with SMTP; 28 Jan 2002 14:42:42 -0000
+Received: from bdde.com ([64.86.192.76])
+	by linux (8.11.2/8.11.2) with SMTP id g0SElNu21195;
+	Mon, 28 Jan 2002 22:47:23 +0800
+Date: Mon, 28 Jan 2002 22:47:23 +0800
+Message-ID: <2c0f131f$4699$ce4>
+Mime-Version: 1.0
+X-Priority: 1 (Highest)
+X-MSMail-Priority: High
+Importance: High
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_19198_22542_7DE6.63647801F40B"
+To: <Undisclosed-Recipient@linux>
+From: "" <admin@webmasterdirect.org>
+Reply-to: admin@webmasterdirect.org
+Subject: Convert VHS tapes to DVD
+Content-Length: 4378
+Lines: 70
+
+
+------=_NextPart_19198_22542_7DE6.63647801F40B
+Content-Type: text/html; 
+	charset="us-ascii"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0079)http://lists.w3.org/Archives/Public/www-html-editor/2001OctDec/att-0174/00-part -->
+<HTML><HEAD><TITLE>DVD Copy Utility</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2600.0" name=GENERATOR>
+<META content=FrontPage.Editor.Document name=ProgId>
+<META content="none, default" name="Microsoft Border"></HEAD>
+<BODY text=#0000CC bgColor=#FFFFFF>
+<div align="center">&nbsp;<A href="http://www.copydvd.net/"><IMG height=150 
+src="http://www.copydvd.net/images/Gladiator.jpg" width=110 border=0> </A><A 
+href="http://www.applied-computers.com/dvd.htm"></A><A 
+href="http://www.copydvd.net/"><IMG height=150 
+src="http://www.copydvd.net/images/buzz.jpg" width=110 border=0> </A><A 
+href="http://www.copydvd.net/"></A><A 
+href="http://www.copydvd.net/"></A> </div>
+<P align=center><B><U><font color="#FF0000" size="6">Copy &amp; Burn DVD's &amp; 
+  VHS's w/CD Burner!!!</font></U></B></P>
+<P align=center>&nbsp;</P>
+<ul>
+  <BLOCKQUOTE> 
+    <BLOCKQUOTE> 
+      <p align="center"><font color="#000000"><b><font face="Times New Roman, Times, serif">Why 
+        Spend upwards of $4000 on a DVD Burner when we will show you an alternative 
+        that will do the exact same thing for only $19.95? </font></b></font></p>
+      <p align="center"><font face="Times New Roman, Times, serif" color="#000000"><b>You 
+        heard us right - for the price of just 1 DVD's, we'll show you how to 
+        back up and/or create Your Own DVD's! </b></font></p>
+      <p align="center"><font face="Times New Roman, Times, serif" color="#000000"><b>Just 
+        upgraded to a DVD and still have a ton of VHS tapes lying around? With 
+        this program, not only can you burn &amp; copy any DVD you've created, 
+        you'll also be able to transfer all your VHS tapes to DVD format as well!! 
+        </b></font></p>
+      <p align="center"><font face="Times New Roman, Times, serif" color="#000000"></font></p>
+      <p align="center"><b><font color="#000000" size="4">Regular Price:</font></b> 
+        <img src="http://www.copydvd.net/images/crossed_out.gif" width="77" height="22"></p>
+      <P align=center><font color="#000000" size="5"><B><U><A 
+      href="http://www.copydvd.net/"></A></U></B></font><FONT color=#ffffff size=5><B><U></U></B></FONT><font color="#0000CC"><b><font color="#000000" size="4">For 
+        a Limited Time Only, get yours today for just</font><font color="#000000"> 
+        <b><font color=#ffffff size=5><b><u><a href="http://www.copydvd.net/order.html"><font color="#FF0000" size="4">ONLY 
+        </font></a></u></b></font><font size="4" color="#FF0000"><u>$19.95!!</u></font></b><br>
+        </font></b></font></P>
+      <P align=center><FONT color=#ffffff size=5><U> <a href="http://www.copydvd.net/order.html"><B>ORDER 
+        NOW</B></a> </U></FONT></P>
+      <P align=center><a href="order.html"><img src="http://www.copydvd.net/images/visa-mastercard-amex.jpg" width="196" height="44" border="0"></a></P>
+    </BLOCKQUOTE>
+  </BLOCKQUOTE>
+</ul>
+<P align=center><FONT face="Times New Roman" color=#ffffff 
+size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></P>
+<P align=center><font face="Times New Roman, Times, serif" color="#000000"><b>You 
+  want to know more? Visit us at <a href="http://www.copydvd.net">http://www.copydvd.net</a></b></font></P>
+<P align=left>&nbsp;</P>
+<p align="left"><br>
+</p>
+<P align=left><font color="#000000" size="3" face="Times New Roman, Times, serif"><b>To 
+  be opt out from our future mailing please email optout@ewasher.org with the 
+  word opt out in the subject line</b></font></P>
+<P align=center>&nbsp;</P>
+<P align=center><B><U><A href="mailto:remove@ewasher.org"><FONT 
+color=#ffffff size=3>To be removed from this mailing list please send an email 
+  to remove@ewasher.org with the word remove in the subject line</FONT></A></U></B></P>
+</BODY><!--552d712f3f64fd6629762e37d15776d76b66c7d--></HTML>
+
+------=_NextPart_19198_22542_7DE6.63647801F40B--

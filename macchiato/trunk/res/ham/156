@@ -1,0 +1,101 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 26581 invoked by uid 65534); 2 Oct 2003 18:58:45 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx001) with SMTP; 02 Oct 2003 20:58:45 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A58f1-00036s-00; Thu, 02 Oct 2003 11:58:47 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A58dZ-0001fy-00
+	for <jython-users@lists.sourceforge.net>; Thu, 02 Oct 2003 11:57:17 -0700
+Received: from mail4.skillsoft.com ([12.160.193.185])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A58dX-0008Ji-99
+	for jython-users@lists.sourceforge.net; Thu, 02 Oct 2003 11:57:15 -0700
+Received: from [10.0.3.160] ([10.0.3.160]) by mail4.skillsoft.com with Microsoft SMTPSVC(5.0.2195.5329);
+	 Thu, 2 Oct 2003 14:56:34 -0400
+Mime-Version: 1.0
+X-Sender: ktjohnson@12.160.193.185
+Message-Id: <a06002009bba224b1c522@[10.0.3.160]>
+In-Reply-To:
+ <DB1F2EF3E2B78845A410EED3D69D604476AE14@MSGDALCLC2WIN.DMN1.FMR.COM>
+References:
+ <DB1F2EF3E2B78845A410EED3D69D604476AE14@MSGDALCLC2WIN.DMN1.FMR.COM>
+To: "Melchior, Joris" <Joris.Melchior@fmr.com>,
+ "'jython-users@lists.sourceforge.net'"	<jython-users@lists.sourceforge.net>
+From: Kent Johnson <kent_johnson@skillsoft.com>
+Subject: Re: [Jython-users] Any experience with win32com API with Jython
+Content-Type: text/plain; charset="us-ascii" ; format="flowed"
+X-OriginalArrivalTime: 02 Oct 2003 18:56:34.0445 (UTC) FILETIME=[E66943D0:01C38916]
+X-Spam-Score: -2.0 (--)
+X-Spam-Report: -2.0/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	IN_REP_TO          (-0.5 points) Has a In-Reply-To header
+	REFERENCES         (-0.5 points) Has a valid-looking References header
+	EMAIL_ATTRIBUTION  (-0.5 points) BODY: Contains what looks like an email attribution
+	REPLY_WITH_QUOTES  (-0.5 points) Reply with quoted text
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 2 Oct 2003 14:56:36 -0400
+Date: Thu, 2 Oct 2003 14:56:36 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+The problem is that the win32api module is implemented in C so it is 
+not available from Jython.
+
+I have had good luck using jacob for COM access to Word documents, it 
+should work from Jython. Jacobgen can create wrapper classes for com 
+components.
+http://danadler.com/jacob/
+http://www.bigatti.it/projects/jacobgen/
+
+Kent
+
+At 2:19 PM -0400 10/2/03, Melchior, Joris wrote:
+>Hi everyone,
+>
+>Has anybody successfully tried to use the win32com API's from Python 
+>in Jython. I'm working with Java and some products that create 
+>proxies but none of them are as easy to use and robust as the Python 
+>implementations.
+>
+>I tried putting the Python libraries in my path but as soon as I try 
+>to import win32com it starts complaining it cannot find the 
+>win32api. I can't find this module and I'm not sure if it is not 
+>generated on the fly.
+>
+>Anyhow, any suggestions are welcome.
+>
+>Thanks,
+>
+>Joris Melchior
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

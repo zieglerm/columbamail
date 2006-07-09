@@ -1,0 +1,122 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 26427 invoked by uid 65534); 3 Oct 2003 18:31:20 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx018-rz3) with SMTP; 03 Oct 2003 20:31:20 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id DABE0124B89; Fri,  3 Oct 2003 14:31:05 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 37C2F124180; Fri,  3 Oct 2003 14:30:20 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 59CDB124B89
+	for <evolution-hackers@lists.ximian.com>; Fri,  3 Oct 2003 14:29:51 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 4F840630BA; Fri,  3 Oct 2003 14:29:51 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 482EC630A6
+	for <evolution-hackers@ximian.com>; Fri,  3 Oct 2003 14:29:51 -0400 (EDT)
+Received: (qmail 17849 invoked from network); 3 Oct 2003 18:29:50 -0000
+Received: from peabody.ximian.com (HELO localhost) (141.154.95.10)
+  by peabody.ximian.com with SMTP; 3 Oct 2003 18:29:50 -0000
+Subject: Re: [Evolution-hackers] Appointment and Meeting Editors -- 2.0
+	Thoughts
+From: Federico Mena Quintero <federico@ximian.com>
+To: Anna Marie Dirks <anna@ximian.com>
+Cc: evolution-hackers@ximian.com
+In-Reply-To: <1065109377.4874.6165.camel@narcissus.boston.ximian.com>
+References: <1064954351.4874.296.camel@narcissus.boston.ximian.com>
+	 <1064959549.2761.77.camel@twelve-monkeys.boston.ximian.com>
+	 <1064985477.20296.27.camel@ronald.kuetemeier.com>
+	 <1065023280.4874.1375.camel@narcissus.boston.ximian.com>
+	 <1065058545.5161.37.camel@localhost.localdomain>
+	 <1065109377.4874.6165.camel@narcissus.boston.ximian.com>
+Content-Type: text/plain
+Message-Id: <1065205785.2714.1699.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Fri, 03 Oct 2003 13:29:46 -0500
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Thu, 2003-10-02 at 10:42, Anna Marie Dirks wrote:
+
+> So it sounds to me like what you are telling me is that if you could use
+> the "To Do" (or "Tasks") part of Evolution to help you remember and plan
+> your speaking engagements, then you would. Is that right? 
+> 
+> Besides alarms, is there anything else that the appointment editor
+> provides to you that the task editor doesn't, which you need to help you
+> plan a speaking engagement? 
+
+I don't think we support alarms for tasks, and they would certainly be
+useful.
+
+RFC 2445 says that VTODO components can have a DTSTART property, and
+either a DUE or DURATION property --- no DTEND.  The DUE or DURATION of
+course let you figure out the "end" date for the task.  Say you create a
+task to remind you to submit an abstract for a conference.  You could
+then specify:
+
+	SUMMARY: Write abstract for FooConference	
+	DTSTART: <blah>  <-- date the call-for-papers was sent
+	DUE: <blah>      <-- drop-dead date
+
+It would be useful to set an alarm that repeats each week, starting a
+few weeks before the due date.  A three-week reminder would look like
+
+	BEGIN:VALARM
+	TRIGGER;RELATED=END:-P3W
+	REPEAT:2
+	DURATION:P1W
+	...
+	END:VALARM
+
+The "RELATED=END" is important, as it specifies that the alarm is with
+respect to the due date.
+
+I don't think the recurrence engine handles VTODO components yet, but it
+would be simple to add.  It can already pick up the DTSTART, as VEVENT
+components also have it, but it doesn't know that there is no DTEND in
+tasks --- you need to use the DUE date, or compute it as DTSTART plus
+DURATION.
+
+See calendar/util/cal-util.c:add_alarm_occurrences_cb().  It gets an
+occurrence's end time from cal_recur_generate_instances(), which uses
+cal_component_get_dtend() in its innards.  The latter will give you the
+actual DTEND value, or (DTSTART + DURATION) if there is no DTEND
+property.  This would work fine for tasks with DTSTART and DURATION, but
+not for those with DUE.
+
+I guess it is just cal-recur.c that needs to be modified to use DUE
+rather than DTEND or (DTSTART + DURATION), or perhaps
+cal_component_get_dtend() could be generalized to return DUE for tasks.
+
+  Federico
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

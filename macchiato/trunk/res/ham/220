@@ -1,0 +1,84 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 12181 invoked by uid 65534); 3 Oct 2003 13:52:44 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx034-rz3) with SMTP; 03 Oct 2003 15:52:44 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 12CF13ACDC; Fri,  3 Oct 2003 15:52:33 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Fri, 03 Oct 2003 15:52:24 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from z.ugratel.ru (unknown [217.196.99.2])
+	by zen.via.ecp.fr (Postfix) with ESMTP id C4C4B3ACCC
+	for <streaming@videolan.org>; Fri,  3 Oct 2003 15:23:48 +0200 (CEST)
+Received: from drweb by z.ugratel.ru with drweb-scanned (Exim 4.22)
+	id 1A5PuN-0001Tc-Ad
+	for streaming@videolan.org; Fri, 03 Oct 2003 19:23:47 +0600
+Received: from nobody by z.ugratel.ru with local (Exim 4.22)
+	id 1A5PuN-0001TV-86
+	for streaming@videolan.org; Fri, 03 Oct 2003 19:23:47 +0600
+Received: from 217.196.99.35
+        (SquirrelMail authenticated user defter)
+        by mail.r86.ru with HTTP;
+        Fri, 3 Oct 2003 19:23:47 +0600 (YEKST)
+Message-ID: <4445.217.196.99.35.1065187427.squirrel@mail.r86.ru>
+Date: Fri, 3 Oct 2003 19:23:47 +0600 (YEKST)
+Subject: [streaming] I have a problem
+From: defter@r86.ru
+To: streaming@videolan.org
+User-Agent: SquirrelMail/1.4.1
+MIME-Version: 1.0
+Content-Type: text/plain;charset=koi8-r
+Content-Transfer-Encoding: 8bit
+X-Priority: 3
+Importance: Normal
+X-Virus-Scanned: by DrWeb For Unix
+X-Spam-Status: No, hits=1.3 required=5.0
+	tests=NO_REAL_NAME,PRIORITY_NO_NAME,USER_AGENT
+	version=2.55
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: defter@r86.ru
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+I was configure program by your documentation, download your sample movie,
+but it doesn't work.
+
+It is vlsd output:
+
+VideoLAN Server v 0.5.3 (Oct  3 2003) - (c)1999-2003 VideoLAN
+Synchronised with PS stream
+New Pid assigned: 80
+PMT Add, PID : 0x80 , Type : 0x5
+Synchronised with PS stream
+Time discontinuity in PS stream
+New Pid assigned: 81
+PMT Add, PID : 0x81 , Type : 0x5
+New Pid assigned: 82
+PMT Add, PID : 0x82 , Type : 0x5
+New Pid assigned: 83
+Video: 0x83 , 131
+PMT Add, PID : 0x83 , Type : 0x2
+updating PCR_PID to value 131 (current pid = 0)
+New Pid assigned: 84
+Audio: 0x84 , 132
+PMT Add, PID : 0x84 , Type : 0x4
+2003-10-03 19:12:30 [ERROR/local1]  Read error for program "defter"
+
+***
+With best regards DeFTeR.
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

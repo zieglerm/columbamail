@@ -1,0 +1,34 @@
+Return-Path: <currency@sina.com>
+Delivered-To: em-ca-bait@em.ca
+Received: (qmail 10916 invoked from network); 27 Jan 2002 11:39:56 -0000
+Received: from unknown (HELO localhost) (203.250.79.171)
+  by agamemnon.bfsmedia.com with SMTP; 27 Jan 2002 11:39:56 -0000
+Received: from pop3.sina.com.cn ([212.210.234.99]) by localhost with Microsoft SMTPSVC(5.0.2195.2966);
+	 Sun, 27 Jan 2002 20:45:15 +0900
+Message-ID: <0000120e3255$000006ac$00004f3a@pop3.sina.com.cn>
+To: <Undisclosed Recipients>
+From: currency@sina.com
+Subject: Foreign Currency Trading Report                  BRY
+Date: Sun, 27 Jan 2002 06:47:15 -1700
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="Windows-1252"
+Content-Transfer-Encoding: 7bit
+Return-Path: currency@sina.com
+X-OriginalArrivalTime: 27 Jan 2002 11:45:16.0265 (UTC) FILETIME=[16979D90:01C1A728]
+Content-Length: 335
+Lines: 13
+
+Make Big Money With your Money!
+
+200% return could have been achieved in less than 30 days!
+Learn about our strategy trading in the InterBank Foreign
+Currency Exchange.
+
+For complete information on this exciting investment opportunity,
+please visit our website...today.
+
+Must be 21 years of age.
+
+http://www.insuredlegal.com/currency
+

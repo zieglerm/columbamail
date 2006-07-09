@@ -1,0 +1,73 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 9797 invoked by uid 65534); 3 Oct 2003 18:12:14 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx009) with SMTP; 03 Oct 2003 20:12:14 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 7402F124B71; Fri,  3 Oct 2003 14:12:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 98516124B70; Fri,  3 Oct 2003 14:11:23 -0400 (EDT)
+Received: from mail.gmx.net (mail.gmx.net [213.165.64.20])
+	by listsmx.ximian.com (Postfix) with SMTP id 95804124B6E
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 14:10:51 -0400 (EDT)
+Received: (qmail 8148 invoked by uid 65534); 3 Oct 2003 18:10:50 -0000
+Received: from host91-188.pool80181.interbusiness.it (EHLO [192.168.1.11]) (80.181.188.91)
+  by mail.gmx.net (mp026) with SMTP; 03 Oct 2003 20:10:50 +0200
+X-Authenticated: #529089
+From: Roberto Inzerillo <robicd@gmx.net>
+To: evolution@lists.ximian.com
+In-Reply-To: <1065202693.7737.149.camel@twelve-monkeys.boston.ximian.com>
+References: <1065197084.4697.21.camel@millaadi4>
+	 <1065202693.7737.149.camel@twelve-monkeys.boston.ximian.com>
+Content-Type: text/plain
+Message-Id: <1065204632.4889.54.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.2.2 (1.2.2-5) 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-15.6 required=5.0
+	tests=IN_REP_TO,RCVD_IN_OSIRUSOFT_COM,REFERENCES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] How to filter mail before getting it from pop3 server?
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: 03 Oct 2003 20:10:33 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Is there a way to create some kind of filter to use while connecting to
+a pop3 server in order not to download unwanted emails (maybe based on
+headers or on other email informations which can be read in the first
+phases of the pop3 process)? 
+
+My pop3 account is always full with w32.swen viruses (the almost
+140KBytes emails claiming to be Microsoft Windoze Updates) and I hate
+wasting by bandwidth with this sh*t.
+I make use of "Swen deleter" from Xavier Noria which deletes all those
+emails using a Perl script, but I always have to manually run the script
+before downloading new emails. I would like to integrate the script (or
+some other) in such a kind of a pre-download filter.
+
+Any idea? Any chance it could be made?
+
+    Roberto
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

@@ -1,0 +1,141 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 19676 invoked by uid 65534); 2 Oct 2003 19:43:41 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx012) with SMTP; 02 Oct 2003 21:43:41 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A59MS-0002fP-00; Thu, 02 Oct 2003 12:43:40 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A59L9-0004yd-00
+	for <jython-users@lists.sourceforge.net>; Thu, 02 Oct 2003 12:42:19 -0700
+Received: from mail2.integ.com ([207.32.114.40] helo=blaise.integ.local)
+	by sc8-sf-mx1.sourceforge.net with esmtp (TLSv1:AES256-SHA:256)
+	(Exim 4.22)
+	id 1A59L8-0005zy-9o
+	for jython-users@lists.sourceforge.net; Thu, 02 Oct 2003 12:42:18 -0700
+Received: from mkitchin-2k.integ.com [172.16.3.226]
+	by blaise.integ.local
+	with XWall v3.27h ;
+	Thu, 2 Oct 2003 15:42:10 -0400
+From: "Michael J. Kitchin" <mkitchin@integ.com>
+To: <jython-users@lists.sourceforge.net>
+Subject: RE: [Jython-users] Any experience with win32com API with Jython
+Message-ID: <GPENJFFIPEIGDBKJDCHFEEOACHAA.mkitchin@integ.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook IMO, Build 9.0.2416 (9.0.2911.0)
+Importance: Normal
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+In-Reply-To: <a06002009bba224b1c522@[10.0.3.160]>
+X-Spam-Score: -1.4 (-)
+X-Spam-Report: -1.4/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	MSGID_GOOD_EXCHANGE (-0.4 points) Message-Id indicates the message was sent from MS Exchange
+	IN_REP_TO          (-0.5 points) Has a In-Reply-To header
+	QUOTED_EMAIL_TEXT  (-0.5 points) BODY: Contains what looks like a quoted email text
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 2 Oct 2003 15:42:10 -0400
+Date: Thu, 2 Oct 2003 15:42:10 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+I've used Jacob from Jython to drive the Microsoft Speech API. Implemented a simple Java class to provide some helper methods,
+called the methods from Jython. Badda-boom, badda-bing. Technically, could've gotten by without the Java code, but it was a
+time-saver.
+
+                                    -Regards,
+                                    MjK
+
+- - - - -
+
+"0 error(s), 0 warning(s)"
+
+Michael J. Kitchin (Senior Systems Engineer)
+mailto:mkitchin@integ.com
+Integral Systems, Inc.
+http://www.integ.com
+
+
+> -----Original Message-----
+> From: jython-users-admin@lists.sourceforge.net
+> [mailto:jython-users-admin@lists.sourceforge.net]On Behalf Of Kent
+> Johnson
+> Sent: Thursday, October 02, 2003 2:57 PM
+> To: Melchior, Joris; 'jython-users@lists.sourceforge.net'
+> Subject: Re: [Jython-users] Any experience with win32com API with Jython
+>
+>
+> The problem is that the win32api module is implemented in C so it is
+> not available from Jython.
+>
+> I have had good luck using jacob for COM access to Word documents, it
+> should work from Jython. Jacobgen can create wrapper classes for com
+> components.
+> http://danadler.com/jacob/
+> http://www.bigatti.it/projects/jacobgen/
+>
+> Kent
+>
+> At 2:19 PM -0400 10/2/03, Melchior, Joris wrote:
+> >Hi everyone,
+> >
+> >Has anybody successfully tried to use the win32com API's from Python
+> >in Jython. I'm working with Java and some products that create
+> >proxies but none of them are as easy to use and robust as the Python
+> >implementations.
+> >
+> >I tried putting the Python libraries in my path but as soon as I try
+> >to import win32com it starts complaining it cannot find the
+> >win32api. I can't find this module and I'm not sure if it is not
+> >generated on the fly.
+> >
+> >Anyhow, any suggestions are welcome.
+> >
+> >Thanks,
+> >
+> >Joris Melchior
+>
+>
+>
+> -------------------------------------------------------
+> This sf.net email is sponsored by:ThinkGeek
+> Welcome to geek heaven.
+> http://thinkgeek.com/sf
+> _______________________________________________
+> Jython-users mailing list
+> Jython-users@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/jython-users
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

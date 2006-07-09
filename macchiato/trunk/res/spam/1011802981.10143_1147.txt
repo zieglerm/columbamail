@@ -1,0 +1,50 @@
+Return-Path: <MixxShop5@hotmail.com>
+Delivered-To: em-ca-bruceg@em.ca
+Received: (qmail 26077 invoked from network); 23 Jan 2002 10:21:03 -0000
+Received: from ip240.montreal120.dialup.canada.psi.net (HELO 2000plus) (154.20.17.240)
+  by agamemnon.bfsmedia.com with SMTP; 23 Jan 2002 10:21:03 -0000
+From: Market Mix Shop <MixxShop5@hotmail.com>
+Reply-To: MixxShop5@hotmail.com
+Subject: Market Mix Shop sells computers
+Date: Wed, 23 Jan 2002 05:22:31 -0500
+X-Mailer: 007 Direct Email Easy
+MIME-Version: 1.0
+Content-Type: multipart/related; boundary="25dca637-4b49-482c-863f-13dd9a224609"
+Content-Length: 1236
+
+
+This is a multi-part message in MIME format
+--25dca637-4b49-482c-863f-13dd9a224609
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3D=
+windows-1252">
+<meta name=3D"GENERATOR" content=3D"Microsoft FrontPage 4.0">
+<meta name=3D"ProgId" content=3D"FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+<body>
+<p align=3D"left">&nbsp;<br>
+GET THE BEST BRAND-NAME ELECTRONICS AT THE LOWEST PRICES! <br><br>
+Computers, accessories, CD players, MP3 players, car audio, home theater, DVD=
+
+players, <br>
+VCRs, satellite dishes, TVs, cameras, camcorders, and over 50,000
+state-of-the-art <br>
+electronics products to choose from at the LOWEST PRICES you'll find =
+anywhere! <br>
+Secure transactions, convenient payment methods, and PRIVACY. Our goal is =
+<br>
+YOUR 100% SATISFACTION! If you would like you can bookmark the <br>
+website address and add it to your favorites list. <br>
+Click on the following link to go to Market Mix Shop at <a target=3D"_blank" =
+href=3D=
+"http://www.marketmix.ecxsites.com">http://www.marketmix.ecxsites.com</a></p>=
+
+</body>
+</html>  
+--25dca637-4b49-482c-863f-13dd9a224609--
+

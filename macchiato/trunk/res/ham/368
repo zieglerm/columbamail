@@ -1,0 +1,197 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 30339 invoked by uid 65534); 2 Oct 2003 16:00:22 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx020-rz3) with SMTP; 02 Oct 2003 18:00:22 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 338AE124864; Thu,  2 Oct 2003 12:00:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 8774D12476A; Thu,  2 Oct 2003 11:59:59 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id B76C812475D
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 11:59:28 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id AF78963150; Thu,  2 Oct 2003 11:59:28 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from atlrel9.hp.com (atlrel9.hp.com [156.153.255.214])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP
+	id 860C46314E; Thu,  2 Oct 2003 11:59:28 -0400 (EDT)
+Received: from raphael (raphael.fc.hp.com [15.11.146.46])
+	by atlrel9.hp.com (Postfix) with ESMTP
+	id CD7CE1C02412; Thu,  2 Oct 2003 11:59:27 -0400 (EDT)
+Received: by raphael (Postfix, from userid 26694)
+	id 70D8D2B4302; Thu,  2 Oct 2003 09:59:27 -0600 (MDT)
+Subject: Re: [Evolution-hackers] spam filtering
+From: Brett Johnson <brett@hp.com>
+Reply-To: brett@fc.hp.com
+To: Radek =?ISO-8859-1?Q?Doul=EDk?= <rodo@ximian.com>
+Cc: Evolution Hackers Mailing List <evolution-hackers@ximian.com>
+In-Reply-To: <1065025639.2375.198.camel@aquarius>
+References: <1065025639.2375.198.camel@aquarius>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
+Organization: hpinvent
+Message-Id: <1065110367.6762.50.camel@raphael.fc.hp.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+X-Spam-Status: No, hits=-33.0 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      QUOTE_TWICE_1,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 09:59:27 -0600
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Wed, 2003-10-01 at 10:27, Radek Doul=EDk wrote:
+
+>       * new [No]Spam button on toolbar and item in menubar
+>         Actions/[No]Spam. when message was identified as Spam,
+>         button/item says NoSpam to revive the message from Spam folder
+>         (spam flag is set to false and incoming message filters are
+>         applied). For nospam messages it says spam to mark message as
+>         Spam (spam flag is set to true and message is moved to Spam
+>         folder).
+
+>From a UI standpoint this seems unnecessarily complicated.  If we're
+going to have a dedicated spam folder, couldn't the act of simply moving
+(dragging) a message in or out of the spam folder indicate a
+reclassification (and call the filter's report_(no)spam methods)?  I'd
+much prefer this to adding more cruft to the toolbar & menus (and having
+a toolbar button move the message as a side-effect scares me).
+
+>=20
+>       * new page labeled "Spam filtering" in Mail preferences section
+>         of Settings dialog=20
+>                 [checkbox] filter incoming messages - default: enabled
+
+A point of clarification: This checkbox should not disable the ability
+to reclassify spam/ham.  In my case, filtering incoming messages is a
+complete waste of time, as I run my spam filter on the server.  But
+being able to easily reclassify messages for the server (via an
+appropriate plugin) would somewhat useful.
+
+> Additional features
+>=20
+>       * display spam filter score
+
+Seems like pure geek eye-candy to me.  What would be the possible
+utility for Average Joe User?  If you really want to see the score, just
+display the message headers (almost all spam filters have the ability to
+add a spam-score type header to the message).
+
+> How do you feel about forcing spam messages to be listed only in Spam
+> folder?
+
+It's OK as long as it's consistent (i.e. putting a message in the spam
+folder automatically classifies it as spam, and removing it
+automatically classifies it as non-spam).
+
+> Implementation
+>=20
+> I believe it's worth to make spam filter(s) pluggable.
+
+I'll go a step further and state that IMO it's the only way to implement
+spam filtering that's worth doing.  If it's not pluggable, don't bother.
+
+> typedef struct _SpamFilterPlugin SpamFilterPlugin;
+> struct _SpamFilterPlugin
+> {
+> 	/* spam filter human readable name */
+> 	gchar *name;
+> 	/* should be set to 1 */
+> 	gint   api_version;
+>=20
+> 	/* when called, it should return TRUE if message is identified as spam,
+> 	   FALSE otherwise */
+> 	gboolean (*check_spam)    (CamelMimeMessage *message);
+> 	/* called when user identified a message to be spam */
+> 	void     (*report_spam)   (CamelMimeMessage *message);
+> 	/* called when user identified a message not to be spam */
+> 	void     (*report_nospam) (CamelMimeMessage *message);
+
+I think it should be specified that these pointers are allowed to be
+NULL, and are simply not called in that case.  (I can see an immediate
+utility for a plugin that doesn't implement "check_spam", but that does
+implement both the "report_" routines).
+
+Also, there needs to be some way to *re*classify spam/ham, ala
+bogofilter (i.e. remove it from the spam database, and enter it into the
+ham database).  This could be two new entrypoints:
+
+ 	void     (*reclassify_spam)   (CamelMimeMessage *message);
+	void     (*reclassify_nospam) (CamelMimeMessage *message);
+
+Or, could be an additional argument to the "report_*" methods:
+
+	void     (*report_spam)   (CamelMimeMessage *message, gboolean reclassify)=
+;
+	void     (*report_nospam) (CamelMimeMessage *message, gboolean reclassify)=
+;
+
+> Spam flag will be stored in X-Spam: header. Also for IMAP we may need
+> X-Evolution-Spam-Checked header.
+
+I think it would be *much* simpler to identify spam by what folder it's
+in (kinda like presence in the "Drafts" folder currently identifies an
+unfinished message), and leave message headers (or any munging of the
+message contents) completely out of this.  This concept obviously
+requires that the user have the ability to specify which folder(s)
+contain "spam" -- maybe this could be added to the "Defaults" tab in the
+account editor (ala the "drafts" folder)?
+
+> >From discussion on the mailing list, it looks like everybody is for
+> using vFolder for Spam folder.
+
+Well, using a vfolder pretty much dictates that the implementation muck
+with the message to mark it as spam somehow (which, as I just stated,
+would be much more complicated than simply moving the message to a
+specific folder).  Not using vfolders would allow the implementation to
+co-exist with other server-side spam filtering/classification techniques
+(so I'd vote for *not* using vfolders).
+
+> If we put them in vfolder, are they going to be visible in the source
+> folder?
+
+Ack -- that's just what I need -- double the number of places that spam
+is displayed...  No thanks ;o)
+
+> If spam messages will stay in Spam folder only, we don't need new mail
+> message list column with spam flag and also "Delete spam mails" action
+> in menu.
+
+Yay!  Less complexity =3D=3D goodness.
+
+> So the spam mails location seems to be crucial here. I like the
+> simplicity of spam mails to be only visible in Spam folder. What do
+> you think, are there any advantages of having spam messages visible in
+> source folders?
+
+I can't think of any reason to display spam in two places (in fact,
+doing so seems to defeat the whole purpose of spam filtering in the
+first place, doesn't it?).
+
+Cheers!
+--=20
+Brett Johnson <brett@hp.com>
+   -  i  n  v  e  n  t  -
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

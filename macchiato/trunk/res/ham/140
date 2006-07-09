@@ -1,0 +1,72 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 9004 invoked by uid 65534); 2 Oct 2003 16:59:24 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx019-rz3) with SMTP; 02 Oct 2003 18:59:24 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id C091312484B; Thu,  2 Oct 2003 12:59:06 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 892F6124060; Thu,  2 Oct 2003 12:58:39 -0400 (EDT)
+Received: from mail.exchange.ximian.com (mr-nutty.ximian.com [141.154.95.31])
+	by listsmx.ximian.com (Postfix) with ESMTP id 3186C124274
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 12:58:28 -0400 (EDT)
+Subject: Re: [Evolution] "group by this field" option
+From: Dan Winship <danw@ximian.com>
+To: maestro <waggawagga@gmx.net>
+Cc: Evolution Mailing-List <evolution@lists.ximian.com>
+In-Reply-To: <1065112647.1520.19.camel@metp>
+References: <1065112647.1520.19.camel@metp>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Message-Id: <1065114253.4220.107.camel@twelve-monkeys.boston.ximian.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 13:04:13 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Thu, 2003-10-02 at 12:37, maestro wrote:
+> some time ago i asked/posted where the "group by this field" option is
+> in the evolution 1.4.5 inbox, and the only answers i got were:
+> 1) this feature was removed
+> 2) its a shame that it was removed
+> 
+> according to response 2) i'm not the only one missing this feature,
+> therefore my question is, will this feature be reimplemented and if not
+> why?
+
+The code that implemented it was weird and buggy and hard to maintain,
+so it was removed.
+
+(The reason you can still use grouping in the task list is that the task
+list uses ETable, while the message list uses ETree, even when you're
+using the flat, non-threaded view, because otherwise there would have to
+be a lot of duplicated code, once for the tree case and once for the
+table case.)
+
+-- Dan
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

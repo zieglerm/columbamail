@@ -1,0 +1,55 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 15431 invoked by uid 65534); 3 Oct 2003 07:03:38 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx003) with SMTP; 03 Oct 2003 09:03:38 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 6721F3AC69; Fri,  3 Oct 2003 09:00:15 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 09:00:06 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from odin.hiof.no (odin.hiof.no [158.36.33.81])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 815303AC01
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 14:12:03 +0200 (CEST)
+Received: from hiof.no (pc33-137.hiof.no [158.36.33.137])
+	by odin.hiof.no (8.12.8/8.12.8) with ESMTP id h92CCGmJ030215
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 14:12:16 +0200
+Date: Thu, 2 Oct 2003 14:12:12 +0200
+Mime-Version: 1.0 (Apple Message framework v552)
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Subject: [vlc] World.mp4
+From: Nils-Odd Solberg <nils.o.solberg@hiof.no>
+To: vlc@videolan.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <A79CDCC4-F4D1-11D7-96D3-00039397093C@hiof.no>
+X-Mailer: Apple Mail (2.552)
+X-Spam-Status: No, hits=0.6 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_APPLEMAIL
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: nils.o.solberg@hiof.no
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+hi,
+is http://www.videolan.org/pub/videolan/streams/World.mp4 a vlc 
+generated file?
+
+nils-odd
+--
+nils.o.solberg@hiof.no
+http://www.ia-stud.hiof.no/~nilsosol/
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

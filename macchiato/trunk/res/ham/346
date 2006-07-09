@@ -1,0 +1,38 @@
+Return-Path: <fdietz@gmx.de>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 10891 invoked by uid 65534); 4 Oct 2003 12:46:07 -0000
+Received: from pD955D587.dip.t-dialin.net (EHLO localhost.localdomain) (217.85.213.135)
+  by mail.gmx.net (mp026) with SMTP; 04 Oct 2003 14:46:07 +0200
+X-Authenticated: #1411367
+X-Priority: Normal
+Subject: signed 1
+From: fdietz@gmx.de
+Mime-Version: 1.0
+Date: Sat, 4 Oct 2003 16:46:54 +0100
+Message-Id: <dldri23j.yz7s0h577id0@frd>
+X-Mailer: Columba v0.13.0-cvs
+Content-Type: multipart/signed; boundary="9FeJpEF/StvZ36Torrd5aOUegw3ugf0RsY8H//tyDQA=";
+  micalg="pgp-sha1"; protocol="application/pgp-signature"
+To: fdietz@gmx.de
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--9FeJpEF/StvZ36Torrd5aOUegw3ugf0RsY8H//tyDQA=
+Content-Type: text/plain; charset="ISO-8859-15"
+
+signed 1
+--9FeJpEF/StvZ36Torrd5aOUegw3ugf0RsY8H//tyDQA=
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.2 (GNU/Linux)
+
+iD8DBQE/ft1j1AtIHFWDMCIRAsqaAJ4xfoI85NjFcDfIRANRKdb/b5g3GACghPSY
+oP7YI5tHMTrSt/6QavVHSV4=
+=XZEA
+-----END PGP SIGNATURE-----
+
+--9FeJpEF/StvZ36Torrd5aOUegw3ugf0RsY8H//tyDQA=--
+

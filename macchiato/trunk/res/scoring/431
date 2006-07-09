@@ -1,0 +1,79 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 23882 invoked by uid 65534); 18 Dec 2003 18:59:23 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx018-rz3) with SMTP; 18 Dec 2003 19:59:23 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 5F2A0124416; Thu, 18 Dec 2003 13:59:05 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 5414A124402; Thu, 18 Dec 2003 13:58:12 -0500 (EST)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id CA6261240AE
+	for <evolution-hackers@lists.ximian.com>; Thu, 18 Dec 2003 13:58:00 -0500 (EST)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 8605863191; Thu, 18 Dec 2003 13:58:00 -0500 (EST)
+Delivered-To: evolution-hackers@ximian.com
+Received: from smtp5.wanadoo.nl (smtp5.wanadoo.nl [194.134.35.176])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id EA3E0630F0
+	for <evolution-hackers@ximian.com>; Thu, 18 Dec 2003 13:57:59 -0500 (EST)
+Received: from wanadoo.nl (gn-z-18f22.adsl.wanadoo.nl [81.69.173.34])
+	by smtp5.wanadoo.nl (Postfix) with ESMTP id E00D377E9E
+	for <evolution-hackers@ximian.com>; Thu, 18 Dec 2003 19:57:57 +0100 (CET)
+Message-ID: <3FE1F8BE.6050303@wanadoo.nl>
+From: Meilof <meilof@wanadoo.nl>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.4) Gecko/20030630
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Evolution-hackers <evolution-hackers@ximian.com>
+Subject: Re: [Evolution-hackers] initial NNTP patch
+References: <3FD50657.4080003@wanadoo.nl>	 <1070932670.31868.343.camel@localhost.localdomain>	 <3FD5FE23.6040706@wanadoo.nl> <1071035885.32206.33.camel@localhost.localdomain> <3FE1F884.2070706@wanadoo.nl>
+In-Reply-To: <3FE1F884.2070706@wanadoo.nl>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-28.7 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_MOZILLA_UA
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 18 Dec 2003 19:58:06 +0100
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Jeffrey Stedfast wrote:
+
+> I'll take a look again when you clean up these issues.
+>
+> Jeff
+
+Have had quite a cold this week so I couldn't do this earlier, but I 
+finally did some cleanup of the NNTP patch, like removing C++ comments 
+and better indenting:
+
+ http://home.wanadoo.nl/meilof/evolution-nntp-patch-06
+
+Still love to hear comments.
+
+
+Meilof
+-- meilof@wanadoo.nl
+
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

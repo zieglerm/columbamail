@@ -1,0 +1,115 @@
+Return-Path: <rhythmbox-devel-admin@gnome.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 7013 invoked by uid 65534); 16 Oct 2003 08:18:22 -0000
+Received: from moniker.gnome.org (EHLO mail.gnome.org) (67.72.78.218)
+  by mx0.gmx.net (mx022-rz3) with SMTP; 16 Oct 2003 10:18:22 +0200
+Received: from moniker.gnome.org (moniker.gnome.org [127.0.0.1])
+	by mail.gnome.org (Postfix) with ESMTP
+	id B0399184C6; Thu, 16 Oct 2003 04:18:05 -0400 (EDT)
+Delivered-To: rhythmbox-devel@gnome.org
+Received: from smtp0.libero.it (smtp0.libero.it [193.70.192.33])
+	by mail.gnome.org (Postfix) with ESMTP id 42C16182E1
+	for <rhythmbox-devel@gnome.org>; Thu, 16 Oct 2003 04:17:00 -0400 (EDT)
+Received: from ppp-88-206.98-62.inwind.it (62.98.206.88) by smtp0.libero.it (7.0.020-DD01)
+        id 3F6F1CE7008449DF for rhythmbox-devel@gnome.org; Thu, 16 Oct 2003 10:17:15 +0200
+Subject: Re: [Rhythmbox-devel] Rhythmbox roadmap - smart playlists
+From: Luca Ferretti <elle.uca@libero.it>
+To: rhythmbox-devel@gnome.org
+In-Reply-To: <5127662.1066236280505.JavaMail.root@127.0.0.1>
+References: <5127662.1066236280505.JavaMail.root@127.0.0.1>
+Content-Type: text/plain
+Message-Id: <1063699429.2920.46.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.5 
+Content-Transfer-Encoding: 7bit
+Sender: rhythmbox-devel-admin@gnome.org
+Errors-To: rhythmbox-devel-admin@gnome.org
+X-BeenThere: rhythmbox-devel@gnome.org
+X-Loop: rhythmbox-devel@gnome.org
+X-Mailman-Version: 2.0.12
+Precedence: bulk
+List-Help: <mailto:rhythmbox-devel-request@gnome.org?subject=help>
+List-Post: <mailto:rhythmbox-devel@gnome.org>
+List-Subscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=subscribe>
+List-Id: Rhythmbox developer discussion <rhythmbox-devel.gnome.org>
+List-Unsubscribe: <http://mail.gnome.org/mailman/listinfo/rhythmbox-devel>,
+	<mailto:rhythmbox-devel-request@gnome.org?subject=unsubscribe>
+List-Archive: <http://mail.gnome.org/archives/rhythmbox-devel/>
+Date: Tue, 16 Sep 2003 10:08:08 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On mer, 2003-10-15 at 17:44 +0100, mmarquee@btopenworld.com wrote:
+> All,
+> 
+> This all sounds great, but we need to keep the interface as simple as possible.  Which is where the iTunes form sort of works and sort of doesn't!  I hate to ask, but what does  'Jamboree' do in this case?
+> 
+
+Different widget placement, but it seems[*] same iTunes
+behavior/capabilities
+
+
+
+> i.e. Would I really want 
+> 
+> (Year = 1976, Genre = "Funk") or (Year = 1999, Genre = "Peruvian Flute Music")
+> 
+> I might want 
+> 
+> (Year = 1990, Genre = "Alternative" or Genre = "Altern Rock")
+> 
+
+
+mmmhhh.... But it's a script, not a simple dialog :-)
+
+Beside IMHO you can't 'write' your first query using widget.
+
+The query is:
+
+(A+B)(C+D)[**] 
+
+
+Using a GUI like the one (unused) in
+rhythmbox/data/glade/create-playlist.glade you can only do
+ 
+Where	A	[is]		xxx
+[Or]	B	[is not]	yyy
+[And]	C	[is]		zzz
+[Or]	D	[is]		kkk
+
+It should be A+BC+D, if the AND has precedence on OR as it should be.
+
+So, i remember well boolean algebra
+
+(A+B)(C+D) =
+= (A+B)C+(A+B)D =
+= AC+BC+AD+BC <>
+<> A+BC+D
+
+You need parenthesis!!
+
+So, to be KISS, IMHO a simple [Match all!Match any] is the best for now.
+
+Note that the second query is AB+C <> A(B+C) = AB+AC
+
+
+> As an example I was going to look at the filter rules in Evolution, but am at work right now.
+> 
+
+It should be a simple [Match all|Match any]
+
+
+[*]Note that I've only a screenshot of iTunes dialog
+[**] == (A OR B)AND(C OR D)
+     It's boolean algebra: AND==x OR==+ 
+
+
+
+
+_______________________________________________
+rhythmbox-devel mailing list
+rhythmbox-devel@gnome.org
+http://mail.gnome.org/mailman/listinfo/rhythmbox-devel
+

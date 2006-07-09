@@ -1,0 +1,190 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 15579 invoked by uid 65534); 2 Oct 2003 19:25:23 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx008) with SMTP; 02 Oct 2003 21:25:23 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 2F06B12491E; Thu,  2 Oct 2003 15:25:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 4D13C12493B; Thu,  2 Oct 2003 15:24:24 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 6B6B01247C5
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 15:24:12 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 61DF863174; Thu,  2 Oct 2003 15:24:12 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 9494163166
+	for <evolution-hackers@ximian.com>; Thu,  2 Oct 2003 15:24:11 -0400 (EDT)
+Received: (qmail 5267 invoked from network); 2 Oct 2003 19:24:10 -0000
+Received: from dmz.ximian.com (HELO narcissus.boston.ximian.com) (141.154.95.1)
+  by peabody.ximian.com with SMTP; 2 Oct 2003 19:24:10 -0000
+Subject: Re: [Evolution-hackers] Appointment and Meeting Editors -- 2.0
+	Thoughts
+From: Anna Marie Dirks <anna@ximian.com>
+To: Dan Winship <danw@ximian.com>
+Cc: evolution-hackers@ximian.com
+In-Reply-To: <1064959549.2761.77.camel@twelve-monkeys.boston.ximian.com>
+References: <1064954351.4874.296.camel@narcissus.boston.ximian.com>
+	 <1064959549.2761.77.camel@twelve-monkeys.boston.ximian.com>
+Content-Type: text/plain
+Message-Id: <1065122621.7033.170.camel@narcissus.boston.ximian.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-25.3 required=5.0
+	tests=IN_REP_TO,QUOTED_EMAIL_TEXT,RCVD_IN_OSIRUSOFT_COM,
+	      REFERENCES,REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 15:23:42 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Hi Dan.
+
+Thanks for writing.
+
+> Hm... I don't have a strong opinion on What and Where, but "Why" seems
+> wrong. It's really more about "What, except in more detail". Also, in my
+> experience, "Why" on party invites seems to induce people to put silly
+> cutesy things. :) I'd suggest "Details" or "More Details"
+
+You say that like cutesy is a bad thing. :) But yeah, I know what you
+mean. First round of UI tests, we'll try "Details". 
+
+> "Repeats: Never" sort of sounds like the event never happens... Maybe
+> "Repeats: No" ?
+
+Thanks -- this is a good suggestion. I refined my prototype to this end
+(link follows).
+
+
+> In your unzoomed version, you only show two blocks of time per day... I
+> assume this is to some degree just that you didn't want to spend all day
+> re-gimping the text, but could you explain how you did intend to have it
+> work in the non-zoomed case? How many days would fit into the display at
+> once, and how many marked subdivisions of each day would there be?
+
+Ah, sorry, I created some unnecessary confusion here. 
+
+I don't intend to make any ui changes to the free/busy widget (regarding
+blocks of time per day, or capability of displaying multiple days at
+once.) 
+
+What I was thinking of doing is packing the list of attendees, and the
+free/busy widget, into horizontal panes, to facilitate the user resizing
+them at whim, to display as much or little information associated with
+them as possible. I'd have to be clever about this so that the list of
+attendees still lines up with the free/busy widget properly, but I think
+it is possible.
+
+As for the two blocks of time per day thing, I did not invent that
+granularity. The current UI uses it. :-/ We probably need a few concrete
+usage scenarios to figure out what the optimal scale is. 
+
+> Also, the current meeting editor lets you specify whether to show only
+> working hours, or the whole day. Are you removing that functionality? If
+
+No, I didn't intend to remove it; I just lack data to decide where to
+put it. How often do people change this? I believe that some of the
+scheduling options would be well-placed in the menus. 
+
+> You should put back the little recurrence preview calendar. It seems
+> insignificant, but IMHO it really does make Evo's recurrence editor
+> nicer to use than Outlook's. (And it's especially useful for
+> "complex"/"imported" recurrences that can't be explained via the other
+> widgets.)
+
+So, have imported recurrences ever worked, then? (My understanding is
+that they have always been broken.) It would help me to know how
+imported recurrences are set, if indeed they can be. 
+
+> If you change "forever" to "until January 27, 2005" or something, the
+> dialog would get very wide. Especially if you then translate it into
+> German. Might want to move the recurrence info to its own row?
+
+I knew this would come up.
+
+1) As you saw yesterday in #evo, Guenther translated recurrence strings
+for us into German, and they were barely any longer than the English
+ones. 
+
+2) If we were clever with alignments (namely, if we make the "Repeat"
+label align at y=0), then we can wrap the recurrence string in a
+completely fine-looking way.
+
+3) That said, I have no problem at all with moving the recurrence stuff
+down to the bottom of the dialog, eg
+http://primates.ximian.com/~anna/evo2/eventeditor/appt_alt.png
+
+> Not related to recurrences, but in that screenshot, the time selectors
+> should probably not be visible at all if "all-day event" is checked? It
+> seems confusing to have the times visible but not actually meaning
+> anything.
+
+Hmm. Well, I agree with you that I should have removed the "11:00" and
+"12:00" from those combo boxes. But, I submit that the common meaning of
+insensitive widgets is "These options exist but aren't relevant to you
+right now", not "These widgets have no meaning". 
+
+My thought with including them was that it made it clearer to the user
+that it is *possible* to set start and end hours for an appointment. (If
+you can't see them, then it is harder to know for certain whether or not
+they exist.. no?) That said, we have to test this on humans anyway, so
+I'll take care to measure reactions to this. 
+
+Do you think that I am missing (or misunderstanding) your objection to
+their presence? 
+
+
+> The main dialog says "Alarms" with an "s", and you refer to "alarms"
+> elsewhere in your mail, but it only seems possible to create a single
+> alarm in this dialog... bug or feature? 
+
+I'll tell you, Dan, this one is a can of worms which I'm not eager to
+open. This feels to me like we're going to have find a balance between
+absolute adherence to the ical spec, and creating a simple and usable
+UI. 
+
+My sense so far (informed by engaging in dialogue with the people who
+report using them) is that most of the people who use multiple alarms
+use them "count down" style. They seem to repeat one type of alarm a few
+times to ensure that they are prepared for an appointment (or a task) ..
+but not to use different kinds of alarms. So what I'm wondering is if we
+can get away with allowing a nice suite of repeating options for alarms,
+instead of allowing truly "distinct" alarms. 
+
+What do you think?
+
+Thanks as always for your constructive, and thorough, feedback. Don't
+know what I'd do without it. 
+
+best, 
+Anna
+
+
+
+-- 
+
+Anna Marie Dirks <anna@ximian.com>
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

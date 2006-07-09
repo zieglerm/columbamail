@@ -1,0 +1,73 @@
+Return-Path: <n7549@excite.de>
+Delivered-To: em-ca-bait@em.ca
+Received: (qmail 22526 invoked from network); 30 Jan 2002 13:19:25 -0000
+Received: from unknown (HELO mail.campusjoy.com) (211.239.169.15)
+  by agamemnon.bfsmedia.com with SMTP; 30 Jan 2002 13:19:25 -0000
+Received: from md6_[192.168.229.6] (2Cust101.tnt3.dfw9.da.uu.net [63.62.214.101])
+	by mail.campusjoy.com (8.11.0/8.11.0) with SMTP id g0UCu7409352;
+	Wed, 30 Jan 2002 21:56:08 +0900
+Received: from 263.net by md6 with ESMTP; Wed, 30 Jan 2002 08:31:19 -0500
+Message-ID: <0000247a2477$00003681$00000943@263.net>
+To: <tdierenfeldt@is.mgh.mcgill.ca>
+Cc: <tdiesel@is.mgh.mcgill.ca>, <tdibenedetto@is.mgh.mcgill.ca>,
+   <tdiaz@is.mgh.mcgill.ca>, <tdick@is.mgh.mcgill.ca>,
+   <tdiederi@is.mgh.mcgill.ca>, <tdickson@is.mgh.mcgill.ca>,
+   <tdibble@is.mgh.mcgill.ca>, <tdiehl@is.mgh.mcgill.ca>,
+   <tdiduck@is.mgh.mcgill.ca>, <tdiamond@is.mgh.mcgill.ca>,
+   <tdib@is.mgh.mcgill.ca>, <tdickers@is.mgh.mcgill.ca>,
+   <tdic@is.mgh.mcgill.ca>, <tdidier@is.mgh.mcgill.ca>,
+   <tdibartolo@is.mgh.mcgill.ca>, <bait@em.ca>, <tdickinson@is.mgh.mcgill.ca>,
+   <tdiaz52989@is.mgh.mcgill.ca>
+From: n7549@excite.de
+Subject: 95, 98, & Me Versions Of Windows More Fault Tolerant With This..                         2371
+Date: Wed, 30 Jan 2002 08:31:16 -0500
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 5.00.2615.200
+X-MimeOLE: Produced By Microsoft MimeOLE V5.00.2615.200
+Content-Length: 1179
+Lines: 39
+
+<html>
+<body>
+
+<p>Dear Windows User,<br>
+<br>
+Now you can boost the reliability of ordinary Windows 95, 98 and ME to nea=
+rly
+the level of Windows NT or 2000, Microsoft's professional and industrial v=
+ersion
+of Windows.<br>
+<br>
+The new WinFix is a very effective way to improve the reliability of Windo=
+ws,
+because it makes Windows fault-tolerant and self-repairing.<br>
+<br>
+And WinFix is very safe, because it operates completely independent of Win=
+dows.<br>
+<br>
+<u><font color=3D"#0000ff"><a href=3D"http://winf.steamboattech.com/">CLIC=
+K HERE</a></font></u> to find out more about WinFix, the safest, most effe=
+ctive way to keep you working, by keeping your PC working non-stop.<br>
+<br>
+Arlen Dixon, CEO<br>
+Pinewood Software Marketing<br>
+<br>
+-------------------------------------------------------<br>
+<br>
+This announcement is intended for PC users who asked to be kept<br>
+informed about new developments in Windows technology.<br>
+</p>
+<p><font size=3D"1">We apologize for any email you may have inadvertently
+received.<br>
+Please <a href=3D"http://takemeoff.steamboattech.com">CLICK HERE</a> to be=
+ removed from future mailings.</font></p>
+</body>
+</html>
+
+
+

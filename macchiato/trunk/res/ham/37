@@ -1,0 +1,110 @@
+Return-Path: <moin-user-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 19268 invoked by uid 65534); 2 Oct 2003 08:26:47 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx015) with SMTP; 02 Oct 2003 10:26:47 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A4ynI-0007Hg-00; Thu, 02 Oct 2003 01:26:40 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A4ylt-000274-00
+	for <moin-user@lists.sourceforge.net>; Thu, 02 Oct 2003 01:25:13 -0700
+Received: from thinkmo.de ([80.190.101.128])
+	by sc8-sf-mx1.sourceforge.net with esmtp (TLSv1:AES256-SHA:256)
+	(Exim 4.22)
+	id 1A4yls-0001e9-58
+	for moin-user@lists.sourceforge.net; Thu, 02 Oct 2003 01:25:12 -0700
+Received: from waldmann-edv.de (pD9006222.dip.t-dialin.net [217.0.98.34])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client did not present a certificate)
+	by thinkmo.de (Postfix) with ESMTP
+	id 8B25438256; Thu,  2 Oct 2003 10:25:06 +0200 (CEST)
+Message-ID: <3F7BE016.7060904@waldmann-edv.de>
+From: Thomas Waldmann <tw@waldmann-edv.de>
+User-Agent: Mozilla/5.0 (X11; U; Linux i586; de-AT; rv:1.3) Gecko/20030430 Debian/1.3-5
+X-Accept-Language: en
+MIME-Version: 1.0
+To: Ted Nolan SRI Augusta GA <ted@ags.ga.erg.sri.com>
+Cc: moin-user@lists.sourceforge.net
+Subject: Re: [Moin-user] Re: Dumb "attachment:" question
+References: <200310011526.h91FQZlJ027724@solabel8.ga.erg.sri.com>
+In-Reply-To: <200310011526.h91FQZlJ027724@solabel8.ga.erg.sri.com>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Score: -1.1 (-)
+X-Spam-Report: -1.1/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	USER_AGENT_MOZILLA_UA (0.0 points)  User-Agent header indicates a non-spam MUA (Mozilla)
+	IN_REP_TO          (-0.5 points) Has a In-Reply-To header
+	X_ACCEPT_LANG      (-0.1 points) Has a X-Accept-Language  header
+	REFERENCES         (-0.5 points) Has a valid-looking References header
+Sender: moin-user-admin@lists.sourceforge.net
+Errors-To: moin-user-admin@lists.sourceforge.net
+X-BeenThere: moin-user@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:moin-user-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:moin-user@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/moin-user>,
+	<mailto:moin-user-request@lists.sourceforge.net?subject=subscribe>
+List-Id: MoinMoin Users <moin-user.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/moin-user>,
+	<mailto:moin-user-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=moin-user>
+X-Original-Date: Thu, 02 Oct 2003 10:21:42 +0200
+Date: Thu, 02 Oct 2003 10:21:42 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+>
+>
+>>Strange. But 1.0 is stone-age-old meanwhile.
+>>    
+>>
+>I'm a bit curious about this statement.  As far as I can tell from
+>sourceforge, 1.0 is still the latest "release".
+>
+Yes. Sad, but true.
+
+>Does the project plan
+>any further "release"es, or is it all from bleeding-edge CVS now.
+>
+The *plan* is there for long. And the release is long overdue.
+
+The problem is that only Juergen can do SF moin releases - and he is 
+currently buried in work within his daytime job.
+
+If I wouldn't have CVS access at least, there maybe would have been NO 
+changes at all in the last 6 months. But luckily, I have and so I am 
+committing (other people's and own) fixes and changes to CVS - as long 
+as they don't risk the possibility of doing a release at any time.
+
+Therefore, latest CVS is NOT bleeding-edge currently - I host multiple 
+wikis and they run on somewhat like "current CVS + misc local changes" 
+and there are no major problems
+
+>say above, I'm not planning on changing anything until I have to for some
+>reason or other, but I am curious.
+>
+The main reasons to look at cvs nightly snapshot are bugfixes, ACLs and 
+some other features you find in CHANGES.
+
+Thomas
+
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Moin-user mailing list
+Moin-user@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/moin-user
+

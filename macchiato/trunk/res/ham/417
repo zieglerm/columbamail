@@ -1,0 +1,92 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 19486 invoked by uid 65534); 3 Oct 2003 16:47:15 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx004-rz3) with SMTP; 03 Oct 2003 18:47:15 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 7C5C4124B00; Fri,  3 Oct 2003 12:47:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 1318E124292; Fri,  3 Oct 2003 12:46:40 -0400 (EDT)
+Received: from MM01SNLNTO.son.sandia.gov (mm01snlnto.sandia.gov [132.175.109.20])
+	by listsmx.ximian.com (Postfix) with ESMTP id C6D01124AFD
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 12:46:08 -0400 (EDT)
+Received: from 132.175.109.1 by MM01SNLNTO.son.sandia.gov with ESMTP (
+ Tumbleweed MMS SMTP Relay 01 (MMS v5.5.3)); Fri, 03 Oct 2003 10:46:05
+ -0600
+Received: from scico.sandia.gov (scico.sandia.gov [134.253.161.235]) by
+ sass165.sandia.gov (8.12.10/8.12.10) with SMTP id h93Gk3it009403 for
+ <evolution@lists.ximian.com>; Fri, 3 Oct 2003 10:46:04 -0600 (MDT)
+Received: (qmail 6740 invoked from network); 3 Oct 2003 16:46:02 -0000
+Received: from sahp4671.sandia.gov (134.253.161.70) by scico.sandia.gov
+ with SMTP; 3 Oct 2003 16:46:02 -0000
+Subject: Re: [Evolution] death by "too many open files"?/emacs key
+ bindings?
+From: "Phil Sackinger" <pasacki@sandia.gov>
+To: evolution@lists.ximian.com
+In-Reply-To: <1065043645.2259.60.camel@international.tusonix.com>
+References: <1065024182.31869.35.camel@sahp4671.sandia.gov>
+ <1065036805.28011.14.camel@tazmanian-devil.boston.ximian.com>
+ <1065038624.31869.45.camel@sahp4671.sandia.gov>
+ <1065039623.28017.53.camel@tazmanian-devil.boston.ximian.com>
+ <1065041992.30856.56.camel@sahp4671.sandia.gov>
+ <1065043645.2259.60.camel@international.tusonix.com>
+Message-ID: <1065199562.14100.4.camel@sahp4671.sandia.gov>
+MIME-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4
+X-PMX-Version: 4.0.4.76838
+X-WSS-ID: 136378471901054-01-01
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 10:46:02 -0600
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Wed, 2003-10-01 at 15:27, Thomas Spuhler wrote:
+> Mmmh
+> I am still using the original MDK 9.1 evolution (1.2.4). I am connected
+> to a Samba server. I have never been able to run the evo mbox files on
+> the Samba Server. I am actually running an archive (large file, mbox,
+> 230MB). I have never been able to archive to the samba server after the
+> file reached a certain size. I am storing the file on the local machine
+> and then copy it over to the samba server in order to get backed up
+> during the nightly samba backup.
+> May be this problem has a different cause.
+
+So does your Linux MDK 9.1 client keep files on the Samba server via SMB
+and not NFS?
+
+I'm using NFS, on RH7.3. Evo 1.4.4 has all my old mail (~1.3GB) in
+maildir format (somewhere I read that it was more efficient than mbox
+and more reliable than the MH format I'd been using for a long time).
+
+They're called "Local Folders", but they're really sitting on a remote
+machine.
+
+
+
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

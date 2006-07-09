@@ -1,0 +1,472 @@
+Return-Path: <adreiskyshroud@4-vendor.com>
+Delivered-To: bfsmedia-design@bfsmedia.com
+Received: (qmail 5939 invoked from network); 20 Jan 2002 08:14:20 -0000
+Received: from host27-pool2175711.interbusiness.it (HELO mail.barausse.com) (217.57.11.27)
+  by agamemnon.bfsmedia.com with SMTP; 20 Jan 2002 08:14:20 -0000
+Received: from start.com.au ([10.0.0.250]) by mail.barausse.com with Microsoft SMTPSVC(5.0.2195.3779);
+	 Sat, 19 Jan 2002 15:34:13 +0100
+Message-Id: <4bb34e6h2k1h.mhkj8x7dtv8aba1xui@start.com.au>
+From: adreiskyshroud@4-vendor.com
+To: estoddca@sandals.com
+Subject: Shoping For a Lender?  We Can Help!!
+X-Priority: 3 (Normal)
+Date: Sat, 19 Jan 2002 07:42:50 -0700
+Content-Type: text/html;
+	 charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook Express 5.50.4133.2400
+X-MSMail-Priority: Normal
+Return-Path: muratoor@mailandnews.com
+Importance: Normal
+X-OriginalArrivalTime: 19 Jan 2002 14:34:14.0250 (UTC) FILETIME=[5DFF5CA0:01C1A0F6]
+Content-Length: 16484
+Lines: 448
+
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<title>Welcome to the Cyber Mortgage Hub! </title>
+</head>
+
+<body bgcolor="#FFFFFF" link="#333300" vlink="#333300"
+alink="#333300" topmargin="3" leftmargin="3">
+<script>
+<!-- Activate Cloaking Device
+
+// Reports if all forms have filled out properly.
+function checkForm(){   
+if ( (isOwner()) && (isYesOwner()) && (isAppName() ) && (isCoAppName()) && (isAddress()) && (isCity()) && (isZip()) && (isPhoneNum()) && (isPropertyType()) && (isPuchasePrice()) && (isPuchaseYear()) && (isPuchaseYear()) && (isPresentValue()) && (isAmountOwed()) && (isCurrentInterest()) && (isType()) && (isMonthlyPayment()) && (isCurrentEmployer()) && (isEmployerYears()) && (isYearlyIncome()) && (isCredit()) && (isContact()) && (isLoanType()) && (isLoanAmount()) && (isEmail())){    
+alert("\nAll forms appear to be filled out properly.\n\nYour submission will now be made.");      
+}  else {return false;} 
+}
+
+function isOwner(){   
+var str = document.refinance.Home_Owner.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select if you are a homeowner.")      
+document.refinance.Home_Owner.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isYesOwner(){   
+var str = document.refinance.Home_Owner.value;   
+
+// Return false if name field is no.   
+if (str == "No"){      
+alert("\nYou must be a homeowner to receive a free quote.")      
+document.refinance.Home_Owner.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isAppName(){   
+var str = document.refinance.Applicant_Name.value;   
+
+// Return false if name field is blank.   
+if (str == ""){      
+alert("\nPlease enter the primary applicant's name.")      
+document.refinance.Applicant_Name.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isCoAppName(){   
+var str = document.refinance.CoApplicant_Name.value;   
+
+// Return false if name field is blank.   
+if (str == ""){      
+alert("\nPlease enter the co-applicant's name, if no co-applicant exists, enter N/A.")      
+document.refinance.CoApplicant_Name.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isAddress(){   
+var str = document.refinance.Address.value;   
+
+// Return false if name field is blank.   
+if (str == ""){      
+alert("\nPlease enter your street address.")      
+document.refinance.Address.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isCity(){   
+var str = document.refinance.City.value;   
+
+// Return false if name field is blank.   
+if (str == ""){      
+alert("\nPlease enter the city where you reside.")      
+document.refinance.City.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isZip(){   
+var str = document.refinance.Zip_Code.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter your zip code.");         
+document.refinance.Zip_Code.focus();         
+return false;         
+}   
+// Return false if characters are not '0-9' or '-' .    
+for (var i = 0; i < str.length; i++){      
+var ch = str.substring(i, i + 1);      
+if ((ch < "0" || "9" < ch) && ch != '-'){         
+alert("\nThe Zip Code field accepts only numbers. \n\nPlease re-enter a number.");         
+document.refinance.Zip_Code.select();         
+document.refinance.Zip_Code.focus();         
+return false;         
+}      
+}   
+return true;   
+}
+
+function isPhoneNum(){   
+var str = document.refinance.Home_Phone.value; 
+var str2 = document.refinance.Work_Phone.value; 
+
+// Return false if number field is blank.   
+if ((str == "") && (str2 == "")){         
+alert("\nPlease enter your home phone number or your work phone number.");         
+document.refinance.Home_Phone.focus();         
+return false;         
+}   
+return true;   
+}
+
+function isPropertyType(){   
+var str = document.refinance.Property_Type.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select a property type.")      
+document.refinance.Property_Type.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isPuchasePrice(){   
+var str = document.refinance.Purchase_Price.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the numeric value that your property was purchased for (i.e. 100,000).");         
+document.refinance.Purchase_Price.focus();         
+return false;         
+}   
+// Return false if characters are not '0-9' or ',' .    
+for (var i = 0; i < str.length; i++){      
+var ch = str.substring(i, i + 1);      
+if ((ch < "0" || "9" < ch) && ch != ',' && ch != '.'){         
+alert("\nThe Purchased Price field accepts only numbers. \n\nPlease re-enter a number.");         
+document.refinance.Purchase_Price.select();         
+document.refinance.Purchase_Price.focus();         
+return false;         
+}      
+}   
+return true;   
+}
+
+function isPuchaseYear(){   
+var str = document.refinance.Year_Acquired.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the year you acquired the property.");         
+document.refinance.Year_Acquired.focus();         
+return false;         
+}   
+return true;   
+}
+
+function isPresentValue(){   
+var str = document.refinance.Present_Value.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the numeric value for your property (i.e. 150,000).");         
+document.refinance.Present_Value.focus();         
+return false;         
+}   
+// Return false if characters are not '0-9' or ',' .    
+for (var i = 0; i < str.length; i++){      
+var ch = str.substring(i, i + 1);      
+if ((ch < "0" || "9" < ch) && ch != ',' && ch != '.'){         
+alert("\nThe Present Value field accepts only numbers. \n\nPlease re-enter a number.");         
+document.refinance.Present_Value.select();         
+document.refinance.Present_Value.focus();         
+return false;         
+}      
+}   
+return true;   
+}
+
+function isAmountOwed(){   
+var str = document.refinance.Amount_Owed_First_Mortgage.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the numeric balance of your 1st mortgage (i.e. 72,000).");         
+document.refinance.Amount_Owed_First_Mortgage.focus();         
+return false;         
+}   
+// Return false if characters are not '0-9' or ',' .    
+for (var i = 0; i < str.length; i++){      
+var ch = str.substring(i, i + 1);      
+if ((ch < "0" || "9" < ch) && ch != ',' && ch != '.'){         
+alert("\nThe Amount Owed on First Mortgage field accepts only numbers. \n\nPlease re-enter a number.");         
+document.refinance.Amount_Owed_First_Mortgage.select();         
+document.refinance.Amount_Owed_First_Mortgage.focus();         
+return false;         
+}      
+}   
+return true;   
+}
+
+function isCurrentInterest(){   
+var str = document.refinance.Current_Interest_Rate_on_First.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the numeric interest rate of your 1st mortgage (i.e. 8.5%).");         
+document.refinance.Current_Interest_Rate_on_First.focus();         
+return false;         
+}     
+return true;   
+}
+
+function isType(){   
+var str = document.refinance.Fixed_or_Adjustable.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select fixed or adjustable.")      
+document.refinance.Fixed_or_Adjustable.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isMonthlyPayment(){   
+var str = document.refinance.Monthly_Payment.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter the numeric monthly payment on your 1st mortgage (i.e. 1400).");         
+document.refinance.Monthly_Payment.focus();         
+return false;         
+}     
+return true;   
+}
+
+function isCurrentEmployer(){   
+var str = document.refinance.Current_Employer.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter your current employer.");         
+document.refinance.Current_Employer.focus();         
+return false;         
+}     
+return true;   
+}
+
+function isEmployerYears(){   
+var str = document.refinance.Years_with_Current_Employer.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter how long you have been with your current employer.");         
+document.refinance.Years_with_Current_Employer.focus();         
+return false;         
+}     
+return true;   
+}
+
+function isYearlyIncome(){   
+var str = document.refinance.Yearly_Income.value;   
+// Return false if number field is blank.   
+if (str == ""){         
+alert("\nPlease enter your numeric yearly income.");         
+document.refinance.Yearly_Income.focus();         
+return false;         
+}   
+return true;   
+}
+
+function isCredit(){   
+var str = document.refinance.Credit.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease rate your credit.")      
+document.refinance.Credit.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isContact(){   
+var str = document.refinance.Best_Time_to_Contact_You.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select the best time to contact you.")      
+document.refinance.Best_Time_to_Contact_You.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isLoanType(){   
+var str = document.refinance.Type_of_Loan_Desired.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select the type of loan you desire.")      
+document.refinance.Type_of_Loan_Desired.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isLoanAmount(){   
+var str = document.refinance.Loan_Amount_Desired.value;   
+
+// Return false if name field is blank.   
+if (str == "Select"){      
+alert("\nPlease select the loan amount you are looking for.")      
+document.refinance.Loan_Amount_Desired.focus();      
+return false;      
+}   
+return true;   
+}
+
+function isEmail(){   
+// Return false if e-mail field is blank.   
+if (document.refinance.Email_Address.value == ""){      
+alert("\nThe e-mail field is blank.\n\nPlease enter your e-mail address.")      
+document.refinance.Email_Address.focus();      
+return false;       
+}   
+// Return false if e-mail field does not contain a '@' and '.' .   
+if (document.refinance.Email_Address.value.indexOf ('@',0) == -1 || document.refinance.Email_Address.value.indexOf ('.',0) == -1){      
+alert("\nThe e-mail field requires a \"@\" and a \".\"be used.\n\nPlease re-enter your e-mail address.")      
+document.refinance.Email_Address.select();      
+document.refinance.Email_Address.focus();      
+return false;      
+}   
+else {      
+return true;      
+}   
+}
+
+
+// Deactivate Cloaking -->
+</script><div align="center"><center>
+
+<table border="1" cellpadding="0" cellspacing="0" width="1"
+height="179" bgcolor=#57BED0>
+    <tr>
+        <td width="718" height="179"><form
+        action="http://206.169.88.12/cgi-bin/capital.cgi"
+        method="post" name="refinance"
+        onsubmit="return checkForm()" align="left">
+            </form>
+            <input type="hidden" name="subject" value="Loan Form"><input
+            type="hidden" name="recipient"
+            value="loanform"><input
+            type="hidden" name="required"
+            value="Home_Owner, Applicant_Name, CoApplicant_Name, Address, City, State, Zip_Code, Home_Phone, Work_Phone, Property_Type, Purchase_Price, Year_Acquired, Present_Value, Amount_Owed_First_Mortgage, Current_Interest_Rate_on_First, Fixed_or_Adjustable, Monthly_Payment, Current_Employer, Years_with_Current_Employer, Yearly_Income, Credit, Best_Time_to_Contact_You, Type_of_Loan_Desired, Loan_Amount_Desired, Email_Address">
+        <div
+            align="center" style="width: 645; height: 658"><center><table border="0"
+            cellpadding="2" cellspacing="0" width="645"
+            height="234">
+                <tr>
+                    <td align="middle" width="100%" bgcolor=#000000>
+                    <font
+                    color="#66FF33" face=Verdana size="5"><b><i>
+                    <a style="color: #FF0000" href="http://3501274869/">Want a Chance to Win a $30,000 Mortgage?!</a></i></b></font></td>
+		</tr>
+		<tr>
+                    <td align=center bgcolor="#000000">
+                    <font color="#FFFFFF" size=6>
+                    <a style="color: #FFFFFF; font-weight: 700; text-decoration: none" href="http://3501274869/">
+                    Applying for a FREE referral Today will not only get you a 
+                    chance to win a $30,000 Mortgage but will get our top 
+                    lenders competing for your b</a><b><a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/">usiness.</a></b></font><font color="#3333FF" size=6><br>
+                    </font>
+                    <font color="#000000" size=6><br>
+                    <font color="#FFFFFF" size="6">
+                    <a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/"><b>We've
+                    done the work.  Our service
+                    is especially designed for you and your changing financial needs.</b></a></font></font><a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/"><font color="#FFFFFF" size=6>
+                    </center>
+                    </font>
+                    </a><font color="#000000" size=6>
+<table border="0" cellspacing="0" width="637" bgcolor=#FFFFFF style="border-collapse: collapse" bordercolor="#111111" cellpadding="0">
+              <tr>
+<td bgcolor="#000000" width="505"><font face=Verdana size="3"><b>
+<font size=4 color=#FF0000><big>
+&nbsp;
+<a style="color: #FF0000; text-decoration: none" href="http://3501274869/">Quick And Easy:</a></big></font><ul><li>
+  <font color="#FFFFFF">
+  <a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/">It's a lot easier
+                            than you think to get the loan you
+                            need... highest approval rate in the
+                            industry!</a></font></li><li><font color="#FFFFFF">
+  <a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/">Take advantage of
+                            our Free Evaluation - absolutely no
+                            obligation!</a></font></li><li>
+  <font color="#FFFFFF">
+  <a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/">We'll have a
+                            selected lender ready with your
+                            evaluation within 4 days!</a></font></li><li>
+  <font color="#FFFFFF">
+  <a style="color: #FFFFFF; text-decoration: none" href="http://3501274869/">Savings on cost
+                            and interest rate will leave more $
+                            in your pocket!&nbsp;</a></font></li></ul></b></font></td>
+                        </tr>
+
+                    </table>
+<table border=0 width=100%>
+  <tr>
+     <th width=25%><font color="#FF0000" size="4">
+     <a style="color: #FF0000" href="http://3501274869/">Second Mortgage</a></th>
+     <th width=25%><font color="#FF0000" size="4">
+     <a style="color: #FF0000" href="http://3501274869/">Home Improvement</a></th>
+     <th width=25%><font color="#FF0000" size="4">
+     <a style="color: #FF0000" href="http://3501274869/">Debt Consolidation</a></th>
+     <th width=25%><font color="#FF0000" size="4">
+     <a style="color: #FF0000" href="http://3501274869/">Refinance</a></th>
+  </tr>
+  <tr>
+     <th colspan=4><font color="#FF0000" size="4"><br>
+     <a style="color: #FF0000" href="http://3501274869/">Home Equity Line of Credit</a></font></th>
+  </tr>
+</table> 
+<blockquote>
+                            <p align="center"><font
+                            color="#3333FF" size="4" face="Arial"><b>
+                            <a style="color: #3333FF" href="http://3501274869/">Delay No More.&nbsp;&nbsp;&nbsp;Get Your Loan Today!</a></b></font></p>
+                        </blockquote>
+                    </font>
+                    </td>
+                </tr>
+                </table>
+            </center>
+        </form>
+        </td>
+    </tr>
+    </table>
+</body>
+</html>
+

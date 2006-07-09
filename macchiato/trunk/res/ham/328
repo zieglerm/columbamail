@@ -1,0 +1,107 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 3118 invoked by uid 65534); 4 Oct 2003 09:45:24 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx025-rz3) with SMTP; 04 Oct 2003 11:45:24 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 0D893124339; Sat,  4 Oct 2003 05:45:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 3C31C12432C; Sat,  4 Oct 2003 05:44:25 -0400 (EDT)
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by listsmx.ximian.com (Postfix) with ESMTP id C476D12431B
+	for <evolution@lists.ximian.com>; Sat,  4 Oct 2003 05:44:13 -0400 (EDT)
+Received: (qmail 24847 invoked from network); 4 Oct 2003 09:44:13 -0000
+Received: from localhost (HELO privadas.nuria.telefonica-data.net) (rodrigo@127.0.0.1)
+  by localhost with SMTP; 4 Oct 2003 09:44:13 -0000
+Subject: Re: [Evolution] How to import tasks/appts non-interactively?
+From: Rodrigo Moya <rodrigo@ximian.com>
+To: Dan Winship <danw@ximian.com>
+Cc: Alan Millar <alan.millar@lpcorp.com>, evolution@lists.ximian.com
+In-Reply-To: <1065202693.7737.149.camel@twelve-monkeys.boston.ximian.com>
+References: <1065197084.4697.21.camel@millaadi4>
+	 <1065202693.7737.149.camel@twelve-monkeys.boston.ximian.com>
+Content-Type: text/plain
+Message-Id: <1065260150.1143.19.camel@azkoyen.home>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.8 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Sat, 04 Oct 2003 11:35:50 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Fri, 2003-10-03 at 19:38, Dan Winship wrote:
+> > Here's the idea I came up with so far.  Assume one main Tasks folder and
+> > one main Calendar folder.  Create two maildir folders for messages to
+> > transform, such as "appts-from-email" and "tasks-from-email".  Drag any
+> > emails you want into those folders.  Run my proposed script that reads
+> > the messages and converts them into vCal/iCal files (perhaps from a rule
+> > if possible or perhaps from cron every few minutes), and then import
+> > those into the appropriate Evolution folders.  For appointments, set
+> > them for the current hour, and then let the user move them to the
+> > appropriate day/time.
+> 
+> Of course, it would be cooler to make an app that creates a window or
+> panel applet or something, which you can drag messages to and it will
+> convert them directly. :)
+> 
+> > In Perl, I can handle (and have written) the part of reading the maildir
+> > folder and transforming the messages into iCal format (extract only the
+> > plain/text body, etc).  Here's where I am stuck: how do I get the iCal
+> > data into Evolution?
+> 
+> You can't do it easily directly from perl. You'll need to write a C
+> program and use libcalclient (and beware that you'll have to rewrite it
+> for Evolution 2.0 because the API will be changing).
+> 
+> The source is in calendar/cal-client/ in the evolution source tree.
+> There is some documentation in the source files in the form of
+> gtk-doc-style comments. Basically you'll want to use cal_client_new() to
+> create a CalClient object, then cal_client_open_default_calendar() or
+> cal_client_open_default_tasks() to open the default calendar or tasks
+> folder with that client object. Then use cal_client_update_object() to
+> create the new appointment/task.
+> 
+> Well, ok, so cal_client_update_object() takes a CalComponent, so you'll
+> need to use libcal-util as well. There's no function to directly create
+> a CalComponent from an ical string, so you'll need to first create an
+> icalcomponent (using icalcomponent_new_from_string() in libical) and
+> then call cal_component_set_icalcomponent(). Or you could just build up
+> the CalComponent using the cal_component_set_* functions instead of
+> creating an icalendar string.
+> 
+> The client-test.c code in calendar/cal-client has some code you can use
+> as a starting point.
+> 
+Alan, you might want to look at
+http://rodrigo.gnome-db.org/projects/tv-icalendar/tv-icalendar.c, which
+is a hack I did very similar to what you want to do. In this case it
+reads a XML file, so you should be able to change it easily to suit your
+needs.
+
+cheers
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

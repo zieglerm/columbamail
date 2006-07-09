@@ -1,0 +1,41 @@
+Return-Path: <fdietz@gmx.de>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 6547 invoked by uid 65534); 4 Oct 2003 13:21:02 -0000
+Received: from pD955D587.dip.t-dialin.net (EHLO frd) (217.85.213.135)
+  by mail.gmx.net (mp007) with SMTP; 04 Oct 2003 15:21:02 +0200
+X-Authenticated: #1411367
+Subject: signiert 10 evlution
+From: Frederik Dietz <fdietz@gmx.de>
+To: fdietz@gmx.de
+Content-Type: multipart/signed; micalg=pgp-sha1; protocol="application/pgp-signature"; boundary="=-FmmUukwOX4fCUUZSznp+"
+Message-Id: <1065280911.13077.0.camel@frd>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.3.92 (Preview Release)
+Date: 04 Oct 2003 17:21:52 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--=-FmmUukwOX4fCUUZSznp+
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+test
+--=20
+Frederik Dietz <fdietz@gmx.de>
+
+--=-FmmUukwOX4fCUUZSznp+
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Description: Dies ist ein digital signierter Nachrichtenteil
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.2 (GNU/Linux)
+
+iD8DBQA/fuWP1AtIHFWDMCIRAqtbAJ476O6HvZOngyHb2fzzWdgEsYk/QQCeOjjW
+3k5kLxrZv9AV+9929pL+43w=
+=aEd8
+-----END PGP SIGNATURE-----
+
+--=-FmmUukwOX4fCUUZSznp+--
+

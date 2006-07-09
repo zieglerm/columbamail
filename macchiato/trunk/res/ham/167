@@ -1,0 +1,79 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 16072 invoked by uid 65534); 2 Oct 2003 21:12:18 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx003) with SMTP; 02 Oct 2003 23:12:18 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id B4DB1124989; Thu,  2 Oct 2003 17:12:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 44D56124974; Thu,  2 Oct 2003 17:11:06 -0400 (EDT)
+Received: from mail.selfnet.at (mail.selfnet.at [212.236.212.111])
+	by listsmx.ximian.com (Postfix) with ESMTP id 9E9541246DB
+	for <evolution@lists.ximian.com>; Thu,  2 Oct 2003 17:10:34 -0400 (EDT)
+Received: from cyborg.lan (p1070.dslnas-01.cybertron.at [194.8.148.70])
+	by mail.selfnet.at (8.11.6/8.11.6/Linux) with ESMTP id h92LAXJ16203
+	for <evolution@lists.ximian.com>; Thu, 2 Oct 2003 23:10:33 +0200
+From: Gabor Guzmics <cyb.org@gmx.net>
+To: evolution@lists.ximian.com
+Content-Type: text/plain
+Message-Id: <1065129256.1899.16.camel@cyborg>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: by AMaViS-perl11-milter (http://amavis.org/)
+X-Spam-Status: No, hits=-6.3 required=5.0
+	tests=USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] calendar: colored tasks?
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 02 Oct 2003 23:14:16 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hello there, this is my first post so excuse me if I do something really
+wrong =) and post something stupid.
+
+I've looked around for my questions in the archives and now I use
+guenthers perl-script to delete duplicate messages, such things should
+be put somewhere in a central place =)
+
+-------------------
+well, my question:
+if i use the calendar, i can specify different categories (the master
+category list), but everything is displayed in the same colour (blue) in
+the calendar yet.
+
+is there a way to use different colours? if not, it would be great, if
+categories could get a colorpicker.
+-------------------
+
+also, I can define own views - but they are somehow useless, because if
+i take "actual view" and customize them, i can only choose of the
+predefined views - i dont understand its purpose really, thats a short
+question, but shouldnt get maintopic of the answers... =)
+
+i didnt find any answer for the coloring in the archives, but maybe i
+havent looked that good. so: can i use different colours?
+
+thanx for answers
+gg.
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

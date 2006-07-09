@@ -1,0 +1,72 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 11378 invoked by uid 65534); 3 Oct 2003 19:17:14 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx008) with SMTP; 03 Oct 2003 21:17:14 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 9087512416B; Fri,  3 Oct 2003 15:17:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 5370E124053; Fri,  3 Oct 2003 15:16:10 -0400 (EDT)
+Received: from web14704.mail.yahoo.com (web14704.mail.yahoo.com [216.136.224.121])
+	by listsmx.ximian.com (Postfix) with SMTP id 133F6124009
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 15:15:48 -0400 (EDT)
+Message-ID: <20031003191544.74160.qmail@web14704.mail.yahoo.com>
+Received: from [63.205.58.123] by web14704.mail.yahoo.com via HTTP; Fri, 03 Oct 2003 12:15:44 PDT
+From: Cisco Serret <picassoamerica@yahoo.com>
+To: evolution@lists.ximian.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+X-Spam-Status: No, hits=0.6 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] irritating random password error problem
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 3 Oct 2003 12:15:44 -0700 (PDT)
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hi, just signed up to the list as I couldn't find an
+answer to my problem. I've got evolution setup with 6
+pop accounts. When it checks email, about 3 out of 5
+times I get this message:
+--------------------------------------
+Error while 'Fetching Mail':
+Unable to connect to POP server webmail.somesite.com
+Error sending password: Operation now in progress
+---------------------------------------
+The "somesite" is random, it could be any of my 6
+sites. My system info is:
+Evolution 1.2.2-5
+Red Hat 9
+The system I'm connecting to is a Plesk'ed system at
+RackShack (Ev1servers). It has 6 domains on it, each
+with its own mail pop (webmail.siteone.com,
+webmail.sitetwo.com...)
+Its not that much of a problem as I can just hit
+"send/receive" and it'll usually go through ok, but it
+is a pain to have to keep closing that error window.
+
+
+__________________________________
+Do you Yahoo!?
+The New Yahoo! Shopping - with improved product search
+http://shopping.yahoo.com
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

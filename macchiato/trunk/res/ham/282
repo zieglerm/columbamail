@@ -1,0 +1,90 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1344 invoked by uid 65534); 3 Oct 2003 18:50:20 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx034-rz3) with SMTP; 03 Oct 2003 20:50:20 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id C2A18124BB7; Fri,  3 Oct 2003 14:50:06 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id C1CF8124BA8; Fri,  3 Oct 2003 14:49:05 -0400 (EDT)
+Received: from LX5054.heag.de (ns54.heag.de [193.25.234.54])
+	by listsmx.ximian.com (Postfix) with ESMTP id 2D288124BA2
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 14:48:54 -0400 (EDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by localhost (Postfix) with ESMTP
+	id 474B5800277; Fri,  3 Oct 2003 20:48:54 +0200 (CEST)
+Received: from main.davision.com (IP-213157026001.dialin.heagmedianet.de [213.157.26.1])
+	by mail.heag.de (Postfix) with ESMTP
+	id 00C8980024F; Fri,  3 Oct 2003 20:48:54 +0200 (CEST)
+Received: from main.davision.com (main.davision.com [192.168.0.1])
+	by main.davision.com (Postfix) with ESMTP
+	id 5395D12D; Fri,  3 Oct 2003 18:18:55 +0200 (CEST)
+Received: from main.davision.com (localhost [127.0.0.1])
+	by localhost (AvMailGate-2.0.1.11) id 10387-2856B400;
+	Fri, 03 Oct 2003 18:18:55 +0200
+Received: from monkey (IP-213188098246.dialin.heagmedianet.de [213.188.98.246])
+	by main.davision.com (Postfix) with ESMTP
+	id 9071E12D; Fri,  3 Oct 2003 18:18:54 +0200 (CEST)
+Subject: Re: [Evolution] How to filter mail before getting it from pop3
+	server?
+From: guenther <guenther@rudersport.de>
+To: Roberto Inzerillo <robicd@gmx.net>
+Cc: evolution@lists.ximian.com
+In-Reply-To: <1065204632.4889.54.camel@localhost.localdomain>
+References: <1065197084.4697.21.camel@millaadi4>
+	 <1065202693.7737.149.camel@twelve-monkeys.boston.ximian.com>
+	 <1065204632.4889.54.camel@localhost.localdomain>
+Content-Type: text/plain
+Message-Id: <1065206930.25094.59.camel@monkey>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-AntiVirus: checked by AntiVir MailGate (version: 2.0.1.11; AVE: 6.21.0.1; VDF: 6.21.0.58; host: localhost)
+X-Spam-Status: No, hits=-25.3 required=5.0
+	tests=IN_REP_TO,QUOTED_EMAIL_TEXT,RCVD_IN_OSIRUSOFT_COM,
+	      REFERENCES,REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 20:48:51 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Please, do not hijack totally unrelated threads. Instead of replying,
+click the blue, link-style email address in any header.
+
+
+> Is there a way to create some kind of filter to use while connecting to
+> a pop3 server in order not to download unwanted emails (maybe based on
+> headers or on other email informations which can be read in the first
+> phases of the pop3 process)? 
+
+AFAIK this is not possible and filters aren't applied on the fly during
+download, but after the download is complete.
+
+....guenther
+
+
+-- 
+char *t="\10pse\0r\0dtu\0.@ghno\x4e\xc8\x79\xf4\xab\x51\x8a\x10\xf4\xf4\xc4";
+main(){ char h,m=h=*t++,*x=t+2*h,c,i,l=*x,s=0; for (i=0;i<l;i++){ i%8? c<<=1:
+(c=*++x); c&128 && (s+=h); if (!(h>>=1)||!t[s+h]){ putchar(t[s]);h=m;s=0; }}}
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

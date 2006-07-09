@@ -1,0 +1,71 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 29374 invoked by uid 65534); 3 Oct 2003 17:01:29 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx003-rz3) with SMTP; 03 Oct 2003 19:01:29 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id B01C5124B3C; Fri,  3 Oct 2003 13:01:11 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 4290A124B11; Fri,  3 Oct 2003 13:00:06 -0400 (EDT)
+Received: from pocket0.borntreger.com (dsl092-196-210.sea1.dsl.speakeasy.net [66.92.196.210])
+	by listsmx.ximian.com (Postfix) with ESMTP id 9579D124B1C
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 12:59:34 -0400 (EDT)
+Received: from pocket.borntreger.com (pocket.borntreger.com [10.0.0.5])
+	by pocket0.borntreger.com (8.12.8/8.11.0) with ESMTP id h93BpY1X004332
+	for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 04:51:34 -0700
+Subject: Re: [Evolution] How do I reset Evolution completely?
+From: Lonnie Borntreger <email@borntreger.com>
+To: Evolution List <evolution@lists.ximian.com>
+In-Reply-To: <20031003152049.548FB1240AE@listsmx.ximian.com>
+References: <20031003152049.548FB1240AE@listsmx.ximian.com>
+Content-Type: text/plain
+Message-Id: <1065200302.32617.63.camel@pocket.borntreger.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 09:58:22 -0700
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Fri, 2003-10-03 at 08:20, Jarle Aase wrote:
+> Last time Evolution got corrupted, I deleted the "evolution" folder in my 
+> home-directory, and it started to work again. But I noticed that it still 
+> knew about the imap accounts. 
+> 
+> This time I'm lost. I've deleted the evolution dir, re-installed the 
+> evolution package, but it still keeps crashing. I suspect that the reason is 
+> some corrupted config-info, but I have no idea where it's stored and how to 
+> remove it. So my question is really how I proceed to completely erase all 
+> information Evolution has stored, so that I can make a fresh start.
+
+To completely reset 1.0.5, Run killev, remove your evolution directory,
+then rm -rf /tmp/orbit-$USER (if $USER is not set, just replace it with
+your login).
+
+Lonnie
+
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

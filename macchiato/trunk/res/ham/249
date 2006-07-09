@@ -1,0 +1,58 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 1751 invoked by uid 65534); 3 Oct 2003 16:01:49 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx017) with SMTP; 03 Oct 2003 18:01:49 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id EAF0F3AD17; Fri,  3 Oct 2003 18:01:38 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 18:01:30 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 10142)
+	id 3391D3AD19; Fri,  3 Oct 2003 18:01:30 +0200 (CEST)
+Date: Fri, 3 Oct 2003 18:01:30 +0200
+From: Benjamin PRACHT <bigben@via.ecp.fr>
+To: vlc@videolan.org
+Subject: [vlc] Re: play streaming in windows media player ?
+Message-ID: <20031003160130.GE25047@via.ecp.fr>
+References: <003501c389b8$a42b1320$6e6e11ac@jonathanpii>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <003501c389b8$a42b1320$6e6e11ac@jonathanpii>
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-3.5 required=5.0
+	tests=IN_REP_TO,REFERENCES,USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5723
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: bigben@via.ecp.fr
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+Well, the only  way I know to have  WMP read a stream sent bu  VLC is to
+unicast  it using  HTTP. Be  aware that  WMP dosen't  include any  MPEG2
+decoder by default.
+
+Things are roughly  the same for Real player, except  is has support for
+rtsp, that  should be included  in VLC quite  soon. (a test  RTSP server
+written in Python is already available, in the VLC source tree).
+
+-- 
+$(echo "BigBen")
+
+Oui je quote, et alors ?
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

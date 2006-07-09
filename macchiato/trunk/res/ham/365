@@ -1,0 +1,103 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 30903 invoked by uid 65534); 2 Oct 2003 15:15:24 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx015) with SMTP; 02 Oct 2003 17:15:24 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 1B653124642; Thu,  2 Oct 2003 11:15:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id C8FD212453A; Thu,  2 Oct 2003 11:15:01 -0400 (EDT)
+Received: from gw.kuetemeier.com (12-254-105-101.client.attbi.com [12.254.105.101])
+	by listsmx.ximian.com (Postfix) with ESMTP id 8981C1242B3
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 11:14:29 -0400 (EDT)
+Received: from ron-notebook.kuetemeier.com (ronald [192.168.1.4])
+	by gw.kuetemeier.com (8.12.10/8.12.10) with ESMTP id h92FESqW005139;
+	Thu, 2 Oct 2003 09:14:28 -0600
+Subject: Re: [Evolution-hackers] Patch to enable send mail from calendar
+	alarms
+From: Ronald Kuetemeier <ronald@kuetemeier.com>
+To: Rodrigo Moya <rodrigo@ximian.com>
+Cc: evolution-hackers <evolution-hackers@lists.ximian.com>
+In-Reply-To: <1065087722.470.4.camel@gasteiz.home>
+References: <1065054106.22156.6.camel@ronald.kuetemeier.com>
+	 <1065087722.470.4.camel@gasteiz.home>
+Content-Type: text/plain
+Message-Id: <1065107666.3030.16.camel@ronald.kuetemeier.com>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-32.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,REFERENCES,
+	      REPLY_WITH_QUOTES,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 09:14:26 -0600
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Thu, 2003-10-02 at 03:42, Rodrigo Moya wrote:
+> On Thu, 2003-10-02 at 02:21, Ronald Kuetemeier wrote:
+> > Hi Guys,
+> > sorry this is a rather large patch.  But most of it is busy work.
+> > It enables sending mail from calendar alarms.  I used a rather ugly work
+> > around to wait for the shell if it's not running to get a shell
+> > component, it's necessary at least for my SMP machine. If you know a
+> > better way let me know. 
+> > Any comments are welcome.
+> >
+> I dont understand very well the purpose of the getComposer method you
+> added. If you look at calendar/gui/itip-utils.c, you'll see it activates
+> the composer by using bonobo_activation_activate_from_id, there is no
+> need to activate the shell and then get the composer.
+> 
+Hi Rodrigo,
+actually Not Zed described this design a few month/weeks (can't
+remember) in an email.  To make a long story short, you have to get the
+composer out of the address space from the shell otherwise the result is
+undefined, works in 1.2.x kind of. But definitely  doesn't work under
+1.4.X, I tried really hard but Not Zed was right in his email, iirc it
+was to  a question from somebody from Sun who also was running into
+problems on getting the composer working, seems he never implemented Not
+Zed suggestions, so I did. In other words itip-utils works only because
+you run it under the shell, but it's not a general solution.
+
+> Also, I doubt this could be added to the 1.4.x series, since it is a new
+> feature. So, I'd suggest you better work on adding this to HEAD, or,
+> even better, to the new-ui-branch, which we'll merge to HEAD soon.
+> 
+I thought somebody was already implementing a general solution for
+getting interfaces from the shell(?) for 2.0, at least according to the
+email from Not Zed mentioned above.
+I see my implementation as a point solution for _my_ (and maybe for for
+other people who need a working composer from outside evolution) problem
+under 1.4 not as a general solution. Adding a method for every interface
+one might need to get to extend evolution would really s... 
+Thanks for the response,
+Ronald
+
+> saludos
+> 
+> _______________________________________________
+> evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+> http://lists.ximian.com/mailman/listinfo/evolution-hackers
+> 
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

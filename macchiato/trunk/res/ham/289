@@ -1,0 +1,93 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 2432 invoked by uid 65534); 3 Oct 2003 19:41:56 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx008-rz3) with SMTP; 03 Oct 2003 21:41:56 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 0F74C3AD21; Fri,  3 Oct 2003 21:41:17 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 21:41:08 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from mailout05.sul.t-online.com (mailout05.sul.t-online.com [194.25.134.82])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 141203AD51
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 21:24:52 +0200 (CEST)
+Received: from fwd08.aul.t-online.de 
+	by mailout05.sul.t-online.com with smtp 
+	id 1A5VXn-0007W2-02; Fri, 03 Oct 2003 21:24:51 +0200
+Received: from smtprelay.wiesneronline.net (EkNOhoZ18eiN7+EMgsototXTPrtPhrib-nVgSbr-O3l7aRGD-scQ6F@[80.145.249.60]) by fmrl08.sul.t-online.com
+	with esmtp id 1A5VXZ-2CEuKu0; Fri, 3 Oct 2003 21:24:37 +0200
+Received: from Spooler by smtprelay.wiesneronline.net (Mercury/32 v3.32) ID MO00034B;
+  3 Oct 03 21:28:18 +0200
+Received: from spooler by wiesneronline.net (Mercury/32 v3.32); 3 Oct 03 21:28:05 +0200
+Received: from matroska.org (192.168.0.101) by smtp.wiesneronline.net (Mercury/32 v3.32) with ESMTP ID MG00034A;
+   3 Oct 03 21:28:01 +0200
+Message-ID: <3F7DCCDD.20800@matroska.org>
+Date: Fri, 03 Oct 2003 21:24:13 +0200
+From: ChristianHJW <christian@matroska.org>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030624
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: vlc@videolan.org
+Cc: littlelion007@hotmail.com
+Subject: [vlc] Re: problem with ogm files
+References: <Law12-F65tJAG8e3IzQ0000b9a4@hotmail.com>
+In-Reply-To: <Law12-F65tJAG8e3IzQ0000b9a4@hotmail.com>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Seen: false
+X-ID: EkNOhoZ18eiN7+EMgsototXTPrtPhrib-nVgSbr-O3l7aRGD-scQ6F@t-dialin.net
+X-Spam-Status: No, hits=-1.6 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_NJABL,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_MOZILLA_UA,X_ACCEPT_LANG,X_NJABL_DIALUP
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: christian@matroska.org
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Alexander Lopez wrote:
+
+> To whomever it may concern,
+>    I recently stated working for foreign television and am sent movie 
+> files from abroad which use subtitles. Up until recently I have had no 
+> problem with Videolan whatsoever until I was sent a file using OGG format.
+>  The problem I had was that VLC would not play the videofile with 
+> timecode, it would not produce a track which my subtitle format would play.
+>  I was wondering whether you could tell me whether this was the file or 
+> your program and could you advise me on the next course of action, as 
+> far as I know the file is rendered perfectly using your software it is 
+> just solving the problem of time.
+>  In other packages I used the file was jumpy when i installed vosub and 
+> Xvid rendering codecs.
+> It would be most helpful if you could help me resolve this problem as I 
+> don't speak Chinese so it is difficult to explain to my employer the 
+> concerns I am having.
+> Thank you
+> A.Lopez
+
+SRT subs in OGM are not using unicode, so even if VLC could play them, i 
+guess you would run into trouble unless you are using a chinese windows. 
+Somebody with a better knowledge about this stuff please correct me if 
+i'm wrong.
+
+Point your employees to www.matroska.org, all relevant tools to create 
+MKV files convert SRT subs to unicode during muxing, so all you need is 
+the chinese language support on your machine to play them.
+
+Christian
+matroska project admin
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

@@ -1,0 +1,417 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 4815 invoked by uid 65534); 3 Oct 2003 12:26:47 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx030-rz3) with SMTP; 03 Oct 2003 14:26:47 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 49AE13ACAE; Fri,  3 Oct 2003 14:26:35 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 14:26:27 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from SEREADACG01.TSUSE (unknown [65.114.16.94])
+	by zen.via.ecp.fr (Postfix) with ESMTP id B335B3ACA4
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 14:25:50 +0200 (CEST)
+Received: by SEREADACG01.TSUSE (Postfix, from userid 500)
+	id B10F762C14; Fri,  3 Oct 2003 08:28:38 -0400 (EDT)
+Subject: [vlc] Re: SuSE 8.2 VLC Graphical Interfaces will not make.
+From: Dona Gibbons <gibboda@netzero.net>
+To: vlc@videolan.org
+In-Reply-To: <3F7C6B6C.7010203@geshp.com>
+References: <1065112460.17274.16.camel@SEREADACG01.TSUSE>
+	 <3F7C6B6C.7010203@geshp.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Message-Id: <1065184116.2268.27.camel@SEREADACG01.TSUSE>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 Rubber Turnip www.usr-local-bin.org 
+Date: Fri, 03 Oct 2003 08:28:38 -0400
+X-Spam-Status: No, hits=-4.3 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5709
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: gibboda@netzero.net
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Thu, 2003-10-02 at 14:16, Jason Luka wrote:
+> Dona Gibbons wrote:
+> 
+> >Have QT and KDE and GNOME with all its devel packages too.
+> >Configures with no issues.
+> >
+> >tried ./configure --enable-qt
+> >vlc configuration
+> >--------------------
+> >vlc version           : 0.6.2
+> >system                : linux
+> >architecture          : i686 mmx
+> >build flavour         : optim devel
+> >vlc aliases           : qvlc
+> >
+> >You can tune the compiler flags in vlc-config.
+> >To build vlc and its plugins, type `make'.
+> >
+> >make Results:
+> >In file included from intf.cpp:32:
+> >intf.h:30:26: qapplication.h: No such file or directory
+> >intf.h:31:25: qmainwindow.h: No such file or directory
+> >intf.h:32:22: qtoolbar.h: No such file or directory
+> >intf.h:33:25: qtoolbutton.h: No such file or directory
+> >intf.h:34:24: qwhatsthis.h: No such file or directory
+> >intf.h:35:25: qpushbutton.h: No such file or directory
+> >intf.h:36:25: qfiledialog.h: No such file or directory
+> >intf.h:37:21: qslider.h: No such file or directory
+> >intf.h:38:24: qlcdnumber.h: No such file or directory
+> >intf.h:39:22: qmenubar.h: No such file or directory
+> >intf.h:40:24: qstatusbar.h: No such file or directory
+> >intf.h:41:25: qmessagebox.h: No such file or directory
+> >intf.h:42:21: qlabel.h: No such file or directory
+> >intf.h:43:21: qtimer.h: No such file or directory
+> >intf.h:44:23: qiconset.h: No such file or directory
+> >intf.h:46:19: qvbox.h: No such file or directory
+> >intf.h:47:19: qhbox.h: No such file or directory
+> >In file included from intf.cpp:32:
+> >intf.h:53: error: parse error before `{' token
+> >intf.h:58: error: destructors must be member functions
+> >intf.h: In function `int oldvalue()':
+> >intf.h:62: error: `i_oldvalue' undeclared (first use this function)
+> >intf.h:62: error: (Each undeclared identifier is reported only once for
+> >each
+> >   function it appears in.)
+> >intf.h: At global scope:
+> >intf.h:65: error: parse error before `private'
+> >intf.h: In function `void SlideStop()':
+> >intf.h:67: error: `TRUE' undeclared (first use this function)
+> >intf.h: At global scope:
+> >intf.h:69: error: parse error before `private'
+> >intf.h:71: error: `int i_oldvalue' used prior to declaration
+> >intf.h:72: error: parse error before `}' token
+> >intf.h:78: error: parse error before `{' token
+> >intf.h:83: error: destructors must be member functions
+> >intf.h:85: error: parse error before `private'
+> >intf.h: In function `void Unimplemented()':
+> >intf.h:102: error: `p_intf' undeclared (first use this function)
+> >intf.h: At global scope:
+> >intf.h:104: error: parse error before `private'
+> >intf.h:107: error: syntax error before `*' token
+> >intf.h:109: error: syntax error before `*' token
+> >intf.h:110: error: syntax error before `*' token
+> >intf.h:111: error: syntax error before `*' token
+> >intf.cpp:43: error: syntax error before `*' token
+> >intf.cpp:44: error: syntax error before `*' token
+> >intf.cpp: In function `int Open(vlc_object_t*)':
+> >intf.cpp:74: error: 'struct intf_sys_t' has no member named 'p_app'
+> >intf.cpp:74: error: parse error before `(' token
+> >intf.cpp:75: error: 'struct intf_sys_t' has no member named 'p_window'
+> >intf.cpp:75: error: parse error before `(' token
+> >intf.cpp:78: error: 'struct intf_sys_t' has no member named 'p_window'
+> >intf.cpp:60: warning: unused variable `char*pp_argv[1]'
+> >intf.cpp:61: warning: unused variable `int i_argc'
+> >intf.cpp: In function `void Close(vlc_object_t*)':
+> >intf.cpp:98: error: 'struct intf_sys_t' has no member named 'p_window'
+> >intf.cpp:99: error: 'struct intf_sys_t' has no member named 'p_app'
+> >intf.cpp: In function `void Run(intf_thread_t*)':
+> >intf.cpp:113: error: 'struct intf_sys_t' has no member named 'p_window'
+> >intf.cpp:115: error: 'struct intf_sys_t' has no member named 'p_app'
+> >intf.cpp: At global scope:
+> >intf.cpp:127: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp: In constructor `IntfWindow::IntfWindow(intf_thread_t*)':
+> >intf.cpp:127: error: class `IntfWindow' does not have any field named `
+> >   QMainWindow'
+> >intf.cpp:129: error: `setUsesTextLabel' undeclared (first use this
+> >function)
+> >intf.cpp:131: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:137: error: `p_toolbar' undeclared (first use this function)
+> >intf.cpp:137: error: parse error before `(' token
+> >intf.cpp:140: error: `QIconSet' undeclared (first use this function)
+> >intf.cpp:140: error: `set' undeclared (first use this function)
+> >intf.cpp:140: error: parse error before `(' token
+> >intf.cpp:141: error: `QPixmap' undeclared (first use this function)
+> >intf.cpp:145: error: parse error before `(' token
+> >intf.cpp:146: error: parse error before `(' token
+> >intf.cpp:148: error: parse error before `(' token
+> >intf.cpp:149: error: parse error before `(' token
+> >intf.cpp:150: error: parse error before `(' token
+> >intf.cpp:151: error: parse error before `(' token
+> >intf.cpp:152: error: parse error before `(' token
+> >intf.cpp:153: error: parse error before `(' token
+> >intf.cpp:155: error: parse error before `(' token
+> >intf.cpp:156: error: parse error before `(' token
+> >intf.cpp:157: error: parse error before `(' token
+> >intf.cpp:164: error: `QPopupMenu' undeclared (first use this function)
+> >intf.cpp:164: error: `p_tmpmenu' undeclared (first use this function)
+> >intf.cpp:164: error: parse error before `(' token
+> >intf.cpp:168: error: `menuBar' undeclared (first use this function)
+> >intf.cpp:169: error: `SLOT' undeclared (first use this function)
+> >intf.cpp:169: error: `Key_F3' undeclared (first use this function)
+> >intf.cpp:170: error: `Key_F4' undeclared (first use this function)
+> >intf.cpp:171: error: `Key_F5' undeclared (first use this function)
+> >intf.cpp:173: error: `CTRL' undeclared (first use this function)
+> >intf.cpp:173: error: `Key_Q' undeclared (first use this function)
+> >intf.cpp:175: error: parse error before `(' token
+> >intf.cpp:180: error: parse error before `(' token
+> >intf.cpp:184: error: parse error before `(' token
+> >intf.cpp:192: error: `p_popup' undeclared (first use this function)
+> >intf.cpp:192: error: parse error before `(' token
+> >intf.cpp:209: error: `statusBar' undeclared (first use this function)
+> >intf.cpp:212: error: `QVBox' undeclared (first use this function)
+> >intf.cpp:212: error: `p_vbox' undeclared (first use this function)
+> >intf.cpp:212: error: parse error before `(' token
+> >intf.cpp:213: error: `setCentralWidget' undeclared (first use this
+> >function)
+> >intf.cpp:216: error: `QHBox' undeclared (first use this function)
+> >intf.cpp:216: error: `p_hbox' undeclared (first use this function)
+> >intf.cpp:216: error: parse error before `(' token
+> >intf.cpp:219: error: `p_date' undeclared (first use this function)
+> >intf.cpp:219: error: parse error before `(' token
+> >intf.cpp:220: error: `AlignHCenter' undeclared (first use this function)
+> >intf.cpp:220: error: `AlignVCenter' undeclared (first use this function)
+> >intf.cpp:224: error: `QLabel' undeclared (first use this function)
+> >intf.cpp:224: error: `p_label' undeclared (first use this function)
+> >intf.cpp:224: error: parse error before `(' token
+> >intf.cpp:229: error: parse error before `(' token
+> >intf.cpp:234: error: `p_slider' undeclared (first use this function)
+> >intf.cpp:234: error: parse error before `(' token
+> >intf.cpp:236: error: parse error before `)' token
+> >intf.cpp:236: error: `connect' undeclared (first use this function)
+> >intf.cpp:240: error: `QTimer' undeclared (first use this function)
+> >intf.cpp:240: error: `p_timer' undeclared (first use this function)
+> >intf.cpp:240: error: parse error before `(' token
+> >intf.cpp:241: error: `timeout' undeclared (first use this function)
+> >intf.cpp:241: error: `SIGNAL' undeclared (first use this function)
+> >intf.cpp:241: error: `Manage' undeclared (first use this function)
+> >intf.cpp:245: error: `resize' undeclared (first use this function)
+> >intf.cpp: At global scope:
+> >intf.cpp:254: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:264: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:284: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp: In member function `void IntfWindow::FileOpen()':
+> >intf.cpp:286: error: `QString' undeclared (first use this function)
+> >intf.cpp:286: error: parse error before `=' token
+> >intf.cpp:289: error: `file' undeclared (first use this function)
+> >intf.cpp: At global scope:
+> >intf.cpp:312: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:322: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp: In member function `void IntfWindow::About()':
+> >intf.cpp:323: error: `QMessageBox' undeclared (first use this function)
+> >intf.cpp:323: error: parse error before `::' token
+> >intf.cpp: At global scope:
+> >intf.cpp:341: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp: In member function `void IntfWindow::Manage()':
+> >intf.cpp:386: error: `QCursor' undeclared (first use this function)
+> >intf.cpp:386: error: parse error before `::' token
+> >intf.cpp:392: error: `qApp' undeclared (first use this function)
+> >intf.cpp: At global scope:
+> >intf.cpp:400: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:411: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:422: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:433: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:444: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:461: error: invalid use of undefined type `class IntfWindow'
+> >intf.h:77: error: forward declaration of `class IntfWindow'
+> >intf.cpp:480: error: type specifier omitted for parameter `QWidget'
+> >intf.cpp:480: error: parse error before `*' token
+> >intf.cpp:481: error: invalid use of undefined type `class IntfSlider'
+> >intf.h:52: error: forward declaration of `class IntfSlider'
+> >intf.cpp: In constructor `IntfSlider::IntfSlider(...)':
+> >intf.cpp:481: error: `Horizontal' undeclared (first use this function)
+> >intf.cpp:481: error: `p_parent' undeclared (first use this function)
+> >intf.cpp:481: error: class `IntfSlider' does not have any field named
+> >`QSlider'
+> >intf.cpp:483: error: invalid use of undefined type `class IntfSlider'
+> >intf.h:52: error: forward declaration of `class IntfSlider'
+> >intf.cpp:485: error: `setRange' undeclared (first use this function)
+> >intf.cpp:486: error: `setPageStep' undeclared (first use this function)
+> >intf.cpp:488: error: `setValue' undeclared (first use this function)
+> >intf.cpp:491: error: `setTracking' undeclared (first use this function)
+> >intf.cpp:494: error: parse error before `)' token
+> >intf.cpp:495: error: `sliderPressed' undeclared (first use this
+> >function)
+> >intf.cpp:495: error: `SlideStart' undeclared (first use this function)
+> >intf.cpp:496: error: `sliderReleased' undeclared (first use this
+> >function)
+> >intf.cpp: At global scope:
+> >intf.cpp:505: error: invalid use of undefined type `class IntfSlider'
+> >intf.h:52: error: forward declaration of `class IntfSlider'
+> >make[6]: *** [libqt_plugin_a-intf.o] Error 1
+> >make[6]: Leaving directory
+> >`/home/gibboda/vlcdev/vlc-0.6.2/modules/gui/qt'
+> >make[5]: *** [all-qt] Error 1
+> >make[5]: Leaving directory
+> >`/home/gibboda/vlcdev/vlc-0.6.2/modules/gui/qt'
+> >make[4]: *** [all-recursive] Error 1
+> >make[4]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules/gui'
+> >make[3]: *** [all] Error 2
+> >make[3]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules/gui'
+> >make[2]: *** [all-recursive] Error 1
+> >make[2]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules'
+> >make[1]: *** [all-recursive] Error 1
+> >make[1]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2'
+> >make: *** [all] Error 2
+> >
+> >
+> >tried ./configure --enable-kde
+> >vlc configuration
+> >--------------------
+> >vlc version           : 0.6.2
+> >system                : linux
+> >architecture          : i686 mmx
+> >build flavour         : optim devel
+> >vlc aliases           : kvlc
+> >
+> >You can tune the compiler flags in vlc-config.
+> >To build vlc and its plugins, type `make'.
+> >
+> >make Results:
+> >In file included from kde.cpp:26:
+> >interface.h:14:21: kaction.h: No such file or directory
+> >interface.h:15:25: kmainwindow.h: No such file or directory
+> >interface.h:16:26: kapplication.h: No such file or directory
+> >interface.h:17:18: kurl.h: No such file or directory
+> >interface.h:18:25: qdragobject.h: No such file or directory
+> >interface.h:19:21: qstring.h: No such file or directory
+> >interface.h:20:21: qwidget.h: No such file or directory
+> >In file included from interface.h:21,
+> >                 from kde.cpp:26:
+> >messages.h:1:25: kdialogbase.h: No such file or directory
+> >messages.h:2:23: qtextview.h: No such file or directory
+> >In file included from interface.h:21,
+> >                 from kde.cpp:26:
+> >messages.h:6: error: parse error before `{' token
+> >messages.h:10: error: destructors must be member functions
+> >messages.h:12: error: parse error before `public'
+> >messages.h:16: error: syntax error before `*' token
+> >messages.h:19: error: parse error before `}' token
+> >In file included from kde.cpp:26:
+> >interface.h:36: error: parse error before `{' token
+> >interface.h:41: error: destructors must be member functions
+> >interface.h:43: error: parse error before `public'
+> >interface.h:47: error: parse error before `&' token
+> >interface.h:67: error: parse error before `&' token
+> >interface.h:72: error: parse error before `protected'
+> >interface.h:79: error: `QDragEnterEvent' was not declared in this scope
+> >interface.h:79: error: `event' was not declared in this scope
+> >interface.h:79: error: virtual outside class declaration
+> >interface.h:79: error: variable or field `dragEnterEvent' declared void
+> >interface.h:80: error: `QDropEvent' was not declared in this scope
+> >interface.h:80: error: `event' was not declared in this scope
+> >interface.h:80: error: virtual outside class declaration
+> >interface.h:80: error: variable or field `dropEvent' declared void
+> >interface.h:82: error: parse error before `private'
+> >interface.h:106: error: parse error before `private'
+> >interface.h:110: error: syntax error before `*' token
+> >interface.h:113: error: syntax error before `*' token
+> >interface.h:127: error: syntax error before `*' token
+> >interface.h:128: error: syntax error before `*' token
+> >interface.h:129: error: syntax error before `*' token
+> >interface.h:131: error: syntax error before `*' token
+> >interface.h:134: error: syntax error before `*' token
+> >interface.h:135: error: syntax error before `*' token
+> >interface.h:136: error: syntax error before `*' token
+> >interface.h:137: error: syntax error before `*' token
+> >interface.h:138: error: syntax error before `*' token
+> >interface.h:139: error: syntax error before `*' token
+> >interface.h:140: error: syntax error before `*' token
+> >interface.h:141: error: syntax error before `*' token
+> >interface.h:142: error: syntax error before `*' token
+> >interface.h:143: error: syntax error before `*' token
+> >interface.h:144: error: syntax error before `*' token
+> >interface.h:145: error: syntax error before `*' token
+> >interface.h:146: error: syntax error before `*' token
+> >interface.h:147: error: syntax error before `*' token
+> >interface.h:148: error: syntax error before `*' token
+> >interface.h:149: error: syntax error before `*' token
+> >interface.h:150: error: syntax error before `*' token
+> >interface.h:151: error: syntax error before `*' token
+> >interface.h:159: error: syntax error before `*' token
+> >interface.h:160: error: syntax error before `*' token
+> >interface.h:161: error: syntax error before `*' token
+> >kde.cpp:30:21: kaction.h: No such file or directory
+> >kde.cpp:31:18: kapp.h: No such file or directory
+> >kde.cpp:32:24: kaboutdata.h: No such file or directory
+> >kde.cpp:33:26: kcmdlineargs.h: No such file or directory
+> >kde.cpp:34:21: klocale.h: No such file or directory
+> >kde.cpp:35:25: kmainwindow.h: No such file or directory
+> >kde.cpp:36:24: kstdaction.h: No such file or directory
+> >kde.cpp:37:21: qwidget.h: No such file or directory
+> >kde.cpp: In function `void close(vlc_object_t*)':
+> >kde.cpp:92: error: 'struct intf_sys_t' has no member named 'p_app'
+> >kde.cpp:93: error: 'struct intf_sys_t' has no member named 'p_about'
+> >kde.cpp: In function `void run(intf_thread_t*)':
+> >kde.cpp:106: error: 'struct intf_sys_t' has no member named 'p_about'
+> >kde.cpp:107: error: `I18N_NOOP' undeclared (first use this function)
+> >kde.cpp:107: error: (Each undeclared identifier is reported only once
+> >for each
+> >   function it appears in.)
+> >kde.cpp:110: error: incomplete type `KAboutData' does not have member `
+> >   License_GPL'
+> >kde.cpp:112: error: invalid use of undefined type `struct KAboutData'
+> >kde.cpp:43: error: forward declaration of `struct KAboutData'
+> >kde.cpp:114: error: 'struct intf_sys_t' has no member named 'p_about'
+> >kde.cpp:119: error: `KCmdLineArgs' undeclared (first use this function)
+> >kde.cpp:119: error: parse error before `::' token
+> >kde.cpp:124: error: 'struct intf_sys_t' has no member named 'p_app'
+> >kde.cpp:124: error: parse error before `(' token
+> >kde.cpp:125: error: 'struct intf_sys_t' has no member named 'p_window'
+> >kde.cpp:125: error: parse error before `(' token
+> >kde.cpp:126: error: 'struct intf_sys_t' has no member named 'p_window'
+> >kde.cpp:130: error: 'struct intf_sys_t' has no member named 'p_window'
+> >kde.cpp:131: error: 'struct intf_sys_t' has no member named 'p_app'
+> >kde.cpp:117: warning: unused variable `int argc'
+> >kde.cpp:118: warning: unused variable `char*argv[5]'
+> >make[6]: *** [libkde_plugin_a-kde.o] Error 1
+> >make[6]: Leaving directory
+> >`/home/gibboda/vlcdev/vlc-0.6.2/modules/gui/kde'
+> >make[5]: *** [all-kde] Error 1
+> >make[5]: Leaving directory
+> >`/home/gibboda/vlcdev/vlc-0.6.2/modules/gui/kde'
+> >make[4]: *** [all-recursive] Error 1
+> >make[4]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules/gui'
+> >make[3]: *** [all] Error 2
+> >make[3]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules/gui'
+> >make[2]: *** [all-recursive] Error 1
+> >make[2]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2/modules'
+> >make[1]: *** [all-recursive] Error 1
+> >make[1]: Leaving directory `/home/gibboda/vlcdev/vlc-0.6.2'
+> >make: *** [all] Error 2
+> >
+> >  
+> >
+> Sounds like you're missing the kde-devel and qt-devel files.
+> 
+> Jason Luka
+
+I have kdebase3-devel,kdelibs3-devel,kdegraphics3-devel and qt3-devel. 
+I know if i did not have qt3-devel installed it would not have even
+configured.  I have installed other programs that required qt3-devel in
+order to be configured and they installed fine.
+I do not know if there is any other devel tools that I may be missing.  
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

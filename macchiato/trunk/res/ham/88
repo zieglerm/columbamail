@@ -1,0 +1,173 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 22275 invoked by uid 65534); 2 Oct 2003 10:37:19 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx024-rz3) with SMTP; 02 Oct 2003 12:37:19 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 1D4CA3ABF8; Thu,  2 Oct 2003 12:37:06 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Thu, 02 Oct 2003 12:36:57 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from gw-nl5.philips.com (gw-nl5.philips.com [212.153.235.109])
+	by zen.via.ecp.fr (Postfix) with ESMTP id CF43B3ABC7
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 12:36:28 +0200 (CEST)
+Received: from smtpscan-nl2.philips.com (smtpscan-nl2.philips.com [130.139.36.22])
+	by gw-nl5.philips.com (Postfix) with ESMTP id 494D754BAB
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 12:36:28 +0200 (MET DST)
+Received: from smtpscan-nl2.philips.com (localhost [127.0.0.1])
+	by localhost.philips.com (Postfix) with ESMTP id D5B0619C46
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 12:36:27 +0200 (MEST)
+Received: from smtprelay-nl1.philips.com (smtprelay-eur1.philips.com [130.139.36.3])
+	by smtpscan-nl2.philips.com (Postfix) with ESMTP id 7941319C45
+	for <vlc@videolan.org>; Thu,  2 Oct 2003 12:36:27 +0200 (MEST)
+Received: from prle4.natlab.research.philips.com (prle4.natlab.research.philips.com [130.145.137.96]) 
+	by smtprelay-nl1.philips.com (8.9.3-p1/8.8.5-1.2.2m-19990317) with ESMTP id MAA12448
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 12:36:27 +0200 (MET DST)
+Received: from smtpmon (smtpmon [130.145.137.150])
+	by prle4.natlab.research.philips.com (8.11.6/8.11.6) with ESMTP id h92AaRC19375
+	for <vlc@videolan.org>; Thu, 2 Oct 2003 12:36:27 +0200
+Received: from pc7867.ddns.htc.nl.philips.com ([130.145.195.51])
+	by smtpmon (MailMonitor for SMTP v1.2.0 ) ;
+	Thu, 2 Oct 2003 12:36:27 +0200 (CEST)
+Message-ID: <3F7BFFAA.7060205@natlab.research.philips.com>
+Date: Thu, 02 Oct 2003 12:36:26 +0200
+From: Jean-Paul Saman <saman@natlab.research.philips.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.1) Gecko/20021003
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: vlc@videolan.org
+Subject: [vlc] Re: Streaming a dvb-t channel with vlc?
+References: <1065082691.3f7bdf4327137@webmail.abo.fi> <3F7BE7E6.7060603@natlab.research.philips.com> <1065086612.3f7bee948b2ba@webmail.abo.fi>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-1.5 required=5.0
+	tests=EMAIL_ATTRIBUTION,QUOTED_EMAIL_TEXT,RCVD_IN_OSIRUSOFT_COM,
+	      REFERENCES,REPLY_WITH_QUOTES,USER_AGENT_MOZILLA_UA,
+	      X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5697
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: saman@natlab.research.philips.com
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+jusuomin@abo.fi wrote:
+>>It doesn't say it is an invalid frequency it says that tuning
+>>failed.
+> 
+> 
+> Well, it also says that the frequency is invalid:
+> 
+> [00000157] dvb input warning: invalid frequency 714000000 (Hz), using
+> default one
+
+
+Ok I missed the log line.
+
+>>.dvbrc file is not useable with vlc. It is simply not used.
+> 
+> 
+> Yes. I'm aware of that, but AFAIK vls uses it, does it not?
+> 
+
+Yep VLS uses it, but not this version of libdvb. AFAIK it uses only 
+version libdvb-0.2.0
+
+> 
+>>>And one last question. What is the correct value for symbol rate
+>>
+>>here in
+>>
+>>>Finland?
+>>
+>>Do not know ?
+
+Use the probe option from the dvb access plugin.
+
+> 
+> Any tools for finding out this that you know of?
+> 
+satscan ??? from libdvb utils
+
+> OK. I tried that, and it seems to use the OFDM frontend, but it still fails.
+> 
+> Screen dump:
+> 
+> [root@blumlein root]# /usr/local/bin/vlc -vvv --program 512
+> terrestrial:714000000:0:3:27500000
+> 
+> VideoLAN Client 0.6.2 Trevelyan
+> [00000000] main root debug: VLC media player - version 0.6.2 Trevelyan -
+> (c) 1996-2003 VideoLAN
+> [00000000] main root debug: libvlc was configured with ./configure
+> --enable-v4l --enable-dvb --enable-arts --enable-qt --enable-kde
+> --enable-lirc --prefix=/usr/local
+> 
+> 
+>>>>>Is there perhaps something wrong with the ./configure settings? Is
+>>>>
+No there is nothing wrong with your configure settings. It is a bug in 
+my dvb access code. And dvb-t uses other frequencies then dvb-s.
+
+So pull the latest version from the CVS. I have just made some 
+modifications to the dvb access plugin.
+
+> v4l needed with dvb? Or do they conflict with each other?
+No they are seperate things, please do not mix them. DVB API for Linux 
+is build on top of V4L2.
+
+> [00000157] dvb input debug: using default values for frontend info
+> [00000157] dvb input debug: method of access is terrestrial
+> [00000157] dvb input warning: invalid frequency 714000000 (Hz), using
+> default one
+
+You must provide the upper and lower frequencies for your DVB-T tuner. 
+The defaults used are for DVB-S which of course will not work in your 
+case. Add --lnb-lof1, --lnb-lof2 and --lnb-slof to the commandline, with 
+correct values. Thus:
+
+/usr/local/bin/vlc -vvv --program 512 terrestrial:714000000:0:3:27500000 
+--lnb-lof2=715000000 --lnb-lof1=9750000 --lnb-slof=11700000
+
+Actually the values for --lnb-lof1 and --lnb-slof are still the default 
+ones in the example above. You'll have to find out which your Nova-T 
+uses with vlc terrestrial:714000000:0:3:27500000 --probe
+
+Here is some small legenda:
+--lnb-lof1	lowest frequency allowed for tuner
+--lnb-lof2	highest frequency allowed for tuner
+--lnb-slof	frequency at which to switch between low and higband
+
+>>>>>See, here it complains about the frequency?
+>>>>
+> 
+>>>>>Still can't tune either. Where is the code for the dvb-related
+>>>>
+> things? Is it modules/access/dvb/ or? I could take a look at it..
+
+Yep.
+
+>>>>>I'm assuming that vlc tries the rest of these (dvd, vcd etc
+>>>>
+> because the dvb module failed. Is this correct?
+> 
+Indeed it does.
+
+-- 
+Kind greetings,
+
+Jean-Paul Saman
+
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

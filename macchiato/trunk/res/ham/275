@@ -1,0 +1,45 @@
+Return-Path: <fdietz@gmx.de>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 5977 invoked by uid 65534); 3 Oct 2003 16:23:21 -0000
+Received: from p50841414.dip.t-dialin.net (EHLO gmx.de) (80.132.20.20)
+  by mail.gmx.net (mp021) with SMTP; 03 Oct 2003 18:23:21 +0200
+X-Authenticated: #1411367
+Message-ID: <3F7DBEBB.1020505@gmx.de>
+Date: Fri, 03 Oct 2003 20:23:55 +0200
+From: Frederk dietz <fdietz@gmx.de>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.4) Gecko/20030903
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To:  fdietz@gmx.de
+Subject: sign 5
+X-Enigmail-Version: 0.76.4.0
+X-Enigmail-Supports: pgp-inline, pgp-mime
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="------------enig7A215D2812593E1B9E63A0FA"
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+This is an OpenPGP/MIME signed message (RFC 2440 and 3156)
+--------------enig7A215D2812593E1B9E63A0FA
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+
+sign 5
+
+
+--------------enig7A215D2812593E1B9E63A0FA
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.2 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQE/fb671AtIHFWDMCIRAsNqAJ9IKM5/pTdEQruszuhO+ui0SwAh7gCggIRS
+zz6DozlrxtHAuNlJGCO9i6A=
+=2T1U
+-----END PGP SIGNATURE-----
+
+--------------enig7A215D2812593E1B9E63A0FA--
+

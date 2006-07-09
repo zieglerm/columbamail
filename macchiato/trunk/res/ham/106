@@ -1,0 +1,62 @@
+Return-Path: <streaming-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 4762 invoked by uid 65534); 3 Oct 2003 07:03:39 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx028-rz3) with SMTP; 03 Oct 2003 09:03:39 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id C49FB3AC66; Fri,  3 Oct 2003 09:00:44 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list streaming); Fri, 03 Oct 2003 09:00:36 +0200 (CEST)
+Delivered-To: streaming@via.ecp.fr
+Received: from diamante.diei.unipg.it (unknown [141.250.40.250])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 61C753AC2A
+	for <streaming@videolan.org>; Thu,  2 Oct 2003 16:09:45 +0200 (CEST)
+Received: from diei.unipg.it (haring.diei.unipg.it [141.250.40.178])
+	by diamante.diei.unipg.it (8.9.3/8.9.3) with ESMTP id QAA31614
+	for <streaming@videolan.org>; Thu, 2 Oct 2003 16:22:41 +0200
+Message-ID: <3F7C31C6.6000309@diei.unipg.it>
+Date: Thu, 02 Oct 2003 16:10:14 +0200
+From: Mauro Giorni <giorni@diei.unipg.it>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.5) Gecko/20030917
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: streaming@videolan.org
+Subject: [streaming] questions about HTTP streaming with VLC
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-0.1 required=5.0
+	tests=USER_AGENT_MOZILLA_UA,X_ACCEPT_LANG
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-Approved-By: admin@via.ecp.fr
+X-ecartis-version: Ecartis v1.0.0
+Sender: streaming-bounce@videolan.org
+Errors-To: streaming-bounce@videolan.org
+X-original-sender: giorni@diei.unipg.it
+Precedence: bulk
+Reply-To: streaming@videolan.org
+X-list: streaming
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Hello, I'm Mauro from the University of Perugia (Italy).
+I have some questions about VideoLAN plugin  for Mozilla. 
+1. With Mozilla 1.5 browser already installed, if we get the full rpm 
+version of VLC for Red Hat linux 9.0 from 
+http://www.videolan.org/vlc/download-redhat.html  and install it  using  
+the  "#rpm -U *.rpm" command, is the VLC plugin automatically installed 
+(Mozilla at "Help-About Plug-ins" shows the MIME supported list for VLC 
+plugin) ?
+2. If the VLC plugin is correctly installed using the previous 
+procedure, why is not possible to run streaming using the HTML code 
+listed in Chapter 5 of your "VLC User Guide"?
+
+                                                                   
+Thanks in advance
+
+-- 
+This is the streaming mailing-list, see http://www.videolan.org/streaming/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

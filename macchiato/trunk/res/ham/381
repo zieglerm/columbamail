@@ -1,0 +1,71 @@
+Return-Path: <evolution-hackers-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 31237 invoked by uid 65534); 2 Oct 2003 17:32:12 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx001-rz3) with SMTP; 02 Oct 2003 19:32:12 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 756EC124958; Thu,  2 Oct 2003 13:32:04 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 60D77124213; Thu,  2 Oct 2003 13:31:18 -0400 (EDT)
+Received: from skeptopotamus.ximian.com (skeptopotamus.ximian.com [141.154.95.14])
+	by listsmx.ximian.com (Postfix) with ESMTP id 82A9212406B
+	for <evolution-hackers@lists.ximian.com>; Thu,  2 Oct 2003 13:31:06 -0400 (EDT)
+Received: by skeptopotamus.ximian.com (Postfix)
+	id 75CB063166; Thu,  2 Oct 2003 13:31:06 -0400 (EDT)
+Delivered-To: evolution-hackers@ximian.com
+Received: from peabody.ximian.com (peabody.ximian.com [141.154.95.10])
+	by skeptopotamus.ximian.com (Postfix) with ESMTP id 5723963165
+	for <evolution-hackers@ximian.com>; Thu,  2 Oct 2003 13:31:06 -0400 (EDT)
+Received: (qmail 4044 invoked from network); 2 Oct 2003 17:31:04 -0000
+Received: from peabody.ximian.com (HELO localhost) (141.154.95.10)
+  by peabody.ximian.com with SMTP; 2 Oct 2003 17:31:04 -0000
+Subject: Re: [Evolution-hackers] Appointment and Meeting Editors -- 2.0
+	Thoughts
+From: Federico Mena Quintero <federico@ximian.com>
+Cc: Evolution Hackers <evolution-hackers@ximian.com>
+In-Reply-To: <1065010245.14133.3.camel@gasteiz.home>
+References: <1064954351.4874.296.camel@narcissus.boston.ximian.com>
+	 <1064957540.2714.32.camel@localhost.localdomain>
+	 <1065010245.14133.3.camel@gasteiz.home>
+Content-Type: text/plain
+Message-Id: <1065115861.2714.352.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-27.4 required=5.0
+	tests=EMAIL_ATTRIBUTION,IN_REP_TO,MISSING_HEADERS,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      UPPERCASE_25_50,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-hackers-admin@lists.ximian.com
+Errors-To: evolution-hackers-admin@lists.ximian.com
+X-BeenThere: evolution-hackers@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-hackers-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution-hackers@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=subscribe>
+List-Id: People writing code for Evolution <evolution-hackers.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution-hackers>,
+	<mailto:evolution-hackers-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution-hackers/>
+Date: Thu, 02 Oct 2003 12:31:02 -0500
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+On Wed, 2003-10-01 at 07:10, Rodrigo Moya wrote:
+> can VEVENT's contain the URL property?
+
+Yes, RFC 2445 section 4.6.1.  VEVENT, VTODO, VJOURNAL, VFREEBUSY can all
+have at most one URL property.
+
+  Federico
+
+_______________________________________________
+evolution-hackers maillist  -  evolution-hackers@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution-hackers
+

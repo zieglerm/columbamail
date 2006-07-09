@@ -1,0 +1,92 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 16040 invoked by uid 65534); 3 Oct 2003 22:07:09 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx024-rz3) with SMTP; 04 Oct 2003 00:07:09 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id D4E4E12417E; Fri,  3 Oct 2003 18:06:03 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 31F41124193; Fri,  3 Oct 2003 18:05:36 -0400 (EDT)
+Received: from LX5054.heag.de (ns54.heag.de [193.25.234.54])
+	by listsmx.ximian.com (Postfix) with ESMTP id 92AE812412F
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 18:05:24 -0400 (EDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by localhost (Postfix) with ESMTP
+	id DE497815769; Sat,  4 Oct 2003 00:05:17 +0200 (CEST)
+Received: from main.davision.com (IP-213157026001.dialin.heagmedianet.de [213.157.26.1])
+	by mail.heag.de (Postfix) with ESMTP
+	id 75B0E800277; Sat,  4 Oct 2003 00:05:17 +0200 (CEST)
+Received: from main.davision.com (main.davision.com [192.168.0.1])
+	by main.davision.com (Postfix) with ESMTP
+	id D7A7820F; Fri,  3 Oct 2003 21:35:17 +0200 (CEST)
+Received: from main.davision.com (localhost [127.0.0.1])
+	by localhost (AvMailGate-2.0.1.11) id 11622-64D9CB48;
+	Fri, 03 Oct 2003 21:35:17 +0200
+Received: from monkey (IP-213188098246.dialin.heagmedianet.de [213.188.98.246])
+	by main.davision.com (Postfix) with ESMTP
+	id 02FAB19E; Fri,  3 Oct 2003 21:35:17 +0200 (CEST)
+Subject: [Fwd: Re: [Evolution] minimal header display]
+From: guenther <guenther@rudersport.de>
+To: evolution@lists.ximian.com
+Cc: Justin Georgeson <jgeorgeson@lopht.net>
+Content-Type: text/plain
+Message-Id: <1065218711.24372.124.camel@monkey>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-AntiVirus: checked by AntiVir MailGate (version: 2.0.1.11; AVE: 6.21.0.1; VDF: 6.21.0.58; host: localhost)
+X-Spam-Status: No, hits=-12.3 required=5.0
+	tests=EMAIL_ATTRIBUTION,FWD_MSG,RCVD_IN_OSIRUSOFT_COM,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Sat, 04 Oct 2003 00:05:12 +0200
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+
+FYI: http://bugzilla.ximian.com/show_bug.cgi?id=49313
+
+
+-----Forwarded Message-----
+From: Justin Georgeson <jgeorgeson@lopht.net>
+To: guenther <guenther@rudersport.de>
+Subject: Re: [Evolution] minimal header display
+Date: Fri, 03 Oct 2003 16:40:29 -0500
+
+guenther wrote:
+ >
+[snip]
+> 
+> AFAIK this is not possible.
+
+thanks. I assumed as such. I've already unsubscribed from the list, 
+since there was didn't appear to be much interest in this capability. 
+But I went ahead and created bug 49313 as a wishlist/rfe, could you 
+forward that to the list in case someone else is interested?
+
+
+-- 
+char *t="\10pse\0r\0dtu\0.@ghno\x4e\xc8\x79\xf4\xab\x51\x8a\x10\xf4\xf4\xc4";
+main(){ char h,m=h=*t++,*x=t+2*h,c,i,l=*x,s=0; for (i=0;i<l;i++){ i%8? c<<=1:
+(c=*++x); c&128 && (s+=h); if (!(h>>=1)||!t[s+h]){ putchar(t[s]);h=m;s=0; }}}
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

@@ -1,0 +1,93 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 9685 invoked by uid 65534); 18 Dec 2003 09:10:37 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx023-rz3) with SMTP; 18 Dec 2003 10:10:37 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 8434F1248B0; Thu, 18 Dec 2003 04:10:09 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id F0A351248A8; Thu, 18 Dec 2003 04:09:21 -0500 (EST)
+Received: from rwcrmhc12.comcast.net (rwcrmhc12.comcast.net [216.148.227.85])
+	by listsmx.ximian.com (Postfix) with ESMTP id 572381248A6
+	for <evolution@lists.ximian.com>; Thu, 18 Dec 2003 04:09:10 -0500 (EST)
+Received: from c-24-6-63-206.client.comcast.net ([24.6.63.206])
+          by comcast.net (rwcrmhc12) with SMTP
+          id <200312180909090140034pnde>
+          (Authid: vphom@comcast.net);
+          Thu, 18 Dec 2003 09:09:09 +0000
+Subject: Re: [Evolution] News feed problem
+From: Vanh Phom <vphom@comcast.net>
+Reply-To: vphom@comcast.net
+To: evolution@lists.ximian.com
+In-Reply-To: <1071674471.2692.52.camel@monkey>
+References: <Law9-F24wRPQIWDO3hR0001e90f@hotmail.com>
+	 <1071618768.4528.3.camel@localhost>  <1071669897.2688.7.camel@monkey>
+	 <1071643925.3824.7.camel@localhost>  <1071674471.2692.52.camel@monkey>
+Content-Type: text/plain
+Message-Id: <1071709749.3829.8.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-31.9 required=5.0
+	tests=DATE_IN_PAST_06_12,EMAIL_ATTRIBUTION,IN_REP_TO,
+	      QUOTED_EMAIL_TEXT,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 18 Dec 2003 01:09:09 +0000
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+On Wed, 2003-12-17 at 15:21, guenther wrote:
+> > > If this doesn't work out, what's the News Feed that does not show up?
+> > > 
+> > All of the news site that I add to the right pane show up as icons.
+> 
+> Are they predefined ones? Or custom? If custom, what is the URL you
+> entered?
+> 
+
+They are all predefined I just add them from the left pane to the right
+pane.
+> 
+> > > > BTW, how can I add more weather report from others countries.
+> > > 
+> > > Tools / Settings / Summary Preferences / Weather
+> > > 
+> > > Select a location in the left tree and hit the "Add" button. "Apply".
+> >
+> > I'm sorry for not being clear what I want to add is a country such as
+> > thailand which didn't show under Asia.
+> 
+> You cannot add countries AFAIK. The Location has to be more specific.
+> 
+> >From Memory: The locations are airports, identified by their respective
+> international airport ID. They provide the necessary data. Thus you
+> cannot have any city in the list, but only airports...
+> 
+> That said: There still may be some locations missing. If so, feel free
+> to mention them here or even better file them in bugzilla.
+There are alot of cities missing. If you look at Asia continent there
+are no Thailand,Laos,Malaysia,Indonesia,Philippine,Burma...
+
+Vanh
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

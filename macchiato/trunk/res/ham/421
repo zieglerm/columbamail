@@ -1,0 +1,60 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 24903 invoked by uid 65534); 3 Oct 2003 16:59:27 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx019) with SMTP; 03 Oct 2003 18:59:27 +0200
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 653B8124B1A; Fri,  3 Oct 2003 12:59:05 -0400 (EDT)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 2ACB912409E; Fri,  3 Oct 2003 12:58:29 -0400 (EDT)
+Received: from imf18aec.mail.bellsouth.net (imf18aec.mail.bellsouth.net [205.152.59.66])
+	by listsmx.ximian.com (Postfix) with ESMTP id 88486124B11
+	for <evolution@lists.ximian.com>; Fri,  3 Oct 2003 12:58:17 -0400 (EDT)
+Received: from [68.212.228.188] by imf18aec.mail.bellsouth.net
+          (InterMail vM.5.01.05.27 201-253-122-126-127-20021220) with ESMTP
+          id <20031003165818.UVCK1874.imf18aec.mail.bellsouth.net@[68.212.228.188]>
+          for <evolution@lists.ximian.com>; Fri, 3 Oct 2003 12:58:18 -0400
+From: "Robert G. Waycott" <rgwaycott@bellsouth.net>
+To: evolution@lists.ximian.com
+Content-Type: text/plain
+Message-Id: <1065200313.43714.11.camel@localhost>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.4 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-5.7 required=5.0
+	tests=RCVD_IN_OSIRUSOFT_COM,USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Subject: [Evolution] Wrapping message lines?
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Fri, 03 Oct 2003 12:58:33 -0400
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+Evolution Listers, 
+  I am using Evo 1.4.5, and cannot find a setting to ensure
+me messages will wrap at 72 characters, or any other number
+for that matter. How can I set this?
+
+Esse quam videri,
+
+Robert G. Waycott
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

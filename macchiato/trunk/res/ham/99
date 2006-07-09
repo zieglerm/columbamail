@@ -1,0 +1,106 @@
+Return-Path: <jython-users-admin@lists.sourceforge.net>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 20229 invoked by uid 65534); 2 Oct 2003 13:11:12 -0000
+Received: from lists.sourceforge.net (EHLO sc8-sf-list2.sourceforge.net) (66.35.250.206)
+  by mx0.gmx.net (mx010) with SMTP; 02 Oct 2003 15:11:12 +0200
+Received: from sc8-sf-list1-b.sourceforge.net ([10.3.1.13] helo=sc8-sf-list1.sourceforge.net)
+	by sc8-sf-list2.sourceforge.net with esmtp (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A538M-0007KQ-00; Thu, 02 Oct 2003 06:04:42 -0700
+Received: from sc8-sf-mx1-b.sourceforge.net ([10.3.1.11] helo=sc8-sf-mx1.sourceforge.net)
+	by sc8-sf-list1.sourceforge.net with esmtp 
+	(Cipher TLSv1:DES-CBC3-SHA:168) (Exim 3.31-VA-mm2 #1 (Debian))
+	id 1A537f-0004j1-00
+	for <jython-users@lists.sourceforge.net>; Thu, 02 Oct 2003 06:03:59 -0700
+Received: from sbcsmtp2.sbc.com ([209.184.203.4])
+	by sc8-sf-mx1.sourceforge.net with esmtp (Exim 4.22)
+	id 1A537e-0005o1-Lq
+	for jython-users@lists.sourceforge.net; Thu, 02 Oct 2003 06:03:58 -0700
+Received: from sbc.com (localhost [127.0.0.1])
+	by sbcsmtp2.sbc.com (8.12.10/8.12.10) with ESMTP id h92D3LVI004632;
+	Thu, 2 Oct 2003 08:03:21 -0500 (CDT)
+Received: from MSGSTLHUB02.ITServices.sbc.com (msgstlhub02.sbc.com [132.201.87.59])
+	by sbcsmtp2.sbc.com (8.12.10/8.12.10) with ESMTP id h92D3GmF004591;
+	Thu, 2 Oct 2003 08:03:16 -0500 (CDT)
+Received: by msgstlhub02.sbc.com with Internet Mail Service (5.5.2654.52)
+	id <T7Y483ZV>; Thu, 2 Oct 2003 08:03:16 -0500
+Message-ID: <94CD4E5ED1A1534ABB4FBA69D5F5A2081C73AD@mostls1msgusr01.itservices.sbc.com>
+From: "CHIDIPI, RAMJEE (SBCSI)" <rc5145@sbc.com>
+To: "'Michel Pelletier'" <michel@dialnetwork.com>,
+        "'Frank Cohen'"
+	 <fcohen@pushtotest.com>,
+        "'jython-users@lists.sourceforge.net'"
+	 <jython-users@lists.sourceforge.net>
+Subject: RE: [Jython-users] Jython debugger?
+MIME-Version: 1.0
+X-Mailer: Internet Mail Service (5.5.2654.52)
+Content-Type: text/plain
+X-Spam-Score: -0.3 (/)
+X-Spam-Report: -0.3/5.0
+	Spam Filtering performed by sourceforge.net.
+	See http://spamassassin.org/tag/ for more details.
+	Report problems to https://sf.net/tracker/?func=add&group_id=1&atid=200001
+	FROM_ENDS_IN_NUMS  (0.7 points)  From: ends in numbers
+	EMAIL_ATTRIBUTION  (-0.5 points) BODY: Contains what looks like an email attribution
+	ORIGINAL_MESSAGE   (-0.5 points) Looks like a reply to a message
+Sender: jython-users-admin@lists.sourceforge.net
+Errors-To: jython-users-admin@lists.sourceforge.net
+X-BeenThere: jython-users@lists.sourceforge.net
+X-Mailman-Version: 2.0.9-sf.net
+Precedence: bulk
+List-Help: <mailto:jython-users-request@lists.sourceforge.net?subject=help>
+List-Post: <mailto:jython-users@lists.sourceforge.net>
+List-Subscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=subscribe>
+List-Id: <jython-users.lists.sourceforge.net>
+List-Unsubscribe: <https://lists.sourceforge.net/lists/listinfo/jython-users>,
+	<mailto:jython-users-request@lists.sourceforge.net?subject=unsubscribe>
+List-Archive: <http://sourceforge.net/mailarchive/forum.php?forum=jython-users>
+X-Original-Date: Thu, 2 Oct 2003 08:03:11 -0500
+Date: Thu, 2 Oct 2003 08:03:11 -0500
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Is it Possible to Record APPLETS in HTTPS? 
+If so, Can someone Help me please?
+I am looking for LOGIN through Applet and HIT SERVLET.
+
+-Chidipi
+
+-----Original Message-----
+From: Michel Pelletier [mailto:michel@dialnetwork.com] 
+Sent: Thursday, October 02, 2003 1:19 AM
+To: Frank Cohen; jython-users@lists.sourceforge.net
+Subject: Re: [Jython-users] Jython debugger?
+
+
+On Wednesday 01 October 2003 16:02, Frank Cohen wrote:
+> Is there a debugger for Jython? 
+
+'import pdb' should work, but beware multiple threads (like action handles
+in 
+swing applications)  pdb doesn't seem to be able to handle it for me.
+
+-Michel
+
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+
+
+-------------------------------------------------------
+This sf.net email is sponsored by:ThinkGeek
+Welcome to geek heaven.
+http://thinkgeek.com/sf
+_______________________________________________
+Jython-users mailing list
+Jython-users@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/jython-users
+

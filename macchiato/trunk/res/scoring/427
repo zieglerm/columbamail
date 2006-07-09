@@ -1,0 +1,89 @@
+Return-Path: <evolution-admin@lists.ximian.com>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 13594 invoked by uid 65534); 18 Dec 2003 12:18:33 -0000
+Received: from headcheese.ximian.com (EHLO listsmx.ximian.com) (141.154.95.15)
+  by mx0.gmx.net (mx016) with SMTP; 18 Dec 2003 13:18:33 +0100
+Received: from headcheese.ximian.com (localhost [127.0.0.1])
+	by listsmx.ximian.com (Postfix) with ESMTP
+	id 4C14C1242FF; Thu, 18 Dec 2003 07:18:07 -0500 (EST)
+Received: by listsmx.ximian.com (Postfix, from userid 38)
+	id 4CC7A12416C; Thu, 18 Dec 2003 07:17:19 -0500 (EST)
+Received: from grouse.mail.pas.earthlink.net (grouse.mail.pas.earthlink.net [207.217.120.116])
+	by listsmx.ximian.com (Postfix) with ESMTP id C86E4124278
+	for <evolution@lists.ximian.com>; Thu, 18 Dec 2003 07:17:07 -0500 (EST)
+Received: from h-68-164-15-175.chcgilgm.dynamic.covad.net ([68.164.15.175] helo=estate1.whitemice.org)
+	by grouse.mail.pas.earthlink.net with esmtp (Exim 3.33 #1)
+	id 1AWx5V-0001yO-00; Thu, 18 Dec 2003 04:17:05 -0800
+Received: from estate2.whitemice.org (estate2.whitemice.org [192.168.3.245])
+	by estate1.whitemice.org (8.12.5/8.12.5) with ESMTP id hBICIxAC027847;
+	Thu, 18 Dec 2003 07:18:59 -0500
+Subject: Re: [Evolution] Remote Contacts/Calendar?
+From: Adam Williams <awilliam@whitemice.org>
+To: Joseph Mocker <mock-gnome@misfit.dhs.org>
+Cc: Tony Earnshaw <tonye@billy.demon.nl>,
+	evolution <evolution@lists.ximian.com>
+In-Reply-To: <1071705724.4655.56.camel@preston>
+References: <1070825059.4245.9.camel@dhcp-102>
+	 <1070842267.22893.12.camel@localhost>
+	 <1070844615.2892.6.camel@elias.freelock.lan>
+	 <1070850759.2037.10.camel@localhost>  <1071633589.3380.21.camel@dhcp-104>
+	 <1071666111.4636.52.camel@localhost>
+	 <1071689659.7456.16.camel@localhost.localdomain>
+	 <1071705724.4655.56.camel@preston>
+Content-Type: text/plain
+Message-Id: <1071749824.22334.55.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.4.5 
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, hits=-15.5 required=5.0
+	tests=IN_REP_TO,RCVD_IN_UNCONFIRMED_DSBL,REFERENCES,
+	      USER_AGENT_XIMIAN
+	version=2.53
+X-Spam-Checker-Version: SpamAssassin 2.53 (1.174.2.15-2003-03-30-exp)
+Sender: evolution-admin@lists.ximian.com
+Errors-To: evolution-admin@lists.ximian.com
+X-BeenThere: evolution@lists.ximian.com
+X-Mailman-Version: 2.0.13
+Precedence: bulk
+List-Help: <mailto:evolution-request@lists.ximian.com?subject=help>
+List-Post: <mailto:evolution@lists.ximian.com>
+List-Subscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=subscribe>
+List-Id: Evolution users mailing list. <evolution.lists.ximian.com>
+List-Unsubscribe: <http://lists.ximian.com/mailman/listinfo/evolution>,
+	<mailto:evolution-request@lists.ximian.com?subject=unsubscribe>
+List-Archive: <http://lists.ximian.com/archives/public/evolution/>
+Date: Thu, 18 Dec 2003 07:17:04 -0500
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Sender is in whitelist)
+
+> Although I realize that the possibilities with 
+> LDAP are endless, I don't think its too terrible
+> to start to put together simple examples to help
+> someone just starting out, to get integrated.
+
+Yes, this gets commented on alot.  IMHO, it is bordering on impossible. 
+It isn't "simple",  and "simple" examples will just cause a flood of
+messsages onto the various mailling lists when they don't work.
+
+> Actually I found the OpenLDAP configuration to
+> be the easiest part. I probably don't have a DIT
+> that will work long term, but that wasn't my goal.
+> It was those Evo gotchas like the v2 bind, and
+> the flakiness of the connection code that drove me
+> crazy.
+> Those are the things that could be captured in
+> an example so others don't pull their hair out.
+> I would happily write up an example myself, if
+> someone could direct me where it would be best
+> hosted. Submit it to OpenLDAP? Ximian? Somewhere else?
+
+You can post OpenLDAP FAQ-O-Matic.
+http://www.openldap.org/faq/data/cache/60.html
+Request a subcategory for Ximian applications,  then post away.
+
+_______________________________________________
+evolution maillist  -  evolution@lists.ximian.com
+http://lists.ximian.com/mailman/listinfo/evolution
+

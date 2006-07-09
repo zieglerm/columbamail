@@ -1,0 +1,113 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 20491 invoked by uid 65534); 3 Oct 2003 19:40:45 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx004) with SMTP; 03 Oct 2003 21:40:45 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id D92523AD51; Fri,  3 Oct 2003 21:40:24 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 21:40:16 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: by zen.via.ecp.fr (Postfix, from userid 1000)
+	id 995613AD21; Fri,  3 Oct 2003 21:40:15 +0200 (CEST)
+Date: Fri, 3 Oct 2003 21:40:15 +0200
+From: System administration <admin@via.ecp.fr>
+To: vlc@videolan.org
+Subject: [vlc] [MOD]Videolan on Wireless PDA
+Message-ID: <20031003194015.GB13859@via.ecp.fr>
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="jRHKVT23PllUwdXP"
+Content-Disposition: inline
+User-Agent: Mutt/1.3.28i
+X-Spam-Status: No, hits=-2.5 required=5.0
+	tests=USER_AGENT_MUTT
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5730
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: admin@via.ecp.fr
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+
+--jRHKVT23PllUwdXP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+ Attached message has been modified to delete overweighted alternative
+ HTML part.
+
+-- 
+System administration <admin@via.ecp.fr>
+VIA, Ecole Centrale Paris, France
+
+--jRHKVT23PllUwdXP
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Return-Path: <baz@dse.nl>
+Delivered-To: vlc@via.ecp.fr
+Received: from smtpzilla3.xs4all.nl (smtpzilla3.xs4all.nl [194.109.127.139])
+	by zen.via.ecp.fr (Postfix) with ESMTP id D9D963AD0F
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 19:50:30 +0200 (CEST)
+Received: from bazmain (a80-126-114-13.adsl.xs4all.nl [80.126.114.13])
+	by smtpzilla3.xs4all.nl (8.12.9/8.12.9) with ESMTP id h93HoTil030301
+	for <vlc@videolan.org>; Fri, 3 Oct 2003 19:50:30 +0200 (CEST)
+From: "BaZ!" <baz@dse.nl>
+To: <vlc@videolan.org>
+Subject: Videolan on Wireless PDA
+Date: Fri, 3 Oct 2003 19:50:19 +0200
+Message-ID: <001f01c389d6$cfc22640$d07ba8c0@bazmain>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0020_01C389E7.934AF640"
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook, Build 10.0.2627
+Importance: Normal
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+X-Spam-Status: No, hits=1.2 required=5.0
+	tests=HTML_80_90,HTML_MESSAGE,RCVD_IN_OSIRUSOFT_COM
+	version=2.55
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0020_01C389E7.934AF640
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+Hi all!
+ 
+I like the VideoLAN software a lot!!  But I would like to know if it is
+possible to be used on a PDA with MS Pocket PC 2002 running.
+ 
+Kind regards and keep up the good work!
+Bas Sanders
+
+------=_NextPart_000_0020_01C389E7.934AF640
+Content-Type: message/external-body; access-type=x-mutt-deleted;
+	expiration="Fri, 3 Oct 2003 21:38:32 +0200"; length=4189
+
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+
+------=_NextPart_000_0020_01C389E7.934AF640--
+
+--jRHKVT23PllUwdXP--
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

@@ -1,0 +1,130 @@
+Return-Path: <vlc-bounce@videolan.org>
+X-Flags: 0000
+Delivered-To: GMX delivery to fdietz@gmx.de
+Received: (qmail 13629 invoked by uid 65534); 3 Oct 2003 06:56:42 -0000
+Received: from zen.via.ecp.fr (EHLO zen.via.ecp.fr) (138.195.130.71)
+  by mx0.gmx.net (mx003-rz3) with SMTP; 03 Oct 2003 08:56:42 +0200
+Received: from zen (zen.via.ecp.fr [138.195.130.71])
+	by zen.via.ecp.fr (Postfix) with ESMTP
+	id 3873F3AC2E; Fri,  3 Oct 2003 08:56:32 +0200 (CEST)
+Received: with ECARTIS (v1.0.0; list vlc); Fri, 03 Oct 2003 08:56:24 +0200 (CEST)
+Delivered-To: vlc@via.ecp.fr
+Received: from ra.abo.fi (ra.abo.fi [130.232.213.1])
+	by zen.via.ecp.fr (Postfix) with ESMTP id 8E8C43ABE5
+	for <vlc@videolan.org>; Fri,  3 Oct 2003 08:55:54 +0200 (CEST)
+Received: from humboldt.abo.fi (humboldt.abo.fi [130.232.213.83])
+	by ra.abo.fi (8.12.5/8.12.5) with ESMTP id h936trf1000465
+	for <vlc@videolan.org>; Fri, 3 Oct 2003 09:55:53 +0300 (EET DST)
+Received: (from nobody@localhost)
+	by humboldt.abo.fi (8.11.6/8.8.7) id h936odi26692
+	for vlc@videolan.org; Fri, 3 Oct 2003 09:50:39 +0300
+X-Authentication-Warning: humboldt.abo.fi: nobody set sender to jusuomin@abo.fi using -f
+Received: from stream.cs.abo.fi (stream.cs.abo.fi [130.232.85.133]) 
+	by webmail.abo.fi (IMP) with HTTP 
+	for <jusuomin@localhost>; Fri,  3 Oct 2003 09:50:39 +0300
+Message-ID: <1065163839.3f7d1c3f15fb6@webmail.abo.fi>
+Date: Fri,  3 Oct 2003 09:50:39 +0300
+From: jusuomin@abo.fi
+To: vlc@videolan.org
+Subject: [vlc] Re: Streaming a dvb-t channel with vlc?
+References: <1065082691.3f7bdf4327137@webmail.abo.fi> <3F7BE7E6.7060603@natlab.research.philips.com> <1065086612.3f7bee948b2ba@webmail.abo.fi> <1065090345.3f7bfd295cc89@webmail.abo.fi> <3F7C017E.9020403@natlab.research.philips.com> <1065095097.3f7c0fb91adcf@webmail.abo.fi> <3F7C495E.6000906@natlab.research.philips.com>
+In-Reply-To: <3F7C495E.6000906@natlab.research.philips.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2.1
+X-Originating-IP: 130.232.85.133
+X-Spam-Checking-Host: melitta.abo.fi
+X-Spam-Status: No, hits=-1.3 required=5.0
+	tests=IN_REP_TO,NO_REAL_NAME,QUOTED_EMAIL_TEXT,
+	      RCVD_IN_OSIRUSOFT_COM,REFERENCES,REPLY_WITH_QUOTES,
+	      USER_AGENT_IMP,X_AUTH_WARNING
+	version=2.55
+X-Spam-Checker-Version: SpamAssassin 2.55 (1.174.2.19-2003-05-19-exp)
+X-archive-position: 5705
+X-ecartis-version: Ecartis v1.0.0
+Sender: vlc-bounce@videolan.org
+Errors-To: vlc-bounce@videolan.org
+X-original-sender: jusuomin@abo.fi
+Precedence: bulk
+Reply-To: vlc@videolan.org
+X-list: vlc
+X-GMX-Antivirus: -1 (not scanned, may not use virus scanner)
+X-GMX-Antispam: 0 (Mail was not recognized as spam)
+
+Quoting Jean-Paul Saman <saman@natlab.research.philips.com>:
+> > OK. I tried the CVS version, and by commenting out the DVB-S part
+> of
+> > ioctl_SetFrontend I got the tuning to work. (Well, at least it
+> reports
+> > that tuning was succesful.)
+> > 
+> Applied changes to the dvb plugin so that it can tune to DVB-T now. 
+> Added some messages to check if tuning went alright, cleanup some 
+> messages. Could you test the new CVS version???
+
+OK. Works like a charm. I can watch all channels on the TS. I haven't
+tried streaming yet, but I suppose that since I get vlc to display the
+dvb-t broadcast, I should be able to get it to stream as well.
+
+> > I think there should propably be a test to see what kind of a dvb
+> card
+> > (DVB-T/S/C) you have, and set up the dvb_frontend_parameters
+> structure
+> > according to that?
+> 
+> We already do that in modules/access/dvb/access.c however it tuned 
+> wrongly. Tuning to DVB-T is simpler then to DVB-S as it turns out
+> now. 
+> You gave me a good hint when you talked about looking in dvbtune's 
+> source code. Thanks !
+
+No. Thank you for your quick and helpful replies. You have saved me tons
+of time. Thank you very much.
+
+> 
+> > I still have a problem, though. I don't get any output (video, that
+> is..)
+> 
+> Unfortunately I can only test DVB-S here and am going home now for
+> the 
+> weekend. Next week monday I'll be able to help you again.
+
+Ignore this. It was a stupid-user-error :) I thought that it would start
+playing the program immediately, so all I had to do was click view ->
+program...
+
+> I think you can safely use --probe on the commandline for the dvb
+> plugin.
+
+That worked well, too.
+
+[snip a bunc of these]
+> > libdvbpsi error (PSI decoder): TS discontinuity (received 13,
+> expected 0)
+> > [00000306] ts_dvbpsi input debug: Processing PMT for program 193
+> version 24
+> > [00000306] ts_dvbpsi input warning: Unknown codec/type for Private
+> PES
+> > stream
+> 
+> That are a lot of TS discontinuitis that is worrying. Could it be
+> that 
+> you selected the wrong program ??
+
+No, the program is correct, but the receiving here is really bad. DVB-T
+inside a brick building, with the window facing the "wrong" way (away
+from the link tower..). The image gets pretty distorted at times, and
+sometimes there's no reception at all, so I think it's because of that.
+
+Anyway, thanks for the help. I'll try to get the streaming to work on
+monday, so it might be that I'm going to be posting here again then.. :)
+
+-JP
+
+
+-- 
+This is the vlc mailing-list, see http://www.videolan.org/vlc/
+To unsubscribe, please read http://www.videolan.org/support/lists.html
+If you are in trouble, please contact <postmaster@videolan.org>
+

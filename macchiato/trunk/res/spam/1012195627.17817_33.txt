@@ -1,0 +1,57 @@
+Return-Path: <owner-openssh-unix-dev@mindrot.org>
+Delivered-To: openssh-unix-dev-list-93873@shitei.mindrot.org
+Received: by shitei.mindrot.org (Postfix, from userid 1000)
+	id 682882DF94; Wed, 19 Dec 2001 18:46:08 +1100 (EST)
+Received: from mgate11.so-net.ne.jp (mgate11.so-net.ne.jp [210.139.254.158])
+	by shitei.mindrot.org (Postfix) with ESMTP id 6BB2A2DF43
+	for <openssh-unix-dev@mindrot.org>; Wed, 19 Dec 2001 18:46:05 +1100 (EST)
+Received: from mail.pc5.so-net.ne.jp (mspool17.so-net.ne.jp [210.139.248.17])
+	by mgate11.so-net.ne.jp (8.9.3/3.7W01120319) with ESMTP id QAA26290
+	for <openssh-unix-dev@mindrot.org>; Wed, 19 Dec 2001 16:46:01 +0900 (JST)
+Received: from sureteacher.co.jp (p29209f.hyognt01.ap.so-net.ne.jp [218.41.32.159])
+	by mail.pc5.so-net.ne.jp  with SMTP id fBJ7k1728086
+	for <openssh-unix-dev@mindrot.org>; Wed, 19 Dec 2001 16:46:01 +0900 (JST)
+Message-Id: <200112190746.fBJ7k1728086@mail.pc5.so-net.ne.jp>
+From: "tenplus" <ten@sureteacher.co.jp>
+To: <openssh-unix-dev@mindrot.org>
+Subject: email for email
+Mime-Version: 1.0
+Content-Type: text/plain; charset="Shift_JIS"
+Date: Wed, 19 Dec 2001 16:45:59 +0900
+Reply-To: "tenplus" <ten@sureteacher.co.jp>
+Content-Transfer-Encoding: 8bit
+Sender: owner-openssh-unix-dev@mindrot.org
+Precedence: bulk
+Content-Length: 756
+
+
+おじゃましてごめんなさいm(_ _)m　さがし屋テンプラスと申します。
+こちらはテンプラス(http://www.sureteacher.com)と申します。
+男性・女性それぞれに癒しの画像をお届けします。
+
+無数にあるサイトから日本人10以上、外人10以上、
+ビデオ10以上のサイトを厳選しました。
+
+・男性用にはちょーかわいい系のあの写真、
+・女性用には刺激的なそれでいて癒される画像を
+　お届けします。
+　
+　本当に選び抜きました！
+
+テンプラスは皆様の秘密を
+どんなことがあっても絶対守り抜きます。
+
+そして増え続けるサイトの中から
+絶品の画像を探します。
+サンプル版も用意しておりますので、
+
+下記アドレスまでお立ち寄りください。
+
+http://www.sureteacher.com
+
+
+このメールはDMです。
+ご興味のない方には
+このメールは速やかに破棄していただけますでしょうか？
+ご迷惑をおかけしたことを重ねてお詫び申し上げます。
+
