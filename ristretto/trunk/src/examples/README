@@ -1,0 +1,118 @@
+Examples for using the Ristretto Mail API
+
+==
+
+MessageDecomposer
+--
+
+Decomposes a message into its parts.
+
+Commandline:
+Linux/Mac
+	java -cp ../ristretto-1.0-all.jar:MessageDecomposer MessageDecomposer mail-file <outdir> (optional)
+
+Windows
+	java -cp ..\ristretto-1.0-all.jar;MessageDecomposer MessageDecomposer mail-file <outdir> (optional)
+
+
+This examples shows:
+- How to parse a message
+- How to extract information about the message structure
+- How to decode the information in the message
+
+
+
+===
+
+
+POPStats
+--
+
+Get statistics about a POP3 mailbox.
+
+Commandline:
+Linux/Mac
+	java -cp ../ristretto-1.0-all.jar:POPStats POPStats pop3-server username password
+
+Windows
+	java -cp ..\ristretto-1.0-all.jar;POPStats POPStats pop3-server username password
+
+
+This examples shows:
+- How to connect to a POP3 server
+- How to find the supported authentication methods
+- How to establish a SSL connection
+
+
+===
+
+
+QuickIMAP
+--
+
+Checks for unread mails on an IMAP account and displays the new messages.
+
+Commandline:
+Linux/Mac
+	java -cp ../ristretto-1.0-all.jar:QuickIMAP QuickIMAP imap-server username password
+
+Windows
+	java -cp ..\ristretto-1.0-all.jar;QuickIMAP QuickIMAP imap-server username password
+
+
+This examples shows:
+- How to connect to an IMAP server
+- How to search an IMAP mailbox
+- How to fetch headers
+- How to fetch and decode the text part of a message
+
+===
+
+
+SimpleSMTP
+--
+
+Composes a message and sends it via SMTP.
+
+Commandline:
+Linux/Mac
+	java -cp ../ristretto-1.0-all.jar:SimpleSMTP SimpleSMTP smtp-server from-address to-address subject [optional args]
+
+Windows
+	java -cp ..\ristretto-1.0-all.jar;SimpleSMTP SimpleSMTP smtp-server from-address to-address subject [optional args]
+
+
+Example Parameters: SimpleSMTP smtp.test.com sender@test.com example@test.com "This is a test message" --text "Hello, World!"
+
+
+This examples shows:
+- How to compose a message (RFCs 2045-2047 are helpful for understanding)
+- How to connect to a SMTP server
+- How to send a message
+
+===
+
+
+IMAPsync
+--
+
+Synchronizes two IMAP mailboxes on different servers.
+
+Commandline:
+Linux/Mac
+	java -cp ../ristretto-1.0-all.jar:IMAPSync IMAPSync [options] user@src.imap.server:mailbox user@dest.imap.server:mailbox
+
+Windows
+	java -cp ..\ristretto-1.0-all.jar;IMAPSync IMAPSync [options] user@src.imap.server:mailbox user@dest.imap.server:mailbox
+
+
+Example Parameters: IMAPsync user@server1.com:INBOX user@server2.com:INBOX
+
+
+This examples shows:
+- How to connect to a IMAP server
+- How to fetch Headers
+- How to fetch Messages
+- How to append Messages
+
+===
