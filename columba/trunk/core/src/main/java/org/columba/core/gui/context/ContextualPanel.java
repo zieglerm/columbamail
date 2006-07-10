@@ -15,7 +15,6 @@ import javax.swing.JViewport;
 import javax.swing.Scrollable;
 import javax.swing.UIManager;
 
-import org.columba.addressbook.gui.context.ContactContextualProvider;
 import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.api.gui.frame.IDock;
@@ -28,6 +27,7 @@ import org.columba.core.gui.context.api.IContextualPanel;
 import org.columba.core.logging.Logging;
 import org.jdesktop.swingx.VerticalLayout;
 
+// TODO add extension point for registering new context providers
 public class ContextualPanel extends JPanel implements IContextualPanel {
 
 	private IFrameMediator frameMediator;
@@ -68,7 +68,7 @@ public class ContextualPanel extends JPanel implements IContextualPanel {
 		if (Logging.DEBUG)
 			register(new ContextDebugProvider());
 
-		register(new ContactContextualProvider());
+		//register(new ContactContextualProvider());
 	}
 
 	private void showDockingView() {
