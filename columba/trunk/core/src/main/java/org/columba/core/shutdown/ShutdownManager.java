@@ -142,8 +142,7 @@ public class ShutdownManager implements IShutdownManager {
 						}
 					} else {
 						// don't wait, just continue shutdown procedure,
-						// commands will
-						// be killed
+						// commands will be killed
 						break;
 					}
 				}
@@ -166,8 +165,7 @@ public class ShutdownManager implements IShutdownManager {
 				}
 
 				// we don't need to check for running commands here because
-				// there aren't
-				// any, shutdown plugins only use this thread
+				// there aren't any, shutdown plugins only use this thread
 				if (dialog != null)
 					dialog.close();
 			}
@@ -177,11 +175,6 @@ public class ShutdownManager implements IShutdownManager {
 		shuttingDown = false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.columba.core.shutdown.IShutdownManager#register(java.lang.Runnable)
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -217,11 +210,6 @@ public class ShutdownManager implements IShutdownManager {
 		shutdownHook = b;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.columba.core.shutdown.IShutdownManager#shutdown(int)
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
