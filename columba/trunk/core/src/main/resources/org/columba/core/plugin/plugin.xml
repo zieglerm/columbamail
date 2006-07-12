@@ -36,7 +36,8 @@
         <extension id="Undo" singleton="true" class="org.columba.core.gui.globalactions.UndoAction"/> 
         <extension id="Redo" singleton="true" class="org.columba.core.gui.globalactions.RedoAction"/> 
         <extension id="Find" class="org.columba.core.gui.globalactions.FindAction"/> 
-        <extension id="FindAgain" class="org.columba.core.gui.globalactions.FindAgainAction"/> 
+	<extension id="FindAgain" class="org.columba.core.gui.globalactions.FindAgainAction"/>
+       	<extension id="FindReplace" class="org.columba.core.gui.globalactions.FindReplaceAction"/>	
         <extension id="ViewToolbar" class="org.columba.core.gui.globalactions.ViewToolbarAction"/> 
         <extension id="Cancel" class="org.columba.core.gui.globalactions.CancelAction"/> 
         

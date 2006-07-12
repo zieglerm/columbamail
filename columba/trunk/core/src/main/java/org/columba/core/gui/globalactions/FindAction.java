@@ -22,11 +22,19 @@ import javax.swing.KeyStroke;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.util.FindDialog;
+import org.columba.core.gui.util.FindReplaceDialog;
 import org.columba.core.resourceloader.GlobalResourceLoader;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
+import org.columba.core.util.ComposerText;
+import org.columba.core.util.MessageViewerText;
+import org.columba.mail.gui.composer.ComposerController;
+import org.columba.mail.gui.frame.ThreePaneMailFrameController;
+import org.columba.mail.gui.message.MessageController;
 
 
+@SuppressWarnings("serial")
 public class FindAction extends AbstractColumbaAction {
     public FindAction(IFrameMediator controller) {
         super(controller,
@@ -48,10 +56,25 @@ public class FindAction extends AbstractColumbaAction {
         putValue(ACCELERATOR_KEY,
             KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK));
 
-        setEnabled(false);
+   		setEnabled(true);
     }
 
     public void actionPerformed(ActionEvent e) {
-        //TODO (@author fdietz):: implement
+    	// @author Erich Schaer, Dmytro Podalyuk
+    	// if we search in The MessageConroller
+    	if (getFrameMediator() instanceof ThreePaneMailFrameController) {
+			ThreePaneMailFrameController controller = (ThreePaneMailFrameController) getFrameMediator();
+			// get the message controller
+			MessageController msg = (MessageController) controller.getMessageController();
+			MessageViewerText text = new MessageViewerText(msg);
+			new FindDialog(text);
+		}
+    	// if we search in the Composer
+    	else if (getFrameMediator() instanceof ComposerController) {
+			ComposerText text = new ComposerText((ComposerController) getFrameMediator());
+			new FindReplaceDialog(text);
+		}
+    	
+    	
     }
 }

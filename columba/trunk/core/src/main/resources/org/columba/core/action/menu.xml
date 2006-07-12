@@ -40,7 +40,7 @@
 		
 		<separator/>
 		<menuitem id="Find"/>
-		<menuitem id="FindAgain"/>
+		<menuitem id="FindReplace"/>
 		<separator/>
 		<!--<placeholder id="top"/>-->
 		<placeholder id="bottom"/>
