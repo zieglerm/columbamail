@@ -29,46 +29,50 @@ import org.waffel.jscf.JSCFResultSet;
 import org.waffel.jscf.JSCFStatement;
 
 /**
+ * SimpleJSCFExample class
  * @author waffel (Thomas Wabner)
- * 
  */
 public class SimpleJSCFExample {
 
+	/**
+	 * signExample1 method
+	 * @author waffel
+	 * @param message
+	 * @param userID
+	 * @param password
+	 * @return res 
+	 */
 	public JSCFResultSet signExample1(final InputStream message,
 			final String userID, final String password) {
 		JSCFConnection pgpCon = null;
 		JSCFResultSet res = null;
 		try {
-			// initialize the concrete implementation of the driver that should
-			// be
-			// used. Here the gpg-driver.
+			// Initialise the concrete implementation of the driver that should
+			// be used here, i.e. the gpg-driver.
 			Class.forName("org.waffel.jscf.gpg.GPGDriver");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
-			// creates a new connection over the JSCFDriverManager with the
-			// given
-			// connection url. In this example we create a connection
+			// Creates a new connection over the JSCFDriverManager with the
+			// given connection url. In this example, we create a connection
 			// to the gpg-tool without extra parameters. The path to the
-			// gpg-tool is
-			// set as the third parameter
+			// gpg-tool is set as the third parameter.
 			pgpCon = JSCFDriverManager.getConnection("pgp:gpg:/usr/bin/gpg");
 			// creating a new Statement over the connection
 			JSCFStatement stmt = pgpCon.createStatement();
 			// executes the sign Statement with the given message, userID and
-			// password. This method call returnes the result as an
-			// InputStream with can be read or given back
+			// password. This method call returns the result as an
+			// InputStream which can be read or given back
 			res = stmt.executeSign(message, userID, password);
 			// catching PGPExceptions, if the creating of connection failed, or
-			// the
-			// statement cannot be executed or the execution process
+			// the statement cannot be executed, or the execution process
 			// fails
 		} catch (JSCFException e) {
 			e.printStackTrace();
 		} finally {
-			// in every case after processing we releasing the connection to the
+			// in every case, after processing, we release the connection to the
 			// gpg-tool
 			pgpCon.close();
 		}
@@ -76,6 +80,13 @@ public class SimpleJSCFExample {
 		return res;
 	}
 
+	/**
+	 * signExample2 method
+	 * @author waffel
+	 * @param message
+	 * @param password
+	 * @return res
+	 */
 	public JSCFResultSet signExample2(final InputStream message,
 			final String password) {
 		JSCFConnection pgpCon = null;
@@ -87,17 +98,15 @@ public class SimpleJSCFExample {
 			e1.printStackTrace();
 		}
 		try {
-			// creates a new Connection with the given url. This urls has
-			// currently
-			// the userID as parameter. If we want use the connection
-			// again we shouldnt creating a new connection or setting the userID
-			// agin.
+			// Creates a new Connection with the given url. This url has
+			// currently the userID as parameter. If we want use the connection
+			// again, we shouldnt create a new connection or set the userID
+			// again.
 			// The userID for this connection is stored in the
-			// connection object. The same can be done with the password, thus a
-			// application can creating one JSCFConnection
-			// with userID and password and then calling any statements without
-			// extra
-			// parameters
+			// connection object. The same can be done with the password. Thus,
+			// an application can create one JSCFConnection with userID and
+			// password and then calling any statements without extra
+			// parameters.
 			pgpCon = JSCFDriverManager
 					.getConnection("pgp:gpg:/usr/bin/gpg:twabner@imn.htwk.leipzig.de");
 			JSCFStatement stmt = pgpCon.createStatement();
@@ -109,5 +118,4 @@ public class SimpleJSCFExample {
 		}
 		return res;
 	}
-
 }
