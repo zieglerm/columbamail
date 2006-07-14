@@ -28,14 +28,13 @@ package org.waffel.jscf;
  */
 public class JSCFDefinitions {
 
-    /**
-     * <code>USERID</code> costant, which is used for the USERID.
-     */
-    public static final String USERID = "USERID";
+	/**
+	 * <code>USERID</code> constant, which is used for the USERID.
+	 */
+	public static final String USERID = "USERID";
 
-    /**
-     * <code>PASSWORD</code> constant, which is used for the PASSWORD.
-     */
-    public static final String PASSWORD = "PASSWORD";
-
+	/**
+	 * <code>PASSWORD</code> constant, which is used for the PASSWORD.
+	 */
+	public static final String PASSWORD = "PASSWORD";
 }

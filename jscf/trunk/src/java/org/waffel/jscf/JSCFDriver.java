@@ -31,14 +31,14 @@ import java.util.Properties;
  * interface.
  * <p>
  * The <code>JSCFDriverManager</code> will try to load as many drivers as it
- * can find and then for any given connection request, it will ask each driver
+ * can find, and then for any given connection request, it will ask each driver
  * in turn to try to connect to the target URL.
  * <p>
  * It is strongly recommended that each <code>JSCFDriver</code> class should
  * be small and standalone so that the Driver class can be loaded and queried
  * without bringing in vast quantities of supporting code.
  * <p>
- * When a Driver class is loaded, it should create an instance of itself and
+ * When a Driver class is loaded, it should create an instance of itself, and
  * register it with the <code>JSCFDriverManager</code>. This means that a
  * user can load and register a driver by calling
  * 
@@ -56,38 +56,37 @@ import java.util.Properties;
  */
 public interface JSCFDriver {
 
-    /**
-     * Attempts to make a connection to the given URL. The driver should return
-     * "null" if it realizes it is the wrong kind of driver to connect to the
-     * given URL. This will be common, as when the JSCF driver manager is asked
-     * to connect to a given URL it passes the URL to each loaded driver in
-     * turn.
-     * <p>
-     * Making a connections means in case of JSCF to connect to a driver which
-     * can be a external program or some else. While this package is created
-     * after the cool JDBC driver framework we use the same words to express
-     * thinks. In JDBC you can connect to a database or file system and in JSCF
-     * to a program or security device.
-     * <p>
-     * The driver should throw an JSCFException if it is the right driver to
-     * connect to the given URL but has trouble connecting to the whole jscf
-     * implementation (e.g. gpg is not available).
-     * <p>
-     * The java.util.Properties argument can be used to pass arbitrary string
-     * tag/value pairs as connection arguments. Normally at least "user" and
-     * "password" properties should be included in the Properties object.
-     * 
-     * @param url
-     *            a JSCF URL in from of
-     *            <code>jfc:<em>subprotocol</em>:<em>paramters</em></code>
-     * @param info
-     *            a list of arbitrary string tag/value pairs as connection
-     *            arguments; normally at least a "user" and "password" property
-     *            should be included
-     * @return a connection to the URL
-     * @throws JSCFException
-     *             if a JSCF access error occurs
-     */
-    JSCFConnection connect(String url, Properties info) throws JSCFException;
-
+	/**
+	 * Attempts to make a connection to the given URL. The driver should return
+	 * "null" if it realizes it is the wrong kind of driver to connect to the
+	 * given URL. This will be common, as when the JSCF driver manager is asked
+	 * to connect to a given URL it passes the URL to each loaded driver in
+	 * turn.
+	 * <p>
+	 * Making a connection means JSCF connects to a driver which can be an
+	 * external program, or something else. Whilst this package is created after
+	 * JDBC driver framework, we also use the same words to express other
+	 * things. In JDBC, you can connect to a database, or file system, and in
+	 * JSCF to a program or security device.
+	 * <p>
+	 * The driver should throw an JSCFException if it is the right driver to
+	 * connect to the given URL but has trouble connecting to the whole jscf
+	 * implementation (e.g. gpg is not available).
+	 * <p>
+	 * The java.util.Properties argument can be used to pass arbitrary string
+	 * tag/value pairs as connection arguments. Normally at least "user" and
+	 * "password" properties should be included in the Properties object.
+	 * 
+	 * @param url
+	 *            a JSCF URL in from of
+	 *            <code>jfc:<em>subprotocol</em>:<em>paramters</em></code>
+	 * @param info
+	 *            a list of arbitrary string tag/value pairs as connection
+	 *            arguments; normally at least a "user" and "password" property
+	 *            should be included
+	 * @return a connection to the URL
+	 * @throws JSCFException
+	 *             if a JSCF access error occurs
+	 */
+	JSCFConnection connect(String url, Properties info) throws JSCFException;
 }

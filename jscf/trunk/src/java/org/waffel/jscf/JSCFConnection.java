@@ -24,9 +24,9 @@ import java.util.Properties;
 
 /**
  * A connection (session) with a specific JSCF implementation. A JSCF
- * implementation ca be a commandline wrapper to the popular GnuPG tool or other
- * implementations of security components which supporting the functions defined
- * in <code>JSCFStatement</code>.
+ * implementation can be a commandline wrapper to the popular GnuPG tool, or
+ * other implementations of security components which supporting the functions
+ * defined in <code>JSCFStatement</code>.
  * 
  * @author waffel (Thomas Wabner)
  * @version $Id: JSCFConnection.java,v 1.3 2006/02/06 17:32:32 waffel Exp $
@@ -36,45 +36,44 @@ import java.util.Properties;
  */
 public interface JSCFConnection {
 
-    /**
-     * Creates a statement object for sending commmands to the JSCF
-     * implementation (for example GnuPG).
-     * 
-     * @return a new default <code>JSCFStatement</code>
-     * @throws JSCFException
-     *             if a JSCF access error occurs
-     */
-    JSCFStatement createStatement() throws JSCFException;
+	/**
+	 * Creates a statement object for sending commmands to the JSCF
+	 * implementation (for example GnuPG).
+	 * 
+	 * @return a new default <code>JSCFStatement</code>
+	 * @throws JSCFException
+	 *             if a JSCF access error occurs
+	 */
+	JSCFStatement createStatement() throws JSCFException;
 
-    /**
-     * Sets the given properties for this <code>JSCFConnection</code>.
-     * <p>
-     * Normally at least "user" and "password" properties should be included in
-     * the Properties object.
-     * 
-     * @param info
-     *            a list of abitary string tag/value pairs. Normally at least
-     *            "user" and "password" properties should be included in the
-     *            Properties object.
-     */
-    void setProperties(Properties info);
+	/**
+	 * Sets the given properties for this <code>JSCFConnection</code>.
+	 * <p>
+	 * Normally at least "user" and "password" properties should be included in
+	 * the Properties object.
+	 * 
+	 * @param info
+	 *            a list of abitary string tag/value pairs. Normally at least
+	 *            "user" and "password" properties should be included in the
+	 *            Properties object.
+	 */
+	void setProperties(Properties info);
 
-    /**
-     * Gives all properties of this <code>JSCFConnection</code> as a list of
-     * abitary string tag/value pairs back. Normally at lease the "user" and
-     * "password" properties should be includes in the property object.
-     * 
-     * @return a list of abitary string tag/value pairs back. Normally at lease
-     *         the "user" and "password" properties should be includes in the
-     *         property object.
-     */
-    Properties getProperties();
+	/**
+	 * Gives all properties of this <code>JSCFConnection</code> as a list of
+	 * arbitrary string tag/value pairs back. Normally, at least the "user" and
+	 * "password" properties should be included in the property object.
+	 * 
+	 * @return a list of arbitrary string tag/value pairs. Normally, at least
+	 *         the "user" and "password" properties should be included in the
+	 *         property object.
+	 */
+	Properties getProperties();
 
-    /**
-     * All stored parameters in the connection are set to null. If the
-     * connection is closed no new Statement can created and the setting of
-     * properties should have no effect.
-     */
-    void close();
-
+	/**
+	 * All stored parameters in the connection are set to null. If the
+	 * connection is closed, no new Statement can be created and the setting of
+	 * properties should have no effect.
+	 */
+	void close();
 }

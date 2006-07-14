@@ -25,26 +25,25 @@ package org.waffel.jscf;
  * errors.
  * <p>
  * Each JSCFException provides a string describing the error. This is used as
- * the Java Exception message, available via the method getMesage
+ * the Java Exception message, available via the method getMessage
  * 
  * @author waffel (Thomas Wabner)
  * @version $Id: JSCFException.java,v 1.2 2006/02/06 17:32:32 waffel Exp $
  */
 public class JSCFException extends Exception {
 
-    /**
-     * @{inheritDoc}
-     */
-    private static final long serialVersionUID = 7843083231659883061L;
+	/**
+	 * @{inheritDoc}
+	 */
+	private static final long serialVersionUID = 7843083231659883061L;
 
-    /**
-     * Constructs an SQLException object with a reason.
-     * 
-     * @param reason
-     *            a description of the exception
-     */
-    public JSCFException(final String reason) {
-        super(reason);
-    }
-
+	/**
+	 * Constructs a JSCFException object with a reason.
+	 * 
+	 * @param reason
+	 *            a description of the exception
+	 */
+	public JSCFException(final String reason) {
+		super(reason);
+	}
 }
