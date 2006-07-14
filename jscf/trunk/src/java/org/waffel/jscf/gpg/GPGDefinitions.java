@@ -30,19 +30,18 @@ import org.waffel.jscf.JSCFDefinitions;
  */
 public class GPGDefinitions extends JSCFDefinitions {
 
-    /**
-     * <code>PATH</code> used in gpg properties.
-     */
-    public static final String PATH = "PATH";
+	/**
+	 * <code>PATH</code> used in gpg properties.
+	 */
+	public static final String PATH = "PATH";
 
-    /**
-     * <code>DIGESTALGORITHM</code> used in gpg properties.
-     */
-    public static final String DIGESTALGORITHM = "DIGESTALGORITHM";
+	/**
+	 * <code>DIGESTALGORITHM</code> used in gpg properties.
+	 */
+	public static final String DIGESTALGORITHM = "DIGESTALGORITHM";
 
-    /**
-     * Comment for <code>RECIPIENTS</code> used in gpg properties.
-     */
-    public static final String RECIPIENTS = "RECIPIENTS";
-
+	/**
+	 * Comment for <code>RECIPIENTS</code> used in gpg properties.
+	 */
+	public static final String RECIPIENTS = "RECIPIENTS";
 }

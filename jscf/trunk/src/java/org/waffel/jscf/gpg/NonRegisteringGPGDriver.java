@@ -47,12 +47,12 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 	}
 
 	/**
-	 * Here we provide some hints how the gpg driver works with connection urls
-	 * and how the url as a string is parsed and accepted.
+	 * Here we provide some hints on how the gpg driver works with connection
+	 * urls, and how the url as a string are parsed and accepted.
 	 * <p>
-	 * The url is structured in some components which are seperated by an
-	 * default and custom seperator. There are some required components which
-	 * cannot be leave empty. These are the
+	 * The url is structured in some components which are separated by a default
+	 * and custom seperator. There are some required components which cannot be
+	 * left empty. These are the
 	 * <ul>
 	 * <li>protocol</li>
 	 * <li>subprotocol</li>
@@ -60,17 +60,17 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 	 * The protocol must have the name <code>jscf</code>. The subprotocol to
 	 * use this gpg driver implementation must have the name <code>gpg</code>.
 	 * <p>
-	 * The required components are seperated with the standard seperator "<code>:</code>".
+	 * The required components are separated with the standard seperator "<code>:</code>".
 	 * There are also some parameters accepted to etablish a gpg connection to
-	 * the gpg program. While the standard sperator "<code>:</code>" is not
-	 * useful in a windows environmment, this seperator is for example used to
+	 * the gpg program. While the standard separator "<code>:</code>" is not
+	 * useful in a windows environmment, this separator is, for example, used to
 	 * specify the path to the gpg program like
-	 * <code>C:/program/gpg/gpg.exe</code>, we have added one extra
-	 * parameter. This parameter is called <code>seperator</code> and must
-	 * given after the required components. Then this seperator is used to parse
-	 * the next optional parameters.
+	 * <code>C:/program/gpg/gpg.exe</code>. We have added one extra parameter -
+	 * this parameter is called <code>seperator</code> and must given after
+	 * the required components. Then this separator is used to parse the next
+	 * optional parameters.
 	 * <p>
-	 * Following optional parameters are allowed:
+	 * The following optional parameters are allowed:
 	 * <ul>
 	 * <li>seperator</li>
 	 * <li>path to gpg program</li>
@@ -90,11 +90,11 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 	 * <p>
 	 * <code>jscf:gpg:C:/programme/gpg/gpg.exe</code>
 	 * <p>
-	 * The speretor is the the "<code>C</code>" character and the resulting
+	 * The separator is the the "<code>C</code>" character and the resulting
 	 * path is wrong.
 	 * <p>
 	 * In short: If you would give optional parameters, then you must provide as
-	 * the first parameter a seperator to be used to seperate all next
+	 * the first parameter a separator to be used to seperate all next
 	 * parameters.
 	 * 
 	 * @see org.waffel.jscf.JSCFDriver#connect(java.lang.String,
@@ -145,12 +145,12 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 		// the next is for extra parameters like path, id, password
 		if (strToken.hasMoreTokens()) {
 			String addonToken = url.substring(posCounter, url.length());
-			// get the seperator which should be the next character in this
+			// get the separator which should be the next character in this
 			// token.
-			// For example jascf:gpg:$C:/programs/gpg/gpg.exe$user$pass
+			// For example jscf:gpg:$C:/programs/gpg/gpg.exe$user$pass
 			// should then can be parsed.
 			String seperator = addonToken.substring(0, 1);
-			// remove the separtor sign from the addonToken
+			// remove the separator sign from the addonToken
 			addonToken = addonToken.substring(1, addonToken.length());
 			StringTokenizer addonTokenizer = new StringTokenizer(addonToken,
 					seperator, true);
@@ -207,5 +207,4 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 		}
 		return true;
 	}
-
 }

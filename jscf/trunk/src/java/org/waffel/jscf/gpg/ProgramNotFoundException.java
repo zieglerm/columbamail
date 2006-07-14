@@ -32,10 +32,9 @@ public class ProgramNotFoundException extends JSCFException {
 	 * Creates a new exception with the given reason.
 	 * 
 	 * @param reason
-	 *            The reason of the exception.
+	 *            The reason for the exception.
 	 */
 	public ProgramNotFoundException(final String reason) {
 		super(reason);
 	}
-
 }

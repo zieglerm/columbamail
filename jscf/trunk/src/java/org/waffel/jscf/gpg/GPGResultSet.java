@@ -35,80 +35,80 @@ import org.waffel.jscf.JSCFResultSet;
  */
 public final class GPGResultSet implements JSCFResultSet {
 
-    /**
-     * The result stream used for internal operations. Default is
-     * <code>null</code>.
-     */
-    private InputStream resultStream = null;
+	/**
+	 * The result stream used for internal operations. Default is
+	 * <code>null</code>.
+	 */
+	private InputStream resultStream = null;
 
-    /**
-     * The error stream used for internal operations. Default is
-     * <code>null</code>.
-     */
-    private InputStream errorStream = null;
+	/**
+	 * The error stream used for internal operations. Default is
+	 * <code>null</code>.
+	 */
+	private InputStream errorStream = null;
 
-    /**
-     * The return value used for internal operations.
-     * 
-     * Default is <code>-1</code>.
-     */
-    private int returnValue = -1;
+	/**
+	 * The return value used for internal operations.
+	 * 
+	 * Default is <code>-1</code>.
+	 */
+	private int returnValue = -1;
 
-    /**
-     * {@inheritDoc}
-     */
-    public InputStream getResultStream() throws JSCFException {
-        return this.resultStream;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public InputStream getResultStream() throws JSCFException {
+		return this.resultStream;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public InputStream getErrorStream() throws JSCFException {
-        return this.errorStream;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public InputStream getErrorStream() throws JSCFException {
+		return this.errorStream;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isError() {
-        boolean ret = false;
-        if (this.returnValue != 0) {
-            ret = true;
-        }
-        return ret;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean isError() {
+		boolean ret = false;
+		if (this.returnValue != 0) {
+			ret = true;
+		}
+		return ret;
+	}
 
-    // ---------------------- support routines for gpg -------------------------
+	// ---------------------- support routines for gpg -------------------------
 
-    /**
-     * @param theErrorStream
-     *            The errorStream to set.
-     */
-    public void setErrorStream(final InputStream theErrorStream) {
-        this.errorStream = theErrorStream;
-    }
+	/**
+	 * @param theErrorStream
+	 *            The errorStream to set.
+	 */
+	public void setErrorStream(final InputStream theErrorStream) {
+		this.errorStream = theErrorStream;
+	}
 
-    /**
-     * @param theResultStream
-     *            The resultStream to set.
-     */
-    public void setResultStream(final InputStream theResultStream) {
-        this.resultStream = theResultStream;
-    }
+	/**
+	 * @param theResultStream
+	 *            The resultStream to set.
+	 */
+	public void setResultStream(final InputStream theResultStream) {
+		this.resultStream = theResultStream;
+	}
 
-    /**
-     * @return Returns the returnValue.
-     */
-    public int getReturnValue() {
-        return returnValue;
-    }
+	/**
+	 * @return Returns the returnValue.
+	 */
+	public int getReturnValue() {
+		return returnValue;
+	}
 
-    /**
-     * @param theReturnValue
-     *            The returnValue to set.
-     */
-    public void setReturnValue(final int theReturnValue) {
-        this.returnValue = theReturnValue;
-    }
+	/**
+	 * @param theReturnValue
+	 *            The returnValue to set.
+	 */
+	public void setReturnValue(final int theReturnValue) {
+		this.returnValue = theReturnValue;
+	}
 }

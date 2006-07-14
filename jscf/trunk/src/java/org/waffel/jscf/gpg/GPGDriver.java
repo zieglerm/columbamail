@@ -24,7 +24,7 @@ import org.waffel.jscf.JSCFDriverManager;
 import org.waffel.jscf.JSCFException;
 
 /**
- * GPGDriver which self registers to the JSCFDriverManager (
+ * GPGDriver which self-registers to the JSCFDriverManager (
  * {@link org.waffel.jscf.JSCFDriverManager}).
  * 
  * @author waffel (Thomas Wabner)
@@ -32,20 +32,21 @@ import org.waffel.jscf.JSCFException;
  */
 public class GPGDriver extends NonRegisteringGPGDriver {
 
-    static {
-        try {
-            JSCFDriverManager.registerJSCFDriver(new GPGDriver());
-        } catch (JSCFException e) {
-            throw new RuntimeException("Can't register driver!");
-        }
-    }
+	static {
+		try {
+			JSCFDriverManager.registerJSCFDriver(new GPGDriver());
+		} catch (JSCFException e) {
+			throw new RuntimeException("Can't register driver!");
+		}
+	}
 
-    /**
-     * Only for Class.forName.newInstance.
-     * 
-     * @throws JSCFException This is only for <em>class for name</em> stuff.
-     */
-    public GPGDriver() throws JSCFException {
-        // only for Class.forName.newInstance
-    }
+	/**
+	 * Only for Class.forName.newInstance.
+	 * 
+	 * @throws JSCFException
+	 *             This is only for <em>class for name</em> stuff.
+	 */
+	public GPGDriver() throws JSCFException {
+		// only for Class.forName.newInstance
+	}
 }

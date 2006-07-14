@@ -119,5 +119,4 @@ public class StreamGlobber extends Thread {
 		}
 		return this.retStream;
 	}
-
 }

@@ -70,14 +70,14 @@ public final class GPGStatement implements JSCFStatement {
 	private JSCFConnection myConnection;
 
 	/**
-	 * <code>lineSeperator</code> to seperate lines system independend.
+	 * <code>lineSeparator</code> to separate lines system independently.
 	 */
 	private byte[] lineSeperator;
 
 	/**
 	 * Commands to send to the gpgp commandline tool. The order in this string
 	 * array are used by the action variables. For example if you use the
-	 * DECRYPT_ACTION which has the interger value 0, the first (0.) entry from
+	 * DECRYPT_ACTION which has the integer value 0, the first (0.) entry from
 	 * this array is used to create the commandline statement for the gpg tool.
 	 */
 	private static final String[] COMMANDS = {
@@ -87,11 +87,11 @@ public final class GPGStatement implements JSCFStatement {
 			"--no-secmem-warning --batch --no-tty --digest-algo %digest-algo% --verify %sigfile% -" };
 
 	/**
-	 * Contructor which saves the given connection and initialize any internal
+	 * Contructor which saves the given connection and initialises any internal
 	 * variables.
 	 * 
 	 * @param connection
-	 *            Connetion which should be used for this statement.
+	 *            Connection which should be used for this statement.
 	 */
 	public GPGStatement(final JSCFConnection connection) {
 		this.myConnection = connection;
@@ -104,18 +104,15 @@ public final class GPGStatement implements JSCFStatement {
 	public JSCFResultSet executeSign(final InputStream message,
 			final String userID, final String password) throws JSCFException {
 		// create a newly empty map which holds the parameters userID and
-		// password.
-		// these parameteres are replaced in the commandline which is send to
-		// the
-		// gpg process to sign the given message stream.
+		// password. These parameters are replaced in the commandline which is
+		// send to
+		// the gpg process to sign the given message stream.
 		Map<String, String> paramMap = new Hashtable<String, String>();
 		// add the userID as parameter
 		paramMap.put("user", userID);
 		// create a empty commandline parameter list as a array list. We cannot
-		// send
-		// a *complete* string to the external gpg process. We should seperate
-		// each
-		// string into extra commandline parameters.
+		// send a *complete* string to the external gpg process. We should
+		// seperate each string into extra commandline parameters.
 		List<String> cmdList = new ArrayList<String>();
 		// adding the path to the gpg tool to the commandlineList
 		cmdList.add(((GPGConnection) this.myConnection).getPath());
@@ -344,7 +341,7 @@ public final class GPGStatement implements JSCFStatement {
 	}
 
 	/**
-	 * Executes the given command and the returnes the connected process.
+	 * Executes the given command and the returns the connected process.
 	 * 
 	 * @param cmd
 	 *            Command to be executed
@@ -360,22 +357,22 @@ public final class GPGStatement implements JSCFStatement {
 
 	/**
 	 * This methods gets from the internal commands string array the commandline
-	 * for the given action. The commandline is seperated on white spaces to
-	 * create for each commandline option a seperated string. The given
+	 * for the given action. The commandline is separated on white spaces to
+	 * create for each commandline option a separated string. The given
 	 * parameter map is used to insert the parameter from the map on the right
 	 * position in the commandline. The position is identified by %% tokens. The
 	 * string inside these tokens is the key in the given map and will be
 	 * replaced with the accordingly entry from the map.
 	 * 
 	 * @param params
-	 *            map wich parametes that contains entry which are replaced the
-	 *            accordingly position in the commandline.
+	 *            map with parameters that contain entries which are placed in
+	 *            the according position in the commandline.
 	 * @param action
 	 *            Action to determine the right commandline string from the
 	 *            internal commands string array
 	 * @return A list of strings. Each string represent a commandline option.
 	 * @throws Exception
-	 *             If a StrngTokenizer operation fails or the parsing of the
+	 *             If a StringTokenizer operation fails or the parsing of the
 	 *             commandline string fails.
 	 */
 	private List<String> createCommandArray(final Map params, final int action)
@@ -392,18 +389,19 @@ public final class GPGStatement implements JSCFStatement {
 	}
 
 	/**
-	 * This method looks the given string for %% characters. If these characters
-	 * are found the string inside these character (for example user) is used to
-	 * get the entry for the key (for example user) from the given map. If an
-	 * entry is found, the entry is returned without the %% characters.
+	 * This method looks in the given string for %% characters. If these
+	 * characters are found, the string inside these character (for example
+	 * user) is used to get the entry for the key (for example user) from the
+	 * given map. If an entry is found, the entry is returned without the %%
+	 * characters.
 	 * 
 	 * @param params
-	 *            Parameter map with entry which should be replacing the string
-	 *            inside the %% characters.
+	 *            Parameter map with entry which should be replacrd with the
+	 *            string inside the %% characters.
 	 * @param str
-	 *            commandline option which holds eventual the %% characters.
-	 *            There are any other strings allowed, but then the string is
-	 *            only returned without replace operations.
+	 *            commandline option which eventually holds the %% characters.
+	 *            Other strings are allowed, but then the string is only
+	 *            returned without replace operations.
 	 * @return The given string without modifying it, if there are no %%
 	 *         characters found. Else the entry from the given parameter map
 	 *         which is found per key which is included in the %% characters.
@@ -434,14 +432,13 @@ public final class GPGStatement implements JSCFStatement {
 	}
 
 	/**
-	 * This method real starts the gpg process, passes the commandline string to
+	 * This method starts the real gpg process, passes the commandline string to
 	 * it and then copies the results from the process to a newly created
-	 * JSCFResultSet. The resultSet is created initial with an empty error
+	 * JSCFResultSet. The resultSet is created initially with an empty error
 	 * stream and an empty result stream. After running the process, the process
-	 * is destroyed. This method is used if we do operations with the need of an
-	 * password. The password is given seperate to the process in fact that we
-	 * must send the line seperator to the process before we can send the
-	 * password.
+	 * is destroyed. This method is used if we do operations which need a
+	 * password. The password is given separate to the process, in fact we must
+	 * send the line separator to the process before we can send the password.
 	 * 
 	 * @param cmdList
 	 *            The commandline options to pass to the gpg process.

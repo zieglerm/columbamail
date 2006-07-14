@@ -36,102 +36,102 @@ import org.waffel.jscf.JSCFStatement;
  */
 public final class GPGConnection implements JSCFConnection {
 
-    /**
-     * Driver that created me.
-     */
-    private NonRegisteringGPGDriver myDriver;
+	/**
+	 * Driver that created me.
+	 */
+	private NonRegisteringGPGDriver myDriver;
 
-    /**
-     * Props for this connection.
-     */
-    private Properties props;
+	/**
+	 * Properties for this connection.
+	 */
+	private Properties props;
 
-    /**
-     * Constructor for the gpg connection with the given properties and the gpg
-     * driver.
-     * 
-     * @param info
-     *            The properties to be used for this gpg connection.
-     * @param driver
-     *            The gpg driver used for this connection.
-     */
-    public GPGConnection(final Properties info,
-            final NonRegisteringGPGDriver driver) {
-        this.props = info;
-        // TODO: adding defaults for windows, unix, linux ect.
-        this.myDriver = driver;
-    }
+	/**
+	 * Constructor for the gpg connection with the given properties and the gpg
+	 * driver.
+	 * 
+	 * @param info
+	 *            The properties to be used for this gpg connection.
+	 * @param driver
+	 *            The gpg driver used for this connection.
+	 */
+	public GPGConnection(final Properties info,
+			final NonRegisteringGPGDriver driver) {
+		this.props = info;
+		// TODO: adding defaults for windows, unix, linux ect.
+		this.myDriver = driver;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public JSCFStatement createStatement() throws JSCFException {
-        return new GPGStatement(this);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public JSCFStatement createStatement() throws JSCFException {
+		return new GPGStatement(this);
+	}
 
-    /**
-     * @see org.waffel.jscf.JSCFConnection#close()
-     */
-    public void close() {
-        // we don't need to close a connection. Setting only all varibles to
-        // null
-        this.myDriver = null;
-        this.props = null;
-    }
+	/**
+	 * @see org.waffel.jscf.JSCFConnection#close()
+	 */
+	public void close() {
+		// we don't need to close a connection. Setting only all variables to
+		// null
+		this.myDriver = null;
+		this.props = null;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public void setProperties(final Properties info) {
-        // do not use putAll. We should override the complete hashtable
-        this.props = info;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void setProperties(final Properties info) {
+		// do not use putAll. We should override the complete hashtable
+		this.props = info;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public Properties getProperties() {
-        return this.props;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public Properties getProperties() {
+		return this.props;
+	}
 
-    // --------------------- support Routines for GPG -------------------------
-    /**
-     * Returns the id, stored for this connection. The id is the user name used
-     * for gpg to access the keys. This can be a normal username or in many
-     * cases a complete email adress.
-     * 
-     * @return Returns the id, stored for this connection.
-     */
-    public String getId() {
-        return this.props.getProperty(JSCFDefinitions.USERID);
-    }
+	// --------------------- support Routines for GPG -------------------------
+	/**
+	 * Returns the id, stored for this connection. The id is the user name used
+	 * for gpg to access the keys. This can be a normal username or in many
+	 * cases a complete email adress.
+	 * 
+	 * @return Returns the id, stored for this connection.
+	 */
+	public String getId() {
+		return this.props.getProperty(JSCFDefinitions.USERID);
+	}
 
-    /**
-     * Returns the myDriver, stored for this connection.
-     * 
-     * @return Returns the myDriver, stored for this connection.
-     */
-    public NonRegisteringGPGDriver getMyDriver() {
-        return myDriver;
-    }
+	/**
+	 * Returns the myDriver, stored for this connection.
+	 * 
+	 * @return Returns the myDriver, stored for this connection.
+	 */
+	public NonRegisteringGPGDriver getMyDriver() {
+		return myDriver;
+	}
 
-    /**
-     * Returns the password, stored for this connection.
-     * 
-     * @return Returns the password, stored for this connection.
-     */
-    public String getPassword() {
-        return this.props.getProperty(JSCFDefinitions.PASSWORD);
-    }
+	/**
+	 * Returns the password, stored for this connection.
+	 * 
+	 * @return Returns the password, stored for this connection.
+	 */
+	public String getPassword() {
+		return this.props.getProperty(JSCFDefinitions.PASSWORD);
+	}
 
-    /**
-     * Returns the path, stored for this connection. The path is used to call
-     * the gpg commandline tool. Under linux it lives often under /usr/bin and
-     * path is then /usr/bin/gpg
-     * 
-     * @return Returns the path, stored for this connection.
-     */
-    public String getPath() {
-        return this.props.getProperty(GPGDefinitions.PATH, "/usr/bin/gpg");
-    }
+	/**
+	 * Returns the path, stored for this connection. The path is used to call
+	 * the gpg commandline tool. Under linux it lives often under /usr/bin and
+	 * path is then /usr/bin/gpg
+	 * 
+	 * @return Returns the path, stored for this connection.
+	 */
+	public String getPath() {
+		return this.props.getProperty(GPGDefinitions.PATH, "/usr/bin/gpg");
+	}
 }

@@ -29,7 +29,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 /**
- * Intern utility class to handle Stream operations.
+ * Internal utility class to handle Stream operations.
  * 
  * @author waffel
  * 
@@ -55,12 +55,12 @@ public final class StreamUtils {
 
 	/**
 	 * Copied all bytes from an InputStream to an OutputStream. The Bufsize
-	 * should be 8000 bytes or 16000 bytes. This is platform dependend. A higher
+	 * should be 8000 bytes or 16000 bytes. This is platform dependant. A higher
 	 * number of bytes to read on block, blocks the operation for a greater
 	 * time.
 	 * 
 	 * @param theInputStream
-	 *            InputStream from wihch the bytes are to copied.
+	 *            InputStream from which the bytes are to copied.
 	 * @param theOutputStream
 	 *            OutputStream in which the bytes are copied.
 	 * @param theInputBufSize
@@ -81,7 +81,6 @@ public final class StreamUtils {
 			bytesCopied += inputBytesRead;
 			// System.out.println("copy "+_lBytesCopied);
 		}
-
 		return bytesCopied;
 	}
 
@@ -90,7 +89,7 @@ public final class StreamUtils {
 	 * set to 8000 bytes.
 	 * 
 	 * @param inputStream
-	 *            InputStream from wihch the bytes are to copied.
+	 *            InputStream from which the bytes are to be copied.
 	 * @param outputStream
 	 *            OutputStream in which the bytes are copied.
 	 * @return Number of bytes which are copied.
@@ -129,14 +128,14 @@ public final class StreamUtils {
 	}
 
 	/**
-	 * Copies all bytes from the given InputStream in a intern
-	 * ByteArrayOutputStream and returnes a new InputStream with all bytes from
-	 * the ByteArrayOutputStream. The data are real copied so this methods
+	 * Copies all bytes from the given InputStream in a internal
+	 * ByteArrayOutputStream and return a new InputStream with all bytes from
+	 * the ByteArrayOutputStream. The data are really copied so this method
 	 * "clones" the given Inputstream and gives back a new InputStream with same
 	 * Data.
 	 * 
 	 * @param from
-	 *            InputStream from which all datas are to copy
+	 *            InputStream from which all data is copied
 	 * @return a new InputStream with all data from the given InputStream
 	 * @throws IOException
 	 *             If a read problem from the given input stream occurs.
