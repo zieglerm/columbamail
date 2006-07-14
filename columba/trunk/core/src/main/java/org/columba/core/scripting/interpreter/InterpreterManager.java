@@ -48,11 +48,36 @@ public class InterpreterManager
 
     public InterpreterManager()
     {
+    	
         interpreters = new HashMap<String, ScriptInterpreter>();
 
-        registerInterpreter(new BshInterpreter());
-        registerInterpreter(new JythonInterpreter());
-        registerInterpreter(new GroovyInterpreter());
+		try 
+		{
+			registerInterpreter(new BshInterpreter());
+		} 
+		catch (Exception e) 
+		{
+			LOG.warning("Failed to register the Beanshell script interpreter");
+		}
+		
+		try 
+		{
+			registerInterpreter(new JythonInterpreter());
+		} 
+		catch (Exception e) 
+		{
+			LOG.warning("Failed to register the Jython script interpreter");
+		}
+		
+		try 
+		{
+			registerInterpreter(new GroovyInterpreter());
+		} 
+		catch (Exception e) 
+		{
+			LOG.warning("Failed to register the Groovy script interpreter");
+		}
+		
     }
 
     public void registerInterpreter(ScriptInterpreter interpreter)
