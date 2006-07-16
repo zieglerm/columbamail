@@ -225,8 +225,8 @@ public abstract class AbstractFolder extends DefaultMutableTreeNode implements I
 	/**
 	 * Returns the folder's UID.
 	 */
-	public int getUid() {
-		return node.getInteger("uid");
+	public String getId() {
+		return node.get("uid");
 	}
 
 	/**
@@ -396,12 +396,12 @@ public abstract class AbstractFolder extends DefaultMutableTreeNode implements I
 		return null;
 	}
 
-	public AbstractFolder findChildWithUID(int uid, boolean recurse) {
+	public AbstractFolder findChildWithUID(String uid, boolean recurse) {
 		for (int i = 0; i < getChildCount(); i++) {
 			AbstractFolder child = (AbstractMessageFolder) getChildAt(i);
-			int childUid = child.getUid();
+			String childUid = child.getId();
 
-			if (uid == childUid) {
+			if (uid.equals(childUid)) {
 				return child;
 			} else if (recurse) {
 				AbstractFolder subchild = child.findChildWithUID(uid, true);

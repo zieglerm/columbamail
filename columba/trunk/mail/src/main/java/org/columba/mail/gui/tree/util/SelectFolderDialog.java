@@ -41,7 +41,7 @@ import javax.swing.tree.TreePath;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.command.CommandProcessor;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.IMailFolder;
@@ -171,7 +171,7 @@ public class SelectFolderDialog extends JDialog implements ActionListener,
 		tree.setRootVisible(false);
 
 		// default selection is local Inbox
-		selectedFolder = FolderTreeModel.getInstance().getFolder(101);
+		selectedFolder = FolderTreeModel.getInstance().getFolder("101");
 		tree.setSelectionPath(new TreePath(selectedFolder.getPath()));
 
 		// add selection listener

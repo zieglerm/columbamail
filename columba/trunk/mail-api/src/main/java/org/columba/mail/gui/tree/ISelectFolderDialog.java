@@ -17,7 +17,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.tree;
 
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 
 /**
  * @author fdietz

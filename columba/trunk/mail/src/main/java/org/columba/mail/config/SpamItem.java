@@ -70,12 +70,12 @@ public class SpamItem extends DefaultItem {
         setBoolean("incoming_trash", select);
     }
     
-    public int getIncomingCustomFolder() {
-        return getIntegerWithDefault("incoming_folder", 101);
+    public String getIncomingCustomFolder() {
+        return getStringWithDefault("incoming_folder", "101");
     }
     
-    public void setIncomingCustomFolder(int folder) {
-        setInteger("incoming_folder", folder);
+    public void setIncomingCustomFolder(String folderId) {
+        setString("incoming_folder", folderId);
     }
     
     public boolean isMoveMessageWhenMarkingEnabled() {
@@ -94,12 +94,12 @@ public class SpamItem extends DefaultItem {
         setBoolean("move_trash", select);
     }
     
-    public int getMoveCustomFolder() {
-        return getIntegerWithDefault("move_folder", 101);
+    public String getMoveCustomFolder() {
+        return getStringWithDefault("move_folder", "101");
     }
     
-    public void setMoveCustomFolder(int folder) {
-        setInteger("move_folder", folder);
+    public void setMoveCustomFolder(String folderId) {
+        setString("move_folder", folderId);
     }
     
     public boolean checkAddressbook() {

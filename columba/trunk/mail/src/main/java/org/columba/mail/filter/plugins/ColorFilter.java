@@ -19,7 +19,7 @@ import java.awt.Color;
 
 import org.columba.core.filter.AbstractFilter;
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.folder.IMailbox;
 
 

@@ -228,12 +228,12 @@ public class FolderTreeCellRenderer extends DefaultTreeCellRenderer {
 			IMailbox folder = (IMailbox) node;
 			if (folder.isInboxFolder()) {
 				return inboxIcon;
-			} else if (folder.getUid() == 103) {
+			} else if (folder.getId().equals("103")) {
 				
 				return outboxIcon;
-			} else if (folder.getUid() == 107) {
+			} else if (folder.getId().equals("107")) {
 				return templateIcon;
-			}else if (folder.getUid() == 104) {
+			}else if (folder.getId().equals("104")) {
 				return sentIcon;
 			}else if (folder.isTrashFolder()) {
 				return trashIcon;

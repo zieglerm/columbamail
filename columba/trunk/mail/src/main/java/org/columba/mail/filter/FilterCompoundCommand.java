@@ -25,7 +25,7 @@ import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterAction;
 import org.columba.core.filter.FilterActionList;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.core.plugin.PluginManager;
 import org.columba.mail.folder.IMailbox;
 

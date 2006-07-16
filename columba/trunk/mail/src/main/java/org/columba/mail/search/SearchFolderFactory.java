@@ -31,10 +31,10 @@ public class SearchFolderFactory {
 		searchFolder.getConfiguration().setString("property",
 				"include_subfolders", "true");
 
-		int uid = folder.getUid();
+		String uid = folder.getId();
 
 		// set source folder UID
-		searchFolder.getConfiguration().setInteger("property", "source_uid",
+		searchFolder.getConfiguration().setString("property", "source_uid",
 				uid);
 
 		// search history folders are deactivated by default

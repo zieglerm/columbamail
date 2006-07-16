@@ -20,7 +20,7 @@ package org.columba.mail.command;
 import java.io.File;
 
 import org.columba.api.command.ICommandReference;
-import org.columba.core.folder.IFolderCommandReference;
+import org.columba.core.folder.api.IFolderCommandReference;
 import org.columba.mail.message.IColumbaMessage;
 
 /**

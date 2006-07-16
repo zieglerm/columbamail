@@ -1,4 +1,4 @@
-package org.columba.core.gui.context;
+package org.columba.core.gui.search;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,15 +18,21 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
 import org.columba.api.gui.frame.IFrameMediator;
-import org.columba.core.gui.context.api.IContextProvider;
+import org.columba.core.gui.base.RoundedBorder;
+import org.columba.core.gui.search.api.IResultPanel;
+import org.columba.core.search.ResultListenerAdapter;
+import org.columba.core.search.api.IResultEvent;
+import org.columba.core.search.api.ISearchCriteria;
+import org.columba.core.search.api.ISearchManager;
+import org.columba.core.search.api.ISearchProvider;
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
-public class ResultBox extends JPanel {
+public class SearchResultBox extends JPanel {
 
 	private final static Color titleBackground = new Color(248, 248, 248);
 
-	private final static Color borderColor = new Color(230, 230, 230);
+	private final static Color borderColor = new Color(230,230,230);
 
 	private JXHyperlink link;
 
@@ -34,17 +40,18 @@ public class ResultBox extends JPanel {
 
 	private JXCollapsiblePane collapsible;
 
-	private IContextProvider provider;
+	private IResultPanel resultPanel;
 
-	public ResultBox(final IFrameMediator frameMediator,
-			final IContextProvider provider) {
-		super();
+	private ISearchCriteria criteria;
 
-		this.provider = provider;
+	public SearchResultBox(final IFrameMediator mediator, final ISearchProvider p,
+			final ISearchCriteria criteria, IResultPanel resultPanel) {
+		this.resultPanel = resultPanel;
+		this.criteria = criteria;
 
 		collapsible = new JXCollapsiblePane();
 		collapsible.getContentPane().setBackground(Color.WHITE);
-		collapsible.add(provider.getView());
+		collapsible.add(resultPanel.getView());
 
 		Action toggleAction = collapsible.getActionMap().get(
 				JXCollapsiblePane.TOGGLE_ACTION);
@@ -54,8 +61,8 @@ public class ResultBox extends JPanel {
 		toggleAction.putValue(JXCollapsiblePane.EXPAND_ICON, UIManager
 				.getIcon("Tree.collapsedIcon"));
 		link = new JXHyperlink(toggleAction);
-		link.setText(provider.getName());
-		link.setToolTipText(provider.getDescription());
+		link.setText(criteria.getTitle());
+		link.setToolTipText(criteria.getDescription());
 
 		// link.setFont(link.getFont().deriveFont(Font.BOLD));
 		link.setOpaque(true);
@@ -66,7 +73,7 @@ public class ResultBox extends JPanel {
 		link.setClickedColor(UIManager.getColor("Label.foreground"));
 
 		moreLink = new JXHyperlink();
-		moreLink.setEnabled(provider.isEnabledShowMoreLink());
+		moreLink.setEnabled(false);
 		moreLink.setText("Show More ..");
 		Font font = UIManager.getFont("Label.font");
 		Font smallFont = new Font(font.getName(), font.getStyle(), font
@@ -74,7 +81,7 @@ public class ResultBox extends JPanel {
 		moreLink.setFont(smallFont);
 		moreLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				provider.showMoreResults(frameMediator);
+				p.showAllResults(mediator, "test", criteria.getTechnicalName());
 			}
 		});
 
@@ -82,13 +89,19 @@ public class ResultBox extends JPanel {
 		JPanel top = new JPanel();
 		top.setOpaque(true);
 
-		top.setBorder(new CompoundBorder(new SeparatorBorder(), BorderFactory
-				.createEmptyBorder(2, 4, 2, 4)));
+		Border border1 = new CompoundBorder(
+				new SeparatorBorder(), BorderFactory
+						.createEmptyBorder(2, 4, 2, 4));
+
+		Border border = new CompoundBorder(BorderFactory.createEmptyBorder(2,
+				4, 2, 4), border1);
+
+		top.setBorder(border1);
 		top.setBackground(titleBackground);
 		top.setLayout(new BorderLayout());
 		JLabel iconLabel = new JLabel();
 		iconLabel.setBackground(titleBackground);
-		iconLabel.setIcon(provider.getIcon());
+		iconLabel.setIcon(p.getIcon());
 		iconLabel.setOpaque(true);
 		iconLabel.setBorder(BorderFactory.createEmptyBorder(1, 2, 1, 6));
 		top.add(iconLabel, BorderLayout.WEST);
@@ -98,15 +111,39 @@ public class ResultBox extends JPanel {
 		add(collapsible, BorderLayout.CENTER);
 	}
 
-	public void showResults() {
+	public void installListener(ISearchManager searchManager) {
+		searchManager.addResultListener(new MyResultListener());
+	}
 
-		if (provider.isEnabledShowMoreLink()) {
-			int count = provider.getTotalResultCount();
-			moreLink.setEnabled(count > 0);
+	class MyResultListener extends ResultListenerAdapter {
+		@Override
+		public void resultArrived(IResultEvent event) {
+			if (event.getProviderName() == null)
+				return;
 
-			if (count > 0) {
-				moreLink.setText("Show More (" + count + ") ..");
+			if (!event.getProviderName().equals(
+					resultPanel.getProviderTechnicalName()))
+				return;
+			if (!event.getSearchCriteria().getTechnicalName().equals(
+					resultPanel.getSearchCriteriaTechnicalName()))
+				return;
+
+			link.setText(criteria.getTitle());
+			link.setToolTipText(criteria.getDescription());
+
+			if (event.getTotalResultCount() == 0) {
+				moreLink.setText("Show More ..");
+				moreLink.setEnabled(false);
+			} else {
+				moreLink.setText("Show More" + " ("
+						+ event.getTotalResultCount() + ") ..");
+				moreLink.setEnabled(true);
 			}
+
+			revalidate();
+		}
+
+		MyResultListener() {
 		}
 	}
 
@@ -144,5 +181,6 @@ public class ResultBox extends JPanel {
 			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
-
+	
+	
 }

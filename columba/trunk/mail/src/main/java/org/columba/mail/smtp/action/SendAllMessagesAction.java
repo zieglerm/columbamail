@@ -70,7 +70,7 @@ public class SendAllMessagesAction extends AbstractColumbaAction {
 
 		// get outbox folder
 		OutboxFolder folder = (OutboxFolder) FolderTreeModel.getInstance()
-				.getFolder(103);
+				.getFolder("103");
 
 		// create referenc
 		MailFolderCommandReference r = new MailFolderCommandReference(folder);

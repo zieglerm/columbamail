@@ -15,19 +15,18 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
-package org.columba.core.folder;
+package org.columba.core.folder.api;
 
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * @author fdietz
  *
  */
-public interface IFolder extends MutableTreeNode {
+public interface IFolder {
 	/**
 	 * Returns the folder's UID.
 	 */
-	int getUid();
+	String getId();
 
 	/**
 	 * Returns the folder's name.

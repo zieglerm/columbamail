@@ -56,7 +56,7 @@ public class SearchMessageAction extends AbstractColumbaAction {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
     public void actionPerformed(ActionEvent evt) {
-    	IMailbox searchFolder = (IMailbox) FolderTreeModel.getInstance().getFolder(106);
+    	IMailbox searchFolder = (IMailbox) FolderTreeModel.getInstance().getFolder("106");
 
         SearchFrame frame = new SearchFrame((AbstractMailFrameController) getFrameMediator(),
                 searchFolder);

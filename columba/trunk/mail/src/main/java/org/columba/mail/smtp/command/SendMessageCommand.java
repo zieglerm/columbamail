@@ -150,7 +150,7 @@ public class SendMessageCommand extends Command {
 
 		// sent folder
 		IMailbox sentFolder = (IMailbox) FolderTreeModel.getInstance()
-				.getFolder(item.getSpecialFoldersItem().getInteger("sent"));
+				.getFolder(item.getSpecialFoldersItem().get("sent"));
 
 		// get the SendableMessage object
 		SendableMessage message = null;

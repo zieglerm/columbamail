@@ -16,7 +16,7 @@
 package org.columba.core.filter;
 
 import org.columba.api.plugin.IExtensionInterface;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 
 /**
  * A filter is used to find a set of messages, which matches a certain search

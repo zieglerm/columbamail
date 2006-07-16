@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Logger;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +20,11 @@ import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.IExtensionHandlerKeys;
 import org.columba.api.plugin.PluginException;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
+import org.columba.core.context.ContextSearchManager;
+import org.columba.core.context.api.IContextProvider;
+import org.columba.core.context.api.IContextSearchManager;
+import org.columba.core.gui.context.ContextDebugProvider;
+import org.columba.core.gui.context.ContextResultBox;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.logging.Logging;
@@ -40,11 +45,13 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	private StackedBox box;
 
-	private Hashtable<String, ResultBox> map = new Hashtable<String, ResultBox>();
-
-	private SearchBar searchBar;
+	private Hashtable<String, SearchResultBox> searchMap = new Hashtable<String, SearchResultBox>();
 
 	private ISearchManager searchManager;
+
+	private Map<String, ContextResultBox> contextMap = new Hashtable<String, ContextResultBox>();
+
+	private IContextSearchManager contextSearchManager;
 
 	public SearchPanel(IFrameMediator frameMediator) {
 		super();
@@ -52,46 +59,58 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		this.frameMediator = frameMediator;
 
 		this.searchManager = new SearchManager();
-		initProviders(searchManager);
+		initSearchProvider();
 
-		searchBar = new SearchBar(this, true, true);
+		contextSearchManager = new ContextSearchManager(frameMediator);
+		initContextProvider();
 
-		setLayout(new BorderLayout());
-		//
-		JPanel top = new JPanel();
-		top.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-		top.setLayout(new BorderLayout());
+		setBackground(UIManager.getColor("TextField.background"));
 
-		top.add(searchBar, BorderLayout.CENTER);
-
-		add(top, BorderLayout.NORTH);
-
-		JPanel center = new JPanel();
-		// center.setLayout(new VerticalLayout());
-
-		center.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-		center.setLayout(new BorderLayout());
-		// center.setBackground(UIManager.getColor("TextField.background"));
 		box = new StackedBox();
 		box.setBackground(UIManager.getColor("TextField.background"));
-
 		JScrollPane pane = new JScrollPane(box);
-		// pane.getViewport().setBackground(UIManager.getColor("TextField.background"));
-		center.add(pane, BorderLayout.CENTER);
-		add(center, BorderLayout.CENTER);
+		pane.setBorder(null);
+		setLayout(new BorderLayout());
+		add(pane, BorderLayout.CENTER);
 
 	}
 
-	private void initProviders(ISearchManager manager) {
+	private void initContextProvider() {
 
-		Iterator<ISearchProvider> it = createProviderList().listIterator();
-		while (it.hasNext()) {
-			ISearchProvider p = it.next();
-			manager.registerProvider(p);
+		// if in debug mode, register context debugger view
+		if (Logging.DEBUG)
+			contextSearchManager.register(new ContextDebugProvider());
+
+		try {
+
+			IExtensionHandler handler = PluginManager
+					.getInstance()
+					.getExtensionHandler(
+							IExtensionHandlerKeys.ORG_COLUMBA_CORE_CONTEXT_PROVIDER);
+
+			String[] ids = handler.getPluginIdList();
+			for (int i = 0; i < ids.length; i++) {
+				try {
+					IExtension extension = handler.getExtension(ids[i]);
+
+					IContextProvider provider = (IContextProvider) extension
+							.instanciateExtension(null);
+					contextSearchManager.register(provider);
+				} catch (PluginException e) {
+					LOG.severe("Error while loading plugin: " + e.getMessage());
+					if (Logging.DEBUG)
+						e.printStackTrace();
+				}
+			}
+
+		} catch (PluginHandlerNotFoundException e) {
+			LOG.severe("Error while loading plugin: " + e.getMessage());
+			if (Logging.DEBUG)
+				e.printStackTrace();
 		}
 	}
 
-	private List<ISearchProvider> createProviderList() {
+	private void initSearchProvider() {
 		List<ISearchProvider> list = new Vector<ISearchProvider>();
 		try {
 
@@ -106,7 +125,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 					ISearchProvider provider = (ISearchProvider) extension
 							.instanciateExtension(null);
-					list.add(provider);
+					searchManager.registerProvider(provider);
 				} catch (PluginException e) {
 					LOG.severe("Error while loading plugin: " + e.getMessage());
 					if (Logging.DEBUG)
@@ -120,7 +139,6 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 				e.printStackTrace();
 		}
 
-		return list;
 	}
 
 	// search individual provider and individual criteria
@@ -161,7 +179,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	}
 
 	// search across all providers
-	public void searchAll(String searchTerm,  boolean searchInside) {
+	public void searchAll(String searchTerm, boolean searchInside) {
 
 		showSearchDockingView();
 
@@ -258,7 +276,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		searchManager.addResultListener(resultPanel);
 
 		// create visual container for result panel
-		ResultBox resultBox = new ResultBox(frameMediator, p, c, resultPanel);
+		SearchResultBox resultBox = new SearchResultBox(frameMediator, p, c,
+				resultPanel);
 		resultBox.installListener(searchManager);
 
 		// add to search panel
@@ -285,35 +304,40 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		return searchManager;
 	}
 
-	
+	public IContextSearchManager getContextSearchManager() {
+		return contextSearchManager;
+	}
 
-	// private IResultPanel loadResultPanelExtension(String
-	// providerTechnicalName,
-	// String searchCriteriaTechnicalName) {
-	// try {
-	// IExtensionHandler handler = PluginManager.getInstance()
-	// .getExtensionHandler(
-	// IExtensionHandlerKeys.ORG_COLUMBA_CORE_SEARCH_UI);
-	//
-	// IExtension extension = handler
-	// .getExtension(searchCriteriaTechnicalName);
-	// if (extension == null)
-	// return null;
-	//
-	// IResultPanel panel = (IResultPanel) extension
-	// .instanciateExtension(new Object[] {
-	// searchCriteriaTechnicalName, providerTechnicalName });
-	// return panel;
-	// } catch (PluginHandlerNotFoundException e) {
-	// LOG.severe("Error while loading plugin: " + e.getMessage());
-	// if (Logging.DEBUG)
-	// e.printStackTrace();
-	// } catch (PluginException e) {
-	// LOG.severe("Error while loading plugin: " + e.getMessage());
-	// if (Logging.DEBUG)
-	// e.printStackTrace();
-	// }
-	// return null;
-	// }
+	public void searchInContext() {
+		// init result view
+		createContextStackedBox();
+
+		// execute background search
+		contextSearchManager.search();
+	}
+
+	private void createContextStackedBox() {
+
+		searchMap.clear();
+
+		box.removeAll();
+
+		Iterator<IContextProvider> it = contextSearchManager.getAllProviders();
+		while (it.hasNext()) {
+			IContextProvider p = it.next();
+
+			// clear previous search results
+			p.clear();
+			ContextResultBox resultBox = new ContextResultBox(frameMediator, p,
+					contextSearchManager);
+			box.addBox(resultBox);
+
+			contextMap.put(p.getName(), resultBox);
+		}
+
+		// repaint box
+		validate();
+		repaint();
+	}
 
 }

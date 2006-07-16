@@ -67,8 +67,8 @@ public class MboxDataStorage implements IDataStorage {
 		this.folder = folder;
 		messages = new Hashtable();
 
-		mboxFile = new File(folder.getDirectoryFile(), Integer.toString(folder
-				.getUid()));
+		mboxFile = new File(folder.getDirectoryFile(), folder
+				.getId());
 
 		messageFile = new File(folder.getDirectoryFile(), ".messages");
 

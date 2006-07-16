@@ -9,9 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.context.api.IContextProvider;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
-import org.columba.core.gui.context.api.IContextProvider;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
@@ -35,6 +35,10 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 		list = new ResultList();
 	}
 
+	public String getTechnicalName() {
+		return "recent_messages_of_contact";
+	}
+	
 	public String getName() {
 		return bundle.getString("provider_title");
 	}

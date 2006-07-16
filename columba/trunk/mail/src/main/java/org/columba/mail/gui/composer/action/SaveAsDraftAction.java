@@ -73,8 +73,7 @@ public class SaveAsDraftAction extends AbstractColumbaAction {
         // get "Drafts" folder of account
         SpecialFoldersItem folderItem = item.getSpecialFoldersItem();
         String str = folderItem.get("drafts");
-        int destUid = Integer.parseInt(str);
-        IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance().getFolder(destUid);
+        IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance().getFolder(str);
    
         // check if we are currently editing a draft message
         if ( model.getMessage().getHeader().getFlags().getDraft() ) {

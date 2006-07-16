@@ -22,7 +22,7 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.connectionstate.ConnectionStateImpl;
-import org.columba.core.folder.IFolderCommandReference;
+import org.columba.core.folder.api.IFolderCommandReference;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.AbstractRemoteFolder;
 import org.columba.mail.folder.FolderChildrenIterator;
@@ -52,7 +52,7 @@ public class ActivateVirtualFolderCommand extends Command {
 
 		while (it.hasMoreChildren()) {
 			IMailFolder f = it.nextChild();
-			if (f instanceof VirtualFolder && f.getUid() != 106 && ((IMailFolder)f.getParent()).getUid() != 106) {
+			if (f instanceof VirtualFolder && !f.getId().equals("106") && !((IMailFolder)f.getParent()).getId().equals("106")) {
 				VirtualFolder vFolder = (VirtualFolder)f;
 				
 				// Check if the parentfolder is remote & we are online				

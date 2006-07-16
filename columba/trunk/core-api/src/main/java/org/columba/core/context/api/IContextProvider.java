@@ -1,4 +1,4 @@
-package org.columba.core.gui.context.api;
+package org.columba.core.context.api;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -13,7 +13,7 @@ public interface IContextProvider extends IExtensionInterface{
 	 * Returns technical name. Should be unique.
 	 * @return
 	 */
-	//public String getTechnicalName();
+	public String getTechnicalName();
 	
 	/**
 	 * Return provider human-readable name

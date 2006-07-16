@@ -240,10 +240,10 @@ public class SpamPanel extends DefaultPanel implements ActionListener {
 				// user didn't select any folder
 				// -> make Inbox the default folder
 				folder = (IMailbox) FolderTreeModel.getInstance()
-						.getFolder(101);
+						.getFolder("101");
 			}
 
-			int uid = folder.getUid();
+			String uid = folder.getId();
 			spam.setIncomingCustomFolder(uid);
 
 			list = new TreeNodeList(markChooseFolderButton.getText());
@@ -253,10 +253,10 @@ public class SpamPanel extends DefaultPanel implements ActionListener {
 				// user didn't select any folder
 				// -> make Inbox the default folder
 				folder = (IMailbox) FolderTreeModel.getInstance()
-						.getFolder(101);
+						.getFolder("101");
 			}
 
-			uid = folder.getUid();
+			uid = folder.getId();
 			spam.setMoveCustomFolder(uid);
 			spam.enableCheckAddressbook(addressCheckBox.isSelected());
 		}

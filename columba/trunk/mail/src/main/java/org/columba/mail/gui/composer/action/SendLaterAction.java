@@ -69,7 +69,7 @@ public class SendLaterAction extends AbstractColumbaAction {
 				.getAccountItem();
 		SpecialFoldersItem folderItem = item.getSpecialFoldersItem();
 		OutboxFolder destFolder = (OutboxFolder) FolderTreeModel.getInstance()
-				.getFolder(103);
+				.getFolder("103");
 
 		ComposerCommandReference r =new ComposerCommandReference(composerController, destFolder);
 

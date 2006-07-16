@@ -89,10 +89,9 @@ public class SpecialFoldersPanel extends DefaultPanel implements ActionListener 
 	}
 
 	protected String getPath(String uid) {
-		Integer u = new Integer(uid);
-
-		IMailbox f = (IMailbox) FolderTreeModel.getInstance().getFolder(
-				u.intValue());
+		
+		IMailbox f = (IMailbox) FolderTreeModel.getInstance().getFolder(uid);
+				
 
 		if (f == null) {
 			return ""; //$NON-NLS-1$
@@ -109,7 +108,7 @@ public class SpecialFoldersPanel extends DefaultPanel implements ActionListener 
 			return ""; //$NON-NLS-1$
 		}
 
-		Integer i = new Integer(f.getUid());
+		Integer i = new Integer(f.getId());
 
 		return i.toString();
 	}

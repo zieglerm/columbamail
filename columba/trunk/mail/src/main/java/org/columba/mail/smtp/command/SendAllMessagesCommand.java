@@ -110,10 +110,10 @@ public class SendAllMessagesCommand extends Command {
 				}
 
 				// Sent folder
-				sentFolder = (IMailbox) FolderTreeModel.getInstance()
+				sentFolder = (IMailbox) FolderTreeModel
+						.getInstance()
 						.getFolder(
-								Integer.parseInt(accountItem
-										.getSpecialFoldersItem().get("sent")));
+								accountItem.getSpecialFoldersItem().get("sent"));
 
 				// open connection to SMTP server
 				smtpServer = new SMTPServer(accountItem);

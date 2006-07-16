@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.filter.FilterRule;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.CheckBoxWithMnemonic;
 import org.columba.core.gui.base.LabelWithMnemonic;
@@ -269,7 +269,7 @@ public class SearchFrame extends JDialog implements ActionListener {
 
 			includeSubfolderButton.setSelected(isInclude);
 
-			int uid = destFolder.getConfiguration().getInteger("property",
+			String uid = destFolder.getConfiguration().getString("property",
 					"source_uid");
 
 			IMailbox f = (IMailbox) FolderTreeModel.getInstance()
@@ -278,8 +278,8 @@ public class SearchFrame extends JDialog implements ActionListener {
 			// If f==null because of deleted AbstractMessageFolder fallback to
 			// Inbox
 			if (f == null) {
-				uid = 101;
-				destFolder.getConfiguration().setInteger("property",
+				uid = "101";
+				destFolder.getConfiguration().setString("property",
 						"source_uid", uid);
 				f = (IMailbox) FolderTreeModel.getInstance().getFolder(uid);
 			}
@@ -310,8 +310,8 @@ public class SearchFrame extends JDialog implements ActionListener {
 			TreeNodeList list = new TreeNodeList(path);
 			IMailbox folder = (IMailbox) FolderTreeModel.getInstance()
 					.getFolder(list);
-			int uid = folder.getUid();
-			destFolder.getConfiguration().setInteger("property", "source_uid",
+			String uid = folder.getId();
+			destFolder.getConfiguration().setString("property", "source_uid",
 					uid);
 
 			criteriaList.updateComponents(b);

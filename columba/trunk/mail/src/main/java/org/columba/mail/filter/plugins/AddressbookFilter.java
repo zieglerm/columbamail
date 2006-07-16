@@ -23,7 +23,7 @@ import org.columba.addressbook.facade.IFolderFacade;
 import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.core.filter.AbstractFilter;
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.connector.ServiceConnector;
 import org.columba.mail.folder.IMailbox;
 import org.columba.ristretto.message.Address;

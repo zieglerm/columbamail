@@ -36,7 +36,7 @@ import org.columba.api.selection.ISelectionListener;
 import org.columba.api.selection.SelectionChangedEvent;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.ComboMenu;
 import org.columba.core.gui.util.CTextField;
@@ -234,7 +234,7 @@ public class FilterToolbar extends JPanel implements ActionListener,
 		// create filter criteria based on selected type
 		FilterCriteria c = createFilterCriteria(index);
 
-		if (selectedFolder.getUid() != 106)
+		if (selectedFolder.getId().equals("106"))
 			sourceFolder = selectedFolder;
 
 		// set criteria for search folder
@@ -268,7 +268,7 @@ public class FilterToolbar extends JPanel implements ActionListener,
 	private VirtualFolder prepareSearchFolder(FilterCriteria c, IFolder folder) {
 		// get search folder
 		VirtualFolder searchFolder = (VirtualFolder) FolderTreeModel
-				.getInstance().getFolder(106);
+				.getInstance().getFolder("106");
 
 		// remove old filters
 		searchFolder.getFilter().getFilterRule().removeAll();
@@ -280,10 +280,10 @@ public class FilterToolbar extends JPanel implements ActionListener,
 		searchFolder.getConfiguration().setString("property",
 				"include_subfolders", "false");
 
-		int uid = folder.getUid();
+		String uid = folder.getId();
 
 		// set source folder UID
-		searchFolder.getConfiguration().setInteger("property", "source_uid",
+		searchFolder.getConfiguration().setString("property", "source_uid",
 				uid);
 
 		searchFolder.deactivate();
@@ -423,7 +423,7 @@ public class FilterToolbar extends JPanel implements ActionListener,
 	 */
 	private void executeCustomSearch() {
 		IMailbox searchFolder = (IMailbox) FolderTreeModel.getInstance()
-				.getFolder(106);
+				.getFolder("106");
 
 		IMailbox folder = (IMailbox) frameMediator.getTableSelection()
 				.getSourceFolder();

@@ -93,11 +93,11 @@ public class CreateVirtualFolderAction extends AbstractColumbaAction implements
 						.getInstance().createChild((IMailFolder) r.getSourceFolder(), name,
 								"VirtualFolder");
 
-				FolderTreeModel.getInstance().nodeStructureChanged(r.getSourceFolder());
+				FolderTreeModel.getInstance().nodeStructureChanged((IMailFolder)r.getSourceFolder());
 
 				// set parent folder uid
-				vfolder.getConfiguration().setInteger("property", "source_uid",
-						r.getSourceFolder().getUid());
+				vfolder.getConfiguration().setString("property", "source_uid",
+						r.getSourceFolder().getId());
 
 				// open search dialog
 				new SearchFrame((AbstractMailFrameController) frameMediator,

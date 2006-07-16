@@ -19,7 +19,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 
 import org.columba.core.folder.DefaultFolderCommandReference;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.folder.IMailFolder;
 import org.columba.mail.message.IColumbaMessage;
 

@@ -252,7 +252,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	public void addSearchToHistory() throws Exception {
 		VirtualFolder searchFolder = (VirtualFolder) FolderTreeModel
-				.getInstance().getFolder(106);
+				.getInstance().getFolder("106");
 
 		// only create new subfolders if we used the default "Search Folder"
 		if (!searchFolder.equals(this)) {
@@ -385,9 +385,9 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	 */
 	IMailFolder getSourceFolder() {
 		
-		int uid = getConfiguration().getInteger("property", "source_uid");
+		String uid = getConfiguration().getString("property", "source_uid");
 		
-		if (sourceFolder != null && sourceFolder.getUid() == uid) return sourceFolder;
+		if (sourceFolder != null && sourceFolder.getId().equals(uid)) return sourceFolder;
 		
 		IMailFolder folder = (IMailFolder) FolderTreeModel.getInstance()
 				.getFolder(uid);
@@ -505,16 +505,12 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 			public int compare(Object o1, Object o2) {
 				VirtualHeader h = (VirtualHeader) headerList.get(o1);
-				int oV1 = h.getSrcFolder().getUid();
+				String oV1 = h.getSrcFolder().getId();
 
 				h = (VirtualHeader) headerList.get(o2);
-				int oV2 = h.getSrcFolder().getUid();
+				String oV2 = h.getSrcFolder().getId();
 
-				if (oV1 < oV2) {
-					return -1;
-				} else {
-					return oV1 == oV2 ? 0 : 1;
-				}
+				return oV1.compareTo(oV2);
 			}
 		});
 
@@ -611,16 +607,12 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 			public int compare(Object o1, Object o2) {
 				VirtualHeader h = (VirtualHeader) headerList.get(o1);
-				int oV1 = h.getSrcFolder().getUid();
+				String oV1 = h.getSrcFolder().getId();
 
 				h = (VirtualHeader) headerList.get(o2);
-				int oV2 = h.getSrcFolder().getUid();
+				String oV2 = h.getSrcFolder().getId();
 
-				if (oV1 < oV2) {
-					return -1;
-				} else {
-					return oV1 == oV2 ? 0 : 1;
-				}
+				return oV1.compareTo(oV2);
 			}
 		});
 
@@ -1000,16 +992,12 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 			public int compare(Object o1, Object o2) {
 				VirtualHeader h = (VirtualHeader) headerList.get(o1);
-				int oV1 = h.getSrcFolder().getUid();
+				String oV1 = h.getSrcFolder().getId();
 
 				h = (VirtualHeader) headerList.get(o2);
-				int oV2 = h.getSrcFolder().getUid();
+				String oV2 = h.getSrcFolder().getId();
 
-				if (oV1 < oV2) {
-					return -1;
-				} else {
-					return oV1 == oV2 ? 0 : 1;
-				}
+				return oV1.compareTo(oV2);
 			}
 		});
 

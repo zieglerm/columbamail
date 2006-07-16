@@ -335,12 +335,12 @@ public abstract class AbstractLocalFolder extends AbstractMessageFolder {
 
 	/** {@inheritDoc} */
 	public boolean isInboxFolder() {
-		return getUid() == 101;
+		return getId().equals("101");
 	}
 
 	/** {@inheritDoc} */
 	public boolean isTrashFolder() {
-		return getUid() == 105;
+		return getId().equals("105");
 	}
 
 	/** {@inheritDoc} */
@@ -566,7 +566,7 @@ public abstract class AbstractLocalFolder extends AbstractMessageFolder {
 
 	public synchronized IHeaderList getHeaderList() throws Exception {
 		if (headerList == null) {
-			headerList = new BerkeleyDBHeaderList(Integer.toString(getUid()));
+			headerList = new BerkeleyDBHeaderList(getId());
 			final AbstractMessageFolder folder = this;
 			headerList
 					.addHeaderListCorruptedListener(new IHeaderListCorruptedListener() {

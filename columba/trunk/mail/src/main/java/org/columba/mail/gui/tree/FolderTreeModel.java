@@ -191,15 +191,15 @@ public class FolderTreeModel extends DefaultTreeModel {
 		return folder;
 	}
 
-	public IMailFolder getFolder(int uid) {
+	public IMailFolder getFolder(String folderId) {
 		IMailFolder root = (IMailFolder) getRoot();
 
 		for (Enumeration e = root.breadthFirstEnumeration(); e
 				.hasMoreElements();) {
 			IMailFolder node = (IMailFolder) e.nextElement();
-			int id = node.getUid();
+			String id = node.getId();
 
-			if (uid == id) {
+			if (folderId.equals(id)) {
 				return node;
 			}
 		}
@@ -208,7 +208,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 	}
 
 	public IMailFolder getTrashFolder() {
-		return getFolder(105);
+		return getFolder("105");
 	}
 
 	public IMailFolder getImapFolder(int accountUid) {
@@ -228,7 +228,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 				int account = item.getInteger("account_uid");
 
 				if (account == accountUid) {
-					int uid = item.getInteger("uid");
+					String uid = item.get("uid");
 
 					return getFolder(uid);
 				}

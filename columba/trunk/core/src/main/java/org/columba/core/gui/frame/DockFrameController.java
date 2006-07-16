@@ -65,7 +65,6 @@ public abstract class DockFrameController extends DefaultFrameController
 		dockingPort.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		searchPanelDockable = registerDockable(IDock.DOCKING_VIEW_SEARCH, "Search", getSearchPanel().getView(), null);
-		contextualPanelDockable = registerDockable(IDock.DOCKING_VIEW_CONTEXTUAL_PANEL, "Contextual Panel", getContextualPanel().getView(), null);
 	
 	}
 

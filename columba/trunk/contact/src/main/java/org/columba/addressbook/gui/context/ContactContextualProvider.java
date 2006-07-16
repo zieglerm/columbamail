@@ -11,9 +11,9 @@ import javax.swing.JComponent;
 import org.columba.addressbook.gui.search.SearchResultList;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.contact.search.ContactSearchProvider;
+import org.columba.core.context.api.IContextProvider;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
-import org.columba.core.gui.context.api.IContextProvider;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
@@ -43,6 +43,10 @@ public class ContactContextualProvider implements
 		searchProvider = new ContactSearchProvider();
 	}
 
+	public String getTechnicalName() {
+		return "contact_list";
+	}
+	
 	public String getName() {
 		return bundle.getString("provider_title");
 	}
@@ -117,5 +121,7 @@ public class ContactContextualProvider implements
 
 	public void showMoreResults(IFrameMediator mediator) {
 	}
+
+	
 
 }

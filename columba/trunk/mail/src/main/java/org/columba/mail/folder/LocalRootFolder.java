@@ -47,14 +47,14 @@ public class LocalRootFolder extends AbstractFolder implements RootFolder {
  * @see org.columba.mail.folder.RootFolder#getTrashFolder()
  */
     public AbstractFolder getTrashFolder() {
-        return findChildWithUID(105, false);
+        return findChildWithUID("105", false);
     }
 
     /* (non-Javadoc)
  * @see org.columba.mail.folder.RootFolder#getInbox()
  */
     public AbstractFolder getInboxFolder() {
-        return findChildWithUID(101, false);
+        return findChildWithUID("101", false);
     }
 
     /** {@inheritDoc} */

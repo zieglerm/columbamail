@@ -11,10 +11,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.context.api.IContextProvider;
 import org.columba.core.context.base.api.IName;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
-import org.columba.core.gui.context.api.IContextProvider;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 
@@ -37,6 +37,10 @@ public class ContextDebugProvider extends JPanel implements IContextProvider {
 
 	}
 
+	public String getTechnicalName() {
+		return "context_debug_view";
+	}
+	
 	public String getName() {
 		return "Context Debug View";
 	}
@@ -114,5 +118,7 @@ public class ContextDebugProvider extends JPanel implements IContextProvider {
 
 	public void showMoreResults(IFrameMediator mediator) {
 	}
+
+	
 
 }

@@ -46,8 +46,6 @@ public class DialogFacade implements IDialogFacade {
 		String messageId = s.substring(index+1, s.length());
 		String folderId = s.substring(s.lastIndexOf('/', index-1)+1, index);
 
-		int folderIdIntValue = Integer.parseInt(folderId);
-
 		IContainer[] container = FrameManager.getInstance().getOpenFrames();
 		if (container == null || container.length == 0)
 			throw new RuntimeException("No frames available");
@@ -70,7 +68,7 @@ public class DialogFacade implements IDialogFacade {
 		new DefaultContainer(c);
 
 		IMailbox folder = (IMailbox) FolderTreeModel.getInstance().getFolder(
-				folderIdIntValue);
+				folderId);
 		IMailFolderCommandReference r = new MailFolderCommandReference(folder,
 				new Object[] { messageId });
 

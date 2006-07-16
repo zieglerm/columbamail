@@ -64,9 +64,8 @@ public class SaveAsTemplateAction extends AbstractColumbaAction {
 				.getAccountItem();
 		SpecialFoldersItem folderItem = item.getSpecialFoldersItem();
 		String str = folderItem.get("templates");
-		int destUid = Integer.parseInt(str);
 		IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance()
-				.getFolder(destUid);
+				.getFolder(str);
 
 		ComposerCommandReference r =new ComposerCommandReference(composerController, destFolder);
 		r.setAppendSignature(false);

@@ -37,9 +37,8 @@ public class IconDecorator implements Icon {
 					"Decoration must be smaller than the original");
 		}
 		this.xDiff = originalIcon.getIconWidth()
-				- decorationIcon.getIconWidth();
-		this.yDiff = originalIcon.getIconHeight()
-				- decorationIcon.getIconHeight();
+				+ decorationIcon.getIconWidth()/4;
+		this.yDiff = originalIcon.getIconHeight() - decorationIcon.getIconHeight();
 	}
 
 	public int getIconHeight() {

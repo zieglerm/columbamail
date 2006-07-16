@@ -133,7 +133,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	public AbstractMessageFolder(FolderItem item, String path) {
 		super(item);
 
-		String dir = path + System.getProperty("file.separator") + getUid();
+		String dir = path + System.getProperty("file.separator") + getId();
 
 		if (DiskIO.ensureDirectory(dir)) {
 			directoryFile = new File(dir);
@@ -152,7 +152,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	public AbstractMessageFolder(String name, String type, String path) {
 		super(name, type);
 
-		String dir = path + System.getProperty("file.separator") + getUid();
+		String dir = path + System.getProperty("file.separator") + getId();
 
 		if (DiskIO.ensureDirectory(dir)) {
 			directoryFile = new File(dir);

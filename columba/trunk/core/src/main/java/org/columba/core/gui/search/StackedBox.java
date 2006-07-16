@@ -20,6 +20,7 @@ package org.columba.core.gui.search;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.Scrollable;
@@ -39,13 +40,6 @@ public class StackedBox extends JPanel implements Scrollable {
 	 */
 	private static final long serialVersionUID = 6499186046747795448L;
 
-	// private Color titleBackgroundColor;
-	//
-	// private Color titleForegroundColor;
-	//
-	// private Color separatorColor;
-
-	// private Border separatorBorder;
 
 	/**
 	 * StackedBox default constructor
@@ -53,47 +47,16 @@ public class StackedBox extends JPanel implements Scrollable {
 	public StackedBox() {
 		setLayout(new VerticalLayout());
 		setOpaque(true);
-		// setBackground(UIManager.getColor("TextField.background"));
-
-		// separatorBorder = new SeparatorBorder();
-		// separatorBorder = new RoundedBorder(Color.LIGHT_GRAY);
-		// setTitleForegroundColor(UIManager.getColor("Label.foreground"));
-		// setTitleBackgroundColor(UIManager.getColor("Label.background"));
-		// setSeparatorColor(Color.BLUE);
-		// setTitleBackgroundColor(new Color(248, 248, 248));
-		// setSeparatorColor(new Color(230, 230, 230));
+		
 	}
 
-	// public Color getSeparatorColor() {
-	// return separatorColor;
-	// }
-	//
-	// public void setSeparatorColor(Color separatorColor) {
-	// this.separatorColor = separatorColor;
-	// }
-	//
-	// public Color getTitleForegroundColor() {
-	// return titleForegroundColor;
-	// }
-	//
-	// public void setTitleForegroundColor(Color titleForegroundColor) {
-	// this.titleForegroundColor = titleForegroundColor;
-	// }
-	//
-	// public Color getTitleBackgroundColor() {
-	// return titleBackgroundColor;
-	// }
-	//
-	// public void setTitleBackgroundColor(Color titleBackgroundColor) {
-	// this.titleBackgroundColor = titleBackgroundColor;
-	// }
-
+	
 	/**
 	 * Adds a new component to this <code>StackedBox</code>
 	 * 
 	 * @param box
 	 */
-	public void addBox(ResultBox box) {
+	public void addBox(JComponent box) {
 		add(box);
 	}
 

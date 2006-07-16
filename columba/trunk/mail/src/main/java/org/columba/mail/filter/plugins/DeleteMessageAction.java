@@ -19,7 +19,7 @@ import org.columba.api.command.ICommand;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.FilterAction;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.command.ExpungeFolderCommand;
 import org.columba.mail.folder.command.MarkMessageCommand;

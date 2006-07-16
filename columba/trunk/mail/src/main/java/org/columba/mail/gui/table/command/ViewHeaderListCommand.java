@@ -128,7 +128,7 @@ public class ViewHeaderListCommand extends Command implements
 
 		// cancel command execution/updateGUI methods, if folder selection
 		// has been modified
-		if (r.getSourceFolder().getUid() != folders[0].getUid())
+		if (r.getSourceFolder().getId() != folders[0].getId())
 			updateGui = false;
 	}
 }

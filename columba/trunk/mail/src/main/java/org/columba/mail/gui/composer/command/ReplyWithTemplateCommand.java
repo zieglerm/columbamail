@@ -110,7 +110,7 @@ public class ReplyWithTemplateCommand extends ReplyCommand {
 			CommandCancelledException, IOException {
 		// template folder has uid=107
 		IMailbox templateFolder = (IMailbox) FolderTreeModel
-				.getInstance().getFolder(107);
+				.getInstance().getFolder("107");
 
 		// retrieve headerlist of tempate folder
 		IHeaderList list = templateFolder.getHeaderList();

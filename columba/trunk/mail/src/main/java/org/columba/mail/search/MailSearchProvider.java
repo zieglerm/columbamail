@@ -177,10 +177,7 @@ public class MailSearchProvider implements ISearchProvider {
 
 			VirtualFolder folder = null;
 			// create virtual folder for each criteria
-			// IFolder rootFolder = (IFolder)
-			// FolderTreeModel.getInstance().getRoot();
-			IMailFolder rootFolder = (IMailFolder) FolderTreeModel
-					.getInstance().getFolder(101);
+			IMailFolder rootFolder = (IMailFolder) FolderTreeModel.getInstance().getRoot();
 
 			if (searchInside
 					&& searchFolders.containsKey(searchCriteriaTechnicalName)) {
@@ -245,7 +242,7 @@ public class MailSearchProvider implements ISearchProvider {
 					"columba.from");
 			Date date = (Date) folder.getAttribute(messageId, "columba.date");
 			String description = from.toString() + " " + date;
-			URI uri = SearchResultBuilder.createURI(folder.getUid(), messageId);
+			URI uri = SearchResultBuilder.createURI(folder.getId(), messageId);
 
 			ImageIcon statusIcon = null;
 			Flags flags = folder.getFlags(messageId);

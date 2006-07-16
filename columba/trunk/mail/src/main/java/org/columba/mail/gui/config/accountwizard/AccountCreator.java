@@ -60,7 +60,7 @@ class AccountCreator implements WizardModelListener {
             pop.setString("user", (String) data.getData("IncomingServer.login"));
             POP3ServerCollection.getInstance().add(account);
             
-            folder = FolderTreeModel.getInstance().getFolder(101);
+            folder = FolderTreeModel.getInstance().getFolder("101");
         } else {
             ImapItem imap = account.getImapItem();
             imap.setString("host", (String) data.getData("IncomingServer.host"));

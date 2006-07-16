@@ -62,7 +62,7 @@ public class MoveMessageCommand extends CopyMessageCommand {
 		destFolder = (IMailbox) r.getDestinationFolder();
 
 		// cancel, if source equals destination folder
-		if ( srcFolder.getUid() == destFolder.getUid() ) return;
+		if ( srcFolder.getId() == destFolder.getId() ) return;
 		
 		// calling CopyMessageCommand.execute() here!
 		//super.execute(worker);

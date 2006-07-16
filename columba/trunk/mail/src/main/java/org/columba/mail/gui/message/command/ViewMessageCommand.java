@@ -269,7 +269,7 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		// cancel command execution/updateGUI methods, if folder or message
 		// selection
 		// has been modified
-		if (folder.getUid() != newFolder.getUid())
+		if (folder.getId() != newFolder.getId())
 			updateGui = false;
 
 		if (uid[0].equals(newUid[0]) == false)

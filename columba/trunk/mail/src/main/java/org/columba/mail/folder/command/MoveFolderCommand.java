@@ -18,7 +18,7 @@ package org.columba.mail.folder.command;
 import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
-import org.columba.core.folder.IFolderCommandReference;
+import org.columba.core.folder.api.IFolderCommandReference;
 import org.columba.mail.folder.IMailFolder;
 
 /**

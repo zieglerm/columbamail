@@ -77,7 +77,7 @@ public class SendAction extends AbstractColumbaAction {
             return;
         }
 
-        OutboxFolder outboxFolder = (OutboxFolder) FolderTreeModel.getInstance().getFolder(103);
+        OutboxFolder outboxFolder = (OutboxFolder) FolderTreeModel.getInstance().getFolder("103");
 
         ComposerCommandReference r = new ComposerCommandReference(composerController, outboxFolder);
 

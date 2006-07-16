@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.command.ICommand;
 import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.FilterAction;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.folder.command.CopyMessageCommand;
@@ -36,7 +36,7 @@ import org.columba.mail.gui.tree.FolderTreeModel;
 public class CopyMessageAction extends AbstractFilterAction {
 	public ICommand getCommand(FilterAction filterAction,
 			IFolder srcFolder, Object[] uids) throws Exception {
-		int uid = filterAction.getUid();
+		String uid = filterAction.getUid();
 
 		IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance()
 				.getFolder(uid);

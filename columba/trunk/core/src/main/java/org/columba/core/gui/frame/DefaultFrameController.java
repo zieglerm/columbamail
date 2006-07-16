@@ -31,8 +31,6 @@ import org.columba.api.selection.ISelectionManager;
 import org.columba.core.config.ViewItem;
 import org.columba.core.context.semantic.SemanticContext;
 import org.columba.core.context.semantic.api.ISemanticContext;
-import org.columba.core.gui.context.ContextualPanel;
-import org.columba.core.gui.context.api.IContextualPanel;
 import org.columba.core.gui.search.SearchPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.resourceloader.GlobalResourceLoader;
@@ -69,8 +67,6 @@ public class DefaultFrameController implements IFrameMediator {
 
 	protected ISearchPanel searchPanel;
 
-	protected IContextualPanel contextualPanel;
-
 	protected ISemanticContext semanticContext;
 
 	/**
@@ -90,7 +86,6 @@ public class DefaultFrameController implements IFrameMediator {
 		searchPanel = new SearchPanel(this);
 
 		semanticContext = new SemanticContext();
-		contextualPanel = new ContextualPanel(this);
 
 		tooltipMouseHandler = new TooltipMouseHandler(this);
 
@@ -372,9 +367,6 @@ public class DefaultFrameController implements IFrameMediator {
 		return searchPanel;
 	}
 
-	public IContextualPanel getContextualPanel() {
-		return contextualPanel;
-	}
 
 	public ISemanticContext getSemanticContext() {
 		return semanticContext;

@@ -263,7 +263,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 		for (int i = 0; i < SPECIAL_FOLDER_NAMES.length; i++) {
 			// Find special
-			int specialUid = folders.getInteger(SPECIAL_FOLDER_NAMES[i]);
+			String specialUid = folders.get(SPECIAL_FOLDER_NAMES[i]);
 
 			// if have already a suitable folder skip the search
 			if (this.findChildWithUID(specialUid, true) == null) {
@@ -281,8 +281,8 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 				if (specialFolder != null) {
 					// we found a suitable folder -> set it
-					folders.setInteger(SPECIAL_FOLDER_NAMES[i], specialFolder
-							.getUid());
+					folders.setString(SPECIAL_FOLDER_NAMES[i], specialFolder
+							.getId());
 				}
 			}
 		}
@@ -433,7 +433,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 	 */
 	public AbstractFolder getTrashFolder() {
 		AbstractFolder ret = findChildWithUID(accountItem
-				.getSpecialFoldersItem().getInteger("trash"), true);
+				.getSpecialFoldersItem().get("trash"), true);
 
 		// has the imap account no trash folder using the default trash folder
 		if (ret == null) {

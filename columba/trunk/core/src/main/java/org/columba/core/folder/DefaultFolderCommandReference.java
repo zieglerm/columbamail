@@ -17,6 +17,9 @@
 //All Rights Reserved.
 package org.columba.core.folder;
 
+import org.columba.core.folder.api.IFolder;
+import org.columba.core.folder.api.IFolderCommandReference;
+
 /**
  * @author fdietz
  *
@@ -114,14 +117,14 @@ public class DefaultFolderCommandReference implements IFolderCommandReference {
 	}
 
 	/**
-	 * @see org.columba.core.folder.IFolderCommandReference#getUids()
+	 * @see org.columba.core.folder.api.IFolderCommandReference#getUids()
 	 */
 	public Object[] getUids() {
 		return uids;
 	}
 
 	/**
-	 * @see org.columba.core.folder.IFolderCommandReference#setUids(java.lang.Object[])
+	 * @see org.columba.core.folder.api.IFolderCommandReference#setUids(java.lang.Object[])
 	 */
 	public void setUids(Object[] uids) {
 		this.uids = uids;

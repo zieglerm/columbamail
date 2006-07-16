@@ -86,11 +86,11 @@ public class IMAPCache implements Runnable {
 	}
 	
 	protected String createMimeBodyKey(IMAPFolder folder, Object uid, Integer[] address) {
-		return Integer.toString(folder.getUid()) + uid.toString() +  addressToString(address);
+		return folder.getId() + uid.toString() +  addressToString(address);
 	}
 
 	protected String createMimeTreeKey(IMAPFolder folder, Object uid) {
-		return Integer.toString(folder.getUid()) + uid.toString();
+		return folder.getId() + uid.toString();
 	}
 	
 	protected String addressToString(Integer[] address) {

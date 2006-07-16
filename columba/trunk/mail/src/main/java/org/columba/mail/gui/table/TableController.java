@@ -42,8 +42,8 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.tree.TreePath;
 
 import org.columba.api.gui.frame.IFrameMediator;
-import org.columba.core.folder.IFolder;
-import org.columba.core.folder.IFolderCommandReference;
+import org.columba.core.folder.api.IFolder;
+import org.columba.core.folder.api.IFolderCommandReference;
 import org.columba.core.gui.base.AscendingIcon;
 import org.columba.core.gui.base.DescendingIcon;
 import org.columba.core.gui.menu.ExtendablePopupMenu;

@@ -24,7 +24,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.columba.api.plugin.IExtensionInterface;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 import org.columba.mail.config.IFolderItem;
 import org.columba.mail.folder.event.IFolderListener;
 

@@ -173,13 +173,13 @@ public class CreateVFolderOnMessageCommand extends Command {
         }
 
         // set properties for virtual folder
-        int parentUid = 101; // default is inbox if parent is null
+        String parentUid = "101"; // default is inbox if parent is null
 
         if (parent != null) {
-            parentUid = parent.getUid();
+            parentUid = parent.getId();
         }
 
-        vfolder.getConfiguration().setInteger("property", "source_uid", parentUid);
+        vfolder.getConfiguration().setString("property", "source_uid", parentUid);
         vfolder.getConfiguration().setBoolean("property", "include_subfolders", false);
 
         // define filter rule

@@ -26,7 +26,7 @@ import org.columba.core.command.Command;
 import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.FilterAction;
 import org.columba.core.folder.DefaultFolderCommandReference;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 
 /**
  * @author freddy

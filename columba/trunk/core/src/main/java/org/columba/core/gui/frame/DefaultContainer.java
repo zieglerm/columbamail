@@ -54,7 +54,6 @@ import org.columba.api.statusbar.IStatusBarExtension;
 import org.columba.core.command.TaskManager;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.action.AbstractColumbaAction;
-import org.columba.core.gui.context.ContextualBar;
 import org.columba.core.gui.menu.ExtendableMenuBar;
 import org.columba.core.gui.menu.MenuXMLDecoder;
 import org.columba.core.gui.search.SearchBar;
@@ -775,9 +774,7 @@ public class DefaultContainer extends JFrame implements IContainer,
 		
 		// @author fdietz: hackish way of creating a search toolbar
 		JToolBar searchToolBar = new ExtendableToolBar();
-		ContextualBar contextualBar = new ContextualBar(mediator, mediator.getContextualPanel());
-		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), false, true);
-		contextualBar.install(searchToolBar);
+		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), mediator, false, true);
 		searchToolBar.addSeparator();
 		searchBar.install(searchToolBar);
 		

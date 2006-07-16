@@ -193,7 +193,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 */
 	public synchronized IHeaderList getHeaderList() throws Exception {
 		if( headerList == null) {
-			headerList = new BerkeleyDBHeaderList(Integer.toString(getUid()));
+			headerList = new BerkeleyDBHeaderList(getId());
 
 	headerList
 			.addHeaderListCorruptedListener(new IHeaderListCorruptedListener() {

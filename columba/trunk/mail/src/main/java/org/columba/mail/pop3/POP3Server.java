@@ -120,10 +120,8 @@ public class POP3Server {
 		SpecialFoldersItem foldersItem = accountItem.getSpecialFoldersItem();
 		String inboxStr = foldersItem.get("inbox");
 
-		int inboxInt = Integer.parseInt(inboxStr);
-
-		IMailbox f = (IMailbox) FolderTreeModel.getInstance().getFolder(
-				inboxInt);
+			IMailbox f = (IMailbox) FolderTreeModel.getInstance().getFolder(
+				inboxStr);
 
 		return f;
 	}

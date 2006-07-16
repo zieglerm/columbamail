@@ -18,7 +18,7 @@ package org.columba.core.filter;
 import org.columba.api.command.ICommand;
 import org.columba.api.plugin.IExtensionInterface;
 import org.columba.core.command.Command;
-import org.columba.core.folder.IFolder;
+import org.columba.core.folder.api.IFolder;
 
 /**
  * Action which is executed if a filter found a matching set of messages.

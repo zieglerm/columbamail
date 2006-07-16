@@ -89,7 +89,7 @@ public class DeleteMessageAction extends AbstractColumbaAction implements
 		r.setMarkVariant(MarkMessageCommand.MARK_AS_EXPUNGED);
 
 		IMailbox folder = (IMailbox) r.getSourceFolder();
-		int uid = folder.getConfiguration().getInteger("uid");
+		String uid = folder.getConfiguration().get("uid");
 		IMailbox trash = (IMailbox) ((RootFolder) folder.getRootFolder())
 				.getTrashFolder();
 
@@ -99,7 +99,7 @@ public class DeleteMessageAction extends AbstractColumbaAction implements
 		// Folder trash = (AbstractMessageFolder)
 		// MainInterface.treeModel.getTrashFolder();
 		// trash folder has uid==105
-		if (uid == trash.getUid()) {
+		if (uid.equals(trash.getId())) {
 			// trash folder is selected
 			// -> delete message
 			CommandProcessor.getInstance().addOp(new ExpungeFolderCommand(r));

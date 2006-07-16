@@ -45,7 +45,7 @@ public class FolderChooserActionRow extends DefaultActionRow implements
 		super.updateComponents(b);
 
 		if (b) {
-			int uid = filterAction.getUid();
+			String uid = filterAction.getUid();
 			IMailbox folder = (IMailbox) FolderTreeModel.getInstance()
 					.getFolder(uid);
 			if (folder == null) {
@@ -68,10 +68,10 @@ public class FolderChooserActionRow extends DefaultActionRow implements
 				// user didn't select any folder
 				// -> make Inbox the default folder
 				folder = (IMailbox) FolderTreeModel.getInstance()
-						.getFolder(101);
+						.getFolder("101");
 			}
 
-			int uid = folder.getUid();
+			String uid = folder.getId();
 			filterAction.setUid(uid);
 		}
 	}
