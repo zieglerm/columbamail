@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.api.plugin.IExtensionInterface;
 import org.columba.core.gui.search.api.IResultPanel;
 
@@ -96,12 +97,15 @@ public interface ISearchProvider extends IExtensionInterface{
 	 *  
 	 * @param searchTerm					search term
 	 * @param searchCriteriaTechnicalName	search criteria technical name
+	 * @param searchInside					search inside previous search results
 	 * @param startIndex					start index of search results
 	 * @param resultCount					total count of results
 	 * 
 	 * @return	
 	 */
-	public List<ISearchResult> query(String searchTerm, String searchCriteriaTechnicalName, int startIndex, int resultCount);
+	public List<ISearchResult> query(String searchTerm, String searchCriteriaTechnicalName, boolean searchInside, int startIndex, int resultCount);
+	
+	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName);
 	
 	/**
 	 * Return total number of search results. Method only returns valid result after calling

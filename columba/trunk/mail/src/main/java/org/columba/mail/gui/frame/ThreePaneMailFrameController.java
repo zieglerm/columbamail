@@ -640,7 +640,12 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 	}
 
 	public void folderPropertyChanged(IFolderEvent e) {
-		updateTreeDockableTitle();		
+		// fire in EDT
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		    	updateTreeDockableTitle();	
+		    }
+		  });
 	}
 
 	public void folderAdded(IFolderEvent e) {

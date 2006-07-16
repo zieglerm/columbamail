@@ -59,5 +59,10 @@ public class BasicResultPanel implements IResultPanel {
 		list.clear();
 	}
 
+	public void finished(IResultEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

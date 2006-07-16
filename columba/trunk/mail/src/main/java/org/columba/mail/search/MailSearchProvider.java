@@ -4,41 +4,56 @@ import java.net.URI;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
-import javax.swing.tree.TreePath;
 
-import org.columba.contact.search.ContactSearchProvider;
-import org.columba.core.filter.Filter;
+import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.api.plugin.PluginLoadingFailedException;
+import org.columba.core.command.CommandProcessor;
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.filter.FilterFactory;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.SearchCriteria;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchProvider;
 import org.columba.core.search.api.ISearchResult;
+import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.filter.MailFilterFactory;
+import org.columba.mail.folder.IMailFolder;
 import org.columba.mail.folder.IMailbox;
+import org.columba.mail.folder.virtual.VirtualFolder;
+import org.columba.mail.gui.frame.TreeViewOwner;
 import org.columba.mail.gui.search.BasicResultPanel;
+import org.columba.mail.gui.table.command.ViewHeaderListCommand;
+import org.columba.mail.gui.tree.FolderTreeModel;
+import org.columba.mail.message.IHeaderList;
 import org.columba.mail.resourceloader.IconKeys;
 import org.columba.mail.resourceloader.MailImageLoader;
 import org.columba.ristretto.message.Address;
 import org.columba.ristretto.message.Flags;
 
+
+/**
+ * Search provider uses virtual folder to search over all existing mail folders.
+ * 
+ * @author frd
+ */
 public class MailSearchProvider implements ISearchProvider {
 	private static final String CRITERIA_BODY_CONTAINS = "body_contains";
 
-	private static final String CRITERIA_FROM_CONTAINS = "from_contains";
+	public static final String CRITERIA_FROM_CONTAINS = "from_contains";
 
 	private static final String CRITERIA_SIZE_GREATER_THAN = "size_greater_than";
 
@@ -53,12 +68,15 @@ public class MailSearchProvider implements ISearchProvider {
 
 	private Vector<SearchIndex> indizes = new Vector<SearchIndex>();
 
+	private Map<String, VirtualFolder> searchFolders = new Hashtable<String, VirtualFolder>();
+
 	private int totalResultCount = 0;
 
 	private ResourceBundle bundle;
 
 	public MailSearchProvider() {
 		bundle = ResourceBundle.getBundle("org.columba.mail.i18n.search");
+
 	}
 
 	public String getTechnicalName() {
@@ -121,14 +139,14 @@ public class MailSearchProvider implements ISearchProvider {
 	}
 
 	public List<ISearchResult> query(String searchTerm,
-			String searchCriteriaTechnicalName, int startIndex, int resultCount) {
+			String searchCriteriaTechnicalName, boolean searchInside,
+			int startIndex, int resultCount) {
 		List<ISearchResult> result = new Vector<ISearchResult>();
 
-		List<IMailbox> sourceFolders = SearchFolderFactory
-				.getAllSourceFolders();
+		indizes = new Vector<SearchIndex>();
 
 		// create search criteria
-		Filter filter = FilterFactory.createEmptyFilter();
+
 		FilterCriteria criteria = null;
 		if (searchCriteriaTechnicalName
 				.equals(MailSearchProvider.CRITERIA_BODY_CONTAINS)) {
@@ -155,32 +173,34 @@ public class MailSearchProvider implements ISearchProvider {
 		// term
 		if (criteria == null)
 			return result;
-
-		filter.getFilterRule().add(criteria);
-
 		try {
-			Iterator<IMailbox> it = sourceFolders.iterator();
-			while (it.hasNext()) {
-				IMailbox folder = it.next();
-				LOG.info("searching in "
-						+ new TreePath(folder.getPath()).toString());
 
-				// skip if this folder was already queried
-				if (folderTable.containsKey(folder.getUid()))
-					continue;
+			VirtualFolder folder = null;
+			// create virtual folder for each criteria
+			// IFolder rootFolder = (IFolder)
+			// FolderTreeModel.getInstance().getRoot();
+			IMailFolder rootFolder = (IMailFolder) FolderTreeModel
+					.getInstance().getFolder(101);
 
-				// memorize folders
-				folderTable.put(folder.getUid(), folder);
+			if (searchInside
+					&& searchFolders.containsKey(searchCriteriaTechnicalName)) {
+				VirtualFolder vFolder = searchFolders
+						.get(searchCriteriaTechnicalName);
+				folder = SearchFolderFactory.prepareSearchFolder(criteria,
+						vFolder);
+			} else {
+				folder = SearchFolderFactory.prepareSearchFolder(criteria,
+						rootFolder);
+			}
 
-				// do the search
-				Object[] uids = folder.searchMessages(filter);
+			// do the search
+			IHeaderList headerList = folder.getHeaderList();
 
-				// memorize message IDs
-				for (int i = 0; i < uids.length; i++) {
-					SearchIndex idx = new SearchIndex(folder, uids[i]);
-					indizes.add(idx);
-				}
+			Object[] uids = headerList.getUids();
 
+			for (int i = 0; i < uids.length; i++) {
+				SearchIndex idx = new SearchIndex(folder, uids[i]);
+				indizes.add(idx);
 			}
 
 			// retrieve the actual search result data
@@ -188,6 +208,11 @@ public class MailSearchProvider implements ISearchProvider {
 					resultCount);
 			result.addAll(l);
 
+			// sort all the results
+			Collections.sort(result, new MyComparator());
+
+			// remember search folder for "show total results" action
+			searchFolders.put(searchCriteriaTechnicalName, folder);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -240,7 +265,33 @@ public class MailSearchProvider implements ISearchProvider {
 						.getSmallIcon("message-mail-read.png");
 			}
 
+			String dateString = new DateHelper().format(date);
+			
+			result.add(new MailSearchResult(title, description, uri,
+					dateString, date, from, statusIcon, flags.getFlagged()));
+		}
+		return result;
+	}
+
+	class DateHelper {
+		SimpleDateFormat dfWeek = new SimpleDateFormat("EEE HH:mm", Locale
+				.getDefault());
+
+		// use local date settings
+		DateFormat dfCommon = DateFormat.getDateInstance();
+
+		static final long OneDay = 24 * 60 * 60 * 1000;
+
+		TimeZone localTimeZone = TimeZone.getDefault();
+
+		private int getLocalDaysDiff(long t) {
+			return (int) (((System.currentTimeMillis() + localTimeZone
+					.getRawOffset()) - (((t + localTimeZone.getRawOffset()) / OneDay) * OneDay)) / OneDay);
+		}
+
+		public String format(Date date) {
 			String dateString = null;
+
 			int diff = getLocalDaysDiff(date.getTime());
 
 			// if ( today
@@ -249,26 +300,9 @@ public class MailSearchProvider implements ISearchProvider {
 			} else {
 				dateString = dfCommon.format(date);
 			}
-
-			result.add(new MailSearchResult(title, description, uri,
-					dateString, from, statusIcon, flags.getFlagged()));
+			return dateString;
 		}
-		return result;
-	}
 
-	static SimpleDateFormat dfWeek = new SimpleDateFormat("EEE HH:mm", Locale
-			.getDefault());
-
-	// use local date settings
-	DateFormat dfCommon = DateFormat.getDateInstance();
-
-	static final long OneDay = 24 * 60 * 60 * 1000;
-
-	static TimeZone localTimeZone = TimeZone.getDefault();
-
-	public static int getLocalDaysDiff(long t) {
-		return (int) (((System.currentTimeMillis() + localTimeZone
-				.getRawOffset()) - (((t + localTimeZone.getRawOffset()) / OneDay) * OneDay)) / OneDay);
 	}
 
 	class SearchIndex {
@@ -286,4 +320,58 @@ public class MailSearchProvider implements ISearchProvider {
 		return totalResultCount;
 	}
 
+	public void showAllResults(IFrameMediator mediator, String searchTerm,
+			String searchCriteriaTechnicalName) {
+
+		VirtualFolder vFolder = searchFolders.get(searchCriteriaTechnicalName);
+		if (vFolder == null)
+			throw new IllegalArgumentException("vFolder for search critera <"
+					+ searchCriteriaTechnicalName + "> not found");
+
+		// ensure that we are currently in the mail component
+		IFrameMediator newMediator = null;
+		try {
+			newMediator = FrameManager.getInstance().switchView(
+					mediator.getContainer(), "ThreePaneMail");
+		} catch (PluginLoadingFailedException e) {
+			e.printStackTrace();
+		}
+
+		// select invisible virtual folder
+		((TreeViewOwner) newMediator).getTreeController().setSelected(vFolder);
+
+		// update message list
+		CommandProcessor.getInstance().addOp(
+				new ViewHeaderListCommand(newMediator,
+						new MailFolderCommandReference(vFolder)));
+	}
+
+	/**
+	 * Comparator for message result. Sortes results by Date. More recent
+	 * results are shown first.
+	 * 
+	 * @author frd
+	 */
+	class MyComparator implements Comparator {
+		MyComparator() {
+		}
+
+		public int compare(Object o1, Object o2) {
+			MailSearchResult result = (MailSearchResult) o1;
+			MailSearchResult result2 = (MailSearchResult) o2;
+
+			Date date = result.getDate();
+			Date date2 = result2.getDate();
+
+			if (date == null && date2 == null)
+				return 0;
+			if (date != null && date2 == null)
+				return -1;
+			if (date == null && date2 != null)
+				return 1;
+
+			return -date.compareTo(date2);
+		}
+
+	}
 }

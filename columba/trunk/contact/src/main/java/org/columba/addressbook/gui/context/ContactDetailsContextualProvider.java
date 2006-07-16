@@ -1,5 +1,6 @@
 package org.columba.addressbook.gui.context;
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -7,10 +8,12 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-import org.columba.addressbook.gui.search.SearchResultList;
+import org.columba.addressbook.model.IContactModel;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.contact.search.ContactSearchProvider;
+import org.columba.contact.search.ContactSearchResult;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
 import org.columba.core.gui.context.api.IContextProvider;
@@ -18,28 +21,28 @@ import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
 
-// TODO: replace view with more detailed info view
-public class ContactContextualProvider implements
-		IContextProvider {
+// TODO: fix layout to look good, even if there's not enough information provided
+public class ContactDetailsContextualProvider implements IContextProvider {
 
 	private ResourceBundle bundle;
 
-	private SearchResultList list;
 
 	private ContactSearchProvider searchProvider;
 
 	private List<ISearchResult> result;
 
-	public ContactContextualProvider() {
+	private JPanel panel = new JPanel();
+
+	public ContactDetailsContextualProvider() {
 		super();
 
+		panel.setBackground(new Color(248, 248, 248));
+		
 		bundle = ResourceBundle
 				.getBundle("org.columba.addressbook.i18n.search");
 
-		list = new SearchResultList();
-
 		result = new Vector<ISearchResult>();
-		
+
 		searchProvider = new ContactSearchProvider();
 	}
 
@@ -62,8 +65,9 @@ public class ContactContextualProvider implements
 	public void search(ISemanticContext context, int startIndex, int resultCount) {
 
 		IStructureValue value = context.getValue();
-		if ( value == null ) return;
-		
+		if (value == null)
+			return;
+
 		Iterator<IStructureValue> it = value.getChildIterator(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
@@ -92,23 +96,36 @@ public class ContactContextualProvider implements
 
 		if (displayname != null) {
 			temp = searchProvider.query(displayname,
-			ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, false, 0, 5);
+					ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, false,
+					0, 5);
 			result.addAll(temp);
 		}
+		
+		
+		Iterator it2 = result.listIterator();
+		while (it2.hasNext()) {
+			ContactSearchResult r = (ContactSearchResult) it2.next();
+			IContactModel m = r.getModel();
+
+			ContactDetailPanel p = new ContactDetailPanel(m);
+			panel.add(p);
+		}
+
+		
+		panel.revalidate();
+		panel.validate();
 
 	}
 
 	public void showResult() {
-		list.addAll(result);
 	}
 
 	public JComponent getView() {
-		return list;
+		return panel;
 	}
 
 	public void clear() {
 		result.clear();
-		list.clear();
 	}
 
 	public boolean isEnabledShowMoreLink() {

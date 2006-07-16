@@ -1,4 +1,4 @@
-package org.columba.addressbook.gui.context;
+package org.columba.mail.gui.context;
 
 import java.util.Iterator;
 import java.util.List;
@@ -8,39 +8,31 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-import org.columba.addressbook.gui.search.SearchResultList;
 import org.columba.api.gui.frame.IFrameMediator;
-import org.columba.contact.search.ContactSearchProvider;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
 import org.columba.core.gui.context.api.IContextProvider;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
+import org.columba.mail.gui.search.ResultList;
+import org.columba.mail.search.MailSearchProvider;
 
-// TODO: replace view with more detailed info view
-public class ContactContextualProvider implements
-		IContextProvider {
-
+public class RecentMessagesContextualProvider implements IContextProvider {
 	private ResourceBundle bundle;
 
-	private SearchResultList list;
+	private ResultList list;
 
-	private ContactSearchProvider searchProvider;
+	private MailSearchProvider p;
 
-	private List<ISearchResult> result;
+	private List<ISearchResult> result = new Vector<ISearchResult>();
 
-	public ContactContextualProvider() {
-		super();
+	private String emailAddress;
 
-		bundle = ResourceBundle
-				.getBundle("org.columba.addressbook.i18n.search");
+	public RecentMessagesContextualProvider() {
+		bundle = ResourceBundle.getBundle("org.columba.mail.i18n.search");
 
-		list = new SearchResultList();
-
-		result = new Vector<ISearchResult>();
-		
-		searchProvider = new ContactSearchProvider();
+		list = new ResultList();
 	}
 
 	public String getName() {
@@ -56,14 +48,15 @@ public class ContactContextualProvider implements
 	}
 
 	public int getTotalResultCount() {
-		return searchProvider.getTotalResultCount();
+		return p.getTotalResultCount();
 	}
 
 	public void search(ISemanticContext context, int startIndex, int resultCount) {
 
 		IStructureValue value = context.getValue();
-		if ( value == null ) return;
-		
+		if (value == null)
+			return;
+
 		Iterator<IStructureValue> it = value.getChildIterator(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
@@ -72,30 +65,18 @@ public class ContactContextualProvider implements
 		if (identity == null)
 			return;
 
-		String emailAddress = identity.getString(
+		emailAddress = identity.getString(
 				ISemanticContext.CONTEXT_ATTR_EMAIL_ADDRESS,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		String displayname = identity.getString(
-				ISemanticContext.CONTEXT_ATTR_DISPLAY_NAME,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE);
 
-		if (emailAddress == null && displayname == null)
+		if (emailAddress == null)
 			return;
 
-		List<ISearchResult> temp;
+		p = new MailSearchProvider();
+		List<ISearchResult> r = p.query(emailAddress,
+				MailSearchProvider.CRITERIA_FROM_CONTAINS, false, 0, 5);
 
-		if (emailAddress != null) {
-			temp = searchProvider.query(emailAddress,
-					ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, false, 0, 5);
-			result.addAll(temp);
-		}
-
-		if (displayname != null) {
-			temp = searchProvider.query(displayname,
-			ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, false, 0, 5);
-			result.addAll(temp);
-		}
-
+		result.addAll(r);
 	}
 
 	public void showResult() {
@@ -107,15 +88,20 @@ public class ContactContextualProvider implements
 	}
 
 	public void clear() {
-		result.clear();
+
 		list.clear();
 	}
 
 	public boolean isEnabledShowMoreLink() {
-		return false;
+		return true;
 	}
 
 	public void showMoreResults(IFrameMediator mediator) {
-	}
+		if (emailAddress == null)
+			return;
 
+		// show all search results
+		p.showAllResults(mediator, emailAddress,
+				MailSearchProvider.CRITERIA_FROM_CONTAINS);
+	}
 }

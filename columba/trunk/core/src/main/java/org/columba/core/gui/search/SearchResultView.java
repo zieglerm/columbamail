@@ -89,4 +89,9 @@ public class SearchResultView extends JPanel implements IResultListener {
 		viewerPlugin.view("");
 	}
 
+	public void finished(IResultEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

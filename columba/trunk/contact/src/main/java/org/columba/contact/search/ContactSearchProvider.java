@@ -12,6 +12,7 @@ import org.columba.addressbook.folder.AddressbookFolder;
 import org.columba.addressbook.gui.search.BasicResultPanel;
 import org.columba.addressbook.gui.tree.AddressbookTreeModel;
 import org.columba.addressbook.model.IContactModel;
+import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
@@ -78,7 +79,7 @@ public class ContactSearchProvider implements ISearchProvider {
 	
 	
 	public List<ISearchResult> query(String searchTerm,
-			String criteriaTechnicalName, int startIndex, int resultCount) {
+			String criteriaTechnicalName, boolean searchInside, int startIndex, int resultCount) {
 		if ( searchTerm == null ) throw new IllegalArgumentException("searchTerm == null");
 		if ( criteriaTechnicalName == null ) throw new IllegalArgumentException("criteriaTechnicalName == null");
 		
@@ -101,9 +102,9 @@ public class ContactSearchProvider implements ISearchProvider {
 			if (id != null) {
 				IContactModel model = f.get(id);
 
-				result.add(new SearchResult(model.getSortString(), model
+				result.add(new ContactSearchResult(model.getSortString(), model
 						.getPreferredEmail(), SearchResultBuilder.createURI(f
-						.getId(), id)));
+						.getId(), id), model));
 			}
 
 		}
@@ -117,6 +118,10 @@ public class ContactSearchProvider implements ISearchProvider {
 
 	public int getTotalResultCount() {
 		return totalResultCount;
+	}
+
+	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName) {
+		throw new IllegalArgumentException("not implemented yet");
 	}
 
 	

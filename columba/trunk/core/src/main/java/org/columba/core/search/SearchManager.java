@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
@@ -13,15 +12,8 @@ import javax.swing.event.EventListenerList;
 
 import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
-import org.columba.api.plugin.IExtension;
-import org.columba.api.plugin.IExtensionHandler;
-import org.columba.api.plugin.IExtensionHandlerKeys;
-import org.columba.api.plugin.PluginException;
-import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.command.Command;
 import org.columba.core.command.CommandProcessor;
-import org.columba.core.logging.Logging;
-import org.columba.core.plugin.PluginManager;
 import org.columba.core.search.api.IResultEvent;
 import org.columba.core.search.api.IResultListener;
 import org.columba.core.search.api.ISearchCriteria;
@@ -36,6 +28,8 @@ public class SearchManager implements ISearchManager {
 
 	protected EventListenerList listenerList = new EventListenerList();
 
+	private Map<String, ISearchProvider> providerMap = new Hashtable<String, ISearchProvider>();
+	
 	/**
 	 * command hashtable used for paging to call the same command several times
 	 * for a given <code>startIndex</code> and <code>resultCount</code>
@@ -52,7 +46,7 @@ public class SearchManager implements ISearchManager {
 	 * @see org.columba.core.search.api.ISearchManager#executeSearch(java.lang.String,
 	 *      int, int)
 	 */
-	public void executeSearch(String searchTerm, int startIndex, int resultCount) {
+	public void executeSearch(String searchTerm,  boolean searchInside, int startIndex, int resultCount) {
 		if (searchTerm == null)
 			throw new IllegalArgumentException("searchTerm == null");
 		if (startIndex < 0)
@@ -65,7 +59,7 @@ public class SearchManager implements ISearchManager {
 			command = commandMap.get(searchTerm);
 		else {
 			command = new SearchCommand(new SearchCommandReference(searchTerm,
-					startIndex, resultCount));
+					startIndex, resultCount, searchInside));
 			// store command for later reuse with different startIndex and/or
 			// resultCount
 			commandMap.put(searchTerm, command);
@@ -136,9 +130,8 @@ public class SearchManager implements ISearchManager {
 	/**
 	 * @see org.columba.core.search.api.ISearchManager#getAllProviders()
 	 */
-	public List<ISearchProvider> getAllProviders() {
-		List<ISearchProvider> list = createProviderList();
-		return list;
+	public Iterator<ISearchProvider> getAllProviders() {
+		return providerMap.values().iterator();
 	}
 
 	/**
@@ -179,6 +172,21 @@ public class SearchManager implements ISearchManager {
 		}
 	}
 
+	private void fireFinished() {
+		IResultEvent e = new ResultEvent(this);
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == IResultListener.class) {
+				((IResultListener) listeners[i + 1]).finished(e);
+			}
+		}
+
+	}
+	
 	/**
 	 * Propagates an event to all registered listeners
 	 */
@@ -228,37 +236,7 @@ public class SearchManager implements ISearchManager {
 
 	}
 
-	private List<ISearchProvider> createProviderList() {
-		List<ISearchProvider> list = new Vector<ISearchProvider>();
-		try {
-
-			IExtensionHandler handler = PluginManager.getInstance()
-					.getExtensionHandler(
-							IExtensionHandlerKeys.ORG_COLUMBA_CORE_SEARCH);
-
-			String[] ids = handler.getPluginIdList();
-			for (int i = 0; i < ids.length; i++) {
-				try {
-					IExtension extension = handler.getExtension(ids[i]);
-
-					ISearchProvider provider = (ISearchProvider) extension
-							.instanciateExtension(null);
-					list.add(provider);
-				} catch (PluginException e) {
-					LOG.severe("Error while loading plugin: " + e.getMessage());
-					if (Logging.DEBUG)
-						e.printStackTrace();
-				}
-			}
-
-		} catch (PluginHandlerNotFoundException e) {
-			LOG.severe("Error while loading plugin: " + e.getMessage());
-			if (Logging.DEBUG)
-				e.printStackTrace();
-		}
-
-		return list;
-	}
+	
 
 	/**
 	 * Command executes the search.
@@ -283,9 +261,7 @@ public class SearchManager implements ISearchManager {
 			String providerTechnicalName = ref.getProviderTechnicalName();
 
 			// create list of all registered providers
-			List<ISearchProvider> list = createProviderList();
-
-			Iterator<ISearchProvider> it = list.iterator();
+			Iterator<ISearchProvider> it = getAllProviders();
 			while (it.hasNext()) {
 				final ISearchProvider p = it.next();
 
@@ -308,25 +284,28 @@ public class SearchManager implements ISearchManager {
 						String searchCriteriaTechnicalName = c
 								.getTechnicalName();
 						// execute search
-						doExecute(ref, p, searchCriteriaTechnicalName);
+						doExecute(ref, p, searchCriteriaTechnicalName, ref.isSearchInside());
 					}
 				} else {
 					// query only a single criteria
 
 					// execute search
-					doExecute(ref, p, ref.getSearchCriteriaTechnicalName());
+					doExecute(ref, p, ref.getSearchCriteriaTechnicalName(), ref.isSearchInside());
 				}
 
 			}
+			
+			// notify that search is finished
+			fireFinished();
 		}
 
 		private void doExecute(final SearchCommandReference ref,
 				final ISearchProvider p,
-				final String searchCriteriaTechnicalName) {
+				final String searchCriteriaTechnicalName, final boolean searchInside) {
 
 			// query provider
 			final List<ISearchResult> resultList = p.query(ref.getSearchTerm(),
-					searchCriteriaTechnicalName, ref.getStartIndex(), ref
+					searchCriteriaTechnicalName, searchInside, ref.getStartIndex(), ref
 							.getResultCount());
 			// retrieve total result count
 			final int totalResultCount = p.getTotalResultCount();
@@ -366,13 +345,16 @@ public class SearchManager implements ISearchManager {
 
 		private String searchCriteriaTechnicalName;
 
+		private  boolean searchInside;
+		
 		public SearchCommandReference(String searchTerm, int startIndex,
-				int resultCount) {
+				int resultCount,  boolean searchInside) {
 			super();
 
 			this.searchTerm = searchTerm;
 			this.startIndex = startIndex;
 			this.resultCount = resultCount;
+			this.searchInside = searchInside;
 		}
 
 		public SearchCommandReference(String searchTerm,
@@ -425,36 +407,26 @@ public class SearchManager implements ISearchManager {
 			return searchCriteriaTechnicalName;
 		}
 
+		public boolean isSearchInside() {
+			return searchInside;
+		}
+
 	}
 
 	/**
 	 * @see org.columba.core.search.api.ISearchManager#getProvider(java.lang.String)
 	 */
 	public ISearchProvider getProvider(String technicalName) {
-		try {
-
-			IExtensionHandler handler = PluginManager.getInstance()
-					.getExtensionHandler(
-							IExtensionHandlerKeys.ORG_COLUMBA_CORE_SEARCH);
-
-			try {
-				IExtension extension = handler.getExtension(technicalName);
-
-				ISearchProvider provider = (ISearchProvider) extension
-						.instanciateExtension(null);
-				return provider;
-			} catch (PluginException e) {
-				LOG.severe("Error while loading plugin: " + e.getMessage());
-				if (Logging.DEBUG)
-					e.printStackTrace();
-			}
-
-		} catch (PluginHandlerNotFoundException e) {
-			LOG.severe("Error while loading plugin: " + e.getMessage());
-			if (Logging.DEBUG)
-				e.printStackTrace();
-		}
-		return null;
+		return providerMap.get(technicalName);
 	}
 
+	public void registerProvider(ISearchProvider p) {
+		providerMap.put(p.getTechnicalName(), p);
+	}
+
+	public void unregisterProvider(ISearchProvider p) {
+		providerMap.remove(p.getTechnicalName());
+	}
+
+	
 }

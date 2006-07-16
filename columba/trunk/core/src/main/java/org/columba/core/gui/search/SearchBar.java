@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -23,10 +24,11 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import org.columba.core.gui.search.api.ISearchPanel;
-import org.columba.core.main.MainInterface;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
+import org.columba.core.search.ResultListenerAdapter;
 import org.columba.core.search.SearchHistoryList;
+import org.columba.core.search.api.IResultEvent;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
 import org.columba.core.search.api.ISearchProvider;
@@ -34,19 +36,21 @@ import org.columba.core.search.api.ISearchProvider;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class SearchBar extends JPanel implements KeyListener, PopupMenuListener {
+public class SearchBar extends JPanel implements  PopupMenuListener {
 
 	private IconTextField textField;
 
 	private ImageIcon icon = ImageLoader.getSmallIcon(IconKeys.EDIT_FIND);
 
-	private JButton button;
+	private JButton searchButton;
+
+	private JCheckBox searchInsideCheckBox;
 
 	private ActionListener listener;
 
 	private ISearchPanel searchPanel;
 
-	public SearchBar(ISearchPanel searchPanel, boolean showSearchButton) {
+	public SearchBar(ISearchPanel searchPanel, boolean showSearchButton, boolean showSearchInsideButton) {
 		super();
 
 		this.searchPanel = searchPanel;
@@ -54,50 +58,73 @@ public class SearchBar extends JPanel implements KeyListener, PopupMenuListener 
 		textField = new IconTextField(icon, 20);
 		textField.addPopupMenuListener(this);
 
-		button = new JButton("Search");
-		button.setMnemonic('s');
-		button.addKeyListener(this);
-		button.addActionListener(new ActionListener() {
+		searchButton = new JButton("Search");
+		searchButton.setMnemonic('s');
+
+		searchInsideCheckBox = new JCheckBox("Search Inside");
+		searchInsideCheckBox
+				.setToolTipText("Search Inside Previous Search Results");
+		searchInsideCheckBox.setMnemonic('i');
+		searchInsideCheckBox.setSelected(false);
+
+		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchBar.this.searchPanel.searchAll(textField.getText());
+				searchButton.setEnabled(false);
+				SearchBar.this.searchPanel.searchAll(textField.getText(),
+						searchInsideCheckBox.isSelected());
 			}
 		});
 
-		FormLayout layout = new FormLayout("fill:default:grow, 3dlu, pref",
-		// 2 columns
+		// searchInsideCheckBox.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent e) {
+		// SearchBar.this.searchPanel.searchAll(textField.getText(), true);
+		// }
+		// });
+
+		FormLayout layout = new FormLayout(
+				"fill:default:grow, 3dlu, pref, 3dlu, pref",
+				// 2 columns
 				"");
 
 		// create a form builder
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
 
 		builder.append(textField);
-		if (showSearchButton)
-			builder.append(button);
+		if (showSearchButton) 
+			builder.append(searchButton);
+		
+		if (showSearchInsideButton)
+			builder.append(searchInsideCheckBox);
 
-		textField.addKeyListener(this);
+		textField.addKeyListener(new MyKeyListener());
+
+		searchPanel.getSearchManager()
+				.addResultListener(new MyResultListener());
 	}
 
 	public void addActionListener(ActionListener listener) {
 		this.listener = listener;
 
-		button.addActionListener(listener);
+		searchButton.addActionListener(listener);
 	}
 
-	public void keyTyped(KeyEvent e) {
-	}
+	class MyKeyListener extends KeyAdapter {
 
-	public void keyPressed(KeyEvent e) {
-	}
+		@Override
+		public void keyReleased(KeyEvent e) {
+			char ch = e.getKeyChar();
 
-	public void keyReleased(KeyEvent e) {
-		char ch = e.getKeyChar();
-
-		if (ch == KeyEvent.VK_ENTER) {
-			searchPanel.searchAll(textField.getText());
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			textField.showPopup();
+			if (ch == KeyEvent.VK_ENTER) {
+				searchButton.setEnabled(false);
+				searchPanel.searchAll(textField.getText(), searchInsideCheckBox
+						.isSelected());
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				textField.showPopup();
+			}
 		}
+		
 	}
+	
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 		// update popup menu based on searchterm
@@ -118,14 +145,15 @@ public class SearchBar extends JPanel implements KeyListener, PopupMenuListener 
 		m2.setToolTipText("Search across all components");
 		m2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchPanel.searchAll(textField.getText());
+				searchPanel.searchAll(textField.getText(), searchInsideCheckBox
+						.isSelected());
 			}
 		});
 		menu.add(m2);
 		menu.addSeparator();
 
-		ISearchManager manager = MainInterface.searchManager;
-		Iterator<ISearchProvider> it = manager.getAllProviders().iterator();
+		ISearchManager manager = searchPanel.getSearchManager();
+		Iterator<ISearchProvider> it = manager.getAllProviders();
 		while (it.hasNext()) {
 			final ISearchProvider p = it.next();
 
@@ -218,6 +246,19 @@ public class SearchBar extends JPanel implements KeyListener, PopupMenuListener 
 
 	public String getSearchTerm() {
 		return textField.getText();
+	}
+
+	class MyResultListener extends ResultListenerAdapter {
+
+		MyResultListener() {}
+
+		@Override
+		public void finished(IResultEvent event) {
+			// search is finished
+			// -> enable search button again
+			searchButton.setEnabled(true);
+		}
+
 	}
 
 }

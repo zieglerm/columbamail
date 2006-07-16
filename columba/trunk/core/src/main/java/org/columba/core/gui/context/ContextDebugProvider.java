@@ -10,6 +10,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.context.base.api.IName;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
@@ -105,6 +106,13 @@ public class ContextDebugProvider extends JPanel implements IContextProvider {
 	public void clear() {
 		treeModel = new DefaultTreeModel(new DefaultMutableTreeNode());
 		tree.setModel(treeModel);
+	}
+
+	public boolean isEnabledShowMoreLink() {
+		return false;
+	}
+
+	public void showMoreResults(IFrameMediator mediator) {
 	}
 
 }

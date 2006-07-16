@@ -4,13 +4,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
-import org.columba.core.command.CommandProcessor;
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.folder.IFolder;
-import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.IMailFolder;
 import org.columba.mail.folder.IMailbox;
-import org.columba.mail.folder.command.SaveFolderConfigurationCommand;
 import org.columba.mail.folder.virtual.VirtualFolder;
 import org.columba.mail.gui.tree.FolderTreeModel;
 
@@ -18,20 +14,22 @@ public class SearchFolderFactory {
 
 	// not used currently
 	public static VirtualFolder prepareSearchFolder(FilterCriteria c,
-			IFolder folder) throws Exception {
+			IMailFolder folder) throws Exception {
 		// get search folder
-		VirtualFolder searchFolder = (VirtualFolder) FolderTreeModel
-				.getInstance().getFolder(106);
-
+//		VirtualFolder searchFolder = (VirtualFolder) FolderTreeModel
+//				.getInstance().getFolder(106);
+		
+		VirtualFolder searchFolder = new VirtualFolder("Search Result", "VirtualFolder", "testpath", folder);
+		
 		// remove old filters
 		searchFolder.getFilter().getFilterRule().removeAll();
 
 		// add filter criteria
 		searchFolder.getFilter().getFilterRule().add(c);
 
-		// don't search in subfolders recursively
+		// search in subfolders recursively
 		searchFolder.getConfiguration().setString("property",
-				"include_subfolders", "false");
+				"include_subfolders", "true");
 
 		int uid = folder.getUid();
 
@@ -40,10 +38,10 @@ public class SearchFolderFactory {
 				uid);
 
 		// search history folders are deactivated by default
-		searchFolder.deactivate();
+		//searchFolder.deactivate();
 
 		// add search to history
-		searchFolder.addSearchToHistory();
+		//searchFolder.addSearchToHistory();
 
 		return searchFolder;
 	}
@@ -58,12 +56,12 @@ public class SearchFolderFactory {
 				.getRoot();
 
 		List<IMailbox> v = new Vector<IMailbox>();
-		saveFolder(rootFolder, v);
+		getChildren(rootFolder, v);
 
 		return v;
 	}
 
-	private static void saveFolder(IMailFolder parentFolder, List<IMailbox> list) {
+	private static void getChildren(IMailFolder parentFolder, List<IMailbox> list) {
 		IMailFolder child;
 
 		for (Enumeration e = parentFolder.children(); e.hasMoreElements();) {
@@ -75,7 +73,7 @@ public class SearchFolderFactory {
 				}
 			}
 
-			saveFolder(child, list);
+			getChildren(child, list);
 		}
 	}
 }

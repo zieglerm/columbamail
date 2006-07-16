@@ -34,7 +34,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.ParseException;
-import org.columba.api.plugin.IPluginManager;
 import org.columba.core.backgroundtask.BackgroundTaskManager;
 import org.columba.core.base.OSInfo;
 import org.columba.core.component.ComponentManager;
@@ -53,8 +52,6 @@ import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
 import org.columba.core.resourceloader.GlobalResourceLoader;
 import org.columba.core.scripting.service.ServiceManager;
-import org.columba.core.search.SearchManager;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.core.shutdown.ShutdownManager;
 import org.columba.core.util.StackProfiler;
 import org.columba.core.versioninfo.VersionInfo;
@@ -153,9 +150,6 @@ public class Bootstrap {
 		ComponentManager.getInstance().registerCommandLineArguments();
 		profiler.pop("components");
 
-//		 init search manager
-		MainInterface.searchManager = new SearchManager();
-		
 		// set Look & Feel
 		ThemeSwitcher.setTheme();
 

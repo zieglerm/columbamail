@@ -297,6 +297,9 @@ public class FrameManager implements IFrameManager {
 		if (view == null)
 			view = ViewItem.createDefault(id);
 
+		// cancel, if we show already correct frame mediator
+		if ( c.getFrameMediator().getId().equals(id)) return c.getFrameMediator();
+		
 		// Create a frame controller for this view
 
 		// save old framemediator in cache (use containers's old id)

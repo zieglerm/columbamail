@@ -18,6 +18,7 @@
 package org.columba.mail.search;
 
 import java.net.URI;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 
@@ -26,7 +27,7 @@ import org.columba.ristretto.message.Address;
 
 public class MailSearchResult extends SearchResult {
 
-	private String date;
+	private String stringDate;
 
 	private Address from;
 
@@ -34,6 +35,7 @@ public class MailSearchResult extends SearchResult {
 
 	private boolean flagged;
 
+	private Date date;
 	/**
 	 * @param title
 	 * @param description
@@ -44,8 +46,9 @@ public class MailSearchResult extends SearchResult {
 	 * @param flagged
 	 */
 	public MailSearchResult(String title, String description, URI location,
-			String date, Address from, ImageIcon statusIcon, boolean flagged) {
+			String stringDate, Date date, Address from, ImageIcon statusIcon, boolean flagged) {
 		super(title, description, location);
+		this.stringDate = stringDate;
 		this.date = date;
 		this.from = from;
 		this.statusIcon = statusIcon;
@@ -55,8 +58,8 @@ public class MailSearchResult extends SearchResult {
 	/**
 	 * @return date
 	 */
-	public String getDate() {
-		return date;
+	public String getStringDate() {
+		return stringDate;
 	}
 
 	/**
@@ -78,5 +81,9 @@ public class MailSearchResult extends SearchResult {
 	 */
 	public boolean isFlagged() {
 		return flagged;
+	}
+
+	public Date getDate() {
+		return date;
 	}
 }

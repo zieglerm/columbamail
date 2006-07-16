@@ -173,4 +173,9 @@ public class GenericResultPanel extends JXList implements IResultPanel {
 	public void reset(IResultEvent event) {
 		listModel.clear();
 	}
+
+	public void finished(IResultEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }

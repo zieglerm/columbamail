@@ -3,9 +3,11 @@ package org.columba.core.gui.context.api;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.api.plugin.IExtensionInterface;
 import org.columba.core.context.semantic.api.ISemanticContext;
 
-public interface IContextProvider {
+public interface IContextProvider extends IExtensionInterface{
 	
 	/**
 	 * Returns technical name. Should be unique.
@@ -46,5 +48,9 @@ public interface IContextProvider {
 	public void clear();
 	
 	public JComponent getView();
+	
+	public boolean isEnabledShowMoreLink();
+	
+	public void showMoreResults(IFrameMediator mediator);
 	
 }

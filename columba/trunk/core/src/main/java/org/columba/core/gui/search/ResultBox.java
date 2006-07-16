@@ -12,24 +12,27 @@ import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
+import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.gui.base.RoundedBorder;
 import org.columba.core.gui.search.api.IResultPanel;
+import org.columba.core.search.ResultListenerAdapter;
 import org.columba.core.search.api.IResultEvent;
-import org.columba.core.search.api.IResultListener;
 import org.columba.core.search.api.ISearchCriteria;
+import org.columba.core.search.api.ISearchManager;
+import org.columba.core.search.api.ISearchProvider;
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
-public class ResultBox extends JPanel implements IResultListener {
+public class ResultBox extends JPanel {
 
 	private final static Color titleBackground = new Color(248, 248, 248);
 
-	private final static Color borderColor = new Color(230, 230, 230);
+	private final static Color borderColor = new Color(230,230,230);
 
 	private JXHyperlink link;
 
@@ -41,7 +44,8 @@ public class ResultBox extends JPanel implements IResultListener {
 
 	private ISearchCriteria criteria;
 
-	public ResultBox(ISearchCriteria criteria, IResultPanel resultPanel) {
+	public ResultBox(final IFrameMediator mediator, final ISearchProvider p,
+			final ISearchCriteria criteria, IResultPanel resultPanel) {
 		this.resultPanel = resultPanel;
 		this.criteria = criteria;
 
@@ -77,9 +81,7 @@ public class ResultBox extends JPanel implements IResultListener {
 		moreLink.setFont(smallFont);
 		moreLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane
-						.showMessageDialog(null,
-								"This should ideally show all search results using our famous vFolders");
+				p.showAllResults(mediator, "test", criteria.getTechnicalName());
 			}
 		});
 
@@ -87,8 +89,14 @@ public class ResultBox extends JPanel implements IResultListener {
 		JPanel top = new JPanel();
 		top.setOpaque(true);
 
-		top.setBorder(new CompoundBorder(new SeparatorBorder(), BorderFactory
-				.createEmptyBorder(2, 4, 2, 4)));
+		Border border1 = new CompoundBorder(
+				new SeparatorBorder(), BorderFactory
+						.createEmptyBorder(2, 4, 2, 4));
+
+		Border border = new CompoundBorder(BorderFactory.createEmptyBorder(2,
+				4, 2, 4), border1);
+
+		top.setBorder(border1);
 		top.setBackground(titleBackground);
 		top.setLayout(new BorderLayout());
 		JLabel iconLabel = new JLabel();
@@ -102,37 +110,40 @@ public class ResultBox extends JPanel implements IResultListener {
 		add(collapsible, BorderLayout.CENTER);
 	}
 
-	public void resultArrived(IResultEvent event) {
-		
-		if (event.getProviderName() == null)
-			return;
+	public void installListener(ISearchManager searchManager) {
+		searchManager.addResultListener(new MyResultListener());
+	}
 
-		if (!event.getProviderName().equals(
-				resultPanel.getProviderTechnicalName()))
-			return;
-		if (!event.getSearchCriteria().getTechnicalName().equals(
-				resultPanel.getSearchCriteriaTechnicalName()))
-			return;
+	class MyResultListener extends ResultListenerAdapter {
+		@Override
+		public void resultArrived(IResultEvent event) {
+			if (event.getProviderName() == null)
+				return;
 
-		link.setText(criteria.getTitle());
-		link.setToolTipText(criteria.getDescription());
+			if (!event.getProviderName().equals(
+					resultPanel.getProviderTechnicalName()))
+				return;
+			if (!event.getSearchCriteria().getTechnicalName().equals(
+					resultPanel.getSearchCriteriaTechnicalName()))
+				return;
 
-		if (event.getTotalResultCount() == 0) {
-			moreLink.setText("Show More ..");
-			moreLink.setEnabled(false);
-		} else {
-			moreLink.setText("Show More" + " (" + event.getTotalResultCount()
-					+ ") ..");
-			moreLink.setEnabled(true);
+			link.setText(criteria.getTitle());
+			link.setToolTipText(criteria.getDescription());
+
+			if (event.getTotalResultCount() == 0) {
+				moreLink.setText("Show More ..");
+				moreLink.setEnabled(false);
+			} else {
+				moreLink.setText("Show More" + " ("
+						+ event.getTotalResultCount() + ") ..");
+				moreLink.setEnabled(true);
+			}
+
+			revalidate();
 		}
 
-		revalidate();
-	}
-
-	public void clearSearch(IResultEvent event) {
-	}
-
-	public void reset(IResultEvent event) {
+		MyResultListener() {
+		}
 	}
 
 	/**
@@ -169,5 +180,6 @@ public class ResultBox extends JPanel implements IResultListener {
 			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
-
+	
+	
 }

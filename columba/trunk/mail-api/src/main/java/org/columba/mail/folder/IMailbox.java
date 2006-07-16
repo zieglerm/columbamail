@@ -253,6 +253,9 @@ public interface IMailbox extends IMailFolder {
 	public void setAttribute(Object uid, String key, Object value)
 			throws Exception;
 
+	
+	public void removeMessage(Object uid) throws Exception;
+	
 	/**
 	 * Return array of uids this folder contains.
 	 * 

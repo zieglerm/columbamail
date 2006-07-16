@@ -3,11 +3,11 @@ package org.columba.core.gui.search;
 import java.awt.BorderLayout;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,11 +15,16 @@ import javax.swing.UIManager;
 
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.api.plugin.IExtension;
+import org.columba.api.plugin.IExtensionHandler;
+import org.columba.api.plugin.IExtensionHandlerKeys;
+import org.columba.api.plugin.PluginException;
+import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
-import org.columba.core.main.MainInterface;
-import org.columba.core.resourceloader.IconKeys;
-import org.columba.core.resourceloader.ImageLoader;
+import org.columba.core.logging.Logging;
+import org.columba.core.plugin.PluginManager;
+import org.columba.core.search.SearchManager;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
 import org.columba.core.search.api.ISearchProvider;
@@ -35,22 +40,21 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	private StackedBox box;
 
-	private IconTextField textField;
-
-	private ImageIcon icon = ImageLoader.getSmallIcon(IconKeys.EDIT_FIND);
-
-	private JButton button;
-
 	private Hashtable<String, ResultBox> map = new Hashtable<String, ResultBox>();
 
 	private SearchBar searchBar;
+
+	private ISearchManager searchManager;
 
 	public SearchPanel(IFrameMediator frameMediator) {
 		super();
 
 		this.frameMediator = frameMediator;
 
-		searchBar = new SearchBar(this, true);
+		this.searchManager = new SearchManager();
+		initProviders(searchManager);
+
+		searchBar = new SearchBar(this, true, true);
 
 		setLayout(new BorderLayout());
 		//
@@ -78,13 +82,54 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	}
 
+	private void initProviders(ISearchManager manager) {
+
+		Iterator<ISearchProvider> it = createProviderList().listIterator();
+		while (it.hasNext()) {
+			ISearchProvider p = it.next();
+			manager.registerProvider(p);
+		}
+	}
+
+	private List<ISearchProvider> createProviderList() {
+		List<ISearchProvider> list = new Vector<ISearchProvider>();
+		try {
+
+			IExtensionHandler handler = PluginManager.getInstance()
+					.getExtensionHandler(
+							IExtensionHandlerKeys.ORG_COLUMBA_CORE_SEARCH);
+
+			String[] ids = handler.getPluginIdList();
+			for (int i = 0; i < ids.length; i++) {
+				try {
+					IExtension extension = handler.getExtension(ids[i]);
+
+					ISearchProvider provider = (ISearchProvider) extension
+							.instanciateExtension(null);
+					list.add(provider);
+				} catch (PluginException e) {
+					LOG.severe("Error while loading plugin: " + e.getMessage());
+					if (Logging.DEBUG)
+						e.printStackTrace();
+				}
+			}
+
+		} catch (PluginHandlerNotFoundException e) {
+			LOG.severe("Error while loading plugin: " + e.getMessage());
+			if (Logging.DEBUG)
+				e.printStackTrace();
+		}
+
+		return list;
+	}
+
 	// search individual provider and individual criteria
 	public void searchInCriteria(String searchTerm, String providerName,
 			String criteriaName) {
 
 		showSearchDockingView();
-		
-		ISearchManager manager = MainInterface.searchManager;
+
+		ISearchManager manager = searchManager;
 
 		// start a new search -> clear all previous search results
 		manager.clearSearch(searchTerm);
@@ -101,8 +146,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	public void searchInProvider(String searchTerm, String providerName) {
 
 		showSearchDockingView();
-		
-		ISearchManager manager = MainInterface.searchManager;
+
+		ISearchManager manager = searchManager;
 
 		// start a new search -> clear all previous search results
 		manager.clearSearch(searchTerm);
@@ -116,11 +161,11 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	}
 
 	// search across all providers
-	public void searchAll(String searchTerm) {
+	public void searchAll(String searchTerm,  boolean searchInside) {
 
 		showSearchDockingView();
-		
-		ISearchManager manager = MainInterface.searchManager;
+
+		ISearchManager manager = searchManager;
 
 		// start a new search -> clear all previous search results
 		manager.clearSearch(searchTerm);
@@ -130,7 +175,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, 0, 5);
+		manager.executeSearch(searchTerm, searchInside, 0, 5);
 	}
 
 	// create new stacked box
@@ -149,7 +194,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		boolean criteriaSearch = (criteriaName != null && providerName != null) ? true
 				: false;
 
-		ISearchManager manager = MainInterface.searchManager;
+		ISearchManager manager = searchManager;
 
 		if (criteriaSearch) {
 			// query with only a single criteria
@@ -176,7 +221,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		} else if (providerAll) {
 			// query all criteria of all providers
 
-			Iterator<ISearchProvider> it = manager.getAllProviders().iterator();
+			Iterator<ISearchProvider> it = manager.getAllProviders();
 			while (it.hasNext()) {
 				ISearchProvider p = it.next();
 				if (p == null)
@@ -210,11 +255,11 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 					.getTechnicalName());
 
 		// add result panel as listener for new search results
-		MainInterface.searchManager.addResultListener(resultPanel);
+		searchManager.addResultListener(resultPanel);
 
 		// create visual container for result panel
-		ResultBox resultBox = new ResultBox(c, resultPanel);
-		MainInterface.searchManager.addResultListener(resultBox);
+		ResultBox resultBox = new ResultBox(frameMediator, p, c, resultPanel);
+		resultBox.installListener(searchManager);
 
 		// add to search panel
 		box.add(resultBox);
@@ -235,6 +280,12 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	public JComponent getView() {
 		return this;
 	}
+
+	public ISearchManager getSearchManager() {
+		return searchManager;
+	}
+
+	
 
 	// private IResultPanel loadResultPanelExtension(String
 	// providerTechnicalName,

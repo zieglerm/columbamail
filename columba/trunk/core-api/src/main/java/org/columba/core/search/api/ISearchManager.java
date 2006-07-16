@@ -1,6 +1,6 @@
 package org.columba.core.search.api;
 
-import java.util.List;
+import java.util.Iterator;
 
 /**
  * Search Provider Registry.
@@ -9,9 +9,12 @@ import java.util.List;
  */
 public interface ISearchManager {
 
+	public void registerProvider(ISearchProvider p);
+	public void unregisterProvider(ISearchProvider p);
+	
 	public ISearchProvider getProvider(String technicalName);
 	
-	public List<ISearchProvider> getAllProviders(); 
+	public Iterator<ISearchProvider> getAllProviders(); 
 	
 	/**
 	 * Execute query and retrieve pageable search result for given search term.
@@ -21,11 +24,12 @@ public interface ISearchManager {
 	 * up to the underlying implementation to use an intelligent caching 
 	 * strategy or whatsoever.
 	 * 
-	 * @param searchTerm
+	 * @param searchTerm		search term
+	 * @param searchInside		search inside previous search results
 	 * @param startIndex		start index of search results
 	 * @param resultCount		total count of results
 	 */
-	public void executeSearch(String searchTerm, int startIndex, int resultCount);
+	public void executeSearch(String searchTerm, boolean searchInside, int startIndex, int resultCount);
 	
 	
 	/**

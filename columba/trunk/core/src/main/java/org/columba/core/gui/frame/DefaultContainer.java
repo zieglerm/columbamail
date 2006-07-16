@@ -768,12 +768,15 @@ public class DefaultContainer extends JFrame implements IContainer,
 
 		this.toolbar = (ExtendableToolBar) toolbar;
 
+		// remove old toolbar
+		toolBarPanel.removeAll();
+		
 		toolBarPanel.add(toolbar, BorderLayout.CENTER);
 		
 		// @author fdietz: hackish way of creating a search toolbar
 		JToolBar searchToolBar = new ExtendableToolBar();
 		ContextualBar contextualBar = new ContextualBar(mediator, mediator.getContextualPanel());
-		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), false);
+		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), false, true);
 		contextualBar.install(searchToolBar);
 		searchToolBar.addSeparator();
 		searchBar.install(searchToolBar);

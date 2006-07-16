@@ -15,7 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.folder.virtual;
 
-import org.columba.mail.folder.AbstractMessageFolder;
+import org.columba.mail.folder.IMailbox;
 import org.columba.mail.message.ColumbaHeader;
 
 /**
@@ -27,12 +27,12 @@ import org.columba.mail.message.ColumbaHeader;
  */
 public class VirtualHeader extends ColumbaHeader {
 
-	protected AbstractMessageFolder srcFolder;
+	protected IMailbox srcFolder;
 
 	protected Object virtualUid;
 	protected Object srcUid;
 	
-	public VirtualHeader(ColumbaHeader header, AbstractMessageFolder srcFolder,
+	public VirtualHeader(ColumbaHeader header, IMailbox srcFolder,
 			Object srcUid) {
 		super(header);
 
@@ -45,7 +45,7 @@ public class VirtualHeader extends ColumbaHeader {
 	 * 
 	 * @return Folder
 	 */
-	public AbstractMessageFolder getSrcFolder() {
+	public IMailbox getSrcFolder() {
 		return srcFolder;
 	}
 

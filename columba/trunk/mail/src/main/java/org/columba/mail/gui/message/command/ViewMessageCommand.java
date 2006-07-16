@@ -111,10 +111,10 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 			// display changes
 			messageController.updateGUI();
 
-			
+			fillContext();
 		}
 
-		fillContext();
+		
 	}
 
 	private void fillContext() {

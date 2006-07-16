@@ -12,17 +12,17 @@ import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
+import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.context.api.IContextProvider;
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
-public class ResultBox extends JPanel{
+public class ResultBox extends JPanel {
 
 	private final static Color titleBackground = new Color(248, 248, 248);
 
@@ -36,9 +36,10 @@ public class ResultBox extends JPanel{
 
 	private IContextProvider provider;
 
-	public ResultBox(IContextProvider provider) {
+	public ResultBox(final IFrameMediator frameMediator,
+			final IContextProvider provider) {
 		super();
-		
+
 		this.provider = provider;
 
 		collapsible = new JXCollapsiblePane();
@@ -65,7 +66,7 @@ public class ResultBox extends JPanel{
 		link.setClickedColor(UIManager.getColor("Label.foreground"));
 
 		moreLink = new JXHyperlink();
-		moreLink.setEnabled(false);
+		moreLink.setEnabled(provider.isEnabledShowMoreLink());
 		moreLink.setText("Show More ..");
 		Font font = UIManager.getFont("Label.font");
 		Font smallFont = new Font(font.getName(), font.getStyle(), font
@@ -73,9 +74,7 @@ public class ResultBox extends JPanel{
 		moreLink.setFont(smallFont);
 		moreLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane
-						.showMessageDialog(null,
-								"This should ideally show all search results using our famous vFolders");
+				provider.showMoreResults(frameMediator);
 			}
 		});
 
@@ -97,6 +96,18 @@ public class ResultBox extends JPanel{
 		top.add(moreLink, BorderLayout.EAST);
 		add(top, BorderLayout.NORTH);
 		add(collapsible, BorderLayout.CENTER);
+	}
+
+	public void showResults() {
+
+		if (provider.isEnabledShowMoreLink()) {
+			int count = provider.getTotalResultCount();
+			moreLink.setEnabled(count > 0);
+
+			if (count > 0) {
+				moreLink.setText("Show More (" + count + ") ..");
+			}
+		}
 	}
 
 	/**

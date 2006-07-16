@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchProvider;
@@ -70,7 +71,7 @@ public class ExampleSearchProvider implements ISearchProvider {
 	}
 
 	public List<ISearchResult> query(String searchTerm,
-			ISearchCriteria searchCriteria, int startIndex, int resultCount) {
+			ISearchCriteria searchCriteria, boolean searchInside, int startIndex, int resultCount) {
 		URI url = null;
 		try {
 			url = new URI("columba://org.columba.core.example/test");
@@ -94,7 +95,7 @@ public class ExampleSearchProvider implements ISearchProvider {
 	}
 
 	public List<ISearchResult> query(String searchTerm,
-			String searchCriteriaTechnicalName, int startIndex, int resultCount) {
+			String searchCriteriaTechnicalName, boolean searchInside, int startIndex, int resultCount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -102,6 +103,11 @@ public class ExampleSearchProvider implements ISearchProvider {
 	public IResultPanel getResultPanel(String searchCriteriaTechnicalName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

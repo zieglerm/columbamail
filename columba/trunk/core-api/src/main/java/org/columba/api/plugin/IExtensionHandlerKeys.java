@@ -124,4 +124,9 @@ public interface IExtensionHandlerKeys {
 	 * @see org.columba.core.search.api.ISearchProvider
 	 */
 	public static final String ORG_COLUMBA_CORE_SEARCH = "org.columba.core.search";
+	
+	/**
+	 * Context Providers should implemented <code>org.columba.core.gui.context.api.IContextProvider</code>
+	 */
+	public static final String ORG_COLUMBA_CORE_CONTEXT_PROVIDER = "org.columba.core.context.provider";
 }
