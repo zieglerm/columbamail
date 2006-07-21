@@ -434,6 +434,8 @@ public class ComposerController extends DefaultFrameController implements
 	/**
 	 * Returns a reference to the panel, that holds the editor view. This is
 	 * used by the ComposerController when adding a listener to that panel.
+	 * 
+	 * @return editor panel reference
 	 */
 	public JPanel getEditorPanel() {
 		return editorPanel.getContentPane();
@@ -650,6 +652,8 @@ public class ComposerController extends DefaultFrameController implements
 	 * If the view is not yet created, the listener is stored in a buffer - add
 	 * then added in createView. This is necessary to handle the timing involved
 	 * in setting up the controller-view framework for the composer
+	 * 
+	 * @param cl
 	 */
 	public void addContainerListenerForEditor(ContainerListener cl) {
 
@@ -661,6 +665,8 @@ public class ComposerController extends DefaultFrameController implements
 	/**
 	 * Removes a ContainerListener from the panel, that holds the editor view
 	 * (previously registered using addContainListenerForEditor)
+	 * 
+	 * @param cl
 	 */
 	public void removeContainerListenerForEditor(ContainerListener cl) {
 		getEditorPanel().removeContainerListener(cl);
@@ -819,7 +825,8 @@ public class ComposerController extends DefaultFrameController implements
 	}
 
 	/**
-	 * @see org.columba.api.gui.frame.IFrameMediator#close()
+	 * @param container
+	 * @see org.columba.core.gui.frame.DefaultFrameController#close(org.columba.api.gui.frame.IContainer)
 	 */
 	public void close(IContainer container) {
 
@@ -924,6 +931,7 @@ public class ComposerController extends DefaultFrameController implements
 	}
 
 	/**
+	 * @return panel
 	 * @see org.columba.api.gui.frame.IContentPane#getComponent()
 	 */
 	public JComponent getComponent() {
@@ -1020,7 +1028,10 @@ public class ComposerController extends DefaultFrameController implements
 		return (JPanel) getComponent();
 	}
 
-	/** *********************** container callbacks ************* */
+	/** container callbacks
+	 * 
+	 * @param container
+	 */
 
 	public void extendMenu(IContainer container) {
 		try {
