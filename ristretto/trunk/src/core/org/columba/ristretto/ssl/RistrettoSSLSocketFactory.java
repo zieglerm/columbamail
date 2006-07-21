@@ -47,146 +47,175 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 /**
- * Factory to create a new SSL socket or on top of an existing plain socket. 
+ * Factory to create a new SSL socket or on top of an existing plain socket.
  * 
  * 
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
 
 public class RistrettoSSLSocketFactory {
-    
-    private static RistrettoSSLSocketFactory myInstance;
-    
-    private SSLSocketFactory socketFactory;
-    
-    /**
-     * Gets the instance of the RistrettoSSLSocketFactory.
-     * 
-     * @return the singleton instance of the factory.
-     */
-    public static RistrettoSSLSocketFactory getInstance() {
-        if( myInstance == null ) {
-            myInstance = new RistrettoSSLSocketFactory();
-        }
-        
-        return myInstance;
-    }
-    
-    protected RistrettoSSLSocketFactory() {
+
+	private static RistrettoSSLSocketFactory myInstance;
+
+	private SSLSocketFactory socketFactory;
+
+	/**
+	 * Gets the instance of the RistrettoSSLSocketFactory.
+	 * 
+	 * @return the singleton instance of the factory.
+	 */
+	public static RistrettoSSLSocketFactory getInstance() {
+		if (myInstance == null) {
+			myInstance = new RistrettoSSLSocketFactory();
+		}
+
+		return myInstance;
+	}
+
+	protected RistrettoSSLSocketFactory() {
 		try {
 			SSLContext sslContext = SSLContext.getInstance("TLS");
 
-			sslContext.init(null, new TrustManager[] { new DefaultTrustManager() }, new java.security.SecureRandom());
+			sslContext.init(null,
+					new TrustManager[] { new DefaultTrustManager() },
+					new java.security.SecureRandom());
 
 			socketFactory = sslContext.getSocketFactory();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace(System.out);
 		} catch (KeyManagementException e) {
 			e.printStackTrace(System.out);
-		}        
-    }
-    
-    /**
-     * Set the TrustManager of the used SSLContext.
-     * 
-     * @param tm the Trustmanager used by the SSLContext.
-     */
-    public void setTrustManager(TrustManager tm) {
+		}
+	}
+
+	/**
+	 * Set the TrustManager of the used SSLContext.
+	 * 
+	 * @param tm
+	 *            the Trustmanager used by the SSLContext.
+	 */
+	public void setTrustManager(TrustManager tm) {
 		try {
 			SSLContext sslContext = SSLContext.getInstance("TLS");
-			
-			sslContext.init(null, new TrustManager[] { tm }, new java.security.SecureRandom());
 
-			socketFactory = sslContext.getSocketFactory();        
+			sslContext.init(null, new TrustManager[] { tm },
+					new java.security.SecureRandom());
+
+			socketFactory = sslContext.getSocketFactory();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace(System.out);
 		} catch (KeyManagementException e) {
 			e.printStackTrace(System.out);
-		}        
-    }
-    
-    /**
-     * Set the KeyManager of the SSLContext.
-     * 
-     * @param km the KeyManager used by the SSLContext
-     */
-    public void setKeyManager(KeyManager km) {
+		}
+	}
+
+	/**
+	 * Set the KeyManager of the SSLContext.
+	 * 
+	 * @param km
+	 *            the KeyManager used by the SSLContext
+	 */
+	public void setKeyManager(KeyManager km) {
 		try {
 			SSLContext sslContext = SSLContext.getInstance("TLS");
 
-			sslContext.init(new KeyManager[] { km }, null, new java.security.SecureRandom());
+			sslContext.init(new KeyManager[] { km }, null,
+					new java.security.SecureRandom());
 
-			socketFactory = sslContext.getSocketFactory();        
+			socketFactory = sslContext.getSocketFactory();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace(System.out);
 		} catch (KeyManagementException e) {
 			e.printStackTrace(System.out);
-		}        
-    }
+		}
+	}
 
-    /**
-     * Creates a new SSL Socket connected to the specified address and port.
-     * 
-     * @param address the address to connect to 
-     * @param port the port to connect to
-     * @return a new SSL Socket
-     * @throws IOException
-     */
-    public Socket createSocket(InetAddress address, int port) throws IOException {
-        return socketFactory.createSocket(address, port);        
-    }
+	/**
+	 * Creates a new SSL Socket connected to the specified address and port.
+	 * 
+	 * @param address
+	 *            the address to connect to
+	 * @param port
+	 *            the port to connect to
+	 * @return a new SSL Socket
+	 * @throws IOException
+	 */
+	public Socket createSocket(InetAddress address, int port)
+			throws IOException {
+		return socketFactory.createSocket(address, port);
+	}
 
-    /**
-     * Creates a new SSL Socket connected to the specified address and port.
-     * 
-     * @param address the address to connect to 
-     * @param port the port to connect to
-     * @param localAddress the local InetAddress
-     * @param localPort the local port
-     * @return a new SSL Socket
-     * @throws IOException
-     */
-    public Socket createSocket(InetAddress address, int port, InetAddress localAddress, int localPort) throws IOException { 
-        return socketFactory.createSocket(address, port, localAddress, localPort);        
-    }
+	/**
+	 * Creates a new SSL Socket connected to the specified address and port.
+	 * 
+	 * @param address
+	 *            the address to connect to
+	 * @param port
+	 *            the port to connect to
+	 * @param localAddress
+	 *            the local InetAddress
+	 * @param localPort
+	 *            the local port
+	 * @return a new SSL Socket
+	 * @throws IOException
+	 */
+	public Socket createSocket(InetAddress address, int port,
+			InetAddress localAddress, int localPort) throws IOException {
+		return socketFactory.createSocket(address, port, localAddress,
+				localPort);
+	}
 
-    /**
-     * Creates a new SSL Socket connected to the specified name address and port.
-     * 
-     * @param host the name address to connect to
-     * @param port the port to connect to
-     * @return a new SSL Socket
-     * @throws IOException
-     */
-    public Socket createSocket(String host, int port) throws IOException {
-        return socketFactory.createSocket(host, port);        
-    }
-    
-    /**
-     * Creates a new SSL Socket connected to the specified name address and port.
-     * 
-     * @param host the name address to connect to
-     * @param port the port to connect to
-     * @param localHost the local InetAddress
-     * @param localPort the local port
-     * @return a new SSL Socket
-     * @throws IOException
-     */
-    public Socket createSocket(String host, int port, InetAddress localHost, int localPort)  throws IOException {
-        return socketFactory.createSocket(host, port, localHost, localPort);  
-    }
-    
-    /**
-     * Creates a SSL Socket on top of the given Socket.
-     * 
-     * @param socket plain socket on which the SSL Socket is built
-     * @param host the local port
-     * @param port the port to connect to
-     * @param autoClose shall the socket be closed when the SSL socket is closed?
-     * @return a new SSL Socket
-     * @throws IOException
-     */
-    public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException {
-    	return socketFactory.createSocket(socket, host, port, autoClose);
-    }
+	/**
+	 * Creates a new SSL Socket connected to the specified name address and
+	 * port.
+	 * 
+	 * @param host
+	 *            the name address to connect to
+	 * @param port
+	 *            the port to connect to
+	 * @return a new SSL Socket
+	 * @throws IOException
+	 */
+	public Socket createSocket(String host, int port) throws IOException {
+		return socketFactory.createSocket(host, port);
+	}
+
+	/**
+	 * Creates a new SSL Socket connected to the specified name address and
+	 * port.
+	 * 
+	 * @param host
+	 *            the name address to connect to
+	 * @param port
+	 *            the port to connect to
+	 * @param localHost
+	 *            the local InetAddress
+	 * @param localPort
+	 *            the local port
+	 * @return a new SSL Socket
+	 * @throws IOException
+	 */
+	public Socket createSocket(String host, int port, InetAddress localHost,
+			int localPort) throws IOException {
+		return socketFactory.createSocket(host, port, localHost, localPort);
+	}
+
+	/**
+	 * Creates a SSL Socket on top of the given Socket.
+	 * 
+	 * @param socket
+	 *            plain socket on which the SSL Socket is built
+	 * @param host
+	 *            the local port
+	 * @param port
+	 *            the port to connect to
+	 * @param autoClose
+	 *            shall the socket be closed when the SSL socket is closed?
+	 * @return a new SSL Socket
+	 * @throws IOException
+	 */
+	public Socket createSocket(Socket socket, String host, int port,
+			boolean autoClose) throws IOException {
+		return socketFactory.createSocket(socket, host, port, autoClose);
+	}
 }

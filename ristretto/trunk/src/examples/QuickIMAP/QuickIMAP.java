@@ -34,6 +34,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 package QuickIMAP;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -55,110 +56,123 @@ import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimePart;
 import org.columba.ristretto.message.MimeTree;
 
+/**
+ * QuickIMAP class - a simple command line IMAP client demonstration
+ * @author timo
+ */
 public class QuickIMAP {
 
-	private static final String[] HEADER = new String[] {"From","Date" , "Subject"};
+	private static final String[] HEADER = new String[] { "From", "Date",
+			"Subject" };
 
-    private static final String helpMessage =
-        "Usage : QuickIMAP imap-server username password\n\n"
-            + "Example: QuickIMAP imap.mail.com myname mypassword\n\n";
-	
-	
+	private static final String helpMessage = "Usage : QuickIMAP imap-server username password\n\n"
+			+ "Example: QuickIMAP imap.mail.com myname mypassword\n\n";
+
 	/**
+	 * main method
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if( args.length < 3 ) {
+		if (args.length < 3) {
 			System.out.println(helpMessage);
 			return;
-		}		
+		}
 		String server = args[0];
 		String username = args[1];
 		String password = args[2];
 
-		//RistrettoLogger.setLogStream(System.out);
-		
-		IMAPProtocol protocol = new IMAPProtocol(server, IMAPProtocol.DEFAULT_PORT);
+		// RistrettoLogger.setLogStream(System.out);
+
+		IMAPProtocol protocol = new IMAPProtocol(server,
+				IMAPProtocol.DEFAULT_PORT);
 		try {
 			System.out.println("Connecting to " + server + " ...");
 			protocol.openPort();
-			
-			System.out.println("Login in as "+ username + " ...");
+
+			System.out.println("Login in as " + username + " ...");
 			protocol.login(username, password.toCharArray());
 
 			System.out.print("Checking Inbox: ");
 			MailboxInfo info = protocol.select("INBOX");
-			if( info.getFirstUnseen() > 0 ) {
-				Integer[] unseenMails = protocol.search(new SearchKey[] { new SearchKey(SearchKey.UNSEEN) });
+			if (info.getFirstUnseen() > 0) {
+				Integer[] unseenMails = protocol
+						.search(new SearchKey[] { new SearchKey(
+								SearchKey.UNSEEN) });
 
 				System.out.println(unseenMails.length + " unseen message(s).");
-				
-				IMAPHeader[] header = protocol.fetchHeaderFields(new SequenceSet(unseenMails), HEADER );
-			
-				for( int i=header.length-1; i >= 0; i--) {
-					System.out.println( "===");
+
+				IMAPHeader[] header = protocol.fetchHeaderFields(
+						new SequenceSet(unseenMails), HEADER);
+
+				for (int i = header.length - 1; i >= 0; i--) {
+					System.out.println("===");
 					printHeader(header[i]);
-					
-					MimeTree mimeTree = protocol.fetchBodystructure(unseenMails[i].intValue());
+
+					MimeTree mimeTree = protocol
+							.fetchBodystructure(unseenMails[i].intValue());
 					MimePart textPart = mimeTree.getFirstTextPart("plain");
-					
-					if( textPart != null ) {
-						InputStream body = protocol.fetchBody(unseenMails[i].intValue(), textPart.getAddress());
+
+					if (textPart != null) {
+						InputStream body = protocol.fetchBody(unseenMails[i]
+								.intValue(), textPart.getAddress());
 						MimeHeader textHeader = textPart.getHeader();
-						
-						if( textHeader.getContentTransferEncoding() == MimeHeader.QUOTED_PRINTABLE) {
+
+						if (textHeader.getContentTransferEncoding() == MimeHeader.QUOTED_PRINTABLE) {
 							body = new QuotedPrintableDecoderInputStream(body);
-						} else if( textHeader.getContentTransferEncoding() == MimeHeader.BASE64) {
+						} else if (textHeader.getContentTransferEncoding() == MimeHeader.BASE64) {
 							body = new Base64DecoderInputStream(body);
 						}
-						
-						String charsetName = textHeader.getContentParameter("charset");
-						if( charsetName == null ) {
+
+						String charsetName = textHeader
+								.getContentParameter("charset");
+						if (charsetName == null) {
 							charsetName = System.getProperty("file.encoding");
 						}
-						
-						body = new CharsetDecoderInputStream(body, Charset.forName(charsetName));
-						
-						System.out.println("---");						
+
+						body = new CharsetDecoderInputStream(body, Charset
+								.forName(charsetName));
+
+						System.out.println("---");
 						System.out.println(StreamUtils.readInString(body));
-						System.out.println("---");						
-					} 
-					
-					if( mimeTree.count() > 1 || textPart == null) {
-						System.out.println("message has attachments");
-						System.out.println("---");						
+						System.out.println("---");
 					}
-					
+
+					if (mimeTree.count() > 1 || textPart == null) {
+						System.out.println("message has attachments");
+						System.out.println("---");
+					}
 				}
 			} else {
 				System.out.println(" no unseen messages found.");
 			}
-			
+
 			protocol.logout();
-			
+
 		} catch (IOException e) {
-			System.err.println("IO Error: " + e.getLocalizedMessage()); 
-			
+			System.err.println("IO Error: " + e.getLocalizedMessage());
+
 		} catch (IMAPException e) {
 			System.err.println("IMAP Error: " + e.getMessage());
-			
+
 			try {
 				protocol.logout();
 			} catch (IOException e1) {
 			} catch (IMAPException e1) {
 			}
 		}
-		
+
 		System.exit(0);
 	}
 
+	/**
+	 * printHeader method
+	 */
 	private static void printHeader(IMAPHeader rawHeader) {
 		BasicHeader header = new BasicHeader(rawHeader.getHeader());
-		
+
 		System.out.println(header.getFrom().toString());
 		System.out.println(DateFormat.getInstance().format(header.getDate()));
-		System.out.println(header.getSubject());		
+		System.out.println(header.getSubject());
 	}
-
-
 }

@@ -60,119 +60,127 @@ import org.columba.ristretto.message.MimeType;
 import org.columba.ristretto.parser.MessageParser;
 import org.columba.ristretto.parser.ParserException;
 
+/**
+ * MessageDecomposer class - convert a message received into its parts
+ * @timo
+ */
 public class MessageDecomposer {
 
-	private static final String helpMessage =
-        "Usage : MessageDecomposer mail-file <outdir> (optional)\n\n"
-            + "Example: POPStats mail.txt result_dir\n\n";
+	private static final String helpMessage = "Usage : MessageDecomposer mail-file <outdir> (optional)\n\n"
+			+ "Example: POPStats mail.txt result_dir\n\n";
 
 	/**
+	 * main method
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if( args.length < 1) {
+		if (args.length < 1) {
 			System.out.println(helpMessage);
 			return;
 		}
-		
+
 		File messageFile = new File(args[0]);
 		File outDir;
-		
-		if( args.length > 1) {
-			outDir = new File(args[1]);			
+
+		if (args.length > 1) {
+			outDir = new File(args[1]);
 		} else {
 			outDir = new File(".");
 		}
-		
-		
-		if( !messageFile.exists() ) {
+
+		if (!messageFile.exists()) {
 			System.out.println("File not found " + messageFile.toString());
 			return;
 		}
-		
-		if( !outDir.exists() || !outDir.isDirectory()) {
-			if( !outDir.mkdir() ) {
-				System.out.println("Could not create directory" + outDir.toString());
-				return;				
+
+		if (!outDir.exists() || !outDir.isDirectory()) {
+			if (!outDir.mkdir()) {
+				System.out.println("Could not create directory"
+						+ outDir.toString());
+				return;
 			}
 		}
-		
+
 		try {
-			new MessageDecomposer().decomposeMessage(new FileSource(messageFile), outDir);
+			new MessageDecomposer().decomposeMessage(
+					new FileSource(messageFile), outDir);
 		} catch (ParserException e) {
 			System.out.println("Parser Exception: " + e.getLocalizedMessage());
 		} catch (IOException e) {
 			System.out.println("IO Exception: " + e.getLocalizedMessage());
 		}
-		
+
 		System.exit(0);
 	}
 
-	public void decomposeMessage(Source source, File outDir) throws ParserException, IOException {
+	public void decomposeMessage(Source source, File outDir)
+			throws ParserException, IOException {
 		Message message = MessageParser.parse(source);
-		
-		writeStream(message.getHeader().getInputStream(), new File(outDir, "header.txt"));
+
+		writeStream(message.getHeader().getInputStream(), new File(outDir,
+				"header.txt"));
 		printHeader(message.getHeader());
-		
+
 		MimeTree mimeTree = message.getMimePartTree();
 		List mimeParts = mimeTree.getAllLeafs();
-		
-		Iterator it = mimeParts.iterator();			
+
+		Iterator it = mimeParts.iterator();
 
 		int counter = 1;
-		while(it.hasNext()) {
-			LocalMimePart part = (LocalMimePart)it.next();
+		while (it.hasNext()) {
+			LocalMimePart part = (LocalMimePart) it.next();
 			MimeHeader h = part.getHeader();
 			String filename = h.getFileName();
-			if( filename == null) {
+			if (filename == null) {
 				MimeType type = h.getMimeType();
-				if( type.getSubtype().equals("html")) {
-					filename = "part"+ counter + ".html"; 
+				if (type.getSubtype().equals("html")) {
+					filename = "part" + counter + ".html";
 				} else if (type.getSubtype().equals("plain")) {
-					filename = "part"+ counter + ".txt";
+					filename = "part" + counter + ".txt";
 				} else {
-					filename = "part"+counter;
+					filename = "part" + counter;
 				}
 			}
-			
+
 			InputStream stream = part.getInputStream();
-			if( h.getContentTransferEncoding() == MimeHeader.BASE64) {
+			if (h.getContentTransferEncoding() == MimeHeader.BASE64) {
 				stream = new Base64DecoderInputStream(stream);
-			} else if( h.getContentTransferEncoding() == MimeHeader.QUOTED_PRINTABLE) {
+			} else if (h.getContentTransferEncoding() == MimeHeader.QUOTED_PRINTABLE) {
 				stream = new QuotedPrintableDecoderInputStream(stream);
 			}
-			
-			if( h.getContentParameter("charset") != null) {
-				stream = new CharsetDecoderInputStream(stream, Charset.forName(h.getContentParameter("charset")));
+
+			if (h.getContentParameter("charset") != null) {
+				stream = new CharsetDecoderInputStream(stream, Charset
+						.forName(h.getContentParameter("charset")));
 			}
 
 			// Now the stream contains the data ready to be processed.
 			// In our case we write it to a file:
 			writeStream(stream, new File(outDir, filename));
-			
+
 			// .. but you could convert it to a String if you know
 			// it is text or to a byte array or the like
-			
+
 			counter++;
 		}
-		
+
 		source.close();
 	}
-	
+
 	private void writeStream(InputStream in, File file) throws IOException {
 		FileOutputStream out = new FileOutputStream(file);
 		StreamUtils.streamCopy(in, out);
-		in.close();		
+		in.close();
 		out.close();
 	}
-	
+
 	private void printHeader(Header rawHeader) {
 		BasicHeader header = new BasicHeader(rawHeader);
-		if( header.getFrom() != null ) 
-	    System.out.println("From    : " + header.getFrom().toString());
-		System.out.println("Date    : " + DateFormat.getInstance().format(header.getDate()));
-		System.out.println("Subject : " + header.getSubject());		
+		if (header.getFrom() != null)
+			System.out.println("From    : " + header.getFrom().toString());
+		System.out.println("Date    : "
+				+ DateFormat.getInstance().format(header.getDate()));
+		System.out.println("Subject : " + header.getSubject());
 	}
-	
-
 }
