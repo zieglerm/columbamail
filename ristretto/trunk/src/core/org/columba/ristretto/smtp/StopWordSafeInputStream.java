@@ -39,80 +39,79 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 /**
- * FilterInputStream that safely wraps stop words.
- * A stop word is CR LF '.' CR LF. If a message is sent
- * that contains stop words they must be encoded so that
- * the server continues receiving. This is done by adding
- * a '.'. (See RFC2821)
+ * FilterInputStream that safely wraps stop words. A stop word is CR LF '.' CR
+ * LF. If a message is sent that contains stop words they must be encoded so
+ * that the server continues receiving. This is done by adding a '.'. (See
+ * RFC2821)
  * 
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
 public class StopWordSafeInputStream extends FilterInputStream {
 
-    private static final int CLRF = 0;
-    private static final int NORMAL = 1;
-    private static final int BUFFER = 2;
-    
-    
-    private int buffer;
-    private int mode;
-    
-    /**
-     * Constructs a StopWordSafeInputStream.
-     * 
-     * @param arg0
-     */
-    public StopWordSafeInputStream(InputStream arg0) {
-        super(arg0);        
-        mode = CLRF;
-    }
+	private static final int CLRF = 0;
 
-    /**
-     * @see java.io.InputStream#read()
-     */
-    public int read() throws IOException {
-        if( mode == BUFFER ) {
-            mode = NORMAL;
-            return buffer;
-        }
-        
-        buffer = in.read();
+	private static final int NORMAL = 1;
 
-        if( mode == CLRF && buffer == '.') {
-            mode = BUFFER;
-            
-            // insert a . before
-            return '.';
-        }
-        
-        if( buffer == '\n') {
-            mode = CLRF;
-        } else {
-            mode = NORMAL;
-        }
-        
-        return buffer;
-    }
+	private static final int BUFFER = 2;
 
-    /**
-     * @see java.io.InputStream#read(byte[], int, int)
-     */
-    public int read(byte[] arg0, int arg1, int arg2) throws IOException {
-        int next;
-        for( int i=0; i<arg2; i++) {
-            next = read();
-            if( next == -1 ) {
-                if( i == 0 ) {
-                    return -1;
-                } else {
-                    return i;
-                }
-            }
-            arg0[arg1+i] = (byte) next;
-        }
-        return arg2;
-    }
+	private int buffer;
 
+	private int mode;
+
+	/**
+	 * Constructs a StopWordSafeInputStream.
+	 * 
+	 * @param arg0
+	 */
+	public StopWordSafeInputStream(InputStream arg0) {
+		super(arg0);
+		mode = CLRF;
+	}
+
+	/**
+	 * @see java.io.InputStream#read()
+	 */
+	public int read() throws IOException {
+		if (mode == BUFFER) {
+			mode = NORMAL;
+			return buffer;
+		}
+
+		buffer = in.read();
+
+		if (mode == CLRF && buffer == '.') {
+			mode = BUFFER;
+
+			// insert a . before
+			return '.';
+		}
+
+		if (buffer == '\n') {
+			mode = CLRF;
+		} else {
+			mode = NORMAL;
+		}
+
+		return buffer;
+	}
+
+	/**
+	 * @see java.io.InputStream#read(byte[], int, int)
+	 */
+	public int read(byte[] arg0, int arg1, int arg2) throws IOException {
+		int next;
+		for (int i = 0; i < arg2; i++) {
+			next = read();
+			if (next == -1) {
+				if (i == 0) {
+					return -1;
+				} else {
+					return i;
+				}
+			}
+			arg0[arg1 + i] = (byte) next;
+		}
+		return arg2;
+	}
 }

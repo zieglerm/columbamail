@@ -35,65 +35,59 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.smtp;
 
-
 /**
  * Exception class for SMTP errors.
  * 
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
-public class SMTPException extends Exception
-{
-    int code = -1;
+public class SMTPException extends Exception {
+	int code = -1;
 
-    /**
-	 * 
+	/**
+	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructs the SMTPException.
 	 */
-	public SMTPException()
-    {
-        super();
-    }
+	public SMTPException() {
+		super();
+	}
 
-    /**
-     * Constructs the SMTPException.
-     * 
-     * @param e
-     */
-    public SMTPException( String e )
-    {
-        super(e);
-    }
+	/**
+	 * Constructs the SMTPException.
+	 * 
+	 * @param e
+	 */
+	public SMTPException(String e) {
+		super(e);
+	}
 
-    /**
-     * Constructs the SMTPException.
-     * 
-     * @param response
-     */
-    public SMTPException(SMTPResponse response) {
-    	super(response.getMessage());
-    	code = response.getCode();
-    }
-    
-    
+	/**
+	 * Constructs the SMTPException.
+	 * 
+	 * @param response
+	 */
+	public SMTPException(SMTPResponse response) {
+		super(response.getMessage());
+		code = response.getCode();
+	}
 
-    /**
-     * @param arg0
-     * @param arg1
-     */
-    public SMTPException(String arg0, Throwable arg1) {
-        super(arg0, arg1);
-    }
+	/**
+	 * @param arg0
+	 * @param arg1
+	 */
+	public SMTPException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
+	}
 
-    /**
-     * @param arg0
-     */
-    public SMTPException(Throwable arg0) {
-        super(arg0);
-    }
+	/**
+	 * @param arg0
+	 */
+	public SMTPException(Throwable arg0) {
+		super(arg0);
+	}
 
 	/**
 	 * @return Returns the code.
@@ -101,5 +95,4 @@ public class SMTPException extends Exception
 	public int getCode() {
 		return code;
 	}
-
 }

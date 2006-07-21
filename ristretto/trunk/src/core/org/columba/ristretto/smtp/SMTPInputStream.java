@@ -45,69 +45,68 @@ import org.columba.ristretto.smtp.parser.SMTPResponseParser;
 
 /**
  * This stream is used to read responses from a SMTP server. Every response is
- * finalized by a CR LF. The stream reads a line from the stream and pases it
- * to the {@link SMTPResponseParser}.
+ * finalized by a CR LF. The stream reads a line from the stream and pases it to
+ * the {@link SMTPResponseParser}.
  * 
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
 public class SMTPInputStream extends FilterInputStream {
 
-    private StringBuffer lineBuffer;
+	private StringBuffer lineBuffer;
 
-    /**
+	/**
 	 * Constructs a SMTPInputStream.
 	 * 
 	 * @param arg0
 	 *            the inputstream of the socket.
 	 */
-    public SMTPInputStream(InputStream arg0) {
-        super(arg0);
+	public SMTPInputStream(InputStream arg0) {
+		super(arg0);
 
-        lineBuffer = new StringBuffer();
-    }
+		lineBuffer = new StringBuffer();
+	}
 
-    /**
-     * Reads a response from the socket inputstream.
-	 * Every response is finalized by a CR LF. The stream reads a line from the
-	 * stream and pases it to the {@link SMTPResponseParser}.
+	/**
+	 * Reads a response from the socket inputstream. Every response is finalized
+	 * by a CR LF. The stream reads a line from the stream and pases it to the
+	 * {@link SMTPResponseParser}.
 	 * 
 	 * @return the received response.
 	 * @throws IOException
 	 * @throws SMTPException
 	 */
-    public SMTPResponse readSingleLineResponse()
-        throws IOException, SMTPException {
-        readLineInBuffer();
+	public SMTPResponse readSingleLineResponse() throws IOException,
+			SMTPException {
+		readLineInBuffer();
 
-        try {
-            return SMTPResponseParser.parse(lineBuffer);
-        } catch (ParserException e) {
-            throw new SMTPException("Malformed answer from server", e);
-        }
-    }
+		try {
+			return SMTPResponseParser.parse(lineBuffer);
+		} catch (ParserException e) {
+			throw new SMTPException("Malformed answer from server", e);
+		}
+	}
 
-    
-    /**
-     * Reads until a CR LF terminates the reponse.
-     * 
-     * @throws IOException
-     */
-    private void readLineInBuffer() throws IOException {
-        // Clear the buffer
-        lineBuffer.delete(0, lineBuffer.length());
+	/**
+	 * Reads until a CR LF terminates the reponse.
+	 * 
+	 * @throws IOException
+	 */
+	private void readLineInBuffer() throws IOException {
+		// Clear the buffer
+		lineBuffer.delete(0, lineBuffer.length());
 
-        int read = in.read();
-        // read until CRLF
-        while (read != '\r' && read != -1) {
-            lineBuffer.append((char) read);
-            read = in.read();
-        }
-        lineBuffer.append((char) read);
+		int read = in.read();
+		// read until CRLF
+		while (read != '\r' && read != -1) {
+			lineBuffer.append((char) read);
+			read = in.read();
+		}
+		lineBuffer.append((char) read);
 
-        // read the LF
-        read = in.read();
-        if( read != '\n' ) throw new ConnectionDroppedException();
-        lineBuffer.append((char) read);
-    }
-
+		// read the LF
+		read = in.read();
+		if (read != '\n')
+			throw new ConnectionDroppedException();
+		lineBuffer.append((char) read);
+	}
 }

@@ -82,25 +82,27 @@ public class SMTPProtocol implements AuthenticationServer {
 	 * @deprecated Use NOT_CONNECTED instead
 	 */
 	public static final int NO_CONNECTION = 0;
-	
+
 	/**
 	 * Protocol state.
 	 */
 	public static final int NOT_CONNECTED = 0;
+
 	/**
 	 * Protocol state.
 	 */
 	public static final int PLAIN = 1;
+
 	/**
 	 * Protocol state.
 	 */
 	public static final int AUTHORIZED = 2;
 
-	
 	/**
 	 * Address type.
 	 */
 	public static final int TO = 0;
+
 	/**
 	 * Address type.
 	 */
@@ -175,7 +177,7 @@ public class SMTPProtocol implements AuthenticationServer {
 			return domain;
 		} catch (SocketException e) {
 			e.printStackTrace();
-			
+
 			// Catch the exception if it was caused by
 			// dropping the connection
 			if (state != NOT_CONNECTED)
@@ -339,15 +341,13 @@ public class SMTPProtocol implements AuthenticationServer {
 	/**
 	 * Authenticates a user. This is done with the Authentication mechanisms
 	 * provided by the
-	 * @param algorithm 
 	 * 
-	 * @link{org.columba.ristretto.auth.AuthenticationFactory}. @param
-	 *                                                          algorithm the
-	 *                                                          algorithm used
-	 *                                                          to authenticate
-	 *                                                          the user (e.g.
-	 *                                                          PLAIN,
-	 *                                                          DIGEST-MD5)
+	 * @param algorithm
+	 * 
+	 * @link{org.columba.ristretto.auth.AuthenticationFactory}.
+	 * @param algorithm
+	 *            the algorithm used to authenticate the user (e.g. PLAIN,
+	 *            DIGEST-MD5)
 	 * @param user
 	 *            the user name
 	 * @param password
@@ -449,7 +449,8 @@ public class SMTPProtocol implements AuthenticationServer {
 	 * the MAIL command. This command can be called repeatedly to add more
 	 * recipients. You can pass the type parameter to either send a RCPT TO or
 	 * CC.
-	 * @param type 
+	 * 
+	 * @param type
 	 * 
 	 * @see #mail(Address)
 	 * @see #data(InputStream)
@@ -750,7 +751,7 @@ public class SMTPProtocol implements AuthenticationServer {
 	 * Drops the connection.
 	 * 
 	 * @throws IOException
-	 *  
+	 * 
 	 */
 	public void dropConnection() throws IOException {
 		if (state != NOT_CONNECTED) {
@@ -767,8 +768,9 @@ public class SMTPProtocol implements AuthenticationServer {
 		if (state < s)
 			throw new SMTPException("Wrong state!");
 	}
-	
-	protected SMTPResponse readSingleLineResponse() throws IOException, SMTPException{
+
+	protected SMTPResponse readSingleLineResponse() throws IOException,
+			SMTPException {
 		try {
 			return in.readSingleLineResponse();
 		} catch (IOException e) {
@@ -776,5 +778,4 @@ public class SMTPProtocol implements AuthenticationServer {
 			throw e;
 		}
 	}
-
 }
