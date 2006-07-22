@@ -42,7 +42,7 @@
 	<classpathentry kind="src" path="plugins/org.columba.mail.EudoraMailImportFilter/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.mail.PlaySoundFilterAction/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.mail.ToOrCcFilter/src"/>
-	<classpathentry sourcepath="/home/rick/programs/eclipse/plugins/org.eclipse.jdt.source_3.2.0.v20060512-1326-F7snp6fks-pZ8dn/src/org.junit_3.8.1/junitsrc.zip" kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/usermanual.jar"/>
 	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
