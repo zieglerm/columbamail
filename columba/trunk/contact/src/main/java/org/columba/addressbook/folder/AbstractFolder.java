@@ -154,8 +154,13 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 		}
 	}
 
-	public File getDirectoryFile() {
-		return directoryFile;
+    /**
+     * Returns folder where we save everything name of folder is usually the UID-number
+     *
+     * @return folder where we save everything name of folder is usually the UID-number
+     */
+    public File getDirectoryFile() {
+        return directoryFile;
 	}
 
 	public void createChildren(IWorkerStatusController worker) {

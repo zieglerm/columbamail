@@ -123,12 +123,26 @@ public class DynamicItemListLayout implements LayoutManager {
 		return rows;
 	}
 
-	public int getHgap() {
-		return hgap;
+    /**
+     * Returns the flow layout manager allows a seperation of components with gaps. The
+     * horizontal gap will specify the space between components and between the
+     * components and the borders of the <code>Container</code>.
+     *
+     * @return the flow layout manager allows a seperation of components with gaps. The
+     */
+    public int getHgap() {
+        return hgap;
 	}
 
-	public int getVgap() {
-		return vgap;
+    /**
+     * Returns the flow layout manager allows a seperation of components with gaps. The
+     * vertical gap will specify the space between rows and between the the rows
+     * and the borders of the <code>Container</code>.
+     *
+     * @return the flow layout manager allows a seperation of components with gaps. The
+     */
+    public int getVgap() {
+        return vgap;
 	}
 
 	/**

@@ -322,13 +322,17 @@ public class ProfileManager implements IProfileManager {
 		}
 	}
 
-	/*
+    /**
+     * Returns top-level xml node
+     *
+     * @return top-level xml node
+     *//*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.columba.core.profiles.IProfileManager#getProfiles()
 	 */
-	public XmlElement getProfiles() {
-		return profiles;
+    public XmlElement getProfiles() {
+        return profiles;
 	}
 
 	/**
@@ -388,17 +392,26 @@ public class ProfileManager implements IProfileManager {
 		}
 	}
 
-	/*
+    /**
+     * Returns currently running profile.
+     *
+     * @return currently running profile.
+     *//*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.columba.core.profiles.IProfileManager#getCurrentProfile()
 	 */
-	public Profile getCurrentProfile() {
-		return currentProfile;
+    public Profile getCurrentProfile() {
+        return currentProfile;
 	}
 
-	public void setCurrentProfile(String path) {
-		currentProfile = getProfile(path);
+    /**
+     * Sets currently running profile.
+     *
+     * @param path currently running profile.
+     */
+    public void setCurrentProfile(String path) {
+        currentProfile = getProfile(path);
 	}
 
 	/**

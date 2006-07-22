@@ -204,17 +204,23 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		}
 	}
 
-	/* (non-Javadoc)
+    /**
+     * Returns mailbox name delimiter
+     * <p/>
+     * example: "/" (uw-imap), or "." (cyrus)
+     *
+     * @return mailbox name delimiter
+     *//* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#getDelimiter()
 	 */
-	public String getDelimiter() throws IOException, IMAPException,
-			CommandCancelledException {
-		if (delimiter == null) {
-			// try to determine delimiter
-			delimiter = fetchDelimiter();
-		}
+    public String getDelimiter() throws IOException, IMAPException,
+            CommandCancelledException {
+        if (delimiter == null) {
+            // try to determine delimiter
+            delimiter = fetchDelimiter();
+        }
 
-		return delimiter;
+        return delimiter;
 	}
 
 	/* (non-Javadoc)
@@ -1739,11 +1745,15 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		LOG.warning(arg0);
 	}
 
-	/* (non-Javadoc)
+    /**
+     * Returns configuration options of this IMAP account
+     *
+     * @return configuration options of this IMAP account
+     *//* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#getItem()
 	 */
-	public ImapItem getItem() {
-		return item;
+    public ImapItem getItem() {
+        return item;
 	}
 
 	/* (non-Javadoc)

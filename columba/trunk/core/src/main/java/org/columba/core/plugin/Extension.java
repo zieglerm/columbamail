@@ -389,9 +389,15 @@ public class Extension implements IExtension {
 		this.internalPlugin = internal;
 	}
 
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+    /**
+     * Returns enabled by default. But, in case of an error on instanciation its
+     * disabled.
+     *
+     * @return enabled by default. But, in case of an error on instanciation its
+     */
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return false;
 	}
 
 }
