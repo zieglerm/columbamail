@@ -47,7 +47,7 @@ public class CheckBoxListModel extends DefaultListModel {
      * @param element adds the element as a non checked list item.
      */
     public void add(int index, Object element) {
-        add(index, new CheckBoxListItem(element, false));
+        super.add(index, new CheckBoxListItem(element, false));
     }
 
     /**
