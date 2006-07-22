@@ -24,63 +24,65 @@ import java.io.InputStream;
 
 import org.columba.api.command.IWorkerStatusController;
 
-
 public class ProgressObservedInputStream extends FilterInputStream {
 
-	private IWorkerStatusController status;
+    private IWorkerStatusController status;
 
-	private int read;
+    private int read;
 
-	/**
-	 * Constructs the ProgressObservedInputStream.java.
-	 * 
-	 * @param arg0
-	 */
-	public ProgressObservedInputStream(InputStream arg0,
-			IWorkerStatusController status) {
-		this(arg0, status, false);
+    /**
+         * Constructs the ProgressObservedInputStream.java.
+         * 
+         * @param arg0
+         */
+    public ProgressObservedInputStream(InputStream arg0,
+	    IWorkerStatusController theStatusController) {
+	this(arg0, theStatusController, false);
+    }
+
+    /**
+         * Constructs the ProgressObservedInputStream.java.
+         * 
+         * @param arg0
+         */
+    public ProgressObservedInputStream(InputStream arg0,
+	    IWorkerStatusController theStatusController, boolean relative) {
+	super(arg0);
+	this.status = theStatusController;
+
+	if (!relative) {
+	    try {
+		theStatusController.setProgressBarMaximum(arg0.available());
+	    } catch (IOException e) {
+		// nothing to do
+	    }
+
+	    read = 0;
+	} else {
+	    read = theStatusController.getProgressBarValue();
 	}
+    }
 
-	/**
-	 * Constructs the ProgressObservedInputStream.java.
-	 * 
-	 * @param arg0
-	 */
-	public ProgressObservedInputStream(InputStream arg0,
-			IWorkerStatusController status, boolean relative) {
-		super(arg0);
-		this.status = status;
+    /**
+         * @see java.io.InputStream#read()
+         */
+    @Override
+    public int read() throws IOException {
+	int result = super.read();
+	if (result != -1)
+	    status.setProgressBarValue(++read);
+	return result;
+    }
 
-		if (!relative) {
-			try {
-				status.setProgressBarMaximum(arg0.available());
-			} catch (IOException e) {
-			}
-			
-			read = 0;
-		} else {
-			read = status.getProgressBarValue();
-		}
-	}
+    /**
+         * @see java.io.InputStream#read(byte[], int, int)
+         */
+    @Override
+    public int read(byte[] arg0, int arg1, int arg2) throws IOException {
+	int result = super.read(arg0, arg1, arg2);
+	read += result;
+	status.setProgressBarValue(read);
 
-	/**
-	 * @see java.io.InputStream#read()
-	 */
-	public int read() throws IOException {
-		int result = super.read();
-		if (result != -1)
-			status.setProgressBarValue(++read);
-		return result;
-	}
-
-	/**
-	 * @see java.io.InputStream#read(byte[], int, int)
-	 */
-	public int read(byte[] arg0, int arg1, int arg2) throws IOException {
-		int result = super.read(arg0, arg1, arg2);
-		read += result;
-		status.setProgressBarValue(read);
-
-		return result;
-	}
+	return result;
+    }
 }

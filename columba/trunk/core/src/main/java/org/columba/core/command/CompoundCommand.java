@@ -16,13 +16,11 @@
 
 package org.columba.core.command;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import org.columba.api.command.ICommand;
 import org.columba.api.command.IWorkerStatusController;
-
 
 /**
  * Special type of {@link Command}which is used for a set of different
@@ -31,81 +29,74 @@ import org.columba.api.command.IWorkerStatusController;
  * @author tstich, fdietz
  */
 public class CompoundCommand extends Command {
-	protected List<ICommand> commandList;
+    protected List<ICommand> commandList;
 
-	/**
-	 * Constructor for CompoundCommand. Caution : Never use this command with
-	 * Virtual Folders!
-	 * 
-	 * @param frameMediator
-	 * @param references
-	 */
-	public CompoundCommand() {
-		super(null);
-		commandList = new Vector<ICommand>();
+    /**
+         * Constructor for CompoundCommand. Caution : Never use this command
+         * with Virtual Folders!
+         * 
+         * @param frameMediator
+         * @param references
+         */
+    public CompoundCommand() {
+	super(null);
+	commandList = new Vector<ICommand>();
 
-		priority = Command.NORMAL_PRIORITY;
-		commandType = Command.NORMAL_OPERATION;
+	priority = Command.NORMAL_PRIORITY;
+	commandType = Command.NORMAL_OPERATION;
+    }
+
+    public void add(ICommand c) {
+	commandList.add(c);
+
+    }
+
+    /**
+         * @see org.columba.api.command.Command#execute(Worker)
+         */
+    @Override
+    public void execute(IWorkerStatusController worker) throws Exception {
+	for (ICommand _command : commandList) {
+	    _command.execute(worker);
+	}
+    }
+
+    /**
+         * @see org.columba.api.command.Command#canBeProcessed()
+         */
+    @Override
+    public boolean canBeProcessed() {
+	boolean result = true;
+	for (ICommand _command : commandList) {
+	    result &= _command.canBeProcessed();
 	}
 
-	public void add(ICommand c) {
-		commandList.add(c);
+	if (!result) {
 
+	    releaseAllFolderLocks();
 	}
 
-	/**
-	 * @see org.columba.api.command.Command#execute(Worker)
-	 */
-	public void execute(IWorkerStatusController worker) throws Exception {
-		ICommand c;
+	return result;
+    }
 
-		for (Iterator it = commandList.iterator(); it.hasNext();) {
-			c = (ICommand) it.next();
-			c.execute(worker);
-		}
+    /**
+         * @see org.columba.api.command.Command#releaseAllFolderLocks()
+         */
+    @Override
+    public void releaseAllFolderLocks() {
+	for (ICommand _command : commandList) {
+	    _command.releaseAllFolderLocks();
 	}
+    }
 
-	/**
-	 * @see org.columba.api.command.Command#canBeProcessed()
-	 */
-	public boolean canBeProcessed() {
-		boolean result = true;
-		Command c;
-		for (Iterator it = commandList.iterator(); it.hasNext();) {
-			c = (Command) it.next();
-			result &= c.canBeProcessed();
-		}
-
-		if (!result) {
-
-			releaseAllFolderLocks();
-		}
-
-		return result;
+    /**
+         * 
+         * @see org.columba.api.command.Command#updateGUI()
+         */
+    @Override
+    public void updateGUI() throws Exception {
+	for (ICommand _command : commandList) {
+	    _command.updateGUI();
 	}
-
-	/**
-	 * @see org.columba.api.command.Command#releaseAllFolderLocks()
-	 */
-	public void releaseAllFolderLocks() {
-		Command c;
-		for (Iterator it = commandList.iterator(); it.hasNext();) {
-			c = (Command) it.next();
-			c.releaseAllFolderLocks();
-		}
-	}
-
-	/**
-	 * 
-	 * @see org.columba.api.command.Command#updateGUI()
-	 */
-	public void updateGUI() throws Exception {
-		ICommand c;
-
-		for (Iterator it = commandList.iterator(); it.hasNext();) {
-			c = (ICommand) it.next();
-
-			c.updateGUI();
-		}
-	}
+    }
 }

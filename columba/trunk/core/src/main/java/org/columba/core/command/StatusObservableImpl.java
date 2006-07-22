@@ -19,9 +19,6 @@ package org.columba.core.command;
 import org.columba.api.command.IStatusObservable;
 import org.columba.api.command.IWorkerStatusController;
 
-
-
-
 /**
  * 
  * Represents the clue between the gui and all the folders which want to notify
@@ -29,8 +26,8 @@ import org.columba.api.command.IWorkerStatusController;
  * 
  * <p>
  * We want the folders to be independent from the gui code. So, the folders
- * should communicate with the Observable, whereas the status observers with
- * the Observable.
+ * should communicate with the Observable, whereas the status observers with the
+ * Observable.
  * 
  * </p>
  * This makes it necessary of course to register as Observer.
@@ -43,112 +40,113 @@ import org.columba.api.command.IWorkerStatusController;
  */
 public class StatusObservableImpl implements IStatusObservable {
     /**
- * encapsulated worker
- */
+         * encapsulated worker
+         */
     private IWorkerStatusController worker;
 
     public StatusObservableImpl() {
+	// nothing to do
     }
 
-    public StatusObservableImpl(IWorkerStatusController worker) {
-        this.worker = worker;
+    public StatusObservableImpl(IWorkerStatusController theWorker) {
+	this.worker = theWorker;
     }
 
     /**
- * Sets the current value of the progress bar.
- * 
- * @param i
- *            New current value of progress bar
- */
+         * Sets the current value of the progress bar.
+         * 
+         * @param i
+         *                New current value of progress bar
+         */
     public void setCurrent(int i) {
-        if (worker != null) {
-            worker.setProgressBarValue(i);
-        }
+	if (worker != null) {
+	    worker.setProgressBarValue(i);
+	}
     }
 
     /**
- * Sets the maximum value for the progress bar.
- * 
- * @param i
- *            New max. value for progress bar
- */
+         * Sets the maximum value for the progress bar.
+         * 
+         * @param i
+         *                New max. value for progress bar
+         */
     public void setMax(int i) {
-        if (worker != null) {
-            worker.setProgressBarMaximum(i);
-        }
+	if (worker != null) {
+	    worker.setProgressBarMaximum(i);
+	}
     }
 
     /**
- * Sets the progress bar value to zero, i.e. clears the progress bar. This
- * is the same as calling setCurrent(0)
- */
+         * Sets the progress bar value to zero, i.e. clears the progress bar.
+         * This is the same as calling setCurrent(0)
+         */
     public void resetCurrent() {
-        setCurrent(0);
+	setCurrent(0);
     }
 
     /**
- * Set the text to be displayed in the status bar
- * 
- * @param string
- *            Text to display in status bar
- */
+         * Set the text to be displayed in the status bar
+         * 
+         * @param string
+         *                Text to display in status bar
+         */
     public void setMessage(String string) {
-        if (worker != null) {
-            worker.setDisplayText(string);
-        }
+	if (worker != null) {
+	    worker.setDisplayText(string);
+	}
     }
 
     /**
- * Clears the text displayed in the status bar.
- */
+         * Clears the text displayed in the status bar.
+         */
     public void clearMessage() {
-        if (worker != null) {
-            worker.clearDisplayText();
-        }
+	if (worker != null) {
+	    worker.clearDisplayText();
+	}
     }
 
     /**
- * Clears the text displayed in the status bar - with a given delay. The
- * delay used is 500 ms. <br>
- * If a new text is set within this delay, the text is not cleared.
- */
+         * Clears the text displayed in the status bar - with a given delay. The
+         * delay used is 500 ms. <br>
+         * If a new text is set within this delay, the text is not cleared.
+         */
     public void clearMessageWithDelay() {
-        if (worker != null) {
-            worker.clearDisplayTextWithDelay();
-        }
+	if (worker != null) {
+	    worker.clearDisplayTextWithDelay();
+	}
     }
 
     /**
- * Returns the encapsulated worker object
- * 
- * @return
- */
+         * Returns the encapsulated worker object
+         * 
+         * @return
+         */
     public IWorkerStatusController getWorker() {
-        return worker;
+	return worker;
     }
 
     /**
- * Sets the encapsulated worker object
- * 
- * @param worker
- */
-    public void setWorker(IWorkerStatusController worker) {
-        this.worker = worker;
+         * Sets the encapsulated worker object
+         * 
+         * @param theWorker
+         */
+    public void setWorker(IWorkerStatusController theWorker) {
+	this.worker = theWorker;
     }
 
     /*
- * (non-Javadoc)
- * 
- * @see org.columba.api.command.IStatusObservable#getCancelled()
- */
+         * (non-Javadoc)
+         * 
+         * @see org.columba.api.command.IStatusObservable#getCancelled()
+         */
     public boolean isCancelled() {
-        return worker.cancelled();
+	return worker.cancelled();
     }
 
     public void cancel(boolean b) {
-        if (b) {
-            worker.cancel();
-        }
+	if (b) {
+	    worker.cancel();
+	}
     }
 
 }

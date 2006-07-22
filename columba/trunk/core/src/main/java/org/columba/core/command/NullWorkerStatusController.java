@@ -19,128 +19,145 @@ package org.columba.core.command;
 import org.columba.api.command.IWorkerStatusChangeListener;
 import org.columba.api.command.IWorkerStatusController;
 
-
 /**
  * @author timo
- *
+ * 
  * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * Window>Preferences>Java>Templates. To enable and disable the creation of type
+ * comments go to Window>Preferences>Java>Code Generation.
  */
 public class NullWorkerStatusController implements IWorkerStatusController {
-	/* (non-Javadoc)
-	 * @see org.columba.api.command.IWorkerStatusController#removeWorkerStatusChangeListener(org.columba.core.gui.statusbar.event.WorkerStatusChangeListener)
-	 */
-	public void removeWorkerStatusChangeListener(
-			IWorkerStatusChangeListener listener) {
-		// TODO Auto-generated method stub
+    /*
+         * (non-Javadoc)
+         * 
+         * @see org.columba.api.command.IWorkerStatusController#removeWorkerStatusChangeListener(org.columba.core.gui.statusbar.event.WorkerStatusChangeListener)
+         */
+    public void removeWorkerStatusChangeListener(
+	    IWorkerStatusChangeListener listener) {
+	// TODO Auto-generated method stub
 
-	}
+    }
+
     private static NullWorkerStatusController myInstance;
 
     protected NullWorkerStatusController() {
+	// nothing to do
     }
 
     public static NullWorkerStatusController getInstance() {
-        if (myInstance == null) {
-            myInstance = new NullWorkerStatusController();
-        }
+	if (myInstance == null) {
+	    myInstance = new NullWorkerStatusController();
+	}
 
-        return myInstance;
+	return myInstance;
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#setDisplayText(java.lang.String)
-     */
+         * @see org.columba.api.command.IWorkerStatusController#setDisplayText(java.lang.String)
+         */
     public void setDisplayText(String text) {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#clearDisplayText()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#clearDisplayText()
+         */
     public void clearDisplayText() {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#clearDisplayTextWithDelay()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#clearDisplayTextWithDelay()
+         */
     public void clearDisplayTextWithDelay() {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#getDisplayText()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#getDisplayText()
+         */
     public String getDisplayText() {
-        return null;
+	return null;
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#setProgressBarMaximum(int)
-     */
+         * @see org.columba.api.command.IWorkerStatusController#setProgressBarMaximum(int)
+         */
     public void setProgressBarMaximum(int max) {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#setProgressBarValue(int)
-     */
+         * @see org.columba.api.command.IWorkerStatusController#setProgressBarValue(int)
+         */
     public void setProgressBarValue(int value) {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#resetProgressBar()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#resetProgressBar()
+         */
     public void resetProgressBar() {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#incProgressBarValue()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#incProgressBarValue()
+         */
     public void incProgressBarValue() {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#incProgressBarValue(int)
-     */
+         * @see org.columba.api.command.IWorkerStatusController#incProgressBarValue(int)
+         */
     public void incProgressBarValue(int increment) {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#getProgessBarMaximum()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#getProgessBarMaximum()
+         */
     public int getProgessBarMaximum() {
-        return 0;
+	return 0;
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#getProgressBarValue()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#getProgressBarValue()
+         */
     public int getProgressBarValue() {
-        return 0;
+	return 0;
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#cancel()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#cancel()
+         */
     public void cancel() {
+	// nothing to do
     }
 
     /**
-     * @see org.columba.api.command.IWorkerStatusController#cancelled()
-     */
+         * @see org.columba.api.command.IWorkerStatusController#cancelled()
+         */
     public boolean cancelled() {
-        return false;
+	return false;
     }
-    
-    /* (non-Javadoc)
-     * @see org.columba.api.command.IWorkerStatusController#addWorkerStatusChangeListener(org.columba.core.gui.statusbar.event.WorkerStatusChangeListener)
-     */
+
+    /*
+         * (non-Javadoc)
+         * 
+         * @see org.columba.api.command.IWorkerStatusController#addWorkerStatusChangeListener(org.columba.core.gui.statusbar.event.WorkerStatusChangeListener)
+         */
     public void addWorkerStatusChangeListener(IWorkerStatusChangeListener l) {
+	// nothing to do
     }
-    /* (non-Javadoc)
-     * @see org.columba.api.command.IWorkerStatusController#getTimeStamp()
-     */
+
+    /*
+         * (non-Javadoc)
+         * 
+         * @see org.columba.api.command.IWorkerStatusController#getTimeStamp()
+         */
     public int getTimeStamp() {
-            return 0;
+	return 0;
     }
 }

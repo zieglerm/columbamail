@@ -23,69 +23,60 @@ import java.lang.reflect.Method;
  * 
  * @author Timo Stich (tstich@users.sourceforge.net)
  */
-public class CommandCancelledException extends Exception
-{
-  /**
-   * Serialize version uid which was generated from the compiler.
-   */
-  private static final long serialVersionUID = 7444994996504305731L;
+public class CommandCancelledException extends Exception {
+    /**
+         * Serialize version uid which was generated from the compiler.
+         */
+    private static final long serialVersionUID = 7444994996504305731L;
 
-  /**
-   * Constructor for CommandCancelledException.
-   */
-  public CommandCancelledException()
-  {
-    super();
-  }
-
-  /**
-   * Constructor for CommandCancelledException.
-   * 
-   * @param message
-   */
-  public CommandCancelledException(String message)
-  {
-    super(message);
-  }
-
-  /**
-   * Constructor for CommandCancelledException.
-   * 
-   * @param message
-   * @param cause
-   */
-  public CommandCancelledException(String message, Throwable cause)
-  {
-    this(message);
-    compatibleInitCause(cause);
-  }
-
-  /**
-   * Constructor for CommandCancelledException.
-   * 
-   * @param cause
-   */
-  public CommandCancelledException(Throwable cause)
-  {
-    this();
-    compatibleInitCause(cause);
-  }
-
-  private void compatibleInitCause(Throwable cause)
-  {
-    try
-    {
-      Method initCause = getClass().getMethod("initCause", new Class[] { Throwable.class });
-      initCause.invoke(this, new Object[] { cause });
+    /**
+         * Constructor for CommandCancelledException.
+         */
+    public CommandCancelledException() {
+	super();
     }
-    catch (NoSuchMethodException nsme)
-    {
+
+    /**
+         * Constructor for CommandCancelledException.
+         * 
+         * @param message
+         */
+    public CommandCancelledException(String message) {
+	super(message);
     }
-    catch (IllegalAccessException iae)
-    {
+
+    /**
+         * Constructor for CommandCancelledException.
+         * 
+         * @param message
+         * @param cause
+         */
+    public CommandCancelledException(String message, Throwable cause) {
+	this(message);
+	compatibleInitCause(cause);
     }
-    catch (InvocationTargetException ite)
-    {
+
+    /**
+         * Constructor for CommandCancelledException.
+         * 
+         * @param cause
+         */
+    public CommandCancelledException(Throwable cause) {
+	this();
+	compatibleInitCause(cause);
     }
-  }
+
+    private void compatibleInitCause(Throwable cause) {
+	try {
+	    Method initCause = getClass().getMethod(
+		    "initCause", new Class[] { Throwable.class }); //$NON-NLS-1$
+	    initCause.invoke(this, new Object[] { cause });
+	} catch (NoSuchMethodException nsme) {
+	    // nothing to do yet
+	} catch (IllegalAccessException iae) {
+	    // nothing to do yet
+	} catch (InvocationTargetException ite) {
+	    // nothing to do yet
+	}
+    }
 }

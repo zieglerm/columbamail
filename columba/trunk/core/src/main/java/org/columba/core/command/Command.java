@@ -76,8 +76,8 @@ public abstract class Command implements ICommand {
 	private ICommandReference reference;
 	
 
-	public Command(ICommandReference reference) {
-		this.reference = reference;
+	public Command(ICommandReference theReference) {
+		this.reference = theReference;
 
 		commandType = NORMAL_OPERATION;
 		priority = NORMAL_PRIORITY;
@@ -93,6 +93,7 @@ public abstract class Command implements ICommand {
 	 * @see org.columba.api.command.ICommand#updateGUI()
 	 */
 	public void updateGUI() throws Exception {
+	    // nothing to do
 	}
 
 	/* (non-Javadoc)
@@ -135,12 +136,12 @@ public abstract class Command implements ICommand {
 		return synchronize;
 	}
 
-	public void setSynchronize(boolean synchronize) {
-		this.synchronize = synchronize;
+	public void setSynchronize(boolean isSynchronize) {
+		this.synchronize = isSynchronize;
 	}
 
-	public void setPriority(int priority) {
-		this.priority = priority;
+	public void setPriority(int thePriority) {
+		this.priority = thePriority;
 	}
 
 	/**
@@ -155,11 +156,11 @@ public abstract class Command implements ICommand {
 	/**
 	 * Sets the timeStamp.This method is for testing only!
 	 * 
-	 * @param timeStamp
+	 * @param theTimeStamp
 	 *            The timeStamp to set
 	 */
-	public void setTimeStamp(int timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setTimeStamp(int theTimeStamp) {
+		this.timeStamp = theTimeStamp;
 	}
 
 	/* (non-Javadoc)
