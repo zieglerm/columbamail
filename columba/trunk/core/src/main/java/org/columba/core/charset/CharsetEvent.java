@@ -18,26 +18,26 @@ package org.columba.core.charset;
 import java.nio.charset.Charset;
 import java.util.EventObject;
 
-
 /**
  * Encapsulates information about charset changes.
  */
 
+@SuppressWarnings("serial")
 public class CharsetEvent extends EventObject {
     protected Charset value;
 
     /**
- * Creates a new event for the given charset.
- */
-    public CharsetEvent(Object source, Charset charset) {
-        super(source);
-        value = charset;
+         * Creates a new event for the given charset.
+         */
+    public CharsetEvent(Object theSource, Charset charset) {
+	super(theSource);
+	value = charset;
     }
 
     /**
- * Returns the newly chosen charset.
- */
+         * Returns the newly chosen charset.
+         */
     public Charset getCharset() {
-        return value;
+	return value;
     }
 }
