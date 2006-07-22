@@ -19,8 +19,8 @@ import java.security.SecureRandom;
 /**
  * A universally unique identifier (UUID). A UUID is a 128-bit value.
  * <p>
- * Standard RFC:
- * http://www.ietf.org/internet-drafts/draft-mealling-uuid-urn-05.txt
+ * Standard RFC 4122:
+ * ftp://ftp.isi.edu/in-notes/rfc4122.txt
  * <p>
  */
 public class UUIDGenerator {
@@ -57,8 +57,8 @@ public class UUIDGenerator {
 		for (int i = 8; i < 16; i++) {
 			leastSig = (leastSig << 8) | (secRandBuf16[i] & 0xff);
 		}
-		return (digits(mostSig >> 32, 8) + "-" + digits(mostSig >> 16, 4) + "-"
-				+ digits(mostSig, 4) + "-" + digits(leastSig >> 48, 4) + "-" + digits(
+		return (digits(mostSig >> 32, 8) + "-" + digits(mostSig >> 16, 4) + "-"  //$NON-NLS-1$//$NON-NLS-2$
+				+ digits(mostSig, 4) + "-" + digits(leastSig >> 48, 4) + "-" + digits(  //$NON-NLS-1$//$NON-NLS-2$
 				leastSig, 12));
 	}
 

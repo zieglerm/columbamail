@@ -15,70 +15,69 @@
 //All Rights Reserved.
 package org.columba.core.base;
 
-
 /**
  * @author timo
- *
+ * 
  * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * Window>Preferences>Java>Templates. To enable and disable the creation of type
+ * comments go to Window>Preferences>Java>Code Generation.
  */
 public class Lock {
     private boolean locked;
+
     private Object locker;
+
     private Mutex mutex;
-    
+
     public Lock() {
-        locked = false;
-        mutex = new Mutex();
+	locked = false;
+	mutex = new Mutex();
     }
 
-    public synchronized void getLock(Object locker) {    	
-    	mutex.lock();
-    	if( this.locker == locker) {
-    		mutex.release();
-    		return;
-    	}
-		mutex.release();
-    	
-    	while( !tryToGetLock(locker) ) {
-    		try {
-				wait();
-			} catch (InterruptedException e) {
-			}
-    	}
-    }
-    
-    public boolean tryToGetLock(Object locker) {
-    	mutex.lock();
-    	// Is it already locked from locker ?
-        if ((this.locker == locker) && (locker != null)) {
-        	mutex.release();
-            return true;
-        }
+    public synchronized void getLock(Object theLocker) {
+	mutex.lock();
+	if (this.locker == theLocker) {
+	    mutex.release();
+	    return;
+	}
+	mutex.release();
 
-        // Check if locked
-        if (locked) {
-        	mutex.release();
-            return false;
-        } else {
-            locked = true;
-            this.locker = locker;
-        	mutex.release();
-
-            return true;
-        }
+	while (!tryToGetLock(theLocker)) {
+	    try {
+		wait();
+	    } catch (InterruptedException e) {
+		// nothing to do
+	    }
+	}
     }
 
-    public synchronized void release(Object locker) {
-    	mutex.lock();
-        if ((this.locker == locker) || (this.locker == null)) {
-            locked = false;
-            locker = null;
-        }
-        notify();
-        
-        mutex.release();
+    public boolean tryToGetLock(Object theLocker) {
+	mutex.lock();
+	// Is it already locked from locker ?
+	if ((this.locker == theLocker) && (theLocker != null)) {
+	    mutex.release();
+	    return true;
+	}
+
+	// Check if locked
+	if (locked) {
+	    mutex.release();
+	    return false;
+	}
+	locked = true;
+	this.locker = theLocker;
+	mutex.release();
+
+	return true;
+    }
+
+    public synchronized void release(Object theLocker) {
+	mutex.lock();
+	if ((this.locker == theLocker) || (this.locker == null)) {
+	    locked = false;
+	}
+	notify();
+
+	mutex.release();
     }
 }

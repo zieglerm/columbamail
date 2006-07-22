@@ -24,19 +24,20 @@ import java.util.logging.Logger;
 
 public class StreamThread extends Thread {
 
-    private static final Logger LOG = Logger.getLogger("org.columba.core.util");
+    private static final Logger LOG = Logger.getLogger("org.columba.core.base"); //$NON-NLS-1$
 
     InputStream is;
     String type;
     StringBuffer buf;
 
-    public StreamThread(InputStream is, String type) {
-        this.is = is;
-        this.type = type;
+    public StreamThread(InputStream theInputStream, String theType) {
+        this.is = theInputStream;
+        this.type = theType;
 
         buf = new StringBuffer();
     }
 
+    @Override
     public void run() {
         try {
             InputStreamReader isr = new InputStreamReader(is);
@@ -44,8 +45,8 @@ public class StreamThread extends Thread {
             String line = null;
 
             while ((line = br.readLine()) != null) {
-                LOG.fine(type + ">" + line);
-                buf.append(line + "\n");
+                LOG.fine(type + ">" + line); //$NON-NLS-1$
+                buf.append(line + "\n"); //$NON-NLS-1$
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();

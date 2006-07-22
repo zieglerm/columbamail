@@ -18,32 +18,32 @@ package org.columba.core.base;
 
 public class Barrier {
 
-	boolean open;
-	
-	public Barrier() {
-		open = false;
+    boolean open;
+
+    public Barrier() {
+	this.open = false;
+    }
+
+    public synchronized void join() {
+	while (!this.open) {
+	    try {
+		wait();
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
 	}
-	
-	public synchronized void join() {
-		while( !open ) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		// Wake up the others!
-		notifyAll();
-	}
-	
-	public synchronized void open() {
-		open = true;
-		notifyAll();
-	}
-	
-	public void close() {
-		open = false;
-	}
+
+	// Wake up the others!
+	notifyAll();
+    }
+
+    public synchronized void open() {
+	this.open = true;
+	notifyAll();
+    }
+
+    public void close() {
+	this.open = false;
+    }
 
 }

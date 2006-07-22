@@ -23,8 +23,8 @@ package org.columba.core.base;
  * @author Hrk (Luca Santarelli) <hrk@users.sourceforge.net>
  */
 public class OSInfo {
-    private static final String OS_NAME = "os.name";
-    private static final String OS_ARCH = "os.arch";
+    private static final String OS_NAME = "os.name"; //$NON-NLS-1$
+    private static final String OS_ARCH = "os.arch"; //$NON-NLS-1$
     
     //Platform identifiers: Windows, Linux, Mac OS, ...
     
@@ -68,73 +68,73 @@ public class OSInfo {
      * Returns whether the underlying operating system is Windows 95.
      */
     public static boolean isWin95() {
-        return "Windows 95".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows 95".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows 98.
      */
     public static boolean isWin98() {
-        return "Windows 98".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows 98".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows ME.
      */
     public static boolean isWinME() {
-        return "Windows ME".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows ME".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows NT.
      */
     public static boolean isWinNT() {
-        return "Windows NT".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows NT".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows 2000.
      */
     public static boolean isWin2K() {
-        return "Windows 2000".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows 2000".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows 2003.
      */
     public static boolean isWin2K3() {
-        return "Windows 2003".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows 2003".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Windows XP.
      */
     public static boolean isWinXP() {
-        return "Windows XP".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Windows XP".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Linux.
      */
     public static boolean isLinux() {
-        return "Linux".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Linux".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
 
     /**
      * Returns whether the underlying operating system is Solaris.
      */
     public static boolean isSolaris() {
-        return "Solaris".equalsIgnoreCase(System.getProperty(OS_NAME));
+        return "Solaris".equalsIgnoreCase(System.getProperty(OS_NAME)); //$NON-NLS-1$
     }
     
     /**
      * Returns whether the underlying operating system is some MacOS.
      */
     public static boolean isMac() {
-    	return System.getProperty(OS_NAME).toLowerCase().indexOf("mac") != -1;
+    	return System.getProperty(OS_NAME).toLowerCase().indexOf("mac") != -1; //$NON-NLS-1$
     }
     
     public static boolean isAMD64Bit() {
-    	return System.getProperty(OS_ARCH).toLowerCase().indexOf("amd64") != -1;
+    	return System.getProperty(OS_ARCH).toLowerCase().indexOf("amd64") != -1; //$NON-NLS-1$
     }
 }

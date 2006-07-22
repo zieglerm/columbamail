@@ -25,18 +25,18 @@ public class Interval {
     public int b;
 
     //public int type;
-    public Interval(int a, int b) {
-        this.a = a;
-        this.b = b;
+    public Interval(int theA, int theB) {
+        this.a = theA;
+        this.b = theB;
     }
 
     public Interval() {
-        a = -1;
-        b = -1;
+        this.a = -1;
+        this.b = -1;
     }
 
     public void reset() {
-        a = -1;
-        b = -2;
+        this.a = -1;
+        this.b = -2;
     }
 }

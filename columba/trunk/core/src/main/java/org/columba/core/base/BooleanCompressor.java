@@ -17,22 +17,21 @@ package org.columba.core.base;
 
 public class BooleanCompressor {
     public static int compress(Boolean[] input) {
-        int result = 0;
+	int result = 0;
 
-        for (int i = 0; i < input.length; i++) {
-            if (input[i].booleanValue()) {
-                result |= (1 << i);
-            }
-        }
+	for (int i = 0; i < input.length; i++) {
+	    if (input[i].booleanValue()) {
+		result |= (1 << i);
+	    }
+	}
 
-        return result;
+	return result;
     }
 
     public static Boolean decompress(int input, int index) {
-        if (((input >> index) & 1) == 1) {
-            return Boolean.TRUE;
-        } else {
-            return Boolean.FALSE;
-        }
+	if (((input >> index) & 1) == 1) {
+	    return Boolean.TRUE;
+	}
+	return Boolean.FALSE;
     }
 }

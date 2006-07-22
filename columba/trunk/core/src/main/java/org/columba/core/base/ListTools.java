@@ -20,202 +20,200 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-
 /**
  * @author timo
- *
+ * 
  * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * Window>Preferences>Java>Templates. To enable and disable the creation of type
+ * comments go to Window>Preferences>Java>Code Generation.
  */
 public class ListTools {
     /**
- * Intersect two Lists that contain Objects that implement
- * the Comparable Interface. The Result is in List a and sorted.
- * Be aware that List b gets also sorted!
- *
- * @param a
- * @param b
- */
+         * Intersect two Lists that contain Objects that implement the
+         * Comparable Interface. The Result is in List a and sorted. Be aware
+         * that List b gets also sorted!
+         * 
+         * @param a
+         * @param b
+         */
     public static void intersect(List a, List b) {
-        ListIterator aIt;
-        ListIterator bIt;
+	ListIterator aIt;
+	ListIterator bIt;
 
-        if (a.size() == 0) {
-            return;
-        }
+	if (a.size() == 0) {
+	    return;
+	}
 
-        if (b.size() == 0) {
-            a.clear();
+	if (b.size() == 0) {
+	    a.clear();
 
-            return;
-        }
+	    return;
+	}
 
-        Collections.sort(a);
-        Collections.sort(b);
+	Collections.sort(a);
+	Collections.sort(b);
 
-        aIt = a.listIterator();
-        bIt = b.listIterator();
+	aIt = a.listIterator();
+	bIt = b.listIterator();
 
-        Comparable aVal;
-        Comparable bVal;
+	Comparable aVal;
+	Comparable bVal;
 
-        aVal = (Comparable) aIt.next();
-        bVal = (Comparable) bIt.next();
+	aVal = (Comparable) aIt.next();
+	bVal = (Comparable) bIt.next();
 
-        boolean loop = true;
-        int compareResult;
+	boolean loop = true;
+	int compareResult;
 
-        while (loop) {
-            compareResult = aVal.compareTo(bVal);
+	while (loop) {
+	    compareResult = aVal.compareTo(bVal);
 
-            if (compareResult < 0) { // a < b
-                aIt.remove();
+	    if (compareResult < 0) { // a < b
+		aIt.remove();
 
-                if (aIt.hasNext()) {
-                    aVal = (Comparable) aIt.next();
-                } else {
-                    return;
-                }
-            } else if (compareResult == 0) { // a == b
+		if (aIt.hasNext()) {
+		    aVal = (Comparable) aIt.next();
+		} else {
+		    return;
+		}
+	    } else if (compareResult == 0) { // a == b
 
-                if (aIt.hasNext()) {
-                    aVal = (Comparable) aIt.next();
-                } else {
-                    loop = false;
+		if (aIt.hasNext()) {
+		    aVal = (Comparable) aIt.next();
+		} else {
+		    loop = false;
 
-                    return;
-                }
+		    return;
+		}
 
-                if (bIt.hasNext()) {
-                    bVal = (Comparable) bIt.next();
-                } else {
-                    loop = false;
-                    aIt.remove();
-                }
-            } else { // a > b
+		if (bIt.hasNext()) {
+		    bVal = (Comparable) bIt.next();
+		} else {
+		    loop = false;
+		    aIt.remove();
+		}
+	    } else { // a > b
 
-                if (bIt.hasNext()) {
-                    bVal = (Comparable) bIt.next();
-                } else {
-                    loop = false;
-                    aIt.remove();
-                }
-            }
-        }
+		if (bIt.hasNext()) {
+		    bVal = (Comparable) bIt.next();
+		} else {
+		    loop = false;
+		    aIt.remove();
+		}
+	    }
+	}
 
-        while (aIt.hasNext()) {
-            aIt.next();
-            aIt.remove();
-        }
+	while (aIt.hasNext()) {
+	    aIt.next();
+	    aIt.remove();
+	}
     }
 
     /**
- * Subtracts two Lists in O(n * log n) that contain Objects that implement
- * the Comparable Interface. The Result is in List a and sorted.
- * Be aware that List b gets also sorted!
- *
- * @param a
- * @param b
- */
+         * Subtracts two Lists in O(n * log n) that contain Objects that
+         * implement the Comparable Interface. The Result is in List a and
+         * sorted. Be aware that List b gets also sorted!
+         * 
+         * @param a
+         * @param b
+         */
     public static void substract(List a, List b) {
-        ListIterator aIt;
-        ListIterator bIt;
+	ListIterator aIt;
+	ListIterator bIt;
 
-        if ((a.size() == 0) || (b.size() == 0)) {
-            return;
-        }
+	if ((a.size() == 0) || (b.size() == 0)) {
+	    return;
+	}
 
-        Collections.sort(a);
-        Collections.sort(b);
+	Collections.sort(a);
+	Collections.sort(b);
 
-        aIt = a.listIterator();
-        bIt = b.listIterator();
+	aIt = a.listIterator();
+	bIt = b.listIterator();
 
-        Comparable aVal;
-        Comparable bVal;
+	Comparable aVal;
+	Comparable bVal;
 
-        aVal = (Comparable) aIt.next();
-        bVal = (Comparable) bIt.next();
+	aVal = (Comparable) aIt.next();
+	bVal = (Comparable) bIt.next();
 
-        boolean loop = true;
-        int compareResult;
+	boolean loop = true;
+	int compareResult;
 
-        while (loop) {
-            compareResult = aVal.compareTo(bVal);
+	while (loop) {
+	    compareResult = aVal.compareTo(bVal);
 
-            if (compareResult < 0) { // a < b
+	    if (compareResult < 0) { // a < b
 
-                if (aIt.hasNext()) {
-                    aVal = (Comparable) aIt.next();
-                } else {
-                    return;
-                }
-            } else if (compareResult == 0) { // a == b
-                aIt.remove();
+		if (aIt.hasNext()) {
+		    aVal = (Comparable) aIt.next();
+		} else {
+		    return;
+		}
+	    } else if (compareResult == 0) { // a == b
+		aIt.remove();
 
-                if (aIt.hasNext()) {
-                    aVal = (Comparable) aIt.next();
-                } else {
-                    return;
-                }
+		if (aIt.hasNext()) {
+		    aVal = (Comparable) aIt.next();
+		} else {
+		    return;
+		}
 
-                if (bIt.hasNext()) {
-                    bVal = (Comparable) bIt.next();
-                } else {
-                    return;
-                }
-            } else { // a > b
+		if (bIt.hasNext()) {
+		    bVal = (Comparable) bIt.next();
+		} else {
+		    return;
+		}
+	    } else { // a > b
 
-                if (bIt.hasNext()) {
-                    bVal = (Comparable) bIt.next();
-                } else {
-                    return;
-                }
-            }
-        }
+		if (bIt.hasNext()) {
+		    bVal = (Comparable) bIt.next();
+		} else {
+		    return;
+		}
+	    }
+	}
     }
 
     /**
- * Intersects to list in O(length(List a) * length(List b)).
- * This is the a stable version (elements keep their oder).
- * The elements in b will be removed from the list.
- * 
- * @param a
- * @param b
- */
+         * Intersects to list in O(length(List a) * length(List b)). This is the
+         * a stable version (elements keep their oder). The elements in b will
+         * be removed from the list.
+         * 
+         * @param a
+         * @param b
+         */
     public static void intersect_astable(List a, List b) {
-        if (a.size() == 0) {
-            return;
-        }
+	if (a.size() == 0) {
+	    return;
+	}
 
-        if (b.size() == 0) {
-            a.clear();
+	if (b.size() == 0) {
+	    a.clear();
 
-            return;
-        }
+	    return;
+	}
 
-        Iterator ita = a.iterator();
-        Iterator itb;
-        Object acta;
+	Iterator ita = a.iterator();
+	Iterator itb;
+	Object acta;
 
-        boolean found;
+	boolean found;
 
-        while (ita.hasNext()) {
-            acta = ita.next();
-            itb = b.iterator();
-            found = false;
+	while (ita.hasNext()) {
+	    acta = ita.next();
+	    itb = b.iterator();
+	    found = false;
 
-            while (itb.hasNext() && !found) {
-                found = acta.equals(itb.next());
-            }
+	    while (itb.hasNext() && !found) {
+		found = acta.equals(itb.next());
+	    }
 
-            if (!found) {
-                ita.remove();
-            } else {
-                itb.remove();
-            }
-        }
+	    if (!found) {
+		ita.remove();
+	    } else {
+		itb.remove();
+	    }
+	}
     }
 }

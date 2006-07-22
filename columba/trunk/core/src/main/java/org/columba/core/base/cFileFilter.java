@@ -19,54 +19,59 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-
 public class cFileFilter extends FileFilter {
     public static final int FILEPROPERTY_FILE = 0x0001;
+
     public static final int FILEPROPERTY_DIRECTORY = 0x0002;
+
     public static final int FILEPROPERTY_HIDDEN = 0x0004;
+
     private int property;
 
     public cFileFilter() {
-        property = 0x0000; //Check for no property
+	this.property = 0x0000; // Check for no property
     }
 
     /**
- * @see FileFilter#accept(File)
- */
+         * @see FileFilter#accept(File)
+         */
+    @Override
     public boolean accept(File f) {
-        boolean result = true;
+	boolean result = true;
 
-        if (f == null) {
-            return false;
-        }
+	if (f == null) {
+	    return false;
+	}
 
-        if (!f.exists()) {
-            return true; // return true for new files
-        }
+	if (!f.exists()) {
+	    return true; // return true for new files
+	}
 
-        if ((property & FILEPROPERTY_FILE) > 0) {
-            result = result && f.isFile();
-        }
+	if ((this.property & FILEPROPERTY_FILE) > 0) {
+	    result = result && f.isFile();
+	}
 
-        if ((property & FILEPROPERTY_DIRECTORY) > 0) {
-            result = result && f.isDirectory();
-        }
+	if ((this.property & FILEPROPERTY_DIRECTORY) > 0) {
+	    result = result && f.isDirectory();
+	}
 
-        if ((property & FILEPROPERTY_HIDDEN) > 0) {
-            result = result && f.isHidden();
-        }
+	if ((this.property & FILEPROPERTY_HIDDEN) > 0) {
+	    result = result && f.isHidden();
+	}
 
-        return result;
+	return result;
     }
 
     public void acceptFilesWithProperty(int newprop) {
-        property = newprop;
+	this.property = newprop;
     }
 
     /**
- * @see FileFilter#getDescription()
- */
+         * @see FileFilter#getDescription()
+         */
+    @Override
     public String getDescription() {
-        return new String("Columba File Filter");
+	//TODO externalize string
+	return new String("Columba File Filter"); //$NON-NLS-1$
     }
 }

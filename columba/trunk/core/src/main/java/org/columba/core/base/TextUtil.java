@@ -18,8 +18,8 @@ public class TextUtil {
 	public static String replaceAll(final String inputString,
 			final String oldPattern, final String newPattern) {
 		
-		if (oldPattern.equals("")) {
-			throw new IllegalArgumentException("Old pattern must have content.");
+		if (oldPattern.equals("")) { //$NON-NLS-1$
+			throw new IllegalArgumentException("Old pattern must have content."); //$NON-NLS-1$
 		}
 
 		final StringBuffer result = new StringBuffer();

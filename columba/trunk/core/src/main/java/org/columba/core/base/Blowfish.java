@@ -34,74 +34,83 @@ import javax.crypto.spec.SecretKeySpec;
 import org.columba.ristretto.coder.Base64;
 
 public class Blowfish {
-	private static final Logger LOG = Logger
-	.getLogger("org.columba.util.blowfish");
+    private static final Logger LOG = Logger
+	    .getLogger("org.columba.util.blowfish"); //$NON-NLS-1$
 
-	private static final byte[] BYTES = { -127, 88, 27, -88, -13, -56, 19, -4,
-			45, 25, 38, 70, -17, 40, 36, -23 };
-	
-	private static final Key KEY = new SecretKeySpec(BYTES, "Blowfish");
-	
-	public static String encrypt(char[] source) {
-			try {
-				// Create the cipher
-				Cipher blowCipher = Cipher.getInstance("Blowfish");
+    private static final byte[] BYTES = { -127, 88, 27, -88, -13, -56, 19, -4,
+	    45, 25, 38, 70, -17, 40, 36, -23 };
 
-				// Initialize the cipher for encryption
-				blowCipher.init(Cipher.ENCRYPT_MODE, KEY);
+    private static final Key KEY = new SecretKeySpec(BYTES, "Blowfish"); //$NON-NLS-1$
 
-				// Our cleartext as bytes
-				byte[] cleartext = new String(source).getBytes("UTF-8");
+    public static String encrypt(char[] source) {
+	try {
+	    // Create the cipher
+	    Cipher blowCipher = Cipher.getInstance("Blowfish"); //$NON-NLS-1$
 
-				// Encrypt the cleartext
-				byte[] ciphertext = blowCipher.doFinal(cleartext);
+	    // Initialize the cipher for encryption
+	    blowCipher.init(Cipher.ENCRYPT_MODE, KEY);
 
-				// Return a String representation of the cipher text
-				return Base64.encode(ByteBuffer.wrap(ciphertext)).toString();
-			} catch (InvalidKeyException e) {
-			} catch (NoSuchAlgorithmException e) {
-				LOG.severe(e.toString());
-			} catch (NoSuchPaddingException e) {
-			} catch (UnsupportedEncodingException e) {
-				LOG.severe(e.toString());
-			} catch (IllegalStateException e) {
-			} catch (IllegalBlockSizeException e) {
-			} catch (BadPaddingException e) {
-			}
-			
-			return "";
+	    // Our cleartext as bytes
+	    byte[] cleartext = new String(source).getBytes("UTF-8"); //$NON-NLS-1$
+
+	    // Encrypt the cleartext
+	    byte[] ciphertext = blowCipher.doFinal(cleartext);
+
+	    // Return a String representation of the cipher text
+	    return Base64.encode(ByteBuffer.wrap(ciphertext)).toString();
+	} catch (InvalidKeyException e) {
+	    LOG.severe(e.toString());
+	} catch (NoSuchAlgorithmException e) {
+	    LOG.severe(e.toString());
+	} catch (NoSuchPaddingException e) {
+	    LOG.severe(e.toString());
+	} catch (UnsupportedEncodingException e) {
+	    LOG.severe(e.toString());
+	} catch (IllegalStateException e) {
+	    LOG.severe(e.toString());
+	} catch (IllegalBlockSizeException e) {
+	    LOG.severe(e.toString());
+	} catch (BadPaddingException e) {
+	    LOG.severe(e.toString());
 	}
 
-	public static char[] decrypt(String source) {
-		try {
-			// Create the cipher
-			Cipher blowCipher = Cipher.getInstance("Blowfish");
+	return new String();
+    }
 
-			// Initialize the cipher for encryption
-			blowCipher.init(Cipher.DECRYPT_MODE, KEY);
+    public static char[] decrypt(String source) {
+	try {
+	    // Create the cipher
+	    Cipher blowCipher = Cipher.getInstance("Blowfish"); //$NON-NLS-1$
 
-			// Encrypt the cleartext
-			ByteBuffer ciphertext = Base64.decode(source);
-			byte[] cipherArray = new byte[ciphertext.limit()];
-			ciphertext.get(cipherArray);
-			
-			// Our cleartext as bytes
-			byte[] cleartext = blowCipher.doFinal(cipherArray);
+	    // Initialize the cipher for encryption
+	    blowCipher.init(Cipher.DECRYPT_MODE, KEY);
 
+	    // Encrypt the cleartext
+	    ByteBuffer ciphertext = Base64.decode(source);
+	    byte[] cipherArray = new byte[ciphertext.limit()];
+	    ciphertext.get(cipherArray);
 
-			// Return a String representation of the cipher text
-			return new String(cleartext, "UTF-8").toCharArray();
-		} catch (InvalidKeyException e) {
-		} catch (NoSuchAlgorithmException e) {
-			LOG.severe(e.toString());
-		} catch (NoSuchPaddingException e) {
-		} catch (UnsupportedEncodingException e) {
-			LOG.severe(e.toString());
-		} catch (IllegalStateException e) {
-		} catch (IllegalBlockSizeException e) {
-		} catch (BadPaddingException e) {
-		}
-		
-		return new char[0];
-}
+	    // Our cleartext as bytes
+	    byte[] cleartext = blowCipher.doFinal(cipherArray);
+
+	    // Return a String representation of the cipher text
+	    return new String(cleartext, "UTF-8").toCharArray(); //$NON-NLS-1$
+	} catch (InvalidKeyException e) {
+	    LOG.severe(e.toString());
+	} catch (NoSuchAlgorithmException e) {
+	    LOG.severe(e.toString());
+	} catch (NoSuchPaddingException e) {
+	    LOG.severe(e.toString());
+	} catch (UnsupportedEncodingException e) {
+	    LOG.severe(e.toString());
+	} catch (IllegalStateException e) {
+	    LOG.severe(e.toString());
+	} catch (IllegalBlockSizeException e) {
+	    LOG.severe(e.toString());
+	} catch (BadPaddingException e) {
+	    LOG.severe(e.toString());
+	}
+
+	return new char[0];
+    }
 }

@@ -1,4 +1,5 @@
 package org.columba.core.base;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import org.columba.core.io.StreamUtils;
-
 
 /*
  * Created on 15.07.2003
@@ -17,123 +17,129 @@ import org.columba.core.io.StreamUtils;
 
 /**
  * @author frd
- *
+ * 
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class IPCHelper {
-	
-	private static final java.util.logging.Logger LOG = 
-        java.util.logging.Logger.getLogger("org.columba.core.base"); //$NON-NLS-1$
-	
+
+    static final java.util.logging.Logger LOG = java.util.logging.Logger
+	    .getLogger("org.columba.core.base"); //$NON-NLS-1$
+
     protected StreamThread outputStream = null;
+
     protected StreamThread errorStream = null;
+
     protected OutputStream inputStream = null;
+
     protected Process p;
 
     public IPCHelper() {
+	// nothing to do
     }
 
     /**
-     *
-     * execute command
-     *
-     * initialize streams
-     *
-     * @param command
-     * @throws Exception
-     */
+         * 
+         * execute command
+         * 
+         * initialize streams
+         * 
+         * @param command
+         * @throws Exception
+         */
     public void executeCommand(String[] command) throws Exception {
-        p = Runtime.getRuntime().exec(command);
+	this.p = Runtime.getRuntime().exec(command);
 
-        errorStream = new StreamThread(p.getErrorStream());
-        outputStream = new StreamThread(p.getInputStream());
-        inputStream = p.getOutputStream();
+	errorStream = new StreamThread(p.getErrorStream());
+	outputStream = new StreamThread(p.getInputStream());
+	inputStream = p.getOutputStream();
 
-        errorStream.start();
-        outputStream.start();
+	errorStream.start();
+	outputStream.start();
     }
 
     public void send(String in) throws Exception {
-        inputStream.write(in.getBytes());
-        inputStream.flush();
-        inputStream.close();
+	inputStream.write(in.getBytes());
+	inputStream.flush();
+	inputStream.close();
     }
 
     public void send(InputStream in) throws Exception {
-        StreamUtils.streamCopy(in, inputStream);
-        inputStream.flush();
-        inputStream.close();
+	StreamUtils.streamCopy(in, inputStream);
+	inputStream.flush();
+	inputStream.close();
     }
 
     public int waitFor() throws Exception {
-        int exitVal = p.waitFor();
+	int exitVal = p.waitFor();
 
-        return exitVal;
+	return exitVal;
     }
 
     /**
-     *
-     * return error
-     *
-     * @return @throws
-     *         Exception
-     */
+         * 
+         * return error
+         * 
+         * @return
+         * @throws Exception
+         */
     public String getErrorString() throws Exception {
-        String str = errorStream.getBuffer();
+	String str = errorStream.getBuffer();
 
-        return str;
+	return str;
     }
 
     /**
-     *
-     * return output
-     *
-     * @return @throws
-     *         Exception
-     */
+         * 
+         * return output
+         * 
+         * @return
+         * @throws Exception
+         */
     public String getOutputString() throws Exception {
-        String str = outputStream.getBuffer();
+	String str = outputStream.getBuffer();
 
-        return str;
+	return str;
     }
 
     /*
-     * wait for stream threads to die
-     *
-     */
+         * wait for stream threads to die
+         * 
+         */
     public void waitForThreads() throws Exception {
-        outputStream.join();
-        errorStream.join();
+	outputStream.join();
+	errorStream.join();
     }
 
     public class StreamThread extends Thread {
-        InputStream is;
-        StringBuffer buf;
+	InputStream is;
 
-        public StreamThread(InputStream is) {
-            this.is = is;
+	StringBuffer buf;
 
-            buf = new StringBuffer();
-        }
+	public StreamThread(InputStream theInputStream) {
+	    this.is = theInputStream;
 
-        public void run() {
-            try {
-                InputStreamReader isr = new InputStreamReader(is);
-                BufferedReader br = new BufferedReader(isr);
-                String line = null;
+	    buf = new StringBuffer();
+	}
 
-                while ((line = br.readLine()) != null) {
-                    LOG.info(">" + line); //$NON-NLS-1$
-                    buf.append(line + "\n");
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }
+	@Override
+	public void run() {
+	    try {
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		String line = null;
 
-        public String getBuffer() {
-            return buf.toString();
-        }
+		while ((line = br.readLine()) != null) {
+		    LOG.info(">" + line); //$NON-NLS-1$
+		    buf.append(line + "\n"); //$NON-NLS-1$
+		}
+	    } catch (IOException ioe) {
+		ioe.printStackTrace();
+	    }
+	}
+
+	public String getBuffer() {
+	    return buf.toString();
+	}
     }
 }

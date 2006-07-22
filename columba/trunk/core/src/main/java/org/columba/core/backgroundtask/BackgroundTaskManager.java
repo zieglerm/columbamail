@@ -19,7 +19,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -33,14 +32,16 @@ import org.columba.core.command.TaskManager;
 /**
  * This manager runs in background.
  * <p>
- * If the user doesn't do anything with Columba, it starts some cleanup
- * workers, like saving configuration, saving header-cache, etc.
- *
+ * If the user doesn't do anything with Columba, it starts some cleanup workers,
+ * like saving configuration, saving header-cache, etc.
+ * 
  * @author fdietz
  */
-public class BackgroundTaskManager implements ActionListener, IBackgroundTaskManager {
+public class BackgroundTaskManager implements ActionListener,
+	IBackgroundTaskManager {
 
-    private static final Logger LOG = Logger.getLogger("org.columba.api.backgroundtask");
+    private static final Logger LOG = Logger
+	    .getLogger("org.columba.api.backgroundtask"); //$NON-NLS-1$
 
     // one second (=1000 ms)
     private static final int ONE_SECOND = 1000;
@@ -50,56 +51,58 @@ public class BackgroundTaskManager implements ActionListener, IBackgroundTaskMan
 
     private Timer timer;
 
-    private List list;
-    
+    private List<Runnable> list;
+
     private static BackgroundTaskManager instance = new BackgroundTaskManager();
 
     public BackgroundTaskManager() {
-        super();
+	super();
+	// TODO we should check if we need an vector or better another list
+	// implementation; checking also, if the list
+	// must be syncronized or not (performance)
+	this.list = new Vector<Runnable>();
 
-        list = new Vector();
-
-        timer = new Timer(SLEEP_TIME, this);
-        timer.start();
+	this.timer = new Timer(SLEEP_TIME, this);
+	this.timer.start();
     }
-    
+
     public static BackgroundTaskManager getInstance() {
-    	return instance;
+	return instance;
     }
 
     /**
-	 * @see org.columba.api.backgroundtask.IBackgroundTaskManager#register(java.lang.Runnable)
-	 */
+         * @see org.columba.api.backgroundtask.IBackgroundTaskManager#register(java.lang.Runnable)
+         */
     public void register(Runnable runnable) {
-        list.add(runnable);
+	this.list.add(runnable);
     }
 
     /*
-     * (non-Javadoc)
-     *
-     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
     public void actionPerformed(ActionEvent event) {
-        // test if a task is already running
-        EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+	// test if a task is already running
+	EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
 
-        if ((queue.peekEvent() == null) && (TaskManager.getInstance().count() == 0)) {
-            // no java task running -> start background tasks
-            if (LOG.isLoggable(Level.FINE)) {
-                LOG.fine("Starting background tasks...");
-            }
-            runTasks();
-        }
+	if ((queue.peekEvent() == null)
+		&& (TaskManager.getInstance().count() == 0)) {
+	    // no java task running -> start background tasks
+	    if (LOG.isLoggable(Level.FINE)) {
+		LOG.fine("Starting background tasks..."); //$NON-NLS-1$
+	    }
+	    runTasks();
+	}
     }
 
     public void runTasks() {
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            Runnable task = (Runnable) it.next();
-            task.run();
-        }
+	for (Runnable task : this.list) {
+	    task.run();
+	}
     }
 
     public void stop() {
-        timer.stop();
+	this.timer.stop();
     }
 }

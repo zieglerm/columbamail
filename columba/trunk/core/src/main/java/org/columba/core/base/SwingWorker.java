@@ -83,7 +83,7 @@ public abstract class SwingWorker {
 	/**
 	 * Set the value produced by worker thread
 	 */
-	private synchronized void setValue(Object x) {
+	synchronized void setValue(Object x) {
 		value = x;
 	}
 
@@ -117,6 +117,7 @@ public abstract class SwingWorker {
 	 * the <code>construct</code> method has returned.
 	 */
 	public void finished() {
+	    // nothing to do
 	}
 
 	/**
