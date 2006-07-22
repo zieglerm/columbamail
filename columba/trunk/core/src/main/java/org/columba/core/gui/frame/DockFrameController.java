@@ -245,7 +245,7 @@ public abstract class DockFrameController extends DefaultFrameController
 	// convert region enum to flexdock string
 	/**
 	 * @param region
-	 * @return
+	 * @return regionString
 	 */
 	private String convertRegion(REGION region) {
 		String regionString = null;

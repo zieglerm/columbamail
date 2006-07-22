@@ -17,26 +17,6 @@
 //All Rights Reserved.
 package org.columba.mail.gui.frame;
 
-import java.awt.BorderLayout;
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.tree.TreePath;
-
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
@@ -48,7 +28,6 @@ import org.columba.core.gui.menu.MenuXMLDecoder;
 import org.columba.core.io.DiskIO;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.config.MailConfig;
-import org.columba.mail.folder.AbstractFolder;
 import org.columba.mail.folder.IMailFolder;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.folder.IMailboxInfo;
@@ -78,580 +57,591 @@ import org.columba.mail.gui.tree.selection.TreeSelectionChangedEvent;
 import org.columba.mail.gui.tree.selection.TreeSelectionHandler;
 import org.columba.mail.util.MailResourceLoader;
 
+import javax.swing.*;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * @author fdietz
- * 
  */
 public class ThreePaneMailFrameController extends AbstractMailFrameController
-		implements TreeViewOwner, TableViewOwner, ISelectionListener, IFolderListener {
+        implements TreeViewOwner, TableViewOwner, ISelectionListener, IFolderListener {
 
-	public TreeController treeController;
+    public TreeController treeController;
 
-	public TableController tableController;
+    public TableController tableController;
 
-	public HeaderController headerController;
+    public HeaderController headerController;
 
-	public FilterToolbar filterToolbar;
+    public FilterToolbar filterToolbar;
 
-	public JSplitPane mainSplitPane;
+    public JSplitPane mainSplitPane;
 
-	public JSplitPane rightSplitPane;
+    public JSplitPane rightSplitPane;
 
-	private JPanel tablePanel;
+    private JPanel tablePanel;
 
-	private JPanel messagePanel;
+    private JPanel messagePanel;
 
-	private IMailFolder currentFolder;
-	
-	/**
-	 * true, if the messagelist table selection event was triggered by a popup
-	 * event. False, otherwise.
-	 */
-	public boolean isTablePopupEvent;
+    private IMailFolder currentFolder;
 
-	/**
-	 * true, if the tree selection event was triggered by a popup event. False,
-	 * otherwise.
-	 */
-	public boolean isTreePopupEvent;
+    /**
+     * true, if the messagelist table selection event was triggered by a popup
+     * event. False, otherwise.
+     */
+    public boolean isTablePopupEvent;
 
-	private IDockable folderTreeDockable;
+    /**
+     * true, if the tree selection event was triggered by a popup event. False,
+     * otherwise.
+     */
+    public boolean isTreePopupEvent;
 
-	private IDockable messageListDockable;
+    private IDockable folderTreeDockable;
 
-	private IDockable messageViewerDockable;
+    private IDockable messageListDockable;
 
-	/**
-	 * @param container
-	 */
-	public ThreePaneMailFrameController(ViewItem viewItem) {
-		super(viewItem);
+    private IDockable messageViewerDockable;
 
-		treeController = new TreeController(this, FolderTreeModel.getInstance());
-		tableController = new TableController(this);
+    /**
+     * @param viewItem
+     */
+    public ThreePaneMailFrameController(ViewItem viewItem) {
+        super(viewItem);
 
-		// create selection handlers
-		TableSelectionHandler tableHandler = new TableSelectionHandler(
-				tableController);
-		getSelectionManager().addSelectionHandler(tableHandler);
-		tableHandler.addSelectionListener(this);
+        treeController = new TreeController(this, FolderTreeModel.getInstance());
+        tableController = new TableController(this);
 
-		TreeSelectionHandler treeHandler = new TreeSelectionHandler(
-				treeController.getView());
-		getSelectionManager().addSelectionHandler(treeHandler);
+        // create selection handlers
+        TableSelectionHandler tableHandler = new TableSelectionHandler(
+                tableController);
+        getSelectionManager().addSelectionHandler(tableHandler);
+        tableHandler.addSelectionListener(this);
 
-		// double-click mouse listener
-		tableController.getView().addMouseListener(new TableMouseListener());
+        TreeSelectionHandler treeHandler = new TreeSelectionHandler(
+                treeController.getView());
+        getSelectionManager().addSelectionHandler(treeHandler);
 
-		treeController.getView().addMouseListener(new TreeMouseListener());
+        // double-click mouse listener
+        tableController.getView().addMouseListener(new TableMouseListener());
 
-		// table registers interest in tree selection events
-		treeHandler.addSelectionListener(tableHandler);
+        treeController.getView().addMouseListener(new TreeMouseListener());
 
-		// also register interest in tree seleciton events
-		// for updating the title
-		treeHandler.addSelectionListener(this);
+        // table registers interest in tree selection events
+        treeHandler.addSelectionListener(tableHandler);
 
-		filterToolbar = new FilterToolbar(this);
-
-		RenameFolderAction renameFolderAction = new RenameFolderAction(this);
-
-		// Register F2 hotkey for renaming folder when the message panel has
-		// focus
-		tableController.getView().getActionMap().put("F2", renameFolderAction);
-		tableController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "F2");
-
-		// Register F2 hotkey for renaming folder when the folder tree itself
-		// has focus
-		treeController.getView().getActionMap().put("F2", renameFolderAction);
-		treeController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "F2");
-
-		// Register Alt-Up hotkey for moving up folder when folder tree or
-		// table have focus
-		MoveUpAction moveUpAction = new MoveUpAction(this);
-		tableController.getView().getActionMap().put("ALT_UP", moveUpAction);
-		tableController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.ALT_MASK),
-				"ALT_UP");
-
-		treeController.getView().getActionMap().put("ALT_UP", moveUpAction);
-		treeController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.ALT_MASK),
-				"ALT_UP");
-
-		// Register Alt-Down hotkey for moving up folder when folder tree or
-		// table have focus
-		MoveDownAction moveDownAction = new MoveDownAction(this);
-		tableController.getView().getActionMap()
-				.put("ALT_DOWN", moveDownAction);
-		tableController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_MASK),
-				"ALT_DOWN");
-
-		treeController.getView().getActionMap().put("ALT_DOWN", moveDownAction);
-		treeController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_MASK),
-				"ALT_DOWN");
-
-		DeleteAction deleteAction = new DeleteAction(this);
-		tableController.getView().getActionMap().put("DEL", deleteAction);
-		tableController.getView().getInputMap().put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "DEL");
-
-		registerDockables();
-
-		tableController.createPopupMenu();
-		treeController.createPopupMenu();
-		//messageController.createPopupMenu();
-		
-		
-	}
-
-	public void enableMessagePreview(boolean enable) {
-		getViewItem().setBoolean("header_enabled", enable);
-
-		if (enable) {
-			rightSplitPane = new UIFSplitPane();
-			rightSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-			rightSplitPane.add(tablePanel, JSplitPane.LEFT);
-			rightSplitPane.add(messagePanel, JSplitPane.RIGHT);
-
-			mainSplitPane.add(rightSplitPane, JSplitPane.RIGHT);
-		} else {
-			rightSplitPane = null;
-
-			mainSplitPane.add(tablePanel, JSplitPane.RIGHT);
-		}
-
-		mainSplitPane.setDividerLocation(viewItem.getIntegerWithDefault(
-				"splitpanes", "main", 100));
-
-		if (enable)
-			rightSplitPane.setDividerLocation(viewItem.getIntegerWithDefault(
-					"splitpanes", "header", 100));
-
-		fireLayoutChanged();
-	}
-
-	/**
-	 * @return Returns the filterToolbar.
-	 */
-	public FilterToolbar getFilterToolbar() {
-		return filterToolbar;
-	}
-
-	/**
-	 * @see org.columba.mail.gui.frame.TreeViewOwner#getTreeController()
-	 */
-	public ITreeController getTreeController() {
-		return treeController;
-	}
-
-	/**
-	 * @see org.columba.mail.gui.frame.TableViewOwner#getTableController()
-	 */
-	public ITableController getTableController() {
-		return tableController;
-	}
-
-	/**
-	 * @see org.columba.api.gui.frame.IFrameMediator#getContentPane()
-	 */
-	// public JComponent getContentPane() {
-	// JComponent c = super.getContentPane();
-	//
-	//		
-	//
-	// return c;
-	// }
-	public void showFilterToolbar() {
-		tablePanel.add(filterToolbar, BorderLayout.NORTH);
-		tablePanel.validate();
-
-	}
-
-	public void hideFilterToolbar() {
-		tablePanel.remove(filterToolbar);
-		tablePanel.validate();
-
-	}
-
-	// public void savePositions(ViewItem viewItem) {
-	// super.savePositions(viewItem);
-	//
-	// // splitpanes
-	// viewItem.setInteger("splitpanes", "main", mainSplitPane
-	// .getDividerLocation());
-	//
-	// if (rightSplitPane != null)
-	// viewItem.setInteger("splitpanes", "header", rightSplitPane
-	// .getDividerLocation());
-	// viewItem.setBoolean("splitpanes", "header_enabled",
-	// rightSplitPane != null);
-	//
-	//		
-	// }
-
-	/**
-	 * @see org.columba.api.gui.frame.IFrameMediator#getString(java.lang.String,
-	 *      java.lang.String, java.lang.String)
-	 */
-	public String getString(String sPath, String sName, String sID) {
-		return MailResourceLoader.getString(sPath, sName, sID);
-	}
-
-	
-	
-	/**
-	 * @see org.columba.api.gui.frame.IFrameMediator#getContentPane()
-	 */
-	// public IContentPane getContentPane() {
-	// return this;
-	// }
-	/**
-	 * @see org.columba.api.selection.ISelectionListener#selectionChanged(org.columba.api.selection.SelectionChangedEvent)
-	 */
-	public void selectionChanged(SelectionChangedEvent e) {
-
-		if (e instanceof TreeSelectionChangedEvent) {
-			// tree selection event
-			TreeSelectionChangedEvent event = (TreeSelectionChangedEvent) e;
-
-			IMailFolder[] selectedFolders = event.getSelected();
-
-			if (isTreePopupEvent == false) {
-				// view headerlist in message list viewer
-				new ViewHeaderListAction(this).actionPerformed(null);
-
-				// Unregister/register as Folder listener
-				if( currentFolder != null) {
-					currentFolder.removeFolderListener(this);
-					currentFolder = null;
-				}
-				if(selectedFolders.length == 1 && selectedFolders[0] != null) {
-					selectedFolders[0].addFolderListener(this);
-					currentFolder = selectedFolders[0];
-				}
-				
-				// update frame title
-				updateTreeDockableTitle();
-			}
-
-			isTreePopupEvent = false;
-
-		} else if (e instanceof TableSelectionChangedEvent) {
-			if (isTablePopupEvent == false)
-				// show message content
-				new ViewMessageAction(this).actionPerformed(null);
-
-			isTablePopupEvent = false;
-		} else
-			throw new IllegalArgumentException(
-					"unknown selection changed event");
-	}
-
-	private void updateTreeDockableTitle() {
-		if (currentFolder != null) {
-			fireTitleChanged(currentFolder.getName());
-
-			// update message list view title
-			messageListDockable.setTitle(currentFolder.getName());
-
-			// simply demonstration of how to change the docking title
-			if (currentFolder instanceof IMailbox) {
-				IMailboxInfo info = ((IMailbox) currentFolder)
-						.getMessageFolderInfo();
-				StringBuffer buf = new StringBuffer();
-				buf.append("Total: " + info.getExists());
-				buf.append(" Recent: " + info.getRecent());
-				folderTreeDockable.setTitle(buf.toString());
-			} else
-				folderTreeDockable.setTitle(currentFolder.getName());
-		} else {
-			fireTitleChanged("");
-		}
-	}
-
-	/**
-	 * Double-click mouse listener for message list table component.
-	 * <p>
-	 * If message is marked as draft, the composer will be opened to edit the
-	 * message. Otherwise, the message will be viewed in the message frame.
-	 * 
-	 * @author Frederik Dietz
-	 */
-	class TableMouseListener extends MouseAdapter {
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-		 */
-		public void mousePressed(MouseEvent event) {
-			if (event.isPopupTrigger()) {
-				processPopup(event);
-			}
-		}
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-		 */
-		public void mouseReleased(MouseEvent event) {
-			if (event.isPopupTrigger()) {
-				processPopup(event);
-			}
-		}
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-		 */
-		public void mouseClicked(MouseEvent event) {
-			// if mouse button was pressed twice times
-			if (event.getClickCount() == 2) {
-				// get selected row
-				int selectedRow = tableController.getView().getSelectedRow();
-
-				// get message node at selected row
-				MessageNode node = (MessageNode) ((HeaderTableModel) tableController
-						.getHeaderTableModel())
-						.getMessageNodeAtRow(selectedRow);
-
-				// is the message marked as draft ?
-				boolean markedAsDraft = node.getHeader().getFlags().getDraft();
-
-				if (markedAsDraft) {
-					// edit message in composer
-					new OpenMessageWithComposerAction(
-							ThreePaneMailFrameController.this)
-							.actionPerformed(null);
-				} else {
-					// open message in new message-frame
-					new OpenMessageWithMessageFrameAction(
-							ThreePaneMailFrameController.this)
-							.actionPerformed(null);
-				}
-			}
-		}
-
-		protected void processPopup(final MouseEvent event) {
-
-			isTablePopupEvent = true;
-
-			JTable table = tableController.getView();
-
-			int selectedRows = table.getSelectedRowCount();
-
-			if (selectedRows <= 1) {
-				// select node
-				int row = table
-						.rowAtPoint(new Point(event.getX(), event.getY()));
-				table.setRowSelectionInterval(row, row);
-			}
-
-			SwingUtilities.invokeLater(new Runnable() {
-
-				public void run() {
-					tableController.getPopupMenu().show(event.getComponent(),
-							event.getX(), event.getY());
-					isTablePopupEvent = false;
-				}
-			});
-		}
-	}
-
-	class TreeMouseListener extends MouseAdapter {
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-		 */
-		public void mousePressed(MouseEvent event) {
-			if (event.isPopupTrigger()) {
-				processPopup(event);
-			}
-		}
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-		 */
-		public void mouseReleased(MouseEvent event) {
-			if (event.isPopupTrigger()) {
-				processPopup(event);
-			}
-		}
-
-		/**
-		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-		 */
-		public void mouseClicked(MouseEvent event) {
-			// if mouse button was pressed twice times
-			if (event.getClickCount() == 2) {
-				// get selected row
-
-			}
-		}
-
-		protected void processPopup(final MouseEvent event) {
-
-			isTreePopupEvent = true;
-
-			Point point = event.getPoint();
-			TreePath path = treeController.getView().getClosestPathForLocation(
-					point.x, point.y);
-			treeController.getView().setSelectionPath(path);
-
-			SwingUtilities.invokeLater(new Runnable() {
-
-				public void run() {
-					treeController.getPopupMenu().show(event.getComponent(),
-							event.getX(), event.getY());
-					isTreePopupEvent = false;
-				}
-			});
-		}
-	}
-
-	/**
-	 * @see org.columba.core.gui.frame.DefaultFrameController#close()
-	 */
-	public void close(IContainer container) {
-		super.close(container);
-
-		IMailFolderCommandReference r = getTreeSelection();
-
-		if (r != null) {
-			IMailFolder folder = (IMailFolder) r.getSourceFolder();
-
-			// folder-based configuration
-
-			if (folder instanceof IMailbox)
-				getFolderOptionsController().save((IMailbox) folder);
-		}
-	}
-
-	/**
-	 * @see org.columba.core.gui.frame.DockFrameController#loadDefaultPosition()
-	 */
-	public void loadDefaultPosition() {
-
-		super.dock(messageListDockable, IDock.REGION.CENTER);
-
-		super.dock(folderTreeDockable, messageListDockable, IDock.REGION.WEST, 0.3f);
-
-		super.dock(messageViewerDockable, messageListDockable, IDock.REGION.SOUTH,
-				0.3f);
-
-		super.setSplitProportion(folderTreeDockable, 0.3f);
-		super.setSplitProportion(messageListDockable, 0.35f);
-	}
-
-	private void registerDockables() {
-
-		JPopupMenu popup = null;
-
-		// mail folder tree
-		JScrollPane treeScrollPane = new JScrollPane(treeController.getView());
-		treeScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		// JPopupMenu popup = null;
-		// try {
-		// InputStream is = DiskIO
-		// .getResourceStream("org/columba/mail/action/table_dockmenu.xml");
-		// popup = new MenuXMLDecoder(this).createPopupMenu(is);
-		// } catch (IOException e1) {
-		// e1.printStackTrace();
-		// }
-
-		folderTreeDockable = registerDockable("mail_foldertree", MailResourceLoader.getString(
-				"global", "dockable_foldertree"), treeScrollPane,
-				new SortFoldersMenu(this));
-
-		// message list
-		JPanel p = new JPanel();
-		p.setLayout(new BorderLayout());
-		JScrollPane tableScrollPane = new JScrollPane(tableController.getView());
-		tableScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		p.add(tableScrollPane, BorderLayout.CENTER);
-		p.add(filterToolbar, BorderLayout.NORTH);
-
-		popup = null;
-		try {
-			InputStream is = DiskIO
-					.getResourceStream("org/columba/mail/action/table_dockmenu.xml");
-			popup = new MenuXMLDecoder(this).createPopupMenu(is);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		messageListDockable = registerDockable("mail_messagelist", MailResourceLoader.getString(
-				"global", "dockable_messagelist"), p, popup);
-
-		popup = null;
-		try {
-			InputStream is = DiskIO
-					.getResourceStream("org/columba/mail/action/message_dockmenu.xml");
-			popup = new MenuXMLDecoder(this).createPopupMenu(is);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		messageViewerDockable = registerDockable("mail_messageviewer", MailResourceLoader.getString(
-				"global", "dockable_messageviewer"),
-				messageController, popup);
-	}
-
-	/** *********************** container callbacks ************* */
-
-	public void extendMenu(IContainer container) {
-		try {
-			InputStream is = DiskIO
-					.getResourceStream("org/columba/mail/action/menu.xml");
-			container.extendMenu(this, is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void extendToolBar(IContainer container) {
-		try {
-			File configDirectory = MailConfig.getInstance()
-					.getConfigDirectory();
-			InputStream is2 = new FileInputStream(new File(configDirectory,
-					"main_toolbar.xml"));
-			container.extendToolbar(this, is2);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @return Returns the messageViewerPanel.
-	 */
-	public IDockable getMessageViewerDockable() {
-		return messageViewerDockable;
-	}
-
-	public void messageAdded(IFolderEvent e) {
-	}
-
-	public void messageRemoved(IFolderEvent e) {
-	}
-
-	public void messageFlagChanged(IFolderEvent e) {
-	}
-
-	public void folderPropertyChanged(IFolderEvent e) {
-		// fire in EDT
-		SwingUtilities.invokeLater(new Runnable() {
-		    public void run() {
-		    	updateTreeDockableTitle();	
-		    }
-		  });
-	}
-
-	public void folderAdded(IFolderEvent e) {
-	}
-
-	public void folderRemoved(IFolderEvent e) {
-	}
+        // also register interest in tree seleciton events
+        // for updating the title
+        treeHandler.addSelectionListener(this);
+
+        filterToolbar = new FilterToolbar(this);
+
+        RenameFolderAction renameFolderAction = new RenameFolderAction(this);
+
+        // Register F2 hotkey for renaming folder when the message panel has
+        // focus
+        tableController.getView().getActionMap().put("F2", renameFolderAction);
+        tableController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "F2");
+
+        // Register F2 hotkey for renaming folder when the folder tree itself
+        // has focus
+        treeController.getView().getActionMap().put("F2", renameFolderAction);
+        treeController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "F2");
+
+        // Register Alt-Up hotkey for moving up folder when folder tree or
+        // table have focus
+        MoveUpAction moveUpAction = new MoveUpAction(this);
+        tableController.getView().getActionMap().put("ALT_UP", moveUpAction);
+        tableController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.ALT_MASK),
+                "ALT_UP");
+
+        treeController.getView().getActionMap().put("ALT_UP", moveUpAction);
+        treeController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.ALT_MASK),
+                "ALT_UP");
+
+        // Register Alt-Down hotkey for moving up folder when folder tree or
+        // table have focus
+        MoveDownAction moveDownAction = new MoveDownAction(this);
+        tableController.getView().getActionMap()
+                .put("ALT_DOWN", moveDownAction);
+        tableController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_MASK),
+                "ALT_DOWN");
+
+        treeController.getView().getActionMap().put("ALT_DOWN", moveDownAction);
+        treeController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_MASK),
+                "ALT_DOWN");
+
+        DeleteAction deleteAction = new DeleteAction(this);
+        tableController.getView().getActionMap().put("DEL", deleteAction);
+        tableController.getView().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "DEL");
+
+        registerDockables();
+
+        tableController.createPopupMenu();
+        treeController.createPopupMenu();
+        //messageController.createPopupMenu();
+
+
+    }
+
+    public void enableMessagePreview(boolean enable) {
+        getViewItem().setBoolean("header_enabled", enable);
+
+        if (enable) {
+            rightSplitPane = new UIFSplitPane();
+            rightSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+            rightSplitPane.add(tablePanel, JSplitPane.LEFT);
+            rightSplitPane.add(messagePanel, JSplitPane.RIGHT);
+
+            mainSplitPane.add(rightSplitPane, JSplitPane.RIGHT);
+        } else {
+            rightSplitPane = null;
+
+            mainSplitPane.add(tablePanel, JSplitPane.RIGHT);
+        }
+
+        mainSplitPane.setDividerLocation(viewItem.getIntegerWithDefault(
+                "splitpanes", "main", 100));
+
+        if (enable)
+            rightSplitPane.setDividerLocation(viewItem.getIntegerWithDefault(
+                    "splitpanes", "header", 100));
+
+        fireLayoutChanged();
+    }
+
+    /**
+     * @return Returns the filterToolbar.
+     */
+    public FilterToolbar getFilterToolbar() {
+        return filterToolbar;
+    }
+
+    /**
+     * @see org.columba.mail.gui.frame.TreeViewOwner#getTreeController()
+     */
+    public ITreeController getTreeController() {
+        return treeController;
+    }
+
+    /**
+     * @see org.columba.mail.gui.frame.TableViewOwner#getTableController()
+     */
+    public ITableController getTableController() {
+        return tableController;
+    }
+
+    /**
+     * @see org.columba.api.gui.frame.IFrameMediator#getContentPane()
+     */
+    // public JComponent getContentPane() {
+    // JComponent c = super.getContentPane();
+    //
+    //
+    //
+    // return c;
+    // }
+    public void showFilterToolbar() {
+        tablePanel.add(filterToolbar, BorderLayout.NORTH);
+        tablePanel.validate();
+
+    }
+
+    public void hideFilterToolbar() {
+        tablePanel.remove(filterToolbar);
+        tablePanel.validate();
+
+    }
+
+    // public void savePositions(ViewItem viewItem) {
+    // super.savePositions(viewItem);
+    //
+    // // splitpanes
+    // viewItem.setInteger("splitpanes", "main", mainSplitPane
+    // .getDividerLocation());
+    //
+    // if (rightSplitPane != null)
+    // viewItem.setInteger("splitpanes", "header", rightSplitPane
+    // .getDividerLocation());
+    // viewItem.setBoolean("splitpanes", "header_enabled",
+    // rightSplitPane != null);
+    //
+    //
+    // }
+
+    /**
+     * @see org.columba.api.gui.frame.IFrameMediator#getString(java.lang.String,
+     *      java.lang.String, java.lang.String)
+     */
+    public String getString(String sPath, String sName, String sID) {
+        return MailResourceLoader.getString(sPath, sName, sID);
+    }
+
+    /**
+     * @see org.columba.api.gui.frame.IFrameMediator#getContentPane()
+     */
+    // public IContentPane getContentPane() {
+    // return this;
+    // }
+
+    /**
+     * @see org.columba.api.selection.ISelectionListener#selectionChanged(org.columba.api.selection.SelectionChangedEvent)
+     */
+    public void selectionChanged(SelectionChangedEvent e) {
+
+        if (e instanceof TreeSelectionChangedEvent) {
+            // tree selection event
+            TreeSelectionChangedEvent event = (TreeSelectionChangedEvent) e;
+
+            IMailFolder[] selectedFolders = event.getSelected();
+
+            if (isTreePopupEvent == false) {
+                // view headerlist in message list viewer
+                new ViewHeaderListAction(this).actionPerformed(null);
+
+                // Unregister/register as Folder listener
+                if (currentFolder != null) {
+                    currentFolder.removeFolderListener(this);
+                    currentFolder = null;
+                }
+                if (selectedFolders.length == 1 && selectedFolders[0] != null) {
+                    selectedFolders[0].addFolderListener(this);
+                    currentFolder = selectedFolders[0];
+                }
+
+                // update frame title
+                updateTreeDockableTitle();
+            }
+
+            isTreePopupEvent = false;
+
+        } else if (e instanceof TableSelectionChangedEvent) {
+            if (isTablePopupEvent == false)
+                // show message content
+                new ViewMessageAction(this).actionPerformed(null);
+
+            isTablePopupEvent = false;
+        } else
+            throw new IllegalArgumentException(
+                    "unknown selection changed event");
+    }
+
+    private void updateTreeDockableTitle() {
+        if (currentFolder != null) {
+            fireTitleChanged(currentFolder.getName());
+
+            // update message list view title
+            messageListDockable.setTitle(currentFolder.getName());
+
+            // simply demonstration of how to change the docking title
+            if (currentFolder instanceof IMailbox) {
+                IMailboxInfo info = ((IMailbox) currentFolder)
+                        .getMessageFolderInfo();
+                StringBuffer buf = new StringBuffer();
+                buf.append("Total: " + info.getExists());
+                buf.append(" Recent: " + info.getRecent());
+                folderTreeDockable.setTitle(buf.toString());
+            } else
+                folderTreeDockable.setTitle(currentFolder.getName());
+        } else {
+            fireTitleChanged("");
+        }
+    }
+
+    /**
+     * Double-click mouse listener for message list table component.
+     * <p/>
+     * If message is marked as draft, the composer will be opened to edit the
+     * message. Otherwise, the message will be viewed in the message frame.
+     *
+     * @author Frederik Dietz
+     */
+    class TableMouseListener extends MouseAdapter {
+
+        /**
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
+        public void mousePressed(MouseEvent event) {
+            if (event.isPopupTrigger()) {
+                processPopup(event);
+            }
+        }
+
+        /**
+         * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+         */
+        public void mouseReleased(MouseEvent event) {
+            if (event.isPopupTrigger()) {
+                processPopup(event);
+            }
+        }
+
+        /**
+         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+         */
+        public void mouseClicked(MouseEvent event) {
+            // if mouse button was pressed twice times
+            if (event.getClickCount() == 2) {
+                // get selected row
+                int selectedRow = tableController.getView().getSelectedRow();
+
+                // get message node at selected row
+                MessageNode node = (MessageNode) ((HeaderTableModel) tableController
+                        .getHeaderTableModel())
+                        .getMessageNodeAtRow(selectedRow);
+
+                // is the message marked as draft ?
+                boolean markedAsDraft = node.getHeader().getFlags().getDraft();
+
+                if (markedAsDraft) {
+                    // edit message in composer
+                    new OpenMessageWithComposerAction(
+                            ThreePaneMailFrameController.this)
+                            .actionPerformed(null);
+                } else {
+                    // open message in new message-frame
+                    new OpenMessageWithMessageFrameAction(
+                            ThreePaneMailFrameController.this)
+                            .actionPerformed(null);
+                }
+            }
+        }
+
+        protected void processPopup(final MouseEvent event) {
+
+            isTablePopupEvent = true;
+
+            JTable table = tableController.getView();
+
+            int selectedRows = table.getSelectedRowCount();
+
+            if (selectedRows <= 1) {
+                // select node
+                int row = table
+                        .rowAtPoint(new Point(event.getX(), event.getY()));
+                table.setRowSelectionInterval(row, row);
+            }
+
+            SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                    tableController.getPopupMenu().show(event.getComponent(),
+                            event.getX(), event.getY());
+                    isTablePopupEvent = false;
+                }
+            });
+        }
+    }
+
+    class TreeMouseListener extends MouseAdapter {
+
+        /**
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
+        public void mousePressed(MouseEvent event) {
+            if (event.isPopupTrigger()) {
+                processPopup(event);
+            }
+        }
+
+        /**
+         * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+         */
+        public void mouseReleased(MouseEvent event) {
+            if (event.isPopupTrigger()) {
+                processPopup(event);
+            }
+        }
+
+        /**
+         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+         */
+        public void mouseClicked(MouseEvent event) {
+            // if mouse button was pressed twice times
+            if (event.getClickCount() == 2) {
+                // get selected row
+
+            }
+        }
+
+        protected void processPopup(final MouseEvent event) {
+
+            isTreePopupEvent = true;
+
+            Point point = event.getPoint();
+            TreePath path = treeController.getView().getClosestPathForLocation(
+                    point.x, point.y);
+            treeController.getView().setSelectionPath(path);
+
+            SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                    treeController.getPopupMenu().show(event.getComponent(),
+                            event.getX(), event.getY());
+                    isTreePopupEvent = false;
+                }
+            });
+        }
+    }
+
+    /**
+     * @see org.columba.core.gui.frame.DefaultFrameController#close(org.columba.api.gui.frame.IContainer)
+     */
+    public void close(IContainer container) {
+        super.close(container);
+
+        IMailFolderCommandReference r = getTreeSelection();
+
+        if (r != null) {
+            IMailFolder folder = (IMailFolder) r.getSourceFolder();
+
+            // folder-based configuration
+
+            if (folder instanceof IMailbox)
+                getFolderOptionsController().save((IMailbox) folder);
+        }
+    }
+
+    /**
+     * @see org.columba.core.gui.frame.DockFrameController#loadDefaultPosition()
+     */
+    public void loadDefaultPosition() {
+
+        super.dock(messageListDockable, IDock.REGION.CENTER);
+
+        super.dock(folderTreeDockable, messageListDockable, IDock.REGION.WEST, 0.3f);
+
+        super.dock(messageViewerDockable, messageListDockable, IDock.REGION.SOUTH,
+                0.3f);
+
+        super.setSplitProportion(folderTreeDockable, 0.3f);
+        super.setSplitProportion(messageListDockable, 0.35f);
+    }
+
+    private void registerDockables() {
+
+        JPopupMenu popup = null;
+
+        // mail folder tree
+        JScrollPane treeScrollPane = new JScrollPane(treeController.getView());
+        treeScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        // JPopupMenu popup = null;
+        // try {
+        // InputStream is = DiskIO
+        // .getResourceStream("org/columba/mail/action/table_dockmenu.xml");
+        // popup = new MenuXMLDecoder(this).createPopupMenu(is);
+        // } catch (IOException e1) {
+        // e1.printStackTrace();
+        // }
+
+        folderTreeDockable = registerDockable("mail_foldertree", MailResourceLoader.getString(
+                "global", "dockable_foldertree"), treeScrollPane,
+                new SortFoldersMenu(this));
+
+        // message list
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        JScrollPane tableScrollPane = new JScrollPane(tableController.getView());
+        tableScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        p.add(tableScrollPane, BorderLayout.CENTER);
+        p.add(filterToolbar, BorderLayout.NORTH);
+
+        popup = null;
+        try {
+            InputStream is = DiskIO
+                    .getResourceStream("org/columba/mail/action/table_dockmenu.xml");
+            popup = new MenuXMLDecoder(this).createPopupMenu(is);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        messageListDockable = registerDockable("mail_messagelist", MailResourceLoader.getString(
+                "global", "dockable_messagelist"), p, popup);
+
+        popup = null;
+        try {
+            InputStream is = DiskIO
+                    .getResourceStream("org/columba/mail/action/message_dockmenu.xml");
+            popup = new MenuXMLDecoder(this).createPopupMenu(is);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        messageViewerDockable = registerDockable("mail_messageviewer", MailResourceLoader.getString(
+                "global", "dockable_messageviewer"),
+                messageController, popup);
+    }
+
+    /**
+     * ********************** container callbacks *************
+     */
+
+    public void extendMenu(IContainer container) {
+        try {
+            InputStream is = DiskIO
+                    .getResourceStream("org/columba/mail/action/menu.xml");
+            container.extendMenu(this, is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void extendToolBar(IContainer container) {
+        try {
+            File configDirectory = MailConfig.getInstance()
+                    .getConfigDirectory();
+            InputStream is2 = new FileInputStream(new File(configDirectory,
+                    "main_toolbar.xml"));
+            container.extendToolbar(this, is2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @return Returns the messageViewerPanel.
+     */
+    public IDockable getMessageViewerDockable() {
+        return messageViewerDockable;
+    }
+
+    public void messageAdded(IFolderEvent e) {
+    }
+
+    public void messageRemoved(IFolderEvent e) {
+    }
+
+    public void messageFlagChanged(IFolderEvent e) {
+    }
+
+    public void folderPropertyChanged(IFolderEvent e) {
+        // fire in EDT
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                updateTreeDockableTitle();
+            }
+        });
+    }
+
+    public void folderAdded(IFolderEvent e) {
+    }
+
+    public void folderRemoved(IFolderEvent e) {
+    }
 
 }

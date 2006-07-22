@@ -194,8 +194,13 @@ public class DefaultFrameController implements IFrameMediator {
 		// overwrite this method
 	}
 
-	public String getId() {
-		return id;
+    /**
+     * Returns iD of controller
+     *
+     * @return iD of controller
+     */
+    public String getId() {
+        return id;
 	}
 
 	class MyMouseAdapter extends MouseAdapter {
