@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,10 @@ import org.waffel.jscf.JSCFStatement;
 /**
  * Don't use methods from this class. Use the JSCFramwork (
  * {@link org.waffel.jscf.JSCFStatement})
+ * 
+ * This class implements the JSCFStatement interface and provides some more
+ * useful helper methods. It is the gpg command line implementation which calls
+ * simple the installed gpg tool with some parameters.
  * 
  * @author waffel (Thomas Wabner)
  */
@@ -65,6 +70,11 @@ public final class GPGStatement implements JSCFStatement {
 	public static final int VERIFY_ACTION = 3;
 
 	/**
+	 * The action to list keys for names.
+	 */
+	public static final int LIST_KEYS_ACTIONS = 4;
+
+	/**
 	 * <code>myConnection</code> to be used for the driver.
 	 */
 	private JSCFConnection myConnection;
@@ -84,7 +94,8 @@ public final class GPGStatement implements JSCFStatement {
 			"--batch --no-tty --passphrase-fd 0 -d",
 			"--no-secmem-warning --no-greeting --batch --no-tty --armor --output - --encrypt --group recipientgroup=%recipients%  -r recipientgroup",
 			"--no-secmem-warning --no-greeting --batch --digest-algo SHA1 --yes --no-tty --armor --textmode --passphrase-fd 0 --output - --detach-sign -u %user% ",
-			"--no-secmem-warning --batch --no-tty --digest-algo %digest-algo% --verify %sigfile% -" };
+			"--no-secmem-warning --batch --no-tty --digest-algo %digest-algo% --verify %sigfile% -",
+			"--no-secmem-warning --no-greeting --batch --no-tty --output - --list-keys" };
 
 	/**
 	 * Contructor which saves the given connection and initialises any internal
@@ -95,7 +106,7 @@ public final class GPGStatement implements JSCFStatement {
 	 */
 	public GPGStatement(final JSCFConnection connection) {
 		this.myConnection = connection;
-		this.lineSeperator = System.getProperty("line.separator").getBytes();
+		this.lineSeperator = System.getProperty("line.separator").getBytes(); //$NON-NLS-1$
 	}
 
 	/**
@@ -341,6 +352,58 @@ public final class GPGStatement implements JSCFStatement {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public JSCFResultSet getKeys(Collection<String> theNames)
+			throws JSCFException {
+		GPGResultSet resultSet = new GPGResultSet();
+		Map<String, String> paramMap = new Hashtable<String, String>();
+		List<String> cmdList = new ArrayList<String>();
+
+		cmdList.add(((GPGConnection) this.myConnection).getPath());
+
+		try {
+			cmdList.addAll(createCommandArray(paramMap,
+					GPGStatement.LIST_KEYS_ACTIONS));
+			// if there are names, we have to add each name as a seperate
+			// command line argument to the command list (not as a string
+			// seperated by space)
+			if (theNames != null) {
+				cmdList.addAll(theNames);
+			}
+		} catch (Exception e1) {
+			throw new JSCFException("error on names [" + e1.getMessage() + "]");
+		}
+		try {
+			String[] obj = new String[0];
+			// starting process
+			Process p = this.executeCommand(cmdList.toArray(obj));
+
+			StreamGlobber errStream = new StreamGlobber(p.getErrorStream());
+			StreamGlobber resStream = new StreamGlobber(p.getInputStream());
+
+			errStream.start();
+			resStream.start();
+
+			errStream.join();
+			resStream.join();
+
+			resultSet.setReturnValue(p.waitFor());
+			resultSet.setErrorStream(errStream.getRetStream());
+			resultSet.setResultStream(resStream.getRetStream());
+
+			p.getInputStream().close();
+			p.getErrorStream().close();
+
+			p.destroy();
+		} catch (Exception e2) {
+			throw new ProgramNotFoundException("error running command ["
+					+ e2.getMessage() + "]");
+		}
+		return resultSet;
+	}
+
+	/**
 	 * Executes the given command and the returns the connected process.
 	 * 
 	 * @param cmd
@@ -495,4 +558,5 @@ public final class GPGStatement implements JSCFStatement {
 		}
 		return resultSet;
 	}
+
 }

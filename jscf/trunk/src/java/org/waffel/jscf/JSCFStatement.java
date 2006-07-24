@@ -21,6 +21,7 @@
 package org.waffel.jscf;
 
 import java.io.InputStream;
+import java.util.Collection;
 
 /**
  * The object used for executing a static JSCF statement and returning the
@@ -127,8 +128,8 @@ public interface JSCFStatement {
 	/**
 	 * Executes verify of the given message with the given signature and the
 	 * digest algorithm. The default value of "digestAlgortihm" from the
-	 * connection that creates this statement object, are overridden by the given
-	 * digest algorithm.
+	 * connection that creates this statement object, are overridden by the
+	 * given digest algorithm.
 	 * 
 	 * @param message
 	 *            the message which should be verified with the given signature
@@ -298,4 +299,27 @@ public interface JSCFStatement {
 	 *             <code>JSCFResultSet</code> object
 	 */
 	boolean checkPassphrase() throws JSCFException;
+
+	/**
+	 * Call for keys for the given names.
+	 * <p>
+	 * If no names are given, all stored keys are returned. The keys are
+	 * returned in the {@link JSCFResultSet}. If you use for example the gpg
+	 * command line implementation, the result set contains a stream with the
+	 * keys as strings.
+	 * 
+	 * @param names
+	 *            The names for which the keys should be returned. If the
+	 *            collection of given names is empty or <code>null</code>,
+	 *            all keys returned. If only a not known name given, a
+	 *            JSCFException will be thrown. If a not know name given and a
+	 *            known name, only the keys for the known name are returned and
+	 *            no error is set.
+	 * @return a <code>JSCFResultSet</code> object that contains the data
+	 *         produced by the statement. The result is never null.
+	 * @throws JSCFException
+	 *             if a JSCF access error occurs or the method produces anything
+	 *             other then a <code>JSCFResultSet</code> object.
+	 */
+	JSCFResultSet getKeys(Collection<String> names) throws JSCFException;
 }

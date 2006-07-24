@@ -31,10 +31,10 @@ public class JSCFDefinitions {
 	/**
 	 * <code>USERID</code> constant, which is used for the USERID.
 	 */
-	public static final String USERID = "USERID";
+	public static final String USERID = "USERID"; //$NON-NLS-1$
 
 	/**
 	 * <code>PASSWORD</code> constant, which is used for the PASSWORD.
 	 */
-	public static final String PASSWORD = "PASSWORD";
+	public static final String PASSWORD = "PASSWORD"; //$NON-NLS-1$
 }

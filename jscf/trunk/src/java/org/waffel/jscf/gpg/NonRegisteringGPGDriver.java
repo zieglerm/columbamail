@@ -196,7 +196,7 @@ public class NonRegisteringGPGDriver implements JSCFDriver {
 		if (strToken.hasMoreTokens()) {
 			String ifStr = strToken.nextToken().toLowerCase();
 			if (ifStr != null) {
-				if (!ifStr.equals(lookStr)) {
+				if (!lookStr.equals(ifStr)) {
 					return false;
 				}
 			} else {
