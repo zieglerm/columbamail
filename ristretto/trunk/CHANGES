@@ -12,20 +12,18 @@ Bugs fixed:
 - Download of Messages from POP3 was broke if the estimated size was off by a larger percentage
 - More failure safe when parsing mailbox lists of addresses
 
-
-
 Ristretto v1.0
 - Added CramMD5 Authentication
 - Separate packages for each protocol
 
 Bugs fixed:
-Zeros padding in server response while authenticaion fixed.
+Zeros padding in server response while authentication fixed.
 Java 1.5 import problems for Sasl fixed.
 
 
 Ristretto v1.0 RC3
 - Added a SequenceSet parser
-- POP3 synchornous download of messages (Jerome Bonnet)
+- POP3 synchronous download of messages (Jerome Bonnet)
 - GETUID extension for IMAP (Jerome Bonnet)
 - UIDPLUS extension for IMAP (so far only for the append command) (Jerome Bonnet)
 - added support for IMAP command line length checking
@@ -50,7 +48,7 @@ Ristretto v1.0 RC2
 - added IMAPListener Interface to handle unsolicited Messages from Server
 - added IMAPDisconnectedException for better exception handling
 - RFC822Date daylight saving bug (kastanie)
-- Parser bug in IMAP MimeTreeParser with quoted parenthesises
+- Parser bug in IMAP MimeTreeParser with quoted parentheses
 - Changed behaviour of FileSourceModel to auto-close the files
 - POP3 now also uses asynchronous download for messages
 - Progress of download/upload can now completely monitored over the InputStreams
