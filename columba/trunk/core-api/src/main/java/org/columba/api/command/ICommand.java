@@ -15,5 +15,9 @@ public interface ICommand {
 			throws Exception;
 
 	public abstract ICommandReference getReference();
+	
+	public abstract void releaseAllFolderLocks();
+	
+	public abstract boolean canBeProcessed();
 
 }
