@@ -42,8 +42,9 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 	private int markVariant;
 
 	private String folderName;
+
 	private String folderType;
-	
+
 	private int colorValue;
 
 	private File destFile;
@@ -66,7 +67,7 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 
 		this.message = message;
 	}
-	
+
 	/**
 	 * Constructor for MailFolderCommandReference.
 	 * 
@@ -81,7 +82,8 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 	/**
 	 * Constructor for MailFolderCommandReference.
 	 * 
-	 * @param folder
+	 * @param sourceFolder
+	 * @param destinationFolder
 	 * @param uids
 	 */
 	public MailFolderCommandReference(IFolder sourceFolder,
@@ -103,15 +105,13 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 		this.address = address;
 	}
 
-
 	public Integer[] getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(Integer[] address) {
 		this.address = address;
 	}
-
 
 	public IColumbaMessage getMessage() {
 		return message;
@@ -123,7 +123,7 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 
 	public void reduceToFirstUid() {
 		Object[] uids = getUids();
-		
+
 		if (uids == null) {
 			return;
 		}
@@ -176,7 +176,7 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 	}
 
 	/**
-	 * @return
+	 * @return destFile
 	 */
 	public File getDestFile() {
 		return destFile;
@@ -210,11 +210,12 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 	public String getFolderType() {
 		return folderType;
 	}
+
 	/**
-	 * @param folderType The folderType to set.
+	 * @param folderType
+	 *            The folderType to set.
 	 */
 	public void setFolderType(String folderType) {
 		this.folderType = folderType;
 	}
-	
 }

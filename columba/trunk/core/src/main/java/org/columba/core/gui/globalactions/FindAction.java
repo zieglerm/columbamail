@@ -10,9 +10,10 @@
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2006. 
 //
 //All Rights Reserved.
+
 package org.columba.core.gui.globalactions;
 
 import java.awt.event.ActionEvent;
@@ -33,48 +34,47 @@ import org.columba.mail.gui.composer.ComposerController;
 import org.columba.mail.gui.frame.ThreePaneMailFrameController;
 import org.columba.mail.gui.message.MessageController;
 
-
+/**
+ * @author Erich Schaer, Dmytro Podalyuk
+ */
 @SuppressWarnings("serial")
 public class FindAction extends AbstractColumbaAction {
-    public FindAction(IFrameMediator controller) {
-        super(controller,
-            GlobalResourceLoader.getString(null, null, "menu_edit_find"));
+	public FindAction(IFrameMediator controller) {
+		super(controller, GlobalResourceLoader.getString(null, null,
+				"menu_edit_find"));
 
-        // tooltip text
-        putValue(SHORT_DESCRIPTION,
-            GlobalResourceLoader.getString(null, null, "menu_edit_find_tooltip")
-                                .replaceAll("&", ""));
+		// tooltip text
+		putValue(SHORT_DESCRIPTION, GlobalResourceLoader.getString(null, null,
+				"menu_edit_find_tooltip").replaceAll("&", ""));
 
-        // small icon for menu
-        putValue(SMALL_ICON,
-            ImageLoader.getSmallIcon(IconKeys.EDIT_FIND));
+		// small icon for menu
+		putValue(SMALL_ICON, ImageLoader.getSmallIcon(IconKeys.EDIT_FIND));
 
-        // large icon for toolbar
-        putValue(LARGE_ICON, ImageLoader.getIcon(IconKeys.EDIT_FIND));
+		// large icon for toolbar
+		putValue(LARGE_ICON, ImageLoader.getIcon(IconKeys.EDIT_FIND));
 
-        // shortcut key
-        putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK));
+		// shortcut key
+		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F,
+				ActionEvent.CTRL_MASK));
 
-   		setEnabled(true);
-    }
+		setEnabled(true);
+	}
 
-    public void actionPerformed(ActionEvent e) {
-    	// @author Erich Schaer, Dmytro Podalyuk
-    	// if we search in The MessageConroller
-    	if (getFrameMediator() instanceof ThreePaneMailFrameController) {
+	public void actionPerformed(ActionEvent e) {
+		// if we search in The MessageConroller
+		if (getFrameMediator() instanceof ThreePaneMailFrameController) {
 			ThreePaneMailFrameController controller = (ThreePaneMailFrameController) getFrameMediator();
 			// get the message controller
-			MessageController msg = (MessageController) controller.getMessageController();
+			MessageController msg = (MessageController) controller
+					.getMessageController();
 			MessageViewerText text = new MessageViewerText(msg);
 			new FindDialog(text);
 		}
-    	// if we search in the Composer
-    	else if (getFrameMediator() instanceof ComposerController) {
-			ComposerText text = new ComposerText((ComposerController) getFrameMediator());
+		// if we search in the Composer
+		else if (getFrameMediator() instanceof ComposerController) {
+			ComposerText text = new ComposerText(
+					(ComposerController) getFrameMediator());
 			new FindReplaceDialog(text);
 		}
-    	
-    	
-    }
+	}
 }

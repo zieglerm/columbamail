@@ -84,7 +84,7 @@ import com.jgoodies.forms.layout.Sizes;
  * 
  * controller for message composer dialog
  * 
- * @author frd
+ * @author fdietz
  */
 public class ComposerController extends DefaultFrameController implements
 		CharsetOwnerInterface, DocumentListener, ItemListener {
@@ -1064,5 +1064,4 @@ public class ComposerController extends DefaultFrameController implements
 		// -> we want to prompt the user to save his work
 		container.setCloseOperation(false);
 	}
-
 }

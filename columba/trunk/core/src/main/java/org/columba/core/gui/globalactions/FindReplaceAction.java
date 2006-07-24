@@ -26,29 +26,28 @@ import org.columba.mail.gui.composer.ComposerController;
 
 @SuppressWarnings("serial")
 public class FindReplaceAction extends AbstractColumbaAction {
-    public FindReplaceAction(IFrameMediator controller) {
-        super(controller,
-            //GlobalResourceLoader.getString(null, null, "menu_edit_findagain"));
-        	GlobalResourceLoader.getString(null, null, "menu_edit_replace"));
+	public FindReplaceAction(IFrameMediator controller) {
+		super(controller,
+		// GlobalResourceLoader.getString(null, null, "menu_edit_findagain"));
+				GlobalResourceLoader.getString(null, null, "menu_edit_replace"));
 
-        // tooltip text
-        putValue(SHORT_DESCRIPTION,
-            GlobalResourceLoader.getString(null, null,
-                //"menu_edit_findagain_tooltip").replaceAll("&", ""));
-            	"menu_edit_replace_tooltip").replaceAll("&", ""));
+		// tooltip text
+		putValue(SHORT_DESCRIPTION, GlobalResourceLoader.getString(null, null,
+		// "menu_edit_findagain_tooltip").replaceAll("&", ""));
+				"menu_edit_replace_tooltip").replaceAll("&", ""));
 
-        if (getFrameMediator() instanceof ComposerController) {
-        	setEnabled(true);
-        }
-        else 
-        	setEnabled(false);
-    }
+		if (getFrameMediator() instanceof ComposerController) {
+			setEnabled(true);
+		} else
+			setEnabled(false);
+	}
 
-    public void actionPerformed(ActionEvent e) {
-    	// @author Erich Schaer, Dmytro Podalyuk
-    	if (getFrameMediator() instanceof ComposerController) {
-			ComposerText text = new ComposerText((ComposerController) getFrameMediator());
+	public void actionPerformed(ActionEvent e) {
+		// @author Erich Schaer, Dmytro Podalyuk
+		if (getFrameMediator() instanceof ComposerController) {
+			ComposerText text = new ComposerText(
+					(ComposerController) getFrameMediator());
 			new FindReplaceDialog(text);
 		}
-    }
+	}
 }

@@ -10,7 +10,7 @@
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2006. 
 //
 //All Rights Reserved.
 
@@ -29,74 +29,72 @@ import org.columba.api.command.IWorkerStatusController;
  * @author tstich, fdietz
  */
 public class CompoundCommand extends Command {
-    protected List<ICommand> commandList;
+	protected List<ICommand> commandList;
 
-    /**
-         * Constructor for CompoundCommand. Caution : Never use this command
-         * with Virtual Folders!
-         * 
-         * @param frameMediator
-         * @param references
-         */
-    public CompoundCommand() {
-	super(null);
-	commandList = new Vector<ICommand>();
+	/**
+	 * Constructor for CompoundCommand. Caution : Never use this command with
+	 * Virtual Folders!
+	 */
+	public CompoundCommand() {
+		super(null);
+		commandList = new Vector<ICommand>();
 
-	priority = Command.NORMAL_PRIORITY;
-	commandType = Command.NORMAL_OPERATION;
-    }
-
-    public void add(ICommand c) {
-	commandList.add(c);
-
-    }
-
-    /**
-         * @see org.columba.api.command.Command#execute(Worker)
-         */
-    @Override
-    public void execute(IWorkerStatusController worker) throws Exception {
-	for (ICommand _command : commandList) {
-	    _command.execute(worker);
-	}
-    }
-
-    /**
-         * @see org.columba.api.command.Command#canBeProcessed()
-         */
-    @Override
-    public boolean canBeProcessed() {
-	boolean result = true;
-	for (ICommand _command : commandList) {
-	    result &= _command.canBeProcessed();
+		priority = Command.NORMAL_PRIORITY;
+		commandType = Command.NORMAL_OPERATION;
 	}
 
-	if (!result) {
-
-	    releaseAllFolderLocks();
+	public void add(ICommand c) {
+		commandList.add(c);
 	}
 
-	return result;
-    }
-
-    /**
-         * @see org.columba.api.command.Command#releaseAllFolderLocks()
-         */
-    @Override
-    public void releaseAllFolderLocks() {
-	for (ICommand _command : commandList) {
-	    _command.releaseAllFolderLocks();
+	/**
+	 * @see org.columba.api.command.Command#execute(Worker)
+	 * @param worker
+	 * @throws Exception 
+	 */
+	@Override
+	public void execute(IWorkerStatusController worker) throws Exception {
+		for (ICommand _command : commandList) {
+			_command.execute(worker);
+		}
 	}
-    }
 
-    /**
-         * 
-         * @see org.columba.api.command.Command#updateGUI()
-         */
-    @Override
-    public void updateGUI() throws Exception {
-	for (ICommand _command : commandList) {
-	    _command.updateGUI();
+	/**
+	 * @see org.columba.api.command.Command#canBeProcessed()
+	 * @return result
+	 */
+	@Override
+	public boolean canBeProcessed() {
+		boolean result = true;
+		for (ICommand _command : commandList) {
+			result &= _command.canBeProcessed();
+		}
+
+		if (!result) {
+			releaseAllFolderLocks();
+		}
+		return result;
 	}
-    }
+
+	/**
+	 * @see org.columba.api.command.Command#releaseAllFolderLocks()
+	 */
+	@Override
+	public void releaseAllFolderLocks() {
+		for (ICommand _command : commandList) {
+			_command.releaseAllFolderLocks();
+		}
+	}
+
+	/**
+	 * 
+	 * @throws Exception 
+	 * @see org.columba.api.command.Command#updateGUI()
+	 */
+	@Override
+	public void updateGUI() throws Exception {
+		for (ICommand _command : commandList) {
+			_command.updateGUI();
+		}
+	}
 }
