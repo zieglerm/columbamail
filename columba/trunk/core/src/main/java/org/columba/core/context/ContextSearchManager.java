@@ -1,5 +1,6 @@
 package org.columba.core.context;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,49 +21,50 @@ import org.columba.core.context.api.IContextSearchManager;
 
 public class ContextSearchManager implements IContextSearchManager {
 
-	private Map<String, IContextProvider> map = new Hashtable<String, IContextProvider>();
+	private final Map<String, IContextProvider> map = new Hashtable<String, IContextProvider>();
 
-	private IFrameMediator frameMediator;
+	IFrameMediator frameMediator;
 
 	protected EventListenerList listenerList = new EventListenerList();
 
-	public ContextSearchManager(IFrameMediator frameMediator) {
-		this.frameMediator = frameMediator;
+	public ContextSearchManager(final IFrameMediator theFrameMediator) {
+		this.frameMediator = theFrameMediator;
 	}
 
-	public void register(IContextProvider provider) {
+	public void register(final IContextProvider provider) {
 		map.put(provider.getTechnicalName(), provider);
 	}
 
-	public void unregister(IContextProvider provider) {
+	public void unregister(final IContextProvider provider) {
 		map.remove(provider.getTechnicalName());
 	}
 
-	public IContextProvider getProvider(String technicalName) {
+	public IContextProvider getProvider(final String technicalName) {
 		return map.get(technicalName);
 	}
 
-	public Iterator<IContextProvider> getAllProviders() {
-		return map.values().iterator();
+	public Collection<IContextProvider> getAllProviders() {
+		return map.values();
 	}
 
-	public void addResultListener(IContextResultListener listener) {
+	public void addResultListener(final IContextResultListener listener) {
 		listenerList.add(IContextResultListener.class, listener);
 	}
 
-	public void removeResultListener(IContextResultListener listener) {
+	public void removeResultListener(final IContextResultListener listener) {
 		listenerList.remove(IContextResultListener.class, listener);
 	}
 
 	public void search() {
-		SearchCommand command = new SearchCommand(new DefaultCommandReference());
+		final SearchCommand command = new SearchCommand(
+				new DefaultCommandReference());
 		CommandProcessor.getInstance().addOp(command);
 	}
 
-	private void fireFinished() {
-		IContextResultEvent e = new ContextResultEvent(this);
+	void fireFinished() {
+		final IContextResultEvent e = new ContextResultEvent(this);
 		// Guaranteed to return a non-null array
-		Object[] listeners = listenerList.getListenerList();
+		final Object[] listeners = listenerList.getListenerList();
 
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
@@ -74,10 +76,10 @@ public class ContextSearchManager implements IContextSearchManager {
 
 	}
 
-	private void fireResultArrived(String providerName) {
-		IContextResultEvent e = new ContextResultEvent(this, providerName);
+	void fireResultArrived(final String providerName) {
+		final IContextResultEvent e = new ContextResultEvent(this, providerName);
 		// Guaranteed to return a non-null array
-		Object[] listeners = listenerList.getListenerList();
+		final Object[] listeners = listenerList.getListenerList();
 
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
@@ -91,20 +93,19 @@ public class ContextSearchManager implements IContextSearchManager {
 
 	class SearchCommand extends Command {
 
-		public SearchCommand(ICommandReference reference) {
+		public SearchCommand(final ICommandReference reference) {
 			super(reference);
 		}
 
 		@Override
-		public void execute(IWorkerStatusController worker) throws Exception {
-			Iterator<IContextProvider> it = getAllProviders();
-			while (it.hasNext()) {
-				final IContextProvider p = it.next();
+		public void execute(final IWorkerStatusController worker)
+				throws Exception {
+			for (final IContextProvider p : getAllProviders()) {
 				p.search(frameMediator.getSemanticContext(), 0, 5);
 
 				// notify all listeners that have a new search result
 				// ensure this is called in the EDT
-				Runnable run = new Runnable() {
+				final Runnable run = new Runnable() {
 					public void run() {
 						fireResultArrived(p.getTechnicalName());
 					}

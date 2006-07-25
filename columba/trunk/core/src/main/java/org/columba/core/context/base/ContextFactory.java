@@ -10,12 +10,12 @@ public class ContextFactory implements IContextFactory {
 		super();
 	}
 
-	public IStructureType createStructure(String name, String namespace) {
+	public IStructureType createStructure(final String name, final String namespace) {
 		return new StructureType(name, namespace);
 	}
 
-	public IStructureValue createValue(String name, String namespace,
-			IStructureType type) {
+	public IStructureValue createValue(final String name, final String namespace,
+			final IStructureType type) {
 		return new StructureValue(name, namespace, type);
 	}
 

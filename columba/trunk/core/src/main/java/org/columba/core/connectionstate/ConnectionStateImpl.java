@@ -50,23 +50,24 @@ public class ConnectionStateImpl implements ConnectionState {
 	public void checkPhysicalState() {
 		if (connectionName != null) {
 			try {
-				Socket testSocket = new Socket(connectionName, connectionPort);
+				final Socket testSocket = new Socket(connectionName, connectionPort);
 				testSocket.close();
 				setOnline(true);
-			} catch (Exception e) {
+			} catch (final Exception exception) {
 				setOnline(false);
 			}
 		}
 	}
 
 	public static ConnectionStateImpl getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new ConnectionStateImpl();
+		}
 
 		return instance;
 	}
 
-	public void addChangeListener(ChangeListener l) {
+	public void addChangeListener(final ChangeListener l) {
 		listenerList.add(ChangeListener.class, l);
 	}
 
@@ -74,11 +75,11 @@ public class ConnectionStateImpl implements ConnectionState {
 		return online;
 	}
 
-	public void removeChangeListener(ChangeListener l) {
+	public void removeChangeListener(final ChangeListener l) {
 		listenerList.remove(ChangeListener.class, l);
 	}
 
-	public synchronized void setOnline(boolean b) {
+	public synchronized void setOnline(final boolean b) {
 		if (online != b) {
 			online = b;
 			SwingUtilities.invokeLater(new Runnable() {
@@ -89,8 +90,8 @@ public class ConnectionStateImpl implements ConnectionState {
 		}
 	}
 
-		private void notifyListener() {
-			Object[] listeners = listenerList.getListenerList();
+		void notifyListener() {
+			final Object[] listeners = listenerList.getListenerList();
 			
 			// Process the listeners last to first, notifying
 			// those that are interested in this event
@@ -103,7 +104,7 @@ public class ConnectionStateImpl implements ConnectionState {
 			
 		}
 		
-	public void setTestConnection(String name, int port) {
+	public void setTestConnection(final String name, final int port) {
 		connectionName = name;
 		connectionPort = port;
 	}

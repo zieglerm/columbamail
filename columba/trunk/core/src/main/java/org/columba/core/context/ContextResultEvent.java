@@ -4,20 +4,21 @@ import java.util.EventObject;
 
 import org.columba.core.context.api.IContextResultEvent;
 
+@SuppressWarnings("serial")
 public class ContextResultEvent extends EventObject implements
 		IContextResultEvent {
 
 	
 	private String providerName;
 	
-	public ContextResultEvent(Object source) {
-		super(source);
+	public ContextResultEvent(final Object theSource) {
+		super(theSource);
 	}
 	
-	public ContextResultEvent(Object source, String providerName) {
-		super(source);
+	public ContextResultEvent(final Object theSource, final String theProviderName) {
+		super(theSource);
 		
-		this.providerName = providerName;
+		this.providerName = theProviderName;
 	}
 	
 	public String getProviderName() {

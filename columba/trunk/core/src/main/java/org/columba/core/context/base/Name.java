@@ -8,9 +8,9 @@ public class Name implements IName {
 
 	private String namespace;
 
-	public Name(String name, String namespace) {
-		this.name = name;
-		this.namespace = namespace;
+	public Name(final String theName, final String theNamespace) {
+		this.name = theName;
+		this.namespace = theNamespace;
 	}
 
 	public String getName() {
@@ -22,23 +22,26 @@ public class Name implements IName {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		Name n = (Name) obj;
+	public boolean equals(final Object obj) {
+		final Name n = (Name) obj;
 
-		if (!n.getName().equals(getName()))
+		if (!n.getName().equals(getName())) {
 			return false;
-		if (!n.getNamespace().equals(getNamespace()))
+		}
+		if (!n.getNamespace().equals(getNamespace())) {
 			return false;
+		}
 
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
+		final StringBuilder buf = new StringBuilder();
 		buf.append(name);
-		if (namespace != null)
-			buf.append("." + namespace);
+		if (namespace != null) {
+			buf.append('.').append(namespace);
+		}
 		return buf.toString();
 	}
 

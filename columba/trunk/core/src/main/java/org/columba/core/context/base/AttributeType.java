@@ -14,9 +14,9 @@ public class AttributeType implements IAttributeType {
 
 	private boolean optional;
 
-	public AttributeType(String name, String namespace) {
-		this.name = name;
-		this.namespace = namespace;
+	public AttributeType(final String theName, final String theNamespace) {
+		this.name = theName;
+		this.namespace = theNamespace;
 
 		this.baseType = BASETYPE.STRING;
 		optional = true;
@@ -30,11 +30,11 @@ public class AttributeType implements IAttributeType {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(Object defaultValue) {
-		this.defaultValue = defaultValue;
+	public void setDefaultValue(final Object theDefaultValue) {
+		this.defaultValue = theDefaultValue;
 	}
 
-	public void setBaseType(BASETYPE type) {
+	public void setBaseType(final BASETYPE type) {
 		this.baseType = type;
 	}
 
@@ -47,15 +47,17 @@ public class AttributeType implements IAttributeType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		AttributeType t = (AttributeType) obj;
+	public boolean equals(final Object obj) {
+		final AttributeType t = (AttributeType) obj;
 
-		if (!t.getBaseType().equals(getBaseType()))
+		if (!t.getBaseType().equals(getBaseType())) {
 			return false;
+		}
 
-		if (t.getDefaultValue() != null && getDefaultValue() != null) {
-			if (!t.getDefaultValue().equals(getDefaultValue()))
+		if ((t.getDefaultValue() != null) && (getDefaultValue() != null)) {
+			if (!t.getDefaultValue().equals(getDefaultValue())) {
 				return false;
+			}
 		}
 
 		return true;
@@ -63,13 +65,12 @@ public class AttributeType implements IAttributeType {
 
 	@Override
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
-		buf.append("AttributeType");
-		buf.append("[");
-		buf.append("name=" + getName());
-		buf.append("namespace=" + getNamespace());
-		buf.append("basetype=" + getBaseType());
-		buf.append("]");
+		final StringBuilder buf = new StringBuilder();
+		buf.append("AttributeType["); //$NON-NLS-1$
+		buf.append("name=" + getName()); //$NON-NLS-1$
+		buf.append("namespace=" + getNamespace()); //$NON-NLS-1$
+		buf.append("basetype=" + getBaseType()); //$NON-NLS-1$
+		buf.append(']');
 		return buf.toString();
 	}
 
@@ -77,8 +78,8 @@ public class AttributeType implements IAttributeType {
 		return optional;
 	}
 
-	public void setOptional(boolean optional) {
-		this.optional = optional;
+	public void setOptional(final boolean isOptional) {
+		this.optional = isOptional;
 	}
 
 }

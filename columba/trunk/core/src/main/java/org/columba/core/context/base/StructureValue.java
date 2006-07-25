@@ -23,35 +23,36 @@ public class StructureValue implements IStructureValue {
 
 	private IStructureType type;
 
-	private List<Object> attributeList = new Vector<Object>();
+	private final List<Object> attributeList = new Vector<Object>();
 
-	private Hashtable<IName, Object> attributeMap = new Hashtable<IName, Object>();
+	private final Hashtable<IName, Object> attributeMap = new Hashtable<IName, Object>();
 
-	private Hashtable<IName, List<IStructureValue>> valueMap = new Hashtable<IName, List<IStructureValue>>();
+	private final Hashtable<IName, List<IStructureValue>> valueMap = new Hashtable<IName, List<IStructureValue>>();
 
 	private IStructureValue parent;
 
 	/**
-	 * @param name
-	 * @param namespace
-	 * @param type
+	 * @param theName
+	 * @param theNamespace
+	 * @param theType
 	 */
-	public StructureValue(String name, String namespace, IStructureType type) {
-		this.type = type;
-		this.name = name;
-		this.namespace = namespace;
+	public StructureValue(final String theName, final String theNamespace,
+			final IStructureType theType) {
+		this.type = theType;
+		this.name = theName;
+		this.namespace = theNamespace;
 	}
 
 	/**
-	 * @param name
-	 * @param namespace
-	 * @param type
-	 * @param parent
+	 * @param theName
+	 * @param theNamespace
+	 * @param theType
+	 * @param theParent
 	 */
-	public StructureValue(String name, String namespace, IStructureType type,
-			IStructureValue parent) {
-		this(name, namespace, type);
-		this.parent = parent;
+	public StructureValue(final String theName, final String theNamespace,
+			final IStructureType theType, final IStructureValue theParent) {
+		this(theName, theNamespace, theType);
+		this.parent = theParent;
 
 	}
 
@@ -76,35 +77,45 @@ public class StructureValue implements IStructureValue {
 		return namespace;
 	}
 
-	public Object getObject(String name, String namespace) {
-		Object obj = attributeMap.get(new Name(name, namespace));
+	public Object getObject(final String theName, final String theNamespace) {
+		final Object obj = attributeMap.get(new Name(theName, theNamespace));
 		if (obj == null) {
 			// check if default value exists
-			IAttributeType t = getType().getAttribute(name, namespace);
+			final IAttributeType t = getType().getAttribute(theName,
+					theNamespace);
 			return t.getDefaultValue();
 		}
 
 		return obj;
 	}
 
-	public void setObject(String name, String namespace, Object value) {
-		if ( name == null ) throw new IllegalArgumentException("name == null");
-		if ( namespace == null ) throw new IllegalArgumentException("namespace");
-		if ( value == null ) throw new IllegalArgumentException("value == null");
-		
-		IAttributeType attrType = getType().getAttribute(name, namespace);
-		if (attrType == null)
-			throw new IllegalArgumentException("attribute type <" + name + ","
-					+ namespace + "> does not exist");
+	public void setObject(final String theName, final String theNamespace,
+			final Object value) {
+		if (theName == null) {
+			throw new IllegalArgumentException("name == null");
+		}
+		if (theNamespace == null) {
+			throw new IllegalArgumentException("namespace");
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("value == null");
+		}
+
+		final IAttributeType attrType = getType().getAttribute(theName,
+				theNamespace);
+		if (attrType == null) {
+			throw new IllegalArgumentException("attribute type <" + theName
+					+ "," + theNamespace + "> does not exist");
+		}
 
 		// remove old
-		Object obj = getObject(name, namespace);
+		final Object obj = getObject(theName, theNamespace);
 		if (obj != null) {
 			attributeMap.remove(obj);
 			attributeList.remove(obj);
 		}
 
-		attributeMap.put(new Name(name, namespace), value);
+		attributeMap.put(new Name(theName, theNamespace), value);
 		attributeList.add(value);
 	}
 
@@ -119,15 +130,19 @@ public class StructureValue implements IStructureValue {
 	 * @see org.columba.core.context.base.api.IStructureValue#addChild(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public IStructureValue addChild(String name, String namespace) {
-		IStructureType childType = getType().getChild(name, namespace);
-		if (childType == null)
+	public IStructureValue addChild(final String theName,
+			final String theNamespace) {
+		final IStructureType childType = getType().getChild(theName,
+				theNamespace);
+		if (childType == null) {
 			throw new IllegalArgumentException("child structure type for <"
-					+ name + "," + namespace + "> does not exist");
+					+ theName + "," + theNamespace + "> does not exist");
+		}
 
-		IStructureValue value = new StructureValue(name, namespace, childType,
-				this);
-		List<IStructureValue> list = getChildStructureList(name, namespace);
+		final IStructureValue value = new StructureValue(theName, theNamespace,
+				childType, this);
+		final List<IStructureValue> list = getChildStructureList(theName,
+				theNamespace);
 
 		if ((childType.getCardinality().equals(MULTIPLICITY.ONE_TO_ONE) || getType()
 				.getCardinality().equals(MULTIPLICITY.ZERO_TO_ONE))
@@ -143,13 +158,15 @@ public class StructureValue implements IStructureValue {
 	}
 
 	/**
-	 * @param name
-	 * @param namespace
+	 * @param theName
+	 * @param theNamespace
 	 * @return
 	 */
-	private int getChildStructureCount(String name, String namespace) {
-		if (valueMap.containsKey(new Name(name, namespace))) {
-			List<IStructureValue> list = valueMap.get(new Name(name, namespace));
+	private int getChildStructureCount(final String theName,
+			final String theNamespace) {
+		if (valueMap.containsKey(new Name(theName, theNamespace))) {
+			final List<IStructureValue> list = valueMap.get(new Name(theName,
+					theNamespace));
 			return list.size();
 		}
 		return 0;
@@ -159,15 +176,19 @@ public class StructureValue implements IStructureValue {
 	 * @see org.columba.core.context.base.api.IStructureValue#removeChild(java.lang.String,
 	 *      java.lang.String, int)
 	 */
-	public IStructureValue removeChild(String name, String namespace, int index) {
-		List<IStructureValue> list = valueMap.get(new Name(name, namespace));
-		if (list == null)
-			throw new IllegalArgumentException("list <" + name + ","
-					+ namespace + "> is empty");
+	public IStructureValue removeChild(final String theName,
+			final String theNamespace, final int index) {
+		final List<IStructureValue> list = valueMap.get(new Name(theName,
+				theNamespace));
+		if (list == null) {
+			throw new IllegalArgumentException("list <" + theName + ","
+					+ theNamespace + "> is empty");
+		}
 
-		IStructureValue value = list.get(index);
-		if (value == null)
+		final IStructureValue value = list.get(index);
+		if (value == null) {
 			throw new IllegalArgumentException("no element at index " + index);
+		}
 
 		list.remove(index);
 
@@ -175,32 +196,32 @@ public class StructureValue implements IStructureValue {
 	}
 
 	/**
-	 * @param name
-	 * @param namespace
+	 * @param theName
+	 * @param theNamespace
 	 * @return
 	 */
-	private List<IStructureValue> getChildStructureList(String name,
-			String namespace) {
-		int count = getChildStructureCount(name, namespace);
+	private List<IStructureValue> getChildStructureList(final String theName,
+			final String theNamespace) {
+		final int count = getChildStructureCount(theName, theNamespace);
 
 		if (count == 0) {
 			// create empty list
-			List<IStructureValue> list = new Vector<IStructureValue>();
-			valueMap.put(new Name(name, namespace), list);
-			return list;
-		} else {
-			List<IStructureValue> list = valueMap.get(new Name(name, namespace));
+			final List<IStructureValue> list = new Vector<IStructureValue>();
+			valueMap.put(new Name(theName, theNamespace), list);
 			return list;
 		}
+		final List<IStructureValue> list = valueMap.get(new Name(theName,
+				theNamespace));
+		return list;
 	}
 
 	@Override
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
-		buf.append("StructureValue[");
-		buf.append("name=" + getName());
-		buf.append(", namespace" + getNamespace());
-		buf.append("]");
+		final StringBuilder buf = new StringBuilder();
+		buf.append("StructureValue["); //$NON-NLS-1$
+		buf.append("name=" + getName()); //$NON-NLS-1$
+		buf.append(", namespace" + getNamespace()); //$NON-NLS-1$
+		buf.append(']');
 		return buf.toString();
 	}
 
@@ -215,7 +236,7 @@ public class StructureValue implements IStructureValue {
 	public Iterator<IName> getAllAttributeNames() {
 		return attributeMap.keySet().iterator();
 	}
-	
+
 	/**
 	 * @see org.columba.core.context.base.api.IStructureValue#getAttributeIterator()
 	 */
@@ -227,14 +248,13 @@ public class StructureValue implements IStructureValue {
 	 * @see org.columba.core.context.base.api.IStructureValue#getChildIterator(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public Iterator<IStructureValue> getChildIterator(String name,
-			String namespace) {
-		List<IStructureValue> list = valueMap.get(new Name(name, namespace));
+	public Iterator<IStructureValue> getChildIterator(final String theName,
+			final String theNamespace) {
+		List<IStructureValue> list = valueMap.get(new Name(theName, theNamespace));
 		if (list == null) {
 			// create empty structure value
 			list = new Vector<IStructureValue>();
 		}
-			
 
 		return list.listIterator();
 
@@ -244,140 +264,159 @@ public class StructureValue implements IStructureValue {
 	 * @see org.columba.core.context.base.api.IStructureValue#removeAllChildren(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public void removeAllChildren(String name, String namespace) {
-		valueMap.remove(new Name(name, namespace));
+	public void removeAllChildren(final String theName, final String theNamespace) {
+		valueMap.remove(new Name(theName, theNamespace));
 	}
 
 	/**
 	 * @see org.columba.core.context.base.api.IStructureValue#getString(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public String getString(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.STRING))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type String");
+	public String getString(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.STRING)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type String");
+		}
 
-		return (String) getObject(name, namespace);
+		return (String) getObject(theName, theNamespace);
 	}
 
-	public void setString(String name, String namespace, String value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.STRING))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type String");
+	public void setString(final String theName, final String theNamespace,
+			final String value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.STRING)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type String");
+		}
 
-		setObject(name, namespace, value);
+		setObject(theName, theNamespace, value);
 	}
 
-	public int getInteger(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.INTEGER))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Integer");
+	public int getInteger(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.INTEGER)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Integer");
+		}
 
-		return (Integer) getObject(name, namespace);
+		return (Integer) getObject(theName, theNamespace);
 	}
 
-	public void setInteger(String name, String namespace, int value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.INTEGER))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Integer");
+	public void setInteger(final String theName, final String theNamespace,
+			final int value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.INTEGER)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Integer");
+		}
 
-		setObject(name, namespace, value);
+		setObject(theName, theNamespace, value);
 	}
 
-	public Date getDate(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.DATE))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Date");
+	public Date getDate(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.DATE)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Date");
+		}
 
-		return (Date) getObject(name, namespace);
+		return (Date) getObject(theName, theNamespace);
 	}
 
-	public void setDate(String name, String namespace, Date value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.DATE))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Date");
+	public void setDate(final String theName, final String theNamespace,
+			final Date value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.DATE)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Date");
+		}
 
-		setObject(name, namespace, value);
+		setObject(theName, theNamespace, value);
 	}
 
-	public float getFloat(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.FLOAT))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Float");
+	public float getFloat(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.FLOAT)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Float");
+		}
 
-		return (Float) getObject(name, namespace);
+		return (Float) getObject(theName, theNamespace);
 	}
 
-	public void setFloat(String name, String namespace, float value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.FLOAT))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Float");
-		setObject(name, namespace, value);
+	public void setFloat(final String theName, final String theNamespace,
+			final float value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.FLOAT)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Float");
+		}
+		setObject(theName, theNamespace, value);
 	}
 
-	public double getDouble(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.DOUBLE))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Double");
+	public double getDouble(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.DOUBLE)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Double");
+		}
 
-		return (Double) getObject(name, namespace);
+		return (Double) getObject(theName, theNamespace);
 	}
 
-	public void setDouble(String name, String namespace, double value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.DOUBLE))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type Double");
-		setObject(name, namespace, value);
+	public void setDouble(final String theName, final String theNamespace,
+			final double value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.DOUBLE)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type Double");
+		}
+		setObject(theName, theNamespace, value);
 	}
 
-	public byte[] getByteArray(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.BINARY))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type binary");
+	public byte[] getByteArray(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.BINARY)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type binary");
+		}
 
-		return (byte[]) getObject(name, namespace);
+		return (byte[]) getObject(theName, theNamespace);
 	}
 
-	public void setByteArray(String name, String namespace, byte[] value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.BINARY))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type binary");
-		setObject(name, namespace, value);
+	public void setByteArray(final String theName, final String theNamespace,
+			final byte[] value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.BINARY)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type binary");
+		}
+		setObject(theName, theNamespace, value);
 	}
 
-	public InputStream getInputStream(String name, String namespace) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.INPUTSTREAM))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type blob (binary inputstream)");
+	public InputStream getInputStream(final String theName, final String theNamespace) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.INPUTSTREAM)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type blob (binary inputstream)");
+		}
 
-		return (InputStream) getObject(name, namespace);
+		return (InputStream) getObject(theName, theNamespace);
 	}
 
-	public void setInputStream(String name, String namespace, InputStream value) {
-		IAttributeType t = getType().getAttribute(name, namespace);
-		if (!t.getBaseType().equals(BASETYPE.INPUTSTREAM))
-			throw new IllegalArgumentException("attribute <" + name + ","
-					+ namespace + "> is not of type blob (binary inputstream)");
-		setObject(name, namespace, value);
+	public void setInputStream(final String theName, final String theNamespace,
+			final InputStream value) {
+		final IAttributeType t = getType().getAttribute(theName, theNamespace);
+		if (!t.getBaseType().equals(BASETYPE.INPUTSTREAM)) {
+			throw new IllegalArgumentException("attribute <" + theName + ","
+					+ theNamespace + "> is not of type blob (binary inputstream)");
+		}
+		setObject(theName, theNamespace, value);
 	}
 
 	public Iterator<IName> getAllChildNames() {
 		return valueMap.keySet().iterator();
 	}
-
-	
 
 }

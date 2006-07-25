@@ -322,9 +322,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		box.removeAll();
 
-		Iterator<IContextProvider> it = contextSearchManager.getAllProviders();
-		while (it.hasNext()) {
-			IContextProvider p = it.next();
+		for (final IContextProvider p : contextSearchManager.getAllProviders()) {
 
 			// clear previous search results
 			p.clear();
