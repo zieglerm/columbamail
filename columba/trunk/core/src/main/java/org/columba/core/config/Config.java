@@ -62,12 +62,11 @@ import org.columba.core.xml.XmlIO;
  */
 public class Config implements IConfig {
 
-	private static final String CORE_STR = "core";
+	private static final String CORE_STR = "core"; //$NON-NLS-1$
 
-	private static final Logger LOG = Logger
-			.getLogger("org.columba.core.config");
+	static final Logger LOG = Logger.getLogger("org.columba.core.config"); //$NON-NLS-1$
 
-	protected Map pluginList = new Hashtable();
+	protected Map<String, Map<String, DefaultXmlConfig>> pluginList = new Hashtable<String, Map<String, DefaultXmlConfig>>();
 
 	protected File path;
 
@@ -82,16 +81,16 @@ public class Config implements IConfig {
 	/**
 	 * Creates a new configuration from the given directory.
 	 */
-	public Config(File path) {
-		if (path == null) {
-			path = getDefaultConfigPath();
+	public Config(File thePath) {
+		if (thePath == null) {
+			thePath = getDefaultConfigPath();
 		}
 
-		this.path = path;
-		path.mkdir();
-		optionsFile = new File(path, "options.xml");
-		toolsFile = new File(path, "external_tools.xml");
-		viewsFile = new File(path, "views.xml");
+		this.path = thePath;
+		thePath.mkdir();
+		optionsFile = new File(thePath, "options.xml"); //$NON-NLS-1$
+		toolsFile = new File(thePath, "external_tools.xml"); //$NON-NLS-1$
+		viewsFile = new File(thePath, "views.xml"); //$NON-NLS-1$
 
 		registerPlugin(CORE_STR, optionsFile.getName(), new OptionsXmlConfig(
 				optionsFile));
@@ -103,13 +102,13 @@ public class Config implements IConfig {
 
 		// register at shutdown manager
 		// -> this will save all configuration data, when closing Columba
-		IShutdownManager shutdownManager = ShutdownManager.getInstance();
-		
+		final IShutdownManager shutdownManager = ShutdownManager.getInstance();
+
 		shutdownManager.register(new Runnable() {
 			public void run() {
 				try {
 					save();
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					LOG.severe(e.getMessage());
 				}
 			}
@@ -142,8 +141,8 @@ public class Config implements IConfig {
 	 * @param id
 	 * @param configPlugin
 	 */
-	public void registerPlugin(String moduleName, String id,
-			DefaultXmlConfig configPlugin) {
+	public void registerPlugin(final String moduleName, final String id,
+			final DefaultXmlConfig configPlugin) {
 		File directory;
 
 		if (moduleName.equals(CORE_STR)) {
@@ -152,19 +151,19 @@ public class Config implements IConfig {
 			directory = new File(getConfigDirectory(), moduleName);
 		}
 
-		File destination = new File(directory, id);
+		final File destination = new File(directory, id);
 
 		if (!destination.exists()) {
-			String hstr = "org/columba/" + moduleName + "/config/" + id;
+			final String hstr = "org/columba/" + moduleName + "/config/" + id; //$NON-NLS-1$
 
 			try {
 				DiskIO.copyResource(hstr, destination);
-			} catch (IOException e) {
+			} catch (final IOException e) {
 			}
 		}
 
 		if (!pluginList.containsKey(moduleName)) {
-			Map map = new Hashtable();
+			final Map<String, DefaultXmlConfig> map = new Hashtable<String, DefaultXmlConfig>();
 			pluginList.put(moduleName, map);
 		}
 
@@ -181,12 +180,13 @@ public class Config implements IConfig {
 	 * @param id
 	 * @return DefaultXmlConfig
 	 */
-	public DefaultXmlConfig getPlugin(String moduleName, String id) {
+	public DefaultXmlConfig getPlugin(final String moduleName, final String id) {
 		if (pluginList.containsKey(moduleName)) {
-			Map map = (Map) pluginList.get(moduleName);
+			final Map<String, DefaultXmlConfig> map = pluginList
+					.get(moduleName);
 
 			if (map.containsKey(id)) {
-				DefaultXmlConfig plugin = (DefaultXmlConfig) map.get(id);
+				final DefaultXmlConfig plugin = map.get(id);
 
 				return plugin;
 			}
@@ -202,9 +202,9 @@ public class Config implements IConfig {
 	 * @param id
 	 * @param configPlugin
 	 */
-	public void addPlugin(String moduleName, String id,
-			DefaultXmlConfig configPlugin) {
-		Map map = (Map) pluginList.get(moduleName);
+	public void addPlugin(final String moduleName, final String id,
+			final DefaultXmlConfig configPlugin) {
+		final Map<String, DefaultXmlConfig> map = pluginList.get(moduleName);
 
 		if (map != null) {
 			map.put(id, configPlugin);
@@ -216,18 +216,16 @@ public class Config implements IConfig {
 	 * 
 	 * @return List
 	 */
-	public List getPluginList() {
-		List list = new LinkedList();
+	public List<DefaultXmlConfig> getPluginList() {
+		final List<DefaultXmlConfig> list = new LinkedList<DefaultXmlConfig>();
 
-		for (Iterator keys = pluginList.keySet().iterator(); keys.hasNext();) {
-			String key = (String) keys.next();
-			Map map = (Map) pluginList.get(key);
+		for (String key : pluginList.keySet()) {
+			// final String key = (String) keys.next();
+			final Map<String, DefaultXmlConfig> map = pluginList.get(key);
 
 			if (map != null) {
-				for (Iterator keys2 = map.keySet().iterator(); keys2.hasNext();) {
-					String key2 = (String) keys2.next();
-					DefaultXmlConfig plugin = (DefaultXmlConfig) map.get(key2);
-
+				for (String key2 : map.keySet()) {
+					final DefaultXmlConfig plugin = map.get(key2);
 					list.add(plugin);
 				}
 			}
@@ -240,11 +238,7 @@ public class Config implements IConfig {
 	 * Method save.
 	 */
 	public void save() throws Exception {
-		List list = getPluginList();
-
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			DefaultXmlConfig plugin = (DefaultXmlConfig) it.next();
-
+		for (DefaultXmlConfig plugin : getPluginList()) {
 			if (plugin == null) {
 				continue;
 			}
@@ -257,11 +251,7 @@ public class Config implements IConfig {
 	 * Loads all plugins and template plugins.
 	 */
 	protected void load() {
-		List list = getPluginList();
-
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			DefaultXmlConfig plugin = (DefaultXmlConfig) it.next();
-
+		for (DefaultXmlConfig plugin : getPluginList()) {
 			if (plugin == null) {
 				continue;
 			}
@@ -273,8 +263,8 @@ public class Config implements IConfig {
 	/**
 	 * @see org.columba.core.config.IConfig#get(java.lang.String)
 	 */
-	public XmlElement get(String name) {
-		DefaultXmlConfig xml = getPlugin(CORE_STR, name + ".xml");
+	public XmlElement get(final String name) {
+		final DefaultXmlConfig xml = getPlugin(CORE_STR, name + ".xml");
 
 		return xml.getRoot();
 	}
@@ -294,9 +284,8 @@ public class Config implements IConfig {
 	 */
 	public static File getDefaultConfigPath() {
 		if (OSInfo.isWindowsPlatform()) {
-			return new File("config");
-		} else {
-			return new File(System.getProperty("user.home"), ".columba");
+			return new File("config"); //$NON-NLS-1$
 		}
+		return new File(System.getProperty("user.home"), ".columba"); //$NON-NLS-1$//$NON-NLS-2$
 	}
 }

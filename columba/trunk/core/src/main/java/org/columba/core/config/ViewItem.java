@@ -27,58 +27,59 @@ import org.columba.core.xml.XmlElement;
 //
 // views.xml
 //
-//<view header="100" header_enabled="true" id="ThreePaneMail" 
-//	  infopanel="true" main="100">
+// <view header="100" header_enabled="true" id="ThreePaneMail"
+// infopanel="true" main="100">
 // <window maximized="true" height="721" width="1034" y="26" x="0"></window>
 // <toolbars infopanel="true" main="true"></toolbars>
-// <splitpanes header="200" header_enabled="true" main="283" attachment="100"></splitpanes>
-//</view>
-
+// <splitpanes header="200" header_enabled="true" main="283"
+// attachment="100"></splitpanes>
+// </view>
 public class ViewItem extends DefaultItem {
 
-	public static final String ID = "id";
-	public static final String VIEW = "view";
-	
-	public final static String WINDOW = "window";
+	public static final String ID = "id"; //$NON-NLS-1$
 
-	public final static String MAXIMIZED_BOOL = "maximized";
+	public static final String VIEW = "view"; //$NON-NLS-1$
 
-	public final static String HEIGHT_INT = "height";
+	public final static String WINDOW = "window"; //$NON-NLS-1$
 
-	public final static String WIDTH_INT = "width";
+	public final static String MAXIMIZED_BOOL = "maximized"; //$NON-NLS-1$
 
-	public final static String POSITION_X_INT = "x";
+	public final static String HEIGHT_INT = "height"; //$NON-NLS-1$
 
-	public final static String POSITION_Y_INT = "y";
+	public final static String WIDTH_INT = "width"; //$NON-NLS-1$
 
-	public final static String TOOLBARS = "toolbars";
+	public final static String POSITION_X_INT = "x"; //$NON-NLS-1$
 
-	public final static String MAIN_BOOL = "main";
+	public final static String POSITION_Y_INT = "y"; //$NON-NLS-1$
 
-	public final static String INFOPANEL_BOOL = "infopanel";
+	public final static String TOOLBARS = "toolbars"; //$NON-NLS-1$
 
-	public final static String SPLITPANES = "splitpanes";
+	public final static String MAIN_BOOL = "main"; //$NON-NLS-1$
 
-	public final static String HEADER_INT = "header";
+	public final static String INFOPANEL_BOOL = "infopanel"; //$NON-NLS-1$
 
-	public ViewItem(XmlElement root) {
-		super(root);
+	public final static String SPLITPANES = "splitpanes"; //$NON-NLS-1$
+
+	public final static String HEADER_INT = "header"; //$NON-NLS-1$
+
+	public ViewItem(final XmlElement theRoot) {
+		super(theRoot);
 	}
 
-	public static ViewItem createDefault(String id) {
+	public static ViewItem createDefault(final String id) {
 
 		// initialize default view options
-		XmlElement defaultView = new XmlElement(ViewItem.VIEW);
-		XmlElement window = new XmlElement(WINDOW);
+		final XmlElement defaultView = new XmlElement(ViewItem.VIEW);
+		final XmlElement window = new XmlElement(WINDOW);
 		// tstich: Default values are set in the loadPostions() method
 		defaultView.addElement(window);
 
-		XmlElement toolbars = new XmlElement(TOOLBARS);
-		toolbars.addAttribute(MAIN_BOOL, "true");
+		final XmlElement toolbars = new XmlElement(TOOLBARS);
+		toolbars.addAttribute(MAIN_BOOL, Boolean.TRUE.toString());
 		defaultView.addElement(toolbars);
 
 		defaultView.addAttribute(ViewItem.ID, id);
-		
+
 		return new ViewItem(defaultView);
 	}
 }

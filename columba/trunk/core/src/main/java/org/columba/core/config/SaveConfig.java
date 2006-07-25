@@ -29,7 +29,7 @@ public class SaveConfig implements Runnable {
 
 	/** JDK 1.4+ logging framework logger, used for logging. */
 	private static final Logger LOG = Logger
-			.getLogger("org.columba.core.shutdown");
+			.getLogger("org.columba.core.shutdown"); //$NON-NLS-1$
 
 	/**
 	 *  
@@ -43,12 +43,13 @@ public class SaveConfig implements Runnable {
 	 */
 	public void run() {
 		try {
-			((Config)Config.getInstance()).save();
-		} catch (Exception e) {
+			(Config.getInstance()).save();
+		} catch (final Exception e) {
 			LOG.severe(e.getMessage());
 
-			if (Logging.DEBUG)
+			if (Logging.DEBUG) {
 				e.printStackTrace();
+			}
 		}
 	}
 

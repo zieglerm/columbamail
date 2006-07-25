@@ -77,7 +77,7 @@ public interface IExtensionHandler {
 	 * 
 	 * @return	enumeration of IExtension
 	 */
-	public Enumeration getExtensionEnumeration();
+	public Enumeration<IExtension> getExtensionEnumeration();
 	
 	/**
 	 * Retrieve enumeration of all external extensions.

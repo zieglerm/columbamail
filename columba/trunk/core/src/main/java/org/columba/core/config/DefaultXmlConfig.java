@@ -33,10 +33,10 @@ public class DefaultXmlConfig extends XmlIO {
 	 * 
 	 * @param file
 	 */
-    public DefaultXmlConfig(File file) {
+    public DefaultXmlConfig(final File file) {
         try {
             setURL(file.toURL());
-        } catch (MalformedURLException mue) {
+        } catch (final MalformedURLException mue) {
         }
     }
 
@@ -45,8 +45,9 @@ public class DefaultXmlConfig extends XmlIO {
      * 
      * @see org.columba.core.xml.XmlIO#load()
      */
-    public boolean load() {
-        boolean result = super.load();
+    @Override
+	public boolean load() {
+        final boolean result = super.load();
 
         return result;
     }
