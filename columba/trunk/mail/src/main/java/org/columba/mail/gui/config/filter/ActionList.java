@@ -167,10 +167,12 @@ public class ActionList extends JPanel implements ActionListener, ItemListener {
 
 			try {
 				IExtension extension = pluginHandler.getExtension(name);
+				if ( extension != null) {
 				String ui = extension.getMetadata().getAttribute("ui");
 				IExtension uiExtension = pluginUIHandler.getExtension(ui);
 				
 				row = (DefaultActionRow) uiExtension.instanciateExtension(args);
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 

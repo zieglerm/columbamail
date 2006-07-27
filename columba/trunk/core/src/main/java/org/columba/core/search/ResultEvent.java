@@ -10,25 +10,38 @@ import org.columba.core.search.api.ISearchResult;
 public class ResultEvent extends EventObject implements IResultEvent {
 
 	private List<ISearchResult> result;
+
 	private String searchTerm;
+
 	private ISearchCriteria criteria;
+
 	private int totalResultCount;
+
 	private String name;
 
-	
 	public ResultEvent(Object source) {
 		super(source);
 	}
-	
+
 	public ResultEvent(Object source, String searchTerm) {
 		super(source);
 		this.searchTerm = searchTerm;
 	}
-	
-	
-	public ResultEvent(Object source, String searchTerm, String name,  ISearchCriteria criteria, List<ISearchResult> result, int totalResultCount) {
+
+	public ResultEvent(Object source, String name, List<ISearchResult> result,
+			int totalResultCount) {
 		super(source);
-		
+
+		this.name = name;
+		this.result = result;
+		this.totalResultCount = totalResultCount;
+	}
+
+	public ResultEvent(Object source, String searchTerm, String name,
+			ISearchCriteria criteria, List<ISearchResult> result,
+			int totalResultCount) {
+		super(source);
+
 		this.searchTerm = searchTerm;
 		this.name = name;
 
@@ -56,7 +69,5 @@ public class ResultEvent extends EventObject implements IResultEvent {
 	public String getProviderName() {
 		return name;
 	}
-
-	
 
 }

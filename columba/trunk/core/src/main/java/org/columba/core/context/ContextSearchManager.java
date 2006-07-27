@@ -2,7 +2,6 @@ package org.columba.core.context;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.SwingUtilities;
@@ -115,7 +114,13 @@ public class ContextSearchManager implements IContextSearchManager {
 			}
 
 			// notify all listeners that search is finished
-			fireFinished();
+			
+			Runnable run = new Runnable() {
+				public void run() {
+					fireFinished();
+				}
+			};
+			SwingUtilities.invokeLater(run);
 		}
 
 		@Override

@@ -46,5 +46,8 @@ public interface IStructureValue {
 	
 	public IStructureValue getParent();
 	
+//	public Object getObject(ILocator locator);
+//	public IStructureValue getChild(ILocator locator);
+	
 	public boolean isValid();
 }

@@ -90,10 +90,17 @@ public class Main {
 		// initialize global class loader
 		mainClassLoader = new MainClassLoader(Main.class.getClassLoader());
 
+		long start = System.currentTimeMillis();
+		
 		// use global class loader to bootstrap Columba
 		Bootstrap startup = (Bootstrap) mainClassLoader.loadClass(
 				Bootstrap.class.getName()).newInstance();
 		startup.run(args);
+		
+		long stop = System.currentTimeMillis();
+		
+		System.out.println("total startup time (ms)="+(stop-start));
+		System.out.println("total startup time (sec)="+(stop-start)/1000);
 	}
 
 }

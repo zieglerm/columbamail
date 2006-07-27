@@ -2,13 +2,15 @@ package org.columba.core.gui.search;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -27,16 +29,19 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.context.ContextResultListenerAdapter;
 import org.columba.core.context.api.IContextResultEvent;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.base.AscendingIcon;
+import org.columba.core.gui.search.api.ICriteriaRenderer;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.gui.toolbar.ToolBarButtonFactory;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.ResultListenerAdapter;
-import org.columba.core.search.SearchHistoryList;
+import org.columba.core.search.SearchRequest;
 import org.columba.core.search.api.IResultEvent;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
 import org.columba.core.search.api.ISearchProvider;
+import org.columba.core.search.api.ISearchRequest;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -51,22 +56,152 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 	private JCheckBox searchInsideCheckBox;
 
-	private ActionListener listener;
-
 	private ISearchPanel searchPanel;
 
 	private JButton contextButton;
 
 	private ContextSearchAction action;
 
-	public SearchBar(ISearchPanel searchPanel, IFrameMediator frameMediator,
-			boolean showSearchButton, boolean showSearchInsideButton) {
+	private SearchDialog searchDialog;
+
+	private JButton moreButton;
+
+	private IFrameMediator frameMediator;
+
+	public SearchBar(final ISearchPanel searchPanel,
+			final IFrameMediator frameMediator) {
 		super();
 
 		this.searchPanel = searchPanel;
+		this.frameMediator = frameMediator;
 
-		textField = new IconTextField(icon, 20);
+		initComponents();
+
+		layoutComponents();
+
+		initListeners();
+	}
+
+	public void search(Iterator<ICriteriaRenderer> it, boolean matchAll) {
+		
+		// create list of search requests
+		List<ISearchRequest> list = new Vector<ISearchRequest>();
+		while (it.hasNext()) {
+			ICriteriaRenderer r = it.next();
+			ISearchCriteria c = r.getCriteria();
+			String providerName = r.getProvider().getTechnicalName();
+			Object value = r.getValue();
+			// skip if user didn't specify search term for this criteria
+			if (value == null)
+				continue;
+
+			String searchTerm = value.toString();
+
+			list.add(new SearchRequest(c.getTechnicalName(), providerName,
+					searchTerm));
+		}
+
+		// execute search
+		searchPanel.searchComplex(list, matchAll, searchInsideCheckBox.isSelected());
+	}
+	
+	public boolean isSelectedSearchInside() {
+		return searchInsideCheckBox.isSelected();
+	}
+	
+	private void toggleButtonStates(boolean enabled) {
+		action.setEnabled(enabled);
+		contextButton.setEnabled(enabled);
+		searchButton.setEnabled(enabled);
+		textField.setEnabled(enabled);
+		searchInsideCheckBox.setEnabled(enabled);
+		try {
+			moreButton.setEnabled(enabled);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void toggleSearchDialogVisibility() {
+		if (searchDialog == null)
+			searchDialog = new SearchDialog(frameMediator
+					.getContainer().getFrame(), searchPanel.getSearchManager().getAllProviders());
+		
+		if (!searchDialog.isVisible()) {
+			int x = getLocationOnScreen().x;
+			// toolbar container
+			Container c2 = getParent().getParent();
+			int y = c2.getLocationOnScreen().y + c2.getHeight();
+			int maxX = x + getWidth();
+			
+			int xx = maxX - searchDialog.getWidth();
+			searchDialog.setLocation(xx, y);
+			searchDialog.setVisible(true);
+			
+			if ( searchDialog.isSuccess()) {
+				// user pressed "Search" button
+				search(searchDialog.getAllCriteriaRenderer(), searchDialog.isMatchAll());
+			}
+		} else {
+			searchDialog.setVisible(false);
+		}
+	}
+	
+	private void initListeners() {
+		// show search dialog
+		moreButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleSearchDialogVisibility();
+			}
+		});
+
+		// on "RETURN" start seach
+		textField.addKeyListener(new MyKeyListener());
+		
+		// update popup menu with search term before its made visible
 		textField.addPopupMenuListener(this);
+		
+		// enable/disable search bar during search
+		searchPanel.getSearchManager()
+				.addResultListener(new MyResultListener());
+
+		// start search
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleButtonStates(false);
+				SearchBar.this.searchPanel.searchAll(textField.getText(),
+						searchInsideCheckBox.isSelected());
+			}
+		});
+
+		// to enable button again after search is finished
+		searchPanel.getContextSearchManager().addResultListener(
+				new MyContextResultListener());
+	}
+
+	private void layoutComponents() {
+
+		FormLayout layout = new FormLayout(
+				"fill:default:grow, 3dlu, pref, 3dlu, pref, 3dlu, pref",
+				// 2 columns
+				"");
+
+		// create a form builder
+		DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
+
+		// builder.append(contextButton);
+
+		builder.append(textField);
+
+		//builder.append(searchButton);
+
+		builder.append(searchInsideCheckBox);
+
+		builder.append(moreButton);
+	}
+
+	private void initComponents() {
+		textField = new IconTextField(icon, 20);
 
 		searchButton = new JButton("Search");
 		searchButton.setMnemonic('s');
@@ -82,58 +217,17 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		contextButton = ToolBarButtonFactory.createButton(action);
 		contextButton.setEnabled(true);
 
-		FormLayout layout = new FormLayout(
-				"fill:default:grow, 3dlu, pref, 3dlu, pref",
-				// 2 columns
-				"");
-
-		// create a form builder
-		DefaultFormBuilder builder = new DefaultFormBuilder(layout, this);
-
-		//builder.append(contextButton);
-		
-		builder.append(textField);
-		if (showSearchButton)
-			builder.append(searchButton);
-
-		if (showSearchInsideButton)
-			builder.append(searchInsideCheckBox);
-
-		textField.addKeyListener(new MyKeyListener());
-
-		searchPanel.getSearchManager()
-				.addResultListener(new MyResultListener());
-
-		searchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contextButton.setEnabled(false);
-				searchButton.setEnabled(false);
-				textField.setEnabled(false);
-				searchInsideCheckBox.setEnabled(false);
-				SearchBar.this.searchPanel.searchAll(textField.getText(),
-						searchInsideCheckBox.isSelected());
-			}
-		});
-
-		// to enable button again after search is finished
-		searchPanel.getContextSearchManager().addResultListener(
-				new MyContextResultListener());
-	}
-
-	public void addActionListener(ActionListener listener) {
-		this.listener = listener;
-
-		searchButton.addActionListener(listener);
+		moreButton = new JButton();
+		moreButton.setIcon(new AscendingIcon());
+		moreButton.setMargin(new Insets(1, 1, 1, 1));
+		moreButton.setToolTipText("Advanced Search Options...");
 	}
 
 	class MyContextResultListener extends ContextResultListenerAdapter {
 
 		@Override
 		public void finished(IContextResultEvent event) {
-			action.setEnabled(true);
-			searchButton.setEnabled(true);
-			textField.setEnabled(true);
-			searchInsideCheckBox.setEnabled(true);
+			toggleButtonStates(true);
 		}
 
 	}
@@ -156,10 +250,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			action.setEnabled(false);
-			searchButton.setEnabled(false);
-			textField.setEnabled(false);
-			searchInsideCheckBox.setEnabled(false);
+			toggleButtonStates(false);
 			searchPanel.searchInContext();
 		}
 
@@ -172,10 +263,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			char ch = e.getKeyChar();
 
 			if (ch == KeyEvent.VK_ENTER) {
-				action.setEnabled(false);
-				searchButton.setEnabled(false);
-				textField.setEnabled(false);
-				searchInsideCheckBox.setEnabled(false);
+				toggleButtonStates(false);
 				searchPanel.searchAll(textField.getText(), searchInsideCheckBox
 						.isSelected());
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -224,7 +312,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			m.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					searchPanel.searchInProvider(textField.getText(), p
-							.getTechnicalName());
+							.getTechnicalName(), searchInsideCheckBox.isSelected());
 				}
 			});
 			menu.add(m);
@@ -243,7 +331,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 				m.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						searchPanel.searchInCriteria(textField.getText(), p
-								.getTechnicalName(), c.getTechnicalName());
+								.getTechnicalName(), c.getTechnicalName(), searchInsideCheckBox.isSelected());
 					}
 				});
 				menu.add(m);
@@ -255,8 +343,8 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 		// create search history
 
-		Map<String, ISearchProvider> historyMap = SearchHistoryList
-				.getInstance().getHistoryMap();
+		// Map<String, ISearchProvider> historyMap = SearchHistoryList
+		// .getInstance().getHistoryMap();
 
 		// if (historyMap.size() > 0) {
 		// Iterator<String> it3 = historyMap.keySet().iterator();
@@ -295,7 +383,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			throw new IllegalArgumentException("toolbar");
 
 		toolbar.add(contextButton);
-		
+
 		JPanel p = new JPanel();
 		p.setBorder(BorderFactory.createEmptyBorder(3, 10, 2, 0));
 		p.setLayout(new BorderLayout());
@@ -303,10 +391,6 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 		toolbar.add(p);
 
-	}
-
-	public String getSearchTerm() {
-		return textField.getText();
 	}
 
 	class MyResultListener extends ResultListenerAdapter {
@@ -318,10 +402,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		public void finished(IResultEvent event) {
 			// search is finished
 			// -> enable search button again
-			action.setEnabled(true);
-			searchButton.setEnabled(true);
-			textField.setEnabled(true);
-			searchInsideCheckBox.setEnabled(true);
+			toggleButtonStates(true);
 		}
 
 	}

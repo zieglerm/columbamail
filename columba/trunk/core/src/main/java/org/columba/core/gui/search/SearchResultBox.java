@@ -18,7 +18,6 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
 import org.columba.api.gui.frame.IFrameMediator;
-import org.columba.core.gui.base.RoundedBorder;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.search.ResultListenerAdapter;
 import org.columba.core.search.api.IResultEvent;
@@ -32,7 +31,7 @@ public class SearchResultBox extends JPanel {
 
 	private final static Color titleBackground = new Color(248, 248, 248);
 
-	private final static Color borderColor = new Color(230,230,230);
+	private final static Color borderColor = new Color(230, 230, 230);
 
 	private JXHyperlink link;
 
@@ -44,11 +43,23 @@ public class SearchResultBox extends JPanel {
 
 	private ISearchCriteria criteria;
 
-	public SearchResultBox(final IFrameMediator mediator, final ISearchProvider p,
-			final ISearchCriteria criteria, IResultPanel resultPanel) {
+	private ISearchProvider searchProvider;
+	
+	/**
+	 * 
+	 * @param mediator
+	 * @param p
+	 * @param criteria
+	 *            can be <code>null</code>
+	 * @param resultPanel
+	 */
+	public SearchResultBox(final IFrameMediator mediator,
+			final ISearchProvider p, final ISearchCriteria criteria,
+			IResultPanel resultPanel) {
 		this.resultPanel = resultPanel;
 		this.criteria = criteria;
-
+		this.searchProvider = p;
+		
 		collapsible = new JXCollapsiblePane();
 		collapsible.getContentPane().setBackground(Color.WHITE);
 		collapsible.add(resultPanel.getView());
@@ -61,8 +72,15 @@ public class SearchResultBox extends JPanel {
 		toggleAction.putValue(JXCollapsiblePane.EXPAND_ICON, UIManager
 				.getIcon("Tree.collapsedIcon"));
 		link = new JXHyperlink(toggleAction);
-		link.setText(criteria.getTitle());
-		link.setToolTipText(criteria.getDescription());
+		if (criteria != null)
+			link.setText(criteria.getTitle());
+		else
+			link.setText(p.getName());
+
+		if (criteria != null)
+			link.setToolTipText(criteria.getDescription());
+		else
+			link.setToolTipText(p.getDescription());
 
 		// link.setFont(link.getFont().deriveFont(Font.BOLD));
 		link.setOpaque(true);
@@ -81,7 +99,10 @@ public class SearchResultBox extends JPanel {
 		moreLink.setFont(smallFont);
 		moreLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if ( criteria != null)
 				p.showAllResults(mediator, "test", criteria.getTechnicalName());
+				else
+				p.showAllResults(mediator, "test", null);
 			}
 		});
 
@@ -89,9 +110,8 @@ public class SearchResultBox extends JPanel {
 		JPanel top = new JPanel();
 		top.setOpaque(true);
 
-		Border border1 = new CompoundBorder(
-				new SeparatorBorder(), BorderFactory
-						.createEmptyBorder(2, 4, 2, 4));
+		Border border1 = new CompoundBorder(new SeparatorBorder(),
+				BorderFactory.createEmptyBorder(2, 4, 2, 4));
 
 		Border border = new CompoundBorder(BorderFactory.createEmptyBorder(2,
 				4, 2, 4), border1);
@@ -124,12 +144,21 @@ public class SearchResultBox extends JPanel {
 			if (!event.getProviderName().equals(
 					resultPanel.getProviderTechnicalName()))
 				return;
-			if (!event.getSearchCriteria().getTechnicalName().equals(
-					resultPanel.getSearchCriteriaTechnicalName()))
-				return;
+			if (event.getSearchCriteria() != null) {
+				if (!event.getSearchCriteria().getTechnicalName().equals(
+						resultPanel.getSearchCriteriaTechnicalName()))
+					return;
+			}
 
-			link.setText(criteria.getTitle());
-			link.setToolTipText(criteria.getDescription());
+			if (criteria != null)
+				link.setText(criteria.getTitle());
+			else
+				link.setText(searchProvider.getName());
+
+			if (criteria != null)
+				link.setToolTipText(criteria.getDescription());
+			else
+				link.setToolTipText(searchProvider.getDescription());
 
 			if (event.getTotalResultCount() == 0) {
 				moreLink.setText("Show More ..");
@@ -181,6 +210,5 @@ public class SearchResultBox extends JPanel {
 			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
-	
-	
+
 }

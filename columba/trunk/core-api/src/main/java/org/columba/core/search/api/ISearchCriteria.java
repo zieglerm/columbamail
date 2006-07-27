@@ -9,13 +9,15 @@ public interface ISearchCriteria {
 	 * @return
 	 */
 	String getTechnicalName();
-	
+
 	/**
 	 * Returns human-readable name of search criteria.
 	 * 
 	 * @return
 	 */
 	String getTitle();
+
+	String getName();
 	
 	/**
 	 * Returns human-readable description of search criteria.
@@ -23,5 +25,5 @@ public interface ISearchCriteria {
 	 * @return
 	 */
 	String getDescription();
-	
+
 }

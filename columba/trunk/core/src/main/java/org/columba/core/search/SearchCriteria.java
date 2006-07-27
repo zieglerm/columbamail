@@ -5,12 +5,14 @@ import org.columba.core.search.api.ISearchCriteria;
 public class SearchCriteria implements ISearchCriteria {
 
 	private String name;
+	private String title;
 	private String description;
 	private String technicalName;
 	
-	public SearchCriteria(String technicalName, String name, String description) {
+	public SearchCriteria(String technicalName, String name, String title, String description) {
 		this.technicalName = technicalName;
 		this.name = name;
+		this.title = title;
 		this.description = description;
 	}
 
@@ -24,6 +26,10 @@ public class SearchCriteria implements ISearchCriteria {
 
 	public String getTechnicalName() {
 		return technicalName;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

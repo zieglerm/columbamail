@@ -1,6 +1,6 @@
 package org.columba.core.context.api;
 
-import java.util.Iterator;
+import java.util.Collection;
 
 
 
@@ -12,7 +12,7 @@ public interface IContextSearchManager {
 	public void register(IContextProvider provider);
 	public void unregister(IContextProvider provider);
 	
-	public Iterator<IContextProvider> getAllProviders();
+	public Collection<IContextProvider> getAllProviders();
 	
 	public void addResultListener(IContextResultListener listener);
 	public void removeResultListener(IContextResultListener listener);

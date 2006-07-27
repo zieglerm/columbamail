@@ -10,16 +10,17 @@ import javax.swing.ImageIcon;
 
 import org.columba.addressbook.folder.AddressbookFolder;
 import org.columba.addressbook.gui.search.BasicResultPanel;
-import org.columba.addressbook.gui.tree.AddressbookTreeModel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.gui.search.StringCriteriaRenderer;
+import org.columba.core.gui.search.api.ICriteriaRenderer;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.SearchCriteria;
-import org.columba.core.search.SearchResult;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchProvider;
+import org.columba.core.search.api.ISearchRequest;
 import org.columba.core.search.api.ISearchResult;
 
 public class ContactSearchProvider implements ISearchProvider {
@@ -65,15 +66,21 @@ public class ContactSearchProvider implements ISearchProvider {
 				searchCriteriaTechnicalName);
 	}
 
-	public ISearchCriteria getCriteria(String searchCriteriaTechnicalName, String searchTerm) {
-		String title = MessageFormat.format(bundle.getString(searchCriteriaTechnicalName
+	public IResultPanel getComplexResultPanel() {
+		// FIXME: author: fdietz
+		return new BasicResultPanel(getTechnicalName(),
+				null);
+	}
+	
+	public ISearchCriteria getCriteria(String technicalName, String searchTerm) {
+		String title = MessageFormat.format(bundle.getString(technicalName
 				+ "_title"), new Object[] { searchTerm });
-
+		String name = bundle.getString(technicalName + "_name");
 		String description = MessageFormat.format(bundle
-				.getString(searchCriteriaTechnicalName + "_description"),
+				.getString(technicalName + "_description"),
 				new Object[] { searchTerm });
 
-		return new SearchCriteria(searchCriteriaTechnicalName, title, description);
+		return new SearchCriteria(technicalName, name, title, description);
 	}
 
 	
@@ -114,6 +121,11 @@ public class ContactSearchProvider implements ISearchProvider {
 		return result;
 	}
 
+	public List<ISearchResult> query(List<ISearchRequest> list, boolean matchAll, boolean searchInside, int startIndex, int resultCount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	public int getTotalResultCount() {
@@ -123,6 +135,20 @@ public class ContactSearchProvider implements ISearchProvider {
 	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName) {
 		throw new IllegalArgumentException("not implemented yet");
 	}
+
+	public ICriteriaRenderer getCriteriaRenderer(String criteriaTechnicalName) {
+		ICriteriaRenderer r = null;
+		if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS)) {
+			r = new StringCriteriaRenderer(getCriteria(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, ""), this);
+		} else if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS)) {
+			r = new StringCriteriaRenderer(getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, ""), this);
+		}
+		
+		return r;
+	}
+
+	
+	
 
 	
 }

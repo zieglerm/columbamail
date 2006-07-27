@@ -20,6 +20,5 @@ public interface IStructureType {
 	public IStructureType getChild(String name, String namespace);
 	
 	public Collection<IStructureType> getChildren();
-	
 
 }

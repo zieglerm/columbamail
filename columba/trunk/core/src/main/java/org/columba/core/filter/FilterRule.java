@@ -117,6 +117,16 @@ public class FilterRule extends DefaultItem {
 		 */
 	}
 
+	public void setCondition(int condition) {
+		if (condition == MATCH_ALL)
+			setCondition("matchall");
+		else if (condition == MATCH_ANY)
+			setCondition("matchany");
+		else
+			throw new IllegalArgumentException("condition <" + condition
+					+ "> unknown");
+	}
+
 	/*
 	 * public FilterCriteria getCriteria(int index) { return (FilterCriteria)
 	 * list.get(index); }

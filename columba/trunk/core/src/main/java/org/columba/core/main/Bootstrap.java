@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JPopupMenu;
 import javax.swing.RepaintManager;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
@@ -175,7 +176,12 @@ public class Bootstrap {
 
 		// restore frames of last session
 		if (ColumbaCmdLineParser.getInstance().getRestoreLastSession()) {
-			FrameManager.getInstance().openStoredViews();
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					FrameManager.getInstance().openStoredViews();
+				}
+			 });
+			
 		}
 
 		/* initialize services before dismissing the splash screen */

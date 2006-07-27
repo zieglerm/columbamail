@@ -774,7 +774,7 @@ public class DefaultContainer extends JFrame implements IContainer,
 		
 		// @author fdietz: hackish way of creating a search toolbar
 		JToolBar searchToolBar = new ExtendableToolBar();
-		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), mediator, false, true);
+		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), mediator);
 		searchToolBar.addSeparator();
 		searchBar.install(searchToolBar);
 		

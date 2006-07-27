@@ -33,6 +33,7 @@ import org.columba.core.search.SearchManager;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
 import org.columba.core.search.api.ISearchProvider;
+import org.columba.core.search.api.ISearchRequest;
 
 public class SearchPanel extends JPanel implements ISearchPanel {
 
@@ -143,7 +144,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	// search individual provider and individual criteria
 	public void searchInCriteria(String searchTerm, String providerName,
-			String criteriaName) {
+			String criteriaName, boolean searchInside) {
 
 		showSearchDockingView();
 
@@ -157,11 +158,11 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, providerName, criteriaName, 0, 5);
+		manager.executeSearch(searchTerm, providerName, criteriaName, searchInside, 0, 5);
 	}
 
 	// search individual provider
-	public void searchInProvider(String searchTerm, String providerName) {
+	public void searchInProvider(String searchTerm, String providerName, boolean searchInside) {
 
 		showSearchDockingView();
 
@@ -175,7 +176,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, providerName, 0, 5);
+		manager.executeSearch(searchTerm, providerName, searchInside, 0, 5);
 	}
 
 	// search across all providers
@@ -194,6 +195,48 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
 		manager.executeSearch(searchTerm, searchInside, 0, 5);
+	}
+
+	// search across a few specific search criteria at once
+	public void searchComplex(List<ISearchRequest> list, boolean matchAll,
+			boolean searchInside) {
+		showSearchDockingView();
+
+		// start a new search -> clear all previous search results
+		searchManager.reset();
+
+		box.removeAll();
+
+		// first, create bucket for each provider
+		Map<String, Vector<ISearchRequest>> map = new Hashtable<String, Vector<ISearchRequest>>();
+		Iterator<ISearchRequest> it = list.iterator();
+		while (it.hasNext()) {
+			ISearchRequest r = it.next();
+			String providerName = r.getProvider();
+
+			if (map.containsKey(providerName)) {
+				Vector<ISearchRequest> v = map.get(providerName);
+				v.add(r);
+			} else {
+				Vector<ISearchRequest> v = new Vector<ISearchRequest>();
+				v.add(r);
+				map.put(providerName, v);
+			}
+		}
+
+		// now search through all buckets
+		Iterator<String> it2 = map.keySet().iterator();
+		while (it2.hasNext()) {
+			final String providerName = it2.next();
+			ISearchProvider p = searchManager.getProvider(providerName);
+			createComplexResultPanel(p);
+		}
+		validate();
+		repaint();
+
+		// TODO @author fdietz: no paging used currently
+		// show only first 5 results
+		searchManager.executeSearch(list, matchAll, searchInside, 0, 5);
 	}
 
 	// create new stacked box
@@ -259,18 +302,25 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		repaint();
 	}
 
+	private void createComplexResultPanel(ISearchProvider p) {
+
+		IResultPanel resultPanel = p.getComplexResultPanel();
+
+		// add result panel as listener for new search results
+		searchManager.addResultListener(resultPanel);
+
+		// create visual container for result panel
+		SearchResultBox resultBox = new SearchResultBox(frameMediator, p, null,
+				resultPanel);
+		resultBox.installListener(searchManager);
+
+		// add to search panel
+		box.add(resultBox);
+	}
+
 	private void createResultPanel(ISearchProvider p, ISearchCriteria c) {
-		// retrieve result panel for search criteria
-		// IResultPanel resultPanel =
-		// loadResultPanelExtension(p.getTechnicalName(),
-		// c.getTechnicalName());
 
 		IResultPanel resultPanel = p.getResultPanel(c.getTechnicalName());
-
-		// fall-back to default result panel (html based viewer)
-		if (resultPanel == null)
-			resultPanel = new GenericResultPanel(p.getTechnicalName(), c
-					.getTechnicalName());
 
 		// add result panel as listener for new search results
 		searchManager.addResultListener(resultPanel);
@@ -322,7 +372,9 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		box.removeAll();
 
-		for (final IContextProvider p : contextSearchManager.getAllProviders()) {
+		Iterator<IContextProvider> it = contextSearchManager.getAllProviders().iterator();
+		while (it.hasNext()) {
+			IContextProvider p = it.next();
 
 			// clear previous search results
 			p.clear();

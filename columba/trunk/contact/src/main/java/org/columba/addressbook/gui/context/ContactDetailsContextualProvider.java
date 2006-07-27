@@ -106,6 +106,14 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 		}
 		
 		
+		
+
+		
+		
+
+	}
+
+	public void showResult() {
 		Iterator it2 = result.listIterator();
 		while (it2.hasNext()) {
 			ContactSearchResult r = (ContactSearchResult) it2.next();
@@ -114,14 +122,9 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 			ContactDetailPanel p = new ContactDetailPanel(m);
 			panel.add(p);
 		}
-
 		
 		panel.revalidate();
 		panel.validate();
-
-	}
-
-	public void showResult() {
 	}
 
 	public JComponent getView() {

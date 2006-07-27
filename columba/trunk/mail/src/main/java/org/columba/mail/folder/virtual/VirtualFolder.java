@@ -399,6 +399,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 			throws Exception {
 
 		if (parent instanceof IMailbox) {
+			
 			IMailbox folder = (IMailbox) parent;
 
 			Object[] resultUids = folder.searchMessages(filter);

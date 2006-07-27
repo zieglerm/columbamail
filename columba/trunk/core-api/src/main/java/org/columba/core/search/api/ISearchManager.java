@@ -1,6 +1,7 @@
 package org.columba.core.search.api;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Search Provider Registry.
@@ -46,7 +47,7 @@ public interface ISearchManager {
 	 * @param resultCount		total count of results
 	 * 
 	 */
-	public void executeSearch(String searchTerm, String providerName, int startIndex, int resultCount);
+	public void executeSearch(String searchTerm, String providerName, boolean searchInside, int startIndex, int resultCount);
 	
 	/**
 	 * Execute query and retrieve pageable search result for given search term.
@@ -63,8 +64,10 @@ public interface ISearchManager {
 	 * @param resultCount		total count of results
 	 * 
 	 */
-	public void executeSearch(String searchTerm, String providerName, String criteriaName, int startIndex, int resultCount);
+	public void executeSearch(String searchTerm, String providerName, String criteriaName, boolean searchInside, int startIndex, int resultCount);
 	
+	
+	public void executeSearch(List<ISearchRequest> requests, boolean allCriteria, boolean searchInside, int startIndex, int resultCount);
 	
 	/**
 	 * Clear a search and discard all cached data for this <code>searchTerm</code>.
