@@ -149,8 +149,8 @@ begin
           Result := False;
           end
      else begin
-          //* Java version lower than 1.4 detected *//
-          if (getJavaVersion()) < '1.4' then begin
+          //* Java version lower than 1.5 detected *//
+          if (getJavaVersion()) < '1.5' then begin
           Result := False;
           end
      end;
@@ -182,7 +182,7 @@ var
   Next: Boolean;
 
 begin
-	Page := CreateCustomPage(wpWelcome, 'Java Not Found', 'A JRE Version 1.4 or above must be installed!');
+	Page := CreateCustomPage(wpWelcome, 'Java Not Found', 'A JRE Version 1.5 or above must be installed!');
 
 	{ Label1 }
 	Label1 := TLabel.Create(Page);
@@ -217,7 +217,7 @@ begin
 	  Top := 58;
 	  Width := 120;
 	  Height := 13;
-	  Caption := 'To continure Installation:';
+	  Caption := 'To continue Installation:';
 	end;
 
 	{ installButton }
