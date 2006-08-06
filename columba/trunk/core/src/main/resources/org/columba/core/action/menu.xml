@@ -39,9 +39,6 @@
 		<!--<menuitem id="SelectAll"/> -->
 		
 		<separator/>
-		<menuitem id="Find"/>
-		<menuitem id="FindReplace"/>
-		<separator/>
 		<!--<placeholder id="top"/>-->
 		<placeholder id="bottom"/>
 		<menuitem id="GlobalOptions"/>

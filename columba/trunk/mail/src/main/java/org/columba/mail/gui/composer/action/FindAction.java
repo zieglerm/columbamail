@@ -10,44 +10,57 @@
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2006. 
 //
 //All Rights Reserved.
-package org.columba.core.gui.globalactions;
+
+package org.columba.mail.gui.composer.action;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.KeyStroke;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.gui.util.FindReplaceDialog;
 import org.columba.core.resourceloader.GlobalResourceLoader;
-import org.columba.core.util.ComposerText;
+import org.columba.core.resourceloader.IconKeys;
+import org.columba.core.resourceloader.ImageLoader;
 import org.columba.mail.gui.composer.ComposerController;
+import org.columba.mail.gui.composer.util.ComposerText;
 
+/**
+ * @author Erich Schaer, Dmytro Podalyuk
+ */
 @SuppressWarnings("serial")
-public class FindReplaceAction extends AbstractColumbaAction {
-	public FindReplaceAction(IFrameMediator controller) {
-		super(controller,
-		// GlobalResourceLoader.getString(null, null, "menu_edit_findagain"));
-				GlobalResourceLoader.getString(null, null, "menu_edit_replace"));
+public class FindAction extends AbstractColumbaAction {
+	public FindAction(IFrameMediator controller) {
+		super(controller, GlobalResourceLoader.getString(null, null,
+				"menu_edit_find"));
 
 		// tooltip text
 		putValue(SHORT_DESCRIPTION, GlobalResourceLoader.getString(null, null,
-		// "menu_edit_findagain_tooltip").replaceAll("&", ""));
-				"menu_edit_replace_tooltip").replaceAll("&", ""));
+				"menu_edit_find_tooltip").replaceAll("&", ""));
 
-		if (getFrameMediator() instanceof ComposerController) {
-			setEnabled(true);
-		} else
-			setEnabled(false);
+		// small icon for menu
+		putValue(SMALL_ICON, ImageLoader.getSmallIcon(IconKeys.EDIT_FIND));
+
+		// large icon for toolbar
+		putValue(LARGE_ICON, ImageLoader.getIcon(IconKeys.EDIT_FIND));
+
+		// shortcut key
+		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F,
+				ActionEvent.CTRL_MASK));
+
+		setEnabled(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// @author Erich Schaer, Dmytro Podalyuk
-		if (getFrameMediator() instanceof ComposerController) {
-			ComposerText text = new ComposerText(
-					(ComposerController) getFrameMediator());
-			new FindReplaceDialog(text);
-		}
+
+		ComposerText text = new ComposerText(
+				(ComposerController) getFrameMediator());
+		new FindReplaceDialog(text);
+
 	}
 }

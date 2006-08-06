@@ -17,6 +17,9 @@
 	</menu>
 	
 	<menu id="menu_edit" placeholderid="bottom">
+	    <menuitem id="ComposerFind"/>
+		<menuitem id="ComposerFindReplace"/>
+		<separator/>
 		<menuitem id="ExternalEditor"/>	
         <menuitem id="MailAccount"/> 
 	</menu>

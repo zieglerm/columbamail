@@ -20,6 +20,9 @@
  <extension id="Print" class="org.columba.mail.gui.action.PrintAction"/> 
   
  <!-- edit menu -->
+ <extension id="Find" class="org.columba.mail.gui.action.FindAction"/>
+ <extension id="ComposerFind" class="org.columba.mail.gui.composer.action.FindAction"/>  
+ <extension id="ComposerFindReplace" class="org.columba.mail.gui.composer.action.FindReplaceAction"/>
  <extension id="SearchMessage" class="org.columba.mail.gui.action.SearchMessageAction"/> 
  <extension id="MailAccount" class="org.columba.mail.gui.action.MailAccountAction"/>
  <extension id="MailOptions" class="org.columba.mail.gui.action.MailOptionsAction"/>

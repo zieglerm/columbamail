@@ -14,8 +14,9 @@
 //
 //All Rights Reserved.
 
-package org.columba.core.util;
+package org.columba.mail.gui.composer.util;
 
+import org.columba.core.util.IEditableText;
 import org.columba.mail.gui.composer.ComposerController;
 
 /**

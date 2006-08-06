@@ -19,8 +19,9 @@
  * The functions do the same as in the JTextPane class. 
  * @author Dmytro Podalyuk
  */
-package org.columba.core.util;
+package org.columba.mail.gui.message.util;
 
+import org.columba.core.util.IViewableText;
 import org.columba.mail.gui.message.MessageController;
 
 public class MessageViewerText implements IViewableText {

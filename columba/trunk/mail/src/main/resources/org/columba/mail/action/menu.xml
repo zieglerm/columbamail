@@ -22,6 +22,8 @@
 	</menu>
 
 	<menu id="menu_edit" placeholderid="bottom">
+	<menuitem id="Find"/>
+	<separator/>
 		<menuitem id="SearchMessage"/>
 		<separator/>
 		<menuitem id="MailAccount"/>
