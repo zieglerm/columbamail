@@ -219,6 +219,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 		moreButton = new JButton();
 		moreButton.setIcon(new AscendingIcon());
+		moreButton.setDisabledIcon(new AscendingIcon());
 		moreButton.setMargin(new Insets(1, 1, 1, 1));
 		moreButton.setToolTipText("Advanced Search Options...");
 	}
