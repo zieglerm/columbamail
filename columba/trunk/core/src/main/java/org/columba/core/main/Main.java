@@ -40,19 +40,23 @@ public class Main {
 		//
 		// PROBLEM: Extensions don't run using Java Webstart (JWS)
 		// 
-		// Even though we assign "all-permission" in our columba.jnlp file, this only applies
-		// to the initial Java Webstart classloader. But, we create our own classloaders for
-		// loading extensions. These classloaders don't have the same permission settings anymore.
-		
-		// WORKAROUND: 
+		// Even though we assign "all-permission" in our columba.jnlp file, this
+		// only applies
+		// to the initial Java Webstart classloader. But, we create our own
+		// classloaders for
+		// loading extensions. These classloaders don't have the same permission
+		// settings anymore.
+
+		// WORKAROUND:
 		// 
 		// System.setSecurityManager(null);
 		//
 		// This call effectly disables the sandbox mode and seems to work fine.
 		//
-		// Below I use another way. The policy for all classloaders is set to "all-permissions". 
+		// Below I use another way. The policy for all classloaders is set to
+		// "all-permissions".
 		// Don't really know the difference though.
-		
+
 		// grant "all-permissions"
 		Policy.setPolicy(new Policy() {
 			public PermissionCollection getPermissions(CodeSource codesource) {
@@ -91,16 +95,15 @@ public class Main {
 		mainClassLoader = new MainClassLoader(Main.class.getClassLoader());
 
 		long start = System.currentTimeMillis();
-		
+
 		// use global class loader to bootstrap Columba
 		Bootstrap startup = (Bootstrap) mainClassLoader.loadClass(
 				Bootstrap.class.getName()).newInstance();
 		startup.run(args);
-		
-		long stop = System.currentTimeMillis();
-		
-		System.out.println("total startup time (ms)="+(stop-start));
-		System.out.println("total startup time (sec)="+(stop-start)/1000);
-	}
 
+		long stop = System.currentTimeMillis();
+
+		System.out.println("total startup time (ms)=" + (stop - start));
+		System.out.println("total startup time (sec)=" + (stop - start) / 1000);
+	}
 }

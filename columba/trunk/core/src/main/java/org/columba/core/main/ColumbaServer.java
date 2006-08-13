@@ -122,6 +122,8 @@ public class ColumbaServer {
 
 	/**
 	 * Starts the server.
+	 * 
+	 * @throws IOException
 	 */
 	public synchronized void start() throws IOException {
 		if (!isRunning()) {
@@ -241,6 +243,8 @@ public class ColumbaServer {
 
 	/**
 	 * Returns the singleton instance of this class.
+	 * 
+	 * @return instance
 	 */
 	public static synchronized ColumbaServer getColumbaServer() {
 		if (instance == null) {

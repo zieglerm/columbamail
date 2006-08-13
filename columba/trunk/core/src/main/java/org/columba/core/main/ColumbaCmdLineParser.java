@@ -48,7 +48,7 @@ public class ColumbaCmdLineParser {
 	private CommandLine commandLine;
 
 	// switch for restoring last session of Columba.
-	// if true, restores all windows. 
+	// if true, restores all windows.
 	private boolean restoreLastSession = true;
 
 	private ColumbaCmdLineParser() {
@@ -82,7 +82,7 @@ public class ColumbaCmdLineParser {
 	/**
 	 * Adds an OptionGroup to the CommandlineParser.
 	 * 
-	 * @param optionGroup
+	 * @param option
 	 */
 	public void addOptionGroup(OptionGroup option) {
 		options.addOptionGroup(option);
@@ -121,7 +121,6 @@ public class ColumbaCmdLineParser {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp(GlobalResourceLoader.getString(RESOURCE_PATH,
 				"global", "cmdline_usage"), options);
-
 	}
 
 	/**
@@ -142,5 +141,4 @@ public class ColumbaCmdLineParser {
 	public boolean getRestoreLastSession() {
 		return this.restoreLastSession;
 	}
-
 }

@@ -133,7 +133,7 @@ public class Bootstrap {
 						+ System.getProperty("java.protocol.handler.pkgs", ""));
 
 		profiler.push("i18n");
-		// load user-customized language pack
+		// load user-customised language pack
 		GlobalResourceLoader.loadLanguage();
 		profiler.pop("i18n");
 
@@ -154,7 +154,7 @@ public class Bootstrap {
 		// set Look & Feel
 		ThemeSwitcher.setTheme();
 
-		// initialize platform-dependend services
+		// initialize platform-dependant services
 		initPlatformServices();
 
 		// init font configuration
@@ -180,8 +180,7 @@ public class Bootstrap {
 				public void run() {
 					FrameManager.getInstance().openStoredViews();
 				}
-			 });
-			
+			});
 		}
 
 		/* initialize services before dismissing the splash screen */
@@ -192,9 +191,7 @@ public class Bootstrap {
 
 				ServiceManager.getInstance().stopServices();
 				ServiceManager.getInstance().disposeServices();
-
 			}
-
 		});
 
 		profiler.pop("frames");
@@ -216,8 +213,6 @@ public class Bootstrap {
 		/* everything is up and running, start services */
 		ServiceManager.getInstance().startServices();
 
-		
-		
 		profiler.pop("main");
 
 	}
@@ -260,11 +255,10 @@ public class Bootstrap {
 		// load all internal mail plugins
 		path = "org/columba/mail/plugin/plugin.xml";
 		PluginManager.getInstance().addPlugin(path);
-		
+
 		// load all internal calendar plugins
 		path = "org/columba/calendar/plugin/plugin.xml";
 		PluginManager.getInstance().addPlugin(path);
-		
 
 		//
 		// now load all external plugins residing in /plugins directory
@@ -273,7 +267,7 @@ public class Bootstrap {
 	}
 
 	/**
-	 * 
+	 * registerCommandLineArguments method
 	 */
 	private void registerCommandLineArguments() {
 		ColumbaCmdLineParser parser = ColumbaCmdLineParser.getInstance();
@@ -300,7 +294,6 @@ public class Bootstrap {
 		// } catch (PluginHandlerNotFoundException e) {
 		// e.printStackTrace();
 		// }
-
 	}
 
 	/**
@@ -354,7 +347,7 @@ public class Bootstrap {
 	}
 
 	/**
-	 * This hacks the classloader to adjust the library path for convinient
+	 * This hacks the classloader to adjust the library path for convenient
 	 * native support.
 	 * 
 	 * @author tstich
@@ -389,7 +382,7 @@ public class Bootstrap {
 	}
 
 	/**
-	 * This hacks the classloader to adjust the classpath for convinient native
+	 * This hacks the classloader to adjust the classpath for convenient native
 	 * support.
 	 * <p>
 	 * I've cleaned this up using our new global class loader. This way we only
@@ -433,13 +426,13 @@ public class Bootstrap {
 
 		// @author: fdietz
 		//
-		// The following line is not working - just don't know why 
+		// The following line is not working - just don't know why
 		// Main.mainClassLoader.addURLs((URL[]) urlList.toArray(new URL[0]));
 		//
 		// WORKAROUND:
 		//
-		// Modify the system class loader instead - horribly! But it works!
-		
+		// Modify the system class loader instead - horrible! But it works!
+
 		// Get the current classpath from the sysloader
 		// through reflection
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader
@@ -464,7 +457,6 @@ public class Bootstrap {
 		// replace with the modified classpath
 		ucp.set(sysloader,
 				new URLClassPath((URL[]) urlList.toArray(new URL[0])));
-
 	}
 
 	/**
@@ -472,9 +464,8 @@ public class Bootstrap {
 	 */
 	private void initPlatformServices() {
 
-		// Initilise system dependant stuff
+		// Initialise system dependent stuff
 		ColumbaDesktop.getInstance().initActiveDesktop();
 		ColumbaTrayIcon.getInstance().initActiveIcon();
 	}
-
 }

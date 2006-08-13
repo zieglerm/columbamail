@@ -67,8 +67,6 @@ public class MailMain implements IComponentPlugin {
 	/** JDK 1.4+ logging framework logger, used for logging. */
 	private static final Logger LOG = Logger.getLogger("org.columba.mail.main");
 
-	private static final String RESOURCE_PATH = "org.columba.mail.i18n.global";
-
 	public MailMain() {
 	}
 
