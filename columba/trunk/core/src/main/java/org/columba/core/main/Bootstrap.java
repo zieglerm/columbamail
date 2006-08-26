@@ -460,7 +460,7 @@ public class Bootstrap {
 	}
 
 	/**
-	 * 
+	 * Initialise system dependent stuff
 	 */
 	private void initPlatformServices() {
 

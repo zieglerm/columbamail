@@ -20,20 +20,20 @@ package org.columba.core.gui.profiles;
 import java.io.File;
 
 /**
- * Profile consisting of a name and a location pointing to the
- * configuration directory.
+ * Profile consisting of a name and a location pointing to the configuration
+ * directory.
  * 
  * @author fdietz
  */
 public class Profile {
 
 	private String name;
+
 	private File location;
 
 	public Profile(String name, File location) {
 		this.name = name;
 		this.location = location;
-
 	}
 
 	/**
@@ -42,6 +42,7 @@ public class Profile {
 	public File getLocation() {
 		return location;
 	}
+
 	/**
 	 * @return Returns the name.
 	 */

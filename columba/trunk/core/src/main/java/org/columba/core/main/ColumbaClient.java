@@ -27,76 +27,85 @@ import org.columba.api.exception.AuthenticationException;
 import org.columba.core.versioninfo.VersionInfo;
 
 /**
- * Client connecting to the {@link ColumbaServer} to check if
- * a session of Columba is already running.
+ * Client connecting to the {@link ColumbaServer} to check if a session of
+ * Columba is already running.
  * <p>
  * If a session is running the client tries to authenticate.
- *
+ * 
  * @author fdietz
  */
 public class ColumbaClient {
-    protected static final String NEWLINE = "\r\n";
-    protected Socket socket;
-    protected Writer writer;
-    protected BufferedReader reader;
+	protected static final String NEWLINE = "\r\n";
 
-    public ColumbaClient() {
-    }
+	protected Socket socket;
 
-    /**
- * Tries to connect to a running server.
- */
-    public void connect() throws IOException, AuthenticationException {
-        socket = new Socket("127.0.0.1",
-                SessionController.deserializePortNumber());
-        writer = new PrintWriter(socket.getOutputStream());
-        writer.write("Columba " + VersionInfo.getVersion());
-        writer.write(NEWLINE);
-        writer.flush();
+	protected Writer writer;
 
-        writer.write("User " +
-            System.getProperty("user.name", ColumbaServer.ANONYMOUS_USER));
-        writer.write(NEWLINE);
-        writer.flush();
-        reader = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
-        String response = reader.readLine();
-        if (response.equals("WRONG USER")) {
-            throw new AuthenticationException();
-        }
-    }
+	protected BufferedReader reader;
 
-    /**
- * Submits the given command line options to the server.
- */
-    public void sendCommandLine(String[] args) throws IOException {
-        StringBuffer buf = new StringBuffer();
-        
-        for (int i = 0; i < args.length; i++) {
-            buf.append(args[i]);
-            buf.append('%');
-        }
+	public ColumbaClient() {
+	}
 
-        writer.write(buf.toString());
-        writer.write(NEWLINE);
-        writer.flush();
-    }
+	/**
+	 * Tries to connect to a running server.
+	 * @throws IOException 
+	 * @throws AuthenticationException 
+	 */
+	public void connect() throws IOException, AuthenticationException {
+		socket = new Socket("127.0.0.1", SessionController
+				.deserializePortNumber());
+		writer = new PrintWriter(socket.getOutputStream());
+		writer.write("Columba " + VersionInfo.getVersion());
+		writer.write(NEWLINE);
+		writer.flush();
 
-    /**
- * Closes this client.
- */
-    public void close() {
-        try {
-            if (writer != null) {
-                writer.close();
-            }
-            if (reader != null) {
-                reader.close();
-            }
-            if (socket != null) {
-                socket.close();
-            }
-        } catch (IOException ioe) {
-        }
-    }
+		writer
+				.write("User "
+						+ System.getProperty("user.name",
+								ColumbaServer.ANONYMOUS_USER));
+		writer.write(NEWLINE);
+		writer.flush();
+		reader = new BufferedReader(new InputStreamReader(socket
+				.getInputStream()));
+		String response = reader.readLine();
+		if (response.equals("WRONG USER")) {
+			throw new AuthenticationException();
+		}
+	}
+
+	/**
+	 * Submits the given command line options to the server.
+	 * @param args 
+	 * @throws IOException 
+	 */
+	public void sendCommandLine(String[] args) throws IOException {
+		StringBuffer buf = new StringBuffer();
+
+		for (int i = 0; i < args.length; i++) {
+			buf.append(args[i]);
+			buf.append('%');
+		}
+
+		writer.write(buf.toString());
+		writer.write(NEWLINE);
+		writer.flush();
+	}
+
+	/**
+	 * Closes this client.
+	 */
+	public void close() {
+		try {
+			if (writer != null) {
+				writer.close();
+			}
+			if (reader != null) {
+				reader.close();
+			}
+			if (socket != null) {
+				socket.close();
+			}
+		} catch (IOException ioe) {
+		}
+	}
 }
