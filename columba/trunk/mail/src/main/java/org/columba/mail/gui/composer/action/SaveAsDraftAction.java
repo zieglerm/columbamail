@@ -16,6 +16,9 @@
 package org.columba.mail.gui.composer.action;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.KeyStroke;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.command.CommandProcessor;
@@ -35,72 +38,75 @@ import org.columba.mail.gui.tree.FolderTreeModel;
 import org.columba.mail.util.MailResourceLoader;
 import org.columba.ristretto.message.Flags;
 
-
 /**
- * @author frd
- *
- * To change this generated comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * @author freddy
  */
 public class SaveAsDraftAction extends AbstractColumbaAction {
-    public SaveAsDraftAction(IFrameMediator frameMediator) {
-        super(frameMediator,
-            MailResourceLoader.getString("menu", "composer",
-                "menu_file_savedraft"));
+	public SaveAsDraftAction(IFrameMediator frameMediator) {
+		super(frameMediator, MailResourceLoader.getString("menu", "composer",
+				"menu_file_savedraft"));
 
-        putValue(SMALL_ICON, ImageLoader.getSmallIcon("document-save.png"));
+		putValue(SMALL_ICON, ImageLoader.getSmallIcon("document-save.png"));
 		putValue(LARGE_ICON, ImageLoader.getIcon("document-save.png"));
-		
-        // tooltip text
-        putValue(SHORT_DESCRIPTION,
-            MailResourceLoader.getString("menu", "composer",
-                "menu_file_savedraft").replaceAll("&", ""));
-    }
 
-    /* (non-Javadoc)
-     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
-    public void actionPerformed(ActionEvent evt) {
-        final ComposerController composerController = (ComposerController) getFrameMediator();
+		// tooltip text
+		putValue(SHORT_DESCRIPTION, MailResourceLoader.getString("menu",
+				"composer", "menu_file_savedraft").replaceAll("&", ""));
 
-        // view data ->model
-        composerController.updateComponents(false);
-        
-        ComposerModel model = ((ComposerModel) composerController.getModel());
+		// shortcut key
+		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				ActionEvent.CTRL_MASK));
+	}
 
-        // get selected account
-        AccountItem item = model.getAccountItem();
-        // get "Drafts" folder of account
-        SpecialFoldersItem folderItem = item.getSpecialFoldersItem();
-        String str = folderItem.get("drafts");
-        IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance().getFolder(str);
-   
-        // check if we are currently editing a draft message
-        if ( model.getMessage().getHeader().getFlags().getDraft() ) {
-        	// -> we need to replace old message
-        	
-        	// delete source message
-        	MailFolderCommandReference r = model.getSourceReference();
-        	if( r != null) {
-        		r.setMarkVariant(MarkMessageCommand.MARK_AS_EXPUNGED);
-        		CommandProcessor.getInstance().addOp(new MarkMessageCommand(r));
-        		CommandProcessor.getInstance().addOp(new ExpungeFolderCommand(r));
-        	}
-        }
-        
-        // mark as read, mark as draft
-        Flags flags = new Flags();
-        flags.setSeen(true);
-        flags.setDraft(true);
-        model.getMessage().getHeader().setFlags(flags);
-        
-        // create command reference
-        ComposerCommandReference r =  new ComposerCommandReference(composerController, destFolder);
-        r.setAppendSignature(false);
-        
-        // create command
-        SaveMessageCommand c = new SaveMessageCommand(r);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	public void actionPerformed(ActionEvent evt) {
+		final ComposerController composerController = (ComposerController) getFrameMediator();
 
-        CommandProcessor.getInstance().addOp(c);
-    }
+		// view data ->model
+		composerController.updateComponents(false);
+
+		ComposerModel model = ((ComposerModel) composerController.getModel());
+
+		// get selected account
+		AccountItem item = model.getAccountItem();
+		// get "Drafts" folder of account
+		SpecialFoldersItem folderItem = item.getSpecialFoldersItem();
+		String str = folderItem.get("drafts");
+		IMailbox destFolder = (IMailbox) FolderTreeModel.getInstance()
+				.getFolder(str);
+
+		// check if we are currently editing a draft message
+		if (model.getMessage().getHeader().getFlags().getDraft()) {
+			// -> we need to replace old message
+
+			// delete source message
+			MailFolderCommandReference r = model.getSourceReference();
+			if (r != null) {
+				r.setMarkVariant(MarkMessageCommand.MARK_AS_EXPUNGED);
+				CommandProcessor.getInstance().addOp(new MarkMessageCommand(r));
+				CommandProcessor.getInstance().addOp(
+						new ExpungeFolderCommand(r));
+			}
+		}
+
+		// mark as read, mark as draft
+		Flags flags = new Flags();
+		flags.setSeen(true);
+		flags.setDraft(true);
+		model.getMessage().getHeader().setFlags(flags);
+
+		// create command reference
+		ComposerCommandReference r = new ComposerCommandReference(
+				composerController, destFolder);
+		r.setAppendSignature(false);
+
+		// create command
+		SaveMessageCommand c = new SaveMessageCommand(r);
+
+		CommandProcessor.getInstance().addOp(c);
+	}
 }

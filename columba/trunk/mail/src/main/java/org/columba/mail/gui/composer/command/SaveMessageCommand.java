@@ -44,14 +44,15 @@ public class SaveMessageCommand extends Command {
 	/**
 	 * Constructor for SaveMessageCommand.
 	 * 
-	 * @param frameMediator
-	 * @param references
+	 * @param reference
 	 */
 	public SaveMessageCommand(ICommandReference reference) {
 		super(reference);
 	}
 
 	/**
+	 * @param worker
+	 * @throws Exception
 	 * @see org.columba.api.command.Command#execute(Worker)
 	 */
 	public void execute(IWorkerStatusController worker) throws Exception {
@@ -65,8 +66,7 @@ public class SaveMessageCommand extends Command {
 			message = new MessageComposer(((ComposerModel) composerController
 					.getModel())).compose(worker, r.isAppendSignature());
 		}
-		
-		
+
 		folder = (IMailbox) r.getSourceFolder();
 
 		worker.setDisplayText(MailResourceLoader.getString("statusbar",
@@ -77,19 +77,20 @@ public class SaveMessageCommand extends Command {
 		folder.addMessage(sourceStream, message.getHeader().getAttributes(),
 				message.getHeader().getFlags());
 		sourceStream.close();
-		
-		// Add all recipients to the collected addresses 
+
+		// Add all recipients to the collected addresses
 		List recipients = message.getRecipients();
-		if( recipients != null && recipients.size() > 0 ) {
+		if (recipients != null && recipients.size() > 0) {
 			Address[] addresses = new Address[recipients.size()];
-			for( int i=0;i <recipients.size(); i++) {
+			for (int i = 0; i < recipients.size(); i++) {
 				try {
-					addresses[i]  = AddressParser.parseAddress((String)recipients.get(i));
+					addresses[i] = AddressParser
+							.parseAddress((String) recipients.get(i));
 				} catch (ParserException e) {
-					addresses[i] = addresses[i-1];
+					addresses[i] = addresses[i - 1];
 				}
 			}
-			
+
 			MessageBuilderHelper.addAddressesToAddressbook(addresses);
 		}
 	}

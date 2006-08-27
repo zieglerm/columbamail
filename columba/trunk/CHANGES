@@ -1,3 +1,8 @@
+Columba v1.4
+
+** Improvement
+    * [CA-140] - Added Ctrl+S Accelerator Key to Message Composer for Save As Draft
+
 Columba v1.2
 
 ** Bug
