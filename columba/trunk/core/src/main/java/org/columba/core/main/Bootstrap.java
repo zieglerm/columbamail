@@ -323,12 +323,13 @@ public class Bootstrap {
 			return true;
 		}
 
+		//TODO: Make this hack more i18n compatible
 		if (commandLine.hasOption("version")) {
 			LOG.info(MessageFormat.format(GlobalResourceLoader.getString(
 					RESOURCE_PATH, "global", "info_version"), //$NON-NLS-2$
 					new Object[] { VersionInfo.getVersion(),
 							VersionInfo.getBuildDate() }));
-			System.out.println("Version goes here");
+			System.out.println("Columba (" + VersionInfo.getVersion() + ") built " + VersionInfo.getBuildDate() +"\n");
 			return true;
 		}
 
