@@ -17,7 +17,7 @@ public class SearchCriteria implements ISearchCriteria {
 	}
 
 	public String getTitle() {
-		return name;
+		return title;
 	}
 
 	public String getDescription() {

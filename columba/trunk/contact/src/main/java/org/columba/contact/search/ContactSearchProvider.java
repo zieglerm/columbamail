@@ -54,6 +54,7 @@ public class ContactSearchProvider implements ISearchProvider {
 	}
 
 	public List<ISearchCriteria> getAllCriteria(String searchTerm) {
+		
 		List<ISearchCriteria> list = new Vector<ISearchCriteria>();
 
 		list.add(getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, searchTerm));

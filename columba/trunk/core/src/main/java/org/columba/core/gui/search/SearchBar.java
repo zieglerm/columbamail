@@ -270,11 +270,14 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				textField.showPopup();
 			}
+			
 		}
 
 	}
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+		System.out.println("menu will become visible");
+		
 		// update popup menu based on searchterm
 		updatePopupMenu(textField.getPopupMenu(), textField.getText());
 	}
@@ -286,6 +289,8 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 	}
 
 	private void updatePopupMenu(JPopupMenu menu, String searchTerm) {
+		System.out.println("update menu="+searchTerm);
+		
 		menu.removeAll();
 
 		// add menuitem to search across all components
