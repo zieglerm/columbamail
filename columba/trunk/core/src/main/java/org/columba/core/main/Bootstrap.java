@@ -278,8 +278,11 @@ public class Bootstrap {
 		parser.addOption(new Option("help", GlobalResourceLoader.getString(
 				RESOURCE_PATH, "global", "cmdline_help")));
 
-		parser.addOption(OptionBuilder.create("profile"));
+		//parser.addOption(OptionBuilder.create("profile"));
 
+		parser.addOption(new Option("profile", GlobalResourceLoader.getString(
+				RESOURCE_PATH, "global", "cmdline_profile")));
+		
 		parser.addOption(new Option("debug", GlobalResourceLoader.getString(
 				RESOURCE_PATH, "global", "cmdline_debug")));
 
@@ -325,7 +328,7 @@ public class Bootstrap {
 					RESOURCE_PATH, "global", "info_version"), //$NON-NLS-2$
 					new Object[] { VersionInfo.getVersion(),
 							VersionInfo.getBuildDate() }));
-
+			System.out.println("Version goes here");
 			return true;
 		}
 
