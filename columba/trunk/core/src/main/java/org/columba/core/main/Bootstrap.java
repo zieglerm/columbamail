@@ -278,11 +278,12 @@ public class Bootstrap {
 		parser.addOption(new Option("help", GlobalResourceLoader.getString(
 				RESOURCE_PATH, "global", "cmdline_help")));
 
-		//parser.addOption(OptionBuilder.create("profile"));
+		parser.addOption(OptionBuilder.withArgName("path").hasArg().create(
+				"profile"));
 
 		parser.addOption(new Option("profile", GlobalResourceLoader.getString(
 				RESOURCE_PATH, "global", "cmdline_profile")));
-		
+
 		parser.addOption(new Option("debug", GlobalResourceLoader.getString(
 				RESOURCE_PATH, "global", "cmdline_debug")));
 
@@ -323,18 +324,25 @@ public class Bootstrap {
 			return true;
 		}
 
-		//TODO: Make this hack more i18n compatible
+		// TODO: Make this hack more i18n compatible
 		if (commandLine.hasOption("version")) {
 			LOG.info(MessageFormat.format(GlobalResourceLoader.getString(
 					RESOURCE_PATH, "global", "info_version"), //$NON-NLS-2$
 					new Object[] { VersionInfo.getVersion(),
 							VersionInfo.getBuildDate() }));
-			System.out.println("Columba (" + VersionInfo.getVersion() + ") built " + VersionInfo.getBuildDate() +"\n");
+			System.out.println("Columba (" + VersionInfo.getVersion()
+					+ ") built " + VersionInfo.getBuildDate() + "\n");
 			return true;
 		}
 
 		if (commandLine.hasOption("profile")) {
-			path = commandLine.getOptionValue("profile");
+
+			// TODO: There's probably a better way to do this hack...
+			path = commandLine.getArgList().toString();
+
+			// This is necessary because getArgList returns the path in
+			// square brackets
+			path = path.substring(1, path.length() - 1);
 		}
 
 		if (commandLine.hasOption("debug")) {

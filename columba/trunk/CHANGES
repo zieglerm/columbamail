@@ -6,27 +6,27 @@ Columba v1.4
 Columba v1.2
 
 ** Bug
-    * [CA-21] -  message view lost synchronisation after font change
-    * [CA-23] -  Cannot set up new mail server as IMAP
-    * [CA-24] -  Tree display inconsistent
+    * [CA-21] - message view lost synchronisation after font change
+    * [CA-23] - Cannot set up new mail server as IMAP
+    * [CA-24] - Tree display inconsistent
     * [CA-25] - Expunge Does not work correctly
-    * [CA-26] -  Incorrect Mail Display
+    * [CA-26] - Incorrect Mail Display
     * [CA-27] - Font doesn't change after marking as read in threaded view
     * [CA-34] - Charset Encoding in Composer
     * [CA-35] - Focus Problems in Message Viewer
-    * [CA-39] - Corrupt attachement file
+    * [CA-39] - Corrupt attachment file
     * [CA-40] - HtmlParser: + (plus) in email adress not recognized
     * [CA-41] - Columba hangs after Composing and Sending Email
     * [CA-45] - [BUG] NullPointerException after creating virtual folder
     * [CA-51] - NullPointerException after deleting vsearch folder
     * [CA-52] - After switching to another skin, only text AND icons option is available
-    * [CA-54] - C doesnt show you wrong pop3-host
+    * [CA-54] - C doesn't show you wrong pop3-host
     * [CA-56] - Local Folders: disable Message Filters... dialog
     * [CA-57] - first connect to imap server doe's not show the recieved messages in the message list
     * [CA-58] - switching between AlturaFrame and ThreePaneView makes columba unuseable
     * [CA-63] - When Forwarding, sender address should be added to composer
     * [CA-70] - threaded view doesn't work
-    * [CA-72] - Move on IMAP-Folders doe's not work anymore
+    * [CA-72] - Move on IMAP-Folders does not work anymore
     * [CA-76] - windows startup problem - registry entry
     * [CA-77] - Error when selecting empty IMAP folder
     * [CA-78] - IMAP: NPE Copying between Servers
