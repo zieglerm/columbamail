@@ -833,7 +833,7 @@
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
         </exec>
 
-        <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="iscc">
+        <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="c:\program files\inno setup 5\iscc">
             <arg value="${dist.win32}/columba_setup.iss"/>
             <arg value="/dVERSION=${version}"/>
             <arg value="/dJRE_FILE=none"/>

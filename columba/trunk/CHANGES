@@ -1,8 +1,14 @@
 Columba v1.4
 
+** New Feature
+    * [CA-146] - Now works on USB memory keys
+
 ** Improvement
     * [CA-140] - Added Ctrl+S Accelerator Key to Message Composer for Save As Draft
 
+	** Bug
+    * [CA-146] - Columba now respects -profile commandline option 
+	
 Columba v1.2
 
 ** Bug
