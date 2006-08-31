@@ -75,6 +75,7 @@
  <extension id="AddSenderToAddressbook" class="org.columba.mail.gui.table.action.AddSenderToAddressbookAction"/>
  <extension id="AddAllSendersToAddressbook" class="org.columba.mail.gui.table.action.AddAllSendersToAddressbookAction"/>
  <extension id="ColorMessageMenu" class="org.columba.mail.gui.table.action.ColorMessageMenu"/>
+ <extension id="TagMessageMenu" class="org.columba.mail.gui.table.action.TagMessageMenu"/>
  <extension id="TrainMessageAsSpam" class="org.columba.mail.gui.table.action.TrainMessageAsSpamAction"/>
  <extension id="TrainMessageAsHam" class="org.columba.mail.gui.table.action.TrainMessageAsHamAction"/>
  <extension id="ScoreMessage" class="org.columba.mail.gui.table.action.ScoreMessageAction"/>

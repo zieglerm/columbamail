@@ -67,12 +67,29 @@ Source: {#JYTHON}; DestDir: {app}\lib\
 Source: {#COMMONS.LOGGING}; DestDir: {app}\lib\
 Source: {#ICAL4J}; DestDir: {app}\lib\
 Source: {#MIGCALENDAR}; DestDir: {app}\lib\
+Source: {#ANTLR}; DestDir: {app}\lib\jta\
+Source: {#ASM-ATTRS}; DestDir: {app}\lib\jta\
+Source: {#ASM}; DestDir: {app}\lib\jta\
+Source: {#CGLIB}; DestDir: {app}\lib\jta\
+Source: {#COMMONS-COLLECTIONS}; DestDir: {app}\lib\jta\
+Source: {#COMMONS-LOGGING}; DestDir: {app}\lib\jta\
+Source: {#DOM4J}; DestDir: {app}\lib\jta\
+Source: {#EHCACHE}; DestDir: {app}\lib\jta\
+Source: {#EJB3-PERSISTENCE}; DestDir: {app}\lib\jta\
+Source: {#HIBERNATE3}; DestDir: {app}\lib\jta\
+Source: {#HIBERNATE-ANNOTATIONS}; DestDir: {app}\lib\jta\
+Source: {#HIBERNATE-ENTITYMANAGER}; DestDir: {app}\lib\jta\
+Source: {#HSQLDB}; DestDir: {app}\lib\jta\
+Source: {#JAVASSIST}; DestDir: {app}\lib\jta\
+Source: {#JBOSS-ARCHIVE-BROWSING}; DestDir: {app}\lib\jta\
+Source: {#JTA}; DestDir: {app}\lib\jta\
 Source: native\win32\{#JNIWRAP}; DestDir: {app}\native\win32\lib\
 Source: native\win32\{#WINPACK}; DestDir: {app}\native\win32\lib\
 Source: native\win32\{#JDIC}; DestDir: {app}\native\win32\lib\
 Source: native\win32\lib\jniwrap.dll; DestDir: {app}\native\win32\lib\
 Source: native\win32\lib\tray.dll; DestDir: {app}\native\win32\lib\
 Source: native\win32\lib\jdic.dll; DestDir: {app}\native\win32\lib\
+
 #ifdef BUNDLE_JRE
 Source: {#JRE_SRC_PATH}\{#JRE_FILE}; DestDir: {tmp}; Flags: deleteafterinstall dontcopy
 #endif

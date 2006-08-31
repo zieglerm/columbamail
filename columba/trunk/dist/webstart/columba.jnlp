@@ -40,6 +40,23 @@
    <jar href="@commons.logging@"/>
    <jar href="@ical4j@"/>
    <jar href="@migcalendar@"/>
+   <jar href="@antlr@" />
+   <jar href="@asm-attrs@" />
+   <jar href="@asm@" />
+   <jar href="@cglib@" />
+   <jar href="@commons-collections@" />
+   <jar href="@commons-logging@" />
+   <jar href="@dom4j@" />
+   <jar href="@ehcache@" />
+   <jar href="@ejb-persistence@" />
+   <jar href="@hibernate3@" />
+   <jar href="@hibernate-annotations@" />
+   <jar href="@hibernate-entitymanager@" />
+   <jar href="@hsqldb@" />
+   <jar href="@javassist@" />
+   <jar href="@jboss-archive-browsing@" />
+   <jar href="@jta@" />
+   
    <!-- JavaHelp is signed by SUN already -->
    <!-- it therefor can't be in the same jnlp file -->
    <!-- because it is signed by someone else -->

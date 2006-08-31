@@ -100,7 +100,25 @@
             <pathelement path="${lib.ical4j}"/>
 	    <pathelement path="${lib.migcalendar}"/>
         	<pathelement path="${lib.swingx}"/>
-	<pathelement path="${lib.jython}"/>
+        	<pathelement path="${lib.jython}"/>
+        	
+        	<!-- jpa libs -->
+        	<pathelement path="${lib.antlr.jar}" />
+        	<pathelement path="${lib.asm-attrs.jar}" />
+        	<pathelement path="${lib.asm.jar}" />
+        	<pathelement path="${lib.cglib.jar}" />
+        	<pathelement path="${lib.commons-collections.jar}" />
+        	<pathelement path="${lib.commons-logging.jar}" />
+        	<pathelement path="${lib.dom4j.jar}" />
+        	<pathelement path="${lib.ehcache.jar}" />
+        	<pathelement path="${lib.ejb3-persistence.jar}" />
+        	<pathelement path="${lib.hibernate3.jar}" />
+        	<pathelement path="${lib.hibernate-annotations.jar}" />
+        	<pathelement path="${lib.hibernate-entitymanager.jar}" />
+        	<pathelement path="${lib.hsqldb.jar}" />
+        	<pathelement path="${lib.javassist.jar}" />
+        	<pathelement path="${lib.jboss-archive-browsing.jar}" />
+        	<pathelement path="${lib.jta.jar}" />
         </path>
         <path id="run.classpath">
             <path refid="compile.classpath"/>
@@ -170,7 +188,24 @@
             <include name="${native.linux}${lib.native}"/>
             <include name="${native.win32}${lib.jdic}"/>
             <include name="${native.win32}${lib.native}"/>
-            <!-- never sign JavaHelp, its already signed by SUN -->
+           	<!-- jpa libs -->
+            <include name="${lib.antlr.jar}" />
+            <include name="${lib.asm-attrs.jar}" />
+            <include name="${lib.asm.jar}" />
+            <include name="${lib.cglib.jar}" />
+            <include name="${lib.commons-collections.jar}" />
+            <include name="${lib.commons-logging.jar}" />
+            <include name="${lib.dom4j.jar}" />
+            <include name="${lib.ehcache.jar}" />
+            <include name="${lib.ejb3-persistence.jar}" />
+            <include name="${lib.hibernate3.jar}" />
+            <include name="${lib.hibernate-annotations.jar}" />
+            <include name="${lib.hibernate-entitymanager.jar}" />
+            <include name="${lib.hsqldb.jar}" />
+            <include name="${lib.javassist.jar}" />
+            <include name="${lib.jboss-archive-browsing.jar}" />
+            <include name="${lib.jta.jar}" />
+        	<!-- never sign JavaHelp, its already signed by SUN -->
             <!-- never sign jniwrapper, its already signed by jniwrapper.com -->
         </fileset>
     </target>
@@ -403,7 +438,7 @@
             <manifest>
                 <attribute name="Main-Class" value="org.columba.core.main.Main"/>
                 <attribute name="Class-Path"
-                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdoc} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx}"/>
+                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdoc} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx} ${lib.antlr.jar} ${lib.asm-attrs.jar} ${lib.asm.jar} ${lib.cglib.jar} ${lib.commons-collections.jar} ${lib.commons-logging.jar} ${lib.dom4j.jar} ${lib.ehcache.jar} ${lib.ejb3-persistence.jar} ${lib.hibernate3.jar} ${lib.hibernate-annotations.jar} ${lib.hibernate-entitymanager.jar} ${lib.hsqldb.jar} ${lib.javassist.jar} ${lib.jboss-archive-browsing.jar} ${lib.jta.jar} "/>
                 <attribute name="Sealed" value="false"/>
             </manifest>
         </jar>
@@ -631,6 +666,23 @@
 		<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 	    	<include name="${lib.migcalendar}"/>
+              	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
             </fileset>
             <fileset dir="${dist.webstart}">
                 <include name="columba.jnlp"/>
@@ -699,7 +751,24 @@
 	        <replacefilter token="@commons.logging@" value="${lib.commons.logging}"/>
             <replacefilter token="@ical4j@" value="${lib.ical4j}"/>
             <replacefilter token="@migcalendar@" value="${lib.migcalendar}"/>
-        </replace>
+          	<!-- jpa libs -->
+            <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
+            <replacefilter token="@asm-attrs@" value="${lib.asm-attrs.jar}" />
+            <replacefilter token="@asm@" value="${lib.asm.jar}" />
+            <replacefilter token="@cglib@" value="${lib.cglib.jar}" />
+            <replacefilter token="@commons-collections@" value="${lib.commons-collections.jar}" />
+            <replacefilter token="@commons-logging@" value="${lib.commons-logging.jar}" />
+            <replacefilter token="@dom4j@" value="${lib.dom4j.jar}" />
+            <replacefilter token="@ehcache@" value="${lib.ehcache.jar}" />
+            <replacefilter token="@ejb-persistence@" value="${lib.ejb3-persistence.jar}" />
+            <replacefilter token="@hibernate3@" value="${lib.hibernate3.jar}" />
+            <replacefilter token="@hibernate-annotations@" value="${lib.hibernate-annotations.jar}" />
+            <replacefilter token="@hibernate-entitymanager@" value="${lib.hibernate-entitymanager.jar}" />
+            <replacefilter token="@hsqldb@" value="${lib.hsqldb.jar}" />
+            <replacefilter token="@javassist@" value="${lib.javassist.jar}" />
+            <replacefilter token="@jboss-archive-browsing@" value="${lib.jboss-archive-browsing.jar}" />
+            <replacefilter token="@jta@" value="${lib.jta.jar}" />
+    	</replace>
     </target>
 
     <!-- only for build the class-files -->
@@ -831,6 +900,23 @@
 	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
         </exec>
 
         <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="c:\program files\inno setup 5\iscc">
@@ -861,6 +947,23 @@
             <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>     	
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
         </exec>
     </target>
 
@@ -902,6 +1005,23 @@
    	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
         </exec>
 
         <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="iscc">
@@ -933,6 +1053,23 @@
 	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>       	
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
         </exec>
     </target>
 
