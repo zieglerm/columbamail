@@ -368,16 +368,20 @@ public class Bootstrap {
 	 */
 	private void setLibraryPath() throws Exception {
 		String libDir;
-		if (OSInfo.isAMD64Bit()) {
+		if (OSInfo.isAMD64Bit())
 			libDir = "amd64";
-		} else {
+		else if (OSInfo.isMac())
+			libDir = "mac";
+		else
 			libDir = "lib";
-		}
+
 		// Platform maintainers: add your platform here
 
 		String propertyPath = System.getProperty("java.library.path");
 		if (OSInfo.isLinux())
 			propertyPath += ":native/linux/";
+		else if (OSInfo.isMac())
+			propertyPath += ":native/mac/";
 		else if (OSInfo.isWin32Platform())
 			propertyPath += ";native\\win32\\";
 		// Platform maintainers: add your platform here
@@ -409,20 +413,23 @@ public class Bootstrap {
 		File nativeDir;
 
 		String libDir;
-		if (OSInfo.isAMD64Bit()) {
+		if (OSInfo.isAMD64Bit())
 			libDir = "amd64";
-		} else {
+		else if (OSInfo.isMac())
+			libDir = "mac";
+		else
 			libDir = "lib";
-		}
 
 		// Setup the path
 		// Platform maintainers: add your platform here
 		// see also initPlatformServices() method
-		if (OSInfo.isLinux()) {
+		if (OSInfo.isLinux())
 			nativeDir = new File("native/linux/" + libDir);
-		} else if (OSInfo.isWin32Platform()) {
+		else if (OSInfo.isMac())
+			nativeDir = new File("native'mac" + libDir);
+		else if (OSInfo.isWin32Platform())
 			nativeDir = new File("native/win32/" + libDir);
-		} else {
+		else {
 			LOG.info("Native support for Platform not available.");
 			return;
 		}

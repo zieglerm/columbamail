@@ -170,6 +170,10 @@ public class MessageController extends JPanel implements CharsetListener,
 	}
 
 	/**
+	 * @param folder 
+	 * @param uid 
+	 * @return 
+	 * @throws Exception 
 	 * @see org.columba.mail.gui.message.IMessageController#filterMessage(org.columba.mail.folder.IMailbox,
 	 *      java.lang.Object)
 	 */
@@ -188,6 +192,7 @@ public class MessageController extends JPanel implements CharsetListener,
 	}
 
 	/**
+	 * @param e 
 	 * @see org.columba.core.util.CharsetListener#charsetChanged(org.columba.core.util.CharsetEvent)
 	 */
 	public void charsetChanged(CharsetEvent e) {
@@ -245,6 +250,7 @@ public class MessageController extends JPanel implements CharsetListener,
 	 * Revalidate message viewer components.
 	 * <p>
 	 * Call this method after showMessage() to force a repaint():
+	 * @throws Exception 
 	 * 
 	 */
 	public void updateGUI() throws Exception {

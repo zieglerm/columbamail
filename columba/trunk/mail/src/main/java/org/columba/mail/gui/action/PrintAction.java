@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 
 import javax.swing.KeyStroke;
 
+import org.columba.core.base.OSInfo;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.api.selection.ISelectionListener;
 import org.columba.api.selection.SelectionChangedEvent;
@@ -52,9 +53,14 @@ public class PrintAction extends AbstractColumbaAction implements
 		// large icon for toolbar
 		putValue(LARGE_ICON, ImageLoader.getIcon("printer.png"));
 
+		//TODO: Test Mac keyboard accelerator changes done here by mlivingstone
 		// shortcut key
+		if(OSInfo.isMac())
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P,
-				ActionEvent.CTRL_MASK));
+				ActionEvent.META_MASK));
+		else
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P,
+					ActionEvent.CTRL_MASK));
 
 		// *20030614, karlpeder* In main view only enabled when
 		// message(s) selected

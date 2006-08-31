@@ -157,6 +157,10 @@ public class HeaderViewer extends JPanel {
 	}
 
 	/**
+	 * @param folder 
+	 * @param uid 
+	 * @param mediator 
+	 * @throws Exception 
 	 * @see org.columba.mail.gui.message.viewer.IViewer#view(IMailbox,
 	 *      java.lang.Object, org.columba.mail.gui.frame.MailFrameMediator)
 	 */
@@ -604,6 +608,7 @@ public class HeaderViewer extends JPanel {
 	}
 
 	/**
+	 * @return getView
 	 * @see org.columba.mail.gui.message.viewer.IViewer#getView()
 	 */
 	public JComponent getView() {
@@ -717,6 +722,7 @@ public class HeaderViewer extends JPanel {
 	}
 
 	/**
+	 * @throws Exception 
 	 * @see org.columba.mail.gui.message.viewer.IViewer#updateGUI()
 	 */
 	public void updateGUI() throws Exception {
