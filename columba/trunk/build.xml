@@ -181,9 +181,10 @@
             <include name="${lib.bsh}"/>
             <include name="${lib.flexdoc}"/>
             <include name="${lib.jython}"/>
-	    <include name="${lib.commons.logging}"/>
+	   		<include name="${lib.commons.logging}"/>
             <include name="${lib.ical4j}"/>
-	    <include name="${lib.migcalendar}"/>
+	        <include name="${lib.migcalendar}"/>
+        	<include name="${lib.swingx}"/>
             <include name="${native.linux}${lib.jdic}"/>
             <include name="${native.linux}${lib.native}"/>
             <include name="${native.win32}${lib.jdic}"/>
