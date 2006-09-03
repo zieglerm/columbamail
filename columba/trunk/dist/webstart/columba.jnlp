@@ -40,6 +40,7 @@
    <jar href="@commons.logging@"/>
    <jar href="@ical4j@"/>
    <jar href="@migcalendar@"/>
+   <jar href="@swingx@"/>
    <jar href="@antlr@" />
    <jar href="@asm-attrs@" />
    <jar href="@asm@" />

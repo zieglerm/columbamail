@@ -508,6 +508,24 @@
 		<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 	    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
                 <include name="${native.linux}/**/*.jar"/>
                 <include name="${native.linux}/**/*.so"/>
             </tarfileset>
@@ -565,6 +583,24 @@
 		<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 	    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
                 <include name="${native.win32}/lib/*.jar"/>
                 <include name="${native.win32}/lib/*.dll"/>
                 <include name="Columba.lap"/>
@@ -610,6 +646,24 @@
 		<include name="${lib.commons.logging}"/>
 	        <include name="${lib.ical4j}"/>
 	    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
             </zipfileset>
         </zip>
     </target>
@@ -666,6 +720,7 @@
 		<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 	    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
               	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -751,6 +806,7 @@
 	        <replacefilter token="@commons.logging@" value="${lib.commons.logging}"/>
             <replacefilter token="@ical4j@" value="${lib.ical4j}"/>
             <replacefilter token="@migcalendar@" value="${lib.migcalendar}"/>
+            <replacefilter token="@swingx@" value="${lib.swingx}"/>
           	<!-- jpa libs -->
             <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
             <replacefilter token="@asm-attrs@" value="${lib.asm-attrs.jar}" />
@@ -838,9 +894,28 @@
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
                 <include name="${lib.flexdoc}"/>
-		<include name="${lib.commons.logging}"/>
+				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
-	    	<include name="${lib.migcalendar}"/>
+	    		<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+				<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
+	
                 <include name="${manual.jar}"/>
             </fileset>
         </copy>
@@ -900,6 +975,7 @@
 	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
         	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
@@ -946,7 +1022,8 @@
             <arg value="/dJYTHON=${lib.jython}"/>   
             <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
-            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>     	
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>  
+        	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
         	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
@@ -1005,6 +1082,7 @@
    	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
         	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
@@ -1052,7 +1130,8 @@
             <arg value="/dJYTHON=${lib.jython}"/> 
 	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 	    <arg value="/dICAL4J=${lib.ical4j}"/>
-            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>       	
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
         	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />

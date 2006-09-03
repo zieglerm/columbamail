@@ -67,6 +67,7 @@ Source: {#JYTHON}; DestDir: {app}\lib\
 Source: {#COMMONS.LOGGING}; DestDir: {app}\lib\
 Source: {#ICAL4J}; DestDir: {app}\lib\
 Source: {#MIGCALENDAR}; DestDir: {app}\lib\
+Source: {#SWINGX}; DestDir: {app}\lib\
 Source: {#ANTLR}; DestDir: {app}\lib\jta\
 Source: {#ASM-ATTRS}; DestDir: {app}\lib\jta\
 Source: {#ASM}; DestDir: {app}\lib\jta\
