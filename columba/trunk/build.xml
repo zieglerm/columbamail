@@ -669,8 +669,8 @@
             	<include name="${lib.swingx}"/>
   
  	     	   	<!-- Mac OS/X -->
-  		      	<include name="${lib.quaqua}" />
-				<include name="${native.mac}/${lib.libquaqua}" />        	
+  		      	<include name="${lib.quaqua}"/>
+				<include name="${native.mac}/${lib.libquaqua}"/>        	
   
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
@@ -746,11 +746,9 @@
             	<include name="${lib.ical4j}"/>
 		    	<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
-  
  	     	   	<!-- Mac OS/X -->
- 		       	<include name="${lib.quaqua}" />
-				<include name="${native.mac}/${lib.libquaqua}" />        	
-  
+ 		       	<include name="${lib.quaqua}"/>
+				<include name="${native.mac}/${lib.libquaqua}"/>        	
               	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -837,9 +835,10 @@
             <replacefilter token="@ical4j@" value="${lib.ical4j}"/>
             <replacefilter token="@migcalendar@" value="${lib.migcalendar}"/>
             <replacefilter token="@swingx@" value="${lib.swingx}"/>
- 
+ 	   
+ 	   	   	<!-- Mac OS/X --> 
  			<replacefilter token="@quaqua@" value="${lib.quaqua}" />
- 			<replacefilter token="@libquaqua" value=${lib.libquaqua} />
+ 			<replacefilter token="@libquaqua" value="${lib.libquaqua}" />
  
           	<!-- jpa libs -->
             <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
