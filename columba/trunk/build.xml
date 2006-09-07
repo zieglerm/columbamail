@@ -55,6 +55,9 @@
 
         <!-- Other platform maintainers must add their platform here !-->
 
+		<condition property="native.base" value="${native.mac}">
+            <os name="mac"/>
+        </condition>
 
         <property name="native.library.path" value="${native.base}/lib/"/>
     </target>
@@ -98,9 +101,13 @@
             <pathelement path="${lib.flexdoc}"/>
             <pathelement path="${lib.commons.logging}"/>
             <pathelement path="${lib.ical4j}"/>
-	    <pathelement path="${lib.migcalendar}"/>
+	    	<pathelement path="${lib.migcalendar}"/>
         	<pathelement path="${lib.swingx}"/>
         	<pathelement path="${lib.jython}"/>
+
+        	<!-- Mac OS/X -->
+        	<pathelement path="${lib.quaqua}" />
+			<pathelement path="${native.mac}/${lib.libquaqua}" />        	
         	
         	<!-- jpa libs -->
         	<pathelement path="${lib.antlr.jar}" />
@@ -125,8 +132,6 @@
             <pathelement path="${manual.jar}"/>
             <pathelement path="${dest}"/>
         </path>
-
-
     </target>
 
     <target name="init-test" depends="init" description="Initialises the build system for Unit testing">
@@ -151,7 +156,6 @@
         <mkdir dir="${dist.rpm}/SOURCES"/>
         <mkdir dir="${dist.rpm}/SPECS"/>
     </target>
-
 
     <target name="init-webstart" depends="init" description="Initialises the build system for Webstart">
         <!-- signing jar-files for Java WebStart -->
@@ -189,6 +193,11 @@
             <include name="${native.linux}${lib.native}"/>
             <include name="${native.win32}${lib.jdic}"/>
             <include name="${native.win32}${lib.native}"/>
+           	
+    	   	<!-- Mac OS/X -->
+        	<include name="${lib.quaqua}" />
+			<include name="${native.mac}/${lib.libquaqua}" />        	
+        	           	
            	<!-- jpa libs -->
             <include name="${lib.antlr.jar}" />
             <include name="${lib.asm-attrs.jar}" />
@@ -506,10 +515,15 @@
                 <include name="${lib.bsh}"/>
                 <include name="${manual.jar}"/>
                 <include name="${lib.flexdoc}"/>
-		<include name="${lib.commons.logging}"/>
+				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
-	    	<include name="${lib.migcalendar}"/>
+		    	<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
+ 
+ 	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+				<include name="${native.mac}/${lib.libquaqua}" />        	
+ 
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -530,7 +544,7 @@
                 <include name="${native.linux}/**/*.jar"/>
                 <include name="${native.linux}/**/*.so"/>
             </tarfileset>
-            <tarfileset dir="${basedir}" mode="755" prefix="columba-unix-${version}-bin">
+				<tarfileset dir="${basedir}" mode="755" prefix="columba-unix-${version}-bin">
                 <include name="run.sh"/>
             </tarfileset>
         </tar>
@@ -581,10 +595,15 @@
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
                 <include name="${lib.flexdoc}"/>
-		<include name="${lib.commons.logging}"/>
+				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
-	    	<include name="${lib.migcalendar}"/>
+		    	<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
+
+	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+				<include name="${native.mac}/${lib.libquaqua}" />        	  
+  
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -644,10 +663,15 @@
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
                 <include name="${lib.flexdoc}"/>
-		<include name="${lib.commons.logging}"/>
-	        <include name="${lib.ical4j}"/>
-	    	<include name="${lib.migcalendar}"/>
+				<include name="${lib.commons.logging}"/>
+		        <include name="${lib.ical4j}"/>
+		    	<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
+  
+ 	     	   	<!-- Mac OS/X -->
+  		      	<include name="${lib.quaqua}" />
+				<include name="${native.mac}/${lib.libquaqua}" />        	
+  
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -718,10 +742,15 @@
                 <include name="${lib.bsh}"/>
                 <include name="${lib.flexdoc}"/>
                 <include name="${lib.jython}"/>
-		<include name="${lib.commons.logging}"/>
+				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
-	    	<include name="${lib.migcalendar}"/>
+		    	<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
+  
+ 	     	   	<!-- Mac OS/X -->
+ 		       	<include name="${lib.quaqua}" />
+				<include name="${native.mac}/${lib.libquaqua}" />        	
+  
               	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -808,6 +837,10 @@
             <replacefilter token="@ical4j@" value="${lib.ical4j}"/>
             <replacefilter token="@migcalendar@" value="${lib.migcalendar}"/>
             <replacefilter token="@swingx@" value="${lib.swingx}"/>
+ 
+ 			<replacefilter token="@quaqua@" value="${lib.quaqua}" />
+ 			<replacefilter token="@libquaqua" value=${lib.libquaqua} />
+ 
           	<!-- jpa libs -->
             <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
             <replacefilter token="@asm-attrs@" value="${lib.asm-attrs.jar}" />
@@ -899,6 +932,11 @@
             	<include name="${lib.ical4j}"/>
 	    		<include name="${lib.migcalendar}"/>
             	<include name="${lib.swingx}"/>
+
+	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+				<include name="${native.mac}/${lib.libquaqua}" />        	
+
 				<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -973,10 +1011,15 @@
             <arg value="/dJDIC=${lib.jdic}"/>
             <arg value="/dFLEXDOC=${lib.flexdoc}"/>
             <arg value="/dJYTHON=${lib.jython}"/>
-	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
-	    <arg value="/dICAL4J=${lib.ical4j}"/>
+		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
         	<arg value="/dSWINGX=${lib.swingx}"/>
+ 
+     	   	<!-- Mac OS/X -->
+        	<arg value="/dQUAQUA=${lib.quaqua}" />
+			<arg value="/dLIBQUAQUA=${native.mac}/${lib.libquaqua}" />        	
+ 
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
         	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
@@ -1022,7 +1065,7 @@
             <arg value="/dFLEXDOC=${lib.flexdoc}"/>
             <arg value="/dJYTHON=${lib.jython}"/>   
             <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
-	    <arg value="/dICAL4J=${lib.ical4j}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>  
         	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
@@ -1080,8 +1123,8 @@
             <arg value="/dBSH=${lib.bsh}"/>
             <arg value="/dFLEXDOC=${lib.flexdoc} "/>
             <arg value="/dJYTHON=${lib.jython}"/>        	
-   	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
-	    <arg value="/dICAL4J=${lib.ical4j}"/>
+ 	  	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
         	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
@@ -1129,8 +1172,8 @@
             <arg value="/dBSH=${lib.bsh}"/>
             <arg value="/dFLEXDOC=${lib.flexdoc}"/>
             <arg value="/dJYTHON=${lib.jython}"/> 
-	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
-	    <arg value="/dICAL4J=${lib.ical4j}"/>
+		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
             <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
         	<arg value="/dSWINGX=${lib.swingx}"/>
         	<!-- jpa libs -->
