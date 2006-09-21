@@ -838,7 +838,7 @@
  	   
  	   	   	<!-- Mac OS/X --> 
  			<replacefilter token="@quaqua@" value="${lib.quaqua}" />
- 			<replacefilter token="@libquaqua" value="${lib.libquaqua}" />
+ 			<replacefilter token="@libquaqua@" value="${lib.libquaqua}" />
  
           	<!-- jpa libs -->
             <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
