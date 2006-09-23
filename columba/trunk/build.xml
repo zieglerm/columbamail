@@ -235,7 +235,7 @@
         <delete file="${src.core}/org/columba/core/versioninfo/ColumbaVersionInfo.java"/>
     </target>
 
-    <target name="update" description="Updates the source when checked out via CVS">
+    <target name="update" description="Updates the source when checked out via SVN">
         <exec executable="svn">
   	 <arg value="update"/>
  	</exec>
@@ -249,7 +249,7 @@
             <classpath refid="compile.classpath"/>
             <packageset dir="${src.core.api}"/>
             <packageset dir="${src.core}"/>
-	    <packageset dir="${src.mail.facade}"/>
+		    <packageset dir="${src.mail.facade}"/>
             <packageset dir="${src.mail.api}"/>
             <packageset dir="${src.mail}"/>
             <packageset dir="${src.contact.facade}"/>
@@ -327,7 +327,7 @@
         	  <compilerarg value="${unchecked}"/>
         </javac>
 	<echo message="compiling ${src.core}"/>
-	<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+		<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
             <src path="${src.core}"/>
             <classpath refid="compile.classpath"/>
         	  <compilerarg value="${unchecked}"/>
@@ -368,7 +368,7 @@
         	  <compilerarg value="${unchecked}"/>
         </javac>
 	<echo message="compiling ${src.mail}"/>
-	<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+		<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
             <src path="${src.mail}"/>
             <classpath refid="compile.classpath"/>
         	  <compilerarg value="${unchecked}"/>
@@ -795,6 +795,20 @@
         <jar destfile="${release.base}/webstart/${native.linux}/${lib.native}" basedir="${native.linux}/lib/">
             <include name="*.so"/>
         </jar>
+
+		<!-- Mac OS/X Quaqua lib files -->
+
+        <copy toDir="${release.base}/webstart/${native.mac}">
+            <fileset dir="${native.mac}">
+                <include name="${lib.quaqua}"/>
+            </fileset>
+        </copy>
+
+        <jar destfile="${release.base}/webstart/${native.mac}/${lib.native}" basedir="${native.mac}/lib/">
+            <include name="lib.libquaqua"/>
+        </jar>
+
+		<!-- End of Mac OS/X Quaqua lib files -->
 
         <copy toDir="${release.base}/webstart/images">
             <fileset dir="${res.core}/org/columba/core/icons/MISC">
