@@ -49,9 +49,6 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 
 	private File destFile;
 	
-	private String addTag;
-	private String removeTag;
-
 	/**
 	 * Constructor for MailFolderCommandReference.
 	 * 
@@ -220,22 +217,6 @@ public class MailFolderCommandReference extends DefaultFolderCommandReference
 	 */
 	public void setFolderType(String folderType) {
 		this.folderType = folderType;
-	}
-
-	public void addTag(String tag) {
-		this.addTag = tag;		
-	}
-
-	public String getAddTag() {
-		return this.addTag;
-	}
-
-	public void removeTag(String tag) {
-		this.removeTag = tag;
-	}
-
-	public String getRemoveTag() {
-		return this.removeTag;
 	}
 
 }
