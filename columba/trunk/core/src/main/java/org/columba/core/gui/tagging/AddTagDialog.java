@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EventListener;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,16 +15,34 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.EventListenerList;
 
 import org.columba.core.gui.base.MultiLineLabel;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.tagging.TagManager;
+import org.columba.mail.gui.tagging.ExtendedObservable;
+import org.columba.mail.gui.tagging.IObservable;
 
-public class AddTagDialog extends JDialog implements ActionListener {
+/**
+ * Simple Add Tag Dialogs which adds a given String as Tag to the tagging
+ * component
+ * 
+ * @author hubms
+ *
+ */
+
+public class AddTagDialog extends JDialog implements ActionListener, IObservable {
 
 	private JTextField field;
+	protected EventListenerList listeners = new EventListenerList();
+	private ExtendedObservable observable = new ExtendedObservable();
+	
+	public void addObserver(Observer o) {
+		observable.addObserver(o);
+	}
 
 	public AddTagDialog() {
+		
 		setTitle("Add new Tag...");
 
 		JPanel panel = new JPanel(new BorderLayout(0, 10));
@@ -69,11 +89,13 @@ public class AddTagDialog extends JDialog implements ActionListener {
 				panel.add(new MultiLineLabel("Successfully added tag '"
 						+ field.getText() + "'!"), BorderLayout.NORTH);
 
-				// Some error in the client/server communication
-				// --> fall back to default login process
 				JOptionPane.showMessageDialog(FrameManager.getInstance()
 						.getActiveFrame(), panel, "Successfully added Tag",
 						JOptionPane.INFORMATION_MESSAGE, null);
+				
+				observable.setChanged(true);
+				observable.notifyObservers();
+				
 			} else {
 				JPanel panel = new JPanel(new BorderLayout(0, 10));
 
@@ -86,10 +108,25 @@ public class AddTagDialog extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(FrameManager.getInstance()
 						.getActiveFrame(), panel, "Error adding tag",
 						JOptionPane.ERROR_MESSAGE, null);
+				
 			}
 			dispose();
 		} else if (e.getActionCommand().equals("Cancel")) {
 			dispose();
+		}
+	}
+	
+	private void fireEvent() {
+		// Guaranteed to return a non-null array
+		Object[] ls = listeners.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = ls.length - 2; i >= 0; i -= 2) {
+			if (ls[i] == EventListener.class) {
+				EventListener e;
+				// ((EventListener) ls[i + 1]);
+			}
 		}
 	}
 

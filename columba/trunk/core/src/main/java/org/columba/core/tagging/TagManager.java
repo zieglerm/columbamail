@@ -2,6 +2,7 @@ package org.columba.core.tagging;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -67,7 +68,7 @@ public class TagManager implements ITagManager {
 		for (int i = 0; i < l.size(); i++) {
 			XmlElement e = (XmlElement) l.get(i);
 			if (e.getAttribute("id").equals(tag.getId())
-					&& (e.getAttribute("name").equals(tag.getName()))) {
+					&& (e.getAttribute("name").equals(tag.getProperty("name")))) {
 				LOG.severe("Duplicate Name!");
 				return false;
 			}
@@ -75,7 +76,7 @@ public class TagManager implements ITagManager {
 
 		XmlElement newXmlTag = new XmlElement("tag");
 		newXmlTag.addAttribute("id", tag.getId());
-		newXmlTag.addAttribute("name", tag.getName());
+		newXmlTag.addAttribute("name", tag.getProperty("name"));
 		xml.getRoot().getElement("tags").addElement(newXmlTag);
 
 		try {
@@ -85,6 +86,53 @@ public class TagManager implements ITagManager {
 		}
 
 		return true;
+
+	}
+	
+	private void updateTagInFile(ITag tag) {
+		path = Config.getInstance().getConfigDirectory();
+		DiskIO.ensureDirectory(path);
+
+		tagsConfigurationFile = new File(path, "tags.xml");
+
+		// just ensure thst the file exists
+		if (!tagsConfigurationFile.exists())
+			try {
+				tagsConfigurationFile.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+		Config.getInstance().registerPlugin(CORE_STR,
+				tagsConfigurationFile.getName(),
+				new DefaultXmlConfig(tagsConfigurationFile));
+
+		DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
+				"tags.xml");
+
+		if (xml.getRoot().getElement("tags") == null)
+			// not found
+			return;
+
+		List l = xml.getRoot().getElement("tags").getElements();
+		for (int i = 0; i < l.size(); i++) {
+			XmlElement e = (XmlElement) l.get(i);
+			if (e.getAttribute("id").equals(tag.getId())) {
+				// update element
+				Hashtable attrs = new Hashtable();
+				attrs.putAll(tag.getProperties());
+				// manually add the id tag, because this is not contained in
+				// the tag attributes
+				attrs.put("id", tag.getId());
+				e.setAttributes(attrs);
+			}
+		}
+
+		try {
+			xml.save();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -120,8 +168,8 @@ public class TagManager implements ITagManager {
 		for (int i = 0; i < l.size(); i++) {
 			XmlElement e = (XmlElement) l.get(i);
 			if (e.getAttribute("id").equals(tag.getId())
-					&& (e.getAttribute("name").equals(tag.getName()))) {
-				LOG.info("Removed Tag " + tag.getName() + "!");
+					&& (e.getAttribute("name").equals(tag.getProperty("name")))) {
+				LOG.info("Removed Tag " + tag.getProperty("name") + "!");
 				xml.getRoot().getElement("tags").removeElement(e);
 			}
 		}
@@ -148,6 +196,20 @@ public class TagManager implements ITagManager {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			
+			// create initial config
+			Config.getInstance().registerPlugin(CORE_STR,
+					tagsConfigurationFile.getName(),
+					new DefaultXmlConfig(tagsConfigurationFile));
+
+			DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
+					"tags.xml");
+			
+			try {
+				xml.save();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			// nothing to load
 			return;
@@ -168,7 +230,7 @@ public class TagManager implements ITagManager {
 		for (int i = 0; i < l.size(); i++) {
 			XmlElement e = (XmlElement) l.get(i);
 			addTag = new Tag(e.getAttribute("id"));
-			addTag.setName(e.getAttribute("name"));
+			addTag.setProperty("name", e.getAttribute("name"));
 			this.tags.add(addTag);
 		}
 
@@ -185,7 +247,7 @@ public class TagManager implements ITagManager {
 
 		// Create a new tag with the Id Tag Prefix
 		ITag tag = new Tag(TAG_PREFIX + name);
-		tag.setName(name);
+		tag.setProperty("name", name);
 
 		// if the vector is loaded, add the tag also to the vector
 		// if not, storing in the file is enough
@@ -214,7 +276,7 @@ public class TagManager implements ITagManager {
 		if (tags == null)
 			loadTags();
 		for (ITag tag : tags) {
-			if (tag.getName().equals(name))
+			if (tag.getProperty("name").equals(name))
 				return tag;
 		}
 		return null;
@@ -231,7 +293,6 @@ public class TagManager implements ITagManager {
 		return null;
 	}
 
-	// TODO: needed?
 	public void removeTagById(String id) {
 		if (tags == null)
 			loadTags();
@@ -244,11 +305,12 @@ public class TagManager implements ITagManager {
 		}
 	}
 
+	// TODO: needed?
 	public void removeTag(String name) {
 		if (tags == null)
 			loadTags();
 		for (ITag tag : tags) {
-			if (tag.getName().equals(name)) {
+			if (tag.getProperty("name").equals(name)) {
 				tags.remove(tag);
 				removeFromConfig(tag);
 				break;
@@ -264,6 +326,25 @@ public class TagManager implements ITagManager {
 			}
 		}
 		return instance;
+	}
+
+	public void setProperty(ITag tag, String name, String value) {
+		assert(tag != null);
+		tag.setProperty(name, value);
+		
+		// update config
+		updateTagInFile(tag);
+		
+	}
+
+	public String getProperty(ITag tag, String name) {
+		assert(tag != null);
+		return tag.getProperty(name);
+	}
+
+	public Hashtable getProperties(ITag tag) {
+		assert(tag != null);
+		return tag.getProperties();
 	}
 
 }

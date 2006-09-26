@@ -1,8 +1,11 @@
 package org.columba.core.associations;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 
 import org.columba.core.association.AssociationStore;
+import org.columba.core.config.Config;
 
 public class AssociationStoreCases extends TestCase {
 
@@ -11,6 +14,7 @@ public class AssociationStoreCases extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		store = AssociationStore.getInstance();
+		Config c = new Config(new File("c:/dokumente und einstellungen/matthias/.columba"));
 	}
 
 	protected void tearDown() throws Exception {

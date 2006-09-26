@@ -57,7 +57,7 @@
 	<classpathentry kind="lib" path="lib/jscf-0.3.jar"/>
 	<classpathentry kind="lib" path="lib/groovy-all-1.0-jsr-02.jar"/>
 	<classpathentry kind="lib" path="lib/mac_mock.jar"/>
-	<classpathentry kind="lib" path="lib/quaqua.jar"/>	
+	<classpathentry kind="lib" path="lib/quaqua.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.chat.altura/lib/smack.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.chat.altura/lib/smackx.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.HippoLookAndFeel/lib/hippolf.jar"/>
@@ -92,12 +92,12 @@
 	<classpathentry kind="lib" path="lib/jpa/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/ehcache-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="lib/jpa/hibernate3.jar"/>
-	<classpathentry kind="lib" path="lib/jpa/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="lib/jpa/hibernate-entitymanager.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/javassist.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/jboss-archive-browsing.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/jta.jar"/>
+	<classpathentry kind="lib" path="lib/jpa/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/jpa/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/jpa/hibernate-entitymanager.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

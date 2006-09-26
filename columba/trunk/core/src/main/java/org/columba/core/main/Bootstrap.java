@@ -35,6 +35,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.ParseException;
+import org.columba.core.association.AssociationStore;
 import org.columba.core.backgroundtask.BackgroundTaskManager;
 import org.columba.core.base.OSInfo;
 import org.columba.core.component.ComponentManager;
@@ -65,6 +66,9 @@ public class Bootstrap {
 	private static final Logger LOG = Logger.getLogger("org.columba.core.main"); //$NON-NLS-1$
 
 	private static final String RESOURCE_PATH = "org.columba.core.i18n.global"; //$NON-NLS-1$
+
+	// TODO @author hubms have this flags, until the speed of the entitymanager is improved
+	public static boolean ENABLE_TAGS = true;
 
 	private String path;
 
@@ -200,6 +204,14 @@ public class Bootstrap {
 		// ColumbaTrayIcon.getInstance().addToSystemTray(
 		// FrameManager.getInstance().getActiveFrameMediator()
 		// .getFrameMediator());
+		
+		profiler.push("tagging");
+		
+		// initialize tagging
+		if (ENABLE_TAGS)
+			AssociationStore.getInstance().init();
+		
+		profiler.pop("tagging");
 
 		// hide splash screen
 		if (frame != null) {

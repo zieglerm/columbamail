@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,6 +100,12 @@ public class AssociationStore implements IAssociationStore, Runnable {
 
 		// transaction is needed for the underlying jpa architecture
 		EntityTransaction tx = manager.getTransaction();
+
+		// wait, if there is an active transaction
+		// TODO @author hubms retrycount!
+		while (tx.isActive())
+			;
+
 		tx.begin();
 		Query query = manager
 				.createQuery("select a from org.columba.core.association.Association a where a.itemId = '"
@@ -148,6 +156,20 @@ public class AssociationStore implements IAssociationStore, Runnable {
 	 */
 	public void init() {
 
+		// disable logging for the startup
+		Handler[] handlers = Logger.getLogger("").getHandlers();
+		ConsoleHandler consolehandler = null;
+		Level level = null;
+		for (int index = 0; index < handlers.length; index++) {
+			// set console handler to OFF
+			if (handlers[index] instanceof ConsoleHandler) {
+				level = handlers[index].getLevel();
+				handlers[index].setLevel(Level.OFF);
+				consolehandler = (ConsoleHandler) handlers[index];
+				break;
+			}
+		}
+		
 		ShutdownManager.getInstance().register(this);
 
 		String connectionString = "jdbc:hsqldb:file:"
@@ -196,6 +218,10 @@ public class AssociationStore implements IAssociationStore, Runnable {
 			LOG.severe("Could not start the Entity manager! "
 					+ pEx.getMessage());
 		}
+
+		// restore log level
+		if (consolehandler != null)
+			consolehandler.setLevel(level);
 
 	}
 

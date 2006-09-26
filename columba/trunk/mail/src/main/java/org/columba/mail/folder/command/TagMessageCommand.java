@@ -11,8 +11,19 @@ import org.columba.mail.folder.IMailbox;
 
 public class TagMessageCommand extends Command {
 
-	public TagMessageCommand(IMailFolderCommandReference theReference) {
+	public final static int ADD_TAG = 0;
+
+	public final static int REMOVE_TAG = 1;
+
+	private int type;
+
+	private String id;
+
+	public TagMessageCommand(IMailFolderCommandReference theReference,
+			int type, String id) {
 		super(theReference);
+		this.type = type;
+		this.id = id;
 	}
 
 	@Override
@@ -26,20 +37,16 @@ public class TagMessageCommand extends Command {
 		// get source folder
 		IMailbox srcFolder = (IMailbox) r.getSourceFolder();
 
-		if (r.getAddTag() != null) {
+		if (type == ADD_TAG) {
 			for (Object currentItem : r.getUids()) {
-				AssociationStore.getInstance().addAssociation("tagging",
-						r.getAddTag(),
-						createURI(srcFolder.getName(), currentItem).toString());
+				AssociationStore.getInstance().addAssociation("tagging", id,
+						createURI(srcFolder.getId(), currentItem).toString());
 			}
-			r.addTag(null);
-		} else {
+		} else if (type == REMOVE_TAG) {
 			for (Object currentItem : r.getUids()) {
-				AssociationStore.getInstance().removeAssociation("tagging",
-						r.getRemoveTag(),
-						createURI(srcFolder.getName(), currentItem).toString());
+				AssociationStore.getInstance().removeAssociation("tagging", id,
+						createURI(srcFolder.getId(), currentItem).toString());
 			}
-			r.removeTag(null);
 		}
 	}
 
