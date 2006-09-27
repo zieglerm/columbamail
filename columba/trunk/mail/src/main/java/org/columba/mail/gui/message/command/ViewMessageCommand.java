@@ -118,6 +118,8 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 	}
 
 	private void fillContext() {
+		if ( value == null) return;
+		
 		// create identity value
 		IStructureValue identity = value.addChild(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,

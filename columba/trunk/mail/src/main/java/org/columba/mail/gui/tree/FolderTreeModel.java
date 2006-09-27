@@ -17,7 +17,9 @@
 package org.columba.mail.gui.tree;
 
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.WeakHashMap;
 
 import javax.swing.tree.DefaultTreeModel;
 
@@ -55,6 +57,8 @@ public class FolderTreeModel extends DefaultTreeModel {
 
 	protected TempFolder tempFolder;
 
+	private Map<String, IMailFolder> temporaryFolders = new WeakHashMap<String,IMailFolder>();
+	
 	private static FolderTreeModel instance = new FolderTreeModel(MailConfig
 			.getInstance().getFolderConfig());
 
@@ -101,6 +105,11 @@ public class FolderTreeModel extends DefaultTreeModel {
 		return instance;
 	}
 
+	
+	public void addTemporaryFolder(IMailFolder folder) {
+		temporaryFolders.put(folder.getId(), folder);
+	}
+	
 	public void createDirectories(XmlElement parentTreeNode,
 			IMailFolder parentFolder) {
 		int count = parentTreeNode.count();
@@ -204,6 +213,9 @@ public class FolderTreeModel extends DefaultTreeModel {
 			}
 		}
 
+		if ( temporaryFolders.containsKey(folderId))
+			return temporaryFolders.get(folderId);
+		
 		return null;
 	}
 

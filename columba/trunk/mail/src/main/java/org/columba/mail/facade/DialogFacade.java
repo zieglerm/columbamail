@@ -70,7 +70,7 @@ public class DialogFacade implements IDialogFacade {
 		IMailbox folder = (IMailbox) FolderTreeModel.getInstance().getFolder(
 				folderId);
 		IMailFolderCommandReference r = new MailFolderCommandReference(folder,
-				new Object[] { messageId });
+				new Object[] { Integer.parseInt(messageId) });
 
 		c.setTreeSelection(r);
 
