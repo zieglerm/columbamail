@@ -53,11 +53,11 @@
             <os name="linux"/>
         </condition>
 
-        <!-- Other platform maintainers must add their platform here !-->
+        <!-- Other platform maintainers must add their platform here >
 
 		<condition property="native.base" value="${native.mac}">
             <os name="mac"/>
-        </condition>
+        </condition -->
 
         <property name="native.library.path" value="${native.base}/lib/"/>
     </target>
@@ -107,7 +107,7 @@
 
         	<!-- Mac OS/X -->
         	<pathelement path="${lib.quaqua}" />
-			<pathelement path="${native.mac}/${lib.libquaqua}" />        	
+			<pathelement path="${lib.libquaqua}" />        	
         	
         	<!-- jpa libs -->
         	<pathelement path="${lib.antlr.jar}" />
@@ -196,7 +196,7 @@
            	
     	   	<!-- Mac OS/X -->
         	<include name="${lib.quaqua}" />
-			<include name="${native.mac}/${lib.libquaqua}" />        	
+			<include name="${lib.libquaqua}" />        	
         	           	
            	<!-- jpa libs -->
             <include name="${lib.antlr.jar}" />
@@ -522,7 +522,7 @@
  
  	    	   	<!-- Mac OS/X -->
     	    	<include name="${lib.quaqua}" />
-				<include name="${native.mac}/${lib.libquaqua}" />        	
+				<include name="${lib.libquaqua}" />        	
  
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
@@ -602,7 +602,7 @@
 
 	    	   	<!-- Mac OS/X -->
     	    	<include name="${lib.quaqua}" />
-				<include name="${native.mac}/${lib.libquaqua}" />        	  
+				<include name="${lib.libquaqua}" />        	  
   
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
@@ -670,7 +670,7 @@
   
  	     	   	<!-- Mac OS/X -->
   		      	<include name="${lib.quaqua}"/>
-				<include name="${native.mac}/${lib.libquaqua}"/>        	
+				<include name="${lib.libquaqua}"/>        	
   
             	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
@@ -748,7 +748,7 @@
             	<include name="${lib.swingx}"/>
  	     	   	<!-- Mac OS/X -->
  		       	<include name="${lib.quaqua}"/>
-				<include name="${native.mac}/${lib.libquaqua}"/>        	
+				<include name="${lib.libquaqua}"/>        	
               	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -796,7 +796,7 @@
             <include name="*.so"/>
         </jar>
 
-		<!-- Mac OS/X Quaqua lib files -->
+		<!-- Mac OS/X Quaqua lib files >
 
         <copy toDir="${release.base}/webstart/${native.mac}">
             <fileset dir="${native.mac}">
@@ -808,7 +808,7 @@
             <include name="lib.libquaqua"/>
         </jar>
 
-		<!-- End of Mac OS/X Quaqua lib files -->
+		< End of Mac OS/X Quaqua lib files -->
 
         <copy toDir="${release.base}/webstart/images">
             <fileset dir="${res.core}/org/columba/core/icons/MISC">
@@ -948,7 +948,7 @@
 
 	    	   	<!-- Mac OS/X -->
     	    	<include name="${lib.quaqua}" />
-				<include name="${native.mac}/${lib.libquaqua}" />        	
+				<include name="${lib.libquaqua}" />        	
 
 				<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
@@ -1031,7 +1031,7 @@
  
      	   	<!-- Mac OS/X -->
         	<arg value="/dQUAQUA=${lib.quaqua}" />
-			<arg value="/dLIBQUAQUA=${native.mac}/${lib.libquaqua}" />        	
+			<arg value="/dLIBQUAQUA=${lib.libquaqua}" />        	
  
         	<!-- jpa libs -->
         	<arg value="/dANTLR=${lib.antlr.jar}" />
