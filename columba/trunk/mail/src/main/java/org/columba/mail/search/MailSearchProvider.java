@@ -37,8 +37,8 @@ import org.columba.core.search.api.ISearchResult;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.IMailFolder;
-import org.columba.mail.folder.IMailbox;
 import org.columba.mail.folder.virtual.VirtualFolder;
+import org.columba.mail.folder.virtual.VirtualHeader;
 import org.columba.mail.gui.frame.TreeViewOwner;
 import org.columba.mail.gui.search.ComplexResultPanel;
 import org.columba.mail.gui.search.CriteriaResultPanel;
@@ -246,6 +246,10 @@ public class MailSearchProvider implements ISearchProvider {
 
 			for (int i = 0; i < uids.length; i++) {
 				SearchIndex idx = new SearchIndex(folder, uids[i]);
+				
+				System.out.println("--> idx.folder="+idx.folder.getId());
+				System.out.println("--> idx.message="+idx.messageId);
+				
 				indizes.add(idx);
 			}
 
@@ -356,6 +360,9 @@ public class MailSearchProvider implements ISearchProvider {
 
 			for (int i = 0; i < uids.length; i++) {
 				SearchIndex idx = new SearchIndex(folder, uids[i]);
+				System.out.println("--> idx.folder="+idx.folder.getId());
+				System.out.println("--> idx.message="+idx.messageId);
+				
 				indizes.add(idx);
 			}
 
@@ -388,7 +395,7 @@ public class MailSearchProvider implements ISearchProvider {
 		// gather result results
 		for (int i = startIndex; i < count; i++) {
 			SearchIndex idx = indizes.get(i);
-			IMailbox folder = idx.folder;
+			VirtualFolder folder = idx.folder;
 			Object messageId = idx.messageId;
 
 			// TODO @author fdietz: ensure that we don't fetch individual
@@ -401,8 +408,10 @@ public class MailSearchProvider implements ISearchProvider {
 					"columba.from");
 			Date date = (Date) folder.getAttribute(messageId, "columba.date");
 			String description = from.toString() + " " + date;
-			URI uri = SearchResultBuilder.createURI(folder.getId(), messageId);
-
+			
+			VirtualHeader h = (VirtualHeader) folder.getHeaderList().get(messageId);
+			URI uri = SearchResultBuilder.createURI(h.getSrcFolder().getId(), h.getSrcUid());
+			System.out.println("uri="+uri.toString());
 			ImageIcon statusIcon = null;
 			Flags flags = folder.getFlags(messageId);
 			if (flags.getDeleted()) {
@@ -462,11 +471,11 @@ public class MailSearchProvider implements ISearchProvider {
 	}
 
 	class SearchIndex {
-		IMailbox folder;
+		VirtualFolder folder;
 
 		Object messageId;
 
-		SearchIndex(IMailbox folder, Object messageId) {
+		SearchIndex(VirtualFolder folder, Object messageId) {
 			this.folder = folder;
 			this.messageId = messageId;
 		}
