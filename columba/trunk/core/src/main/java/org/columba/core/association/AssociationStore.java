@@ -205,6 +205,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 			// in the starting directory, we don't want that!
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("hibernate.connection.url", connectionString);
+			map.put("exclude-unlisted-classes", "true"); // refers to the entry in persistence.xml
 
 			// start JPA entity manager
 			if (factory == null)

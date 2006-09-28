@@ -89,8 +89,4 @@ public interface IMailFolderCommandReference  extends ICommandReference, IFolder
 	
 	public void setAddress(Integer[] address);
 	
-	public void addTag(String tag);
-	public String getAddTag();
-	public void removeTag(String tag);
-	public String getRemoveTag();
 }
