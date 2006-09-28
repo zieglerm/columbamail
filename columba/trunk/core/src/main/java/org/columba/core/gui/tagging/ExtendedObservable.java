@@ -1,4 +1,4 @@
-package org.columba.mail.gui.tagging;
+package org.columba.core.gui.tagging;
 
 import java.util.Observable;
 

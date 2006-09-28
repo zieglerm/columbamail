@@ -20,8 +20,6 @@ import javax.swing.event.EventListenerList;
 import org.columba.core.gui.base.MultiLineLabel;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.tagging.TagManager;
-import org.columba.mail.gui.tagging.ExtendedObservable;
-import org.columba.mail.gui.tagging.IObservable;
 
 /**
  * Simple Add Tag Dialogs which adds a given String as Tag to the tagging

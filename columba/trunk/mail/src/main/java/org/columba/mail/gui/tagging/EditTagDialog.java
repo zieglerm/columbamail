@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.columba.core.gui.tagging.ExtendedObservable;
+import org.columba.core.gui.tagging.IObservable;
 import org.columba.core.tagging.TagManager;
 import org.columba.core.tagging.api.ITag;
 
