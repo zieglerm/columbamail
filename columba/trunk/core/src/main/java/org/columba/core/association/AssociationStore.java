@@ -169,7 +169,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 				break;
 			}
 		}
-		
+
 		ShutdownManager.getInstance().register(this);
 
 		String connectionString = "jdbc:hsqldb:file:"
@@ -185,16 +185,16 @@ public class AssociationStore implements IAssociationStore, Runnable {
 				conn = DriverManager.getConnection(connectionString, "sa", "");
 			}
 		} catch (InstantiationException e) {
-			LOG.severe("Could not start the HSQLDB! " + e.getClass().getName()
+			LOG.severe("AssociationStore: Could not start the HSQLDB! " + e.getClass().getName()
 					+ ": " + e.getMessage());
 		} catch (IllegalAccessException e) {
-			LOG.severe("Could not start the HSQLDB! " + e.getClass().getName()
+			LOG.severe("AssociationStore: Could not start the HSQLDB! " + e.getClass().getName()
 					+ ": " + e.getMessage());
 		} catch (ClassNotFoundException e) {
-			LOG.severe("Could not start the HSQLDB! " + e.getClass().getName()
+			LOG.severe("AssociationStore: Could not start the HSQLDB! " + e.getClass().getName()
 					+ ": " + e.getMessage());
 		} catch (SQLException e) {
-			LOG.severe("Could not start the HSQLDB! " + e.getClass().getName()
+			LOG.severe("AssociationStore: Could not start the HSQLDB! " + e.getClass().getName()
 					+ ": " + e.getMessage());
 		}
 
@@ -205,7 +205,9 @@ public class AssociationStore implements IAssociationStore, Runnable {
 			// in the starting directory, we don't want that!
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("hibernate.connection.url", connectionString);
-			map.put("exclude-unlisted-classes", "true"); // refers to the entry in persistence.xml
+			map.put("exclude-unlisted-classes", "true"); // refers to the
+															// entry in
+															// persistence.xml
 
 			// start JPA entity manager
 			if (factory == null)
@@ -216,7 +218,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 				manager = factory.createEntityManager(map);
 
 		} catch (PersistenceException pEx) {
-			LOG.severe("Could not start the Entity manager! "
+			LOG.severe("AssociationStore: Could not start the Entity manager! "
 					+ pEx.getMessage());
 		}
 
@@ -304,7 +306,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 			}
 			tx.commit();
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			LOG.severe("RemoveItem: could not remove item" + ex.getMessage());
 			ex.printStackTrace();
 			tx.rollback();
 		}
@@ -320,7 +322,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 				stmt.execute("SHUTDOWN");
 			}
 		} catch (SQLException e) {
-			LOG.severe("Could not shutdwon the database! "
+			LOG.severe("AssociationStore: Could not shutdwon the database! "
 					+ e.getClass().getName() + ": " + e.getMessage());
 		}
 

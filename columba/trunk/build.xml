@@ -313,6 +313,12 @@
                 <include name="**"/>
             </fileset>
         </copy>
+    <echo message="copy META-INF directory"/>
+	<copy todir="${dest}">
+			<fileset dir="META-INF">
+				<include name="**"/>
+			</fileset>
+	</copy>
     </target>
 
     <!-- compile the classes -->
