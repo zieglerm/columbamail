@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="trunk/core/src/main/java"/>
 	<classpathentry kind="src" path="trunk/native/win32/lib"/>
 	<classpathentry kind="src" path="trunk/native/linux/amd64"/>
-	<classpathentry kind="src" path="trunk/native/mac/lib"/>
 	<classpathentry kind="src" path="trunk/native/linux/lib"/>
 	<classpathentry kind="src" path="trunk/calendar/src/main/resources"/>
 	<classpathentry kind="src" path="trunk/contact/src/main/resources"/>
