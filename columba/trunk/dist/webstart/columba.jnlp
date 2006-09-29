@@ -80,9 +80,5 @@
    <jar href="native/linux/@jdic@"/>
    <nativelib href="native/linux/@native@"/>
  </resources>
-  <resources os="Mac">
-   <jar href="native/mac/@libquaqua@"/>
-   <nativelib href="native/mac/@native@"/>
- </resources>
  <application-desc/>
 </jnlp>

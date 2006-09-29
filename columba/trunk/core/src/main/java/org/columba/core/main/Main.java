@@ -21,7 +21,7 @@ import java.security.CodeSource;
 import java.security.PermissionCollection;
 import java.security.Permissions;
 import java.security.Policy;
-
+import org.columba.core.base.OSInfo;
 import org.columba.core.shutdown.ShutdownManager;
 
 /**
@@ -69,6 +69,10 @@ public class Main {
 			}
 		});
 
+		// Turn on Mac MenuBar if possible before we start generating it
+		if (OSInfo.isMac()) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
 		start(args);
 	}
 
