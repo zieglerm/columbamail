@@ -18,6 +18,7 @@
 
 package org.columba.core.gui.frame;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -107,6 +108,27 @@ public class FrameManager implements IFrameManager {
 		return instance;
 	}
 
+	
+	/**
+	 * Check if frame mediator with given id is a managed frame. 
+	 * 
+	 * @param frameMediatorId
+	 * @return
+	 */
+	public boolean isManaged(String frameMediatorId) {
+		Enumeration _enum = handler.getExtensionEnumeration();
+		while (_enum.hasMoreElements()) {
+			IExtension extension = (IExtension) _enum.nextElement();
+			String managed = extension.getMetadata().getAttribute("managed");
+			if (managed == null)
+				managed = "false";
+
+			if ( (extension.getMetadata().getId().equals(frameMediatorId)) && managed.equals("true") ) return true;
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Close all frames and re-open them again.
 	 * <p>
