@@ -754,7 +754,7 @@
             	<include name="${lib.swingx}"/>
  	     	   	<!-- Mac OS/X -->
  		       	<include name="${lib.quaqua}"/>
-				<include name="${lib.libquaqua}"/>        	
+				<!--include name="${lib.libquaqua}"/-->        	
               	<!-- jpa libs -->
                 <include name="${lib.antlr.jar}" />
                 <include name="${lib.asm-attrs.jar}" />
@@ -858,7 +858,7 @@
  	   
  	   	   	<!-- Mac OS/X --> 
  			<replacefilter token="@quaqua@" value="${lib.quaqua}" />
- 			<replacefilter token="@libquaqua@" value="${lib.libquaqua}" />
+ 			<!--replacefilter token="@libquaqua@" value="${lib.libquaqua}" /-->
  
           	<!-- jpa libs -->
             <replacefilter token="@antlr@" value="${lib.antlr.jar}" />
