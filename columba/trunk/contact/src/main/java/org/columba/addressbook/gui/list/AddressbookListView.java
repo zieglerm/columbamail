@@ -29,9 +29,10 @@ public class AddressbookListView extends JList {
 
     public AddressbookListView(AddressbookListModel model) {
         super(model);
+        
         this.model = model;
 
-        setCellRenderer(new AddressbookListRenderer());
+        //setCellRenderer(new AddressbookListRenderer());
 
         setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
     }
@@ -42,7 +43,7 @@ public class AddressbookListView extends JList {
         model = new AddressbookListModel();
         setModel(model);
 
-        setCellRenderer(new AddressbookListRenderer());
+        //setCellRenderer(new AddressbookListRenderer());
 
         setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
     }

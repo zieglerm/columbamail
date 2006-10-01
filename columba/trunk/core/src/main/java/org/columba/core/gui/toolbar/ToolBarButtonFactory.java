@@ -17,6 +17,7 @@
 //All Rights Reserved.
 package org.columba.core.gui.toolbar;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -85,6 +86,47 @@ public class ToolBarButtonFactory {
 			} else {
 				button.setText((String) action
 						.getValue(AbstractColumbaAction.TOOLBAR_NAME));
+			}
+
+			if (ALIGNMENT) {
+				button.setVerticalTextPosition(SwingConstants.BOTTOM);
+				button.setHorizontalTextPosition(SwingConstants.CENTER);
+			} else {
+				button.setVerticalTextPosition(SwingConstants.CENTER);
+				button.setHorizontalTextPosition(SwingConstants.RIGHT);
+			}
+		} else {
+			button.setText(null);
+		}
+
+		return button;
+	}
+	
+	public static JButton createButton(String text, ImageIcon icon, boolean showToolBarText) {
+		
+		JButton button = new ToolBarButton();
+		
+		GuiItem item = ((Config) Config.getInstance()).getOptionsConfig()
+				.getGuiItem();
+
+		WITH_TEXT = item.getBoolean("toolbar", "enable_text");
+		ALIGNMENT = item.getBoolean("toolbar", "text_position");
+
+
+		if (icon != null) {
+			button.setIcon(icon);
+
+			// apply transparent icon
+			//button.setDisabledIcon(ImageUtil.createTransparentIcon(icon));
+		}
+
+		if (WITH_TEXT) {
+			boolean showText = (showToolBarText || ALIGNMENT);
+
+			if (!showText) {
+				button.setText("");
+			} else {
+				button.setText(text);
 			}
 
 			if (ALIGNMENT) {

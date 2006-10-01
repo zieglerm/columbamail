@@ -12,10 +12,10 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.context.api.IContextProvider;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
-import org.columba.core.resourceloader.IconKeys;
-import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
 import org.columba.mail.gui.search.ResultList;
+import org.columba.mail.resourceloader.IconKeys;
+import org.columba.mail.resourceloader.MailImageLoader;
 import org.columba.mail.search.MailSearchProvider;
 
 public class RecentMessagesContextualProvider implements IContextProvider {
@@ -48,7 +48,7 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 	}
 
 	public ImageIcon getIcon() {
-		return ImageLoader.getSmallIcon(IconKeys.ADDRESSBOOK);
+		return MailImageLoader.getSmallIcon(IconKeys.MESSAGE_READ);
 	}
 
 	public int getTotalResultCount() {

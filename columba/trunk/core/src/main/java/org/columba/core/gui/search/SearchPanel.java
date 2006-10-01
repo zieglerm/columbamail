@@ -1,6 +1,7 @@
 package org.columba.core.gui.search;
 
 import java.awt.BorderLayout;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.columba.core.context.api.IContextProvider;
 import org.columba.core.context.api.IContextSearchManager;
 import org.columba.core.gui.context.ContextDebugProvider;
 import org.columba.core.gui.context.ContextResultBox;
+import org.columba.core.gui.frame.api.IComponentBox;
 import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.logging.Logging;
@@ -36,6 +38,8 @@ import org.columba.core.search.api.ISearchProvider;
 import org.columba.core.search.api.ISearchRequest;
 
 public class SearchPanel extends JPanel implements ISearchPanel {
+
+	private static final int RESULT_COUNT = 10;
 
 	private static final Logger LOG = Logger
 			.getLogger("org.columba.core.search.gui.SearchPanel");
@@ -74,6 +78,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		setLayout(new BorderLayout());
 		add(pane, BorderLayout.CENTER);
 
+		createDefaultStackedBox();
 	}
 
 	private void initContextProvider() {
@@ -158,11 +163,13 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, providerName, criteriaName, searchInside, 0, 5);
+		manager.executeSearch(searchTerm, providerName, criteriaName,
+				searchInside, 0, SearchPanel.RESULT_COUNT);
 	}
 
 	// search individual provider
-	public void searchInProvider(String searchTerm, String providerName, boolean searchInside) {
+	public void searchInProvider(String searchTerm, String providerName,
+			boolean searchInside) {
 
 		showSearchDockingView();
 
@@ -176,7 +183,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, providerName, searchInside, 0, 5);
+		manager.executeSearch(searchTerm, providerName, searchInside, 0,
+				SearchPanel.RESULT_COUNT);
 	}
 
 	// search across all providers
@@ -194,7 +202,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		manager.executeSearch(searchTerm, searchInside, 0, 5);
+		manager.executeSearch(searchTerm, searchInside, 0,
+				SearchPanel.RESULT_COUNT);
 	}
 
 	// search across a few specific search criteria at once
@@ -236,7 +245,46 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
-		searchManager.executeSearch(list, matchAll, searchInside, 0, 5);
+		searchManager.executeSearch(list, matchAll, searchInside, 0,
+				SearchPanel.RESULT_COUNT);
+	}
+
+	private void createDefaultStackedBox() {
+
+		box.removeAll();
+
+		try {
+
+			IExtensionHandler handler = PluginManager
+					.getInstance()
+					.getExtensionHandler(
+							IExtensionHandlerKeys.ORG_COLUMBA_CORE_COMPONENT_BOX);
+
+			Enumeration<IExtension> e = handler.getExtensionEnumeration();
+
+			while (e.hasMoreElements()) {
+				try {
+					IExtension extension = e.nextElement();
+
+					IComponentBox compBox = (IComponentBox) extension
+							.instanciateExtension(null);
+					
+					box.add(new ComponentBoxContainer(compBox));
+				} catch (PluginException ex) {
+					LOG.severe("Error while loading plugin: " + ex.getMessage());
+					if (Logging.DEBUG)
+						ex.printStackTrace();
+				}
+			}
+
+		} catch (PluginHandlerNotFoundException e) {
+			LOG.severe("Error while loading plugin: " + e.getMessage());
+			if (Logging.DEBUG)
+				e.printStackTrace();
+		}
+
+		validate();
+		repaint();
 	}
 
 	// create new stacked box
@@ -372,7 +420,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		box.removeAll();
 
-		Iterator<IContextProvider> it = contextSearchManager.getAllProviders().iterator();
+		Iterator<IContextProvider> it = contextSearchManager.getAllProviders()
+				.iterator();
 		while (it.hasNext()) {
 			IContextProvider p = it.next();
 

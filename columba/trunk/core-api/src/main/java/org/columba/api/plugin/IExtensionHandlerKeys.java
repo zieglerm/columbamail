@@ -129,4 +129,9 @@ public interface IExtensionHandlerKeys {
 	 * Context Providers should implemented <code>org.columba.core.gui.context.api.IContextProvider</code>
 	 */
 	public static final String ORG_COLUMBA_CORE_CONTEXT_PROVIDER = "org.columba.core.context.provider";
+	
+	/**
+	 * Components should implemented <code>org.columba.core.gui.frame.api.IComponentBox</code>
+	 */
+	public static final String ORG_COLUMBA_CORE_COMPONENT_BOX = "org.columba.core.component.box";
 }

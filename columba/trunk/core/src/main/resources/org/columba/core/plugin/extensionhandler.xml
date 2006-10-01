@@ -15,4 +15,5 @@
  <handler id="org.columba.core.search" />
  <handler id="org.columba.core.search.ui" />
  <handler id="org.columba.core.context.provider" />
+ <handler id="org.columba.core.component.box" />
 </handlerlist>

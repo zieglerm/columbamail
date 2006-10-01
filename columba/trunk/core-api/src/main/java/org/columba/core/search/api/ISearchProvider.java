@@ -83,6 +83,9 @@ public interface ISearchProvider extends IExtensionInterface{
 	 */
 	public ISearchCriteria getCriteria(String technicalName, String searchTerm);
 	
+	
+	public ISearchCriteria getDefaultCriteria(String searchTerm);
+	
 	/**
 	 * Execute query and retrieve pageable search result for given search term and
 	 * a single search criteria.
@@ -106,6 +109,13 @@ public interface ISearchProvider extends IExtensionInterface{
 	public List<ISearchResult> query(List<ISearchRequest> list, boolean matchAll, boolean searchInside, int startIndex, int resultCount);
 	
 	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName);
+	
+	/**
+	 * Check if search provider has executed a single criteria search.
+	 * 
+	 * @return	true, in case single criteria search was done. False, otherwise.
+	 */
+	public boolean hasSingleCriteriaSearchResult();
 	
 	/**
 	 * Return total number of search results. Method only returns valid result after calling

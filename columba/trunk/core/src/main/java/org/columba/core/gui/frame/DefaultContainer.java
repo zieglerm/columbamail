@@ -773,13 +773,21 @@ public class DefaultContainer extends JFrame implements IContainer,
 		toolBarPanel.add(toolbar, BorderLayout.CENTER);
 		
 		// @author fdietz: hackish way of creating a search toolbar
-		JToolBar searchToolBar = new ExtendableToolBar();
+		//JToolBar searchToolBar = new ExtendableToolBar();
 		SearchBar searchBar = new SearchBar(mediator.getSearchPanel(), mediator);
-		searchToolBar.addSeparator();
-		searchBar.install(searchToolBar);
+		//searchToolBar.addSeparator();
 		
-		if ( getFrameMediator() instanceof IDock)
-		toolBarPanel.add(searchToolBar, BorderLayout.EAST);
+		
+		//searchBar.install(searchToolBar);
+		
+		// add search bar to main toolbar, in case its a managed frame mediator
+		if ( FrameManager.getInstance().isManaged(getFrameMediator().getId() ) ) {
+			searchBar.install(toolbar);
+		}
+		
+		
+//		if ( getFrameMediator() instanceof IDock)
+//		toolBarPanel.add(searchToolBar, BorderLayout.EAST);
 		
 		//
 		// getContentPane().validate();

@@ -148,6 +148,15 @@ public class ContactSearchProvider implements ISearchProvider {
 		return r;
 	}
 
+	public ISearchCriteria getDefaultCriteria(String searchTerm) {
+		return getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, searchTerm);
+	}
+
+	public boolean hasSingleCriteriaSearchResult() {
+		// doesn't support search inside yet
+		return false;
+	}
+
 	
 	
 

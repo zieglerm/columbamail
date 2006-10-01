@@ -19,6 +19,7 @@ package org.columba.core.gui.toolbar;
 import java.awt.Insets;
 
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
@@ -29,10 +30,18 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class ToolBarButton extends JButton {
 
+	public ToolBarButton(String text, Icon icon) {
+		super(text, icon);
+		
+		initButton();
+	}
+	
 	public ToolBarButton() {
+		super();
 		initButton();
 	}
 
+	
 	public ToolBarButton(Action action) {
 		super(action);
 

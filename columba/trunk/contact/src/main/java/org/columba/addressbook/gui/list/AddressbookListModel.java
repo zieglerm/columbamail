@@ -24,106 +24,104 @@ import javax.swing.AbstractListModel;
 
 import org.columba.addressbook.model.IBasicModelPartial;
 
-
 /**
  * @version 1.0
  * @author
  */
 
 public class AddressbookListModel extends AbstractListModel {
-   private List<IBasicModelPartial> list;
-   
-    private String patternString = "";
+	private List<IBasicModelPartial> list;
 
-    public AddressbookListModel() {
-        super();
-        list = new Vector<IBasicModelPartial>();
-        
-    }
+	private String patternString = "";
 
-    public Object getElementAt(int index) {
-        return (IBasicModelPartial) list.get(index);
-    }
+	public AddressbookListModel() {
+		super();
+		list = new Vector<IBasicModelPartial>();
 
-    public int getSize() {
-        return list.size();
-    }
+	}
 
-    public String getPatternString() {
-        return patternString;
-    }
+	public Object getElementAt(int index) {
+		return (IBasicModelPartial) list.get(index);
+	}
 
-    public void setPatternString(String s) throws Exception {
-        patternString = s;
+	public int getSize() {
+		return list.size();
+	}
 
-        //manipulateModel(TableModelPlugin.STRUCTURE_CHANGE);
-    }
+	public String getPatternString() {
+		return patternString;
+	}
 
-    public void clear() {
-        list.clear();
-    }
+	public void setPatternString(String s) throws Exception {
+		patternString = s;
 
-    public void addElement(IBasicModelPartial item) {
-        list.add(item);
+		// manipulateModel(TableModelPlugin.STRUCTURE_CHANGE);
+	}
 
-        int index = list.indexOf(item);
+	public void clear() {
+		list.clear();
+	}
 
-        fireIntervalAdded(this, index, index);
-    }
+	public void addElement(IBasicModelPartial item) {
+		list.add(item);
 
-    public void setHeaderItemList(List<IBasicModelPartial> l) {
-      
+		int index = list.indexOf(item);
 
-      this.list = l;
+		fireIntervalAdded(this, index, index);
+	}
 
-        fireContentsChanged(this, 0, list.size() - 1);
-    }
+	public void setHeaderItemList(List<IBasicModelPartial> l) {
 
-    public IBasicModelPartial get(int i) {
-        return (IBasicModelPartial) list.get(i);
-    }
+		this.list = l;
 
-    public boolean addItem(IBasicModelPartial header) {
-        boolean result1 = false;
+		fireContentsChanged(this, 0, list.size() - 1);
+	}
 
-        Object o = header.getName();
+	public IBasicModelPartial get(int i) {
+		return (IBasicModelPartial) list.get(i);
+	}
 
-        if (o != null) {
-            if (o instanceof String) {
-                String item = (String) o;
+	public boolean addItem(IBasicModelPartial header) {
+		boolean result1 = false;
 
-                //System.out.println("add item?:"+item);
-                item = item.toLowerCase();
+		Object o = header.getName();
 
-                String pattern = getPatternString().toLowerCase();
+		if (o != null) {
+			if (o instanceof String) {
+				String item = (String) o;
 
-                if (item.indexOf(pattern) != -1) {
-                    result1 = true;
-                } else {
-                    result1 = false;
-                }
-            } else {
-                result1 = false;
-            }
-        } else {
-            result1 = false;
-        }
+				// System.out.println("add item?:"+item);
+				item = item.toLowerCase();
 
-        return result1;
-    }
+				String pattern = getPatternString().toLowerCase();
 
-    public Object[] toArray() {
-        return list.toArray();
-    }
+				if (item.indexOf(pattern) != -1) {
+					result1 = true;
+				} else {
+					result1 = false;
+				}
+			} else {
+				result1 = false;
+			}
+		} else {
+			result1 = false;
+		}
 
-    public void remove(int index) {
-        list.remove(index);
-        fireIntervalRemoved(this, index, index);
-    }
+		return result1;
+	}
 
-    public void removeElement(IBasicModelPartial item) {
-        int index = list.indexOf(item);
+	public Object[] toArray() {
+		return list.toArray();
+	}
 
-        remove(index);
-    }
+	public void remove(int index) {
+		list.remove(index);
+		fireIntervalRemoved(this, index, index);
+	}
+
+	public void removeElement(IBasicModelPartial item) {
+		int index = list.indexOf(item);
+
+		remove(index);
+	}
 }
