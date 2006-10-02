@@ -1,6 +1,8 @@
 package org.columba.core.gui.search;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -9,6 +11,8 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -58,6 +62,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	private IContextSearchManager contextSearchManager;
 
+	private JPanel topPanel;
+
 	public SearchPanel(IFrameMediator frameMediator) {
 		super();
 
@@ -75,8 +81,21 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		box.setBackground(UIManager.getColor("TextField.background"));
 		JScrollPane pane = new JScrollPane(box);
 		pane.setBorder(null);
+
 		setLayout(new BorderLayout());
 		add(pane, BorderLayout.CENTER);
+
+		topPanel = new JPanel();
+		topPanel.setBackground(UIManager.getColor("TextField.background"));
+		topPanel.setLayout(new BorderLayout());
+		topPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				createDefaultStackedBox();
+			}
+		});
+		topPanel.add(closeButton, BorderLayout.EAST);
 
 		createDefaultStackedBox();
 	}
@@ -251,6 +270,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	private void createDefaultStackedBox() {
 
+		remove(topPanel);
+
 		box.removeAll();
 
 		try {
@@ -268,10 +289,12 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 					IComponentBox compBox = (IComponentBox) extension
 							.instanciateExtension(null);
-					
+
 					box.add(new ComponentBoxContainer(compBox));
 				} catch (PluginException ex) {
-					LOG.severe("Error while loading plugin: " + ex.getMessage());
+					LOG
+							.severe("Error while loading plugin: "
+									+ ex.getMessage());
 					if (Logging.DEBUG)
 						ex.printStackTrace();
 				}
@@ -292,6 +315,9 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 			String criteriaName) {
 		if (searchTerm == null)
 			throw new IllegalArgumentException("searchTerm == null");
+
+		remove(topPanel);
+		add(topPanel, BorderLayout.NORTH);
 
 		box.removeAll();
 
@@ -418,6 +444,9 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		searchMap.clear();
 
+		remove(topPanel);
+		add(topPanel, BorderLayout.NORTH);
+		
 		box.removeAll();
 
 		Iterator<IContextProvider> it = contextSearchManager.getAllProviders()
@@ -433,6 +462,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 			contextMap.put(p.getName(), resultBox);
 		}
+
+		
 
 		// repaint box
 		validate();

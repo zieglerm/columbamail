@@ -58,7 +58,7 @@ public class IconTextField extends JTextField {
 	public void showPopup() {
 		popupMenu.getSelectionModel().clearSelection();
 		popupMenu.show(IconTextField.this, 0, getHeight());
-		popupMenu.getSelectionModel().clearSelection();
+		popupMenu.getSelectionModel().setSelectedIndex(0);
 	}
 
 	public void setPopupMenu(JPopupMenu menu) {

@@ -387,6 +387,8 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			char ch = e.getKeyChar();
 
 			if (ch == KeyEvent.VK_ENTER) {
+				if ( textField.getText().length() == 0) return;
+				
 				toggleButtonStates(false);
 
 				// get first provider
@@ -405,6 +407,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 				// searchInsideCheckBox
 				// .isSelected());
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				if ( textField.getText().length() == 0) return;
 				textField.showPopup();
 			}
 
