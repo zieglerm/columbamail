@@ -17,27 +17,35 @@ package org.columba.core.gui.themes.plugin;
 
 import javax.swing.UIManager;
 
-
 /**
  * @author frd
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class MacLookAndFeelPlugin extends AbstractThemePlugin {
-    /**
- *
- */
-    public MacLookAndFeelPlugin() {
-        super();
-    }
+	/**
+	 * 
+	 */
+	public MacLookAndFeelPlugin() {
+		super();
+	}
 
-    /* (non-Javadoc)
- * @see org.columba.core.gui.themes.plugin.AbstractThemePlugin#setLookAndFeel()
- */
-    public void setLookAndFeel() throws Exception {
-        // BUGFIX: Adhamh Findlay <adhamh@adhamh.com>
-        UIManager.setLookAndFeel("apple.laf.AquaLookAndFeel");
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-    }
+	/**
+	 * @see org.columba.core.gui.themes.plugin.AbstractThemePlugin#setLookAndFeel()
+	 */
+	public void setLookAndFeel() throws Exception {
+
+		// Turn on Mac MenuBar if possible before we start generating it
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+		try {
+			// first try quaqua L&F
+			UIManager
+					.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			// try the system aqua look and feel
+			UIManager.setLookAndFeel("apple.laf.AquaLookAndFeel");
+		}
+
+	}
 }

@@ -427,8 +427,6 @@ public class Bootstrap {
 		String libDir;
 		if (OSInfo.isAMD64Bit())
 			libDir = "amd64";
-		else if (OSInfo.isMac())
-			libDir = "mac";
 		else
 			libDir = "lib";
 
@@ -438,7 +436,7 @@ public class Bootstrap {
 		if (OSInfo.isLinux())
 			nativeDir = new File("native/linux/" + libDir);
 		else if (OSInfo.isMac())
-			nativeDir = new File("native'mac" + libDir);
+			nativeDir = new File("native/mac/" + libDir);
 		else if (OSInfo.isWin32Platform())
 			nativeDir = new File("native/win32/" + libDir);
 		else {
@@ -449,7 +447,7 @@ public class Bootstrap {
 		// Find all native jars
 		File[] nativeJars = nativeDir.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
-				return name.endsWith("jar");
+				return name.endsWith("jar") || name.endsWith("jnilib");
 			}
 		});
 		if (nativeJars == null)
