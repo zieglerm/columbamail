@@ -59,7 +59,6 @@
    <jar href="@jta@" />
    
    <jar href="@quaqua@" />
-   <jar href="@lib.quaqua@" />
    
    <!-- JavaHelp is signed by SUN already. -->
    <!-- Therefore, it can't be in the same jnlp file -->
