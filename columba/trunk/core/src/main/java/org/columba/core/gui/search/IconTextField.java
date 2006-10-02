@@ -34,6 +34,8 @@ public class IconTextField extends JTextField {
 		this.icon = icon;
 
 		popupMenu = new JPopupMenu();
+//		popupMenu.setFocusable( false );
+//		popupMenu.setRequestFocusEnabled(false); 
 
 		// icon (we can't use the setIcon-method this time, as it relies on the
 		// border being set)
@@ -56,9 +58,9 @@ public class IconTextField extends JTextField {
 	}
 
 	public void showPopup() {
-		popupMenu.getSelectionModel().clearSelection();
+		//popupMenu.getSelectionModel().clearSelection();
 		popupMenu.show(IconTextField.this, 0, getHeight());
-		popupMenu.getSelectionModel().setSelectedIndex(0);
+		//popupMenu.getSelectionModel().setSelectedIndex(0);
 	}
 
 	public void setPopupMenu(JPopupMenu menu) {

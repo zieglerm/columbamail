@@ -17,6 +17,7 @@
 package org.columba.core.gui.statusbar;
 
 import java.awt.Component;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -178,6 +179,7 @@ public class StatusBar extends JStatusBar implements TaskManagerListener,
 		label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		onlineButton = new JButton();
+		onlineButton.setMargin(new Insets(0,0,0,0));
 		onlineButton.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 		onlineButton.setRolloverEnabled(true);
 		onlineButton.setActionCommand("ONLINE");

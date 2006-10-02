@@ -35,6 +35,8 @@ import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
+import org.columba.core.resourceloader.IconKeys;
+import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.SearchManager;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
@@ -90,6 +92,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		topPanel.setLayout(new BorderLayout());
 		topPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		JButton closeButton = new JButton("Close");
+		closeButton.setMnemonic('c');
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				createDefaultStackedBox();

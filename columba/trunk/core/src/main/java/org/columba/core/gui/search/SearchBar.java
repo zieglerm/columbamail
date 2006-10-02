@@ -32,6 +32,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -173,8 +175,10 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		// on "RETURN" start seach
 		textField.addKeyListener(new MyKeyListener());
 
+		textField.getDocument().addDocumentListener(new MyDocumentListener());
+
 		// update popup menu with search term before its made visible
-		textField.addPopupMenuListener(this);
+		// textField.addPopupMenuListener(this);
 
 		// enable/disable search bar during search
 		searchPanel.getSearchManager()
@@ -192,6 +196,28 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		// to enable button again after search is finished
 		searchPanel.getContextSearchManager().addResultListener(
 				new MyContextResultListener());
+	}
+
+	class MyDocumentListener implements DocumentListener {
+
+		public void changedUpdate(DocumentEvent e) {
+			handleEvent(e);
+		}
+
+		public void insertUpdate(DocumentEvent e) {
+			handleEvent(e);
+		}
+
+		public void removeUpdate(DocumentEvent e) {
+			handleEvent(e);
+		}
+
+		private void handleEvent(DocumentEvent e) {
+			updatePopupMenu(textField.getPopupMenu(), textField.getText());
+			textField.showPopup();
+			textField.requestFocus();
+		}
+
 	}
 
 	class MyComboBoxRenderer extends DefaultListCellRenderer {
@@ -226,7 +252,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		public CoolButton(String text, Icon icon) {
 			super(text, icon);
 		}
-		
+
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 
@@ -235,7 +261,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 			g2d.setBackground(UIManager.getColor("control.background"));
 			g2d.setColor(UIManager.getColor("control.text"));
-			
+
 			// create a rounded clip LARGER than the comp
 			RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0,
 					w + 30, h - 1, 20, 20);
@@ -244,24 +270,24 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			g2d.clip(r2d);
 
 			// fill the clipped area
-			//g2d.setPaint(LIGHT_GRADIENT);
+			// g2d.setPaint(LIGHT_GRADIENT);
 			g2d.fillRect(0, 0, w, h);
 			// restore original clip
 
 			// paint outer border
-			//g2d.setPaint(OUTER);
+			// g2d.setPaint(OUTER);
 			g2d.drawRoundRect(0, 0, w + 30, h - 1, 20, 20);
 
 			// paint inner border
-			//g2d.setPaint(INNER);
+			// g2d.setPaint(INNER);
 			g2d.drawRoundRect(1, 1, w + 30, h - 3, 18, 18);
 
 			// paint right outside border
-			//g2d.setPaint(p1);
+			// g2d.setPaint(p1);
 			g2d.drawLine(w - 1, 1, w - 1, h);
 
 			// paint right inside border
-			//g2d.setPaint(p2);
+			// g2d.setPaint(p2);
 			g2d.drawLine(w - 2, 2, w - 2, h - 1);
 			// make it translucent
 			g2d.setComposite(AlphaComposite.getInstance(
@@ -276,7 +302,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 	private void layoutComponents(boolean hasResults) {
 
 		this.removeAll();
-		
+
 		FormLayout layout = new FormLayout(
 				"fill:default:grow, 2dlu, pref,1dlu, pref, 2dlu",
 				// 2 columns
@@ -288,27 +314,23 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		// builder.append(contextButton);
 		// builder.append(providerComboBox);
 
-		//builder.append(moreButton);
+		// builder.append(moreButton);
 		JLabel label = new JLabel("Search:");
 		label.setLabelFor(textField);
 		label.setDisplayedMnemonic('s');
 		builder.append(label);
-		
+
 		builder.append(textField);
-		
+
 		builder.append(moreButton);
-		
-//		if ( hasResults)
-//			builder.append(searchInsideCheckBox);
-		
-		//builder.append(moreButton);
-		
+
+		// if ( hasResults)
+		// builder.append(searchInsideCheckBox);
+
+		// builder.append(moreButton);
 
 		// builder.append(searchButton);
 
-		
-
-		
 	}
 
 	private void initComponents() {
@@ -322,14 +344,15 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 				.setToolTipText("Search Inside Previous Search Results");
 		searchInsideCheckBox.setMnemonic('i');
 		searchInsideCheckBox.setSelected(false);
-		//searchInsideCheckBox.setEnabled(false);
-		
+		// searchInsideCheckBox.setEnabled(false);
+
 		action = new ContextSearchAction(frameMediator);
 
 		contextButton = ToolBarButtonFactory.createButton(action);
 		contextButton.setEnabled(true);
 
-		moreButton = ToolBarButtonFactory.createButton("", new AscendingIcon(), false);
+		moreButton = ToolBarButtonFactory.createButton("", new AscendingIcon(),
+				false);
 		moreButton.setIcon(new AscendingIcon());
 		moreButton.setDisabledIcon(new AscendingIcon());
 		moreButton.setMargin(new Insets(1, 1, 1, 1));
@@ -387,8 +410,9 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			char ch = e.getKeyChar();
 
 			if (ch == KeyEvent.VK_ENTER) {
-				if ( textField.getText().length() == 0) return;
-				
+				if (textField.getText().length() == 0)
+					return;
+
 				toggleButtonStates(false);
 
 				// get first provider
@@ -402,13 +426,16 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 								.getTechnicalName(), searchInsideCheckBox
 								.isSelected());
 
-				
 				// searchPanel.searchAll(textField.getText(),
 				// searchInsideCheckBox
 				// .isSelected());
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if ( textField.getText().length() == 0) return;
+				if (textField.getText().length() == 0)
+					return;
 				textField.showPopup();
+				textField.getPopupMenu().requestFocus();
+				textField.getPopupMenu().getSelectionModel()
+						.setSelectedIndex(0);
 			}
 
 		}
@@ -490,17 +517,16 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		}
 
 		menu.addSeparator();
-		
+
 		JMenuItem m = new JMenuItem("Advanced Search...");
 		m.setToolTipText("Advanced Search...");
 		m.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					toggleSearchDialogVisibility();
-				}
-			});
-		 menu.add(m);
-		 
-		
+			public void actionPerformed(ActionEvent e) {
+				toggleSearchDialogVisibility();
+			}
+		});
+		menu.add(m);
+
 		// create search history
 
 		// Map<String, ISearchProvider> historyMap = SearchHistoryList
@@ -526,6 +552,9 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 		// menu.insert(new JSeparator(), menu.getComponentCount() -
 		// historyMap.size());
 		// }
+
+		menu.revalidate();
+		menu.pack();
 	}
 
 	public void install(JMenuBar menubar) {
@@ -541,14 +570,14 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 	public void install(JToolBar toolbar) {
 		if (toolbar == null)
 			throw new IllegalArgumentException("toolbar");
-				
+
 		toolbar.add(contextButton);
-		
+
 		JPanel p = new JPanel();
 		p.setBorder(BorderFactory.createEmptyBorder(3, 0, 2, 0));
 		p.setLayout(new BorderLayout());
 		p.add(this, BorderLayout.EAST);
-		
+
 		toolbar.add(p);
 	}
 
@@ -562,7 +591,7 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 			// search is finished
 			// -> enable search button again
 			toggleButtonStates(true);
-			
+
 			// do layout again
 			layoutComponents(true);
 		}
