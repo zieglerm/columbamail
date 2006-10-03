@@ -382,14 +382,13 @@ public class Bootstrap {
 		String libDir;
 		if (OSInfo.isAMD64Bit())
 			libDir = "amd64";
-		else if (OSInfo.isMac())
-			libDir = "mac";
 		else
 			libDir = "lib";
 
 		// Platform maintainers: add your platform here
 
 		String propertyPath = System.getProperty("java.library.path");
+
 		if (OSInfo.isLinux())
 			propertyPath += ":native/linux/";
 		else if (OSInfo.isMac())
@@ -401,7 +400,7 @@ public class Bootstrap {
 		propertyPath += libDir;
 
 		System.setProperty("java.library.path", propertyPath);
-
+		System.out.println("The java.library.path = " + propertyPath);
 		Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 		fieldSysPath.setAccessible(true);
 		if (fieldSysPath != null) {
