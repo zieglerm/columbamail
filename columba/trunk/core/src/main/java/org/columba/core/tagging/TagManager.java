@@ -2,6 +2,7 @@ package org.columba.core.tagging;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.columba.core.io.DiskIO;
 import org.columba.core.tagging.api.ITag;
 import org.columba.core.tagging.api.ITagManager;
 import org.columba.core.xml.XmlElement;
+import org.columba.core.xml.XmlIO;
 
 public class TagManager implements ITagManager {
 
@@ -198,23 +200,26 @@ public class TagManager implements ITagManager {
 			}
 			
 			// create initial config
-			Config.getInstance().registerPlugin(CORE_STR,
-					tagsConfigurationFile.getName(),
-					new DefaultXmlConfig(tagsConfigurationFile));
-
-			DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
-					"tags.xml");
+			// create a wellformed xml file
+			XmlElement e_tags = new XmlElement("tags");
+			XmlIO dxc = new XmlIO(e_tags);
+			try {
+				dxc.setURL(tagsConfigurationFile.toURL());
+			} catch (MalformedURLException e2) {
+				e2.printStackTrace();
+			}
 			
 			try {
-				xml.save();
-			} catch (Exception e) {
-				e.printStackTrace();
+				dxc.save();
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 
 			// nothing to load
 			return;
 		}
 
+		
 		Config.getInstance().registerPlugin(CORE_STR,
 				tagsConfigurationFile.getName(),
 				new DefaultXmlConfig(tagsConfigurationFile));
