@@ -22,6 +22,7 @@ import java.security.PermissionCollection;
 import java.security.Permissions;
 import java.security.Policy;
 
+import org.columba.core.base.OSInfo;
 import org.columba.core.shutdown.ShutdownManager;
 
 /**
@@ -35,6 +36,13 @@ public class Main {
 	public static MainClassLoader mainClassLoader;
 
 	public static void main(String[] args) throws Exception {
+
+		// For the Mac ScreenBarMenus to work, this must be declared before
+		// *ANY* AWT / Swing gets initialised. Do *NOT* move it to plugin init
+		// location because that is too late...
+		if (OSInfo.isMac()) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
 
 		// @author: fdietz
 		//

@@ -33,19 +33,13 @@ public class MacLookAndFeelPlugin extends AbstractThemePlugin {
 	 */
 	public void setLookAndFeel() throws Exception {
 
-		// Turn on Mac MenuBar if possible before we start generating it
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-
 		try {
-			// first try quaqua L&F
-			UIManager
-					.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-		} catch (Exception e) {
-			e.printStackTrace();
-
 			// try the system aqua look and feel
 			UIManager.setLookAndFeel("apple.laf.AquaLookAndFeel");
-		}
 
+		} catch (Exception e) {
+			System.out.println("Something went wrong setting Aqua LookAndFeel");
+			e.printStackTrace();
+		}
 	}
 }
