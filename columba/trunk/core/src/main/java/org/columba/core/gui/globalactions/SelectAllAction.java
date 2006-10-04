@@ -16,6 +16,7 @@
 package org.columba.core.gui.globalactions;
 
 import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
@@ -43,7 +44,7 @@ public class SelectAllAction extends AbstractColumbaAction implements
 
 		// shortcut key
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		setEnabled(true);
 

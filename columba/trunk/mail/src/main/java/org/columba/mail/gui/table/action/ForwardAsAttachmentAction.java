@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -51,7 +52,7 @@ public class ForwardAsAttachmentAction extends AbstractColumbaAction implements
 				.replaceAll("&", ""));
 
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		setEnabled(false);
 

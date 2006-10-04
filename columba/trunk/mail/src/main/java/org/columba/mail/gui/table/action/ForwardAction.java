@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
@@ -68,7 +69,7 @@ public class ForwardAction extends AbstractColumbaAction
 
         // shortcut key
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_L, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         // toolbar text is usually a bit shorter
         putValue(TOOLBAR_NAME,

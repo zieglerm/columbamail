@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -62,7 +63,7 @@ public class ReplyToAllAction extends AbstractColumbaAction
                 "menu_message_replytoall"));
 
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK));
         
         setEnabled(false);
 

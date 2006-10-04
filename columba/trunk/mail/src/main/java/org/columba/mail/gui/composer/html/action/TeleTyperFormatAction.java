@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.html.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
@@ -61,7 +62,7 @@ public class TeleTyperFormatAction extends AbstractSelectableAction
 
         //shortcut key
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_T, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         // register for text selection changes
         ComposerController ctrl = (ComposerController) getFrameMediator();

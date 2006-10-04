@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -66,7 +67,7 @@ public class DeleteMessageAction extends AbstractColumbaAction implements
 
 		// shortcut key
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		// disable toolbar text
 		setShowToolBarText(false);

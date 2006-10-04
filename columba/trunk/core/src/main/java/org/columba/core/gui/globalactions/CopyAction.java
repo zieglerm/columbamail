@@ -18,6 +18,7 @@
 package org.columba.core.gui.globalactions;
 
 import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
@@ -55,7 +56,7 @@ public class CopyAction extends AbstractColumbaAction implements
 
 		// short cut key
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		// disable toolbar text
 		setShowToolBarText(false);

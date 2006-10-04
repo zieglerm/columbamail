@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -66,7 +67,7 @@ public class RedirectAction extends AbstractColumbaAction
         
         // shortcut key is STRG-E ;mod: 20040629 SWITT
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_E, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         setEnabled(false);
         ((MailFrameMediator) frameMediator).registerTableSelectionListener(this);

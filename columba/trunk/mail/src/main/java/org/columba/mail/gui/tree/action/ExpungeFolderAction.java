@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.tree.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -52,7 +53,7 @@ public class ExpungeFolderAction extends AbstractColumbaAction implements
 
 		// shortcut key
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E,
-				ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK));
 
 		setEnabled(false);
 

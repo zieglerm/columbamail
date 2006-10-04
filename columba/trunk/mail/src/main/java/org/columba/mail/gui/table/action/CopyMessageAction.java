@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -60,7 +61,7 @@ public class CopyMessageAction extends AbstractColumbaAction implements
 		putValue(LARGE_ICON, MailImageLoader.getIcon("message-copy.png"));
 
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_V,
-				ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK));
 
 		// disable toolbar text
 		setShowToolBarText(false);

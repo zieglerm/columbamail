@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -49,7 +50,7 @@ public class ForwardInlineAction extends AbstractColumbaAction implements
 				"&", ""));
 
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J,
-				ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK));
 
 		setEnabled(false);
 		((MailFrameMediator) frameMediator)

@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 import org.columba.api.gui.frame.IFrameMediator;
@@ -46,7 +47,7 @@ public class ReplyToListAction extends AbstractColumbaAction implements
 				.replaceAll("&", ""));
 
 //		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L,
-//				ActionEvent.CTRL_MASK));
+//				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		setEnabled(false);
 

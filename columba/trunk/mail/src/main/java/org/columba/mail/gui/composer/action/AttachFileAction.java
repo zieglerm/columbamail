@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -57,7 +58,7 @@ public class AttachFileAction extends AbstractColumbaAction {
         //shortcut key
         putValue(ACCELERATOR_KEY,
             KeyStroke.getKeyStroke(KeyEvent.VK_A,
-                ActionEvent.CTRL_MASK | ActionEvent.ALT_MASK));
+            		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.ALT_MASK));
     }
 
     /* (non-Javadoc)

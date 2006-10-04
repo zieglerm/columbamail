@@ -17,6 +17,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -32,7 +33,7 @@ public class ReceiveMessagesAction extends AbstractColumbaAction {
 		super(controller, MailResourceLoader.getString("menu", "mainframe",
 				"menu_file_receive"));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	}
 
 	/**

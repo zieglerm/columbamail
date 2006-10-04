@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -56,7 +57,7 @@ public class MoveMessageAction extends AbstractColumbaAction implements
 				"mainframe", "menu_message_move_tooltip").replaceAll("&", ""));
 
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y,
-				ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK));
 
 		putValue(SMALL_ICON, MailImageLoader.getSmallIcon("message-move.png"));
 		putValue(LARGE_ICON, MailImageLoader.getIcon("message-move.png"));

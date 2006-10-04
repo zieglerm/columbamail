@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.nio.charset.Charset;
@@ -55,12 +56,12 @@ public class PrintAction extends AbstractColumbaAction implements
 
 		//TODO: Test Mac keyboard accelerator changes done here by mlivingstone
 		// shortcut key
-		if(OSInfo.isMac())
+		/*if(OSInfo.isMac())
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P,
 				ActionEvent.META_MASK));
-		else
+		else*/
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P,
-					ActionEvent.CTRL_MASK));
+					Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		// *20030614, karlpeder* In main view only enabled when
 		// message(s) selected

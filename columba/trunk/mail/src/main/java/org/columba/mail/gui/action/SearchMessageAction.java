@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -49,7 +50,7 @@ public class SearchMessageAction extends AbstractColumbaAction {
 
         // shortcut key
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
     }
 
     /* (non-Javadoc)

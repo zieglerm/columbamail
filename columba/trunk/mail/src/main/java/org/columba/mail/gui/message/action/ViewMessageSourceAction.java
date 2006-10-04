@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.message.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -47,7 +48,7 @@ public class ViewMessageSourceAction extends AbstractColumbaAction implements
 
 		// short cut key
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
 		setEnabled(false);
 		((MailFrameMediator) frameMediator)

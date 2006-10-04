@@ -18,6 +18,7 @@
 
 package org.columba.mail.gui.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -55,7 +56,7 @@ public class NewMessageAction extends AbstractColumbaAction {
 		putValue(SMALL_ICON, MailImageLoader.getSmallIcon(IconKeys.MESSAGE_NEW));
 		putValue(LARGE_ICON, MailImageLoader.getIcon("compose.png"));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M,
-				ActionEvent.CTRL_MASK));
+				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	}
 
 	public void actionPerformed(ActionEvent evt) {

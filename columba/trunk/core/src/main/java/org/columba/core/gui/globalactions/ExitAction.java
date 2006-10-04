@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.core.gui.globalactions;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -46,7 +47,7 @@ public class ExitAction extends AbstractColumbaAction {
 
         // shortcut key
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
     }
 
     /*

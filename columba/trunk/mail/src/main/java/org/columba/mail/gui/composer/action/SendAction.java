@@ -15,6 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.action;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -64,7 +65,7 @@ public class SendAction extends AbstractColumbaAction {
 
         // shortcut key
         putValue(ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, ActionEvent.CTRL_MASK));
+            KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
     }
 
     /* (non-Javadoc)
