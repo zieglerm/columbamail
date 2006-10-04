@@ -1,7 +1,10 @@
 Columba v1.4
 
 ** New Feature
-    * [CA-146] - Now works on USB memory keys
+    * [CA-146] - Now works partially (software only) or completely (software and / or profile and / or messages)
+				 on USB memory key dongles
+	  [CA-145] - Keyboard Accelerators prefixes are now platform specific
+	  [CA-145] - Mac OS X Top Screen Menu Bar support added
 
 ** Improvement
     * [CA-140] - Added Ctrl+S Accelerator Key to Message Composer for Save As Draft
@@ -28,8 +31,8 @@ Columba v1.2
     * [CA-52] - After switching to another skin, only text AND icons option is available
     * [CA-54] - C doesn't show you wrong pop3-host
     * [CA-56] - Local Folders: disable Message Filters... dialog
-    * [CA-57] - first connect to imap server doe's not show the recieved messages in the message list
-    * [CA-58] - switching between AlturaFrame and ThreePaneView makes columba unuseable
+    * [CA-57] - first connect to imap server does not show the received messages in the message list
+    * [CA-58] - switching between AlturaFrame and ThreePaneView makes columba unusable
     * [CA-63] - When Forwarding, sender address should be added to composer
     * [CA-70] - threaded view doesn't work
     * [CA-72] - Move on IMAP-Folders does not work anymore
