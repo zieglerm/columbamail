@@ -802,7 +802,12 @@
                 <include name="icon64.gif"/>
             </fileset>
         </copy>
-
+        
+		<copy toDir="${release.base}/webstart/${lib.native}">
+            <fileset dir="">
+                <include name="libquaqua.jnilib"/>
+            </fileset>
+        </copy>
 
         <signjar alias="${alias}" storepass="${storepass}" keypass="${keypass}">
             <fileset refid="sign.jars"/>
