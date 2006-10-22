@@ -17,7 +17,10 @@
      <all-permissions/>
  </security>
  <resources>
-   <j2se version="1.4+"/>
+<j2se version="1.5+" />
+    <property name="apple.laf.useScreenMenuBar" value="true" />
+    <property name="apple.awt.showGrowBox" value="true" />
+
    <jar href="columba.jar"/>
 
    <jar href="@ristretto@"/>
