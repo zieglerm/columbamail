@@ -452,7 +452,7 @@
             <manifest>
                 <attribute name="Main-Class" value="org.columba.core.main.Main"/>
                 <attribute name="Class-Path"
-                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdoc} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx} ${lib.antlr.jar} ${lib.asm-attrs.jar} ${lib.asm.jar} ${lib.cglib.jar} ${lib.commons-collections.jar} ${lib.commons-logging.jar} ${lib.dom4j.jar} ${lib.ehcache.jar} ${lib.ejb3-persistence.jar} ${lib.hibernate3.jar} ${lib.hibernate-annotations.jar} ${lib.hibernate-entitymanager.jar} ${lib.hsqldb.jar} ${lib.javassist.jar} ${lib.jboss-archive-browsing.jar} ${lib.jta.jar} "/>
+                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdoc} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx} ${lib.antlr.jar} ${lib.asm-attrs.jar} ${lib.asm.jar} ${lib.cglib.jar} ${lib.commons-collections.jar} ${lib.commons-logging.jar} ${lib.dom4j.jar} ${lib.ehcache.jar} ${lib.ejb3-persistence.jar} ${lib.hibernate3.jar} ${lib.hibernate-annotations.jar} ${lib.hibernate-entitymanager.jar} ${lib.hsqldb.jar} ${lib.javassist.jar} ${lib.jboss-archive-browsing.jar} ${lib.jta.jar} ${lib.quaqua.jar} "/>
                 <attribute name="Sealed" value="false"/>
             </manifest>
         </jar>
