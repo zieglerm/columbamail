@@ -35,6 +35,7 @@ import org.columba.addressbook.config.AddressbookConfig;
 import org.columba.addressbook.folder.AddressbookTreeNode;
 import org.columba.addressbook.gui.table.FilterToolbar;
 import org.columba.addressbook.gui.table.TableController;
+import org.columba.addressbook.gui.tagging.ContactTagList;
 import org.columba.addressbook.gui.tree.TreeController;
 import org.columba.addressbook.util.AddressbookResourceLoader;
 import org.columba.api.gui.frame.IContainer;
@@ -42,6 +43,8 @@ import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.frame.DockFrameController;
+import org.columba.core.gui.tagging.TagList;
+import org.columba.core.gui.tagging.TagPopupMenu;
 import org.columba.core.io.DiskIO;
 
 /**
@@ -62,6 +65,8 @@ public class AddressbookFrameController extends DockFrameController implements
 
 	private IDockable treePanel;
 
+	private IDockable tagListDockable;
+	
 	/**
 	 * Constructor for AddressbookController.
 	 */
@@ -106,6 +111,16 @@ public class AddressbookFrameController extends DockFrameController implements
 		contactListPanel = registerDockable("addressbook_contactlist",
 				AddressbookResourceLoader.getString("global",
 						"dockable_contactlist"), p, null);
+		
+		TagList tagList = new ContactTagList(this);
+		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+		tagListScrollPane
+				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		tagListDockable = registerDockable("addressbook_taglist", AddressbookResourceLoader
+				.getString("global", "dockable_taglist"), tagListScrollPane,
+				new TagPopupMenu(this, tagList));
+		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
 
 	}
 

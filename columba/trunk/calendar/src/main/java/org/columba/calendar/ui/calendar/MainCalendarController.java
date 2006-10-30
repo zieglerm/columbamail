@@ -160,10 +160,10 @@ public class MainCalendarController implements InteractionListener,
 
 	}
 
-		/**
-		 * @param localDateAreaBean
-		 */
-		private void registerListeners(DateAreaBean localDateAreaBean) {
+	/**
+	 * @param localDateAreaBean
+	 */
+	private void registerListeners(DateAreaBean localDateAreaBean) {
 		ToolTipProvider ttp = new ToolTipProvider() {
 			public int configureToolTip(JToolTip toolTip, MouseEvent e,
 					Object source) {
@@ -195,21 +195,27 @@ public class MainCalendarController implements InteractionListener,
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#getSelectedActivity()
 	 */
 	public IActivity getSelectedActivity() {
 		return selectedActivity;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#getView()
 	 */
 	public JComponent getView() {
 		return panel;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#setViewMode(int)
 	 */
 	public void setViewMode(int mode) {
@@ -286,11 +292,11 @@ public class MainCalendarController implements InteractionListener,
 		Calendar endCalendar = dateRange.getStart();
 		int selectedEndDay = endCalendar.get(java.util.Calendar.DAY_OF_YEAR);
 
-		
-
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#recreateFilterRows()
 	 */
 	public void recreateFilterRows() {
@@ -308,8 +314,9 @@ public class MainCalendarController implements InteractionListener,
 
 		for (Iterator it = cats.iterator(); it.hasNext();) {
 			Category cat = (Category) it.next();
-			if (MigUtil.isTrue(cat.getProperty(PropertyKey
-					.getKey(PROP_FILTERED))) == false)
+			Object isHidden = cat.getProperty(PropertyKey
+					.getKey(PROP_FILTERED));
+			if (MigUtil.isTrue(isHidden) == false)
 				it.remove();
 		}
 
@@ -338,7 +345,9 @@ public class MainCalendarController implements InteractionListener,
 		localDateAreaBean.repaint();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.miginfocom.ashape.interaction.InteractionListener#interactionOccured(com.miginfocom.ashape.interaction.InteractionEvent)
 	 */
 	public void interactionOccured(InteractionEvent e) {
@@ -417,7 +426,9 @@ public class MainCalendarController implements InteractionListener,
 	}
 
 	// trigged if activity is moved or daterange is modified
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.miginfocom.calendar.datearea.ActivityMoveListener#activityMoved(com.miginfocom.calendar.datearea.ActivityMoveEvent)
 	 */
 	public void activityMoved(ActivityMoveEvent e) {
@@ -426,7 +437,9 @@ public class MainCalendarController implements InteractionListener,
 		System.out.println("activity moved=" + activity.getID());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#viewToday()
 	 */
 	public void viewToday() {
@@ -452,7 +465,9 @@ public class MainCalendarController implements InteractionListener,
 		currentDateAreaBean.repaint();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#viewNext()
 	 */
 	public void viewNext() {
@@ -484,7 +499,9 @@ public class MainCalendarController implements InteractionListener,
 		currentDateAreaBean.repaint();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#viewPrevious()
 	 */
 	public void viewPrevious() {
@@ -516,7 +533,9 @@ public class MainCalendarController implements InteractionListener,
 		currentDateAreaBean.repaint();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.columba.calendar.ui.calendar.api.ICalendarView#setVisibleDateRange(org.columba.calendar.model.api.IDateRange)
 	 */
 	public void setVisibleDateRange(IDateRange dateRange) {
@@ -529,7 +548,9 @@ public class MainCalendarController implements InteractionListener,
 		currentDateAreaBean.revalidate();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.miginfocom.calendar.datearea.ActivityDragResizeListener#activityDragResized(com.miginfocom.calendar.datearea.ActivityDragResizeEvent)
 	 */
 	public void activityDragResized(ActivityDragResizeEvent e) {

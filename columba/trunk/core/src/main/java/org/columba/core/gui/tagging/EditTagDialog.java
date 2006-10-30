@@ -1,34 +1,31 @@
-package org.columba.mail.gui.tagging;
+package org.columba.core.gui.tagging;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.columba.core.gui.tagging.ExtendedObservable;
-import org.columba.core.gui.tagging.IObservable;
-import org.columba.core.tagging.TagManager;
 import org.columba.core.tagging.api.ITag;
 
-public class EditTagDialog extends JDialog implements ActionListener, IObservable {
+public class EditTagDialog extends JDialog implements ActionListener {
 	
 	private JTextField field;
 	
 	private ITag tag;
-
-	private ExtendedObservable observable = new ExtendedObservable();
 	
-	public EditTagDialog(ITag tag) {
+	private boolean success = false;
+	
+	public EditTagDialog(JFrame frame, ITag tag) {
+		super(frame, true);
 		
 		this.tag = tag;
 		
@@ -72,24 +69,22 @@ public class EditTagDialog extends JDialog implements ActionListener, IObservabl
 		setVisible(true);
 
 	}
+	
+	public boolean getSuccess() {
+		return success;
+	}
 
+	public String getTagName() {
+		return field.getText();
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("Edit")) {
-			TagManager.getInstance().setProperty(tag, "name", field.getText());
-			observable.setChanged(true);
-			observable.notifyObservers(tag);
+			success = true;
 			dispose();
 		} else if (arg0.getActionCommand().equals("Cancel")) {
 			dispose();
+			success = false;
 		}
 	}
-
-	public void addObserver(Observer o) {
-		observable.addObserver(o);
-	}
-
-	public Observable getObservable() {
-		return observable;
-	}
-
 }

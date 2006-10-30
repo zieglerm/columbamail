@@ -131,6 +131,11 @@ public class TableController implements TreeSelectionListener, FolderListener,
 		return view;
 	}
 
+	public void setSelectedFolder(IContactStorage store) {
+		filterDecorator.setContactItemMap(((AbstractFolder) store)
+				.getContactItemMap());
+	}
+
 	/**
 	 * Update table on tree selection changes.
 	 */
@@ -176,7 +181,8 @@ public class TableController implements TreeSelectionListener, FolderListener,
 		IContactModelPartial item;
 
 		for (int i = 0; i < rows.length; i++) {
-			item = (IContactModelPartial) filterDecorator.getContactItem(rows[i]);
+			item = (IContactModelPartial) filterDecorator
+					.getContactItem(rows[i]);
 			uids[i] = item.getId();
 		}
 
@@ -192,6 +198,8 @@ public class TableController implements TreeSelectionListener, FolderListener,
 
 	public IContactItem getSelectedItem() {
 		int row = getView().getSelectedRow();
+		if (row == -1)
+			return null;
 
 		// we use the SortDecorator, because the indices are sorted
 		IContactItem item = (IContactItem) sortDecorator.getContactItem(row);

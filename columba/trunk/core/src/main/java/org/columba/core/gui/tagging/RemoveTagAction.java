@@ -1,0 +1,42 @@
+package org.columba.core.gui.tagging;
+
+import java.awt.event.ActionEvent;
+import java.util.Iterator;
+
+import javax.swing.JOptionPane;
+
+import org.columba.api.exception.StoreException;
+import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.logging.Logging;
+import org.columba.core.tagging.TagManager;
+import org.columba.core.tagging.api.ITag;
+
+public class RemoveTagAction extends AbstractColumbaAction {
+
+	final static String REMOVE_TAG = "Remove Tag";
+	
+	private TagList tagList;
+
+	public RemoveTagAction(IFrameMediator frameMediator, TagList tagList) {
+		super(frameMediator, REMOVE_TAG);
+		this.tagList = tagList;
+	}
+	
+	public void actionPerformed(ActionEvent arg0) {
+		Iterator<ITag> it = tagList.getSelectedTags();
+		
+		while (it.hasNext() ) {
+			ITag tag = it.next();
+			
+			try {
+				TagManager.getInstance().removeTagById(tag.getId());
+			} catch (StoreException e) {
+				if ( Logging.DEBUG)
+					e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error deleting Tag");
+			}
+		}
+	}
+
+}

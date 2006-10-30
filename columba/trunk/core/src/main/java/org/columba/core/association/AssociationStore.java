@@ -253,7 +253,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 							+ "' and a.serviceId = '"
 							+ serviceId
 							+ "'" + " and a.metaDataId = '" + metaDataId + "'");
-			if (query.getResultList().size() != 1) {
+			if (query.getResultList().size() > 1) {
 				// more than one item, very strange! duplicate entries! remove
 				// all
 				LOG
@@ -261,9 +261,12 @@ public class AssociationStore implements IAssociationStore, Runnable {
 				for (Object row : query.getResultList())
 					manager.remove(row);
 				tx.commit();
-			} else {
+			} else if (query.getResultList().size() == 1) {
 				manager.remove(query.getSingleResult());
 				tx.commit();
+			} else {
+				// no item exists in table
+				// -> nothing todo
 			}
 		} catch (Exception ex) {
 			if (tx.isActive()) {

@@ -43,8 +43,11 @@ import org.columba.calendar.ui.navigation.NavigationController;
 import org.columba.calendar.ui.navigation.api.DateRangeChangedEvent;
 import org.columba.calendar.ui.navigation.api.ICalendarNavigationView;
 import org.columba.calendar.ui.navigation.api.IDateRangeChangedListener;
+import org.columba.calendar.ui.tagging.CalendarTagList;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.frame.DockFrameController;
+import org.columba.core.gui.tagging.TagList;
+import org.columba.core.gui.tagging.TagPopupMenu;
 
 /**
  * @author fdietz
@@ -66,6 +69,8 @@ public class CalendarFrameMediator extends DockFrameController implements
 	private IDockable calendarPanel;
 
 	private IDockable navigationPanel;
+	
+	private IDockable tagListDockable;
 
 	/**
 	 * @param viewItem
@@ -126,6 +131,17 @@ public class CalendarFrameMediator extends DockFrameController implements
 		calendarPanel = registerDockable("main_calendar", ResourceLoader
 				.getString("global", "dockable_maincalendar"),
 				calendarController.getView(), null);
+		
+		TagList tagList = new CalendarTagList(this);
+		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+		tagListScrollPane
+				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		tagListDockable = registerDockable("calendar_taglist", ResourceLoader
+				.getString("global", "dockable_taglist"), tagListScrollPane,
+				new TagPopupMenu(this, tagList));
+		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
+		
 
 	}
 

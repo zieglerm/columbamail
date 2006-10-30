@@ -17,6 +17,26 @@
 //All Rights Reserved.
 package org.columba.mail.gui.frame;
 
+import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.TreePath;
+
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
@@ -25,6 +45,8 @@ import org.columba.api.selection.SelectionChangedEvent;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.base.UIFSplitPane;
 import org.columba.core.gui.menu.MenuXMLDecoder;
+import org.columba.core.gui.tagging.TagList;
+import org.columba.core.gui.tagging.TagPopupMenu;
 import org.columba.core.io.DiskIO;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.config.MailConfig;
@@ -46,8 +68,7 @@ import org.columba.mail.gui.table.model.HeaderTableModel;
 import org.columba.mail.gui.table.model.MessageNode;
 import org.columba.mail.gui.table.selection.TableSelectionChangedEvent;
 import org.columba.mail.gui.table.selection.TableSelectionHandler;
-import org.columba.mail.gui.tagging.TagList;
-import org.columba.mail.gui.tagging.TagPopupMenu;
+import org.columba.mail.gui.tagging.MailTagList;
 import org.columba.mail.gui.tree.FolderTreeModel;
 import org.columba.mail.gui.tree.ITreeController;
 import org.columba.mail.gui.tree.TreeController;
@@ -58,17 +79,6 @@ import org.columba.mail.gui.tree.action.SortFoldersMenu;
 import org.columba.mail.gui.tree.selection.TreeSelectionChangedEvent;
 import org.columba.mail.gui.tree.selection.TreeSelectionHandler;
 import org.columba.mail.util.MailResourceLoader;
-
-import javax.swing.*;
-import javax.swing.tree.TreePath;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author fdietz
@@ -591,7 +601,7 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 						.getString("global", "dockable_messageviewer"),
 				messageController, popup);
 
-		TagList tagList = new TagList(this);
+		TagList tagList = new MailTagList(this);
 		JScrollPane tagListScrollPane = new JScrollPane(tagList);
 		tagListScrollPane
 				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));

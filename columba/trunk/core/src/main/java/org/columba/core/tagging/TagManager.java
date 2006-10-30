@@ -6,17 +6,29 @@ import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.logging.Logger;
 
+import javax.swing.event.EventListenerList;
+
+import org.columba.api.exception.StoreException;
 import org.columba.core.config.Config;
 import org.columba.core.config.DefaultXmlConfig;
 import org.columba.core.io.DiskIO;
 import org.columba.core.tagging.api.ITag;
+import org.columba.core.tagging.api.ITagEvent;
+import org.columba.core.tagging.api.ITagListener;
 import org.columba.core.tagging.api.ITagManager;
 import org.columba.core.xml.XmlElement;
 import org.columba.core.xml.XmlIO;
 
+/**
+ * 
+ * 
+ * @author mhub
+ * @author frd (added eventing)
+ */
 public class TagManager implements ITagManager {
 
 	/** JDK 1.4+ logging framework logger, used for logging. */
@@ -33,6 +45,8 @@ public class TagManager implements ITagManager {
 
 	private File tagsConfigurationFile; // tag configuration file
 
+	protected EventListenerList listenerList = new EventListenerList();
+	
 	static private TagManager instance;
 
 	// protected singleton constructor
@@ -243,7 +257,7 @@ public class TagManager implements ITagManager {
 
 	// public methods
 
-	public ITag addTag(String name) {
+	public ITag addTag(String name) throws StoreException {
 		// Do not allow an empty name
 		if ((name == null) || ("".equals(name)) || (name.trim().length() == 0)) {
 			LOG.severe("Name not set correctly, cannot add tag!");
@@ -251,7 +265,10 @@ public class TagManager implements ITagManager {
 		}
 
 		// Create a new tag with the Id Tag Prefix
-		ITag tag = new Tag(TAG_PREFIX + name);
+		// @author: fdietz create uuid, because using name with prefix doesn't allow creating a two tags with the same name,
+		//          but different other properties, i.e. color or icon
+		String uuid = UUID.randomUUID().toString();
+		ITag tag = new Tag(uuid);
 		tag.setProperty("name", name);
 
 		// if the vector is loaded, add the tag also to the vector
@@ -265,8 +282,10 @@ public class TagManager implements ITagManager {
 			}
 
 		// storing in the file
-		if (addToFile(tag))
+		if (addToFile(tag)) {
+			fireTagAddedEvent(tag.getId());
 			return tag;
+		}
 		else
 			return null;
 	}
@@ -298,20 +317,22 @@ public class TagManager implements ITagManager {
 		return null;
 	}
 
-	public void removeTagById(String id) {
+	public void removeTagById(String id) throws StoreException {
 		if (tags == null)
 			loadTags();
 		for (ITag tag : tags) {
 			if (tag.getId().equals(id)) {
 				tags.remove(tag);
 				removeFromConfig(tag);
+				
+				fireTagDeletedEvent(id);
 				break;
 			}
 		}
 	}
 
 	// TODO: needed?
-	public void removeTag(String name) {
+	public void removeTag(String name) throws StoreException {
 		if (tags == null)
 			loadTags();
 		for (ITag tag : tags) {
@@ -333,10 +354,11 @@ public class TagManager implements ITagManager {
 		return instance;
 	}
 
-	public void setProperty(ITag tag, String name, String value) {
+	public void setProperty(ITag tag, String name, String value) throws StoreException {
 		assert(tag != null);
 		tag.setProperty(name, value);
 		
+		fireTagChangedEvent(tag.getId());
 		// update config
 		updateTagInFile(tag);
 		
@@ -352,4 +374,57 @@ public class TagManager implements ITagManager {
 		return tag.getProperties();
 	}
 
+	/**************** eventing ******************************/
+	
+	public void addTagListener(ITagListener l) {
+		listenerList.add(ITagListener.class, l);
+
+	}
+
+	public void removeTagListener(ITagListener l) {
+		listenerList.remove(ITagListener.class, l);
+	}
+
+	protected void fireTagChangedEvent(String id) {
+		ITagEvent e = new TagEvent(this, id);
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == ITagListener.class) {
+				((ITagListener) listeners[i + 1]).tagChanged(e);
+			}
+		}
+	}
+	
+	protected void fireTagAddedEvent(String id) {
+		ITagEvent e = new TagEvent(this,  id);
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == ITagListener.class) {
+				((ITagListener) listeners[i + 1]).tagAdded(e);
+			}
+		}
+	}
+	
+	protected void fireTagDeletedEvent(String id) {
+		ITagEvent e = new TagEvent(this, id); 
+		
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == ITagListener.class) {
+				((ITagListener) listeners[i + 1]).tagDeleted(e);
+			}
+		}
+	}
 }
