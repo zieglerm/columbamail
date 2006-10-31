@@ -51,11 +51,11 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 	}
 	
 	public String getName() {
-		return bundle.getString("provider_title");
+		return bundle.getString("provider_related_title");
 	}
 
 	public String getDescription() {
-		return bundle.getString("provider_title");
+		return bundle.getString("provider_related_title");
 	}
 
 	public ImageIcon getIcon() {

@@ -17,11 +17,16 @@
 //All Rights Reserved.
 package org.columba.calendar.ui.comp;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
@@ -29,10 +34,10 @@ import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.config.Config;
 import org.columba.calendar.config.api.ICalendarList;
 
-
 public class CalendarPicker extends JComboBox {
 
-	private Hashtable<String, String> table = new Hashtable<String, String>(10);
+	// private Hashtable<String, String> table = new Hashtable<String,
+	// String>(10);
 
 	public CalendarPicker() {
 		super();
@@ -41,9 +46,9 @@ public class CalendarPicker extends JComboBox {
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			ICalendarItem item = e.nextElement();
-			addItem(item.getId());
+			addItem(item);
 
-			table.put(item.getId(), item.getName());
+			// table.put(item.getId(), item.getName());
 		}
 
 		setSelectedIndex(0);
@@ -70,12 +75,30 @@ public class CalendarPicker extends JComboBox {
 			super.getListCellRendererComponent(list, value, index, isSelected,
 					cellHasFocus);
 
-			String name = table.get(value);
+			ICalendarItem item = (ICalendarItem) value;
+			String name = item.getName();
 
 			setText(name);
+			setIcon(createIcon(item.getColor()));
 
 			return this;
 		}
 
+	}
+
+	private Icon createIcon(Color color) {
+		int width = 16;
+		int height = 16;
+		BufferedImage image = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D graphics = (Graphics2D) image.getGraphics();
+		graphics.setColor(color.darker());
+		graphics.drawRect(1, 1, width - 3, height - 3);
+		graphics.setColor(color);
+		graphics.fillRect(2, 2, width - 4, height - 4);
+		graphics.dispose();
+
+		return new ImageIcon(image);
 	}
 }

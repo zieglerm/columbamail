@@ -45,7 +45,9 @@
 </extensionlist>
 
 <extensionlist id="org.columba.core.context.provider">
- <!--  --><extension id="ContactSearchProvider" class="org.columba.addressbook.gui.context.ContactContextualProvider"/>-->
+ <!--
+ <extension id="ContactSearchProvider" class="org.columba.addressbook.gui.context.ContactContextualProvider"/>-->
+ -->
  <extension id="ContactDetailsSearchProvider" class="org.columba.addressbook.gui.context.ContactDetailsContextualProvider"/>
 </extensionlist>
 

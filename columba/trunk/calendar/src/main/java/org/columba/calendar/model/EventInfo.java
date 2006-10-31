@@ -28,9 +28,11 @@ public class EventInfo extends ComponentInfo implements IEventInfo {
 	private Calendar dtEnt;
 
 	private String summary;
+	
+	private String location;
 
 	public EventInfo(String id, Calendar dtStart, Calendar dtEnd,
-			String summary, String calendarId) {
+			String summary, String location, String calendarId) {
 		super(id, TYPE.EVENT, calendarId);
 
 		if (dtStart == null)
@@ -42,9 +44,13 @@ public class EventInfo extends ComponentInfo implements IEventInfo {
 		if (summary == null)
 			throw new IllegalArgumentException("summary == null");
 
+		if (location == null)
+			throw new IllegalArgumentException("location == null");
+		
 		this.dtStart = dtStart;
 		this.dtEnt = dtEnd;
 		this.summary = summary;
+		this.location = location;
 
 	}
 
@@ -58,6 +64,10 @@ public class EventInfo extends ComponentInfo implements IEventInfo {
 
 	public String getSummary() {
 		return summary;
+	}
+
+	public String getLocation() {
+		return location;
 	}
 
 }

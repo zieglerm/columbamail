@@ -1,11 +1,11 @@
-package org.columba.addressbook.gui.search;
+package org.columba.calendar.ui.box;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
-import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,32 +14,27 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListModel;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
-import org.columba.addressbook.facade.IDialogFacade;
-import org.columba.api.exception.ServiceNotFoundException;
-import org.columba.core.gui.base.DoubleClickListener;
-import org.columba.core.resourceloader.IconKeys;
-import org.columba.core.resourceloader.ImageLoader;
-import org.columba.core.search.api.ISearchResult;
-import org.columba.core.services.ServiceRegistry;
-import org.jdesktop.swingx.JXHyperlink;
+import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.resourceloader.IconKeys;
+import org.columba.calendar.resourceloader.ResourceLoader;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import org.jdesktop.swingx.decorator.RolloverHighlighter;
 
-public class SearchResultList extends JXList {
+public class CalendarList extends JXList {
 
 	private DefaultListModel listModel;
 
-	public SearchResultList() {
+	public CalendarList() {
 		super();
 
-		listModel = new DefaultListModel();
-		setModel(listModel);
 		setCellRenderer(new MyListCellRenderer());
 
 		setBorder(null);
@@ -48,52 +43,81 @@ public class SearchResultList extends JXList {
 						248), Color.white) }));
 		setRolloverEnabled(true);
 
-		addMouseListener(new DoubleClickListener() {
-
-			@Override
-			public void doubleClick(MouseEvent event) {
-				ISearchResult result = (ISearchResult) getSelectedValue();
-
-				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
-							.getInstance().getService(IDialogFacade.class);
-					facade.openContactDialog(result.getLocation());
-				} catch (ServiceNotFoundException e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
-
 	}
 
-	public void addAll(List<ISearchResult> result) {
-		Iterator<ISearchResult> it = result.iterator();
+	public void addAll(List<IEventInfo> list) {
+		Iterator<IEventInfo> it = list.iterator();
 		while (it.hasNext()) {
-			listModel.addElement(it.next());
+			addElement(it.next());
 		}
 	}
 
-	public void add(ISearchResult result) {
-		listModel.addElement(result);
+	public void add(IEventInfo result) {
+		addElement(result);
 	}
 
-	public void clear() {
-		listModel.clear();
+	/**
+	 * ********************** filtering
+	 * *********************************************
+	 */
+
+	/**
+	 * Associates filtering document listener to text component.
+	 */
+
+	public void installJTextField(JTextField input) {
+		if (input != null) {
+			FilteringModel model = (FilteringModel) getModel();
+			input.getDocument().addDocumentListener(model);
+		}
+	}
+
+	/**
+	 * Disassociates filtering document listener from text component.
+	 */
+
+	public void uninstallJTextField(JTextField input) {
+		if (input != null) {
+			FilteringModel model = (FilteringModel) getModel();
+			input.getDocument().removeDocumentListener(model);
+		}
+	}
+
+	/**
+	 * Doesn't let model change to non-filtering variety
+	 */
+
+	public void setModel(ListModel model) {
+		if (!(model instanceof FilteringModel)) {
+			throw new IllegalArgumentException();
+		} else {
+			super.setModel(model);
+		}
+	}
+
+	/**
+	 * Adds item to model of list
+	 */
+	public void addElement(IEventInfo element) {
+		((FilteringModel) getModel()).addElement(element);
 	}
 
 	class MyListCellRenderer extends JPanel implements ListCellRenderer {
 
 		private JLabel iconLabel = new JLabel();
 
-		private JXHyperlink titleLabel = new JXHyperlink();
+		private JLabel titleLabel = new JLabel();
 
 		private JLabel descriptionLabel = new JLabel();
 
 		private JPanel centerPanel;
 
+		private JLabel startDateLabel = new JLabel();
+
 		private Border lineBorder = new HeaderSeparatorBorder(new Color(230,
 				230, 230));
+
+		private DateFormat df = DateFormat.getDateTimeInstance();
 
 		MyListCellRenderer() {
 			setLayout(new BorderLayout());
@@ -101,7 +125,12 @@ public class SearchResultList extends JXList {
 			centerPanel = new JPanel();
 			centerPanel.setLayout(new BorderLayout());
 
-			centerPanel.add(titleLabel, BorderLayout.NORTH);
+			JPanel titlePanel = new JPanel();
+			titlePanel.setLayout(new BorderLayout());
+			titlePanel.add(titleLabel, BorderLayout.WEST);
+			titlePanel.add(startDateLabel, BorderLayout.EAST);
+
+			centerPanel.add(titlePanel, BorderLayout.NORTH);
 			centerPanel.add(descriptionLabel, BorderLayout.CENTER);
 			add(iconLabel, BorderLayout.WEST);
 			add(centerPanel, BorderLayout.CENTER);
@@ -111,6 +140,7 @@ public class SearchResultList extends JXList {
 			iconLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
 
 			centerPanel.setOpaque(false);
+			titlePanel.setOpaque(false);
 			setOpaque(true);
 
 		}
@@ -128,12 +158,13 @@ public class SearchResultList extends JXList {
 
 			}
 
-			ISearchResult result = (ISearchResult) value;
+			IEventInfo result = (IEventInfo) value;
 
-			titleLabel.setText(result.getTitle());
-			iconLabel.setIcon(ImageLoader.getSmallIcon(IconKeys.USER));
-			descriptionLabel.setText(result.getDescription());
-
+			titleLabel.setText(result.getSummary());
+			iconLabel.setIcon(ResourceLoader
+					.getSmallIcon(IconKeys.NEW_APPOINTMENT));
+			descriptionLabel.setText(result.getLocation());
+			startDateLabel.setText(df.format(result.getDtStart().getTime()));
 			return this;
 		}
 
@@ -199,4 +230,5 @@ public class SearchResultList extends JXList {
 		}
 
 	}
+
 }

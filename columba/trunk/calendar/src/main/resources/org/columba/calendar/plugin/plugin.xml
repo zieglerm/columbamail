@@ -35,4 +35,16 @@
     <extension id="TagCalendarMenu" class="org.columba.calendar.ui.tagging.TagCalendarMenu"/>
 </extensionlist>
   
+  <extensionlist id="org.columba.core.search">
+   <extension id="CalendarSearchProvider" class="org.columba.calendar.search.CalendarSearchProvider"/>
+  </extensionlist>
+
+<extensionlist id="org.columba.core.context.provider">
+ <extension id="CalendarContextProvider" class="org.columba.calendar.context.CalendarContextProvider"/>
+</extensionlist>
+
+<extensionlist id="org.columba.core.component.box">
+ <extension id="CalendarBox" class="org.columba.calendar.ui.box.CalendarBox"/>
+</extensionlist>
+
 </plugin>

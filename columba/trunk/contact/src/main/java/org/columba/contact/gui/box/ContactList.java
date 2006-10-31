@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,6 +21,7 @@ import javax.swing.border.Border;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
+import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
@@ -29,13 +29,9 @@ import org.jdesktop.swingx.decorator.RolloverHighlighter;
 
 class ContactList extends JXList {
 
-	private DefaultListModel listModel;
-
 	public ContactList() {
 		super();
 
-//		listModel = new DefaultListModel();
-//		setModel(listModel);
 		setCellRenderer(new MyListCellRenderer());
 
 		setBorder(null);
@@ -57,11 +53,6 @@ class ContactList extends JXList {
 		addElement(result);
 	}
 
-	public void clear() {
-		listModel.clear();
-	}
-
-	
 	/**
 	 * ********************** filtering
 	 * *********************************************
@@ -107,14 +98,14 @@ class ContactList extends JXList {
 	public void addElement(IContactModelPartial element) {
 		((FilteringModel) getModel()).addElement(element);
 	}
-	
+
 	class MyListCellRenderer extends JPanel implements ListCellRenderer {
 
 		private JLabel iconLabel = new JLabel();
 
 		private JLabel titleLabel = new JLabel();
 
-		private JLabel descriptionLabel = new JLabel();
+		private JXHyperlink descriptionLabel = new JXHyperlink();
 
 		private JPanel centerPanel;
 

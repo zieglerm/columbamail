@@ -87,6 +87,8 @@ public interface IconKeys {
 	
 	public static final String ADDRESSBOOK= "addressbook.png";
 
+	public static final String CALENDAR = "office-calendar.png"; 
+	
 	public static final String ONLINE= "network-receive.png";
 	
 	public static final String OFFLINE= "network-offline.png";

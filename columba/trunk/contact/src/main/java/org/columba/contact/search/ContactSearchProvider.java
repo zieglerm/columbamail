@@ -9,9 +9,13 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 
 import org.columba.addressbook.folder.AddressbookFolder;
+import org.columba.addressbook.folder.virtual.VirtualFolder;
+import org.columba.addressbook.gui.frame.AddressbookFrameMediator;
 import org.columba.addressbook.gui.search.BasicResultPanel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.api.plugin.PluginLoadingFailedException;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.search.StringCriteriaRenderer;
 import org.columba.core.gui.search.api.ICriteriaRenderer;
 import org.columba.core.gui.search.api.IResultPanel;
@@ -31,6 +35,8 @@ public class ContactSearchProvider implements ISearchProvider {
 	private ResourceBundle bundle;
 
 	private int totalResultCount = 0;
+
+	private VirtualFolder virtualFolder;
 
 	public ContactSearchProvider() {
 		bundle = ResourceBundle
@@ -54,11 +60,15 @@ public class ContactSearchProvider implements ISearchProvider {
 	}
 
 	public List<ISearchCriteria> getAllCriteria(String searchTerm) {
-		
+
 		List<ISearchCriteria> list = new Vector<ISearchCriteria>();
 
-		list.add(getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, searchTerm));
-		list.add(getCriteria(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, searchTerm));
+		list.add(getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS,
+				searchTerm));
+		list
+				.add(getCriteria(
+						ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS,
+						searchTerm));
 		return list;
 	}
 
@@ -69,10 +79,9 @@ public class ContactSearchProvider implements ISearchProvider {
 
 	public IResultPanel getComplexResultPanel() {
 		// FIXME: author: fdietz
-		return new BasicResultPanel(getTechnicalName(),
-				null);
+		return new BasicResultPanel(getTechnicalName(), null);
 	}
-	
+
 	public ISearchCriteria getCriteria(String technicalName, String searchTerm) {
 		String title = MessageFormat.format(bundle.getString(technicalName
 				+ "_title"), new Object[] { searchTerm });
@@ -84,26 +93,30 @@ public class ContactSearchProvider implements ISearchProvider {
 		return new SearchCriteria(technicalName, name, title, description);
 	}
 
-	
-	
 	public List<ISearchResult> query(String searchTerm,
-			String criteriaTechnicalName, boolean searchInside, int startIndex, int resultCount) {
-		if ( searchTerm == null ) throw new IllegalArgumentException("searchTerm == null");
-		if ( criteriaTechnicalName == null ) throw new IllegalArgumentException("criteriaTechnicalName == null");
-		
+			String criteriaTechnicalName, boolean searchInside, int startIndex,
+			int resultCount) {
+		if (searchTerm == null)
+			throw new IllegalArgumentException("searchTerm == null");
+		if (criteriaTechnicalName == null)
+			throw new IllegalArgumentException("criteriaTechnicalName == null");
+
 		List<ISearchResult> result = new Vector<ISearchResult>();
 
 		// create list of contact folders
 		List<AddressbookFolder> v = SearchUtility.createContactFolderList();
 
+		virtualFolder = new VirtualFolder();
 		Iterator<AddressbookFolder> it = v.iterator();
 		while (it.hasNext()) {
 			AddressbookFolder f = it.next();
 			String id = null;
-			
-			if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS)) {
+
+			if (criteriaTechnicalName
+					.equals(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS)) {
 				id = f.findByName(searchTerm);
-			} else if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS)) {
+			} else if (criteriaTechnicalName
+					.equals(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS)) {
 				id = f.findByEmailAddress(searchTerm);
 			}
 
@@ -113,6 +126,9 @@ public class ContactSearchProvider implements ISearchProvider {
 				result.add(new ContactSearchResult(model.getSortString(), model
 						.getPreferredEmail(), SearchResultBuilder.createURI(f
 						.getId(), id), model));
+
+				// remember search result
+				virtualFolder.add(f, id);
 			}
 
 		}
@@ -122,34 +138,53 @@ public class ContactSearchProvider implements ISearchProvider {
 		return result;
 	}
 
-	public List<ISearchResult> query(List<ISearchRequest> list, boolean matchAll, boolean searchInside, int startIndex, int resultCount) {
+	public List<ISearchResult> query(List<ISearchRequest> list,
+			boolean matchAll, boolean searchInside, int startIndex,
+			int resultCount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 	public int getTotalResultCount() {
 		return totalResultCount;
 	}
 
-	public void showAllResults(IFrameMediator mediator, String searchTerm, String searchCriteriaTechnicalName) {
-		throw new IllegalArgumentException("not implemented yet");
+	public void showAllResults(IFrameMediator mediator, String searchTerm,
+			String searchCriteriaTechnicalName) {
+
+		// ensure that we are currently in the contact component
+		IFrameMediator newMediator = null;
+		try {
+			newMediator = FrameManager.getInstance().switchView(
+					mediator.getContainer(), "Addressbook");
+		} catch (PluginLoadingFailedException e) {
+			e.printStackTrace();
+		}
+
+		// update folder selection
+		((AddressbookFrameMediator) newMediator).getTree().setSelectedFolder(
+				virtualFolder);
 	}
 
 	public ICriteriaRenderer getCriteriaRenderer(String criteriaTechnicalName) {
 		ICriteriaRenderer r = null;
-		if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS)) {
-			r = new StringCriteriaRenderer(getCriteria(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, ""), this);
-		} else if (criteriaTechnicalName.equals(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS)) {
-			r = new StringCriteriaRenderer(getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, ""), this);
+		if (criteriaTechnicalName
+				.equals(ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS)) {
+			r = new StringCriteriaRenderer(getCriteria(
+					ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, ""),
+					this);
+		} else if (criteriaTechnicalName
+				.equals(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS)) {
+			r = new StringCriteriaRenderer(getCriteria(
+					ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, ""), this);
 		}
-		
+
 		return r;
 	}
 
 	public ISearchCriteria getDefaultCriteria(String searchTerm) {
-		return getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, searchTerm);
+		return getCriteria(ContactSearchProvider.CRITERIA_EMAIL_CONTAINS,
+				searchTerm);
 	}
 
 	public boolean hasSingleCriteriaSearchResult() {
@@ -157,8 +192,4 @@ public class ContactSearchProvider implements ISearchProvider {
 		return false;
 	}
 
-	
-	
-
-	
 }

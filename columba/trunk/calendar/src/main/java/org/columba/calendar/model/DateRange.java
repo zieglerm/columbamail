@@ -53,4 +53,14 @@ public class DateRange implements IDateRange {
 		return startTime;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		IDateRange dr = (IDateRange) obj;
+		if (getStartTime().equals(dr.getStartTime())
+				&& (getEndTime().equals(dr.getEndTime())))
+			return true;
+
+		return false;
+	}
+
 }

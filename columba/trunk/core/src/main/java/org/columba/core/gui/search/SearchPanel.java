@@ -181,7 +181,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		manager.clearSearch(searchTerm);
 		manager.reset();
 
-		createStackedBox(searchTerm, providerName, criteriaName);
+		createSearchStackedBox(searchTerm, providerName, criteriaName);
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
@@ -201,7 +201,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		manager.clearSearch(searchTerm);
 		manager.reset();
 
-		createStackedBox(searchTerm, providerName, null);
+		createSearchStackedBox(searchTerm, providerName, null);
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
@@ -220,7 +220,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		manager.clearSearch(searchTerm);
 		manager.reset();
 
-		createStackedBox(searchTerm, null, null);
+		createSearchStackedBox(searchTerm, null, null);
 
 		// TODO @author fdietz: no paging used currently
 		// show only first 5 results
@@ -314,7 +314,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	}
 
 	// create new stacked box
-	private void createStackedBox(String searchTerm, String providerName,
+	private void createSearchStackedBox(String searchTerm, String providerName,
 			String criteriaName) {
 		if (searchTerm == null)
 			throw new IllegalArgumentException("searchTerm == null");

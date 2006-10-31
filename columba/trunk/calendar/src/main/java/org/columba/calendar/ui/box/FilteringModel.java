@@ -1,4 +1,4 @@
-package org.columba.contact.gui.box;
+package org.columba.calendar.ui.box;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +9,22 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import org.columba.addressbook.model.IContactModelPartial;
+import org.columba.calendar.model.api.IEventInfo;
 
 public class FilteringModel extends AbstractListModel implements
 		DocumentListener {
-	List<IContactModelPartial> list;
+	List<IEventInfo> list;
 
-	List<IContactModelPartial> filteredList;
+	List<IEventInfo> filteredList;
 
 	String lastFilter = "";
 
 	public FilteringModel() {
-		list = new ArrayList<IContactModelPartial>();
-		filteredList = new ArrayList<IContactModelPartial>();
+		list = new ArrayList<IEventInfo>();
+		filteredList = new ArrayList<IEventInfo>();
 	}
 
-	public void addElement(IContactModelPartial element) {
+	public void addElement(IEventInfo element) {
 		list.add(element);
 		filter(lastFilter);
 	}
@@ -45,12 +45,10 @@ public class FilteringModel extends AbstractListModel implements
 
 	void filter(String search) {
 		filteredList.clear();
-		for (IContactModelPartial element : list) {
+		for (IEventInfo element : list) {
 			String s = search.toLowerCase();
-			if ((element.getAddress().toLowerCase().indexOf(s) != -1)
-					|| (element.getName().toLowerCase().indexOf(s) != -1)) {
+			if (element.getSummary().toLowerCase().indexOf(s) != -1)
 				filteredList.add(element);
-			}
 		}
 		fireContentsChanged(this, 0, getSize());
 	}

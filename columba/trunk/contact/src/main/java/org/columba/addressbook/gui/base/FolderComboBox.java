@@ -83,9 +83,10 @@ public class FolderComboBox extends JComboBox {
 					cellHasFocus);
 
 			IFolder folder = (IFolder) value;
-
+			
 			setText(folder.getName());
 			setIcon(folder.getIcon());
+			
 
 			return this;
 		}
