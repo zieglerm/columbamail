@@ -63,12 +63,12 @@ public class SemanticContext implements ISemanticContext {
 		date.setBaseType(BASETYPE.DATE);
 
 		// date range (start time, end time) definition
-		IStructureType dateRange = type.addChild("dateRange",
+		IStructureType dateRange = type.addChild(ISemanticContext.CONTEXT_NODE_DATERANGE,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		IAttributeType startStart = dateRange.addAttribute("startDate",
+		IAttributeType startStart = dateRange.addAttribute(ISemanticContext.CONTEXT_ATTR_STARTDATE,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
 		startStart.setBaseType(BASETYPE.DATE);
-		IAttributeType endDate = dateRange.addAttribute("endDate",
+		IAttributeType endDate = dateRange.addAttribute(ISemanticContext.CONTEXT_ATTR_ENDDATE,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
 		endDate.setBaseType(BASETYPE.DATE);
 
@@ -116,7 +116,13 @@ public class SemanticContext implements ISemanticContext {
 		arrivalDate.setBaseType(BASETYPE.DATE);
 		// message contains list of attachments
 		message.addChild(attachmentList);
-
+		
+		IStructureType event = type.addChild(ISemanticContext.CONTEXT_NODE_EVENT, ISemanticContext.CONTEXT_NAMESPACE_CORE);
+		IStructureType dateRangeType = event.addChild(dateRange);
+		dateRangeType.setCardinality(MULTIPLICITY.ONE_TO_ONE);
+		event.addAttribute(ISemanticContext.CONTEXT_ATTR_SUMMARY, ISemanticContext.CONTEXT_NAMESPACE_CORE);
+		event.addAttribute(ISemanticContext.CONTEXT_ATTR_DESCRIPTION, ISemanticContext.CONTEXT_NAMESPACE_CORE);
+		event.addAttribute(ISemanticContext.CONTEXT_ATTR_LOCATION, ISemanticContext.CONTEXT_NAMESPACE_CORE);
 	}
 
 	public IStructureValue createValue() {

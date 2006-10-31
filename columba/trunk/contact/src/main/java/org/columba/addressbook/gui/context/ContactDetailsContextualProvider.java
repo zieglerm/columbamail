@@ -26,7 +26,6 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 
 	private ResourceBundle bundle;
 
-
 	private ContactSearchProvider searchProvider;
 
 	private List<ISearchResult> result;
@@ -37,7 +36,7 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 		super();
 
 		panel.setBackground(new Color(248, 248, 248));
-		
+
 		bundle = ResourceBundle
 				.getBundle("org.columba.addressbook.i18n.search");
 
@@ -49,7 +48,7 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 	public String getTechnicalName() {
 		return "contact_details_list";
 	}
-	
+
 	public String getName() {
 		return bundle.getString("provider_related_title");
 	}
@@ -75,41 +74,38 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 		Iterator<IStructureValue> it = value.getChildIterator(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		// can be only one
-		IStructureValue identity = it.next();
-		if (identity == null)
-			return;
+		if (it.hasNext()) {
+			// can be only one
+			IStructureValue identity = it.next();
+			if (identity == null)
+				return;
 
-		String emailAddress = identity.getString(
-				ISemanticContext.CONTEXT_ATTR_EMAIL_ADDRESS,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		String displayname = identity.getString(
-				ISemanticContext.CONTEXT_ATTR_DISPLAY_NAME,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE);
+			String emailAddress = identity.getString(
+					ISemanticContext.CONTEXT_ATTR_EMAIL_ADDRESS,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE);
+			String displayname = identity.getString(
+					ISemanticContext.CONTEXT_ATTR_DISPLAY_NAME,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE);
 
-		if (emailAddress == null && displayname == null)
-			return;
+			if (emailAddress == null && displayname == null)
+				return;
 
-		List<ISearchResult> temp;
+			List<ISearchResult> temp;
 
-		if (emailAddress != null) {
-			temp = searchProvider.query(emailAddress,
-					ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, false, 0, 5);
-			result.addAll(temp);
+			if (emailAddress != null) {
+				temp = searchProvider.query(emailAddress,
+						ContactSearchProvider.CRITERIA_EMAIL_CONTAINS, false,
+						0, 5);
+				result.addAll(temp);
+			}
+
+			if (displayname != null) {
+				temp = searchProvider.query(displayname,
+						ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS,
+						false, 0, 5);
+				result.addAll(temp);
+			}
 		}
-
-		if (displayname != null) {
-			temp = searchProvider.query(displayname,
-					ContactSearchProvider.CRITERIA_DISPLAYNAME_CONTAINS, false,
-					0, 5);
-			result.addAll(temp);
-		}
-		
-		
-		
-
-		
-		
 
 	}
 
@@ -122,7 +118,7 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 			ContactDetailPanel p = new ContactDetailPanel(m);
 			panel.add(p);
 		}
-		
+
 		panel.revalidate();
 		panel.validate();
 	}

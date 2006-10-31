@@ -72,26 +72,28 @@ public class CalendarContextProvider implements IContextProvider {
 
 	public void search(ISemanticContext context, int startIndex, int resultCount) {
 		IStructureValue value = context.getValue();
-		if ( value == null ) return;
-		
+		if (value == null)
+			return;
+
 		Iterator<IStructureValue> it = value.getChildIterator(
 				ISemanticContext.CONTEXT_NODE_MESSAGE,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		
-		// we only use the first message
-		IStructureValue message = it.next();
-		
-		// retrieve subject
-		String subject = message.getString(
-				ISemanticContext.CONTEXT_ATTR_SUBJECT,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-			
-		List<ISearchResult> temp;
 
-		if (subject != null) {
-			temp = searchProvider.query(subject,
-					CalendarSearchProvider.CRITERIA_SUMMARY_CONTAINS, false, 0, 5);
-			result.addAll(temp);
+		if (it.hasNext()) {
+			// we only use the first message
+			IStructureValue message = it.next();
+
+			// retrieve subject
+			String subject = message.getString(
+					ISemanticContext.CONTEXT_ATTR_SUBJECT,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE);
+
+			if (subject != null) {
+				List<ISearchResult> temp = searchProvider.query(subject,
+						CalendarSearchProvider.CRITERIA_SUMMARY_CONTAINS,
+						false, 0, 5);
+				result.addAll(temp);
+			}
 		}
 
 	}

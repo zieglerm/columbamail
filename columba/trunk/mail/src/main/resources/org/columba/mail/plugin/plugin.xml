@@ -396,11 +396,11 @@ The order of the following plugins is intentional. Do not change the order of ap
  <extension id="MailSearchProvider" class="org.columba.mail.search.MailSearchProvider"/>
 </extensionlist>
 
-<!--
+
 <extensionlist id="org.columba.core.context.provider">
  <extension id="RecentMessages" class="org.columba.mail.gui.context.RecentMessagesContextualProvider"/>
 </extensionlist>
--->
+
 
 
 </plugin>

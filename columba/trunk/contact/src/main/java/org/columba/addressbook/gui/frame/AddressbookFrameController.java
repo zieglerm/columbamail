@@ -27,21 +27,26 @@ import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 import org.columba.addressbook.config.AddressbookConfig;
 import org.columba.addressbook.folder.AddressbookTreeNode;
+import org.columba.addressbook.folder.IContactStorage;
 import org.columba.addressbook.gui.table.FilterToolbar;
 import org.columba.addressbook.gui.table.TableController;
 import org.columba.addressbook.gui.tagging.ContactTagList;
 import org.columba.addressbook.gui.tree.TreeController;
+import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.util.AddressbookResourceLoader;
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
 import org.columba.core.config.ViewItem;
+import org.columba.core.context.base.api.IStructureValue;
+import org.columba.core.context.semantic.api.ISemanticContext;
 import org.columba.core.gui.frame.DockFrameController;
 import org.columba.core.gui.tagging.TagList;
 import org.columba.core.gui.tagging.TagPopupMenu;
@@ -53,7 +58,7 @@ import org.columba.core.io.DiskIO;
  * @author fdietz
  */
 public class AddressbookFrameController extends DockFrameController implements
-		AddressbookFrameMediator, TreeSelectionListener {
+		AddressbookFrameMediator, TreeSelectionListener, ListSelectionListener {
 
 	protected TreeController tree;
 
@@ -66,7 +71,7 @@ public class AddressbookFrameController extends DockFrameController implements
 	private IDockable treePanel;
 
 	private IDockable tagListDockable;
-	
+
 	/**
 	 * Constructor for AddressbookController.
 	 */
@@ -87,16 +92,16 @@ public class AddressbookFrameController extends DockFrameController implements
 
 		registerDockables();
 
+		table.getView().getSelectionModel().addListSelectionListener(this);
+
 		// initPerspective(this.perspective);
 	}
-
-	
 
 	private void registerDockables() {
 
 		JScrollPane treeScrollPane = new JScrollPane(tree.getView());
 		treeScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-				
+
 		treePanel = registerDockable("addressbook_foldertree",
 				AddressbookResourceLoader.getString("global",
 						"dockable_foldertree"), treeScrollPane, null);
@@ -111,14 +116,15 @@ public class AddressbookFrameController extends DockFrameController implements
 		contactListPanel = registerDockable("addressbook_contactlist",
 				AddressbookResourceLoader.getString("global",
 						"dockable_contactlist"), p, null);
-		
+
 		TagList tagList = new ContactTagList(this);
 		JScrollPane tagListScrollPane = new JScrollPane(tagList);
 		tagListScrollPane
 				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		tagListDockable = registerDockable("addressbook_taglist", AddressbookResourceLoader
-				.getString("global", "dockable_taglist"), tagListScrollPane,
+		tagListDockable = registerDockable("addressbook_taglist",
+				AddressbookResourceLoader.getString("global",
+						"dockable_taglist"), tagListScrollPane,
 				new TagPopupMenu(this, tagList));
 		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
 
@@ -203,6 +209,53 @@ public class AddressbookFrameController extends DockFrameController implements
 			container.extendToolbar(this, is2);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void valueChanged(ListSelectionEvent event) {
+		// return if selection change is in flux
+		if (event.getValueIsAdjusting()) {
+			return;
+		}
+
+		Object[] uids = getTable().getUids();
+
+		if (uids.length == 1) {
+			String id = (String) uids[0];
+
+			// get selected folder
+			IContactStorage store = getTree().getSelectedFolder();
+			if (store == null)
+				return;
+			// retrieve contact model from folder
+			IContactModel model = store.get(id);
+			if (model == null)
+				return;
+
+			String lastname = model.getFamilyName();
+			String firstname = model.getGivenName();
+			String displayname = model.getSortString();
+			String email = model.getPreferredEmail();
+
+			// create empty value
+			IStructureValue value = getSemanticContext().createValue();
+
+			// create identity value
+			IStructureValue identity = value.addChild(
+					ISemanticContext.CONTEXT_NODE_IDENTITY,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE);
+			if (displayname.toString() != null)
+				identity.setString(ISemanticContext.CONTEXT_ATTR_DISPLAY_NAME,
+						ISemanticContext.CONTEXT_NAMESPACE_CORE, displayname);
+			if (email != null)
+				identity.setString(ISemanticContext.CONTEXT_ATTR_EMAIL_ADDRESS,
+						ISemanticContext.CONTEXT_NAMESPACE_CORE, email);
+			if (firstname != null)
+				identity.setString(ISemanticContext.CONTEXT_ATTR_FIRST_NAME,
+						ISemanticContext.CONTEXT_NAMESPACE_CORE, firstname);
+			if (lastname != null)
+				identity.setString(ISemanticContext.CONTEXT_ATTR_LAST_NAME,
+						ISemanticContext.CONTEXT_NAMESPACE_CORE, lastname);
 		}
 	}
 

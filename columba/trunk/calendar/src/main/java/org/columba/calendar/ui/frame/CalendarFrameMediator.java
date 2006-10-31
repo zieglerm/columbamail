@@ -20,6 +20,7 @@ package org.columba.calendar.ui.frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.InputStream;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -29,12 +30,18 @@ import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
 import org.columba.calendar.base.api.IActivity;
+import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IDateRange;
+import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.resourceloader.ResourceLoader;
+import org.columba.calendar.store.CalendarStoreFactory;
+import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.action.ActivityMovedAction;
 import org.columba.calendar.ui.action.EditActivityAction;
 import org.columba.calendar.ui.action.NewAppointmentAction;
 import org.columba.calendar.ui.calendar.MainCalendarController;
+import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
+import org.columba.calendar.ui.calendar.api.IActivitySelectionChangedListener;
 import org.columba.calendar.ui.calendar.api.ICalendarView;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
 import org.columba.calendar.ui.list.CalendarListController;
@@ -45,6 +52,8 @@ import org.columba.calendar.ui.navigation.api.ICalendarNavigationView;
 import org.columba.calendar.ui.navigation.api.IDateRangeChangedListener;
 import org.columba.calendar.ui.tagging.CalendarTagList;
 import org.columba.core.config.ViewItem;
+import org.columba.core.context.base.api.IStructureValue;
+import org.columba.core.context.semantic.api.ISemanticContext;
 import org.columba.core.gui.frame.DockFrameController;
 import org.columba.core.gui.tagging.TagList;
 import org.columba.core.gui.tagging.TagPopupMenu;
@@ -69,7 +78,7 @@ public class CalendarFrameMediator extends DockFrameController implements
 	private IDockable calendarPanel;
 
 	private IDockable navigationPanel;
-	
+
 	private IDockable tagListDockable;
 
 	/**
@@ -81,6 +90,9 @@ public class CalendarFrameMediator extends DockFrameController implements
 		// TestDataGenerator.generateTestData();
 
 		calendarController = new MainCalendarController(this);
+
+		calendarController
+				.addSelectionChangedListener(new MyActivitySelectionChangedListener());
 
 		navigationController = new NavigationController();
 
@@ -120,18 +132,19 @@ public class CalendarFrameMediator extends DockFrameController implements
 		listPanel = registerDockable("calendar_tree", ResourceLoader.getString(
 				"global", "dockable_calendarlist"), treeScrollPane, null);
 
-//		JScrollPane tableScrollPane = new JScrollPane(navigationController
-//				.getView());
-//		tableScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		// JScrollPane tableScrollPane = new JScrollPane(navigationController
+		// .getView());
+		// tableScrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0,
+		// 0));
 
 		navigationPanel = registerDockable("navigation", ResourceLoader
-				.getString("global", "dockable_navigation"), navigationController.getView(),
-				null);
+				.getString("global", "dockable_navigation"),
+				navigationController.getView(), null);
 
 		calendarPanel = registerDockable("main_calendar", ResourceLoader
 				.getString("global", "dockable_maincalendar"),
 				calendarController.getView(), null);
-		
+
 		TagList tagList = new CalendarTagList(this);
 		JScrollPane tagListScrollPane = new JScrollPane(tagList);
 		tagListScrollPane
@@ -141,7 +154,6 @@ public class CalendarFrameMediator extends DockFrameController implements
 				.getString("global", "dockable_taglist"), tagListScrollPane,
 				new TagPopupMenu(this, tagList));
 		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
-		
 
 	}
 
@@ -157,7 +169,6 @@ public class CalendarFrameMediator extends DockFrameController implements
 		super.setSplitProportion(listPanel, 0.2f);
 		super.setSplitProportion(calendarPanel, 0.2f);
 	}
-
 
 	/** *********************** container callbacks ************* */
 
@@ -314,11 +325,75 @@ public class CalendarFrameMediator extends DockFrameController implements
 	}
 
 	/**
-	 * @see org.columba.core.gui.frame.DefaultFrameController#getString(java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.columba.core.gui.frame.DefaultFrameController#getString(java.lang.String,
+	 *      java.lang.String, java.lang.String)
 	 */
 	@Override
 	public String getString(String sPath, String sName, String sID) {
 		return ResourceLoader.getString(sPath, sID);
+	}
+
+	class MyActivitySelectionChangedListener implements
+			IActivitySelectionChangedListener {
+
+		MyActivitySelectionChangedListener() {
+		}
+
+		public void selectionChanged(ActivitySelectionChangedEvent object) {
+			IActivity[] selection = object.getSelection();
+			if (selection == null)
+				return;
+
+			if (selection.length == 1) {
+
+				ICalendarStore store = CalendarStoreFactory.getInstance()
+						.getLocaleStore();
+				IComponent c = store.get(selection[0].getId());
+
+				if (c.getType().equals(IComponent.TYPE.EVENT)) {
+					IEvent event = (IEvent) c;
+
+					String summary = event.getSummary();
+					String description = event.getDescription();
+					String location = event.getLocation();
+					Calendar dtStart = event.getDtStart();
+					Calendar dtEnd = event.getDtEnt();
+
+					// create empty value
+					IStructureValue value = getSemanticContext().createValue();
+
+					// create identity value
+					IStructureValue eventValue = value.addChild(
+							ISemanticContext.CONTEXT_NODE_EVENT,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE);
+
+					// summary
+					eventValue.setString(ISemanticContext.CONTEXT_ATTR_SUMMARY,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE, summary);
+					// description
+					eventValue.setString(
+							ISemanticContext.CONTEXT_ATTR_DESCRIPTION,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE,
+							description);
+					// location
+					eventValue.setString(
+							ISemanticContext.CONTEXT_ATTR_LOCATION,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE, location);
+
+					// date range
+					IStructureValue dateRangeValue = eventValue.addChild(
+							ISemanticContext.CONTEXT_NODE_DATERANGE,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE);
+					dateRangeValue.setDate(
+							ISemanticContext.CONTEXT_ATTR_STARTDATE,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE, dtStart.getTime());
+					dateRangeValue.setDate(
+							ISemanticContext.CONTEXT_ATTR_ENDDATE,
+							ISemanticContext.CONTEXT_NAMESPACE_CORE, dtEnd.getTime());
+				}
+			}
+		}
+
 	}
 
 }

@@ -80,7 +80,7 @@ public class StructureType implements IStructureType {
 	}
 	
 	public IStructureType addChild(final IStructureType type) {
-		typeMap.put(new Name(name, namespace), type);
+		typeMap.put(new Name(type.getName(), type.getNamespace()), type);
 		typeList.add(type);
 		return type;
 	}

@@ -18,10 +18,16 @@ public interface ISemanticContext {
 	public static final String CONTEXT_ATTR_SENDER = "sender";
 	public static final String CONTEXT_ATTR_SUBJECT = "subject";
 	public static final String CONTEXT_ATTR_DATE = "date";
-	
+	public static final String CONTEXT_ATTR_STARTDATE = "startDate";
+	public static final String CONTEXT_ATTR_ENDDATE = "endDate";
+	public static final String CONTEXT_NODE_DATERANGE = "dateRange";
+	public static final String CONTEXT_NODE_EVENT = "event";
 	public static final String CONTEXT_NODE_MESSAGE = "message";
 	public static final String CONTEXT_ATTR_TIME_ZONE = "timeZone";
 	public static final String CONTEXT_NODE_DATE_TIME = "dateTime";
+	public static final String CONTEXT_ATTR_SUMMARY = "summary";
+	public static final String CONTEXT_ATTR_DESCRIPTION = "description";
+	public static final String CONTEXT_ATTR_LOCATION = "location";
 	public IStructureType getType();
 	
 	public IStructureValue getValue();

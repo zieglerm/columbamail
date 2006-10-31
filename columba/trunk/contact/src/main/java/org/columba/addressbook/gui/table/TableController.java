@@ -83,6 +83,8 @@ public class TableController implements TreeSelectionListener, FolderListener,
 
 		// register as focus owner
 		FocusManager.getInstance().registerComponent(this);
+
+		
 	}
 
 	/**
@@ -363,4 +365,6 @@ public class TableController implements TreeSelectionListener, FolderListener,
 	public FilterDecorator getFilterDecorator() {
 		return filterDecorator;
 	}
+
+	
 }
