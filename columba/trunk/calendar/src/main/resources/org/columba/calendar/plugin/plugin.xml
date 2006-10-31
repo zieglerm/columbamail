@@ -32,7 +32,7 @@
     <extension id="SaveAs" class="org.columba.calendar.ui.action.SaveAsAction"/>
     <extension id="CopyActivity" class="org.columba.calendar.ui.action.CopyActivityMenu"/>
     <extension id="MoveActivity" class="org.columba.calendar.ui.action.MoveActivityMenu"/>
-    <extension id="TagCalendarMenu" class="org.columba.calendar.ui.action.TagCalendarMenu"/>
+    <extension id="TagCalendarMenu" class="org.columba.calendar.ui.tagging.TagCalendarMenu"/>
 </extensionlist>
   
 </plugin>

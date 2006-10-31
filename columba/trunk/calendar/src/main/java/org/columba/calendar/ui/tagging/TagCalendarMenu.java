@@ -1,4 +1,4 @@
-package org.columba.calendar.ui.action;
+package org.columba.calendar.ui.tagging;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,7 +17,8 @@ import org.columba.core.gui.tagging.TaggingMenu;
 import org.columba.core.tagging.TagManager;
 import org.columba.core.tagging.api.ITag;
 
-public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionChangedListener {
+public class TagCalendarMenu extends TaggingMenu implements
+		IActivitySelectionChangedListener {
 
 	final static private String SERVICE_ID = "tagging";
 
@@ -29,17 +30,18 @@ public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionCh
 	public TagCalendarMenu(IFrameMediator frameMediator) {
 		super(frameMediator, ResourceLoader.getString("tagging",
 				"contact_tag_message"), "menu_tag_message");
-		
-		((CalendarFrameMediator) frameMediator).getCalendarView().addSelectionChangedListener(this);
+
+		((CalendarFrameMediator) frameMediator).getCalendarView()
+				.addSelectionChangedListener(this);
 
 	}
-	
+
 	public void selectionChanged(ActivitySelectionChangedEvent object) {
-		if ( object.getSelection() != null && object.getSelection().length > 0) {
+		if (object.getSelection() != null && object.getSelection().length > 0) {
 			setEnabled(true);
 			removeAll();
 			createSubMenu();
-		} else 
+		} else
 			setEnabled(false);
 	}
 
@@ -52,14 +54,16 @@ public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionCh
 
 		AssociationStore.getInstance().addAssociation(SERVICE_ID, tagId,
 				createURI(calendarId, activityId).toString());
+
 	}
 
 	@Override
 	protected boolean isTagged(ITag tag) {
 		IActivity activity = ((CalendarFrameMediator) getFrameMediator())
 				.getCalendarView().getSelectedActivity();
-		if ( activity == null) return false;
-		
+		if (activity == null)
+			return false;
+
 		String calendarId = activity.getCalendarId();
 		String activityId = activity.getId();
 
@@ -80,6 +84,7 @@ public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionCh
 
 			AssociationStore.getInstance().removeAssociation(SERVICE_ID,
 					tag.getId(), createURI(calendarId, activityId).toString());
+
 		}
 	}
 
@@ -92,6 +97,7 @@ public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionCh
 
 		AssociationStore.getInstance().removeAssociation(SERVICE_ID, tagId,
 				createURI(calendarId, activityId).toString());
+
 	}
 
 	// create URI representing the contact
@@ -122,5 +128,4 @@ public class TagCalendarMenu extends TaggingMenu implements IActivitySelectionCh
 		return false;
 	}
 
-	
 }
