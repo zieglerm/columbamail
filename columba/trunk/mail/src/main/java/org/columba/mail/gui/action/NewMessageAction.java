@@ -54,7 +54,7 @@ public class NewMessageAction extends AbstractColumbaAction {
 		putValue(SHORT_DESCRIPTION, MailResourceLoader.getString("menu",
 				"mainframe", "menu_message_new_tooltip").replaceAll("&", ""));
 		putValue(SMALL_ICON, MailImageLoader.getSmallIcon(IconKeys.MESSAGE_NEW));
-		putValue(LARGE_ICON, MailImageLoader.getIcon("compose.png"));
+		putValue(LARGE_ICON, MailImageLoader.getIcon(IconKeys.MESSAGE_NEW));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M,
 				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	}
