@@ -1,6 +1,7 @@
 package org.columba.mail.gui.composer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.text.JTextComponent;
 
 import org.columba.core.config.Config;
+import org.columba.core.gui.base.RoundedBorder;
 import org.columba.core.gui.util.FontProperties;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.AccountItem;
@@ -48,10 +50,24 @@ public class SignatureView extends JPanel implements MouseListener,
 
 		setBackground(UIManager.getColor("TextArea.background"));
 
-		setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEmptyBorder(5, 5, 5, 5), BorderFactory
-				.createCompoundBorder(BorderFactory.createEtchedBorder(),
-						BorderFactory.createEmptyBorder(5, 5, 5, 5))));
+		setBorder(BorderFactory
+				.createEmptyBorder(8,8,8,8));
+
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(UIManager.getColor("TextArea.background"));
+		
+		centerPanel.setBorder(BorderFactory.createCompoundBorder( new RoundedBorder(new Color(
+						220, 220, 220)), BorderFactory
+						.createEmptyBorder(8,8,8,8)));
+		centerPanel.setLayout(new BorderLayout());
+		
+		add(centerPanel, BorderLayout.CENTER);
+		
+		// setBorder(BorderFactory.createCompoundBorder(BorderFactory
+		// .createEmptyBorder(5, 5, 5, 5), BorderFactory
+		// .createCompoundBorder(new RoundedBorder(
+		// new Color(220, 220, 220)), BorderFactory
+		// .createEmptyBorder(5, 5, 5, 5))));
 
 		button = new JButton("Edit Signature...");
 		button.addActionListener(new ActionListener() {
@@ -62,19 +78,21 @@ public class SignatureView extends JPanel implements MouseListener,
 		});
 
 		JPanel topPanel = new JPanel();
+
 		topPanel.setBackground(UIManager.getColor("TextArea.background"));
 		topPanel.setLayout(new BorderLayout());
-		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 5));
+		topPanel.setBorder(BorderFactory.createEmptyBorder(0,0,8,0));
 
 		topPanel.add(button, BorderLayout.WEST);
 
-		add(topPanel, BorderLayout.NORTH);
+		centerPanel.add(topPanel, BorderLayout.NORTH);
 
 		textPane = new JTextArea();
 
-		add(textPane, BorderLayout.CENTER);
+		centerPanel.add(textPane, BorderLayout.CENTER);
 
 		textPane.setEditable(false);
+		textPane.setBackground(UIManager.getColor("TextArea.background"));
 		// textPane.setEnabled(false);
 		textPane.addMouseListener(this);
 
@@ -149,7 +167,7 @@ public class SignatureView extends JPanel implements MouseListener,
 			in.close();
 
 			textPane.setText(strbuf.toString());
-			
+
 		} catch (IOException ex) {
 			textPane.setText("");
 		}

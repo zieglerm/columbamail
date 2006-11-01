@@ -64,7 +64,7 @@ public class UnderlineFormatAction extends AbstractSelectableAction
         putValue(LARGE_ICON,
         		MailImageLoader.getIcon("format-text-underline.png"));
         putValue(SMALL_ICON,
-        		MailImageLoader.getIcon("format-text-underline.png"));
+        		MailImageLoader.getSmallIcon("format-text-underline.png"));
 
         //shortcut key
         putValue(ACCELERATOR_KEY,

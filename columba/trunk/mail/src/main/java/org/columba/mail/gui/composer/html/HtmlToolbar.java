@@ -25,11 +25,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JToolBar;
+import javax.swing.UIManager;
 import javax.swing.text.html.HTML;
 
 import org.columba.api.gui.frame.IFrameMediator;
@@ -41,6 +43,7 @@ import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.gui.action.AbstractSelectableAction;
 import org.columba.core.gui.base.LabelWithMnemonic;
+import org.columba.core.gui.base.RoundedBorder;
 import org.columba.core.gui.toolbar.ToggleToolbarButton;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
@@ -85,13 +88,17 @@ public class HtmlToolbar extends JToolBar implements ActionListener, Observer,
 		super();
 		this.controller = controller;
 
+		setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(
+				UIManager.getColor("controlShadow")), BorderFactory
+				.createEmptyBorder(4, 4, 4, 4)));
+
 		setRollover(true);
 
 		setFloatable(false);
 
 		try {
-			handler =  PluginManager.getInstance()
-					.getExtensionHandler(IExtensionHandlerKeys.ORG_COLUMBA_CORE_ACTION);
+			handler = PluginManager.getInstance().getExtensionHandler(
+					IExtensionHandlerKeys.ORG_COLUMBA_CORE_ACTION);
 		} catch (PluginHandlerNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -140,12 +147,14 @@ public class HtmlToolbar extends JToolBar implements ActionListener, Observer,
 		sizeComboBox.setFocusable(false);
 
 		// set initial enabled state of combo boxes
-		XmlElement optionsElement = MailConfig.getInstance().get(
-				"composer_options").getElement("/options");
-		XmlElement htmlElement = optionsElement.getElement("html");
-		String s = htmlElement.getAttribute("enable", "false");
-		boolean enableHtml = Boolean.valueOf(s).booleanValue();
-		paragraphComboBox.setEnabled(enableHtml);
+//		XmlElement optionsElement = MailConfig.getInstance().get(
+//				"composer_options").getElement("/options");
+//		XmlElement htmlElement = optionsElement.getElement("html");
+//		String s = htmlElement.getAttribute("enable", "false");
+//		boolean enableHtml = Boolean.valueOf(s).booleanValue();
+	
+		
+		//paragraphComboBox.setEnabled(enableHtml);
 
 		// TODO (@author javaprog):sizeComboBox can be enabled as
 		// paragraphComboBox when implemented
@@ -306,7 +315,7 @@ public class HtmlToolbar extends JToolBar implements ActionListener, Observer,
 				ctrl.setParagraphFormat(tag);
 			}
 		} else if (action.equals("SIZE")) {
-//			int selectedIndex = sizeComboBox.getSelectedIndex();
+			// int selectedIndex = sizeComboBox.getSelectedIndex();
 
 			// TODO (@author fdietz):: implement action for font size combo box!
 		}

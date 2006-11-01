@@ -11,21 +11,21 @@ import javax.swing.UIManager;
 
 import org.columba.core.gui.util.FontProperties;
 
-public class TextEditorPanel extends JScrollPane{
+public class TextEditorPanel extends JScrollPane {
 
 	private JPanel contentPane;
-	
+
 	public TextEditorPanel() {
 		super();
-		
 
 		contentPane = new VerticalScrollablePanel();
-		
+
 		contentPane.setBorder(null);
+
 		contentPane.setLayout(new BorderLayout());
-		
-		
+
 		setViewportView(contentPane);
+		
 		getViewport().setBackground(UIManager.getColor("TextArea.background"));
 	}
 
@@ -59,12 +59,14 @@ class VerticalScrollablePanel extends JPanel implements Scrollable {
 		return getPreferredSize();
 	}
 
-	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+	public int getScrollableBlockIncrement(Rectangle visibleRect,
+			int orientation, int direction) {
 		return FontProperties.getTextFont().getSize() * 10;
 	}
 
-	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+	public int getScrollableUnitIncrement(Rectangle visibleRect,
+			int orientation, int direction) {
 		return FontProperties.getTextFont().getSize() * 3;
 	}
-	
+
 }

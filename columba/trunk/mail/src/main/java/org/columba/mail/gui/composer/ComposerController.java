@@ -19,6 +19,7 @@
 package org.columba.mail.gui.composer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -45,6 +46,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.EventListenerList;
@@ -67,6 +70,7 @@ import org.columba.mail.gui.composer.action.SaveAsDraftAction;
 import org.columba.mail.gui.composer.html.HtmlEditorController;
 import org.columba.mail.gui.composer.html.HtmlToolbar;
 import org.columba.mail.gui.composer.text.TextEditorController;
+import org.columba.mail.gui.message.viewer.MessageBorder;
 import org.columba.mail.parser.text.HtmlParser;
 import org.columba.mail.util.MailResourceLoader;
 import org.frapuccino.swing.MultipleTransferHandler;
@@ -287,6 +291,9 @@ public class ComposerController extends DefaultFrameController implements
 			attachmentSplitPane.setDividerLocation(0.80);
 			attachmentSplitPane.setBorder(null);
 
+		
+
+			
 			// add splitpane to the center
 			centerPanel.add(attachmentSplitPane, BorderLayout.CENTER);
 
@@ -302,7 +309,8 @@ public class ComposerController extends DefaultFrameController implements
 			// no attachments
 			// -> only show bodytext editor
 			centerPanel.add(editorPanel, BorderLayout.CENTER);
-
+			
+			
 			attachmentPanelShown = false;
 		}
 
@@ -394,6 +402,13 @@ public class ComposerController extends DefaultFrameController implements
 				.add(getEditorController().getViewUIComponent(),
 						BorderLayout.CENTER);
 
+		Border outterBorder = BorderFactory.createCompoundBorder(BorderFactory
+				.createEmptyBorder(5, 5, 5, 5), new MessageBorder(
+				Color.LIGHT_GRAY, 1, true));
+		Border innerBorder = BorderFactory.createCompoundBorder(outterBorder,
+				new LineBorder(Color.WHITE, 5, true));
+		editorPanel.setBorder(innerBorder);
+		
 		AccountItem item = (AccountItem) getAccountController().getView()
 				.getSelectedItem();
 		if (item.getIdentity().getSignature() != null)
@@ -747,8 +762,9 @@ public class ComposerController extends DefaultFrameController implements
 
 			if (html) {
 				LOG.fine("Converting body text to html");
-				newBody = HtmlParser.textToHtml(oldBody, "", null, getCharset()
-						.toString());
+				Charset charset = getCharset();
+				if ( charset == null ) charset = Charset.defaultCharset();
+				newBody = HtmlParser.textToHtml(oldBody, "", null, charset.toString());
 			} else {
 				LOG.fine("Converting body text to text");
 				newBody = HtmlParser.htmlToText(oldBody);

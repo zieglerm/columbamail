@@ -35,7 +35,7 @@ public class ColumbaDesktop implements IDesktop {
 
 	public String getMimeType(File file) {
 		String mimeType = activeDesktop.getMimeType(file);
-		if (mimeType.equals("application/octet-stream")) {
+		if (mimeType == null || mimeType.equals("application/octet-stream")) {
 			// Try the built-in mime table
 			return DefaultMimeTypeTable.lookup(file);
 		} else {
