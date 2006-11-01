@@ -46,6 +46,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
@@ -123,7 +124,7 @@ public class ComposerController extends DefaultFrameController implements
 	private JSplitPane attachmentSplitPane;
 
 	/** Editor viewer resides in this panel */
-	private TextEditorPanel editorPanel;
+	private TextEditorPanel editorScrollPane;
 
 	private LabelWithMnemonic subjectLabel;
 
@@ -142,6 +143,10 @@ public class ComposerController extends DefaultFrameController implements
 	private SignatureView signatureView;
 
 	private boolean attachmentPanelShown;
+
+	private JPanel editorPanel = new JPanel();
+
+	JPanel toolbarPanel = new JPanel();
 
 	public ComposerController() {
 		this(new ComposerModel(), FrameManager.getInstance()
@@ -287,13 +292,10 @@ public class ComposerController extends DefaultFrameController implements
 			// create splitpane containing the bodytext editor and the
 			// attachment panel
 			attachmentSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-					editorPanel, attachmentScrollPane);
+					editorScrollPane, attachmentScrollPane);
 			attachmentSplitPane.setDividerLocation(0.80);
 			attachmentSplitPane.setBorder(null);
 
-		
-
-			
 			// add splitpane to the center
 			centerPanel.add(attachmentSplitPane, BorderLayout.CENTER);
 
@@ -309,8 +311,7 @@ public class ComposerController extends DefaultFrameController implements
 			// no attachments
 			// -> only show bodytext editor
 			centerPanel.add(editorPanel, BorderLayout.CENTER);
-			
-			
+
 			attachmentPanelShown = false;
 		}
 
@@ -341,7 +342,7 @@ public class ComposerController extends DefaultFrameController implements
 		priorityLabel = new LabelWithMnemonic(MailResourceLoader.getString(
 				"dialog", "composer", "priority"));
 
-		editorPanel = new TextEditorPanel();
+		editorScrollPane = new TextEditorPanel();
 	}
 
 	/**
@@ -349,6 +350,13 @@ public class ComposerController extends DefaultFrameController implements
 	 */
 	public void layoutComponents() {
 		centerPanel.removeAll();
+
+		editorPanel.setLayout(new BorderLayout());
+
+		toolbarPanel.setLayout(new BorderLayout());
+		toolbarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
+		toolbarPanel.add(htmlToolbar);
+		toolbarPanel.setBackground(UIManager.getColor("TextArea.background"));
 
 		topPanel = new JPanel();
 		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -391,16 +399,15 @@ public class ComposerController extends DefaultFrameController implements
 
 		topPanel.add(getSubjectController().getView(), c.xywh(3, 9, 5, 1));
 
-		if (composerModel.isHtml()) {
-			// htmlToolbar.setBorder(BorderFactory.createEmptyBorder(0, 5, 5,
-			// 0));
-			// htmlToolbar.setBorder(UIManager.getBorder("ToolBar"));
-			editorPanel.getContentPane().add(htmlToolbar, BorderLayout.NORTH);
-		}
+		if (composerModel.isHtml())
+			editorPanel.add(toolbarPanel, BorderLayout.NORTH);
+		
 
-		editorPanel.getContentPane()
+		editorScrollPane.getContentPane()
 				.add(getEditorController().getViewUIComponent(),
 						BorderLayout.CENTER);
+
+		editorPanel.add(editorScrollPane, BorderLayout.CENTER);
 
 		Border outterBorder = BorderFactory.createCompoundBorder(BorderFactory
 				.createEmptyBorder(5, 5, 5, 5), new MessageBorder(
@@ -408,13 +415,14 @@ public class ComposerController extends DefaultFrameController implements
 		Border innerBorder = BorderFactory.createCompoundBorder(outterBorder,
 				new LineBorder(Color.WHITE, 5, true));
 		editorPanel.setBorder(innerBorder);
-		
+
 		AccountItem item = (AccountItem) getAccountController().getView()
 				.getSelectedItem();
 		if (item.getIdentity().getSignature() != null)
-			editorPanel.getContentPane().add(signatureView, BorderLayout.SOUTH);
+			editorScrollPane.getContentPane().add(signatureView,
+					BorderLayout.SOUTH);
 
-		editorPanel.addMouseListener(new MouseListener() {
+		editorScrollPane.addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent e) {
 				editorController.getComponent().requestFocus();
@@ -453,7 +461,7 @@ public class ComposerController extends DefaultFrameController implements
 	 * @return editor panel reference
 	 */
 	public JPanel getEditorPanel() {
-		return editorPanel.getContentPane();
+		return editorScrollPane.getContentPane();
 	}
 
 	/**
@@ -465,17 +473,18 @@ public class ComposerController extends DefaultFrameController implements
 	public void setNewEditorView() {
 
 		// update panel
-		editorPanel.getContentPane().removeAll();
-		editorPanel.getContentPane()
+		editorScrollPane.getContentPane().removeAll();
+		editorScrollPane.getContentPane()
 				.add(getEditorController().getViewUIComponent(),
 						BorderLayout.CENTER);
 
 		AccountItem item = (AccountItem) getAccountController().getView()
 				.getSelectedItem();
 		if (item.getIdentity().getSignature() != null)
-			editorPanel.getContentPane().add(signatureView, BorderLayout.SOUTH);
+			editorScrollPane.getContentPane().add(signatureView,
+					BorderLayout.SOUTH);
 
-		editorPanel.getContentPane().validate();
+		editorScrollPane.getContentPane().validate();
 	}
 
 	public boolean isAccountInfoPanelVisible() {
@@ -763,8 +772,10 @@ public class ComposerController extends DefaultFrameController implements
 			if (html) {
 				LOG.fine("Converting body text to html");
 				Charset charset = getCharset();
-				if ( charset == null ) charset = Charset.defaultCharset();
-				newBody = HtmlParser.textToHtml(oldBody, "", null, charset.toString());
+				if (charset == null)
+					charset = Charset.defaultCharset();
+				newBody = HtmlParser.textToHtml(oldBody, "", null, charset
+						.toString());
 			} else {
 				LOG.fine("Converting body text to text");
 				newBody = HtmlParser.htmlToText(oldBody);
@@ -779,12 +790,15 @@ public class ComposerController extends DefaultFrameController implements
 		}
 
 		if (html) {
-			editorPanel.getContentPane().add(htmlToolbar, BorderLayout.NORTH);
+
+			editorPanel.add(toolbarPanel, BorderLayout.NORTH);
 		} else {
-			editorPanel.getContentPane().remove(htmlToolbar);
+			// centerPanel.remove(htmlToolbar);
+			editorPanel.remove(toolbarPanel);
 		}
 
 		editorPanel.validate();
+		//editorScrollPane.validate();
 
 	}
 
@@ -1028,13 +1042,13 @@ public class ComposerController extends DefaultFrameController implements
 					.getSelectedItem();
 			if (item.getIdentity().getSignature() != null) {
 				// show signature viewer
-				editorPanel.getContentPane().add(signatureView,
+				editorScrollPane.getContentPane().add(signatureView,
 						BorderLayout.SOUTH);
-				editorPanel.revalidate();
+				editorScrollPane.revalidate();
 			} else {
 				// hide signature viewer
-				editorPanel.getContentPane().remove(signatureView);
-				editorPanel.revalidate();
+				editorScrollPane.getContentPane().remove(signatureView);
+				editorScrollPane.revalidate();
 			}
 		}
 
@@ -1044,7 +1058,8 @@ public class ComposerController extends DefaultFrameController implements
 		return (JPanel) getComponent();
 	}
 
-	/** container callbacks
+	/**
+	 * container callbacks
 	 * 
 	 * @param container
 	 */

@@ -147,14 +147,13 @@ public class HtmlToolbar extends JToolBar implements ActionListener, Observer,
 		sizeComboBox.setFocusable(false);
 
 		// set initial enabled state of combo boxes
-//		XmlElement optionsElement = MailConfig.getInstance().get(
-//				"composer_options").getElement("/options");
-//		XmlElement htmlElement = optionsElement.getElement("html");
-//		String s = htmlElement.getAttribute("enable", "false");
-//		boolean enableHtml = Boolean.valueOf(s).booleanValue();
-	
-		
-		//paragraphComboBox.setEnabled(enableHtml);
+		// XmlElement optionsElement = MailConfig.getInstance().get(
+		// "composer_options").getElement("/options");
+		// XmlElement htmlElement = optionsElement.getElement("html");
+		// String s = htmlElement.getAttribute("enable", "false");
+		// boolean enableHtml = Boolean.valueOf(s).booleanValue();
+
+		// paragraphComboBox.setEnabled(enableHtml);
 
 		// TODO (@author javaprog):sizeComboBox can be enabled as
 		// paragraphComboBox when implemented

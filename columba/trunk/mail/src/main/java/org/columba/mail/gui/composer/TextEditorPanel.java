@@ -22,6 +22,8 @@ public class TextEditorPanel extends JScrollPane {
 
 		contentPane.setBorder(null);
 
+		setBorder(null);
+		
 		contentPane.setLayout(new BorderLayout());
 
 		setViewportView(contentPane);
