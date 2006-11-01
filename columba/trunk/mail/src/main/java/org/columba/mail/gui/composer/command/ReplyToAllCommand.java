@@ -61,7 +61,9 @@ public class ReplyToAllCommand extends ReplyCommand {
         // From which account is this mail?
         Integer accountUid = (Integer) folder.getAttribute(uids[0], "columba.accountuid");
         AccountItem accountItem = MessageBuilderHelper.getAccountItem(accountUid);
-        Address accountAddress = MailConfig.getInstance().getAccountList().uidGet(accountUid.intValue()).getIdentity().getAddress();
+        Address accountAddress = null;
+        if ( accountItem != null)
+        	accountAddress = MailConfig.getInstance().getAccountList().uidGet(accountUid.intValue()).getIdentity().getAddress();
         
         BasicHeader rfcHeader = new BasicHeader(header);
 
