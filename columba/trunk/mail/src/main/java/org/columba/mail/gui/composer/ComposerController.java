@@ -351,7 +351,7 @@ public class ComposerController extends DefaultFrameController implements
 		centerPanel.removeAll();
 
 		topPanel = new JPanel();
-		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
+		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		FormLayout layout = new FormLayout(new ColumnSpec[] {
 				new ColumnSpec("center:max(pref;50dlu)"),
