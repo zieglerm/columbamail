@@ -18,9 +18,13 @@
 package org.columba.mail.gui.table.action;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 
 import org.columba.api.gui.frame.IFrameMediator;
@@ -80,6 +84,7 @@ public class ColorMessageMenu extends IMenu implements ActionListener,
 
 		for (int i = 0; i < items.length; i++) {
 			item = new JMenuItem(items[i]);
+			item.setIcon(createIcon(colors[i]));
 			item.setActionCommand(items[i]);
 			item.addActionListener(this);
 			add(item);
@@ -127,6 +132,30 @@ public class ColorMessageMenu extends IMenu implements ActionListener,
 		} else {
 			setEnabled(false);
 		}
+	}
+	
+	private Icon createIcon(Color color) {
+		int width = 16;
+		int height = 16;
+		BufferedImage image = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D graphics = (Graphics2D) image.getGraphics();
+		graphics.setColor(darker(color));
+		graphics.drawRect(1, 1, width - 3, height - 3);
+		graphics.setColor(color);
+		graphics.fillRect(2, 2, width - 4, height - 4);
+		graphics.dispose();
+
+		return new ImageIcon(image);
+	}
+
+	private final static double FACTOR = 0.90;
+
+	private Color darker(Color c) {
+		return new Color(Math.max((int) (c.getRed() * FACTOR), 0), Math.max(
+				(int) (c.getGreen() * FACTOR), 0), Math.max(
+				(int) (c.getBlue() * FACTOR), 0));
 	}
 }
 

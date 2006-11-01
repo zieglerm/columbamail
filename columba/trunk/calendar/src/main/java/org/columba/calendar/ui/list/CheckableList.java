@@ -48,8 +48,7 @@ public class CheckableList extends JTable {
 
 		super.setModel(model);
 
-		setRowHeight((int)new JCheckBox("test").getPreferredSize().getHeight()+3);
-	
+		setRowHeight((int) new JCheckBox("test").getPreferredSize().getHeight() + 3);
 
 	}
 
@@ -76,12 +75,10 @@ public class CheckableList extends JTable {
 		model.addColumn(tc);
 
 		setColumnModel(model);
-		
-		setIntercellSpacing(new Dimension(2, 2));
-		
-		//setRowMargin(5);
-		
-		
+
+		// setIntercellSpacing(new Dimension(2, 2));
+
+		// setRowMargin(5);
 
 	}
 
@@ -94,6 +91,8 @@ public class CheckableList extends JTable {
 		super.setModel(model);
 
 		initColumns();
+
+		setIntercellSpacing(new Dimension(0, 0));
 	}
 
 	// public CalendarItem getSelected() {

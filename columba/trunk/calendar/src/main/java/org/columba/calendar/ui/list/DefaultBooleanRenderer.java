@@ -37,7 +37,7 @@ public class DefaultBooleanRenderer extends JCheckBox implements
 
 	public DefaultBooleanRenderer() {
 
-		setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
+		//setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
 
 		setHorizontalAlignment(SwingUtilities.CENTER);
 	}
@@ -56,7 +56,7 @@ public class DefaultBooleanRenderer extends JCheckBox implements
 
 		}
 
-		setBackground(item.getColor());
+		//setBackground(item.getColor());
 
 		setSelected(item.isSelected());
 

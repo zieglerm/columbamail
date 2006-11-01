@@ -1,10 +1,11 @@
 package org.columba.mail.search;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
-import org.columba.core.base.UUIDGenerator;
+import org.columba.core.config.Config;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
 import org.columba.mail.folder.IMailFolder;
@@ -14,32 +15,19 @@ import org.columba.mail.gui.tree.FolderTreeModel;
 
 public class SearchFolderFactory {
 
+	
+
 	/**
 	 * Create search folder for simple search with a single criteria
 	 */
 	public static VirtualFolder createSearchFolder(FilterCriteria c,
 			IMailFolder folder) throws Exception {
-		// get search folder
 
-		String uuid = new UUIDGenerator().newUUID();
-		VirtualFolder searchFolder = new VirtualFolder("Search Result",
-				"VirtualFolder", uuid, folder);
-
-		// remove old filters
-		searchFolder.getFilter().getFilterRule().removeAll();
+		// create search folder
+		VirtualFolder searchFolder = createVirtualFolder(folder);
 
 		// add filter criteria
 		searchFolder.getFilter().getFilterRule().add(c);
-
-		// search in subfolders recursively
-		searchFolder.getConfiguration().setString("property",
-				"include_subfolders", "true");
-
-		String uid = folder.getId();
-
-		// set source folder UID
-		searchFolder.getConfiguration()
-				.setString("property", "source_uid", uid);
 
 		return searchFolder;
 	}
@@ -51,25 +39,11 @@ public class SearchFolderFactory {
 	public static VirtualFolder prepareSearchFolder(FilterCriteria c,
 			IMailFolder folder) throws Exception {
 
-		String uuid = new UUIDGenerator().newUUID();
-		VirtualFolder searchFolder = new VirtualFolder("Search Result",
-				"VirtualFolder", uuid, folder);
-
-		// remove old filters
-		searchFolder.getFilter().getFilterRule().removeAll();
+		// create search folder
+		VirtualFolder searchFolder = createVirtualFolder(folder);
 
 		// add filter criteria
 		searchFolder.getFilter().getFilterRule().add(c);
-
-		// don't search in subfolders recursively
-		searchFolder.getConfiguration().setString("property",
-				"include_subfolders", "false");
-
-		String uid = folder.getId();
-
-		// set source folder UID
-		searchFolder.getConfiguration()
-				.setString("property", "source_uid", uid);
 
 		return searchFolder;
 	}
@@ -79,14 +53,9 @@ public class SearchFolderFactory {
 	 */
 	public static VirtualFolder createSearchFolder(FilterRule rule,
 			IMailFolder folder) throws Exception {
-		// get search folder
+		// create search folder
+		VirtualFolder searchFolder = createVirtualFolder(folder);
 
-		String uuid = new UUIDGenerator().newUUID();
-		VirtualFolder searchFolder = new VirtualFolder("Search Result",
-				"VirtualFolder", uuid, folder);
-
-		// remove old filters
-		searchFolder.getFilter().getFilterRule().removeAll();
 		searchFolder.getFilter().getFilterRule().setCondition(
 				rule.getConditionInt());
 
@@ -94,6 +63,47 @@ public class SearchFolderFactory {
 			// add filter criteria
 			searchFolder.getFilter().getFilterRule().add(rule.get(i));
 		}
+
+		return searchFolder;
+	}
+
+	/**
+	 * Update already existing virtual folder for an "search inside results"
+	 * search
+	 */
+	public static VirtualFolder prepareSearchFolder(FilterRule rule,
+			IMailFolder folder) throws Exception {
+
+		// create search folder
+		VirtualFolder searchFolder = createVirtualFolder(folder);
+
+		searchFolder.getFilter().getFilterRule().setCondition(
+				rule.getConditionInt());
+
+		for (int i = 0; i < rule.getChildCount(); i++) {
+			// add filter criteria
+			searchFolder.getFilter().getFilterRule().add(rule.get(i));
+		}
+
+		return searchFolder;
+	}
+
+	/**
+	 * Create virtual folder.
+	 * 
+	 * @param folder
+	 * @return
+	 */
+	private static VirtualFolder createVirtualFolder(IMailFolder folder) {
+		// create path in "<your-config-folder>/mail/" directory
+		File f = Config.getInstance().getConfigDirectory();
+		File f2 = new File(f, "mail");
+
+		VirtualFolder searchFolder = new VirtualFolder("Search Result",
+				"VirtualFolder", f2.getAbsolutePath(), folder);
+
+		// remove old filters
+		searchFolder.getFilter().getFilterRule().removeAll();
 
 		// search in subfolders recursively
 		searchFolder.getConfiguration().setString("property",
@@ -107,41 +117,7 @@ public class SearchFolderFactory {
 
 		return searchFolder;
 	}
-
-	/**
-	 * Update already existing virtual folder for an "search inside results"
-	 * search
-	 */
-	public static VirtualFolder prepareSearchFolder(FilterRule rule,
-			IMailFolder folder) throws Exception {
-
-		String uuid = new UUIDGenerator().newUUID();
-		VirtualFolder searchFolder = new VirtualFolder("Search Result",
-				"VirtualFolder", uuid, folder);
-
-		// remove old filters
-		searchFolder.getFilter().getFilterRule().removeAll();
-
-		searchFolder.getFilter().getFilterRule().setCondition(
-				rule.getConditionInt());
-
-		for (int i = 0; i < rule.getChildCount(); i++) {
-			// add filter criteria
-			searchFolder.getFilter().getFilterRule().add(rule.get(i));
-		}
-		// don't search in subfolders recursively
-		searchFolder.getConfiguration().setString("property",
-				"include_subfolders", "false");
-
-		String uid = folder.getId();
-
-		// set source folder UID
-		searchFolder.getConfiguration()
-				.setString("property", "source_uid", uid);
-
-		return searchFolder;
-	}
-
+	
 	/**
 	 * Return list of all source folders we going to query.
 	 * 

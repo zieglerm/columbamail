@@ -53,7 +53,7 @@ public class CheckableListEditor
 		
 		checkbox.addActionListener(this);
 		checkbox.setOpaque(true);
-		checkbox.setBorder(BorderFactory.createEmptyBorder(2,4,2,4));
+		//checkbox.setBorder(BorderFactory.createEmptyBorder(2,4,2,4));
 		
 	}
 
@@ -74,7 +74,7 @@ public class CheckableListEditor
 
 		ICalendarItem item = (ICalendarItem) value;
 
-		checkbox.setBackground(item.getColor());
+		//checkbox.setBackground(item.getColor());
 		
 		checkbox.setSelected(item.isSelected());
 		

@@ -1,10 +1,15 @@
 package org.columba.core.gui.tagging;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 
@@ -66,8 +71,12 @@ public abstract class TaggingMenu extends IMenu {
 			// mark tag, if the current selection is tagged with it
 			final boolean tagged = isTagged(tag);
 
-			// we can add icons or colors later on
-			// item.setIcon(ImageLoader.getSmallIcon(IconKeys.INTERNET));
+			if ( tag.getDescription() != null)
+				menuItem.setToolTipText(tag.getDescription());
+			
+			if ( tag.getColor() != null )
+				menuItem.setIcon(createIcon(tag.getColor()));
+			
 			menuItem.setSelected(tagged);
 
 			menuItem.addActionListener(new ActionListener() {
@@ -123,6 +132,31 @@ public abstract class TaggingMenu extends IMenu {
 			createSubMenu();
 		}
 	}
+	
+	private Icon createIcon(Color color) {
+		int width = 16;
+		int height = 16;
+		BufferedImage image = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D graphics = (Graphics2D) image.getGraphics();
+		graphics.setColor(darker(color));
+		graphics.drawRect(1, 1, width - 3, height - 3);
+		graphics.setColor(color);
+		graphics.fillRect(2, 2, width - 4, height - 4);
+		graphics.dispose();
+
+		return new ImageIcon(image);
+	}
+
+	private final static double FACTOR = 0.90;
+
+	private Color darker(Color c) {
+		return new Color(Math.max((int) (c.getRed() * FACTOR), 0), Math.max(
+				(int) (c.getGreen() * FACTOR), 0), Math.max(
+				(int) (c.getBlue() * FACTOR), 0));
+	}
+	
 
 	/** **************** overwrite callback methods ************************ */
 
