@@ -81,6 +81,7 @@ public class EditTagDialog extends JDialog implements ActionListener {
 
 		initComponents();
 
+		
 		layoutComponents();
 
 		pack();
@@ -180,7 +181,7 @@ public class EditTagDialog extends JDialog implements ActionListener {
 		MnemonicSetter.setTextWithMnemonic(label1, bundle
 				.getString("label1.text"));
 		textField1 = new JTextField();
-		textField1.getDocument().addDocumentListener(new MyDocumentListener());
+		
 		label1.setLabelFor(textField1);
 		if (name != null)
 			textField1.setText(name);
@@ -230,6 +231,8 @@ public class EditTagDialog extends JDialog implements ActionListener {
 		cancelButton.addActionListener(this);
 		MnemonicSetter.setTextWithMnemonic(cancelButton, globalBundle
 				.getString("cancel"));
+		
+		textField1.getDocument().addDocumentListener(new MyDocumentListener());
 	}
 
 	public void actionPerformed(ActionEvent e) {
