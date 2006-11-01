@@ -90,7 +90,7 @@ public class CalendarTagList extends TagList {
 				System.out.println("add: " + result.getId());
 				// create new one
 				category = CategoryDepository.getRoot().addSubCategory(
-						"tag_" + result.getId(), result.getProperty("name"));
+						"tag_" + result.getId(), result.getName());
 			}
 
 			// mark it as selected

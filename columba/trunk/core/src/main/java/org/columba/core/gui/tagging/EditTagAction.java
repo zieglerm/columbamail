@@ -1,5 +1,6 @@
 package org.columba.core.gui.tagging;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -17,32 +18,41 @@ public class EditTagAction extends AbstractColumbaAction {
 	final static String EDIT_TAG = "Edit Tag...";
 
 	private TagList list;
-	
+
 	public EditTagAction(IFrameMediator frameMediator, TagList list) {
 		super(frameMediator, EDIT_TAG);
 		this.list = list;
 	}
-	
+
 	public void actionPerformed(ActionEvent arg0) {
-		
+
 		JFrame frame = getFrameMediator().getContainer().getFrame();
-		
+
 		ITag tag = list.getSelectedTag();
-		
-		EditTagDialog editTagDialog = new EditTagDialog(frame, tag);
-		if ( editTagDialog.getSuccess()) {
+
+		EditTagDialog editTagDialog = new EditTagDialog(frame, tag.getName(),
+				tag.getColor(), tag.getDescription());
+		if (editTagDialog.getSuccess()) {
+
+			String name = editTagDialog.getName();
+			Color color = editTagDialog.getColor();
+			String descr = editTagDialog.getDescription();
 			
-			String name = editTagDialog.getTagName();
-			if ( name != null && name.length() > 0) {
-				
-				try {
-					TagManager.getInstance().setProperty(tag, "name", name);
-				} catch (StoreException e) {
-					if ( Logging.DEBUG)
-						e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Error editing Tag");
-				}
+			if (name != null && name.length() > 0)
+				tag.setName(name);
+			if (color != null)
+				tag.setColor(color);
+			if ( descr != null)
+				tag.setDescription(descr);
+			
+			try {
+				TagManager.getInstance().replaceTag(tag);
+			} catch (StoreException e) {
+				if (Logging.DEBUG)
+					e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error editing Tag");
 			}
+
 		}
 	}
 

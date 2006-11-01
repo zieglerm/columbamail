@@ -30,7 +30,7 @@ public class RemoveTagAction extends AbstractColumbaAction {
 			ITag tag = it.next();
 			
 			try {
-				TagManager.getInstance().removeTagById(tag.getId());
+				TagManager.getInstance().removeTag(tag.getId());
 			} catch (StoreException e) {
 				if ( Logging.DEBUG)
 					e.printStackTrace();

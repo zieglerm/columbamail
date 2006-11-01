@@ -61,7 +61,7 @@ public abstract class TaggingMenu extends IMenu {
 				.hasNext();) {
 			final ITag tag = iter.next();
 			final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(tag
-					.getProperty("name"));
+					.getName());
 
 			// mark tag, if the current selection is tagged with it
 			final boolean tagged = isTagged(tag);

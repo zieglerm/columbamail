@@ -151,7 +151,7 @@ public class SearchResultList extends JXList {
 					Font.ITALIC));
 			setBorder(BorderFactory.createCompoundBorder(lineBorder,
 					BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-			iconLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
+			iconLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 8));
 
 			titlePanel.setOpaque(false);
 			centerPanel.setOpaque(false);

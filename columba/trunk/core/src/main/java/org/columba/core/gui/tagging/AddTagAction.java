@@ -1,5 +1,6 @@
 package org.columba.core.gui.tagging;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -22,16 +23,20 @@ public class AddTagAction extends AbstractColumbaAction {
 
 	public void actionPerformed(ActionEvent arg0) {
 		JFrame frame = getFrameMediator().getContainer().getFrame();
-		AddTagDialog dialog = new AddTagDialog(frame);
+		EditTagDialog dialog = new EditTagDialog(frame);
 
 		if (dialog.getSuccess()) {
-			String tagName = dialog.getTagName();
-
+			String tagName = dialog.getName();
+			Color color = dialog.getColor();
+			
 			if (tagName != null && tagName.length() > 0) {
-
+				Color c = dialog.getColor();
+				String descr = dialog.getDescription();
 				try {
 					ITag tag = TagManager.getInstance().addTag(tagName);
-
+					if ( color != null) tag.setColor(color);
+					if ( descr != null ) tag.setDescription(descr);
+					
 					if (tag == null)
 						JOptionPane.showMessageDialog(null, "Error adding Tag");
 
@@ -40,8 +45,8 @@ public class AddTagAction extends AbstractColumbaAction {
 						e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Error adding Tag");
 				}
-
 			}
+			
 		}
 
 	}

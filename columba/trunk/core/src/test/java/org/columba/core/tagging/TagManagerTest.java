@@ -38,7 +38,7 @@ public class TagManagerTest extends TestCase {
 		boolean found = false;
 		for (Iterator<ITag> iter = tm.getAllTags(); iter.hasNext();) {
 			ITag tag = iter.next();
-			if (tag.getProperty("name").equals("NormalTag")) {
+			if (tag.getName().equals("NormalTag")) {
 				found = true;
 				System.out.println("Found NormalTag");
 			}

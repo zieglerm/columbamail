@@ -68,7 +68,7 @@ public class MailTagList extends TagList {
 
 			ITag result = (ITag) getSelectedValue();
 			// create a virtual folder with all messages holding this tag
-			Collection messageList = AssociationStore.getInstance()
+			Collection<String> uriList = AssociationStore.getInstance()
 					.getAssociatedItems("tagging", result.getId());
 
 			// TODO @author hubms show if there is already a virtual folder for
@@ -85,7 +85,11 @@ public class MailTagList extends TagList {
 			if (root instanceof MutableTreeNode)
 				taggedMessageFolder.setParent((MutableTreeNode) root);
 
-			for (Iterator it = messageList.iterator(); it.hasNext();) {
+			for (Iterator<String> it = uriList.iterator(); it.hasNext();) {
+				String uri = it.next();
+				// skip all non-mail component items
+				if ( !uri.startsWith("columba://org.columbam.mail")) continue;
+				
 				IMailFolderCommandReference r = getMessageFromURI((String) it
 						.next());
 				try {

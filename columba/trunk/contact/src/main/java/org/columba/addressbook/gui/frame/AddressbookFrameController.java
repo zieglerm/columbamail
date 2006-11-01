@@ -119,6 +119,7 @@ public class AddressbookFrameController extends DockFrameController implements
 
 		TagList tagList = new ContactTagList(this);
 		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		tagListScrollPane
 				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 

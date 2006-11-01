@@ -603,6 +603,7 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 
 		TagList tagList = new MailTagList(this);
 		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		tagListScrollPane
 				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 

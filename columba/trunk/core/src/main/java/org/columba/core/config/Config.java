@@ -20,7 +20,6 @@ package org.columba.core.config;
 import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +57,7 @@ import org.columba.core.xml.XmlIO;
  * @see org.columba.mail.config.MailConfig
  * @see org.columba.addressbook.config.AddressbookConfig
  * 
+ * @deprecated use XmlConfig instead
  * @author fdietz
  */
 public class Config implements IConfig {
@@ -92,14 +92,15 @@ public class Config implements IConfig {
 		toolsFile = new File(thePath, "external_tools.xml"); //$NON-NLS-1$
 		viewsFile = new File(thePath, "views.xml"); //$NON-NLS-1$
 
+		
 		registerPlugin(CORE_STR, optionsFile.getName(), new OptionsXmlConfig(
 				optionsFile));
-
 		registerPlugin(CORE_STR, toolsFile.getName(), new DefaultXmlConfig(
 				toolsFile));
 		registerPlugin(CORE_STR, viewsFile.getName(), new DefaultXmlConfig(
 				viewsFile));
 
+		
 		// register at shutdown manager
 		// -> this will save all configuration data, when closing Columba
 		final IShutdownManager shutdownManager = ShutdownManager.getInstance();

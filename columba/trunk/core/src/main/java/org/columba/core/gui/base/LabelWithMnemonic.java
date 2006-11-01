@@ -41,6 +41,6 @@ public class LabelWithMnemonic extends JLabel {
         super();
 
         // set display text - possible with a mnemonic defined using &
-        MnemonicSetter.setTextWithMnemonicOnLabel(this, textWithMnemonic);
+        MnemonicSetter.setTextWithMnemonic(this, textWithMnemonic);
     }
 }

@@ -93,7 +93,7 @@ public class CalendarPicker extends JComboBox {
 				BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D graphics = (Graphics2D) image.getGraphics();
-		graphics.setColor(color.darker());
+		graphics.setColor(darker(color));
 		graphics.drawRect(1, 1, width - 3, height - 3);
 		graphics.setColor(color);
 		graphics.fillRect(2, 2, width - 4, height - 4);
@@ -101,4 +101,13 @@ public class CalendarPicker extends JComboBox {
 
 		return new ImageIcon(image);
 	}
+	
+	private final static double FACTOR = 0.90;
+
+	private Color darker(Color c) {
+		return new Color(Math.max((int) (c.getRed() * FACTOR), 0), Math.max(
+				(int) (c.getGreen() * FACTOR), 0), Math.max(
+				(int) (c.getBlue() * FACTOR), 0));
+	}
+	
 }

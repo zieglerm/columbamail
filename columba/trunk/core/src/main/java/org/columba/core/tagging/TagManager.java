@@ -1,347 +1,76 @@
 package org.columba.core.tagging;
 
+import java.awt.Color;
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.event.EventListenerList;
 
 import org.columba.api.exception.StoreException;
 import org.columba.core.config.Config;
-import org.columba.core.config.DefaultXmlConfig;
-import org.columba.core.io.DiskIO;
+import org.columba.core.config.XmlConfig;
 import org.columba.core.tagging.api.ITag;
 import org.columba.core.tagging.api.ITagEvent;
 import org.columba.core.tagging.api.ITagListener;
 import org.columba.core.tagging.api.ITagManager;
-import org.columba.core.xml.XmlElement;
-import org.columba.core.xml.XmlIO;
+import org.jdom.Document;
+import org.jdom.Element;
 
 /**
  * 
  * 
  * @author mhub
- * @author frd (added eventing)
+ * @author frd (added eventing, replaced old configuration infrastructure)
  */
 public class TagManager implements ITagManager {
+
+	private static final String TAGS = "tags";
+
+	private static final String TAG = "tag";
+
+	private static final String DESCRIPTION = "description";
+
+	private static final String COLOR = "color";
+
+	private static final String NAME = "name";
+
+	private static final String ID = "id";
 
 	/** JDK 1.4+ logging framework logger, used for logging. */
 	private static final Logger LOG = Logger
 			.getLogger("org.columba.core.tagging.TagManager");
 
-	public static Vector<ITag> tags;
-
-	public static final String TAG_PREFIX = "tag_";
-
-	private static final String CORE_STR = "core";
-
-	private File path; // tag configuration file path
-
-	private File tagsConfigurationFile; // tag configuration file
+	public static Hashtable<String, ITag> map = new Hashtable<String, ITag>();
 
 	protected EventListenerList listenerList = new EventListenerList();
-	
+
 	static private TagManager instance;
 
-	// protected singleton constructor
+	private Document document;
 
+	private MyXmlConfig xmlConfig;
+
+	/**
+	 * protected singleton constructor
+	 */
 	protected TagManager() {
-	}
 
-	// private file methods
+		File file = Config.getInstance().getConfigDirectory();
+		File tagFile = new File(file, "tags.xml");
 
-	private boolean addToFile(ITag tag) {
-		path = Config.getInstance().getConfigDirectory();
-		DiskIO.ensureDirectory(path);
+		// load xml configuration
+		// -> will be automatically saved every couple of minutes and on
+		// shutdown
+		xmlConfig = new MyXmlConfig(tagFile);
 
-		tagsConfigurationFile = new File(path, "tags.xml");
+		document = xmlConfig.load();
 
-		// just ensure thst the file exists
-		if (!tagsConfigurationFile.exists())
-			try {
-				tagsConfigurationFile.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-		Config.getInstance().registerPlugin(CORE_STR,
-				tagsConfigurationFile.getName(),
-				new DefaultXmlConfig(tagsConfigurationFile));
-
-		DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
-				"tags.xml");
-
-		if (xml.getRoot().getElement("tags") == null)
-			xml.getRoot().addElement(new XmlElement("tags"));
-
-		List l = xml.getRoot().getElement("tags").getElements();
-		for (int i = 0; i < l.size(); i++) {
-			XmlElement e = (XmlElement) l.get(i);
-			if (e.getAttribute("id").equals(tag.getId())
-					&& (e.getAttribute("name").equals(tag.getProperty("name")))) {
-				LOG.severe("Duplicate Name!");
-				return false;
-			}
-		}
-
-		XmlElement newXmlTag = new XmlElement("tag");
-		newXmlTag.addAttribute("id", tag.getId());
-		newXmlTag.addAttribute("name", tag.getProperty("name"));
-		xml.getRoot().getElement("tags").addElement(newXmlTag);
-
-		try {
-			xml.save();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return true;
-
-	}
-	
-	private void updateTagInFile(ITag tag) {
-		path = Config.getInstance().getConfigDirectory();
-		DiskIO.ensureDirectory(path);
-
-		tagsConfigurationFile = new File(path, "tags.xml");
-
-		// just ensure thst the file exists
-		if (!tagsConfigurationFile.exists())
-			try {
-				tagsConfigurationFile.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-		Config.getInstance().registerPlugin(CORE_STR,
-				tagsConfigurationFile.getName(),
-				new DefaultXmlConfig(tagsConfigurationFile));
-
-		DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
-				"tags.xml");
-
-		if (xml.getRoot().getElement("tags") == null)
-			// not found
-			return;
-
-		List l = xml.getRoot().getElement("tags").getElements();
-		for (int i = 0; i < l.size(); i++) {
-			XmlElement e = (XmlElement) l.get(i);
-			if (e.getAttribute("id").equals(tag.getId())) {
-				// update element
-				Hashtable attrs = new Hashtable();
-				attrs.putAll(tag.getProperties());
-				// manually add the id tag, because this is not contained in
-				// the tag attributes
-				attrs.put("id", tag.getId());
-				e.setAttributes(attrs);
-			}
-		}
-
-		try {
-			xml.save();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void removeFromConfig(ITag tag) {
-		path = Config.getInstance().getConfigDirectory();
-		DiskIO.ensureDirectory(path);
-
-		tagsConfigurationFile = new File(path, "tags.xml");
-
-		// just ensure thst the file exists
-		if (!tagsConfigurationFile.exists()) {
-			try {
-				tagsConfigurationFile.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			// nothing to remove
-			return;
-		}
-
-		Config.getInstance().registerPlugin(CORE_STR,
-				tagsConfigurationFile.getName(),
-				new DefaultXmlConfig(tagsConfigurationFile));
-
-		DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
-				"tags.xml");
-
-		if (xml.getRoot().getElement("tags") == null)
-			// nothing to remove
-			return;
-
-		List l = xml.getRoot().getElement("tags").getElements();
-		for (int i = 0; i < l.size(); i++) {
-			XmlElement e = (XmlElement) l.get(i);
-			if (e.getAttribute("id").equals(tag.getId())
-					&& (e.getAttribute("name").equals(tag.getProperty("name")))) {
-				LOG.info("Removed Tag " + tag.getProperty("name") + "!");
-				xml.getRoot().getElement("tags").removeElement(e);
-			}
-		}
-
-		try {
-			xml.save();
-		} catch (Exception e) {
-			// could not save, huh
-			e.printStackTrace();
-		}
-	}
-
-	private void loadTags() {
-		this.tags = new Vector<ITag>();
-		path = Config.getInstance().getConfigDirectory();
-		DiskIO.ensureDirectory(path);
-
-		tagsConfigurationFile = new File(path, "tags.xml");
-
-		// just ensure thst the file exists
-		if (!tagsConfigurationFile.exists()) {
-			try {
-				tagsConfigurationFile.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			
-			// create initial config
-			// create a wellformed xml file
-			XmlElement e_tags = new XmlElement("tags");
-			XmlIO dxc = new XmlIO(e_tags);
-			try {
-				dxc.setURL(tagsConfigurationFile.toURL());
-			} catch (MalformedURLException e2) {
-				e2.printStackTrace();
-			}
-			
-			try {
-				dxc.save();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-
-			// nothing to load
-			return;
-		}
-
-		
-		Config.getInstance().registerPlugin(CORE_STR,
-				tagsConfigurationFile.getName(),
-				new DefaultXmlConfig(tagsConfigurationFile));
-
-		DefaultXmlConfig xml = Config.getInstance().getPlugin(CORE_STR,
-				"tags.xml");
-
-		if (xml.getRoot().getElement("tags") == null)
-			return;
-
-		List l = xml.getRoot().getElement("tags").getElements();
-		ITag addTag;
-		for (int i = 0; i < l.size(); i++) {
-			XmlElement e = (XmlElement) l.get(i);
-			addTag = new Tag(e.getAttribute("id"));
-			addTag.setProperty("name", e.getAttribute("name"));
-			this.tags.add(addTag);
-		}
-
-	}
-
-	// public methods
-
-	public ITag addTag(String name) throws StoreException {
-		// Do not allow an empty name
-		if ((name == null) || ("".equals(name)) || (name.trim().length() == 0)) {
-			LOG.severe("Name not set correctly, cannot add tag!");
-			return null;
-		}
-
-		// Create a new tag with the Id Tag Prefix
-		// @author: fdietz create uuid, because using name with prefix doesn't allow creating a two tags with the same name,
-		//          but different other properties, i.e. color or icon
-		String uuid = UUID.randomUUID().toString();
-		ITag tag = new Tag(uuid);
-		tag.setProperty("name", name);
-
-		// if the vector is loaded, add the tag also to the vector
-		// if not, storing in the file is enough
-		if (tags != null)
-			if (getTagById(tag.getId()) == null)
-				tags.add(tag);
-			else {
-				LOG.severe("Duplicate tag Name, cannot add tag " + name + "!");
-				return null;
-			}
-
-		// storing in the file
-		if (addToFile(tag)) {
-			fireTagAddedEvent(tag.getId());
-			return tag;
-		}
-		else
-			return null;
-	}
-
-	public Iterator<ITag> getAllTags() {
-		if (tags == null)
-			loadTags();
-		return tags.iterator();
-	}
-
-	public ITag getTag(String name) {
-		if (tags == null)
-			loadTags();
-		for (ITag tag : tags) {
-			if (tag.getProperty("name").equals(name))
-				return tag;
-		}
-		return null;
-	}
-
-	// TODO: needed?
-	public ITag getTagById(String id) {
-		if (tags == null)
-			loadTags();
-		for (ITag tag : tags) {
-			if (tag.getId().equals(id))
-				return tag;
-		}
-		return null;
-	}
-
-	public void removeTagById(String id) throws StoreException {
-		if (tags == null)
-			loadTags();
-		for (ITag tag : tags) {
-			if (tag.getId().equals(id)) {
-				tags.remove(tag);
-				removeFromConfig(tag);
-				
-				fireTagDeletedEvent(id);
-				break;
-			}
-		}
-	}
-
-	// TODO: needed?
-	public void removeTag(String name) throws StoreException {
-		if (tags == null)
-			loadTags();
-		for (ITag tag : tags) {
-			if (tag.getProperty("name").equals(name)) {
-				tags.remove(tag);
-				removeFromConfig(tag);
-				break;
-			}
-		}
+		// create tag vector
+		loadModel(document);
 	}
 
 	public static TagManager getInstance() {
@@ -354,37 +83,157 @@ public class TagManager implements ITagManager {
 		return instance;
 	}
 
-	public void setProperty(ITag tag, String name, String value) throws StoreException {
-		assert(tag != null);
-		tag.setProperty(name, value);
+	/**
+	 * @param document
+	 */
+	private void loadModel(Document document) {
+		Element tagsElement = null;
+		if (document.hasRootElement())
+			tagsElement = document.getRootElement();
+		else {
+			tagsElement = new Element("tags");
+			document.setRootElement(tagsElement);
+		}
 		
+		List<Element> list = tagsElement.getChildren();
+		Iterator<Element> it = list.listIterator();
+		while (it.hasNext()) {
+			Element tagElement = it.next();
+			Tag tag = new Tag(tagElement.getAttributeValue(TagManager.ID),
+					tagElement.getAttributeValue(TagManager.NAME));
+			if (tagElement.getAttributeValue(TagManager.COLOR) != null) {
+				String colorString = tagElement
+						.getAttributeValue(TagManager.COLOR);
+				int rgb = Integer.parseInt(colorString);
+				tag.setColor(new Color(rgb));
+			}
+			if (tagElement.getAttributeValue(TagManager.DESCRIPTION) != null) {
+				String description = tagElement
+						.getAttributeValue(TagManager.DESCRIPTION);
+				tag.setDescription(description);
+			}
+
+			map.put(tag.getId(), tag);
+		}
+	}
+
+	/**
+	 * @param document
+	 */
+	private void saveModel(Document document) {
+		Element tagsElement = document.getRootElement();
+
+		// ensure root exists
+		if (tagsElement == null) {
+			tagsElement = new Element(TagManager.TAGS);
+			document.setRootElement(tagsElement);
+		}
+
+		// clear
+		tagsElement.removeContent();
+
+		Iterator<ITag> it = getAllTags();
+		while (it.hasNext()) {
+			ITag tag = it.next();
+			Element tagElement = new Element(TagManager.TAG);
+			tagElement.setAttribute(TagManager.ID, tag.getId());
+			tagElement.setAttribute(TagManager.NAME, tag.getName());
+			if (tag.getColor() != null) {
+				int rgb = tag.getColor().getRGB();
+				tagElement
+						.setAttribute(TagManager.COLOR, Integer.toString(rgb));
+			}
+
+			if ( tag.getDescription() != null) {
+				tagElement.setAttribute("description", tag.getDescription());
+			}
+
+			tagsElement.addContent(tagElement);
+		}
+	}
+
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#addTag(java.lang.String)
+	 */
+	public ITag addTag(String name) throws StoreException {
+		// Do not allow an empty name
+		if ((name == null) || (name.trim().length() == 0))
+			throw new IllegalArgumentException("name == null");
+
+		// create uuid
+		String uuid = UUID.randomUUID().toString();
+		ITag tag = new Tag(uuid, name);
+
+		// very unlikely to happen
+		if (map.containsKey(uuid))
+			throw new IllegalArgumentException("duplicate key " + uuid);
+
+		map.put(tag.getId(), tag);
+
+		// notify listeners
+		fireTagAddedEvent(tag.getId());
+
+		return tag;
+	}
+
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#getAllTags()
+	 */
+	public Iterator<ITag> getAllTags() {
+		return map.values().iterator();
+	}
+
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#getTag(java.lang.String)
+	 */
+	public ITag getTag(String id) {
+		return map.get(id);
+	}
+
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#removeTag(java.lang.String)
+	 */
+	public void removeTag(String id) throws StoreException {
+		map.remove(id);
+
+		// notify listeners
+		fireTagDeletedEvent(id);
+	}
+
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#replaceTag(org.columba.core.tagging.api.ITag)
+	 */
+	public void replaceTag(ITag tag) throws StoreException {
+		if (tag == null)
+			throw new IllegalArgumentException("tag == null");
+
+		// this will overwrite the "old" tag with same id
+		map.put(tag.getId(), tag);
+
+		// notify listeners
 		fireTagChangedEvent(tag.getId());
-		// update config
-		updateTagInFile(tag);
-		
 	}
 
-	public String getProperty(ITag tag, String name) {
-		assert(tag != null);
-		return tag.getProperty(name);
-	}
+	/** ************** eventing ***************************** */
 
-	public Hashtable getProperties(ITag tag) {
-		assert(tag != null);
-		return tag.getProperties();
-	}
-
-	/**************** eventing ******************************/
-	
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#addTagListener(org.columba.core.tagging.api.ITagListener)
+	 */
 	public void addTagListener(ITagListener l) {
 		listenerList.add(ITagListener.class, l);
 
 	}
 
+	/**
+	 * @see org.columba.core.tagging.api.ITagManager#removeTagListener(org.columba.core.tagging.api.ITagListener)
+	 */
 	public void removeTagListener(ITagListener l) {
 		listenerList.remove(ITagListener.class, l);
 	}
 
+	/**
+	 * @param id
+	 */
 	protected void fireTagChangedEvent(String id) {
 		ITagEvent e = new TagEvent(this, id);
 		// Guaranteed to return a non-null array
@@ -398,9 +247,12 @@ public class TagManager implements ITagManager {
 			}
 		}
 	}
-	
+
+	/**
+	 * @param id
+	 */
 	protected void fireTagAddedEvent(String id) {
-		ITagEvent e = new TagEvent(this,  id);
+		ITagEvent e = new TagEvent(this, id);
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 
@@ -412,10 +264,13 @@ public class TagManager implements ITagManager {
 			}
 		}
 	}
-	
+
+	/**
+	 * @param id
+	 */
 	protected void fireTagDeletedEvent(String id) {
-		ITagEvent e = new TagEvent(this, id); 
-		
+		ITagEvent e = new TagEvent(this, id);
+
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 
@@ -426,5 +281,18 @@ public class TagManager implements ITagManager {
 				((ITagListener) listeners[i + 1]).tagDeleted(e);
 			}
 		}
+	}
+
+	class MyXmlConfig extends XmlConfig {
+
+		public MyXmlConfig(File xmlFile) {
+			super(xmlFile, null);
+		}
+
+		@Override
+		protected void transformModelToDocument(Document document) {
+			saveModel(document);
+		}
+
 	}
 }

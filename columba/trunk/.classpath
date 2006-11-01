@@ -68,8 +68,6 @@
 	<classpathentry kind="lib" path="lib/bsh-2.0b2.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-1.4.3.jar"/>
 	<classpathentry kind="lib" path="lib/tagsoup-1.0rc3.jar"/>
-	<classpathentry sourcepath="/org.flexdock" kind="lib" path="lib/flexdock-0.4.1.jar"/>
-	<classpathentry sourcepath="/frapuccino" kind="lib" path="lib/frapuccino-1.0pre1.jar"/>
 	<classpathentry kind="lib" path="lib/je-2.1.30.jar"/>
 	<classpathentry kind="lib" path="lib/jhall-2.0_02.jar"/>
 	<classpathentry kind="lib" path="lib/jython-2.2a1.jar"/>
@@ -99,5 +97,7 @@
 	<classpathentry kind="lib" path="lib/jpa/hibernate3.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/hibernate-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/jpa/hibernate-entitymanager.jar"/>
+	<classpathentry kind="lib" path="lib/flexdock-0.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/frapuccino-1.0pre1.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

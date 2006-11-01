@@ -25,6 +25,7 @@ import org.columba.core.xml.XmlIO;
  * XML config file.
  * 
  * @author fdietz
+ * @deprecated use XmlConfig instead
  */
 public class DefaultXmlConfig extends XmlIO {
 	
