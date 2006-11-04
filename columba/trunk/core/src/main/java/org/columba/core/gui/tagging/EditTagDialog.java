@@ -77,7 +77,7 @@ public class EditTagDialog extends JDialog implements ActionListener {
 	public EditTagDialog(JFrame parent) {
 		super(parent, true);
 
-		setTitle(bundle.getString("dialog.title.add"));
+		setTitle(bundle.getString("EditTagDialog.title"));
 
 		initComponents();
 
@@ -97,7 +97,7 @@ public class EditTagDialog extends JDialog implements ActionListener {
 		this.color = color;
 		this.description = description;
 
-		setTitle(bundle.getString("dialog.title.edit"));
+		setTitle(bundle.getString("EditTagDialog.title"));
 
 		initComponents();
 

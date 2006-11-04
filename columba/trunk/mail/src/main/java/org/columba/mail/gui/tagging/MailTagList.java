@@ -1,5 +1,6 @@
 package org.columba.mail.gui.tagging;
 
+import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -12,6 +13,7 @@ import org.columba.api.plugin.PluginLoadingFailedException;
 import org.columba.core.association.AssociationStore;
 import org.columba.core.base.UUIDGenerator;
 import org.columba.core.command.CommandProcessor;
+import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.tagging.TagList;
 import org.columba.core.tagging.api.ITag;
@@ -35,7 +37,19 @@ public class MailTagList extends TagList {
 
 		this.frameMediator = frameMediator;
 
-		addListSelectionListener(new MyListSelectionListener());
+		final MyListSelectionListener sl = new MyListSelectionListener();
+		addListSelectionListener(sl);
+		
+		// do not only update the tag search result when click on a different
+		// tag, also do a refresh of the same tag when double click on it
+		addMouseListener(new DoubleClickListener() {
+
+			@Override
+			public void doubleClick(MouseEvent event) {
+				sl.valueChanged(new ListSelectionEvent(event.getSource(), 0, 0, false));
+			}
+			
+		});
 	}
 
 	private IMailFolderCommandReference getMessageFromURI(String uri) {
@@ -67,6 +81,7 @@ public class MailTagList extends TagList {
 			}
 
 			ITag result = (ITag) getSelectedValue();
+			
 			// create a virtual folder with all messages holding this tag
 			Collection<String> uriList = AssociationStore.getInstance()
 					.getAssociatedItems("tagging", result.getId());
@@ -74,7 +89,7 @@ public class MailTagList extends TagList {
 			// TODO @author hubms show if there is already a virtual folder for
 			// this tag
 			String uuid = new UUIDGenerator().newUUID();
-
+			
 			// create a virtual folder
 			VirtualFolder taggedMessageFolder = new VirtualFolder(
 					"Tag Search Result", "VirtualFolder", uuid);
@@ -88,10 +103,9 @@ public class MailTagList extends TagList {
 			for (Iterator<String> it = uriList.iterator(); it.hasNext();) {
 				String uri = it.next();
 				// skip all non-mail component items
-				if ( !uri.startsWith("columba://org.columbam.mail")) continue;
+				if ( !uri.startsWith("columba://org.columba.mail")) continue;
 				
-				IMailFolderCommandReference r = getMessageFromURI((String) it
-						.next());
+				IMailFolderCommandReference r = getMessageFromURI(uri);
 				try {
 					Header header = ((IMailbox) r.getSourceFolder())
 							.getHeaderFields(r.getUids()[0], CachedHeaderfields
