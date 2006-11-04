@@ -89,7 +89,7 @@ public class TableMouseListener extends DoubleClickListener
         try
         {
           // modify card properties in folder
-          folder.modify(uids[0], card);
+          folder.modify(uids[0], dialog.getDestModel());
         }
         catch (Exception e1)
         {

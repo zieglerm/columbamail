@@ -57,8 +57,8 @@ public class VCardParserTest extends TestCase {
 
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(
 				file));
-		IContactModel c = VCardParser.read(in);
-		assertNotNull(c);
+		IContactModel[] cards = VCardParser.read(in);
+		assertNotNull(cards);
 	}
 
 }

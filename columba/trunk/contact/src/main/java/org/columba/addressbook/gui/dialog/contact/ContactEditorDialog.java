@@ -768,30 +768,32 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 	private void fillAddressModel(int type, ContactModel destModel) {
 		AddressModel model = null;
 		if (type == AddressModel.TYPE_WORK)
-			// "street" is missing
-			model = new AddressModel(workCityTextField.getText(),
-					workStreetTextField.getText(), workCountryTextField
-							.getText(), workPOBoxTextField.getText(),
+			model = new AddressModel(workPOBoxTextField.getText(),
+					workStreetTextField.getText(),
+					workCityTextField.getText(),
+					workZipPostalCodeTextField.getText(),
 					workStateProvinceCountyTextField.getText(),
-					workZipPostalCodeTextField.getText(), workAddressTextArea
-							.getText(), type);
+					workCountryTextField.getText(),
+					workAddressTextArea.getText(),
+					type);
 		else if (type == AddressModel.TYPE_HOME)
-			// "street" is missing
-			model = new AddressModel(privateCityTextField.getText(),
-					privateStreetTextField.getText(), privateCountryTextField
-							.getText(), privatePOBoxTextField.getText(),
-					privateStateProvinceCountyTextField.getText(),
+			model = new AddressModel(privatePOBoxTextField.getText(),
+					privateStreetTextField.getText(),
+					privateCityTextField.getText(),
 					privateZipPostalCodeTextField.getText(),
-					privateAddressTextArea.getText(), type);
+					privateStateProvinceCountyTextField.getText(),
+					privateCountryTextField.getText(),
+					privateAddressTextArea.getText(),
+					type);
 		else if (type == AddressModel.TYPE_OTHER)
-			// "street" is missing
-			model = new AddressModel(otherCityTextField.getText(),
-					otherStreetTextField.getText(), otherCountryTextField
-							.getText(), otherPOBoxTextField.getText(),
+			model = new AddressModel(otherPOBoxTextField.getText(),
+					otherStreetTextField.getText(),
+					otherCityTextField.getText(),
+					otherZipPostalCodeTextField.getText(),
 					otherStateProvinceCountyTextField.getText(),
-					otherZipPostalCodeTextField.getText(), otherAddressTextArea
-							.getText(), type);
-
+					otherCountryTextField.getText(),
+					otherAddressTextArea.getText(),
+					type);
 		destModel.addAddress(model);
 	}
 
@@ -849,6 +851,7 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 					.setText(m.getStateProvinceCounty());
 			workZipPostalCodeTextField.setText(m.getZipPostalCode());
 			workAddressTextArea.setText(m.getLabel());
+			workStreetTextField.setText(m.getStreet());
 		} else if (m.getType() == AddressModel.TYPE_HOME) {
 			privateCityTextField.setText(m.getCity());
 			privateCountryTextField.setText(m.getCountry());
@@ -857,6 +860,7 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 					.getStateProvinceCounty());
 			privateZipPostalCodeTextField.setText(m.getZipPostalCode());
 			privateAddressTextArea.setText(m.getLabel());
+			privateStreetTextField.setText(m.getStreet());
 		} else if (m.getType() == AddressModel.TYPE_OTHER) {
 			otherCityTextField.setText(m.getCity());
 			otherCountryTextField.setText(m.getCountry());
@@ -865,6 +869,7 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 					.getStateProvinceCounty());
 			otherZipPostalCodeTextField.setText(m.getZipPostalCode());
 			otherAddressTextArea.setText(m.getLabel());
+			otherStreetTextField.setText(m.getStreet());
 		}
 	}
 

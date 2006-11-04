@@ -137,4 +137,13 @@ public abstract class DefaultAddressbookImporter implements IExtensionInterface 
 
 		counter++;
 	}
+
+	/**
+	 * use this method to save contacts to the specified destination folder
+	 */
+	protected void saveContacts(IContactModel[] cards) throws Exception {
+		destinationFolder.add(cards);
+
+		counter += cards.length;
+	}
 }

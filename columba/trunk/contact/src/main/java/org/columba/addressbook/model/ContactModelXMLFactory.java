@@ -198,6 +198,14 @@ public class ContactModelXMLFactory {
 		model.setFreeBusy(parser.get(VCARD.X_COLUMBA_URL_FREEBUSY));
 		model.setCalendar(parser.get(VCARD.X_COLUMBA_URL_CALENDAR));
 
+		try {
+			String datestring = parser.get(VCARD.BDAY);
+			model.setBirthday(new Date(Long.parseLong(datestring)));
+		} catch (NumberFormatException e) {
+			model.setBirthday(null);
+		}
+
+
 		model.setOrganisation(parser.get(VCARD.ORG));
 		model.setDepartment(parser.get(VCARD.X_COLUMBA_DEPARTMENT));
 		model.setOffice(parser.get(VCARD.X_COLUMBA_OFFICE));

@@ -56,9 +56,9 @@ public class VCardImporter extends DefaultAddressbookImporter {
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(
 				file));
 		
-		IContactModel c = VCardParser.read(in);
+		IContactModel[] cards = VCardParser.read(in);
 
-		saveContact(c);
+		saveContacts(cards);
 	}
 
 	/**

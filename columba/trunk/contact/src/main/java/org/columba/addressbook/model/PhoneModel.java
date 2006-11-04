@@ -40,7 +40,7 @@ public class PhoneModel {
 	
 	public final static String[] NAMES = new String[] { "BusinessPhone",
 			"AssistantPhone", "BusinessFax", "CallbackPhone", "CarPhone",
-			"CompanyPhone", "HomePhone", "HomeFax", "ISDN", "Mobil Phone",
+			"CompanyPhone", "HomePhone", "HomeFax", "ISDN", "MobilePhone",
 			"OtherPhone", "OtherFax", "Pager", "PrimaryPhone", "Radio",
 			"Telex", "TTY" };
 

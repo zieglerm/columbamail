@@ -360,5 +360,16 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	private String generateNextMessageUid() {
 		return new Integer(nextMessageUid++).toString();
 	}
+	
+	/**
+	 * @see org.columba.addressbook.folder.IContactStorage#add(IContactModel[])
+	 */
+	public String[] add(IContactModel[] contacts) throws StoreException {
+		String[] uids = new String[contacts.length];
+		for (int i = 0; i < contacts.length; i++)
+			uids[i] = add(contacts[i]);
+
+		return uids;
+	}
 
 }

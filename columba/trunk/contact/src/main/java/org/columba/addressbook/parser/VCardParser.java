@@ -35,6 +35,7 @@ import net.wimpi.pim.contact.model.Communications;
 import net.wimpi.pim.contact.model.EmailAddress;
 import net.wimpi.pim.contact.model.OrganizationalIdentity;
 import net.wimpi.pim.contact.model.PersonalIdentity;
+import net.wimpi.pim.contact.model.PhoneNumber;
 import net.wimpi.pim.factory.ContactIOFactory;
 
 import org.columba.addressbook.model.AddressModel;
@@ -42,6 +43,7 @@ import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IEmailModel;
+import org.columba.addressbook.model.PhoneModel;
 
 /**
  * Contact data parser for a vCard-standard compliant text/plain file.
@@ -155,20 +157,14 @@ public class VCardParser {
 	}
 
 	/**
-	 * Parse vCard contact data from inputstream.
+	 * Fill the contact model from the import contact
 	 * 
-	 * @param in
-	 *            inputstream to vCard data
-	 * @return contact
+	 * @param importContact import contact
+	 * 
+	 * @return contact model
+	 * 
 	 */
-	public static IContactModel read(InputStream in) {
-		ContactIOFactory ciof = Pim.getContactIOFactory();
-		ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
-		unmarshaller.setEncoding("UTF-8");
-
-		net.wimpi.pim.contact.model.Contact importContact = unmarshaller
-				.unmarshallContact(in);
-
+	public static ContactModel fillContactModel(net.wimpi.pim.contact.model.Contact importContact) {
 		ContactModel c = new ContactModel();
 
 		OrganizationalIdentity organisationalIdentity = importContact
@@ -217,15 +213,47 @@ public class VCardParser {
 		// url to website/homepage
 		c.setHomePage(importContact.getURL());
 
-		// email addresses
+		// email addresses and phone numbers
 		if (importContact.hasCommunications()) {
 			Communications communications = importContact.getCommunications();
 
 			Iterator it = communications.getEmailAddresses();
 			while (it.hasNext()) {
 				EmailAddress adr = (EmailAddress) it.next();
+				
+				int type = EmailModel.TYPE_WORK;
+				if (adr.isType("HOME"))
+					type = EmailModel.TYPE_HOME;
+				else if (adr.isType("WORK"))
+					type = EmailModel.TYPE_WORK;
+				else if (adr.isType("OTHER"))
+					type = EmailModel.TYPE_OTHER;
+				
 				c.addEmail(new EmailModel(adr.getAddress(),
-						EmailModel.TYPE_WORK));
+						type));
+			}
+			
+			it = communications.getPhoneNumbers();
+			while (it.hasNext()) {
+				PhoneNumber phone = (PhoneNumber)it.next();
+				
+				int type = PhoneModel.TYPE_BUSINESS_PHONE;
+				if ( phone.isCar())
+					type = PhoneModel.TYPE_CAR_PHONE;
+				else if ( phone.isCellular())
+					type = PhoneModel.TYPE_MOBILE_PHONE;
+				else if ( phone.isFax())
+					type = PhoneModel.TYPE_HOME_FAX;
+				else if ( phone.isHome())
+					type = PhoneModel.TYPE_HOME_PHONE;
+				else if ( phone.isISDN())
+					type = PhoneModel.TYPE_ISDN;
+				else if ( phone.isPager())
+					type = PhoneModel.TYPE_PAGER;
+				else if ( phone.isWork())
+					type = PhoneModel.TYPE_BUSINESS_PHONE;
+				
+				c.addPhone(new PhoneModel(phone.getNumber(), type));
 			}
 		}
 		
@@ -252,14 +280,43 @@ public class VCardParser {
 		}
 
 		// name of organisation
-		c.setOrganisation(organisationalIdentity.getOrganization().getName());
+		if (organisationalIdentity.hasOrganization())
+			c.setOrganisation(organisationalIdentity.getOrganization().getName());
 		
 		c.setTitle(organisationalIdentity.getTitle());
 		c.setProfession(organisationalIdentity.getRole());
 	
 		c.setNote(importContact.getNote());
 		
+		// dummy address
+		if (!c.getEmailIterator().hasNext())
+			c.addEmail(new EmailModel("", EmailModel.TYPE_WORK));
+		
 		return c;
+	}
+
+	/**
+	 * Parse vCard contact data from inputstream.
+	 * 
+	 * @param in
+	 *            inputstream to vCard data
+	 * @return contact
+	 */
+	public static IContactModel[] read(InputStream in) {
+		ContactIOFactory ciof = Pim.getContactIOFactory();
+		ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
+		unmarshaller.setEncoding("UTF-8");
+
+		net.wimpi.pim.contact.model.Contact[] importContacts = unmarshaller
+				.unmarshallContacts(in);
+
+		ContactModel[] contacts = new ContactModel[importContacts.length];
+
+		for (int i = 0; i < importContacts.length; i++) {
+			contacts[i] = fillContactModel(importContacts[i]);
+		}
+		
+		return contacts;
 	}
 
 }

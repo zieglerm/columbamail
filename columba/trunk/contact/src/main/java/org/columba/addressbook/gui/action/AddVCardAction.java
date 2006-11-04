@@ -84,11 +84,11 @@ public class AddVCardAction extends DefaultTreeAction {
 					in.close();
 
 					// create contact card
-					IContactModel card = VCardParser.read(new SourceInputStream(
+					IContactModel[] cards = VCardParser.read(new SourceInputStream(
 							new CharSequenceSource(strbuf.toString())));
 
 					// add to folder
-					destinationFolder.add(card);
+					destinationFolder.add(cards);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

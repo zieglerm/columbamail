@@ -64,4 +64,6 @@ public interface IContactStorage extends IFolder {
 
 	Object add(IContactModel contact) throws StoreException;
 
+	Object[] add(IContactModel[] contacts) throws StoreException;
+
 }
