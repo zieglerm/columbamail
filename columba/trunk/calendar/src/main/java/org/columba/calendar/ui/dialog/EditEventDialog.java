@@ -39,6 +39,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
+import org.columba.calendar.base.CalendarItem;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.ui.comp.CalendarPicker;
 import org.columba.calendar.ui.comp.DatePicker;
@@ -365,9 +366,8 @@ public class EditEventDialog extends JDialog implements ActionListener {
 			end.set(Calendar.MINUTE, minutes);
 			model.setDtEnt(end);
 
-			
-			String calendar = (String) calendarPicker.getSelectedItem();
-			model.setCalendar(calendar);
+			CalendarItem calendar = (CalendarItem) calendarPicker.getSelectedItem();
+			model.setCalendar(calendar.getId());
 			
 			// update modification timestamp
 			model.setDtStamp(Calendar.getInstance());
