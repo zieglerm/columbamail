@@ -36,7 +36,7 @@
    <jar href="@jpim@"/>
    <jar href="@macchiato@"/>
    <jar href="@je@"/>
-   <jar href="@flexdoc@"/>
+   <jar href="@flexdock@"/>
    <jar href="@bsh@"/>
    <jar href="@jython@"/>
    <jar href="@groovy@"/>
