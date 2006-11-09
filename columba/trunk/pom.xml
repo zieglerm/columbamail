@@ -8,35 +8,22 @@
 	<name>Columba application</name>
 	<url>http://www.columbamail.org</url>
 	<description>
-		Columba is an Email Client written in Java, featuring a
-		user-friendly graphical interface with wizards and
-		internationalization support. Its a powerful email management
-		tool with features to enhance your productivity and
-		communication. So, take control of your email before it takes
-		control of you!
+		Columba is an Email Client written in Java, featuring a user-friendly graphical interface with wizards and
+		internationalization support. Its a powerful email management tool with features to enhance your productivity and
+		communication. So, take control of your email before it takes control of you!
 	</description>
 	<mailingLists>
 		<mailingList>
 			<name>columba developer mailinglist</name>
-			<archive>
-				https://sourceforge.net/mailarchive/forum.php?forum_id=2388
-			</archive>
-			<subscribe>
-				https://lists.sourceforge.net/mailman/listinfo/columba-devel
-			</subscribe>
-			<unsubscribe>
-				https://lists.sourceforge.net/mailman/listinfo/columba-devel
-			</unsubscribe>
+			<archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
 		</mailingList>
 	</mailingLists>
 
 	<scm>
-		<connection>
-			scm:svn:http://svn.sourceforge.net/svnroot/columba
-		</connection>
-		<developerConnection>
-			scm:svn:https://svn.sourceforge.net/svnroot/columba
-		</developerConnection>
+		<connection>scm:svn:http://svn.sourceforge.net/svnroot/columba</connection>
+		<developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/columba</developerConnection>
 		<url>http://svn.sourceforge.net/viewvc/columba/</url>
 	</scm>
 	<developers>
@@ -156,7 +143,38 @@
 			</roles>
 		</developer>
 	</developers>
+
+	<repositories>
+		<repository>
+			<id>columba</id>
+			<name>Colunba main repository</name>
+			<url>https://columba.hora-obscura.de/dav_columba</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-1</version>
+			</extension>
+		</extensions>
+	</build>
+
+
+
 	<modules>
 		<module>core-api</module>
+		<module>core</module>
+		<module>mail-api</module>
 	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>columba</id>
+			<name>Columba main repository</name>
+			<url>dav:https://columba.hora-obscura.de/dav_columba</url>
+		</repository>
+	</distributionManagement>
 </project>
