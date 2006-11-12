@@ -227,7 +227,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 
 		InfoViewTextPane textPane = new InfoViewTextPane();
 		try {
-			textPane.setPage(DiskIO.getResourceURL("CONTRIBUTORS"));
+			textPane.setPage(DiskIO.getResourceURL("org/columba/core/aboutbox/CONTRIBUTORS"));
 		} catch (IOException ioe) {
 			textPane.setText(ioe.getLocalizedMessage());
 		}
@@ -239,7 +239,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 		licensePanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 11, 11));
 		textPane = new InfoViewTextPane();
 		try {
-			textPane.setPage(DiskIO.getResourceURL("LICENSE"));
+			textPane.setPage(DiskIO.getResourceURL("org/columba/core/aboutbox/LICENSE"));
 		} catch (IOException ioe) {
 			textPane.setText(ioe.getLocalizedMessage());
 		}
@@ -254,7 +254,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 		ackPanel.add(ackLabel, BorderLayout.NORTH);
 		textPane = new InfoViewTextPane();
 		try {
-			textPane.setPage(DiskIO.getResourceURL("ACKNOWLEDGEMENT"));
+			textPane.setPage(DiskIO.getResourceURL("org/columba/core/aboutbox/ACKNOWLEDGEMENT"));
 		} catch (IOException ioe) {
 			textPane.setText(ioe.getLocalizedMessage());
 		}
