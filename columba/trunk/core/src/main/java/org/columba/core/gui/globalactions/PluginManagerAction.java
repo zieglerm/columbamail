@@ -26,9 +26,6 @@ import org.columba.core.resourceloader.ImageLoader;
 
 /**
  * @author frd
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class PluginManagerAction extends AbstractColumbaAction {
     public PluginManagerAction(IFrameMediator controller) {
@@ -41,10 +38,6 @@ public class PluginManagerAction extends AbstractColumbaAction {
                                 .replaceAll("&", ""));
         
         putValue(SMALL_ICON, ImageLoader.getSmallIcon("plugin.png"));
-        
-        putValue(LARGE_ICON, ImageLoader.getIcon("plugin.png"));
-        
-        
     }
 
     /* (non-Javadoc)
