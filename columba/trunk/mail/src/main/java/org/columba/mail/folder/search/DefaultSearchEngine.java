@@ -33,6 +33,9 @@ import org.columba.core.filter.AbstractFilter;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterCriteria;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.plugin.PluginManager;
 import org.columba.mail.folder.AbstractMessageFolder;
 import org.columba.mail.folder.event.FolderListener;
@@ -117,7 +120,7 @@ public class DefaultSearchEngine {
 	}
 
 	protected synchronized AbstractFilter getFilter(
-			FilterCriteria filterCriteria, String type) {
+			IFilterCriteria filterCriteria, String type) {
 		// try to re-use already instanciated class
 		if (filterCache.containsKey(type) == true) {
 			AbstractFilter f = (AbstractFilter) filterCache.get(type);
@@ -152,7 +155,7 @@ public class DefaultSearchEngine {
 		return instance;
 	}
 
-	protected boolean processRule(Object uid, FilterCriteria criteria,
+	protected boolean processRule(Object uid, IFilterCriteria criteria,
 			String type) throws Exception {
 		if (type == null) {
 			JOptionPane.showMessageDialog(null,
@@ -171,7 +174,7 @@ public class DefaultSearchEngine {
 		return instance.process(folder, uid);
 	}
 
-	protected List processCriteria(FilterRule rule, List uids) throws Exception {
+	protected List processCriteria(IFilterRule rule, List uids) throws Exception {
 		LinkedList result = new LinkedList();
 		boolean b;
 
@@ -188,7 +191,7 @@ public class DefaultSearchEngine {
 				uid = it.next();
 
 				for (int i = 0; (i < rule.count()) && b; i++) {
-					FilterCriteria criteria = rule.get(i);
+					IFilterCriteria criteria = rule.get(i);
 
 					String type = criteria.getTypeString();
 
@@ -206,7 +209,7 @@ public class DefaultSearchEngine {
 				uid = it.next();
 
 				for (int i = 0; (i < rule.count()) && !b; i++) {
-					FilterCriteria criteria = rule.get(i);
+					IFilterCriteria criteria = rule.get(i);
 
 					String type = criteria.getTypeString();
 
@@ -225,9 +228,9 @@ public class DefaultSearchEngine {
 		return result;
 	}
 
-	protected void divideFilterRule(FilterRule filterRule,
-			FilterRule notDefaultEngine, FilterRule defaultEngine) {
-		FilterCriteria actCriteria;
+	protected void divideFilterRule(IFilterRule filterRule,
+			IFilterRule notDefaultEngine, IFilterRule defaultEngine) {
+		IFilterCriteria actCriteria;
 
 		String[] caps = getNonDefaultEngine().getCaps();
 
@@ -254,7 +257,7 @@ public class DefaultSearchEngine {
 	 * @see org.columba.mail.folder.SearchEngineInterface#searchMessages(org.columba.mail.filter.Filter,
 	 *      java.lang.Object, org.columba.api.command.IWorkerStatusController)
 	 */
-	public Object[] searchMessages(Filter filter, Object[] uids)
+	public Object[] searchMessages(IFilter filter, Object[] uids)
 			throws Exception {
 		if (!filter.getEnabled()) {
 			// filter is disabled
@@ -264,10 +267,10 @@ public class DefaultSearchEngine {
 		List notDefaultEngineResult = null;
 		List defaultEngineResult = new LinkedList();
 
-		FilterRule filterRule = filter.getFilterRule();
+		IFilterRule filterRule = filter.getFilterRule();
 
-		FilterRule notDefaultEngine = new FilterRule();
-		FilterRule defaultEngine = new FilterRule();
+		IFilterRule notDefaultEngine = new FilterRule();
+		IFilterRule defaultEngine = new FilterRule();
 
 		divideFilterRule(filterRule, notDefaultEngine, defaultEngine);
 
@@ -336,7 +339,7 @@ public class DefaultSearchEngine {
 	 * @see org.columba.mail.folder.SearchEngineInterface#searchMessages(org.columba.mail.filter.Filter,
 	 *      org.columba.api.command.IWorkerStatusController)
 	 */
-	public Object[] searchMessages(Filter filter) throws Exception {
+	public Object[] searchMessages(IFilter filter) throws Exception {
 		if (getObservable() != null) {
 			getObservable().setMessage(
 					MailResourceLoader.getString("statusbar", "message",
@@ -358,7 +361,7 @@ public class DefaultSearchEngine {
 	 * @see org.columba.mail.folder.DefaultSearchEngine#queryEngine(org.columba.mail.filter.FilterRule,
 	 *      java.lang.Object, org.columba.api.command.IWorkerStatusController)
 	 */
-	protected List queryEngine(FilterRule filter, Object[] uids)
+	protected List queryEngine(IFilterRule filter, Object[] uids)
 			throws Exception {
 		return processCriteria(filter, Arrays.asList(uids));
 	}
@@ -367,7 +370,7 @@ public class DefaultSearchEngine {
 	 * @see org.columba.mail.folder.DefaultSearchEngine#queryEngine(org.columba.mail.filter.FilterRule,
 	 *      org.columba.api.command.IWorkerStatusController)
 	 */
-	protected List queryEngine(FilterRule filter) throws Exception {
+	protected List queryEngine(IFilterRule filter) throws Exception {
 		Object[] uids = folder.getUids();
 
 		return processCriteria(filter, Arrays.asList(uids));

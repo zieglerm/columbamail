@@ -34,6 +34,9 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterCriteria;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.config.IFolderItem;
@@ -213,10 +216,10 @@ public class VirtualFolder extends AbstractMessageFolder implements
 		VirtualHeader h;
 
 		// Analyze the Filter
-		Filter filter = (Filter) getFilter().clone();
-		FilterRule rule = filter.getFilterRule();
+		IFilter filter = (Filter) getFilter().clone();
+		IFilterRule rule = filter.getFilterRule();
 		for (int i = 0; i < rule.count(); i++) {
-			FilterCriteria c = rule.get(i);
+			IFilterCriteria c = rule.get(i);
 			if (!c.getTypeString().equalsIgnoreCase("flags")) {
 				rule.remove(i);
 				i--;
@@ -1183,7 +1186,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	protected boolean hasFlagsCriteria() {
 		boolean result = false;
 
-		FilterRule rule = getFilter().getFilterRule();
+		IFilterRule rule = getFilter().getFilterRule();
 
 		for (int i = 0; i < rule.count() && !result; i++) {
 			result = rule.get(i).getTypeString().equalsIgnoreCase("FLAGS");

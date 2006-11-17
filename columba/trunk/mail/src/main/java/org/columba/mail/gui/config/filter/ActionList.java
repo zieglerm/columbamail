@@ -46,6 +46,9 @@ import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterAction;
 import org.columba.core.filter.FilterActionList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterAction;
+import org.columba.core.filter.IFilterActionList;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
 import org.columba.core.resourceloader.IconKeys;
@@ -57,7 +60,7 @@ import org.columba.mail.plugin.IExtensionHandlerKeys;
 
 
 public class ActionList extends JPanel implements ActionListener, ItemListener {
-	private Filter filter;
+	private IFilter filter;
 
 	private List list;
 
@@ -69,7 +72,7 @@ public class ActionList extends JPanel implements ActionListener, ItemListener {
 
 	protected IFrameMediator mediator;
 
-	public ActionList(IFrameMediator mediator, Filter filter, JFrame frame) {
+	public ActionList(IFrameMediator mediator, IFilter filter, JFrame frame) {
 		super(new BorderLayout());
 		this.mediator = mediator;
 		this.filter = filter;
@@ -105,9 +108,9 @@ public class ActionList extends JPanel implements ActionListener, ItemListener {
 	public void add() {
 		boolean allowed = true;
 
-		FilterActionList actionList = filter.getFilterActionList();
+		IFilterActionList actionList = filter.getFilterActionList();
 		for (int i = 0; i < actionList.getChildCount(); i++) {
-			FilterAction action = actionList.get(i);
+			IFilterAction action = actionList.get(i);
 			
 
 			if ((action.equals("move")) || (action.equals("delete"))) {
@@ -125,7 +128,7 @@ public class ActionList extends JPanel implements ActionListener, ItemListener {
 	}
 
 	public void remove(int i) {
-		FilterActionList actionList = filter.getFilterActionList();
+		IFilterActionList actionList = filter.getFilterActionList();
 
 		if (actionList.getChildCount() > 1) {
 			updateComponents(false);
@@ -154,10 +157,10 @@ public class ActionList extends JPanel implements ActionListener, ItemListener {
 			}
 		}
 
-		FilterActionList actionList = filter.getFilterActionList();
+		IFilterActionList actionList = filter.getFilterActionList();
 
 		for (int i = 0; i < actionList.getChildCount(); i++) {
-			FilterAction action = actionList.get(i);
+			IFilterAction action = actionList.get(i);
 
 			// int type = action.getActionInt();
 			String name = action.getAction();

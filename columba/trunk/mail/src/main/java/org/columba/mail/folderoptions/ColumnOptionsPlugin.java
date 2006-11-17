@@ -19,8 +19,8 @@ import java.util.Enumeration;
 
 import javax.swing.table.TableColumn;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.frame.MailFrameMediator;

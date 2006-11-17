@@ -57,6 +57,8 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.facade.DialogFacade;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterList;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.SingleSideEtchedBorder;
 import org.columba.core.help.HelpManager;
@@ -84,7 +86,7 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 	private FilterListTable listView;
 
 	// private AdapterNode actNode;
-	private FilterList filterList;
+	private IFilterList filterList;
 
 	// private Filter filter;
 	// private JDialog dialog;
@@ -139,8 +141,8 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 	 * @return null if there is no filter selected; otherwise returns the
 	 *         selected <code>Filter</code>.
 	 */
-	public Filter getSelected() {
-		Filter filter = null;
+	public IFilter getSelected() {
+		IFilter filter = null;
 		ListSelectionModel model = listView.getSelectionModel();
 
 		if (!model.isSelectionEmpty()) {
@@ -157,7 +159,7 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 	 * @param f
 	 *            filter to select in list.
 	 */
-	public void setSelected(Filter f) {
+	public void setSelected(IFilter f) {
 		int index = filterList.indexOf(f);
 
 		if (index != -1) {
@@ -409,7 +411,7 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 	 * @return true if the filter dialog was closed (not cancelled); false if
 	 *         the editing was cancelled or if the argument was null.
 	 */
-	public boolean showFilterDialog(Filter filter) {
+	public boolean showFilterDialog(IFilter filter) {
 		boolean saveFilter = false;
 
 		if (filter != null) {
@@ -430,7 +432,7 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 
 			setVisible(false);
 		} else if (action.equals("ADD")) {
-			Filter filter = FilterList.createDefaultFilter();
+			IFilter filter = FilterList.createDefaultFilter();
 
 			if (showFilterDialog(filter)) {
 				filterList.add(filter);
@@ -563,7 +565,7 @@ public class ConfigFrame extends JDialog implements ListSelectionListener,
 	 * Opens the filter edit dialog for the selected filter.
 	 */
 	private void editSelectedFilter() {
-		Filter oldFilter = getSelected();
+		IFilter oldFilter = getSelected();
 
 		if (oldFilter != null) {
 			Filter newFilter = (Filter) oldFilter.clone();

@@ -8,6 +8,7 @@ import java.util.Observable;
 import org.columba.api.command.IStatusObservable;
 import org.columba.core.command.CommandCancelledException;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 import org.columba.mail.config.ImapItem;
 import org.columba.mail.folder.command.MarkMessageCommand;
 import org.columba.mail.folder.imap.IMAPFolder;
@@ -399,7 +400,7 @@ public interface IImapServer {
 	 * @return list of UIDs which match filter rules
 	 * @throws Exception
 	 */
-	public List search(Object[] uids, FilterRule filterRule, IMAPFolder folder)
+	public List search(Object[] uids, IFilterRule filterRule, IMAPFolder folder)
 			throws Exception;
 
 	public int getIndex(Integer uid, IMAPFolder folder) throws IOException,
@@ -418,7 +419,7 @@ public interface IImapServer {
 	 * @throws IMAPException
 	 * @throws IOException
 	 */
-	public List search(FilterRule filterRule, IMAPFolder folder)
+	public List search(IFilterRule filterRule, IMAPFolder folder)
 			throws IOException, IMAPException, CommandCancelledException;
 
 	/**

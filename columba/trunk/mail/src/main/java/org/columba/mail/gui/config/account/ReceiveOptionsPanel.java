@@ -35,7 +35,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.columba.core.config.IDefaultItem;
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.gui.base.CheckBoxWithMnemonic;
 import org.columba.core.gui.base.LabelWithMnemonic;
 import org.columba.mail.config.AccountItem;

@@ -19,6 +19,8 @@ import javax.swing.table.AbstractTableModel;
 
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterList;
 import org.columba.mail.util.MailResourceLoader;
 
 
@@ -28,9 +30,9 @@ import org.columba.mail.util.MailResourceLoader;
             "description_tableheader"),
         MailResourceLoader.getString("dialog", "filter", "enabled_tableheader")
     };
-    private FilterList filterList;
+    private IFilterList filterList;
 
-    public FilterListDataModel(FilterList list) {
+    public FilterListDataModel(IFilterList list) {
         super();
         this.filterList = list;
     }
@@ -52,7 +54,7 @@ import org.columba.mail.util.MailResourceLoader;
 
     /** {@inheritDoc} */
     public Object getValueAt(int row, int col) {
-        Filter filter = filterList.get(row);
+        IFilter filter = filterList.get(row);
 
         if (filter == null) {
             return "";
@@ -92,7 +94,7 @@ import org.columba.mail.util.MailResourceLoader;
     /** {@inheritDoc} */
     public void setValueAt(Object value, int row, int col) {
         if (col == 1) {
-            Filter filter = filterList.get(row);
+            IFilter filter = filterList.get(row);
             filter.setEnabled(((Boolean) value).booleanValue());
         }
     }
@@ -102,7 +104,7 @@ import org.columba.mail.util.MailResourceLoader;
  * @param row the row.
  * @return a Filter;
  */
-    public Filter getFilter(int row) {
+    public IFilter getFilter(int row) {
         return filterList.get(row);
     }
 

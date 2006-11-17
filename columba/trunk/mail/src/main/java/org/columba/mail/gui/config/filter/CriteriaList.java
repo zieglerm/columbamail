@@ -44,6 +44,9 @@ import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterCriteria;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.gui.dialog.ErrorDialog;
 import org.columba.core.plugin.PluginManager;
 import org.columba.core.resourceloader.IconKeys;
@@ -54,7 +57,7 @@ import org.columba.mail.plugin.IExtensionHandlerKeys;
 
 public class CriteriaList extends JPanel implements ActionListener,
 		ItemListener {
-	private Filter filter;
+	private IFilter filter;
 
 	private List list;
 
@@ -64,7 +67,7 @@ public class CriteriaList extends JPanel implements ActionListener,
 
 	private IExtensionHandler pluginUIHandler;
 
-	public CriteriaList(Filter filter) {
+	public CriteriaList(IFilter filter) {
 		super();
 
 		try {
@@ -104,7 +107,7 @@ public class CriteriaList extends JPanel implements ActionListener,
 	}
 
 	public void add() {
-		FilterRule rule = filter.getFilterRule();
+		IFilterRule rule = filter.getFilterRule();
 		rule.addEmptyCriteria();
 
 		updateComponents(false);
@@ -112,7 +115,7 @@ public class CriteriaList extends JPanel implements ActionListener,
 	}
 
 	public void remove(int i) {
-		FilterRule rule = filter.getFilterRule();
+		IFilterRule rule = filter.getFilterRule();
 
 		if (rule.count() > 1) {
 			updateComponents(false);
@@ -129,10 +132,10 @@ public class CriteriaList extends JPanel implements ActionListener,
 		GridBagConstraints c = new GridBagConstraints();
 		panel.setLayout(gridbag);
 
-		FilterRule rule = filter.getFilterRule();
+		IFilterRule rule = filter.getFilterRule();
 
 		for (int i = 0; i < rule.count(); i++) {
-			FilterCriteria criteria = rule.get(i);
+			IFilterCriteria criteria = rule.get(i);
 			String type = criteria.getTypeString();
 			DefaultCriteriaRow column = null;
 

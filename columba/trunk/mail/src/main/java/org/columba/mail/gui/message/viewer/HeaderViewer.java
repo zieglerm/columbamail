@@ -46,8 +46,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.gui.base.AscendingIcon;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.xml.XmlElement;

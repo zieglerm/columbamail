@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.columba.api.command.IStatusObservable;
-import org.columba.core.filter.Filter;
-import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilterList;
+import org.columba.core.filter.IFilter;
 import org.columba.mail.message.IHeaderList;
 import org.columba.ristretto.message.Attributes;
 import org.columba.ristretto.message.Flags;
@@ -273,9 +273,9 @@ public interface IMailbox extends IMailFolder {
 	 */
 	public Header getAllHeaderFields(Object uid) throws Exception;
 
-	public Object[] searchMessages(Filter filter) throws Exception;
+	public Object[] searchMessages(IFilter filter) throws Exception;
 
-	public Object[] searchMessages(Filter filter, Object[] uids)
+	public Object[] searchMessages(IFilter filter, Object[] uids)
 			throws Exception;
 
 	/**
@@ -292,7 +292,7 @@ public interface IMailbox extends IMailFolder {
 
 	void setLastSelection(Object lastSel);
 
-	FilterList getFilterList();
+	IFilterList getFilterList();
 
 	public File getDirectoryFile();
 

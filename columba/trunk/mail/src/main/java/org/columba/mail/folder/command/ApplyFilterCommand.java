@@ -23,6 +23,8 @@ import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterList;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.filter.FilterCompoundCommand;
 import org.columba.mail.folder.IMailbox;
@@ -63,7 +65,7 @@ public class ApplyFilterCommand extends Command {
 				+ "...");
 
 		// get filter list from folder
-		FilterList list = srcFolder.getFilterList();
+		IFilterList list = srcFolder.getFilterList();
 
 		if (list == null) {
 			return;
@@ -78,7 +80,7 @@ public class ApplyFilterCommand extends Command {
 			worker.setProgressBarValue(i);
 
 			// get filter
-			Filter filter = list.get(i);
+			IFilter filter = list.get(i);
 			
 			// skip, if filter is disabled
 			if ( filter.getEnabled() == false) continue;

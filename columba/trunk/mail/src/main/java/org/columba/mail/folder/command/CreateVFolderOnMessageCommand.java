@@ -24,6 +24,7 @@ import org.columba.core.command.Command;
 import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.folder.FolderFactory;
@@ -183,7 +184,7 @@ public class CreateVFolderOnMessageCommand extends Command {
         vfolder.getConfiguration().setBoolean("property", "include_subfolders", false);
 
         // define filter rule
-        FilterRule rule = vfolder.getFilter().getFilterRule();
+        IFilterRule rule = vfolder.getFilter().getFilterRule();
         rule.setCondition("matchall");
         rule.removeAll();
         rule.addEmptyCriteria();

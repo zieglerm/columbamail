@@ -21,9 +21,9 @@ import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.action.AbstractSelectableAction;
 import org.columba.core.gui.frame.DefaultFrameController;

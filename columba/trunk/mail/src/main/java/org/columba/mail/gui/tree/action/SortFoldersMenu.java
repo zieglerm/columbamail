@@ -22,9 +22,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.gui.action.CRadioButtonMenuItem;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.MailConfig;

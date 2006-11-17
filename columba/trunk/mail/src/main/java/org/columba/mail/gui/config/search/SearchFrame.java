@@ -35,6 +35,7 @@ import javax.swing.SwingConstants;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.folder.api.IFolder;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.CheckBoxWithMnemonic;
@@ -255,7 +256,7 @@ public class SearchFrame extends JDialog implements ActionListener {
 
 	public void updateComponents(boolean b) {
 		if (b) {
-			FilterRule filterRule = destFolder.getFilter().getFilterRule();
+			IFilterRule filterRule = destFolder.getFilter().getFilterRule();
 			String value = filterRule.getCondition();
 
 			if (value.equals("matchall")) {
@@ -290,7 +291,7 @@ public class SearchFrame extends JDialog implements ActionListener {
 			criteriaList.updateComponents(b);
 		} else {
 			// get values from components
-			FilterRule filterRule = destFolder.getFilter().getFilterRule();
+			IFilterRule filterRule = destFolder.getFilter().getFilterRule();
 			int index = condList.getSelectedIndex();
 
 			if (index == 0) {

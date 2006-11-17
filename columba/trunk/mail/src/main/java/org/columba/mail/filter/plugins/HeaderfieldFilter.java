@@ -19,6 +19,7 @@ package org.columba.mail.filter.plugins;
 
 import org.columba.core.filter.AbstractFilter;
 import org.columba.core.filter.FilterCriteria;
+import org.columba.core.filter.IFilterCriteria;
 import org.columba.core.folder.api.IFolder;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.folder.IMailbox;
@@ -163,7 +164,7 @@ public class HeaderfieldFilter extends AbstractFilter {
 	/**
 	 * @see org.columba.core.filter.AbstractFilter#setUp(org.columba.mail.filter.FilterCriteria)
 	 */
-	public void setUp(FilterCriteria f) {
+	public void setUp(IFilterCriteria f) {
 		
 
 		// get headerfield to search in (for example: Subject)

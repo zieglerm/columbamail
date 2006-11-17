@@ -21,10 +21,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilterList;
 
 
  class FilterListTable extends JTable {
-    public FilterListTable(FilterList filterList, ConfigFrame frame) {
+    public FilterListTable(IFilterList filterList, ConfigFrame frame) {
         super(new FilterListDataModel(filterList));
         setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         setShowGrid(false);

@@ -46,8 +46,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.config.Config;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.CheckBoxWithMnemonic;
 import org.columba.core.gui.base.LabelWithMnemonic;

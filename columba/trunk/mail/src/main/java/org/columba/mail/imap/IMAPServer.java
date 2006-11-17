@@ -41,6 +41,8 @@ import org.columba.core.base.ListTools;
 import org.columba.core.command.CommandCancelledException;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterCriteria;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.gui.base.MultiLineLabel;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.config.AccountItem;
@@ -1289,7 +1291,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#search(java.lang.Object[], org.columba.core.filter.FilterRule, org.columba.mail.folder.imap.IMAPFolder)
 	 */
-	public List search(Object[] uids, FilterRule filterRule, IMAPFolder folder)
+	public List search(Object[] uids, IFilterRule filterRule, IMAPFolder folder)
 			throws Exception {
 		LinkedList result = new LinkedList(search(filterRule, folder));
 
@@ -1337,7 +1339,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#search(org.columba.core.filter.FilterRule, org.columba.mail.folder.imap.IMAPFolder)
 	 */
-	public List search(FilterRule filterRule, IMAPFolder folder)
+	public List search(IFilterRule filterRule, IMAPFolder folder)
 			throws IOException, IMAPException, CommandCancelledException {
 
 		try {
@@ -1381,7 +1383,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	/**
 	 * @param filterRule
 	 */
-	private SearchKey[] createSearchKey(FilterRule filterRule) {
+	private SearchKey[] createSearchKey(IFilterRule filterRule) {
 		SearchKey[] searchRequest;
 		int argumentSize = filterRule.getChildCount();
 		// One or many arguments?
@@ -1422,7 +1424,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 * @param criteria
 	 * @return
 	 */
-	private SearchKey getSearchKey(FilterCriteria criteria) {
+	private SearchKey getSearchKey(IFilterCriteria criteria) {
 		int operator = criteria.getCriteria();
 		int type = new MailFilterCriteria(criteria).getType();
 

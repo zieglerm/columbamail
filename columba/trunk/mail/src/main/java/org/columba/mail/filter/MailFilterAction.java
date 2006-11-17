@@ -18,6 +18,7 @@
 package org.columba.mail.filter;
 
 import org.columba.core.filter.FilterAction;
+import org.columba.core.filter.IFilterAction;
 import org.columba.core.xml.XmlElement;
 
 /**
@@ -33,7 +34,7 @@ public class MailFilterAction extends FilterAction {
 		super(root);
 	}
 	
-	public MailFilterAction(FilterAction parent) {
+	public MailFilterAction(IFilterAction parent) {
 		this(parent.getRoot());
 	}
 

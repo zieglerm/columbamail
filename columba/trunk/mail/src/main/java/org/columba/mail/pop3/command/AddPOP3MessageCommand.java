@@ -22,6 +22,8 @@ import org.columba.core.command.CommandProcessor;
 import org.columba.core.command.CompoundCommand;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterList;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.config.AccountItem;
@@ -168,10 +170,10 @@ public class AddPOP3MessageCommand extends Command {
 	 *            message uid
 	 */
 	private void applyFilters(Object uid) throws Exception {
-		FilterList list = inboxFolder.getFilterList();
+		IFilterList list = inboxFolder.getFilterList();
 
 		for (int j = 0; j < list.count(); j++) {
-			Filter filter = list.get(j);
+			IFilter filter = list.get(j);
 
 			Object[] result = inboxFolder.searchMessages(filter,
 					new Object[] { uid });

@@ -20,8 +20,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Timer;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.connectionstate.ConnectionStateImpl;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.xml.XmlElement;

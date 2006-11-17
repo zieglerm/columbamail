@@ -19,6 +19,7 @@ package org.columba.mail.folder.search;
 import java.util.List;
 
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 import org.columba.mail.folder.imap.IMAPFolder;
 
 /**
@@ -62,12 +63,12 @@ public class IMAPQueryEngine implements QueryEngine {
         // method is not needed by IMAP
     }
 
-    public List queryEngine(FilterRule filter) throws Exception {
+    public List queryEngine(IFilterRule filter) throws Exception {
         // pass the work to IMAPStore
         return folder.getServer().search(filter, folder);
     }
 
-    public List queryEngine(FilterRule filter, Object[] uids)
+    public List queryEngine(IFilterRule filter, Object[] uids)
         throws Exception {
         // pass the work to IMAPStore
         return folder.getServer().search(uids, filter, folder);

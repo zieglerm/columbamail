@@ -25,6 +25,9 @@ import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterAction;
 import org.columba.core.filter.FilterActionList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterAction;
+import org.columba.core.filter.IFilterActionList;
 import org.columba.core.folder.api.IFolder;
 import org.columba.core.plugin.PluginManager;
 import org.columba.mail.folder.IMailbox;
@@ -38,7 +41,7 @@ public class FilterCompoundCommand extends CompoundCommand {
 	/**
 	 * 
 	 */
-	public FilterCompoundCommand(Filter filter, IFolder sourceFolder,
+	public FilterCompoundCommand(IFilter filter, IFolder sourceFolder,
 			Object[] uids) throws Exception {
 		super();
 
@@ -47,11 +50,11 @@ public class FilterCompoundCommand extends CompoundCommand {
 				.getInstance().getExtensionHandler("org.columba.mail.filteraction");
 
 		// get list of all filter actions
-		FilterActionList list = filter.getFilterActionList();
+		IFilterActionList list = filter.getFilterActionList();
 
 		for (int i = 0; i < list.getChildCount(); i++) {
 			// interate through all filter actions
-			FilterAction action = list.get(i);
+			IFilterAction action = list.get(i);
 
 			// name is used to load plugin
 			String name = action.getAction();

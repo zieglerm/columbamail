@@ -17,7 +17,7 @@
 //All Rights Reserved.
 package org.columba.mail.config;
 
-import org.columba.core.config.IDefaultItem;
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.xml.XmlElement;
 
 /**

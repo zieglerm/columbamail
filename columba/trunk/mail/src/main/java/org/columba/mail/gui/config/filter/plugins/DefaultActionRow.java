@@ -29,6 +29,7 @@ import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.IExtensionInterface;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.filter.FilterAction;
+import org.columba.core.filter.IFilterAction;
 import org.columba.core.gui.base.ComboMenu;
 import org.columba.core.gui.dialog.ErrorDialog;
 import org.columba.core.plugin.PluginManager;
@@ -38,7 +39,7 @@ import org.columba.mail.plugin.IExtensionHandlerKeys;
 public class DefaultActionRow implements IExtensionInterface {
 	protected JPanel panel;
 
-	protected FilterAction filterAction;
+	protected IFilterAction filterAction;
 
 	protected GridBagLayout gridbag = new GridBagLayout();
 
@@ -53,7 +54,7 @@ public class DefaultActionRow implements IExtensionInterface {
 	private ComboMenu comboMenu;
 
 	public DefaultActionRow(IFrameMediator mediator, ActionList list,
-			FilterAction action) {
+			IFilterAction action) {
 		this.filterAction = action;
 		this.actionList = list;
 		this.mediator = mediator;
@@ -129,7 +130,7 @@ public class DefaultActionRow implements IExtensionInterface {
 	 * 
 	 * @return FilterAction
 	 */
-	public FilterAction getFilterAction() {
+	public IFilterAction getFilterAction() {
 		return filterAction;
 	}
 
@@ -139,7 +140,7 @@ public class DefaultActionRow implements IExtensionInterface {
 	 * @param filterAction
 	 *            The filterAction to set
 	 */
-	public void setFilterAction(FilterAction filterAction) {
+	public void setFilterAction(IFilterAction filterAction) {
 		this.filterAction = filterAction;
 	}
 

@@ -38,6 +38,8 @@ import javax.swing.SwingConstants;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.LabelWithMnemonic;
 import org.columba.core.gui.base.SingleSideEtchedBorder;
@@ -57,7 +59,7 @@ public class FilterDialog extends JDialog implements ActionListener {
 
 	private JButton addActionButton;
 
-	private Filter filter;
+	private IFilter filter;
 
 	private JFrame frame;
 
@@ -87,7 +89,7 @@ public class FilterDialog extends JDialog implements ActionListener {
 	 */
 	private boolean dialogWasCancelled = true;
 
-	public FilterDialog(IFrameMediator mediator, Filter filter) {
+	public FilterDialog(IFrameMediator mediator, IFilter filter) {
 		super(mediator.getView().getFrame(), true);
 
 		this.mediator = mediator;
@@ -270,7 +272,7 @@ public class FilterDialog extends JDialog implements ActionListener {
 			nameTextField.selectAll();
 
 			// all / match any JComboBox
-			FilterRule filterRule = filter.getFilterRule();
+			IFilterRule filterRule = filter.getFilterRule();
 			String value = filterRule.getCondition();
 
 			if (value.equals("matchall")) {
@@ -286,7 +288,7 @@ public class FilterDialog extends JDialog implements ActionListener {
 			filter.setName(nameTextField.getText());
 
 			int index = condList.getSelectedIndex();
-			FilterRule filterRule = filter.getFilterRule();
+			IFilterRule filterRule = filter.getFilterRule();
 
 			if (index == 0) {
 				filterRule.setCondition("matchall");

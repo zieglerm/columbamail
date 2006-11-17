@@ -47,6 +47,8 @@ import org.columba.api.command.IStatusObservable;
 import org.columba.core.base.ListTools;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterCriteria;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.io.DiskIO;
 import org.columba.core.io.StreamUtils;
 import org.columba.mail.folder.IMailbox;
@@ -201,8 +203,8 @@ public class LuceneQueryEngine implements QueryEngine {
 		return ramIndexReader;
 	}
 
-	private Query getLuceneQuery(FilterRule filterRule, Analyzer analyzer) {
-		FilterCriteria criteria;
+	private Query getLuceneQuery(IFilterRule filterRule, Analyzer analyzer) {
+		IFilterCriteria criteria;
 		String field;
 		int mode;
 
@@ -274,7 +276,7 @@ public class LuceneQueryEngine implements QueryEngine {
 		return result;
 	}
 
-	public List queryEngine(FilterRule filter) throws Exception {
+	public List queryEngine(IFilterRule filter) throws Exception {
 		Query query = getLuceneQuery(filter, analyzer);
 
 		List result = search(query);
@@ -314,7 +316,7 @@ public class LuceneQueryEngine implements QueryEngine {
 		return result;
 	}
 
-	public List queryEngine(FilterRule filter, Object[] uids) throws Exception {
+	public List queryEngine(IFilterRule filter, Object[] uids) throws Exception {
 		List result = queryEngine(filter);
 
 		ListTools.intersect(result, Arrays.asList(uids));

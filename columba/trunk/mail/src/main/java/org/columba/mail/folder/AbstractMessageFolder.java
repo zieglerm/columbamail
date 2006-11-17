@@ -28,6 +28,8 @@ import org.columba.api.command.IStatusObservable;
 import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
+import org.columba.core.filter.IFilterList;
 import org.columba.core.io.DiskIO;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
@@ -337,7 +339,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 * 
 	 * @return FilterList
 	 */
-	public FilterList getFilterList() {
+	public IFilterList getFilterList() {
 		return filterList;
 	}
 
@@ -821,7 +823,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 * @return @throws
 	 *         Exception
 	 */
-	public Object[] searchMessages(Filter filter, Object[] uids)
+	public Object[] searchMessages(IFilter filter, Object[] uids)
 			throws Exception {
 		return getSearchEngine().searchMessages(filter, uids);
 	}
@@ -831,7 +833,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 * @return @throws
 	 *         Exception
 	 */
-	public Object[] searchMessages(Filter filter) throws Exception {
+	public Object[] searchMessages(IFilter filter) throws Exception {
 		return getSearchEngine().searchMessages(filter);
 	}
 

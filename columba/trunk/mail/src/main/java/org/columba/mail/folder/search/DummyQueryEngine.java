@@ -19,6 +19,7 @@ package org.columba.mail.folder.search;
 import java.util.List;
 
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 
 
 /**
@@ -44,14 +45,14 @@ public class DummyQueryEngine implements QueryEngine {
     /**
  * @see org.columba.mail.folder.search.QueryEngine#queryEngine(org.columba.mail.filter.FilterRule)
  */
-    public List queryEngine(FilterRule filter) throws Exception {
+    public List queryEngine(IFilterRule filter) throws Exception {
         return null;
     }
 
     /**
  * @see org.columba.mail.folder.search.QueryEngine#queryEngine(org.columba.mail.filter.FilterRule, java.lang.Object[])
  */
-    public List queryEngine(FilterRule filter, Object[] uids)
+    public List queryEngine(IFilterRule filter, Object[] uids)
         throws Exception {
         return null;
     }

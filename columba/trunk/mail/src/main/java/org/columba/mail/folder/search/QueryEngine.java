@@ -19,7 +19,7 @@ package org.columba.mail.folder.search;
 import java.util.List;
 
 import org.columba.core.filter.FilterCriteria;
-import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 
 /**
  * Custom implementation for performing optimized search requests.
@@ -54,7 +54,7 @@ public interface QueryEngine {
  * @return                                list of matching message UIDs
  * @throws Exception
  */
-    List queryEngine(FilterRule filter) throws Exception;
+    List queryEngine(IFilterRule filter) throws Exception;
 
     /**
  * Execute a list of {@link FilterCriteria}.
@@ -66,7 +66,7 @@ public interface QueryEngine {
  * @return                                list of matching message UIDs
  * @throws Exception
  */
-    List queryEngine(FilterRule filter, Object[] uids)
+    List queryEngine(IFilterRule filter, Object[] uids)
         throws Exception;
 
     /**

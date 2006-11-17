@@ -19,6 +19,7 @@ import org.columba.api.command.ICommand;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.filter.AbstractFilterAction;
 import org.columba.core.filter.FilterAction;
+import org.columba.core.filter.IFilterAction;
 import org.columba.core.folder.api.IFolder;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.command.ExpungeFolderCommand;
@@ -37,7 +38,7 @@ public class DeleteMessageAction extends AbstractFilterAction {
     /**
  * @see org.columba.modules.mail.filter.action.AbstractFilterAction#execute()
  */
-    public ICommand getCommand(FilterAction filterAction, IFolder srcFolder,
+    public ICommand getCommand(IFilterAction filterAction, IFolder srcFolder,
         Object[] uids) throws Exception {
         MailFolderCommandReference r = new MailFolderCommandReference(srcFolder, uids);
         r.setMarkVariant(MarkMessageCommand.MARK_AS_EXPUNGED);

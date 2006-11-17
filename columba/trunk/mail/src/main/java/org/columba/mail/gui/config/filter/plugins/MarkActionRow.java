@@ -23,6 +23,7 @@ import javax.swing.JList;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.filter.FilterAction;
+import org.columba.core.filter.IFilterAction;
 import org.columba.mail.filter.MailFilterAction;
 import org.columba.mail.gui.config.filter.ActionList;
 import org.columba.mail.util.MailResourceLoader;
@@ -37,7 +38,7 @@ public class MarkActionRow extends DefaultActionRow {
 	JComboBox variantComboBox;
 
 	public MarkActionRow(IFrameMediator mediator, ActionList list,
-			FilterAction action) {
+			IFilterAction action) {
 		super(mediator, list, action);
 	}
 

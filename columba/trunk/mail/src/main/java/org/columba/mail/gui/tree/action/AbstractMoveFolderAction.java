@@ -18,11 +18,11 @@ package org.columba.mail.gui.tree.action;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.api.selection.ISelectionListener;
 import org.columba.api.selection.SelectionChangedEvent;
 import org.columba.core.config.DefaultItem;
-import org.columba.core.config.IDefaultItem;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.IFolderItem;

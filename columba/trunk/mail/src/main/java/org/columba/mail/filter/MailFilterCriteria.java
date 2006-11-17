@@ -18,6 +18,7 @@
 package org.columba.mail.filter;
 
 import org.columba.core.filter.FilterCriteria;
+import org.columba.core.filter.IFilterCriteria;
 import org.columba.core.xml.XmlElement;
 
 /**
@@ -62,7 +63,7 @@ public class MailFilterCriteria extends FilterCriteria {
 		super();
 	}
 
-	public MailFilterCriteria(FilterCriteria c) {
+	public MailFilterCriteria(IFilterCriteria c) {
 		super(c.getRoot());
 	}
 
