@@ -20,7 +20,7 @@ package org.columba.core.filter;
 import org.columba.core.config.DefaultItem;
 import org.columba.core.xml.XmlElement;
 
-public class FilterCriteria extends DefaultItem {
+public class FilterCriteria extends DefaultItem implements IFilterCriteria {
 
 	// Condition
 	private static final String ELEMENT = "criteria";
@@ -30,26 +30,6 @@ public class FilterCriteria extends DefaultItem {
 	private static final String TYPE = "type";
 
 	private static final String PATTERN = "pattern";
-
-	public final static int CONTAINS = 0;
-
-	public final static int CONTAINS_NOT = 1;
-
-	public final static int IS = 2;
-
-	public final static int IS_NOT = 3;
-
-	public final static int BEGINS_WITH = 4;
-
-	public final static int ENDS_WITH = 5;
-
-	public final static int DATE_BEFORE = 6;
-
-	public final static int DATE_AFTER = 7;
-
-	public final static int SIZE_SMALLER = 8;
-
-	public final static int SIZE_BIGGER = 9;
 
 	private final String[] criteria = { "contains", "contains not", "is",
 			"is not", "begins with", "ends with", "before", "after", "smaller",
@@ -63,14 +43,23 @@ public class FilterCriteria extends DefaultItem {
 		super(root);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#getCriteriaString()
+   */
 	public String getCriteriaString() {
 		return getRoot().getAttribute(FilterCriteria.CRITERIA);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#setCriteria(int)
+   */
 	public void setCriteria(int c) {
 		setCriteriaString(criteria[c]);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#getCriteria()
+   */
 	public int getCriteria() {
 		String condition = getCriteriaString();
 
@@ -84,22 +73,37 @@ public class FilterCriteria extends DefaultItem {
 		return c;
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#setCriteriaString(java.lang.String)
+   */
 	public void setCriteriaString(String s) {
 		getRoot().addAttribute(FilterCriteria.CRITERIA, s);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#getTypeString()
+   */
 	public String getTypeString() {
 		return getRoot().getAttribute(FilterCriteria.TYPE);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#setTypeString(java.lang.String)
+   */
 	public void setTypeString(String s) {
 		getRoot().addAttribute(FilterCriteria.TYPE, s);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#getPatternString()
+   */
 	public String getPatternString() {
 		return getRoot().getAttribute(FilterCriteria.PATTERN);
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterCriteria#setPatternString(java.lang.String)
+   */
 	public void setPatternString(String pattern) {
 		getRoot().addAttribute(FilterCriteria.PATTERN, pattern);
 	}

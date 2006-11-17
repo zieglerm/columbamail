@@ -22,13 +22,7 @@ import org.columba.core.xml.XmlElement;
  * A list of filters.
  * 
  */
-public class FilterList extends DefaultItem {
-	/** The name of this object when stored in a XML document. */
-	public static final String XML_NAME = "filterlist";
-
-	// private Vector list;
-	// private AbstractMessageFolder folder;
-
+public class FilterList extends DefaultItem implements IFilterList {
 	/**
 	 * Creates a FilterList with the specified element as the root.
 	 * 
@@ -52,7 +46,7 @@ public class FilterList extends DefaultItem {
 	 * @return an empty default Filter.
 	 * @deprecated
 	 */
-	public static Filter createDefaultFilter() {
+	public static IFilter createDefaultFilter() {
 		XmlElement filter = new XmlElement("filter");
 		filter.addAttribute("description", "new filter");
 		filter.addAttribute("enabled", "true");
@@ -97,13 +91,10 @@ public class FilterList extends DefaultItem {
 		 */
 	}
 
-	/**
-	 * Adds the filter to this list.
-	 * 
-	 * @param f
-	 *            the filter.
-	 */
-	public void add(Filter f) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#add(org.columba.core.filter.Filter)
+   */
+	public void add(IFilter f) {
 		if (f != null) {
 			getRoot().addElement(f.getRoot());
 		}
@@ -111,88 +102,60 @@ public class FilterList extends DefaultItem {
 		// list.add(f);
 	}
 
-	/**
-	 * Adds all filters in the supplied list to this filter list.
-	 * 
-	 * @param list
-	 *            a list containing other filters to add to this list.
-	 */
-	public void addAll(FilterList list) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#addAll(org.columba.core.filter.FilterList)
+   */
+	public void addAll(IFilterList list) {
 		int size = list.count();
 
 		for (int i = 0; i < size; i++) {
-			Filter newFilter = list.get(i);
+			IFilter newFilter = list.get(i);
 			add(newFilter);
 		}
 	}
 
-	/**
-	 * Remove the <code>Filter</code> from the list.
-	 * 
-	 * @param f
-	 *            the filter to remove.
-	 */
-	public void remove(Filter f) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#remove(org.columba.core.filter.Filter)
+   */
+	public void remove(IFilter f) {
 		if (f != null) {
 			getRoot().getElements().remove(f.getRoot());
 		}
 	}
 
-	/**
-	 * Inserts the filter into the specified index in the list.
-	 * 
-	 * @param filter
-	 *            filter to add.
-	 * @param index
-	 *            the index where to insert the filter.
-	 */
-	public void insert(Filter filter, int index) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#insert(org.columba.core.filter.Filter, int)
+   */
+	public void insert(IFilter filter, int index) {
 		if (filter != null) {
 			getRoot().insertElement(filter.getRoot(), index);
 		}
 	}
 
-	/**
-	 * Moves the specified filter up in the list.
-	 * 
-	 * @param filter
-	 *            the filter to move up.
-	 */
-	public void moveUp(Filter filter) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#moveUp(org.columba.core.filter.Filter)
+   */
+	public void moveUp(IFilter filter) {
 		move(indexOf(filter), -1);
 	}
 
-	/**
-	 * Moves the specified filter down in the list.
-	 * 
-	 * @param filter
-	 *            the filter to move down.
-	 */
-	public void moveDown(Filter filter) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#moveDown(org.columba.core.filter.Filter)
+   */
+	public void moveDown(IFilter filter) {
 		move(indexOf(filter), 1);
 	}
 
-	/**
-	 * Moves the specified filter a number of positions in the list.
-	 * 
-	 * @param filter
-	 *            the filter to move.
-	 * @param nrOfPositions
-	 *            the number of positions to move in the list, can be negative.
-	 */
-	public void move(Filter filter, int nrOfPositions) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#move(org.columba.core.filter.Filter, int)
+   */
+	public void move(IFilter filter, int nrOfPositions) {
 		move(indexOf(filter), nrOfPositions);
 	}
 
-	/**
-	 * Moves the filter at the specified index a number of positions in the
-	 * list.
-	 * 
-	 * @param filterIndex
-	 *            the filters index.
-	 * @param nrOfPositions
-	 *            the number of positions to move in the list, can be negative.
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#move(int, int)
+   */
 	public void move(int filterIndex, int nrOfPositions) {
 		if ((filterIndex >= 0) && (filterIndex < count())) {
 			XmlElement filterXML = getRoot().getElement(filterIndex);
@@ -212,16 +175,10 @@ public class FilterList extends DefaultItem {
 		}
 	}
 
-	/**
-	 * Returns the index in this list of the first occurrence of the specified
-	 * filter, or -1 if this list does not contain this element.
-	 * 
-	 * @param filter
-	 *            filter to search for.
-	 * @return the index in this list of the first occurrence of the specified
-	 *         filter, or -1 if this list does not contain this element.
-	 */
-	public int indexOf(Filter filter) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#indexOf(org.columba.core.filter.Filter)
+   */
+	public int indexOf(IFilter filter) {
 		int index = -1;
 
 		if (filter != null) {
@@ -237,34 +194,25 @@ public class FilterList extends DefaultItem {
 		return index;
 	}
 
-	/**
-	 * Returns the number of filters in this list.
-	 * 
-	 * @return the number of filters in this list.
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#count()
+   */
 	public int count() {
 		return getChildCount();
 	}
 
-	/**
-	 * Returns the filter at the specified position in the list.
-	 * 
-	 * @param index
-	 *            the index
-	 * @return a Filter
-	 */
-	public Filter get(int index) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#get(int)
+   */
+	public IFilter get(int index) {
 		Filter filter = new Filter(getRoot().getElement(index));
 
 		return filter;
 	}
 
-	/**
-	 * Removes the filter at the specified list index.
-	 * 
-	 * @param index
-	 *            the index of the filter to remove from this list.
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterList#remove(int)
+   */
 	public void remove(int index) {
 		getRoot().removeElement(index);
 	}

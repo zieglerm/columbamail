@@ -41,7 +41,7 @@ public abstract class AbstractFilter implements IExtensionInterface {
 	 * @param f
 	 *            filter containing the configuration
 	 */
-	public abstract void setUp(FilterCriteria f);
+	public abstract void setUp(IFilterCriteria f);
 
 	/**
 	 * 

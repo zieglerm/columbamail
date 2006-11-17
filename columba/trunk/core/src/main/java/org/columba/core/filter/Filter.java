@@ -53,7 +53,7 @@ import org.columba.core.xml.XmlElement;
 // </actionlist>
 // </filter>
 //
-public class Filter extends DefaultItem {
+public class Filter extends DefaultItem implements IFilter {
 
 	private static final String DESCRIPTION = "description";
 
@@ -82,75 +82,64 @@ public class Filter extends DefaultItem {
 	}
 
 	
-	/**
-	 * 
-	 * @return FilterActionList this is also a simple wrapper
-	 */
-	public FilterActionList getFilterActionList() {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#getFilterActionList()
+   */
+	public IFilterActionList getFilterActionList() {
 		XmlElement element = getRoot().getElement(Filter.ACTIONLIST);
 		
 		return new FilterActionList(element);
 
 	}
 
-	/**
-	 * 
-	 * 
-	 * @return FilterRule this is also a simple wrapper
-	 */
-	public FilterRule getFilterRule() {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#getFilterRule()
+   */
+	public IFilterRule getFilterRule() {
 		XmlElement element = getRoot().getElement(Filter.RULES);
 		
 
 		return new FilterRule(element);
 	}
 
-	/**
-	 * Is filter enabled?
-	 * 
-	 * @return boolean true if enabled
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#getEnabled()
+   */
 	public boolean getEnabled() {
 		return getBooleanWithDefault(Filter.ENABLED, true);
 	}
 
-	/**
-	 * 
-	 * enable Filter
-	 * 
-	 * @param bool
-	 *            if true enable filter otherwise disable filter
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#setEnabled(boolean)
+   */
 	public void setEnabled(boolean bool) {
 		setBoolean(Filter.ENABLED, bool);
 	}
 
-	/**
-	 * Set filter name
-	 * 
-	 * @param s
-	 *            new filter name
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#setName(java.lang.String)
+   */
 	public void setName(String s) {
 		setString(Filter.DESCRIPTION, s);
 	}
 
-	/**
-	 * 
-	 * return Name of Filter
-	 * 
-	 * @return String
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#getName()
+   */
 	public String getName() {
 		return get(Filter.DESCRIPTION);
 	}
 
-	/** {@inheritDoc} */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#clone()
+   */
 	public Object clone() {
 		return super.clone();
 	}
 
-	/** {@inheritDoc} */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilter#toString()
+   */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Filter[name=");

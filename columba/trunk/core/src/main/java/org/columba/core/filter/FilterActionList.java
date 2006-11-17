@@ -27,19 +27,28 @@ import org.columba.core.xml.XmlElement;
  * To enable and disable the creation of type comments go to
  * Window>Preferences>Java>Code Generation.
  */
-public class FilterActionList extends DefaultItem {
+public class FilterActionList extends DefaultItem implements IFilterActionList {
     public FilterActionList(XmlElement root) {
         super(root);
     }
 
+    /* (non-Javadoc)
+     * @see org.columba.core.filter.IFilterActionList#get(int)
+     */
     public FilterAction get(int index) {
         return new FilterAction(getRoot().getElement(index));
     }
 
+    /* (non-Javadoc)
+     * @see org.columba.core.filter.IFilterActionList#remove(int)
+     */
     public void remove(int index) {
         getRoot().removeElement(index);
     }
 
+    /* (non-Javadoc)
+     * @see org.columba.core.filter.IFilterActionList#addEmptyAction()
+     */
     public void addEmptyAction() {
         XmlElement action = new XmlElement("action");
 

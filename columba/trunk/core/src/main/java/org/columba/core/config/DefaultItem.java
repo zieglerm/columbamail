@@ -17,6 +17,7 @@ package org.columba.core.config;
 
 import java.util.StringTokenizer;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.xml.XmlElement;
 
 /**
@@ -279,7 +280,7 @@ public class DefaultItem implements Cloneable, IDefaultItem {
 	}
 
 	/**
-	 * @see org.columba.core.config.IDefaultItem#getStringWithDefault(java.lang.String,
+	 * @see org.columa.core.config.IDefaultItem#getStringWithDefault(java.lang.String,
 	 *      java.lang.String, java.lang.String)
 	 */
 	public String getStringWithDefault(final String pathToElement,

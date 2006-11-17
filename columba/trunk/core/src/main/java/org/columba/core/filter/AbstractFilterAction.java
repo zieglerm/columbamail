@@ -46,6 +46,6 @@ public abstract class AbstractFilterAction implements IExtensionInterface {
 	 * @throws Exception
 	 *             exception is just passed to the upper-level
 	 */
-	public abstract ICommand getCommand(FilterAction filterAction,
+	public abstract ICommand getCommand(IFilterAction filterAction,
 			IFolder srcFolder, Object[] uids) throws Exception;
 }

@@ -18,12 +18,7 @@ package org.columba.core.filter;
 import org.columba.core.config.DefaultItem;
 import org.columba.core.xml.XmlElement;
 
-public class FilterRule extends DefaultItem {
-	// Condition
-	public final static int MATCH_ALL = 0;
-
-	public final static int MATCH_ANY = 1;
-
+public class FilterRule extends DefaultItem implements IFilterRule {
 	// condition: match all (AND) = 0, match any (OR) = 1
 	// private AdapterNode conditionNode;
 	public FilterRule(XmlElement root) {
@@ -36,7 +31,10 @@ public class FilterRule extends DefaultItem {
 
 	}
 
-	public FilterCriteria addEmptyCriteria() {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#addEmptyCriteria()
+   */
+	public IFilterCriteria addEmptyCriteria() {
 		XmlElement criteria = new XmlElement("criteria");
 		criteria.addAttribute("type", "Subject");
 		criteria.addAttribute("criteria", "contains");
@@ -44,15 +42,21 @@ public class FilterRule extends DefaultItem {
 
 		getRoot().addElement(criteria);
 
-		FilterCriteria c = new FilterCriteria(criteria);
+		IFilterCriteria c = new FilterCriteria(criteria);
 
 		return c;
 	}
 
-	public void add(FilterCriteria criteria) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#add(org.columba.core.filter.FilterCriteria)
+   */
+	public void add(IFilterCriteria criteria) {
 		getRoot().addElement(criteria.getRoot());
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#remove(int)
+   */
 	public void remove(int index) {
 		getRoot().removeElement(index);
 
@@ -73,6 +77,9 @@ public class FilterRule extends DefaultItem {
 		 */
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#removeAll()
+   */
 	public void removeAll() {
 		/*
 		 * for (int i = 0; i < count(); i++) { remove(0); }
@@ -80,6 +87,9 @@ public class FilterRule extends DefaultItem {
 		getRoot().removeAllElements();
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#removeLast()
+   */
 	public void removeLast() {
 		/*
 		 * int index = list.size() - 1;
@@ -89,14 +99,23 @@ public class FilterRule extends DefaultItem {
 		getRoot().removeElement(getRoot().count() - 1);
 	}
 
-	public FilterCriteria get(int index) {
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#get(int)
+   */
+	public IFilterCriteria get(int index) {
 		return new FilterCriteria(getRoot().getElement(index));
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#count()
+   */
 	public int count() {
 		return getRoot().count();
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#getCondition()
+   */
 	public String getCondition() {
 		return getRoot().getAttribute("condition");
 
@@ -109,6 +128,9 @@ public class FilterRule extends DefaultItem {
 		 */
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#setCondition(java.lang.String)
+   */
 	public void setCondition(String s) {
 		getRoot().addAttribute("condition", s);
 
@@ -117,6 +139,9 @@ public class FilterRule extends DefaultItem {
 		 */
 	}
 
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#setCondition(int)
+   */
 	public void setCondition(int condition) {
 		if (condition == MATCH_ALL)
 			setCondition("matchall");
@@ -131,6 +156,9 @@ public class FilterRule extends DefaultItem {
 	 * public FilterCriteria getCriteria(int index) { return (FilterCriteria)
 	 * list.get(index); }
 	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterRule#getConditionInt()
+   */
 	public int getConditionInt() {
 		// System.out.println("condigtion: "+ condition );
 		if (getCondition().equals("matchall")) {

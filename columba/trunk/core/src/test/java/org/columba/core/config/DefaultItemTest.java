@@ -5,6 +5,7 @@ package org.columba.core.config;
 
 import junit.framework.TestCase;
 
+import org.columa.core.config.IDefaultItem;
 import org.columba.core.xml.XmlElement;
 
 

@@ -31,7 +31,7 @@ import org.columba.core.xml.XmlElement;
 // <actionlist>
 //  <action uid="122" type="Move Message"></action>
 // </actionlist>
-public class FilterAction extends DefaultItem {
+public class FilterAction extends DefaultItem implements IFilterAction {
 	/**
 	 * Constructor for FilterAction
 	 * 
@@ -43,12 +43,9 @@ public class FilterAction extends DefaultItem {
 		super(root);
 	}
 
-	/**
-	 * 
-	 * get folder uid
-	 * 
-	 * @return int
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterAction#getUid()
+   */
 	public String getUid() {
 		if (contains("uid") == false) {
 			// folder uid doesn't exist
@@ -61,31 +58,23 @@ public class FilterAction extends DefaultItem {
 		}
 	}
 
-	/**
-	 * set folder uid
-	 * 
-	 * @param i
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterAction#setUid(java.lang.String)
+   */
 	public void setUid(String id) {
 		setString("uid", id);
 	}
 
-	/**
-	 * 
-	 * get type of action
-	 * 
-	 * @return String
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterAction#getAction()
+   */
 	public String getAction() {
 		return get("type");
 	}
 
-	/**
-	 * 
-	 * set type of action
-	 * 
-	 * @param s
-	 */
+	/* (non-Javadoc)
+   * @see org.columba.core.filter.IFilterAction#setAction(java.lang.String)
+   */
 	public void setAction(String s) {
 		setString("type", s);
 	}
