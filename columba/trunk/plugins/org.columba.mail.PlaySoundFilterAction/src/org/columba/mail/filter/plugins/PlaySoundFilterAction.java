@@ -24,7 +24,7 @@ import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
 import org.columba.core.filter.AbstractFilterAction;
-import org.columba.core.filter.FilterAction;
+import org.columba.core.filter.IFilterAction;
 import org.columba.core.folder.DefaultFolderCommandReference;
 import org.columba.core.folder.api.IFolder;
 
@@ -42,7 +42,7 @@ public class PlaySoundFilterAction extends AbstractFilterAction {
 	 * @see org.columba.mail.filter.plugins.AbstractFilterAction#getCommand()
 	 */
 	public ICommand getCommand(
-		FilterAction filterAction,
+		IFilterAction filterAction,
 		IFolder srcFolder,
 		Object[] uids)
 		throws Exception {

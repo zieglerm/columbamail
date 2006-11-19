@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 
 import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
+import org.columba.core.filter.IFilter;
 import org.columba.core.xml.XmlElement;
 
 /**
@@ -37,7 +38,7 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testRemoveFilter() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterTwo = createNamedFilter("TWO");
+		IFilter filterTwo = createNamedFilter("TWO");
 		filterList.add(createNamedFilter("ONE"));
 		filterList.add(filterTwo);
 		filterList.add(createNamedFilter("THREE"));
@@ -71,9 +72,9 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testGetint() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterOne = createNamedFilter("ONE");
-		Filter filterTwo = createNamedFilter("TWO");
-		Filter filterThree = createNamedFilter("THREE");
+		IFilter filterOne = createNamedFilter("ONE");
+		IFilter filterTwo = createNamedFilter("TWO");
+		IFilter filterThree = createNamedFilter("THREE");
 		filterList.add(filterOne);
 		filterList.add(filterTwo);
 		filterList.add(filterThree);
@@ -90,9 +91,9 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testInsert() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterOne = createNamedFilter("ONE");
-		Filter filterTwo = createNamedFilter("TWO");
-		Filter filterThree = createNamedFilter("THREE");
+		IFilter filterOne = createNamedFilter("ONE");
+		IFilter filterTwo = createNamedFilter("TWO");
+		IFilter filterThree = createNamedFilter("THREE");
 		filterList.add(filterOne);
 		filterList.add(filterTwo);
 		filterList.add(filterThree);
@@ -101,7 +102,7 @@ public class FilterListTest extends TestCase {
 		assertEquals("The get(int) method returned the wrong filter.",
 				filterTwo, filterList.get(1));
 
-		Filter filterFour = createNamedFilter("FOUR");
+		IFilter filterFour = createNamedFilter("FOUR");
 		filterList.insert(filterFour, 1);
 		assertEquals("The get(int) method returned the wrong filter.",
 				filterOne, filterList.get(0));
@@ -116,9 +117,9 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testMoveUp() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterOne = createNamedFilter("ONE");
-		Filter filterTwo = createNamedFilter("TWO");
-		Filter filterThree = createNamedFilter("THREE");
+		IFilter filterOne = createNamedFilter("ONE");
+		IFilter filterTwo = createNamedFilter("TWO");
+		IFilter filterThree = createNamedFilter("THREE");
 		filterList.add(filterOne);
 		filterList.add(filterTwo);
 		filterList.add(filterThree);
@@ -144,9 +145,9 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testMoveDown() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterOne = createNamedFilter("ONE");
-		Filter filterTwo = createNamedFilter("TWO");
-		Filter filterThree = createNamedFilter("THREE");
+		IFilter filterOne = createNamedFilter("ONE");
+		IFilter filterTwo = createNamedFilter("TWO");
+		IFilter filterThree = createNamedFilter("THREE");
 		filterList.add(filterOne);
 		filterList.add(filterTwo);
 		filterList.add(filterThree);
@@ -172,9 +173,9 @@ public class FilterListTest extends TestCase {
 	 */
 	public void testIndexOf() {
 		FilterList filterList = new FilterList(new XmlElement());
-		Filter filterOne = createNamedFilter("ONE");
-		Filter filterTwo = createNamedFilter("TWO");
-		Filter filterThree = createNamedFilter("THREE");
+		IFilter filterOne = createNamedFilter("ONE");
+		IFilter filterTwo = createNamedFilter("TWO");
+		IFilter filterThree = createNamedFilter("THREE");
 		filterList.add(filterOne);
 		filterList.add(filterTwo);
 		filterList.add(filterThree);
@@ -198,8 +199,8 @@ public class FilterListTest extends TestCase {
 	 *            the name of the filter.
 	 * @return a <code>Filter</code> with the specified name.
 	 */
-	private Filter createNamedFilter(String name) {
-		Filter filter = FilterList.createDefaultFilter();
+	private IFilter createNamedFilter(String name) {
+		IFilter filter = FilterList.createDefaultFilter();
 		filter.setName(name);
 
 		return filter;

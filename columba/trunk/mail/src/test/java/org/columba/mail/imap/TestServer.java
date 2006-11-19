@@ -9,6 +9,7 @@ import java.util.Observable;
 import org.columba.api.command.IStatusObservable;
 import org.columba.core.command.CommandCancelledException;
 import org.columba.core.filter.FilterRule;
+import org.columba.core.filter.IFilterRule;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.ImapItem;
 import org.columba.mail.folder.headercache.MemoryHeaderList;
@@ -258,7 +259,7 @@ public class TestServer implements IImapServer {
 
 	}
 
-	public List search(Object[] uids, FilterRule filterRule, IMAPFolder folder)
+	public List search(Object[] uids, IFilterRule filterRule, IMAPFolder folder)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
@@ -282,7 +283,7 @@ public class TestServer implements IImapServer {
 		return new Integer[0];
 	}
 
-	public List search(FilterRule filterRule, IMAPFolder folder)
+	public List search(IFilterRule filterRule, IMAPFolder folder)
 			throws IOException, IMAPException, CommandCancelledException {
 		
 		return new ArrayList();
