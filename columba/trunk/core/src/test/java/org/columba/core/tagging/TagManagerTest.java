@@ -3,7 +3,6 @@ package org.columba.core.tagging;
 import java.io.File;
 import java.util.Iterator;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.columba.core.config.Config;
@@ -12,11 +11,11 @@ import org.columba.core.tagging.api.ITag;
 public class TagManagerTest extends TestCase {
 
 	TagManager tm;
+	static String normalTagId = "";
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		Config c = new Config(new File(
-				"C:\\Dokumente und Einstellungen\\Matthias\\.columba"));
+		Config c = new Config(new File(""));
 		tm = new TagManager();
 	}
 
@@ -28,7 +27,9 @@ public class TagManagerTest extends TestCase {
 	 * Test method for 'org.columba.core.tagging.TagManager.addTag(String)'
 	 */
 	public void testAddTag() {
-		tm.addTag("NormalTag");
+		ITag normalTag = tm.addTag("NormalTag");
+		normalTagId = normalTag.getId();
+		System.out.println("normalTagId = " + normalTagId);
 	}
 
 	/*
@@ -38,6 +39,7 @@ public class TagManagerTest extends TestCase {
 		boolean found = false;
 		for (Iterator<ITag> iter = tm.getAllTags(); iter.hasNext();) {
 			ITag tag = iter.next();
+			System.out.println("tag = " + tag.getId() + " | " + tag.getName());
 			if (tag.getName().equals("NormalTag")) {
 				found = true;
 				System.out.println("Found NormalTag");
@@ -49,7 +51,7 @@ public class TagManagerTest extends TestCase {
 	 * Test method for 'org.columba.core.tagging.TagManager.getTag(String)'
 	 */
 	public void testGetTag() {
-		if (tm.getTag("NormalTag") == null) // getByName
+		if (tm.getTag(normalTagId) == null) // getByName
 			fail("NormalTag not found");
 		else
 			System.out.println("NormalTag found");
@@ -58,8 +60,10 @@ public class TagManagerTest extends TestCase {
 	 * Test method for 'org.columba.core.tagging.TagManager.removeTag(String)'
 	 */
 	public void testRemoveTag() {
-		tm.removeTag("NormalTag");
-		if (tm.getTag("NormalTag") != null)
+		if (tm.getTag(normalTagId) == null)
+			fail("NormalTag should be there!");
+		tm.removeTag(normalTagId);
+		if (tm.getTag(normalTagId) != null)
 			fail("NormalTag not deleted!");
 	}
 

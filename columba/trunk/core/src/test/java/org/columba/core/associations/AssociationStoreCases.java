@@ -14,7 +14,7 @@ public class AssociationStoreCases extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		store = AssociationStore.getInstance();
-		Config c = new Config(new File("c:/dokumente und einstellungen/matthias/.columba"));
+		Config c = new Config(new File(""));
 	}
 
 	protected void tearDown() throws Exception {

@@ -1,7 +1,6 @@
 package org.columba.core.gui.tagging;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,8 +46,8 @@ public abstract class TaggingMenu extends IMenu {
 			return;
 
 		// TODO (@author hubms): implement custom menuitem renderer
-		JMenuItem item = new JMenuItem(GlobalResourceLoader.getString("dialog",
-				"tagging", "none"));
+		JMenuItem item = new JMenuItem(GlobalResourceLoader.getString("org.columba.core.i18n.dialog",
+				"tagging", "TaggingMenu.none"));
 		item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// fire callback to remove all tags from selected items
@@ -96,7 +95,7 @@ public abstract class TaggingMenu extends IMenu {
 			addSeparator();
 
 		JMenuItem editTagItem = new JMenuItem(GlobalResourceLoader.getString(
-				"dialog", "tagging", "edit"));
+				"org.columba.core.i18n.dialog", "tagging", "TaggingMenu.edit"));
 		editTagItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// not implemented yet

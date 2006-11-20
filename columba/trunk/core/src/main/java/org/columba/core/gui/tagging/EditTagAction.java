@@ -10,6 +10,7 @@ import org.columba.api.exception.StoreException;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.logging.Logging;
+import org.columba.core.resourceloader.GlobalResourceLoader;
 import org.columba.core.tagging.TagManager;
 import org.columba.core.tagging.api.ITag;
 
@@ -50,7 +51,8 @@ public class EditTagAction extends AbstractColumbaAction {
 			} catch (StoreException e) {
 				if (Logging.DEBUG)
 					e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error editing Tag");
+				JOptionPane.showMessageDialog(null, GlobalResourceLoader.getString(
+								"org.columba.core.i18n.dialog", "tagging", "EditTagAction.error_edit"));		
 			}
 
 		}

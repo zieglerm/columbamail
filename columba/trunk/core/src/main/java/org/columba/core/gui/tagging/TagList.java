@@ -65,26 +65,14 @@ public class TagList extends JXList {
 	}
 
 	class MyMouseListener extends MouseAdapter {
-
+		
 		@Override
-		public void mousePressed(MouseEvent e) {
-			if (e.isPopupTrigger())
-				handlePopupMenu(e);
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			if (e.isPopupTrigger())
-				handlePopupMenu(e);
-		}
-
-		private void handlePopupMenu(MouseEvent e) {
+		public void mouseClicked(MouseEvent e) {
+			// refresh the selection also if clicked with the right button
 			int index = locationToIndex(e.getPoint());
 			setSelectedIndex(index);
-			
-			getComponentPopupMenu().show(TagList.this, e.getPoint().x, e.getPoint().y);
-			
 		}
+		
 
 	}
 
