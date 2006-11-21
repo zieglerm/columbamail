@@ -18,6 +18,7 @@
 package org.columba.addressbook.folder;
 
 import org.columba.addressbook.model.ContactModel;
+import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModel;
 
 /**
@@ -39,7 +40,7 @@ public class ModifyContactTest extends AbstractFolderTstCase {
 		ContactModel c = new ContactModel();
 
 		c.setNickName("nickname");
-
+		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
 		String uid = getSourceFolder().add(c);
 
 		c.setNickName("new");

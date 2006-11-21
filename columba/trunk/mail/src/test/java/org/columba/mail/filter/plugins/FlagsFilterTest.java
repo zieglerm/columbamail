@@ -20,6 +20,7 @@ package org.columba.mail.filter.plugins;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
+import org.columba.mail.folder.command.MarkMessageCommand;
 import org.columba.ristretto.message.Flags;
 
 
@@ -49,8 +50,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
         // add message to folder
         Object uid = addMessage();
        
-        Flags flags = getSourceFolder().getFlags(uid);
-        flags.setSeen(true);
+        getSourceFolder().markMessage(new Object[]{uid}, MarkMessageCommand.MARK_AS_READ);
         
         // create filter configuration
         MailFilterCriteria criteria = MailFilterFactory.createIsSeenMessages();
@@ -70,8 +70,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
         // add message to folder
         Object uid = addMessage();
        
-        Flags flags = getSourceFolder().getFlags(uid);
-        flags.setSeen(true);
+        getSourceFolder().markMessage(new Object[]{uid}, MarkMessageCommand.MARK_AS_UNREAD);
         
         // create filter configuration
         MailFilterCriteria criteria = MailFilterFactory.createIsNotSeenMessages();
@@ -84,15 +83,14 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", false, result);
+        assertEquals("filter result", true, result);
     }
     
     public void testIsExpunged() throws Exception {
         // add message to folder
         Object uid = addMessage();
        
-        Flags flags = getSourceFolder().getFlags(uid);
-        flags.setDeleted(true);
+        getSourceFolder().markMessage(new Object[]{uid}, MarkMessageCommand.MARK_AS_EXPUNGED);
         
         // create filter configuration
         MailFilterCriteria criteria = MailFilterFactory.createExpungedMessages();
@@ -112,8 +110,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
         // add message to folder
         Object uid = addMessage();
        
-        Flags flags = getSourceFolder().getFlags(uid);
-        flags.setFlagged(true);
+        getSourceFolder().markMessage(new Object[]{uid}, MarkMessageCommand.MARK_AS_FLAGGED);
         
         // create filter configuration
         MailFilterCriteria criteria = MailFilterFactory.createFlaggedMessages();
@@ -133,8 +130,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
         // add message to folder
         Object uid = addMessage();
        
-        Flags flags = getSourceFolder().getFlags(uid);
-        flags.setRecent(true);
+        getSourceFolder().markMessage(new Object[]{uid}, MarkMessageCommand.MARK_AS_RECENT);
         
         // create filter configuration
         MailFilterCriteria criteria = MailFilterFactory.createIsRecentMessages();
@@ -154,7 +150,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
         // add message to folder
         Object uid = addMessage();
        
-       getSourceFolder().setAttribute(uid, "columba.spam", Boolean.TRUE);
+        getSourceFolder().setAttribute(uid, "columba.spam", Boolean.TRUE);
         
         // create filter configuration
        MailFilterCriteria criteria = MailFilterFactory.createSpamMessages();

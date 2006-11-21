@@ -18,6 +18,7 @@
 package org.columba.addressbook.folder;
 
 import org.columba.addressbook.model.ContactModel;
+import org.columba.addressbook.model.EmailModel;
 
 /**
  * @author fdietz
@@ -38,7 +39,7 @@ public class RemoveContactTest extends AbstractFolderTstCase {
 	 */
 	public void testRemoveObject() throws Exception {
 		ContactModel c = new ContactModel();
-
+		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
 		c.setNickName("nickname");
 
 		String uid = getSourceFolder().add(c);

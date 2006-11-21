@@ -51,8 +51,8 @@ public class AbstractComposerTst extends AbstractFolderTst {
 
     	super.setUp();
     	    
-        AccountList list = MailConfig.getInstance().getAccountList();
-        list.addEmptyAccount("pop3");
+        //AccountList list = MailConfig.getInstance().getAccountList();
+        //list.addEmptyAccount("pop3");
     }
 
     /**

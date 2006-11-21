@@ -55,7 +55,7 @@ public class BerkeleyDBHeaderList implements IPersistantHeaderList {
 	
 	
 	private String name;
-	private static File headercacheDirectory = new File(MailConfig.getInstance().getConfigDirectory(),"headerlist");
+	private File headercacheDirectory; 
 	private Database db;
 	private static Environment environment;
 	private DatabaseConfig databaseConfig;
@@ -70,15 +70,16 @@ public class BerkeleyDBHeaderList implements IPersistantHeaderList {
 	
 	private static int openDatabases = 0;
 	
-	public BerkeleyDBHeaderList(String name){
-		this(name, new DefaultHeaderBinding());
+	public BerkeleyDBHeaderList(File headerCacheDirectory, String name){
+		this(headerCacheDirectory, name, new DefaultHeaderBinding());
 	}
 
 	
-	public BerkeleyDBHeaderList(String name, TupleBinding headerBinding){
+	public BerkeleyDBHeaderList(File headerCacheDirectory, String name, TupleBinding headerBinding){
 		super();
 		this.name = name;
 		this.headerBinding = headerBinding;
+		this.headercacheDirectory = headerCacheDirectory;
 		
 		integerBinding = new IntegerBinding();
 		stringBinding = new StringBinding();

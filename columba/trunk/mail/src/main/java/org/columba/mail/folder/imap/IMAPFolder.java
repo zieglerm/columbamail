@@ -79,7 +79,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	private IImapServer store;
 
 	private IStatusObservable observable;
-	
+
 	/**
 	 * 
 	 */
@@ -100,19 +100,18 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		return readOnly;
 	}
 
-	
 	/**
 	 * Constructor for testing purposes only!
 	 * 
 	 */
 	public IMAPFolder(IPersistantHeaderList headerList, IImapServer server) {
-		super("test","IMAPFolder","/tmp/");
+		super("test", "IMAPFolder", "/tmp/");
 		this.headerList = headerList;
 		this.observable = new DummyObservable();
-		
+
 		store = server;
 	}
-	
+
 	/**
 	 * @see org.columba.mail.folder.FolderTreeNode#FolderTreeNode(org.columba.mail.config.FolderItem)
 	 */
@@ -146,7 +145,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 				getServer().deleteFolder(path);
 			}
- 
+
 			super.removeFolder();
 		} catch (Exception e) {
 			throw e;
@@ -192,22 +191,26 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 * @see org.columba.mail.folder.Folder#getHeaderList(org.columba.api.command.IWorkerStatusController)
 	 */
 	public synchronized IHeaderList getHeaderList() throws Exception {
-		if( headerList == null) {
-			headerList = new BerkeleyDBHeaderList(getId());
+		if (headerList == null) {
+			// header cache is stored in "headerlist" subfolder
+			File headercacheDirectory = new File(getDirectoryFile(),
+					"headerlist");
+			headerList = new BerkeleyDBHeaderList(headercacheDirectory, getId());
 
-	headerList
-			.addHeaderListCorruptedListener(new IHeaderListCorruptedListener() {
+			headerList
+					.addHeaderListCorruptedListener(new IHeaderListCorruptedListener() {
 
-				public void headerListCorrupted(IHeaderList headerList) {
-					headerList.clear();
-					getMessageFolderInfo().reset();
-					fireFolderPropertyChanged();
-				}
-			});
-			
+						public void headerListCorrupted(IHeaderList headerList) {
+							headerList.clear();
+							getMessageFolderInfo().reset();
+							fireFolderPropertyChanged();
+						}
+					});
+
 		}
-		
-		if (mailboxSyncEnabled  && ConnectionStateImpl.getInstance().isOnline() && !getServer().isSelected(this)) {
+
+		if (mailboxSyncEnabled && ConnectionStateImpl.getInstance().isOnline()
+				&& !getServer().isSelected(this)) {
 			// Trigger Synchronization
 			CommandProcessor.getInstance().addOp(
 					new CheckForNewMessagesCommand(
@@ -248,9 +251,9 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 */
 	Object[] synchronizeHeaderlist() throws Exception, IOException,
 			CommandCancelledException, IMAPException {
-		
+
 		Object[] result = new Object[0];
-		
+
 		// Check if the mailbox has changed
 		MailboxStatus status = getServer().getStatus(this);
 
@@ -277,7 +280,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 				.get(localUids.size() - 1)).intValue() : -1;
 
 		int largestRemoteUid = getServer().getLargestRemoteUid(this);
-		
+
 		if (localUids.size() == status.getMessages()
 				&& largestRemoteUid == largestLocalUid) {
 			// Seems to be no change!
@@ -296,7 +299,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 		largestRemoteUid = getServer().fetchUid(
 				new SequenceSet(SequenceEntry.STAR), this);
-		
+
 		if (largestRemoteUid == -1) {
 			largestRemoteUid = getServer().fetchUid(
 					new SequenceSet(status.getMessages()), this);
@@ -349,7 +352,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 			} else {
 				fetchDone();
 			}
-			
+
 			result = newUids.toArray(new Object[0]);
 		} else {
 
@@ -428,7 +431,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 			throws Exception, IOException, IMAPException,
 			CommandCancelledException {
 		int largestRemoteUid = getServer().getLargestRemoteUid(this);
-		
+
 		int deletedMessages = localUids.size() - status.getMessages();
 
 		LOG.fine("Found " + deletedMessages + " deleted Messages");
@@ -569,20 +572,20 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		}
 
 		// Sanity tests
-		if( messageFolderInfo.getRecent() < 0 ) {
+		if (messageFolderInfo.getRecent() < 0) {
 			messageFolderInfo.setRecent(0);
 			updated = true;
 		}
-		if( messageFolderInfo.getRecent() > messageFolderInfo.getExists() ) {
+		if (messageFolderInfo.getRecent() > messageFolderInfo.getExists()) {
 			messageFolderInfo.setRecent(messageFolderInfo.getExists());
 			updated = true;
 		}
-		
-		if( messageFolderInfo.getUnseen() < 0 ) {
+
+		if (messageFolderInfo.getUnseen() < 0) {
 			messageFolderInfo.setUnseen(0);
 			updated = true;
 		}
-		if( messageFolderInfo.getUnseen() > messageFolderInfo.getExists() ) {
+		if (messageFolderInfo.getUnseen() > messageFolderInfo.getExists()) {
 			messageFolderInfo.setUnseen(messageFolderInfo.getExists());
 			updated = true;
 		}
@@ -680,18 +683,17 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		}
 		headerIterator.close();
 
-		
 		if (remoteJunkUids.size() != junk || remoteRecentUids.size() != recent
 				|| remoteFlaggedUids.size() != flagged
 				|| remoteDeletedUids.size() != deleted
 				|| remoteUnseenUids.size() != unseen) {
 			// Something is wrong
 			// Sync again
-			
+
 			synchronizeHeaderlist();
 			return;
 		}
-		
+
 		syncMailboxInfo(flagStatus);
 	}
 
@@ -726,11 +728,11 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 */
 	public MimeTree getMimePartTree(Object uid) throws Exception {
 		MimeTree tree = IMAPCache.getInstance().getMimeTree(this, uid);
-		if ( tree == null ) {
+		if (tree == null) {
 			tree = getServer().getMimeTree(uid, this);
 			IMAPCache.getInstance().addMimeTree(this, uid, tree);
-		} 
-		
+		}
+
 		return tree;
 	}
 
@@ -753,13 +755,14 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 		if (destUids.length < uids.length) {
 			LOG
-					.warning("Some messages could not be copied because they do not exist anymore!");			
+					.warning("Some messages could not be copied because they do not exist anymore!");
 		}
 
 		// Check if maybe no message at all got copied
 		// In this case we are finished here
-		if( destUids.length == 0) return;
-		
+		if (destUids.length == 0)
+			return;
+
 		// update headerlist of destination-folder
 		// -> this is necessary to reflect the changes visually
 		// but only do it if the target folder is still in sync!
@@ -777,13 +780,12 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		if (((Integer) destUids[0]).intValue() == largestDestUid.intValue() + 1) {
 			int j = 0;
 			for (int i = 0; i < uids.length; i++) {
-				IColumbaHeader destHeader = srcHeaderList.get(
-						uids[i]);
+				IColumbaHeader destHeader = srcHeaderList.get(uids[i]);
 				// Was this message actually copied?
-				if(destHeader != null) {
+				if (destHeader != null) {
 					// Copy the header
 					destHeader = (IColumbaHeader) destHeader.clone();
-				
+
 					destHeader.set("columba.uid", destUids[j]);
 					destHeaderList.add(destHeader, destUids[j]);
 
@@ -915,10 +917,10 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 * @see org.columba.mail.folder.Folder#getObservable()
 	 */
 	public IStatusObservable getObservable() {
-		if( observable == null ){
+		if (observable == null) {
 			observable = ((IMAPRootFolder) getRootFolder()).getObservable();
 		}
-		
+
 		return observable;
 	}
 
@@ -1074,11 +1076,11 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 			fireMessageAdded(uid, h.getFlags());
 		} else {
-			if( mailboxSyncEnabled ) {			
-			// Trigger Synchronization
-			CommandProcessor.getInstance().addOp(
-					new CheckForNewMessagesCommand(
-							new MailFolderCommandReference(this)));
+			if (mailboxSyncEnabled) {
+				// Trigger Synchronization
+				CommandProcessor.getInstance().addOp(
+						new CheckForNewMessagesCommand(
+								new MailFolderCommandReference(this)));
 			}
 		}
 
@@ -1157,7 +1159,8 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	public void save() throws Exception {
 		super.save();
 
-		if( headerList != null ) headerList.persist();
+		if (headerList != null)
+			headerList.persist();
 	}
 
 	void fetchDone() throws IOException, CommandCancelledException,
@@ -1209,7 +1212,8 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	}
 
 	/**
-	 * @param mailboxSyncEnabled The mailboxSyncEnabled to set.
+	 * @param mailboxSyncEnabled
+	 *            The mailboxSyncEnabled to set.
 	 */
 	public void setMailboxSyncEnabled(boolean mailboxSyncEnabled) {
 		this.mailboxSyncEnabled = mailboxSyncEnabled;

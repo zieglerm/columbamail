@@ -34,6 +34,7 @@ import org.columba.core.io.DiskIO;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.config.IFolderItem;
+import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.command.MarkMessageCommand;
 import org.columba.mail.folder.event.FolderEvent;
 import org.columba.mail.folder.event.IFolderListener;
@@ -136,7 +137,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		super(item);
 
 		String dir = path + System.getProperty("file.separator") + getId();
-
+		
 		if (DiskIO.ensureDirectory(dir)) {
 			directoryFile = new File(dir);
 		}

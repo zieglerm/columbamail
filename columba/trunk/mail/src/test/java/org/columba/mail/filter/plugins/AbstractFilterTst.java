@@ -82,21 +82,21 @@ public class AbstractFilterTst extends TestCase {
 	protected void setUp() throws Exception {
 
 		// create config-folder
-		File file = new File("test_config");
-		file.mkdir();
-
-		new Config(file);
-
-		Logging.DEBUG = true;
-		Logging.createDefaultHandler();
-
-		//		 init mail component
-		new MailMain().init();
-
-		new AddressbookMain().init();
-
-		// now load all available plugins
-		PluginManager.getInstance().initExternalPlugins();
+//		File file = new File("test_config");
+//		file.mkdir();
+//
+//		new Config(file);
+//
+//		Logging.DEBUG = true;
+//		Logging.createDefaultHandler();
+//
+//		//		 init mail component
+//		new MailMain().init();
+//
+//		new AddressbookMain().init();
+//
+//		// now load all available plugins
+//		PluginManager.getInstance().initExternalPlugins();
 
 		sourceFolder = factory.createFolder(1);
 
@@ -115,19 +115,25 @@ public class AbstractFilterTst extends TestCase {
 	protected void tearDown() throws Exception {
 		File f = sourceFolder.getDirectoryFile();
 
-		// delete all mails in folder
-		File[] list = f.listFiles();
-
-		for (int i = 0; i < list.length; i++) {
-			list[i].delete();
-		}
-
-		// delete folder
-		f.delete();
-
-		sourceFolder.removeFolder();
+		recursiveDelete(f);
 	}
 
+	
+	private void recursiveDelete(File folder) {
+		// delete all files in folder
+		File[] list = folder.listFiles();
+
+		for (int i = 0; i < list.length; i++) {
+			if( list[i].isDirectory() ) {
+				recursiveDelete(list[i]);
+			} else {
+				list[i].delete();				
+			}
+		}
+		
+		folder.delete();
+	}
+	
 	/**
 	 * Add message to test folder.
 	 * 

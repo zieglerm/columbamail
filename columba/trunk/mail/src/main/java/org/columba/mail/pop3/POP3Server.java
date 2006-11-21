@@ -96,7 +96,8 @@ public class POP3Server {
 		store = new POP3Store(item);
 
 		if(!this.getConfigFile().isDirectory()) this.getConfigFile().delete();
-		headerList = new BerkeleyDBHeaderList("pop3_" + uid,  new POP3HeaderBinding());
+		File headercacheDirectory = new File(file, "pop3"+uid);
+		headerList = new BerkeleyDBHeaderList(headercacheDirectory, "pop3_" + uid,  new POP3HeaderBinding());
 		((BerkeleyDBHeaderList)headerList).setKeyType(String.class);
 		
 		lock = new Lock();

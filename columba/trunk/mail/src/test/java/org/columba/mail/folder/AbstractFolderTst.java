@@ -83,20 +83,20 @@ public class AbstractFolderTst extends TestCase {
 	protected void setUp() throws Exception {
 
 		// create config-folder
-		File file = new File("test_config");
-		file.mkdir();
-
-		new Config(file);
-
-		Logging.DEBUG = true;
-		Logging.createDefaultHandler();
-
-		// init mail component
-		new MailMain().init();
-		new AddressbookMain().init();
-
-		// now load all available plugins
-		PluginManager.getInstance().initExternalPlugins();
+//		File file = new File("test_config");
+//		file.mkdir();
+//
+//		new Config(file);
+//
+//		Logging.DEBUG = true;
+//		Logging.createDefaultHandler();
+//
+//		// init mail component
+//		new MailMain().init();
+//		new AddressbookMain().init();
+//
+//		// now load all available plugins
+//		PluginManager.getInstance().initExternalPlugins();
 
 		folders = new HashSet();
 		sourceFolder = factory.createFolder(folderId++);

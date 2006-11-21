@@ -20,6 +20,7 @@ package org.columba.addressbook.folder;
 import java.util.Map;
 
 import org.columba.addressbook.model.ContactModel;
+import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModelPartial;
 
 /**
@@ -41,7 +42,7 @@ public class GetHeaderItemListTest extends AbstractFolderTstCase {
 	 */
 	public void testGetHeaderItemList() throws Exception {
 		ContactModel c = new ContactModel();
-
+		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
 		c.setSortString("sortstring");
 
 		String uid = getSourceFolder().add(c);

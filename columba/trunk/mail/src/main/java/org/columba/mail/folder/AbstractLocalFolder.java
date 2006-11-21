@@ -78,7 +78,7 @@ public abstract class AbstractLocalFolder extends AbstractMessageFolder {
 	/** JDK 1.4+ logging framework logger, used for logging. */
 	private static final Logger LOG = Logger
 			.getLogger("org.columba.mail.folder");
-
+	
 	/**
 	 * the next messag which gets added to this folder receives this unique ID
 	 */
@@ -566,7 +566,9 @@ public abstract class AbstractLocalFolder extends AbstractMessageFolder {
 
 	public synchronized IHeaderList getHeaderList() throws Exception {
 		if (headerList == null) {
-			headerList = new BerkeleyDBHeaderList(getId());
+			// header cache is stored in "headerlist" subfolder
+			File headercacheDirectory = new File(getDirectoryFile(),"headerlist");
+			headerList = new BerkeleyDBHeaderList(headercacheDirectory, getId());
 			final AbstractMessageFolder folder = this;
 			headerList
 					.addHeaderListCorruptedListener(new IHeaderListCorruptedListener() {
