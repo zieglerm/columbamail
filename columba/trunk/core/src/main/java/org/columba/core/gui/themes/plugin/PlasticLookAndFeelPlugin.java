@@ -45,7 +45,7 @@ public class PlasticLookAndFeelPlugin extends AbstractThemePlugin {
 	public void setLookAndFeel() throws Exception {
 
 		Options.setDefaultIconSize(new Dimension(16, 16));
-
+		Options.setUseNarrowButtons(false);
 		Options.setPopupDropShadowEnabled(true);
 		
 		XmlElement options = Config.getInstance().get("options").getElement(
