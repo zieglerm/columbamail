@@ -815,7 +815,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 * @return
 	 */
 	public DefaultSearchEngine getSearchEngine() {
-		return searchEngine;
+		return this.searchEngine;
 	}
 
 	/**
@@ -826,6 +826,9 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 */
 	public Object[] searchMessages(IFilter filter, Object[] uids)
 			throws Exception {
+		// if there is no search engine, try the default one
+		if (getSearchEngine() == null)
+			return (new DefaultSearchEngine(this)).searchMessages(filter, uids);
 		return getSearchEngine().searchMessages(filter, uids);
 	}
 
@@ -835,6 +838,9 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 *         Exception
 	 */
 	public Object[] searchMessages(IFilter filter) throws Exception {
+		// if there is no search engine, try the default one
+		if (getSearchEngine() == null)
+			return (new DefaultSearchEngine(this)).searchMessages(filter);
 		return getSearchEngine().searchMessages(filter);
 	}
 

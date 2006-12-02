@@ -82,6 +82,11 @@ public class MailTagList extends TagList {
 
 			ITag result = (ITag) getSelectedValue();
 			
+			// if there is nothing selected return
+			if (result == null) {
+				return;
+			}
+			
 			// create a virtual folder with all messages holding this tag
 			Collection<String> uriList = AssociationStore.getInstance()
 					.getAssociatedItems("tagging", result.getId());

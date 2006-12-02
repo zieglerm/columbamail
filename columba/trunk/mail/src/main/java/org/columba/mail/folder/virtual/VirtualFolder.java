@@ -41,6 +41,7 @@ import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.config.IFolderItem;
 import org.columba.mail.filter.MailFilterCriteria;
+import org.columba.mail.folder.AbstractLocalFolder;
 import org.columba.mail.folder.AbstractMessageFolder;
 import org.columba.mail.folder.FolderChildrenIterator;
 import org.columba.mail.folder.FolderFactory;
@@ -51,6 +52,7 @@ import org.columba.mail.folder.event.IFolderEvent;
 import org.columba.mail.folder.headercache.CachedHeaderfields;
 import org.columba.mail.folder.headercache.MemoryHeaderList;
 import org.columba.mail.folder.imap.IMAPFolder;
+import org.columba.mail.folder.mh.CachedMHFolder;
 import org.columba.mail.folder.search.DefaultSearchEngine;
 import org.columba.mail.gui.config.search.SearchFrame;
 import org.columba.mail.gui.frame.AbstractMailFrameController;
@@ -91,7 +93,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	
 	public VirtualFolder(FolderItem item, String path) {
 		super(item, path);
-
+		
 		headerList = new MemoryHeaderList();
 
 		ensureValidFilterElement();
@@ -357,7 +359,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	protected void applySearch() throws Exception {
 		IMailFolder srcFolder = getSourceFolder();
-
+		
 		XmlElement filter = getConfiguration().getRoot().getElement("filter");
 
 		if (filter == null) {
@@ -404,8 +406,17 @@ public class VirtualFolder extends AbstractMessageFolder implements
 		if (parent instanceof IMailbox) {
 			
 			IMailbox folder = (IMailbox) parent;
-
-			Object[] resultUids = folder.searchMessages(filter);
+			
+			// if the parent is a virtual folder the search cannot be applied directly
+			// look for the correct uids by finding the first non virtual folder
+			
+			Object[] resultUids = null;
+			
+			if (folder instanceof VirtualFolder)
+				resultUids = folder.searchMessages(filter, folder.getUids());
+			else
+				resultUids = folder.searchMessages(filter);
+			
 			String[] headerfields = CachedHeaderfields.getDefaultHeaderfields();
 
 			if (resultUids != null) {
