@@ -19,5 +19,11 @@ public class ContactSearchResult extends SearchResult implements ISearchResult {
 	public IContactModel getModel() {
 		return model;
 	}
+	
+	public boolean equals(Object o) {
+		ContactSearchResult r = (ContactSearchResult) o;
+		
+		return getLocation().equals(r.getLocation());
+	}
 
 }
