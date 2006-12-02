@@ -50,7 +50,7 @@ import org.columba.ristretto.message.Header;
 public class HeaderParser {
 	
 	private static final Pattern linePattern = Pattern.compile("([^\r\n]*)(\r?\n)|(\r\n?)");
-	private static final Pattern keyValuePattern = Pattern.compile("([^:\\s]+): (.*)");
+	private static final Pattern keyValuePattern = Pattern.compile("([^:\\s]+):\\s*(.*)");
 	private static final Pattern lineWrapPattern = Pattern.compile("\\s(.*)");
 	
 	private HeaderParser() {
