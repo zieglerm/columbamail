@@ -1,7 +1,0 @@
-LogEntry.0=START_INSTALL_LOG
-LogEntry.1=BUNDLE_MANIFEST /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST1163258929588.MF
-LogEntry.2=DELETE /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST.MF
-LogEntry.3=BUNDLE_MANIFEST /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST1163259017272.MF
-LogEntry.4=DELETE /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST.MF
-LogEntry.5=BUNDLE_MANIFEST /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST1163259049382.MF
-LogEntry.6=DELETE /usr/share/eclipse/plugins/org.tigris.subversion.subclipse.core_1.0.3/META-INF/MANIFEST.MF
