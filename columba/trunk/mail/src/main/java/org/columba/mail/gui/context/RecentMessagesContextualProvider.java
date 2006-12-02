@@ -1,12 +1,16 @@
 package org.columba.mail.gui.context;
 
+import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.context.api.IContextProvider;
@@ -29,16 +33,28 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 
 	private String emailAddress;
 
+	private JPanel panel = new JPanel();
+
+	private JScrollPane scrollPane;
+
 	public RecentMessagesContextualProvider() {
 		bundle = ResourceBundle.getBundle("org.columba.mail.i18n.search");
 
+		panel.setLayout(new BorderLayout());
+		panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+
 		list = new ResultList();
+
+		scrollPane = new JScrollPane(list);
+		scrollPane
+				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panel.add(scrollPane, BorderLayout.CENTER);
 	}
 
 	public String getTechnicalName() {
 		return "recent_messages_of_contact";
 	}
-	
+
 	public String getName() {
 		return bundle.getString("provider_related_title");
 	}
@@ -61,6 +77,8 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 		if (value == null)
 			return;
 
+		result.clear();
+
 		Iterator<IStructureValue> it = value.getChildIterator(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
@@ -78,7 +96,7 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 
 		p = new MailSearchProvider();
 		List<ISearchResult> r = p.query(emailAddress,
-				MailSearchProvider.CRITERIA_FROM_CONTAINS, false, 0, 5);
+				MailSearchProvider.CRITERIA_FROM_CONTAINS, false, 0, 20);
 
 		result.addAll(r);
 	}
@@ -88,7 +106,7 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 	}
 
 	public JComponent getView() {
-		return list;
+		return panel;
 	}
 
 	public void clear() {
@@ -108,4 +126,5 @@ public class RecentMessagesContextualProvider implements IContextProvider {
 		p.showAllResults(mediator, emailAddress,
 				MailSearchProvider.CRITERIA_FROM_CONTAINS);
 	}
+
 }

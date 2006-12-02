@@ -100,6 +100,7 @@ public class ContextSearchManager implements IContextSearchManager {
 		public void execute(final IWorkerStatusController worker)
 				throws Exception {
 			for (final IContextProvider p : getAllProviders()) {
+				p.clear();
 				p.search(frameMediator.getSemanticContext(), 0, 5);
 
 				// notify all listeners that have a new search result

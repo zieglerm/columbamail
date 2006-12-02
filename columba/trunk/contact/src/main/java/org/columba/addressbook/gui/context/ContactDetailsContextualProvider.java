@@ -1,6 +1,5 @@
 package org.columba.addressbook.gui.context;
 
-import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +19,7 @@ import org.columba.core.context.semantic.api.ISemanticContext;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
+import org.jdesktop.swingx.VerticalLayout;
 
 // TODO: fix layout to look good, even if there's not enough information provided
 public class ContactDetailsContextualProvider implements IContextProvider {
@@ -35,7 +35,7 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 	public ContactDetailsContextualProvider() {
 		super();
 
-		panel.setBackground(new Color(248, 248, 248));
+		panel.setLayout(new VerticalLayout());
 
 		bundle = ResourceBundle
 				.getBundle("org.columba.addressbook.i18n.search");
@@ -110,12 +110,15 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 	}
 
 	public void showResult() {
+		panel.removeAll();
+
 		Iterator it2 = result.listIterator();
 		while (it2.hasNext()) {
 			ContactSearchResult r = (ContactSearchResult) it2.next();
 			IContactModel m = r.getModel();
 
-			ContactDetailPanel p = new ContactDetailPanel(m);
+			ContactDetailPanel p = new ContactDetailPanel(m, r);
+
 			panel.add(p);
 		}
 
@@ -128,6 +131,7 @@ public class ContactDetailsContextualProvider implements IContextProvider {
 	}
 
 	public void clear() {
+
 		result.clear();
 	}
 

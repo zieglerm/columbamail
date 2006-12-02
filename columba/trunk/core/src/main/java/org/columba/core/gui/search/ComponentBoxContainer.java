@@ -19,9 +19,7 @@ import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
 public class ComponentBoxContainer extends JPanel {
-	//private final static Color titleBackground = new Color(248, 248, 248);
-
-	//private final static Color borderColor = new Color(230, 230, 230);
+	
 	private final static Color borderColor2 = UIManager.getColor("controlShadow");
 	private final static Color borderColor1 = UIManager.getColor("controlHighlight");
 	
@@ -35,9 +33,9 @@ public class ComponentBoxContainer extends JPanel {
 		this.compBox = compBox;
 
 		collapsible = new JXCollapsiblePane();
-		//collapsible.getContentPane().setBackground(titleBackground);
 		collapsible.add(compBox.getView());
-
+		collapsible.setCollapsed(true);
+		
 		Action toggleAction = collapsible.getActionMap().get(
 				JXCollapsiblePane.TOGGLE_ACTION);
 		// use the collapse/expand icons from the JTree UI
@@ -51,7 +49,6 @@ public class ComponentBoxContainer extends JPanel {
 		link.setToolTipText(compBox.getDescription());
 
 		link.setOpaque(true);
-		//link.setBackground(titleBackground);
 		link.setFocusPainted(false);
 
 		link.setUnclickedColor(UIManager.getColor("Label.foreground"));
@@ -60,20 +57,18 @@ public class ComponentBoxContainer extends JPanel {
 		Border border1 = new CompoundBorder(new SeparatorBorder(),
 				BorderFactory.createEmptyBorder(2, 4, 2, 4));
 
-		Border border = new CompoundBorder(BorderFactory.createEmptyBorder(2,
-				4, 2, 4), border1);
+//		Border border = new CompoundBorder(BorderFactory.createEmptyBorder(2,
+//				4, 2, 4), border1);
 
 		JLabel iconLabel = new JLabel();
-		//iconLabel.setBackground(titleBackground);
 		iconLabel.setIcon(compBox.getIcon());
-		iconLabel.setOpaque(true);
+		//iconLabel.setOpaque(true);
 		iconLabel.setBorder(BorderFactory.createEmptyBorder(1, 2, 1, 6));
 
 		JPanel top = new JPanel();
 		top.setBorder(border1);
-		//top.setBackground(titleBackground);
 		top.setLayout(new BorderLayout());
-		top.setOpaque(true);
+		//top.setOpaque(true);
 
 		top.add(iconLabel, BorderLayout.WEST);
 		top.add(link, BorderLayout.CENTER);

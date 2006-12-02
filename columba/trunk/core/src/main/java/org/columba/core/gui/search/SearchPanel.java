@@ -41,6 +41,7 @@ import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
 import org.columba.core.search.api.ISearchProvider;
 import org.columba.core.search.api.ISearchRequest;
+import org.jdesktop.swingx.VerticalLayout;
 
 public class SearchPanel extends JPanel implements ISearchPanel {
 
@@ -53,7 +54,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	// private SearchResultView searchResultView;
 
-	private StackedBox box;
+	//private StackedBox box;
+	private JPanel box;
 
 	private Hashtable<String, SearchResultBox> searchMap = new Hashtable<String, SearchResultBox>();
 
@@ -76,15 +78,18 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		contextSearchManager = new ContextSearchManager(frameMediator);
 		initContextProvider();
 
-		setBackground(new Color(248, 248, 248));
+		//setBackground(new Color(248, 248, 248));
 
-		box = new StackedBox();
-		box.setBackground(new Color(248, 248, 248));
-		JScrollPane pane = new JScrollPane(box);
-		pane.setBorder(null);
+		//box = new StackedBox();
+		box = new JPanel();
+		box.setLayout(new VerticalLayout());
+		
+		//box.setBackground(new Color(248, 248, 248));
+//		JScrollPane pane = new JScrollPane(box);
+//		pane.setBorder(null);
 
 		setLayout(new BorderLayout());
-		add(pane, BorderLayout.CENTER);
+		add(box, BorderLayout.CENTER);
 
 		topPanel = new JPanel();
 		topPanel.setBackground(UIManager.getColor("TextField.background"));
@@ -308,6 +313,20 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 				e.printStackTrace();
 		}
 
+		Iterator<IContextProvider> it = contextSearchManager.getAllProviders()
+				.iterator();
+		while (it.hasNext()) {
+			IContextProvider p = it.next();
+
+			// clear previous search results
+			p.clear();
+			ContextResultBox resultBox = new ContextResultBox(frameMediator, p,
+					contextSearchManager);
+			box.add(resultBox);
+
+			contextMap.put(p.getName(), resultBox);
+		}
+
 		validate();
 		repaint();
 	}
@@ -436,40 +455,38 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	public void searchInContext() {
 		// init result view
-		createContextStackedBox();
+		//createContextStackedBox();
 
 		// execute background search
 		contextSearchManager.search();
 	}
 
-	private void createContextStackedBox() {
-
-		searchMap.clear();
-
-		remove(topPanel);
-		add(topPanel, BorderLayout.NORTH);
-		
-		box.removeAll();
-
-		Iterator<IContextProvider> it = contextSearchManager.getAllProviders()
-				.iterator();
-		while (it.hasNext()) {
-			IContextProvider p = it.next();
-
-			// clear previous search results
-			p.clear();
-			ContextResultBox resultBox = new ContextResultBox(frameMediator, p,
-					contextSearchManager);
-			box.addBox(resultBox);
-
-			contextMap.put(p.getName(), resultBox);
-		}
-
-		
-
-		// repaint box
-		validate();
-		repaint();
-	}
+//	private void createContextStackedBox() {
+//
+//		searchMap.clear();
+//
+//		remove(topPanel);
+//		add(topPanel, BorderLayout.NORTH);
+//
+//		box.removeAll();
+//
+//		Iterator<IContextProvider> it = contextSearchManager.getAllProviders()
+//				.iterator();
+//		while (it.hasNext()) {
+//			IContextProvider p = it.next();
+//
+//			// clear previous search results
+//			p.clear();
+//			ContextResultBox resultBox = new ContextResultBox(frameMediator, p,
+//					contextSearchManager);
+//			box.addBox(resultBox);
+//
+//			contextMap.put(p.getName(), resultBox);
+//		}
+//
+//		// repaint box
+//		validate();
+//		repaint();
+//	}
 
 }
