@@ -4,36 +4,38 @@ import java.net.URI;
 
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IFrameMediator;
-import org.columba.api.plugin.PluginLoadingFailedException;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.gui.frame.DefaultContainer;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
+import org.columba.mail.gui.composer.ComposerController;
+import org.columba.mail.gui.composer.ComposerModel;
 import org.columba.mail.gui.frame.ThreePaneMailFrameController;
 import org.columba.mail.gui.message.command.ViewMessageCommand;
 import org.columba.mail.gui.messageframe.MessageFrameController;
 import org.columba.mail.gui.tree.FolderTreeModel;
+import org.columba.ristretto.message.Address;
 
 public class DialogFacade implements IDialogFacade {
-
 
 	public DialogFacade() {
 		super();
 	}
 
-	
-    /**
-     * @see org.columba.mail.facade.IDialogFacade#openComposer()
-     */
-    public void openComposer() {
-        // Choice btw. text and html will be based on stored option
-        try {
-        	FrameManager.getInstance().openView("Composer");
-        } catch (PluginLoadingFailedException plfe) {} //should not occur
-    }
-    
+	/**
+	 * @see org.columba.mail.facade.IDialogFacade#openComposer()
+	 */
+	public void openComposer() {
+		// Choice btw. text and html will be based on stored option
+		ComposerController controller = new ComposerController();
+		new DefaultContainer(controller);
+
+		// model -> view
+		controller.updateComponents(true);
+	}
+
 	/**
 	 * @see org.columba.mail.facade.IDialogFacade#openMessage(java.net.URI)
 	 */
@@ -43,8 +45,8 @@ public class DialogFacade implements IDialogFacade {
 
 		// TODO: @author fdietz replace with regular expression
 		int index = s.lastIndexOf('/');
-		String messageId = s.substring(index+1, s.length());
-		String folderId = s.substring(s.lastIndexOf('/', index-1)+1, index);
+		String messageId = s.substring(index + 1, s.length());
+		String folderId = s.substring(s.lastIndexOf('/', index - 1) + 1, index);
 
 		IContainer[] container = FrameManager.getInstance().getOpenFrames();
 		if (container == null || container.length == 0)
@@ -78,5 +80,17 @@ public class DialogFacade implements IDialogFacade {
 
 		CommandProcessor.getInstance().addOp(new ViewMessageCommand(c, r));
 	}
+
 	
+	public void openComposer(String contact) {
+		// Choice btw. text and html will be based on stored option
+		ComposerController controller = new ComposerController();
+		new DefaultContainer(controller);
+		ComposerModel model = controller.getModel();
+		Address adr = new Address(contact);
+		model.setTo(new Address[] {adr});
+		// model -> view
+		controller.updateComponents(true);
+	}
+
 }

@@ -22,6 +22,7 @@ import org.columba.addressbook.gui.dialog.contact.ContactEditorDialog;
 import org.columba.addressbook.gui.tree.AddressbookTreeModel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IContactModelPartial;
+import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.base.DoubleClickListener;
@@ -32,6 +33,8 @@ import org.columba.core.gui.frame.api.IComponentBox;
 import org.columba.core.logging.Logging;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
+import org.columba.core.services.ServiceRegistry;
+import org.columba.mail.facade.IDialogFacade;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -127,6 +130,26 @@ public class ContactBox extends JPanel implements IComponentBox {
 				IContactModelPartial selected = (IContactModelPartial) list
 						.getSelectedValue();
 				openEditContactDialog(selected);
+			}
+		});
+		contextMenu.add(item);
+
+		item = new JMenuItem("Compose Message..");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				IContactModelPartial selected = (IContactModelPartial) list
+						.getSelectedValue();
+				String address = selected.getAddress();
+
+				try {
+					IDialogFacade facade = (IDialogFacade) ServiceRegistry
+							.getInstance()
+							.getService(
+									org.columba.mail.facade.IDialogFacade.class);
+					facade.openComposer(address);
+				} catch (ServiceNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 

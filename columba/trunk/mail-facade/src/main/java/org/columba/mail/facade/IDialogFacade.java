@@ -15,4 +15,9 @@ public interface IDialogFacade {
 	 * Open up composer window.
 	 */
 	void openComposer();
+	
+	/**
+	 * Open composer window
+	 */
+	void openComposer(String contact);
 }
