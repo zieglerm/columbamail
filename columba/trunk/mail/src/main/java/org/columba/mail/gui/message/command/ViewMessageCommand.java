@@ -124,18 +124,18 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		IStructureValue identity = value.addChild(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		if (name.toString() != null)
+		if (name != null && name.toString() != null)
 			identity.setString(ISemanticContext.CONTEXT_ATTR_DISPLAY_NAME,
 					ISemanticContext.CONTEXT_NAMESPACE_CORE, name.toString());
-		if (from.getMailAddress() != null)
+		if (from != null && from.getMailAddress() != null)
 			identity.setString(ISemanticContext.CONTEXT_ATTR_EMAIL_ADDRESS,
 					ISemanticContext.CONTEXT_NAMESPACE_CORE, from
 							.getMailAddress());
-		if (name.getFirstName() != null)
+		if (name != null && name.getFirstName() != null)
 			identity.setString(ISemanticContext.CONTEXT_ATTR_FIRST_NAME,
 					ISemanticContext.CONTEXT_NAMESPACE_CORE, name
 							.getFirstName());
-		if (name.getLastName() != null)
+		if (name != null && name.getLastName() != null)
 			identity
 					.setString(ISemanticContext.CONTEXT_ATTR_LAST_NAME,
 							ISemanticContext.CONTEXT_NAMESPACE_CORE, name
@@ -145,16 +145,19 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		IStructureValue message = value.addChild(
 				ISemanticContext.CONTEXT_NODE_MESSAGE,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE);
-		message.setString(ISemanticContext.CONTEXT_ATTR_SUBJECT,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE, subject);
-		message.setDate(ISemanticContext.CONTEXT_ATTR_DATE,
-				ISemanticContext.CONTEXT_NAMESPACE_CORE, date);
+		if (subject != null)
+			message.setString(ISemanticContext.CONTEXT_ATTR_SUBJECT,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE, subject);
+		if (date != null)
+			message.setDate(ISemanticContext.CONTEXT_ATTR_DATE,
+					ISemanticContext.CONTEXT_NAMESPACE_CORE, date);
 
 		IMessageController messageController = ((MessageViewOwner) mediator)
 				.getMessageController();
 
 		bodyText = messageController.getText();
-
+		
+		// @TODO: assert(bodyText != null) or if (bodyText != null)
 		message.setString(ISemanticContext.CONTEXT_ATTR_BODY_TEXT,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE, bodyText);
 
@@ -223,9 +226,10 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		value = mediator.getSemanticContext().createValue();
 
 		// from email address
-		from = (Address) srcFolder.getAttribute(uid, "columba.from");
-		// parse
-		name = NameParser.getInstance().parseDisplayName(from.getDisplayName());
+		if (srcFolder.getAttribute(uid, "columba.from") instanceof Address) {
+			from = (Address) srcFolder.getAttribute(uid, "columba.from");
+			name = NameParser.getInstance().parseDisplayName(from.getDisplayName());
+		}
 
 		subject = (String) srcFolder.getAttribute(uid, "columba.subject");
 		date = (Date) srcFolder.getAttribute(uid, "columba.date");
