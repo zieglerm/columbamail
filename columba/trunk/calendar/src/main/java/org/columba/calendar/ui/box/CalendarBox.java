@@ -1,8 +1,10 @@
 package org.columba.calendar.ui.box;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,12 +14,12 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
-import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
@@ -26,9 +28,9 @@ import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
-import org.columba.calendar.ui.comp.CalendarPicker;
 import org.columba.calendar.ui.dialog.EditEventDialog;
 import org.columba.core.gui.base.DoubleClickListener;
+import org.columba.core.gui.base.IconTextField;
 import org.columba.core.gui.frame.api.IComponentBox;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
@@ -38,24 +40,25 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class CalendarBox extends JPanel implements IComponentBox {
 
-	private JTextField textField;
+	private final static ImageIcon icon = ImageLoader
+			.getSmallIcon(IconKeys.EDIT_FIND);
+
+	private IconTextField textField;
 
 	private JLabel label;
 
 	private CalendarList list;
 
-	private CalendarPicker calendarPicker;
-
+	private JPopupMenu contextMenu;
+	
 	public CalendarBox() {
 
 		setLayout(new BorderLayout());
 
-		//setBackground(UIManager.getColor("TextField.background"));
-
 		label = new JLabel("Quick Find:");
 		label.setDisplayedMnemonic('F');
-		//label.setBackground(UIManager.getColor("TextField.background"));
-		textField = new JTextField(10);
+
+		textField = new IconTextField(icon, 10);
 		label.setLabelFor(textField);
 
 		list = new CalendarList();
@@ -65,12 +68,10 @@ public class CalendarBox extends JPanel implements IComponentBox {
 
 		list.installJTextField(textField);
 
-		calendarPicker = new CalendarPicker();
-		calendarPicker.addActionListener(new ActionListener() {
+		CalendarMenu popup = new CalendarMenu(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				list.uninstallJTextField(textField);
-				ICalendarItem item = (ICalendarItem) calendarPicker.getSelectedItem();
-				String calendarId = item.getId();
+				String calendarId = event.getActionCommand();
+
 				List<IEventInfo> eventList = populateListModel(calendarId);
 				list.setModel(new FilteringModel());
 				list.addAll(eventList);
@@ -78,55 +79,54 @@ public class CalendarBox extends JPanel implements IComponentBox {
 				textField.setText(textField.getText());
 			}
 		});
+		textField.setPopupMenu(popup);
 
 		list.addMouseListener(new DoubleClickListener() {
 
 			@Override
 			public void doubleClick(MouseEvent event) {
 				IEventInfo selected = (IEventInfo) list.getSelectedValue();
-				ICalendarStore store = CalendarStoreFactory.getInstance()
-						.getLocaleStore();
-
-				// retrieve event from store
-				try {
-					IEvent model = (IEvent) store.get(selected.getId());
-
-					EditEventDialog dialog = new EditEventDialog(null, model);
-					if (dialog.success()) {
-						IEvent updatedModel = dialog.getModel();
-
-						// update store
-						store.modify(selected.getId(), updatedModel);
-					}
-
-				} catch (StoreException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-					e1.printStackTrace();
-				}
-
+				openEditCalendarEventDialog(selected);
 			}
 		});
 
+	
+		list.add(getPopupMenu());
+		list.addMouseListener(new MyMouseListener());
+		
+		setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+
 		JPanel p = new JPanel();
-		//p.setBackground(UIManager.getColor("TextField.background"));
-		p.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
-		FormLayout layout = new FormLayout(
-				"pref, 2dlu, pref, 2dlu, fill:default:grow",
-				// 2 columns
+		p.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
+		FormLayout layout = new FormLayout("pref, 2dlu, fill:default:grow",
+		// 2 columns
 				"fill:default:grow");
 
 		// create a form builder
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout, p);
-
-		builder.append(calendarPicker);
 		builder.append(label);
 		builder.append(textField);
-
 		add(p, BorderLayout.NORTH);
 
 		JScrollPane scrollPane = new JScrollPane(list);
-		scrollPane.setBorder(null);
 		add(scrollPane, BorderLayout.CENTER);
+	}
+
+	private JPopupMenu getPopupMenu() {
+		if ( contextMenu != null) return contextMenu;
+		
+		contextMenu = new JPopupMenu();
+
+		JMenuItem item = new JMenuItem("Open..");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				IEventInfo selected = (IEventInfo) list.getSelectedValue();
+				openEditCalendarEventDialog(selected);
+			}
+		});
+
+		contextMenu.add(item);
+		return contextMenu;
 	}
 
 	private List<IEventInfo> populateListModel(String calendarId) {
@@ -163,5 +163,69 @@ public class CalendarBox extends JPanel implements IComponentBox {
 
 	public JComponent getView() {
 		return this;
+	}
+
+	private void openEditCalendarEventDialog(IEventInfo selected) {
+
+		ICalendarStore store = CalendarStoreFactory.getInstance()
+				.getLocaleStore();
+
+		// retrieve event from store
+		try {
+			IEvent model = (IEvent) store.get(selected.getId());
+
+			EditEventDialog dialog = new EditEventDialog(null, model);
+			if (dialog.success()) {
+				IEvent updatedModel = dialog.getModel();
+
+				// update store
+				store.modify(selected.getId(), updatedModel);
+			}
+
+		} catch (StoreException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			e1.printStackTrace();
+		}
+	}
+	
+	class MyMouseListener extends MouseAdapter {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			handleEvent(e);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handlePopupEvent(MouseEvent e) {
+			Point p = e.getPoint();
+			if (e.isPopupTrigger()) {
+				// check if a single entry is selected
+				if ( list.getSelectedIndices().length <= 1 ) {
+					// select new item
+					int index = list.locationToIndex(p);
+					list.setSelectedIndex(index);
+				}
+				// show context menu
+				getPopupMenu().show(e.getComponent(), p.x, p.y);
+			} 
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handleEvent(MouseEvent e) {
+		}
 	}
 }

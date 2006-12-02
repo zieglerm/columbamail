@@ -19,10 +19,12 @@ import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
 public class ComponentBoxContainer extends JPanel {
-	private final static Color titleBackground = new Color(248, 248, 248);
+	//private final static Color titleBackground = new Color(248, 248, 248);
 
-	private final static Color borderColor = new Color(230, 230, 230);
-
+	//private final static Color borderColor = new Color(230, 230, 230);
+	private final static Color borderColor2 = UIManager.getColor("controlShadow");
+	private final static Color borderColor1 = UIManager.getColor("controlHighlight");
+	
 	private JXHyperlink link;
 
 	private JXCollapsiblePane collapsible;
@@ -33,7 +35,7 @@ public class ComponentBoxContainer extends JPanel {
 		this.compBox = compBox;
 
 		collapsible = new JXCollapsiblePane();
-		//collapsible.getContentPane().setBackground(Color.WHITE);
+		//collapsible.getContentPane().setBackground(titleBackground);
 		collapsible.add(compBox.getView());
 
 		Action toggleAction = collapsible.getActionMap().get(
@@ -49,7 +51,7 @@ public class ComponentBoxContainer extends JPanel {
 		link.setToolTipText(compBox.getDescription());
 
 		link.setOpaque(true);
-		link.setBackground(titleBackground);
+		//link.setBackground(titleBackground);
 		link.setFocusPainted(false);
 
 		link.setUnclickedColor(UIManager.getColor("Label.foreground"));
@@ -62,14 +64,14 @@ public class ComponentBoxContainer extends JPanel {
 				4, 2, 4), border1);
 
 		JLabel iconLabel = new JLabel();
-		iconLabel.setBackground(titleBackground);
+		//iconLabel.setBackground(titleBackground);
 		iconLabel.setIcon(compBox.getIcon());
 		iconLabel.setOpaque(true);
 		iconLabel.setBorder(BorderFactory.createEmptyBorder(1, 2, 1, 6));
 
 		JPanel top = new JPanel();
 		top.setBorder(border1);
-		top.setBackground(titleBackground);
+		//top.setBackground(titleBackground);
 		top.setLayout(new BorderLayout());
 		top.setOpaque(true);
 
@@ -109,10 +111,11 @@ public class ComponentBoxContainer extends JPanel {
 
 		public void paintBorder(Component c, Graphics g, int x, int y,
 				int width, int height) {
-			g.setColor(borderColor);
+			g.setColor(borderColor1);
 			if (isFirst(c)) {
 				g.drawLine(x, y + 2, x + width, y + 2);
 			}
+			g.setColor(borderColor2);
 			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}

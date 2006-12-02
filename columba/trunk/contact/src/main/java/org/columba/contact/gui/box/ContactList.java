@@ -136,13 +136,11 @@ class ContactList extends JXList {
 				int index, boolean isSelected, boolean cellHasFocus) {
 
 			if (isSelected) {
-				// setBackground(list.getSelectionBackground());
-				// setForeground(list.getSelectionForeground());
-
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
 			} else {
 				setBackground(list.getBackground());
 				setForeground(list.getForeground());
-
 			}
 
 			IContactModelPartial result = (IContactModelPartial) value;

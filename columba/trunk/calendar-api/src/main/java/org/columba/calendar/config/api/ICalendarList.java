@@ -30,4 +30,6 @@ public interface ICalendarList {
 	public abstract ICalendarItem add(String id, ICalendarItem.TYPE type, String name, Color color);
 	
 	public abstract ICalendarItem remove(String id);
+	
+	public abstract ICalendarItem get(String id);
 }

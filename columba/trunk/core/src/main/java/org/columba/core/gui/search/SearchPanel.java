@@ -1,6 +1,7 @@
 package org.columba.core.gui.search;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
@@ -35,8 +36,6 @@ import org.columba.core.gui.search.api.IResultPanel;
 import org.columba.core.gui.search.api.ISearchPanel;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
-import org.columba.core.resourceloader.IconKeys;
-import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.SearchManager;
 import org.columba.core.search.api.ISearchCriteria;
 import org.columba.core.search.api.ISearchManager;
@@ -77,10 +76,10 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		contextSearchManager = new ContextSearchManager(frameMediator);
 		initContextProvider();
 
-		setBackground(UIManager.getColor("TextField.background"));
+		setBackground(new Color(248, 248, 248));
 
 		box = new StackedBox();
-		box.setBackground(UIManager.getColor("TextField.background"));
+		box.setBackground(new Color(248, 248, 248));
 		JScrollPane pane = new JScrollPane(box);
 		pane.setBorder(null);
 

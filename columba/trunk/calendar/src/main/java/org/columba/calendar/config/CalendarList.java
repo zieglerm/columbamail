@@ -49,4 +49,8 @@ public class CalendarList implements ICalendarList {
 		return hashtable.remove(id);
 	}
 
+	public ICalendarItem get(String id) {
+		return hashtable.get(id);
+	}
+
 }
