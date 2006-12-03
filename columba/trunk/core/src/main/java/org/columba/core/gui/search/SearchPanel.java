@@ -55,8 +55,9 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 	// private SearchResultView searchResultView;
 
 	//private StackedBox box;
-	private JPanel box;
-
+	private JPanel defaultBox;
+	private JPanel searchBox;
+	
 	private Hashtable<String, SearchResultBox> searchMap = new Hashtable<String, SearchResultBox>();
 
 	private ISearchManager searchManager;
@@ -81,15 +82,18 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		//setBackground(new Color(248, 248, 248));
 
 		//box = new StackedBox();
-		box = new JPanel();
-		box.setLayout(new VerticalLayout());
+		defaultBox = new JPanel();
+		defaultBox.setLayout(new VerticalLayout());
+		
+		searchBox = new JPanel();
+		searchBox.setLayout(new VerticalLayout());
 		
 		//box.setBackground(new Color(248, 248, 248));
 //		JScrollPane pane = new JScrollPane(box);
 //		pane.setBorder(null);
 
 		setLayout(new BorderLayout());
-		add(box, BorderLayout.CENTER);
+		add(defaultBox, BorderLayout.CENTER);
 
 		topPanel = new JPanel();
 		//topPanel.setBackground(UIManager.getColor("TextField.background"));
@@ -100,7 +104,11 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		closeButton.setMnemonic('c');
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				createDefaultStackedBox();
+				//createDefaultStackedBox();
+				SearchPanel.this.removeAll();
+				SearchPanel.this.add(defaultBox, BorderLayout.CENTER);
+				validate();
+				repaint();
 			}
 		});
 		topPanel.add(closeButton, BorderLayout.EAST);
@@ -244,10 +252,12 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		searchManager.reset();
 
 		
-		remove(topPanel);
+		removeAll();
+		//remove(topPanel);
 		add(topPanel, BorderLayout.NORTH);
-
-		box.removeAll();
+		add(searchBox, BorderLayout.CENTER);
+		
+		searchBox.removeAll();
 
 		// first, create bucket for each provider
 		Map<String, Vector<ISearchRequest>> map = new Hashtable<String, Vector<ISearchRequest>>();
@@ -284,9 +294,12 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 	private void createDefaultStackedBox() {
 
-		remove(topPanel);
+		removeAll();
+		//remove(topPanel);
 
-		box.removeAll();
+		add(defaultBox, BorderLayout.CENTER);
+		
+		//defaultBox.removeAll();
 
 		try {
 
@@ -304,7 +317,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 					IComponentBox compBox = (IComponentBox) extension
 							.instanciateExtension(null);
 
-					box.add(new ComponentBoxContainer(compBox));
+					defaultBox.add(new ComponentBoxContainer(compBox));
 				} catch (PluginException ex) {
 					LOG
 							.severe("Error while loading plugin: "
@@ -329,7 +342,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 			p.clear();
 			ContextResultBox resultBox = new ContextResultBox(frameMediator, p,
 					contextSearchManager);
-			box.add(resultBox);
+			defaultBox.add(resultBox);
 
 			contextMap.put(p.getName(), resultBox);
 		}
@@ -344,10 +357,12 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		if (searchTerm == null)
 			throw new IllegalArgumentException("searchTerm == null");
 
-		remove(topPanel);
+		//remove(topPanel);
+		removeAll();
 		add(topPanel, BorderLayout.NORTH);
+		add(searchBox, BorderLayout.CENTER);
 
-		box.removeAll();
+		searchBox.removeAll();
 
 		// search across all providers
 		boolean providerAll = (providerName == null) ? true : false;
@@ -417,7 +432,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		resultBox.installListener(searchManager);
 
 		// add to search panel
-		box.add(resultBox);
+		searchBox.add(resultBox);
 	}
 
 	private void createResultPanel(ISearchProvider p, ISearchCriteria c) {
@@ -433,7 +448,7 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		resultBox.installListener(searchManager);
 
 		// add to search panel
-		box.add(resultBox);
+		searchBox.add(resultBox);
 	}
 
 	// show search docking view
