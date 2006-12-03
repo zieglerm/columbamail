@@ -79,15 +79,17 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		contextSearchManager = new ContextSearchManager(frameMediator);
 		initContextProvider();
 
-		//setBackground(new Color(248, 248, 248));
+		setBackground(UIManager.getColor("TextField.background"));
 
 		//box = new StackedBox();
 		defaultBox = new JPanel();
 		defaultBox.setLayout(new VerticalLayout());
-		
+		defaultBox.setBackground(UIManager.getColor("TextField.background"));
+
 		searchBox = new JPanel();
 		searchBox.setLayout(new VerticalLayout());
-		
+		searchBox.setBackground(UIManager.getColor("TextField.background"));
+
 		//box.setBackground(new Color(248, 248, 248));
 //		JScrollPane pane = new JScrollPane(box);
 //		pane.setBorder(null);
