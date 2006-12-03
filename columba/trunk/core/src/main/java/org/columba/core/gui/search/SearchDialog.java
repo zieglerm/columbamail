@@ -47,7 +47,6 @@ class SearchDialog extends JDialog {
 
 	private boolean success = false;
 
-	
 	public SearchDialog(JFrame parent, Iterator<ISearchProvider> it) {
 		super(parent, true);
 
@@ -137,7 +136,8 @@ class SearchDialog extends JDialog {
 		boolean firstTime = true;
 		while (it.hasNext()) {
 			ISearchProvider p = it.next();
-	
+			System.out.println("provider=" + p.getName());
+
 			JLabel label = new JLabel(p.getName());
 			label.setIcon(p.getIcon());
 			label.setFont(label.getFont().deriveFont(Font.BOLD));
@@ -147,15 +147,17 @@ class SearchDialog extends JDialog {
 			else
 				firstTime = false;
 
-//			criteriaPanel.addSeparator(label);
-//			Iterator<ISearchCriteria> it2 = p.getAllCriteria("").listIterator();
-//			while (it2.hasNext()) {
-//				ISearchCriteria c = it2.next();
-//				ICriteriaRenderer r = p.getCriteriaRenderer(c
-//						.getTechnicalName());
-//				if (r != null)
-//					criteriaPanel.addRenderer(r);
-//			}
+			criteriaPanel.addSeparator(label);
+			Iterator<ISearchCriteria> it2 = p.getAllCriteria("").listIterator();
+			while (it2.hasNext()) {
+				ISearchCriteria c = it2.next();
+				System.out.println("criteria=" + c.getName());
+
+				ICriteriaRenderer r = p.getCriteriaRenderer(c
+						.getTechnicalName());
+				if (r != null)
+					criteriaPanel.addRenderer(r);
+			}
 
 		}
 	}
@@ -216,22 +218,11 @@ class SearchDialog extends JDialog {
 
 		public void addSeparator(JComponent c) {
 
-			//builder.setLeadingColumnOffset(0);
-			System.out.println("row="+builder.getRow());
-			System.out.println("column count="+builder.getColumnCount());
-			System.out.println("column="+builder.getColumn());
-			
-			//builder.append(c, builder.getColumnCount()-builder.getColumn());
-//			if (builder.getColumn() >= 1)
-//				builder.append(c, 3);
-//			else
-//				builder.append(c, 6);
-
-			//builder.append(c, 6);
+			builder.nextLine();
+			builder.appendRow("default");
 			builder.setLeadingColumnOffset(0);
 			builder.append(c, 6);
 			builder.nextLine();
-			
 			builder.setLeadingColumnOffset(1);
 
 		}

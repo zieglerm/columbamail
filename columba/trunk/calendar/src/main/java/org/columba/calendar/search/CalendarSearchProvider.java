@@ -64,8 +64,7 @@ public class CalendarSearchProvider implements ISearchProvider {
 	}
 
 	public IResultPanel getComplexResultPanel() {
-		// FIXME: author: fdietz
-		return new BasicResultPanel(getTechnicalName(), null);
+		return new ComplexResultPanel(getTechnicalName());
 	}
 
 	public ISearchCriteria getCriteria(String technicalName, String searchTerm) {
@@ -135,9 +134,8 @@ public class CalendarSearchProvider implements ISearchProvider {
 					IEvent event = (IEvent) c;
 
 					result.add(new CalendarSearchResult(event.getSummary(),
-							event.getLocation(), SearchResultBuilder
-									.createURI(event.getCalendar(), event
-											.getId()), c));
+							event.getLocation(), SearchResultBuilder.createURI(
+									event.getCalendar(), event.getId()), c));
 				} else if (c.getType().equals(IComponent.TYPE.TODO)) {
 					ITodo todo = (ITodo) c;
 
@@ -157,7 +155,19 @@ public class CalendarSearchProvider implements ISearchProvider {
 	public List<ISearchResult> query(List<ISearchRequest> list,
 			boolean matchAll, boolean searchInside, int startIndex,
 			int resultCount) {
-		throw new IllegalArgumentException("not implemented yet");
+		Vector<ISearchResult> v = new Vector<ISearchResult>();
+		Iterator<ISearchRequest> it = list.listIterator();
+		while (it.hasNext()) {
+			ISearchRequest request = it.next();
+
+			List<ISearchResult> result = query(request.getSearchTerm(), request
+					.getCriteria(), searchInside, startIndex, resultCount);
+
+			v.addAll(result);
+		}
+
+		return v;
+
 	}
 
 	public void showAllResults(IFrameMediator mediator, String searchTerm,

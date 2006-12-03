@@ -12,6 +12,7 @@ import org.columba.addressbook.folder.AddressbookFolder;
 import org.columba.addressbook.folder.virtual.VirtualFolder;
 import org.columba.addressbook.gui.frame.AddressbookFrameMediator;
 import org.columba.addressbook.gui.search.BasicResultPanel;
+import org.columba.addressbook.gui.search.ComplexResultPanel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.api.plugin.PluginLoadingFailedException;
@@ -78,8 +79,7 @@ public class ContactSearchProvider implements ISearchProvider {
 	}
 
 	public IResultPanel getComplexResultPanel() {
-		// FIXME: author: fdietz
-		return new BasicResultPanel(getTechnicalName(), null);
+		return new ComplexResultPanel(getTechnicalName());
 	}
 
 	public ISearchCriteria getCriteria(String technicalName, String searchTerm) {
@@ -141,8 +141,18 @@ public class ContactSearchProvider implements ISearchProvider {
 	public List<ISearchResult> query(List<ISearchRequest> list,
 			boolean matchAll, boolean searchInside, int startIndex,
 			int resultCount) {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<ISearchResult> v = new Vector<ISearchResult>();
+		Iterator<ISearchRequest> it = list.listIterator();
+		while (it.hasNext()) {
+			ISearchRequest request = it.next();
+
+			List<ISearchResult> result = query(request.getSearchTerm(), request
+					.getCriteria(), searchInside, startIndex, resultCount);
+
+			v.addAll(result);
+		}
+
+		return v;
 	}
 
 	public int getTotalResultCount() {
