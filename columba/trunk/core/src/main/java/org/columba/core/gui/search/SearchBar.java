@@ -214,8 +214,8 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 
 		private void handleEvent(DocumentEvent e) {
 			updatePopupMenu(textField.getPopupMenu(), textField.getText());
-			textField.showPopup();
-			textField.requestFocus();
+			//textField.showPopup();
+			//textField.requestFocus();
 		}
 
 	}
@@ -416,19 +416,18 @@ public class SearchBar extends JPanel implements PopupMenuListener {
 				toggleButtonStates(false);
 
 				// get first provider
-				ISearchProvider provider = searchPanel.getSearchManager()
-						.getAllProviders().next();
-				ISearchCriteria defaultCriteria = null;
+//				ISearchProvider provider = searchPanel.getSearchManager()
+//						.getAllProviders().next();
+//				ISearchCriteria defaultCriteria = null;
+//
+//				SearchBar.this.searchPanel.searchInCriteria(
+//						textField.getText(), provider.getTechnicalName(),
+//						provider.getDefaultCriteria(textField.getText())
+//								.getTechnicalName(), searchInsideCheckBox
+//								.isSelected());
 
-				SearchBar.this.searchPanel.searchInCriteria(
-						textField.getText(), provider.getTechnicalName(),
-						provider.getDefaultCriteria(textField.getText())
-								.getTechnicalName(), searchInsideCheckBox
-								.isSelected());
-
-				// searchPanel.searchAll(textField.getText(),
-				// searchInsideCheckBox
-				// .isSelected());
+				 searchPanel.searchAll(textField.getText(), searchInsideCheckBox
+						.isSelected());
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				if (textField.getText().length() == 0)
 					return;
