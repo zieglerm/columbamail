@@ -3,6 +3,7 @@ package org.columba.calendar.ui.box;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.text.DateFormat;
@@ -132,8 +133,12 @@ public class CalendarList extends JXList {
 
 			centerPanel.add(titlePanel, BorderLayout.NORTH);
 			centerPanel.add(descriptionLabel, BorderLayout.CENTER);
+			centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 2));
 			add(iconLabel, BorderLayout.WEST);
 			add(centerPanel, BorderLayout.CENTER);
+
+			descriptionLabel.setFont(descriptionLabel.getFont().deriveFont(
+					Font.ITALIC));
 
 			setBorder(BorderFactory.createCompoundBorder(lineBorder,
 					BorderFactory.createEmptyBorder(2, 2, 2, 2)));
@@ -161,7 +166,12 @@ public class CalendarList extends JXList {
 			titleLabel.setText(result.getSummary());
 			iconLabel.setIcon(ResourceLoader
 					.getSmallIcon(IconKeys.NEW_APPOINTMENT));
-			descriptionLabel.setText(result.getLocation());
+			if (result.getLocation() != null
+					&& result.getLocation().length() > 0)
+				descriptionLabel.setText(result.getLocation());
+			else
+				descriptionLabel.setText("no Location specified");
+
 			startDateLabel.setText(df.format(result.getDtStart().getTime()));
 			return this;
 		}

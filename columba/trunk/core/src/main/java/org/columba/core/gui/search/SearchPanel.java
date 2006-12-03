@@ -45,7 +45,7 @@ import org.jdesktop.swingx.VerticalLayout;
 
 public class SearchPanel extends JPanel implements ISearchPanel {
 
-	private static final int RESULT_COUNT = 10;
+	private static final int RESULT_COUNT = 20;
 
 	private static final Logger LOG = Logger
 			.getLogger("org.columba.core.search.gui.SearchPanel");
@@ -92,9 +92,10 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		add(box, BorderLayout.CENTER);
 
 		topPanel = new JPanel();
-		topPanel.setBackground(UIManager.getColor("TextField.background"));
+		//topPanel.setBackground(UIManager.getColor("TextField.background"));
 		topPanel.setLayout(new BorderLayout());
 		topPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		
 		JButton closeButton = new JButton("Close");
 		closeButton.setMnemonic('c');
 		closeButton.addActionListener(new ActionListener() {
@@ -104,6 +105,8 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 		});
 		topPanel.add(closeButton, BorderLayout.EAST);
 
+		add(topPanel, BorderLayout.NORTH);
+		
 		createDefaultStackedBox();
 	}
 
@@ -239,6 +242,10 @@ public class SearchPanel extends JPanel implements ISearchPanel {
 
 		// start a new search -> clear all previous search results
 		searchManager.reset();
+
+		
+		remove(topPanel);
+		add(topPanel, BorderLayout.NORTH);
 
 		box.removeAll();
 

@@ -29,9 +29,11 @@ import org.jdesktop.swingx.JXHyperlink;
 
 public class SearchResultBox extends JPanel {
 
-	private final static Color titleBackground = new Color(248, 248, 248);
+	private final static Color borderColor2 = UIManager
+	.getColor("controlShadow");
 
-	private final static Color borderColor = new Color(230, 230, 230);
+private final static Color borderColor1 = UIManager
+	.getColor("controlHighlight");
 
 	private JXHyperlink link;
 
@@ -61,7 +63,7 @@ public class SearchResultBox extends JPanel {
 		this.searchProvider = p;
 		
 		collapsible = new JXCollapsiblePane();
-		collapsible.getContentPane().setBackground(Color.WHITE);
+		//collapsible.getContentPane().setBackground(Color.WHITE);
 		collapsible.add(resultPanel.getView());
 
 		Action toggleAction = collapsible.getActionMap().get(
@@ -84,7 +86,7 @@ public class SearchResultBox extends JPanel {
 
 		// link.setFont(link.getFont().deriveFont(Font.BOLD));
 		link.setOpaque(true);
-		link.setBackground(titleBackground);
+		//link.setBackground(titleBackground);
 		link.setFocusPainted(false);
 
 		link.setUnclickedColor(UIManager.getColor("Label.foreground"));
@@ -117,10 +119,10 @@ public class SearchResultBox extends JPanel {
 				4, 2, 4), border1);
 
 		top.setBorder(border1);
-		top.setBackground(titleBackground);
+		//top.setBackground(titleBackground);
 		top.setLayout(new BorderLayout());
 		JLabel iconLabel = new JLabel();
-		iconLabel.setBackground(titleBackground);
+		//iconLabel.setBackground(titleBackground);
 		iconLabel.setIcon(p.getIcon());
 		iconLabel.setOpaque(true);
 		iconLabel.setBorder(BorderFactory.createEmptyBorder(1, 2, 1, 6));
@@ -203,10 +205,11 @@ public class SearchResultBox extends JPanel {
 
 		public void paintBorder(Component c, Graphics g, int x, int y,
 				int width, int height) {
-			g.setColor(borderColor);
+			g.setColor(borderColor1);
 			if (isFirst(c)) {
 				g.drawLine(x, y + 2, x + width, y + 2);
 			}
+			g.setColor(borderColor2);
 			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}

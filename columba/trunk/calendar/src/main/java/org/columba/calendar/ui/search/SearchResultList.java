@@ -6,6 +6,10 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
 import java.text.DateFormat;
@@ -17,22 +21,20 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
+import org.columba.calendar.facade.DialogFacade;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.ITodo;
 import org.columba.calendar.resourceloader.IconKeys;
 import org.columba.calendar.resourceloader.ResourceLoader;
 import org.columba.calendar.search.CalendarSearchResult;
-import org.columba.calendar.store.CalendarStoreFactory;
-import org.columba.calendar.store.api.ICalendarStore;
-import org.columba.calendar.store.api.StoreException;
-import org.columba.calendar.ui.dialog.EditEventDialog;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.search.api.ISearchResult;
 import org.jdesktop.swingx.JXList;
@@ -43,6 +45,8 @@ import org.jdesktop.swingx.decorator.RolloverHighlighter;
 public class SearchResultList extends JXList {
 
 	private DefaultListModel listModel;
+
+	private JPopupMenu contextMenu;
 
 	public SearchResultList() {
 		super();
@@ -58,45 +62,35 @@ public class SearchResultList extends JXList {
 		setRolloverEnabled(true);
 
 		addMouseListener(new DoubleClickListener() {
-
 			@Override
 			public void doubleClick(MouseEvent event) {
 				ISearchResult result = (ISearchResult) getSelectedValue();
-
 				URI uri = result.getLocation();
-				String s = uri.toString();
-				// TODO: @author fdietz replace with regular expression
-				int activityIndex = s.lastIndexOf('/');
-				String activityId = s.substring(activityIndex + 1, s.length());
-				int folderIndex = s.lastIndexOf('/', activityIndex - 1);
-				String folderId = s.substring(folderIndex + 1, activityIndex);
-				int componentIndex = s.lastIndexOf('/', folderIndex - 1);
-				String componentId = s.substring(componentIndex + 1,
-						folderIndex);
-
-				ICalendarStore store = CalendarStoreFactory.getInstance()
-						.getLocaleStore();
-
-				// retrieve event from store
-				try {
-					IEvent model = (IEvent) store.get(activityId);
-
-					EditEventDialog dialog = new EditEventDialog(null, model);
-					if (dialog.success()) {
-						IEvent updatedModel = dialog.getModel();
-
-						// update store
-						store.modify(activityId, updatedModel);
-					}
-
-				} catch (StoreException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-					e1.printStackTrace();
-				}
-
+				new DialogFacade().openEventEditorDialog(uri);
 			}
 		});
 
+		add(getPopupMenu());
+		addMouseListener(new MyMouseListener());
+	}
+
+	private JPopupMenu getPopupMenu() {
+		if (contextMenu != null)
+			return contextMenu;
+
+		contextMenu = new JPopupMenu();
+
+		JMenuItem item = new JMenuItem("Open..");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ISearchResult result = (ISearchResult) getSelectedValue();
+				URI uri = result.getLocation();
+				new DialogFacade().openEventEditorDialog(uri);
+			}
+		});
+
+		contextMenu.add(item);
+		return contextMenu;
 	}
 
 	public void addAll(List<ISearchResult> result) {
@@ -144,11 +138,13 @@ public class SearchResultList extends JXList {
 
 			centerPanel.add(titlePanel, BorderLayout.NORTH);
 			centerPanel.add(descriptionLabel, BorderLayout.CENTER);
+			centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 2));
 			add(iconLabel, BorderLayout.WEST);
 			add(centerPanel, BorderLayout.CENTER);
 
 			descriptionLabel.setFont(descriptionLabel.getFont().deriveFont(
 					Font.ITALIC));
+
 			setBorder(BorderFactory.createCompoundBorder(lineBorder,
 					BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 			iconLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 8));
@@ -163,8 +159,8 @@ public class SearchResultList extends JXList {
 				int index, boolean isSelected, boolean cellHasFocus) {
 
 			if (isSelected) {
-				// setBackground(list.getSelectionBackground());
-				// setForeground(list.getSelectionForeground());
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
 
 			} else {
 				setBackground(list.getBackground());
@@ -177,7 +173,11 @@ public class SearchResultList extends JXList {
 			titleLabel.setText(result.getTitle());
 			iconLabel.setIcon(ResourceLoader
 					.getSmallIcon(IconKeys.NEW_APPOINTMENT));
-			descriptionLabel.setText(result.getDescription());
+			if (result.getDescription() != null
+					&& result.getDescription().length() > 0)
+				descriptionLabel.setText(result.getDescription());
+			else
+				descriptionLabel.setText("no Description specified");
 
 			IComponent c = result.getModel();
 			if (c.getType().equals(IComponent.TYPE.EVENT)) {
@@ -196,6 +196,47 @@ public class SearchResultList extends JXList {
 			return this;
 		}
 
+	}
+
+	class MyMouseListener extends MouseAdapter {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			handleEvent(e);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handlePopupEvent(MouseEvent e) {
+			Point p = e.getPoint();
+			if (e.isPopupTrigger()) {
+				// check if a single entry is selected
+				if (getSelectedIndices().length <= 1) {
+					// select new item
+					int index = locationToIndex(p);
+					setSelectedIndex(index);
+				}
+				// show context menu
+				getPopupMenu().show(e.getComponent(), p.x, p.y);
+			}
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handleEvent(MouseEvent e) {
+		}
 	}
 
 	class HeaderSeparatorBorder extends AbstractBorder {

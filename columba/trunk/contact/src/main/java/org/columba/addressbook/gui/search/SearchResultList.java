@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.List;
@@ -13,13 +17,16 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
-import org.columba.addressbook.facade.IDialogFacade;
+import org.columba.addressbook.facade.DialogFacade;
 import org.columba.api.exception.ServiceNotFoundException;
+import org.columba.contact.search.ContactSearchResult;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
@@ -34,7 +41,8 @@ import org.jdesktop.swingx.decorator.RolloverHighlighter;
 public class SearchResultList extends JXList {
 
 	private DefaultListModel listModel;
-
+	private JPopupMenu contextMenu;
+	
 	public SearchResultList() {
 		super();
 
@@ -49,24 +57,55 @@ public class SearchResultList extends JXList {
 		setRolloverEnabled(true);
 
 		addMouseListener(new DoubleClickListener() {
-
 			@Override
 			public void doubleClick(MouseEvent event) {
-				ISearchResult result = (ISearchResult) getSelectedValue();
-
-				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
-							.getInstance().getService(IDialogFacade.class);
-					facade.openContactDialog(result.getLocation());
-				} catch (ServiceNotFoundException e) {
-					e.printStackTrace();
-				}
-
+				ISearchResult selected = (ISearchResult) getSelectedValue();
+				new DialogFacade().openContactDialog(selected.getLocation());
 			}
 		});
 
+		add(getPopupMenu());
+		addMouseListener(new MyMouseListener());
 	}
 
+	private JPopupMenu getPopupMenu() {
+		if (contextMenu != null)
+			return contextMenu;
+
+		contextMenu = new JPopupMenu();
+
+		JMenuItem item = new JMenuItem("Open..");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ISearchResult selected = (ISearchResult)getSelectedValue();
+				new DialogFacade().openContactDialog(selected.getLocation());
+			}
+		});
+		contextMenu.add(item);
+
+		item = new JMenuItem("Compose Message..");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ContactSearchResult selected = (ContactSearchResult) getSelectedValue();
+				
+				String address = selected.getDescription();
+
+				try {
+					org.columba.mail.facade.IDialogFacade facade = (org.columba.mail.facade.IDialogFacade) ServiceRegistry
+							.getInstance()
+							.getService(
+									org.columba.mail.facade.IDialogFacade.class);
+					facade.openComposer(address);
+				} catch (ServiceNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		contextMenu.add(item);
+		return contextMenu;
+	}
+	
 	public void addAll(List<ISearchResult> result) {
 		Iterator<ISearchResult> it = result.iterator();
 		while (it.hasNext()) {
@@ -82,13 +121,55 @@ public class SearchResultList extends JXList {
 		listModel.clear();
 	}
 
+
+	class MyMouseListener extends MouseAdapter {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			handleEvent(e);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handlePopupEvent(MouseEvent e) {
+			Point p = e.getPoint();
+			if (e.isPopupTrigger()) {
+				// check if a single entry is selected
+				if (getSelectedIndices().length <= 1) {
+					// select new item
+					int index = locationToIndex(p);
+					setSelectedIndex(index);
+				}
+				// show context menu
+				getPopupMenu().show(e.getComponent(), p.x, p.y);
+			}
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handleEvent(MouseEvent e) {
+		}
+	}
+	
 	class MyListCellRenderer extends JPanel implements ListCellRenderer {
 
 		private JLabel iconLabel = new JLabel();
 
-		private JXHyperlink titleLabel = new JXHyperlink();
+		private JLabel titleLabel = new JLabel();
 
-		private JLabel descriptionLabel = new JLabel();
+		private JXHyperlink descriptionLabel = new JXHyperlink();
 
 		private JPanel centerPanel;
 
@@ -119,8 +200,8 @@ public class SearchResultList extends JXList {
 				int index, boolean isSelected, boolean cellHasFocus) {
 
 			if (isSelected) {
-				// setBackground(list.getSelectionBackground());
-				// setForeground(list.getSelectionForeground());
+				 setBackground(list.getSelectionBackground());
+				 setForeground(list.getSelectionForeground());
 
 			} else {
 				setBackground(list.getBackground());

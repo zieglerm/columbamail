@@ -133,7 +133,7 @@ public class ResultList extends JXList {
 			setBorder(BorderFactory.createCompoundBorder(lineBorder,
 					BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 
-			statusLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
+			statusLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 8));
 			flagLabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
 
 			topPanel.setOpaque(false);

@@ -20,6 +20,8 @@ import org.columba.core.context.api.IContextSearchManager;
 
 public class ContextSearchManager implements IContextSearchManager {
 
+	private static final int RESULT_COUNT = 10;
+
 	private final Map<String, IContextProvider> map = new Hashtable<String, IContextProvider>();
 
 	IFrameMediator frameMediator;
@@ -101,7 +103,8 @@ public class ContextSearchManager implements IContextSearchManager {
 				throws Exception {
 			for (final IContextProvider p : getAllProviders()) {
 				p.clear();
-				p.search(frameMediator.getSemanticContext(), 0, 5);
+				p.search(frameMediator.getSemanticContext(), 0,
+						ContextSearchManager.RESULT_COUNT);
 
 				// notify all listeners that have a new search result
 				// ensure this is called in the EDT
@@ -115,7 +118,7 @@ public class ContextSearchManager implements IContextSearchManager {
 			}
 
 			// notify all listeners that search is finished
-			
+
 			Runnable run = new Runnable() {
 				public void run() {
 					fireFinished();
