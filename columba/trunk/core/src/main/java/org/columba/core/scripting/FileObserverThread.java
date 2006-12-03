@@ -94,8 +94,7 @@ public class FileObserverThread
     }
 
     private synchronized void executeRefresh(boolean force)
-    {
-
+    {	
         List changedFiles = checkFiles();
 
         if (changedFiles.size() > 0)
@@ -145,6 +144,10 @@ public class FileObserverThread
             {
                 entry = (Map.Entry) itCurrent.next();
                 script = (ColumbaScript) entry.getValue();
+                
+                LOG.fine("current script.name="+script.getName());
+                LOG.fine("current script.path="+script.getPath());
+                
                 if (!script.exists())
                 {
                     // it isn't possible to undo whatever the script did
@@ -160,11 +163,19 @@ public class FileObserverThread
 
             /* check for new files in the scripts directory */
             File[] scripts = getNewScripts();
+            LOG.fine("script file count="+scripts.length);
+            
             for (int i = 0; i < scripts.length; i++)
             {
+            	LOG.fine("script file="+scripts[i].getAbsolutePath());
+            	
                 if (!scriptList.containsKey(scripts[i].getPath()))
                 {
                     script = new ColumbaScript(scripts[i]);
+                    
+                    LOG.fine("added script.name="+script.getName());
+                    LOG.fine("added script.path="+script.getPath());
+                    
                     changedFiles.add(script);
                     scriptList.put(scripts[i].getPath(), script);
                     addedScripts.add(script);
@@ -208,12 +219,14 @@ public class FileObserverThread
             return new File[]{};
         }
 
+        LOG.fine("script search path="+configPath.getAbsolutePath());
+        
         return configPath.listFiles(fileFilter);
     }
 
     private void execChangedFiles(List files)
     {
-        for (Iterator it = files.iterator(); it.hasNext();)
+        for (Iterator it = files.iterator(); it.hasNext();) 
             interpreterManager.executeScript((ColumbaScript) it.next());
     }
 
@@ -240,11 +253,15 @@ public class FileObserverThread
         {
             extensionPattern =
                 Pattern.compile(".*\\.(".concat(join(validExtensions, '|')).concat(")$"));
+            LOG.fine("valid extensions pattern="+extensionPattern.toString());
         }
 
         public boolean accept(File aPathname)
         {
-            return extensionPattern.matcher(aPathname.getPath()).matches();
+            boolean accept = extensionPattern.matcher(aPathname.getPath()).matches();
+            LOG.fine("accept="+aPathname.getAbsolutePath() + " -> "+accept);
+            
+            return accept;
         }
 
     }

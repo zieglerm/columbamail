@@ -185,12 +185,16 @@ public class MailMain implements IComponentPlugin {
 
 		// Check Internet Connection
 		if (MailConfig.getInstance().getAccountList().count() > 0) {
-			IncomingItem testConnection = MailConfig.getInstance()
-					.getAccountList().getDefaultAccount().getIncomingItem();
-			ConnectionStateImpl.getInstance().setTestConnection(
-					testConnection.get("host"),
-					testConnection.getInteger("port"));
-			ConnectionStateImpl.getInstance().checkPhysicalState();
+			try {
+				IncomingItem testConnection = MailConfig.getInstance()
+						.getAccountList().getDefaultAccount().getIncomingItem();
+				ConnectionStateImpl.getInstance().setTestConnection(
+						testConnection.get("host"),
+						testConnection.getInteger("port"));
+				ConnectionStateImpl.getInstance().checkPhysicalState();
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+			}
 		}
 
 		// Activate all Virtual Folders

@@ -189,7 +189,8 @@ public class Bootstrap {
 
 		/* initialize services before dismissing the splash screen */
 		ServiceManager.getInstance().initServices();
-
+		
+		// register shutdown manager
 		ShutdownManager.getInstance().register(new Runnable() {
 			public void run() {
 
