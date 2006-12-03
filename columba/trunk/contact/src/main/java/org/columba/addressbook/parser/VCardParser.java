@@ -280,12 +280,14 @@ public class VCardParser {
 		}
 
 		// name of organisation
-		if (organisationalIdentity.hasOrganization())
-			c.setOrganisation(organisationalIdentity.getOrganization().getName());
+		if ( organisationalIdentity != null) {
+			if (organisationalIdentity.hasOrganization())
+				c.setOrganisation(organisationalIdentity.getOrganization().getName());
+			
+			c.setTitle(organisationalIdentity.getTitle());
+			c.setProfession(organisationalIdentity.getRole());
+		}
 		
-		c.setTitle(organisationalIdentity.getTitle());
-		c.setProfession(organisationalIdentity.getRole());
-	
 		c.setNote(importContact.getNote());
 		
 		// dummy address
