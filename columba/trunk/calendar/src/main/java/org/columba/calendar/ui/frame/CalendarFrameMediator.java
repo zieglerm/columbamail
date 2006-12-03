@@ -154,7 +154,7 @@ public class CalendarFrameMediator extends DockFrameController implements
 		tagListDockable = registerDockable("calendar_taglist", ResourceLoader
 				.getString("global", "dockable_taglist"), tagListScrollPane,
 				new TagPopupMenu(this, tagList));
-		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
+		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
 
 	}
 

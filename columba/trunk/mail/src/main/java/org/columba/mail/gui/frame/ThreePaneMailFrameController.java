@@ -610,7 +610,7 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 		tagListDockable = registerDockable("mail_taglist", MailResourceLoader
 				.getString("global", "dockable_taglist"), tagListScrollPane,
 				new TagPopupMenu(this, tagList));
-		tagList.setComponentPopupMenu(new TagPopupMenu(this, tagList));
+		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
 	}
 
 	/**

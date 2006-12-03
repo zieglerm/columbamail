@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
@@ -36,6 +38,8 @@ public class TagList extends JXList {
 
 	private DefaultListModel listModel;
 
+	private JPopupMenu popup;
+	
 	public TagList() {
 		super();
 
@@ -49,7 +53,8 @@ public class TagList extends JXList {
 		setModel(listModel);
 
 		// replace with "MyListCellRenderer" for simple one-line renderer
-		setCellRenderer(new MyComplexListCellRenderer());
+		// replace with "MyComplexListCellRenderer" for an additional description line
+		setCellRenderer(new MyListCellRenderer());
 
 		setBorder(null);
 		setHighlighters(new HighlighterPipeline(
@@ -64,18 +69,52 @@ public class TagList extends JXList {
 		TagManager.getInstance().addTagListener(new MyTagListener());
 	}
 
+	public void setPopupMenu(JPopupMenu popup) {
+		this.popup = popup;
+	}
+	
 	class MyMouseListener extends MouseAdapter {
-		
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// refresh the selection also if clicked with the right button
-			int index = locationToIndex(e.getPoint());
-			setSelectedIndex(index);
+			handleEvent(e);
 		}
-		
 
+		@Override
+		public void mousePressed(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			handlePopupEvent(e);
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handlePopupEvent(MouseEvent e) {
+			Point p = e.getPoint();
+			if (e.isPopupTrigger()) {
+				// check if a single entry is selected
+				if (getSelectedIndices().length <= 1) {
+					// select new item
+					int index = locationToIndex(p);
+					setSelectedIndex(index);
+				}
+				// show context menu
+				popup.show(e.getComponent(), p.x, p.y);
+			}
+		}
+
+		/**
+		 * @param e
+		 */
+		private void handleEvent(MouseEvent e) {
+		}
 	}
-
+	
+	
 	public ITag getSelectedTag() {
 		return (ITag) getSelectedValue();
 	}
