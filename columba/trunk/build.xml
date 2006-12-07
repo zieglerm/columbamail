@@ -337,6 +337,25 @@
         	  <compilerarg value="${unchecked}"/>
         </javac>
 
+    	<!-- mail module -->
+    	<echo message="compiling ${src.mail.facade}"/>
+            <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+                <src path="${src.mail.facade}"/>
+                <classpath refid="compile.classpath"/>
+            	  <compilerarg value="${unchecked}"/>
+            </javac>
+    	<echo message="compiling ${src.mail.api}"/>
+            <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+                <src path="${src.mail.api}"/>
+                <classpath refid="compile.classpath"/>
+            	  <compilerarg value="${unchecked}"/>
+            </javac>
+    	<echo message="compiling ${src.mail}"/>
+    		<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+                <src path="${src.mail}"/>
+                <classpath refid="compile.classpath"/>
+            	  <compilerarg value="${unchecked}"/>
+            </javac>
 
 	<!-- contact module -->
 	<echo message="compiling ${src.contact.facade}"/>
@@ -358,25 +377,7 @@
         	  <compilerarg value="${unchecked}"/>
         </javac>
 
-	<!-- mail module -->
-	<echo message="compiling ${src.mail.facade}"/>
-        <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.mail.facade}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-	<echo message="compiling ${src.mail.api}"/>
-        <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.mail.api}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-	<echo message="compiling ${src.mail}"/>
-		<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.mail}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
+
 	<!-- calendar module -->
 	<echo message="compiling ${src.calendar.facade}"/>
         <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
