@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.columba.addressbook.folder.DataStorage;
+
 import org.columba.core.io.StreamUtils;
 import org.columba.mail.folder.AbstractLocalFolder;
 import org.columba.mail.folder.FolderInconsistentException;

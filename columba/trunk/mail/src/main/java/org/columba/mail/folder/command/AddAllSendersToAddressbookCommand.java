@@ -48,7 +48,6 @@ import org.columba.ristretto.parser.ParserException;
  * @author fdietz
  */
 public class AddAllSendersToAddressbookCommand extends Command {
-	org.columba.addressbook.folder.IFolder selectedFolder;
 
 	/**
 	 * Constructor for AddAllSendersToAddressbookCommand.

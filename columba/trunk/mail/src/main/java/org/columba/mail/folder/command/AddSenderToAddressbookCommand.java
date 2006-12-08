@@ -45,7 +45,7 @@ import org.columba.ristretto.parser.ParserException;
  * @author fdietz
  */
 public class AddSenderToAddressbookCommand extends Command {
-	org.columba.addressbook.folder.IFolder selectedFolder;
+	
 
 	/**
 	 * Constructor for AddSenderToAddressbookCommand.
