@@ -337,13 +337,28 @@
         	  <compilerarg value="${unchecked}"/>
         </javac>
 
-    	<!-- mail module -->
+    	
+    	<!-- facades -->
     	<echo message="compiling ${src.mail.facade}"/>
             <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
                 <src path="${src.mail.facade}"/>
                 <classpath refid="compile.classpath"/>
             	  <compilerarg value="${unchecked}"/>
             </javac>
+    	<echo message="compiling ${src.contact.facade}"/>
+            <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+                <src path="${src.contact.facade}"/>
+                <classpath refid="compile.classpath"/>
+            	  <compilerarg value="${unchecked}"/>
+            </javac>
+    	<echo message="compiling ${src.calendar.facade}"/>
+    	        <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
+    	            <src path="${src.calendar.facade}"/>
+    	            <classpath refid="compile.classpath"/>
+    	        	  <compilerarg value="${unchecked}"/>
+    	        </javac>
+    	
+    	<!-- mail module -->
     	<echo message="compiling ${src.mail.api}"/>
             <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
                 <src path="${src.mail.api}"/>
@@ -358,12 +373,6 @@
             </javac>
 
 	<!-- contact module -->
-	<echo message="compiling ${src.contact.facade}"/>
-        <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.contact.facade}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
 	<echo message="compiling ${src.contact.api}"/>
         <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
             <src path="${src.contact.api}"/>
@@ -379,12 +388,6 @@
 
 
 	<!-- calendar module -->
-	<echo message="compiling ${src.calendar.facade}"/>
-        <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.calendar.facade}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
 	<echo message="compiling ${src.calendar.api}"/>
         <javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
             <src path="${src.calendar.api}"/>
@@ -397,25 +400,6 @@
             <classpath refid="compile.classpath"/>
         	  <compilerarg value="${unchecked}"/>
         </javac>
-
-	
-        <!-- compile columba core -->
-        <!--<ant dir="${src.columba.core}" target="compile" inheritrefs="true"/>-->
-
-        <!-- compile mail/addressbook APIs -->
-	<!--    
-    	<javac destdir="${dest}" target="1.5" source="1.5" deprecation="${deprecation}">
-            <src path="${src.columba.api}"/>
-            <src path="${src.mail.api}"/>
-            <src path="${src.addressbook.api}"/>
-            <classpath refid="compile.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-	-->
-	<!--
-        <ant dir="${src.mail.core}" target="compile" inheritrefs="true"/>
-        <ant dir="${src.addressbook.core}" target="compile" inheritrefs="true"/>
-	-->
 
     </target>
 
