@@ -111,6 +111,7 @@
 	</target>
 
 	<target name="test" depends="compile-tests" description="--> run tests">
+		<delete dir="${reports.dir}" />
 		<mkdir dir="${build.junit.xmlreport.dir}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
 			<formatter type="xml" />
@@ -124,6 +125,7 @@
 				<fileset dir="${src.test}">
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />
+					<exclude name="org/columba/ristretto/auth/mechanism/TestAuthServer.java"/>
 				</fileset>
 			</batchtest>
 		</junit>
