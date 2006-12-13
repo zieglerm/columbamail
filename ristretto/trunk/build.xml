@@ -111,7 +111,7 @@
 	</target>
 
 	<target name="test" depends="compile-tests" description="--> run tests">
-		<delete dir="${reports.dir}" />
+		<delete dir="${build.junit.xmlreport.dir}" />
 		<mkdir dir="${build.junit.xmlreport.dir}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
 			<formatter type="xml" />
@@ -126,7 +126,7 @@
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />
 					<exclude name="org/columba/ristretto/auth/mechanism/TestAuthServer.java"/>
-					<exclude name="org.columba.ristretto.imap.parser.ParserTestUtil"/>					
+					<exclude name="org/columba/ristretto/imap/parser/ParserTestUtil.java"/>					
 				</fileset>
 			</batchtest>
 		</junit>
