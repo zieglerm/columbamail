@@ -117,8 +117,8 @@
 			<classpath>
 				<pathelement path="${build.core}" />
 				<pathelement path="${build.test}" />
-				<pathelement path="${lib}/junit.jar" />
-				<pathelement path="${lib}/junit-addons-1.4.jar" />				
+				<pathelement path="${lib.dir}/junit.jar" />
+				<pathelement path="${lib.dir}/junit-addons-1.4.jar" />				
 			</classpath>
 			<batchtest todir="${build.junit.xmlreport.dir}">
 				<fileset dir="${src.test}">
@@ -275,8 +275,8 @@
 				<pathelement path="${build.coverage.instrumented.dir}" />
 				<pathelement path="${build.core}" />
 				<pathelement path="${build.test}" />
-				<pathelement path="${lib}/junit.jar" />
-				<pathelement path="${lib}/junit-addons-1.4.jar" />
+				<pathelement path="${lib.dir}/junit.jar" />
+				<pathelement path="${lib.dir}/junit-addons-1.4.jar" />
 			</classpath>
 			<classpath location="lib\jcoverage.jar" />
 			<formatter type="xml" />
