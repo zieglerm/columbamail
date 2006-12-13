@@ -111,8 +111,9 @@
 	</target>
 
 	<target name="test" depends="compile-tests" description="--> run tests">
-		<junit printsummary="off" fork="yes" haltonfailure="no">
-			<formatter type="brief" usefile="false" />
+		<mkdir dir="${build.junit.xmlreport.dir}" />
+		<junit printsummary="yes" fork="yes" haltonfailure="no">
+			<formatter type="xml" />
 			<classpath>
 				<pathelement path="${build.core}" />
 				<pathelement path="${build.test}" />
