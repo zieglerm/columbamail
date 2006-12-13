@@ -127,6 +127,7 @@
 					<exclude name="**/AllTests.java" />
 					<exclude name="org/columba/ristretto/auth/mechanism/TestAuthServer.java"/>
 					<exclude name="org/columba/ristretto/imap/parser/ParserTestUtil.java"/>					
+					<exclude name="org/columba/ristretto/testserver/*.java"/>
 				</fileset>
 			</batchtest>
 		</junit>
