@@ -1,0 +1,1852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<book lang="en">
+  <title>Columba User Manual v1.0</title>
+
+  <bookinfo>
+    <corpauthor>The Columba Team</corpauthor>
+
+    <legalnotice>
+      <para>The contents of this file are subject to the Mozilla Public
+      License Version 1.1 (the "License"); you may not use this file except in
+      compliance with the License. You may obtain a copy of the License at
+      http://www.mozilla.org/MPL/ Software distributed under the License is
+      distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either
+      express or implied. See the License for the specific language governing
+      rights and limitations under the License. The Original Code is "The
+      Columba Project" The Initial Developers of the Original Code are
+      Frederik Dietz and Timo Stich. Portions created by Frederik Dietz and
+      Timo Stich are Copyright (C) 2003.</para>
+    </legalnotice>
+  </bookinfo>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <para>Columba is an email-client written in Java, featuring a
+    user-friendly graphical interface with time-saving wizards and
+    internationalization support.</para>
+
+    <para>This guide will help you to get started quickly with Columba.</para>
+
+    <section>
+      <title>Typographical conventions</title>
+
+      <para>In this book, we'll mark some words with special
+      typography:</para>
+
+      <para><command>Commands</command> you type at the command line</para>
+
+      <para><guilabel>Labels</guilabel> for buttons and other portions of the
+      graphical interface</para>
+
+      <para>Menu selections look like this:
+      <guimenuitem>Menu</guimenuitem>-&gt;<guimenuitem>Submenu</guimenuitem>-&gt;<guimenuitem>Menu
+      Item</guimenuitem></para>
+
+      <para><prompt>Anything you type in</prompt></para>
+
+      <para><computeroutput>Text output from a
+      computer</computeroutput></para>
+
+      <para></para>
+
+      <para>We'll provide assorted bits of additional information in tips set
+      off from the rest of the book, as well.</para>
+
+      <para><tip>
+          <para>Tips and bits of extra information will look like this.</para>
+        </tip></para>
+    </section>
+
+    <section>
+      <title>Additional Help Sources</title>
+
+      <para>You will find the most up-to-date information on our website at
+      <ulink url="http://columba.sf.net">http://columba.sf.net</ulink> in the
+      <emphasis>Documentation</emphasis> section.</para>
+    </section>
+
+    <section>
+      <title>License</title>
+
+      <para>Columba is free software that is licensed under the <ulink
+      url="http://www.mozilla.org/MPL/MPL-1.1.html">Mozilla Public
+      License</ulink>. This license allows you to use, modify and redistribute
+      this software. There's a nice <ulink
+      url="http://www.mozilla.org/MPL/FAQ.html">FAQ</ulink> which should
+      answer most of your questions. Note, that we have choosen this license
+      intentially to become more business-friendly. There's no virual effect
+      as seen with the GPL here.</para>
+
+      <para>Columba is not a monolithic application. It makes use of
+      dynamically loaded extensions. These extensions are what we call
+      plugins. The MPL License lets you create closed-source or binary plugins
+      and allows you to sell these without a problem.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Installation</title>
+
+    <para>Download Columba from <ulink
+    url="http://columba.sourceforge.net/">http://columba.sf.net</ulink> and be
+    sure to read the information provided on our Download page.</para>
+
+    <sect1>
+      <title>Prerequisites</title>
+
+      <para>Columba is written entirely in Java and therefore is platform
+      independent. It runs on almost any modern personal computer. To
+      successfully start and run Columba you need the following:</para>
+
+      <para>Java Runtime Environment or Java Development Kit. JDK 1.4 or
+      higher is required for Linux, Mac OS X, and Windows Platforms. Columba
+      will not run with JDK 1.3 or older. We recommend to use Java 5 for
+      superior performance.</para>
+
+      <para>A computer with reasonable memory and CPU power. For memory, 512
+      MB is recommended. For CPU, a Pentium III or equivalent is the
+      recommended minimum.</para>
+
+      <para>A specific operating system is not required. Columba is known to
+      run on Windows 98, 2000, NT, and XP, on Linux, and MacOS X. It has been
+      predominantly developed and tested on Linux (mostly Gentoo Linux and/or
+      Ubuntu Linux).</para>
+
+      <para>Download Java at: <ulink
+      url="http://java.com">http://java.com</ulink></para>
+    </sect1>
+
+    <sect1>
+      <title>Windows</title>
+
+      <para>The preferred way should be to download
+      <filename>ColumbaSetup.exe</filename>. Double-click the file to start
+      the setup. A wizard will guide you step-by-step throughout the
+      installation process.</para>
+    </sect1>
+
+    <sect1>
+      <title>Linux</title>
+
+      <para>Download the RPM (the RPM Package Manager) package of Columba. You
+      have to become root user in order to be able to install Columba.
+      Enter</para>
+
+      <para><command>rpm -Uvh columba-1.0_M2-0.rpm</command></para>
+
+      <para>in your favourite shell. This will install Columba in
+      <filename>/opt/columba </filename>and will create a symbolic link in
+      <filename>/usr/bin/columba</filename>.</para>
+
+      <para>The RPM package does not have any dependency checking built-in. It
+      therefor won't check if you installed a matching Java RPM.</para>
+    </sect1>
+
+    <sect1>
+      <title>Generic</title>
+
+      <para>Download the binary package and extract its contents.</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Getting Started</title>
+
+    <para>This chapter introduces all basic concepts of Columba. It will help
+    you setup an email account, checking for new mail, composing and sending a
+    message.</para>
+
+    <para>Here is a list of things that you should look up before you start
+    Columba for the first time:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Your POP3 or IMAP server for incoming email, which usually is
+        named similar to "pop3.yahoo.com"</para>
+      </listitem>
+
+      <listitem>
+        <para>Your SMTP server for outgoing email, which usually is named
+        similar to "smtp.yahoo.com"</para>
+      </listitem>
+
+      <listitem>
+        <para>Your username and password for your POP3- or IMAP-account</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>You should contact your ISP (Internet Service Provider) or your
+    system administrator if you do not know these settings.</para>
+
+    <section>
+      <title>Starting Columba for the First Time</title>
+
+      <para>To start Columba do one of the following:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Select <emphasis
+          role="bold"><application>Programs</application></emphasis>-&gt;<emphasis
+          role="bold"><application>Columba</application></emphasis> from your
+          menu panel</para>
+        </listitem>
+
+        <listitem>
+          <para>Type <emphasis
+          role="bold"><command>columba</command></emphasis> at the command
+          line</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The first time you run the program it will create a directory
+      <emphasis role="bold"><filename>.columba</filename></emphasis> in your
+      home directory. Windows users can find this directory in <emphasis
+      role="bold"><filename>C:\Documents and
+      Settings\USER\.columba</filename></emphasis>. Just replace USER with
+      your username.</para>
+
+      <para>It will then open up a first-time wizard which will guide you in
+      creating a mail account.</para>
+    </section>
+
+    <section>
+      <title>Command Line Options</title>
+
+      <para>Columba has a number of command line options which come in handy
+      you. You can find the full list by running <emphasis
+      role="bold"><command>columba -help</command></emphasis>.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>To start Columba and begin composing a message to a email
+          address: <emphasis role="bold"><command>columba --mailurl
+          peter@somewhere.com</command></emphasis></para>
+        </listitem>
+
+        <listitem>
+          <para>To make your web browser use Columba as default email client,
+          enter <emphasis role="bold">c<command>olumba --mailurl
+          %s</command></emphasis> as the email handler in your web browser.
+          When using the windows installer you do not have to do this
+          manually. Columba will automatically ask you if you want it to make
+          it the system default email client.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Setting Up Your Account</title>
+
+      <para>Setting up your account involves several steps:<orderedlist>
+          <listitem>
+            <para>Entering your identity including name and email
+            address</para>
+          </listitem>
+
+          <listitem>
+            <para>Configuring your incoming mail server</para>
+          </listitem>
+
+          <listitem>
+            <para>Specifying your outgoing mail server</para>
+          </listitem>
+        </orderedlist></para>
+
+      <figure>
+        <title>Identity Information</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_account_identity.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para><emphasis role="bold">Name:</emphasis></para>
+
+      <para>This is the real name assigned to this identity - generally your
+      first and a last name. The text you enter here is included in the From:
+      field of all your outgoing messages.</para>
+
+      <para><emphasis role="bold">Address:</emphasis></para>
+
+      <para>Specify your email address here.</para>
+
+      <para><emphasis role="bold">Account Name:</emphasis></para>
+
+      <para>Choose a name for this new account. When using multiple accounts
+      this will help you distinguishing them from each other.</para>
+
+      <figure>
+        <title>Incoming Server Properties</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_account_incoming.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para><emphasis role="bold">Login:</emphasis></para>
+
+      <para>This is the name you use to log on to this email account. For
+      example, in the upcoming mail account donald@mail.com, the login name is
+      donald. This is a very common scheme used by most providers. Check with
+      your Internet Service Provider if you are not sure what your login name
+      is.</para>
+
+      <para><emphasis role="bold">Host:</emphasis></para>
+
+      <para>Name of your incoming mail server.</para>
+
+      <para><emphasis role="bold">Type:</emphasis></para>
+
+      <para>This indicates the email protocol this incoming email server uses:
+      POP3 or IMAP. If you are not sure which to use, ask your administrator.
+      In most cases it is POP3.</para>
+
+      <figure>
+        <title>Outgoing Server Properties</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_account_outgoing.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para><emphasis role="bold">Host:</emphasis></para>
+
+      <para>Name of your outgoing mail server.</para>
+
+      <para>You are now ready to work with Columba!</para>
+    </section>
+
+    <section>
+      <title>Receiving Messages</title>
+
+      <para>To check your email, press the <emphasis
+      role="bold"><guibutton>Receive/Send</guibutton></emphasis> toolbar
+      button or the <emphasis role="bold">F9</emphasis> Function Key. If this
+      is the first time you are checking mail, or you have not asked Columba
+      to save your password, you will be prompted for the password. Enter your
+      password and your email will be downloaded.</para>
+
+      <figure>
+        <title>Mail Toolbar</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/toolbar_main.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Sending Messages</title>
+
+      <para>Click the New Message item in the menu Message to open the
+      composer window. Alternatively you can use the <emphasis
+      role="bold"><guibutton>New Message</guibutton></emphasis> button in the
+      toolbar.</para>
+
+      <para>While online, after composing your message press the <emphasis
+      role="bold"><guibutton>Send Now</guibutton></emphasis> button or
+      alternatively select <emphasis
+      role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Send
+      Message</guimenuitem></emphasis>. If you are not online, select
+      <emphasis
+      role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Send
+      Later</guimenuitem></emphasis></para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Using Columba</title>
+
+    <para></para>
+
+    <figure>
+      <title>Main Window of Columba</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/frame_mail_with_shadow_resized_notes.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para><emphasis role="bold">Folder Tree:</emphasis></para>
+
+    <para>New messages can be found in the <emphasis
+    role="bold">Inbox</emphasis> folder. The Inbox label will be bold when the
+    mailbox contains recent messages. The number in the brackets reflects the
+    total number of unread messages. When moving the mouse cursor above the
+    mailbox a tooltip with additional information appears.</para>
+
+    <para><emphasis role="bold">Message List:</emphasis></para>
+
+    <figure>
+      <title>Message List</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/table_attachment.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>New messages in the message list view are marked in bold. A little
+    envelope symbol in the first column shows if the message has already been
+    read (has "<emphasis role="bold">open</emphasis>" envelope) or not (has
+    "closed" envelope). When selecting a message in the message list, it will
+    automatically be shown in the message view. If the message has an
+    attachment, it will have a little paperclip icon in the second
+    column.</para>
+
+    <para><emphasis role="bold">Message Viewer:</emphasis></para>
+
+    <para>The message view shows the header of all messages, with the most
+    important information listed first: Subject, Sender, Date and From.The
+    message body text follows with the message signature underneath. If the
+    message contains attachments a paperclip symbol in the message header
+    notifies the user.</para>
+
+    <para><emphasis role="bold">Attachment Viewer:</emphasis></para>
+
+    <para>The attachment viewer lets you select attachments to individually
+    open, view or save to files with the context menu.</para>
+
+    <section>
+      <title>Reading Mail</title>
+
+      <para>Start reading messages by selecting a mail folder in the tree
+      view. To read a message select it in the message list; if you would like
+      to see it in its own window, double-click it.</para>
+
+      <section>
+        <title>Reading Mail with the Keyboard</title>
+
+        <para>You can navigate the message list by pressing the arrow keys up
+        and down. To jump to the next unread message press <emphasis
+        role="bold">n</emphasis>. You can go to the previous unread message by
+        pressing <emphasis role="bold">p</emphasis>.</para>
+      </section>
+
+      <section>
+        <title>Sorting the Message List</title>
+
+        <figure>
+          <title>Table View</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/table.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Columba helps your organise your messages by letting you sort
+        your email. To sort by sender, subject or date, click on the buttons
+        with those labels on top of the message list. The direction of the
+        arrow next to the label indicates the direction of the sort, and if
+        you click again, you will sort them in the reverse order.<emphasis
+        role="bold"></emphasis> <tip>
+            <para>To look at the complete headers for email messages, select
+            <emphasis
+            role="bold"><guimenuitem>View</guimenuitem>-&gt;<guimenuitem>Message
+            Display</guimenuitem>-&gt;<guimenuitem>Show Full
+            Headers</guimenuitem></emphasis>. To see absolutely every bit,
+            choose <emphasis
+            role="bold"><guimenuitem>View</guimenuitem>-&gt;<guimenuitem>Show
+            Message Source</guimenuitem></emphasis>.</para>
+          </tip></para>
+
+        <para>You can also choose a threaded message view. <emphasis
+        role="bold">Select View-&gt;Threaded View</emphasis> to turn the
+        threaded view on and off. When you select this option, Columba groups
+        the replies to a message with the original so you can follow the
+        thread of conversation.</para>
+
+        <para><figure>
+            <title>Threaded View</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/table2.jpg" />
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </section>
+
+      <section>
+        <title>Filtering the Message List</title>
+
+        <para><figure>
+            <title>Filter Toolbar</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/toolbar_filter_new2.png" />
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+
+        <para>To show new messages only:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Select the left-most read message button</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>To show only new messages from donald@duck.com:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Enter "donald@duck.com" in the textfield and press
+            Enter</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>All filter operations can be easily combined in this way. To
+        view all messages again, press the <emphasis
+        role="bold"><guibutton>Clear</guibutton></emphasis> button.<emphasis
+        role="bold"></emphasis> <tip>
+            <para>Pressing the <emphasis
+            role="bold"><guibutton>Advanced..</guibutton></emphasis> button
+            will open a search dialog, with the currently viewed folder
+            already selected for you.</para>
+          </tip></para>
+      </section>
+
+      <section>
+        <title>Deleting your Mail</title>
+
+        <para>Once you have read your mail, you may want to get rid of it. To
+        delete a message:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Select the message(s), you want to delete</para>
+          </listitem>
+
+          <listitem>
+            <para>Select <emphasis
+            role="bold"><guimenuitem>Messages</guimenuitem>-&gt;<guimenuitem>Delete
+            Messages</guimenuitem></emphasis>, or right click on the message
+            and select <emphasis role="bold"><guimenuitem>Delete
+            Messages</guimenuitem> <emphasis>or hit the</emphasis>
+            Delete<emphasis> key. </emphasis></emphasis></para>
+          </listitem>
+        </itemizedlist>
+
+        <para><tip>
+            <para>Selecting more messages at once:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Hold down the Shift key to select a range of messages
+                you want to delete</para>
+              </listitem>
+
+              <listitem>
+                <para>Hold down the Ctrl key to select multiple messages
+                individually</para>
+              </listitem>
+            </itemizedlist>
+          </tip></para>
+
+        <tip>
+          <para>Use the <guibutton>Delete</guibutton> button in the
+          toolbar!</para>
+        </tip>
+
+        <figure>
+          <title>Toolbar</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/toolbar_main.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This does not delete your messages immediately. Instead it moves
+        messages to the Trash folder.</para>
+      </section>
+
+      <section>
+        <title>Saving or Opening attachments</title>
+
+        <para>If you get an attachment with your email message, Columba can
+        help you save or open it with the appropriate application.</para>
+
+        <figure>
+          <title>Attachment Viewer</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/panel_attachments.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>To save an attachment to disk:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Right-click the attachment icon and select <emphasis
+            role="bold"><guimenuitem>Save As..</guimenuitem></emphasis></para>
+          </listitem>
+
+          <listitem>
+            <para>Choose a location and a name for the file</para>
+          </listitem>
+
+          <listitem>
+            <para>click <emphasis role="bold">OK</emphasis></para>
+          </listitem>
+        </itemizedlist>
+
+        <para>To open an attachment in a program:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Open the mail message with the attachment you want to
+            read</para>
+          </listitem>
+
+          <listitem>
+            <para>Right-click the attachment icon and Select <emphasis
+            role="bold"><guimenuitem>Open
+            With...</guimenuitem></emphasis></para>
+          </listitem>
+
+          <listitem>
+            <para>Select the program you would like to use. It will start up
+            and open the document.</para>
+          </listitem>
+        </itemizedlist>
+
+        <tip>
+          <para>Double-clicking the attachment icon will open the attachment
+          with the previously chosen program.</para>
+        </tip>
+      </section>
+    </section>
+
+    <section>
+      <title>Checking for New Mail</title>
+
+      <para></para>
+
+      <figure>
+        <title>File Menu</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/menu_file.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Use the <emphasis role="bold">Get New Messages</emphasis> or the
+      <emphasis role="bold">Get New Messages for...</emphasis> items in the
+      File menu to individually download new messages from one account or from
+      all accounts at once. To automatically send and receive all messages
+      press the <emphasis role="bold">Receive and Send</emphasis> button in
+      the toolbar.</para>
+    </section>
+
+    <section>
+      <title>Composing New Email Messages</title>
+
+      <para>Click <emphasis role="bold">Message-&gt;New Message</emphasis> or
+      hit <emphasis role="bold">Ctrl-M</emphasis> to open the composer window.
+      Alternatively you can use the <emphasis role="bold">New Message
+      button</emphasis> in the toolbar.</para>
+    </section>
+
+    <section>
+      <title>Composing a Message</title>
+
+      <para><figure>
+          <title>Composer Window</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/frame_composer_small_notes.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+
+      <orderedlist>
+        <listitem>
+          <para>Enter the person you want to send a message to in the upper
+          left corner textfield. Press the TAB button to automatically jump to
+          the Subject textfield.</para>
+        </listitem>
+
+        <listitem>
+          <para>Enter the subject you want. This is the first line the person
+          will read, so it should be pretty clear and descriptive in order to
+          allow the person to categorize the message. Remember also that a lot
+          of people use the subject field to decide on what messages might be
+          spam. Sending a message with a subject "Hello!" to someone who might
+          not recognise your email address is a sure way to get your message
+          deleted without even being read. Pressing TAB again will show the
+          prompt in the message body textfield.</para>
+        </listitem>
+
+        <listitem>
+          <para>This is where you write your message. Note: You can quickly
+          choose your preferred account and the message priority by using
+          controls in the middle of the composer dialog.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>Once you have written your message, click the <emphasis
+      role="bold"><guiicon>Send Now</guiicon></emphasis> button or select
+      <emphasis
+      role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Send
+      Now</guimenuitem></emphasis> or press <emphasis
+      role="bold">Ctrl-Enter</emphasis> if you are online or select <emphasis
+      role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Send</guimenuitem>
+      <guimenuitem>Later</guimenuitem></emphasis> if you are offline.</para>
+
+      <figure>
+        <title>Composer Toolbar</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/toolbar_composer.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Sending Composed Messages Later</title>
+
+      <para>Columba will normally send mail as soon as you click the <emphasis
+      role="bold"><guimenuitem>Send</guimenuitem></emphasis>
+      <guimenuitem>Later</guimenuitem> button. However, there are a few ways
+      you can save a message to be sent later:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>If you are <emphasis role="bold">offline</emphasis>, Columba
+          will add your messages to the Outbox queue. The next time you are
+          online and send or receive mail, that message will be sent when you
+          select <emphasis
+          role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Send
+          Unsent Messages</guimenuitem></emphasis> or click the <emphasis
+          role="bold">F10</emphasis> function key. It will not be sent as part
+          of a normal <emphasis
+          role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Receive
+          and Send</guimenuitem></emphasis> selection or by pressing the
+          <emphasis role="bold">F9</emphasis> function key.</para>
+        </listitem>
+
+        <listitem>
+          <para>Choose <emphasis
+          role="bold"><guimenuitem>File</guimenuitem>-&gt;<guimenuitem>Save As
+          Draft</guimenuitem></emphasis> to store your messages in the draft
+          folder</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Adding Attachments</title>
+
+      <para>To attach a file to your message:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Press the <emphasis role="bold">Attach File </emphasis>button
+          on the composer toolbar or select <emphasis
+          role="bold"><guimenuitem>Message</guimenuitem>-&gt;<guimenuitem>Attach
+          File</guimenuitem></emphasis> or press <emphasis
+          role="bold">Ctrl-Alt-A</emphasis> key combination.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select the file you want to attach using the dialog box that
+          is displayed.</para>
+        </listitem>
+
+        <listitem>
+          <para>Press <emphasis role="bold">OK</emphasis></para>
+        </listitem>
+      </itemizedlist>
+
+      <tip>
+        <para>You can add multiple attachments at once.</para>
+
+        <para>When you send the message, a copy of the attachment will go with
+        it. Be aware that it may take a while depending on the current speed
+        of your internet connection to send large attachments. Remember also
+        that the attachment(s) will be sent to all recipients so if you do not
+        want some to receive it, you will have to do transactions.</para>
+      </tip>
+    </section>
+
+    <section>
+      <title>Specifying Recipients for Email</title>
+
+      <figure>
+        <title>Recipients List</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/composer_recipients.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Like most email programs, Columba recognizes three types of
+      addresses: Primary recipients, secondary recipients and hidden ("blind")
+      recipients.</para>
+
+      <para>The simplest way to direct a message is to put the address in the
+      <emphasis role="bold">To:</emphasis> field, which denotes primary
+      recipients. To send a message to more than one or two people, use the
+      <emphasis role="bold">Cc:</emphasis> field.</para>
+
+      <para>"Cc" stands for "Carbon Copy" (if you need further explanation,
+      ask someone familiar with typewriters!). Use it whenever you want to
+      share a message you have written with someone else.</para>
+
+      <para><emphasis role="bold">Bcc:</emphasis> (Blind Carbon Copy) is a
+      little bit more complex. You use it like <emphasis
+      role="bold">Cc:</emphasis>, but people on the <emphasis
+      role="bold">Bcc:</emphasis> list are hidden from the other recipients of
+      the message. Use it to send a mail to a large group of people,
+      especially if they don't know each other, privacy is a concern or you
+      are sharing a secrets.</para>
+
+      <tip>
+        <para>In these days where Spam is more prevalent than real Email, it
+        is a very good idea to use Bcc instead of Cc whenever possible. There
+        are an increasing number of viruses and other internet nasties that
+        are very capable of scanning all of your stored messages for new
+        addresses and then forwarding these addresses on for sending further
+        spam.</para>
+
+        <para>Now you might be very internet savy and have defenses against
+        such problems but do all the people you correspond with? It only takes
+        one message on an insecure machine and you have inadvertantly become
+        part of the problem.</para>
+
+        <para>When using Bcc, the recipient of the message only sees your
+        email address and his own because the email server creates a new
+        message for each email address in your Bcc list. Email is for
+        commmunication, not to show how many people you know!</para>
+      </tip>
+
+      <para>If you frequently write mail to the same group of people, you can
+      create address lists in the addressbook, and then send them mail as
+      though they had a single address.</para>
+    </section>
+
+    <section>
+      <title>Address Auto-completion</title>
+
+      <para>Columba automatically saves address in its Collect Addresses book.
+      When entering addresses it will offer a drop down list of possible
+      address completions from your addressbooks and the Collected
+      Addresses.<tip>
+          <para>You can also enter nicknames, here.</para>
+        </tip></para>
+
+      <para>Alternatively you can click on the <emphasis role="bold">contact
+      button</emphasis> (the one that looks like a small photo ID) in the
+      composer toolbar to open a dialog, to get you a list of the email
+      addresses in your addressbook. Select addresses and click the arrows to
+      move the addresses into the appropriate address columns.<tip>
+          <para>You can use drag and drop in the dialog, to create the
+          recipients list.</para>
+        </tip></para>
+    </section>
+
+    <section>
+      <title>Replying to Email Messages</title>
+
+      <para>To reply to an email press the <emphasis role="bold">Reply
+      button</emphasis>, or select <emphasis role="bold">Message-&gt;Reply to
+      Message</emphasis> alternatively. That will open the message composer.
+      The <emphasis role="bold">To:</emphasis> and <emphasis
+      role="bold">Subject:</emphasis> fields are already filled, although you
+      can change them if you wish. In addition the full text of the old
+      message is inserted into the new message, with a "&gt;" character in
+      front of each line. This should indicate that its part of the previous
+      message.</para>
+
+      <para>If you are reading a message with several recipients you might
+      want to use <emphasis role="bold">Message-&gt;Reply to All</emphasis>
+      instead.</para>
+
+      <tip>
+        <para><emphasis role="bold">Message-&gt;Reply to
+        Mailinglist</emphasis> tries to determine the list name for you. This
+        is the preferred way of replying when participating in mailing
+        lists.</para>
+      </tip>
+    </section>
+
+    <section>
+      <title>Forwarding Mail</title>
+
+      <para>Forwarding mail is particularly useful if you have received a
+      message and you think someone else would like to see it. You can forward
+      a message as an attachment by selecting <emphasis
+      role="bold">Message-&gt;Forward as Attachment</emphasis>, or you can
+      send it inline as a quoted portion of the message you are
+      sending.</para>
+    </section>
+
+    <section>
+      <title>Using Multiple Accounts</title>
+
+      <para><emphasis>add treeview picture here </emphasis></para>
+
+      <para>Every account shares the same Inbox mailfolder for receiving
+      messages. You can change the default behaviour in the account
+      preferences dialog under the Special Folders Tab. This enables you to
+      use different mailfolders for each account and makes using multiple
+      accounts more convenient.</para>
+
+      <para><figure>
+          <title>Receive Message Menu</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/menu_file.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+
+      <para>When using <emphasis role="bold">File-&gt;Get New Messages
+      for</emphasis>, you can choose which account you want to check.
+      Selecting <emphasis role="bold">File-&gt;Get New Messages</emphasis>
+      item (or by pressing <emphasis role="bold">Ctrl-T</emphasis>) makes it
+      easy to check for new messages in all accounts simultaneously.</para>
+
+      <para><figure>
+          <title>Identity Panel in Composer</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/composer_identity_panel.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+
+      <para>The composer lets you choose the outgoing mailserver. When
+      replying to messages, Columba automatically tries to guess the correct
+      account for you. You can choose one account to be your default account.
+      This is the account Columba chooses when it cannot determine the correct
+      account and it is also the default account when opening a new composer
+      window.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Organizing and Managing your Email</title>
+
+    <para></para>
+
+    <section>
+      <title>Importing Your Old Email</title>
+
+      <para>Columba allows you to import old email and data, so that you do
+      not have to worry about losing your old information.</para>
+
+      <para>Columba can import the following types of data:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Mbox (mbox) - The email format used by most email clients. One
+          single file containing a complete mail folder</para>
+        </listitem>
+
+        <listitem>
+          <para>MH style mailbox (mh) - A folder containing a single file for
+          every message</para>
+        </listitem>
+
+        <listitem>
+          <para>Mozilla (mbox)</para>
+        </listitem>
+
+        <listitem>
+          <para>Evolution (mbox)</para>
+        </listitem>
+
+        <listitem>
+          <para>Pegasus Mail (mbox)</para>
+        </listitem>
+      </itemizedlist>
+
+      <tip>
+        <para>Visit our website at <ulink
+        url="http://columba.sourceforge.net/"></ulink> to get the most
+        up-to-date information about importing data in Columba.</para>
+      </tip>
+
+      <para>To import your old email:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Click <emphasis role="bold">Utilities-&gt;Import
+          Mailbox...</emphasis></para>
+        </listitem>
+
+        <listitem>
+          <para>Choose the email format, click <emphasis
+          role="bold">Next</emphasis></para>
+        </listitem>
+
+        <listitem>
+          <para>Choose the file and the destination folder in Columba, click
+          <emphasis role="bold">Next</emphasis></para>
+        </listitem>
+
+        <listitem>
+          <para>Click <emphasis role="bold">Finish</emphasis></para>
+        </listitem>
+      </orderedlist>
+
+      <para><figure>
+          <title>Mail Import Wizard</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/wizard_import.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+    </section>
+
+    <section>
+      <title>Getting Organized with Folders</title>
+
+      <para>Columba keeps mail in folders. You start out with a few mail
+      folders, such as Inbox, Outbox, Drafts, Templates, Sent and Trash, but
+      you can create as many as you like.</para>
+
+      <para>Create new folders by selecting <emphasis
+      role="bold">Folder-&gt;Create new Subfolder...</emphasis> Columba will
+      ask you for the name and type of your new folder, and will provide you
+      with a folder tree so you can pick where it goes.</para>
+
+      <para>When you click OK, your new folder will appear in the folder view.
+      You can cut/copy/paste messages between your folders. Alternatively you
+      can use the <emphasis role="bold">Move Messages button</emphasis> or
+      <emphasis role="bold">Copy Messages button</emphasis> in the toolbar.
+      <figure>
+          <title>Toolbar</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/toolbar_main.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+
+      <tip>
+        <para>You can also use drag and drop to copy/move messages between
+        folders.</para>
+      </tip>
+    </section>
+
+    <section>
+      <title>Create Filter Rules to Automatically Organize Mail</title>
+
+      <para></para>
+
+      <figure>
+        <title>FilterList Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/dialog_filterlist.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>It is important to note that filters are attached to folders and
+      only act on a specific folder. Firstly, select the folder you wish to
+      attach a filter to (most commonly <emphasis
+      role="bold">Inbox</emphasis>). You then open the filter dialog by
+      clicking <emphasis role="bold">Folder-&gt;Message Filters..</emphasis>
+      This enables you to manage all filters of this folder. You can easily
+      (de)activate filters individually by selecting the checkbox in the
+      column <emphasis role="bold">Enabled</emphasis>.</para>
+
+      <para><emphasis role="bold">Add: </emphasis></para>
+
+      <para>This creates a new filter and automatically opens a new <emphasis
+      role="bold">Filter Options Dialog</emphasis> to let you edit the filter
+      properties.</para>
+
+      <para><emphasis role="bold">Edit:</emphasis></para>
+
+      <para>This opens the <emphasis role="bold">Filter Options
+      Dialog</emphasis> to edit your filter properties.</para>
+
+      <para><emphasis role="bold">Remove:</emphasis></para>
+
+      <para>Deletes the selected filter.</para>
+
+      <tip>
+        <para>When opening multiple <emphasis role="bold">Filter
+        Dialogs</emphasis> you can drag and drop filters between
+        folders.Filters are executed in the order specified by this
+        dialog.</para>
+
+        <para>Use the <emphasis role="bold">Up</emphasis> and <emphasis
+        role="bold">Down</emphasis> buttons to change the order.</para>
+      </tip>
+
+      <figure>
+        <title>Filter Options Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/dialog_filter.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>This dialog lets you change filter properties. You can open it
+      when selecting a filter and pressing the <emphasis role="bold">Edit
+      button</emphasis>. The upper panel lets you add/edit/remove filter
+      criteria. The lower panel enables you to edit filter actions:</para>
+
+      <para><emphasis role="bold">Filter description:</emphasis></para>
+
+      <para>Specify a descriptive name for your filter.</para>
+
+      <para><emphasis role="bold">Apply Action when..:</emphasis></para>
+
+      <para>If you have more than one filter criteria you can choose in this
+      checkbox if all or only one criteria needs to match to start the filter
+      action.</para>
+
+      <para><emphasis role="bold">Available Filters</emphasis></para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Subject - The subject line of the message.</para>
+        </listitem>
+
+        <listitem>
+          <para>From - From headerfield should contain/not contain specified
+          string.</para>
+        </listitem>
+
+        <listitem>
+          <para>To - To headerfield should contain/not contain specified
+          string.</para>
+        </listitem>
+
+        <listitem>
+          <para>Cc - Cc headerfield should contain/not contain specified
+          string.</para>
+        </listitem>
+
+        <listitem>
+          <para>Bcc - Bcc headerfield should contain/not contain specified
+          string.</para>
+        </listitem>
+
+        <listitem>
+          <para>Custom Headerfield - The filter can look at any header you
+          want, even custom ones. Enter the headerfield name in the first
+          textbox and the search text in the second one.</para>
+        </listitem>
+
+        <listitem>
+          <para>Body - search in the actual text of the message.</para>
+        </listitem>
+
+        <listitem>
+          <para>Date - Filter message according to the date which they were
+          sent: First, choose the conditions you want a message to meet -
+          before a given time, or after it. Then choose the date.</para>
+        </listitem>
+
+        <listitem>
+          <para>Flag - First choose a flag, which can be Seen, Expunged,
+          Flagged, etc. Choose a condition afterwards.</para>
+        </listitem>
+
+        <listitem>
+          <para>Priority - Choose between Highest, High, Normal, Low,
+          Lowest<emphasis></emphasis></para>
+        </listitem>
+
+        <listitem>
+          <para>Size - Filter messages based on the size of the message in Kb
+          (Kilobytes).</para>
+        </listitem>
+
+        <listitem>
+          <para>Color - Filter messages based on color flag</para>
+        </listitem>
+
+        <listitem>
+          <para>Account - Account-based filtering</para>
+        </listitem>
+
+        <listitem>
+          <para>Sender is in Addressbook - check if message sender is in
+          addressbook</para>
+        </listitem>
+
+        <listitem>
+          <para>Match All - Match all messages automatically. Can be used to
+          execute actions on every message of a folder repetitive.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Available Filter Actions:</emphasis></para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Move Message - Move message to specified destination
+          folder</para>
+        </listitem>
+
+        <listitem>
+          <para>Copy Message - Copy message to specified destination
+          folder</para>
+        </listitem>
+
+        <listitem>
+          <para>Mark as Read - Mark message as Read/Flagged/Expunged</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete Message - Delete message</para>
+        </listitem>
+
+        <listitem>
+          <para>Color Message - Assign color to message</para>
+        </listitem>
+
+        <listitem>
+          <para>Score Message - Spam filter analyzes the message, generates a
+          scoring value and marks the message as either spam or non
+          spam</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Using Virtual Folders</title>
+
+      <figure>
+        <title>Tree View</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/tree.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>If filters are not flexible enough for you, consider the use of
+      vFolders (virtual folders). If you find yourself performing the same
+      search again and again then read on.</para>
+
+      <para>Explaining what a vFolder does is not easy at all. It looks like a
+      folder, it acts like a search, and you set it up like a filter. In other
+      words, while a traditional folder actually contains messages, a vFolder
+      is a view of messages that may be in several different folders. The
+      messages it contains are determined on the fly, when the user selects a
+      vFolder, using a set of filter criteria you specified before.</para>
+
+      <para>It is important to note that when you delete a message in a
+      vFolder, Columba will automatically remove the message from the message
+      list and from the folder it actually exists in.</para>
+
+      <para>Imagine a university with overlapping and changing groups of
+      faculty, staff, administrators and students. In this situation vFolders
+      often make for a better organization because they can accept overlapping
+      groups in a way that regular folders and file systems cannot.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Configuring Columba</title>
+
+    <para>This chapter describes in detail all available configuration options
+    of Columba, being it account configuration, mail options or general
+    Columba-wide settings like fonts or proxy settings.</para>
+
+    <section>
+      <title>Configuring Accounts</title>
+
+      <para></para>
+
+      <figure>
+        <title>Accountlist Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/dialog_accountlist.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Select <emphasis role="bold">Edit</emphasis>-&gt;<emphasis
+      role="bold">Mail Account Settings...</emphasis> to open the account
+      preferences dialog.</para>
+
+      <para><emphasis role="bold">Add:</emphasis></para>
+
+      <para>Selection Add opens the account wizard which will help you
+      creating a new account.</para>
+
+      <para><emphasis role="bold">Edit:</emphasis></para>
+
+      <para>Lets you edit the account options.</para>
+
+      <para><emphasis role="bold">Remove:</emphasis></para>
+
+      <para>Deletes the currently selected account.</para>
+
+      <section>
+        <title>Identity Page</title>
+
+        <para></para>
+
+        <figure>
+          <title>Identity Page</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_account_identity.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para><emphasis role="bold">Account name:</emphasis></para>
+
+        <para>Choose a name for this new account. When using multiple accounts
+        this will help you distinguishing them from each other.</para>
+
+        <para><emphasis role="bold">Make this my default
+        account:</emphasis></para>
+
+        <para>You can declare one account to be your default account. When
+        using multiple accounts, the default account will have higher priority
+        in any tasks.</para>
+
+        <para><emphasis role="bold">Your Name:</emphasis></para>
+
+        <para>This is the real name assigned to this account, generally your
+        first and last name. The text you enter here, is visible in the From:
+        headerfield of all your outgoing messages.</para>
+
+        <para><emphasis role="bold">Email-Address:</emphasis></para>
+
+        <para>Specify your email address here.</para>
+
+        <para><emphasis role="bold">Organisation:</emphasis></para>
+
+        <para>Your organisation will be visible in the X-Organisation:
+        headerfield of all your outgoing messages. Most private individuals do
+        not use this and leave it blank.</para>
+
+        <para><emphasis role="bold">Reply-To Address:</emphasis></para>
+
+        <para>This is the return email address used in outgoing messages and
+        recipients replies, if this address is different from your email
+        address specified above.</para>
+
+        <para><emphasis role="bold">Attach this signature:</emphasis></para>
+
+        <para>If checked this lets you choose a textfile, which is always
+        appended to all composed messages. Its the perfect place to easily
+        attach an electronic version of your business cards.</para>
+      </section>
+
+      <section>
+        <title>Incoming Server Page</title>
+
+        <para></para>
+
+        <figure>
+          <title>Incoming Server Page</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_account_incoming.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para><emphasis role="bold">Login:</emphasis></para>
+
+        <para>This is the name you use to login to this email account. For
+        example, in the upcoming mail account donald@mail.com, the login name
+        is donald. This is a very common scheme used by most providers. Check
+        with your Internet Service Provider if you are not sure what your
+        login name is.</para>
+
+        <para><emphasis role="bold">Host:</emphasis></para>
+
+        <para>Name of your incoming mail server.</para>
+
+        <para><emphasis role="bold">Port:</emphasis></para>
+
+        <para>This is the port number Columba uses to connect to your mail
+        server. Usually you do not need to change this option.</para>
+
+        <para><emphasis role="bold">Authentication Type:</emphasis></para>
+
+        <para>Depending on your mail server type, you have the choice between
+        more or less secure authentication mechanisms. Most mail servers
+        should work out-of-box with the default setup. But sometimes you need
+        to manually choose a login method in order to make it work.</para>
+
+        <para><emphasis role="bold">Use SSL for secure
+        connections:</emphasis></para>
+
+        <para>Use SSL (Secure Socket Layer) for server authentication and mail
+        transfer security by having Columba automatically invoke the STARTTLS
+        command method to start SSL. If your server does not support SSL, mail
+        transfer will occur successfully, but will not be secured with
+        SSL.</para>
+
+        <para><emphasis role="bold">Store password in configuration
+        file:</emphasis></para>
+
+        <para>If you select this options, your password is remembered even if
+        you quit and restart Columba so you should never be prompted to enter
+        it again. If this option is turned off, you must enter your password
+        each time connecting with your mail server. Select this option only if
+        your PC is in a secure place.</para>
+      </section>
+
+      <section>
+        <title>Receiving Options Page</title>
+
+        <para></para>
+
+        <figure>
+          <title>Receiving Options Page</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_account_receive.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para><emphasis role="bold">Enable interval message
+        checking:</emphasis></para>
+
+        <para>Enables interval message checking, meaning Columba automatically
+        checks if new messages are available in background.</para>
+
+        <para><emphasis role="bold">Automatically download new
+        messages:</emphasis></para>
+
+        <para>If Columba found new messages, should it download them
+        automatically for you?</para>
+
+        <para><emphasis role="bold">Play sound when new messages
+        arrive:</emphasis></para>
+
+        <para>Play a sound when a new message arrives.</para>
+
+        <para><emphasis role="bold">Check for new messages every xxx
+        minutes:</emphasis></para>
+
+        <para>Specify the interval Columba should try to check for new
+        messages. Some mail servers only allow mail-checking every 10 minutes
+        or even longer delays. You should set this value to at least this
+        minimum value.</para>
+
+        <para><emphasis role="bold">Leave Messages on server (POP3
+        only):</emphasis></para>
+
+        <para>If you select this options, Columba copies the message to your
+        PC and leaves them on the mail server. If this is turned off, Columba
+        transfers incoming messages to your PC and deletes them from your POP3
+        server. Most servers allow you to indicate whether to leave the
+        messages on the server so you can retrieve it from several different
+        computers at various times.</para>
+
+        <para><emphasis role="bold">Remove messages from server after xxx days
+        (POP3 only):</emphasis></para>
+
+        <para>Columba automatically deletes all messages older than xxx days
+        from your POP3 server.</para>
+
+        <para><emphasis role="bold">Exclude from fetch all (POP3
+        only):</emphasis></para>
+
+        <para>Selecting this option excludes your account from the mail check
+        which is generally executed for all accounts when using the <emphasis
+        role="bold">Receive and Send Messages</emphasis> action.</para>
+
+        <figure>
+          <title>Receive and Send Action</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/toolbar_main.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para><emphasis role="bold">Limit message download to ~KB (POP3
+        only):</emphasis></para>
+
+        <para>If you select this option, messages over the specified size are
+        not downloaded. This can be useful on slow connections.</para>
+
+        <para><emphasis role="bold">Automatically apply Filters on Inbox (IMAP
+        only):</emphasis></para>
+
+        <para>If you select this option, filters of your IMAP folder are
+        applied automatically when selecting the folder.</para>
+      </section>
+
+      <section>
+        <title>Outgoing Server Page</title>
+
+        <para></para>
+
+        <figure>
+          <title>Outgoing Server Page</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_account_outgoing.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para><emphasis role="bold">Login:</emphasis></para>
+
+        <para>This is the name you use to login to this email account. For
+        example, in the upcoming mail account donald@mail.com, the login name
+        is donald. This is a very common scheme used by most providers. Check
+        with your Internet Service Provider if you are not sure what your
+        login name is.</para>
+
+        <para><emphasis role="bold">Host:</emphasis></para>
+
+        <para>Name of your outgoing mail server.</para>
+
+        <para><emphasis role="bold">Port:</emphasis></para>
+
+        <para>This is the port number Columba uses to connect to your mail
+        server. Usually you do not need to change this option.</para>
+
+        <para><emphasis role="bold">Authentication Type:</emphasis></para>
+
+        <para>You have the choice between more or less secure authentication
+        mechanisms. Most mail servers should work out-of-the-box with the
+        default setup. But sometimes you need to manually choose a login
+        method in order to make it work. Use the <guibutton>Check Supported
+        Types</guibutton> button to receive a list of all available types from
+        your server.</para>
+
+        <para><emphasis role="bold">Use SSL for secure
+        connection:</emphasis></para>
+
+        <para>Use SSL (Secure Socket Layer) for server authentication and mail
+        transfer security by having Columba automatically invoke the STARTTLS
+        command method to start SSL. If your server does not support SSL, mail
+        transfer will occur successfully, but will not be secured with
+        SSL.</para>
+
+        <para><emphasis role="bold">Store Password in configuration
+        file:</emphasis></para>
+
+        <para>If you select this options, your password is remembered even if
+        you quit and restart Columba so you should never be prompted to enter
+        it again. If this option is turned off, you must enter your password
+        each time connecting with your mail server. Select this option only if
+        your PC is in a secure place.</para>
+      </section>
+
+      <section>
+        <title>Security Page</title>
+
+        <para></para>
+
+        <figure>
+          <title>Security Page</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_account_security.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This lets you choose whether you want to use strong encryption
+        with the OpenPGP-compatible open-source software <ulink
+        url="http://www.gnupg.org/">GnuPG</ulink>.</para>
+
+        <para>You need to specify at least your PGP user-id, generally your
+        email address is sufficient.<emphasis role="bold"></emphasis> <tip>
+            <para>You can choose one account to be the default account in the
+            Identity Tab or in the Account Preferences dialog. Other accounts
+            can use the setup of the default account for themselves. So, its
+            easy to specify another account which uses the same POP3
+            mailserver, but not another SMTP server. You just need to select
+            the <emphasis role="bold">use default account
+            preferences</emphasis> checkbox to make it work.</para>
+          </tip></para>
+      </section>
+    </section>
+
+    <section>
+      <title>Mail Options Dialog</title>
+
+      <figure>
+        <title>Mail Options Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/dialog_mail_options.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para><emphasis role="bold">Prefer HTML messages, if
+      available:</emphasis></para>
+
+      <para>If this option is selected, Columba shows the HTML part of a
+      message, if it has been sent in both formats. This is called <emphasis
+      role="bold">multipart/alternative</emphasis> messages. Basically
+      messages which are send in two different formats at once, plain text or
+      html. If unchecked, the plain text version is displayed. Note that many
+      people will not open HTML messages as it is a favourite tool of spammers
+      / virus writers. It is also often used with embedded graphics / hidden
+      links to track when you actually displayed the message. While HTML can
+      make a message more "pretty", it adds (sometimes greatly) to the size of
+      the message and is considered by most security savvy users to be too
+      great a security risk.</para>
+
+      <tip>
+        <para>The attachment viewer lets you view the alternative
+        format.</para>
+      </tip>
+
+      <para><emphasis role="bold">Strip HTML messages:</emphasis></para>
+
+      <para>HTML message text will transformed to plain text automatically
+      before viewing.</para>
+
+      <para><emphasis role="bold">Display emoticons as
+      graphics:</emphasis></para>
+
+      <para>Selecting this options makes the message viewer replace ASCII art
+      with graphics.</para>
+
+      <para><emphasis role="bold">Show attachments inline:</emphasis></para>
+
+      <para>If selected, the message viewer will show all attachments inline
+      automatically. This is especially useful when reading messages
+      containing lots of images attached.</para>
+
+      <para><emphasis role="bold">Use System Default Browser</emphasis></para>
+
+      <para>Replaces the Java HTML viewer with your System's default web
+      browser. This is in most cases either Internet Explorer or <ulink
+      url="http://www.mozilla.org/products/firefox/">Firefox</ulink>. In
+      version 1.0 we had to disable support for this feature due to technical
+      reasons.</para>
+
+      <para><emphasis role="bold">Mark messages as read after ~
+      seconds:</emphasis></para>
+
+      <para>If this option is selected, Columba automatically marks a message
+      as read after it was viewed by you. Specifying a interval of 0 seconds,
+      immediately marks the message read.</para>
+
+      <para><emphasis role="bold">Ask when sending messages with empty
+      subject:</emphasis></para>
+
+      <para>When composing messages with an empty Subject: headerfield, you
+      will be asked to enter a subject. If this option is not selected,
+      Columba just sends the message with an empty subject. Be aware though
+      that messages with blank subject fields are often deleted as spam by
+      some people / filters (and even when the email address of the sender is
+      known).</para>
+
+      <para><emphasis role="bold">Send HTML messages with alternative text
+      part:</emphasis></para>
+
+      <para>If this option is selected, HTML messages will be send in text
+      plain and in HTML format. Sometimes people can not read HTML messages,
+      so sending the text plain format additionally eliminates this
+      problem.</para>
+
+      <para><emphasis role="bold">Forward messages:</emphasis></para>
+
+      <para>Forward message as attachment, just adds the message as
+      attachment. Whereas forwarding messages as quoted, lets you edit the
+      quoted message bodytext.</para>
+
+      <tip>
+        <para>You can always explicitly forward a message in the format you
+        like from the <emphasis role="bold">Message</emphasis> menu.</para>
+      </tip>
+    </section>
+
+    <section>
+      <title>General Options Dialog</title>
+
+      <figure>
+        <title>General Options Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/dialog_general_options.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para><emphasis role="bold">Language:</emphasis></para>
+
+      <para>Lets you select a different language translation package. You can
+      download many translation packages from our website. Just download the
+      package of choice and save it to Columba's program folder or your
+      configuration folder. Columba will automatically recognize the new
+      package on restart.</para>
+
+      <para><emphasis role="bold">Toolbar Style:</emphasis></para>
+
+      <para>This option lets you change the style of all the toolbars in
+      Columba. You can enable icons, show icons with text and choose the
+      location of the text. Turning off the display of toolbar icons will
+      maximize the space available for displaying messages.</para>
+
+      <para><emphasis role="bold">Look and Feel:</emphasis></para>
+
+      <para>You can change the way Columba looks and feels with Themes (often
+      also known as skins). New themes can be downloaded from our website.
+      Just download the plugin and use the Plugin Manager to install the new
+      Look and Feel. Restart of Columba is required.</para>
+
+      <para><emphasis role="bold">Overwrite Look and Feel font
+      settings:</emphasis></para>
+
+      <para>Look and Feels also choose individual fonts. This option allows
+      you to change the font settings of Columba, independent from the used
+      theme.</para>
+
+      <para><emphasis role="bold">Main font:</emphasis></para>
+
+      <para>This is the font of all the controls like menus and
+      buttons.</para>
+
+      <para><emphasis role="bold">Text font:</emphasis></para>
+
+      <para>Font used by the message viewer and the composer. Usually this
+      should be a fixed width font to allow easier editing of contents.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Extending Columba</title>
+
+    <para>A strength of Columba is its ability to easily integrate external
+    tools or plugins.</para>
+
+    <section>
+      <title>Plugin Manager</title>
+
+      <para>The plugin manager lets you organize external plugins.<figure>
+          <title>Plugin Manager</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/dialog_plugin_manager.png" />
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+
+      <para><emphasis role="bold">Install Plugin:</emphasis></para>
+
+      <para>Selecting this button will prompt you for a plugin located on your
+      PC. This will automatically install the plugin for you. Note that for
+      some plugins to work correctly, it may be necessary to restart
+      Columba.</para>
+
+      <para><emphasis role="bold">Remove:</emphasis></para>
+
+      <para>Deletes the selected plugin.</para>
+
+      <para><emphasis role="bold">Plugin Details:</emphasis></para>
+
+      <para>Shows detailed information about the selected plugin. This should
+      be the first source of information for you.</para>
+    </section>
+
+    <section>
+      <title>External Tools Manager</title>
+
+      <para>External Tools are usually commandline tools, which are used by
+      Columba or plugins to offer you certain functionality.</para>
+
+      <figure>
+        <title>Info Panel</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_externaltool1.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Press the <emphasis role="bold">Next</emphasis> button to go
+      on.</para>
+
+      <figure>
+        <title>Description Panel</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_externaltool2.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>If you do not have this tool installed, visit the URL shown below
+      the description and download the tool. Press the <emphasis
+      role="bold">Next</emphasis> button to go on.</para>
+
+      <figure>
+        <title>Location Panel</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/wizard_externaltool3.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Most of the time, the configuration wizard will automatically be
+      able to find the tool on your PC. If not, you can use the <emphasis
+      role="bold">Change</emphasis> button to do it manually.</para>
+    </section>
+  </chapter>
+</book>
