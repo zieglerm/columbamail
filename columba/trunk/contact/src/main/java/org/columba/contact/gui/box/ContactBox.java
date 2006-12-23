@@ -25,6 +25,7 @@ import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.gui.base.IconTextField;
 import org.columba.core.gui.dialog.ErrorDialog;
@@ -33,7 +34,6 @@ import org.columba.core.gui.frame.api.IComponentBox;
 import org.columba.core.logging.Logging;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.mail.facade.IDialogFacade;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -142,7 +142,7 @@ public class ContactBox extends JPanel implements IComponentBox {
 				String address = selected.getAddress();
 
 				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
+					IDialogFacade facade = (IDialogFacade) ServiceFacadeRegistry
 							.getInstance()
 							.getService(
 									org.columba.mail.facade.IDialogFacade.class);

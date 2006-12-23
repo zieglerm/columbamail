@@ -26,10 +26,10 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
 import org.columba.api.exception.ServiceNotFoundException;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.gui.base.EmptyIcon;
 import org.columba.core.search.api.ISearchResult;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.mail.facade.IDialogFacade;
 import org.columba.mail.resourceloader.MailImageLoader;
 import org.columba.mail.search.MailSearchResult;
@@ -62,7 +62,7 @@ public class ResultList extends JXList {
 				ISearchResult result = (ISearchResult) getSelectedValue();
 
 				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
+					IDialogFacade facade = (IDialogFacade) ServiceFacadeRegistry
 							.getInstance().getService(IDialogFacade.class);
 					facade.openMessage(result.getLocation());
 				} catch (ServiceNotFoundException e) {
@@ -243,7 +243,7 @@ public class ResultList extends JXList {
 				ISearchResult result = (ISearchResult) getSelectedValue();
 
 				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
+					IDialogFacade facade = (IDialogFacade) ServiceFacadeRegistry
 							.getInstance().getService(IDialogFacade.class);
 					facade.openMessage(result.getLocation());
 				} catch (ServiceNotFoundException e) {

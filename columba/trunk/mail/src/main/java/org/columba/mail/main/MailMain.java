@@ -31,11 +31,11 @@ import org.columba.core.backgroundtask.BackgroundTaskManager;
 import org.columba.core.component.api.IComponentPlugin;
 import org.columba.core.config.DefaultItem;
 import org.columba.core.connectionstate.ConnectionStateImpl;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.MultiLineLabel;
 import org.columba.core.gui.frame.DefaultContainer;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.main.ColumbaCmdLineParser;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.core.shutdown.ShutdownManager;
 import org.columba.mail.config.IncomingItem;
 import org.columba.mail.config.MailConfig;
@@ -107,7 +107,7 @@ public class MailMain implements IComponentPlugin {
 		plugin = new ClearRecentFlagPlugin();
 		ShutdownManager.getInstance().register(plugin);
 		
-		ServiceRegistry.getInstance().register(
+		ServiceFacadeRegistry.getInstance().register(
 				org.columba.mail.facade.IDialogFacade.class,
 				new DialogFacade());
 	}

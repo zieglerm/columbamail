@@ -27,10 +27,10 @@ import org.columba.addressbook.shutdown.SaveAllAddressbooksPlugin;
 import org.columba.api.plugin.PluginLoadingFailedException;
 import org.columba.core.backgroundtask.BackgroundTaskManager;
 import org.columba.core.component.api.IComponentPlugin;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.main.ColumbaCmdLineParser;
 import org.columba.core.resourceloader.GlobalResourceLoader;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.core.shutdown.ShutdownManager;
 
 /**
@@ -83,16 +83,16 @@ public class AddressbookMain implements IComponentPlugin {
 		BackgroundTaskManager.getInstance().register(plugin);
 		ShutdownManager.getInstance().register(plugin);
 
-		ServiceRegistry.getInstance().register(
+		ServiceFacadeRegistry.getInstance().register(
 				org.columba.addressbook.facade.IContactFacade.class,
 				new ContactFacade());
-		ServiceRegistry.getInstance().register(
+		ServiceFacadeRegistry.getInstance().register(
 				org.columba.addressbook.facade.IFolderFacade.class,
 				new FolderFacade());
-		ServiceRegistry.getInstance().register(
+		ServiceFacadeRegistry.getInstance().register(
 				org.columba.addressbook.facade.IModelFacade.class,
 				new ModelFacade());
-		ServiceRegistry.getInstance().register(
+		ServiceFacadeRegistry.getInstance().register(
 				org.columba.addressbook.facade.IDialogFacade.class,
 				new DialogFacade());
 	}

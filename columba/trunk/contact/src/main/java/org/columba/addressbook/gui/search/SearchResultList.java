@@ -27,11 +27,11 @@ import javax.swing.border.Border;
 import org.columba.addressbook.facade.DialogFacade;
 import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.contact.search.ContactSearchResult;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.search.api.ISearchResult;
-import org.columba.core.services.ServiceRegistry;
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.decorator.Highlighter;
@@ -91,7 +91,7 @@ public class SearchResultList extends JXList {
 				String address = selected.getDescription();
 
 				try {
-					org.columba.mail.facade.IDialogFacade facade = (org.columba.mail.facade.IDialogFacade) ServiceRegistry
+					org.columba.mail.facade.IDialogFacade facade = (org.columba.mail.facade.IDialogFacade) ServiceFacadeRegistry
 							.getInstance()
 							.getService(
 									org.columba.mail.facade.IDialogFacade.class);

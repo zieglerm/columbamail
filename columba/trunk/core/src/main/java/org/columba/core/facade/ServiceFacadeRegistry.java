@@ -15,7 +15,7 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
-package org.columba.core.services;
+package org.columba.core.facade;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -36,16 +36,16 @@ import org.columba.api.exception.ServiceNotFoundException;
  * 
  * @author fdietz
  */
-public class ServiceRegistry {
+public class ServiceFacadeRegistry {
 
-	private static ServiceRegistry instance = new ServiceRegistry();
+	private static ServiceFacadeRegistry instance = new ServiceFacadeRegistry();
 
-	private Map<Class,Object> map = new Hashtable<Class,Object>();
+	private Map<Class, Service> map = new Hashtable<Class, Service>();
 
-	private ServiceRegistry() {
+	private ServiceFacadeRegistry() {
 	}
 
-	public static ServiceRegistry getInstance() {
+	public static ServiceFacadeRegistry getInstance() {
 		return instance;
 	}
 
@@ -58,7 +58,7 @@ public class ServiceRegistry {
 	public void unregister(Class serviceInterface) {
 		map.remove(serviceInterface);
 	}
-	
+
 	public Object getService(Class serviceInterface)
 			throws ServiceNotFoundException {
 		Object o = null;
@@ -66,7 +66,7 @@ public class ServiceRegistry {
 
 		// check if service is registered
 		if (map.containsKey(serviceInterface)) {
-			service = (Service) map.get(serviceInterface);
+			service = map.get(serviceInterface);
 
 			// retrieve service instance
 			if (service != null)
@@ -77,5 +77,84 @@ public class ServiceRegistry {
 			throw new ServiceNotFoundException(serviceInterface);
 
 		return o;
+	}
+
+	/**
+	 * A service is described with its service name, which is usually the name
+	 * of the interface.
+	 * <p>
+	 * Keeps a reference to the service instanciation.
+	 * 
+	 * @author Frederik Dietz
+	 */
+	private class Service {
+		private Class serviceInterface;
+
+		private String implementationName;
+
+		private Object serviceInstance;
+
+		Service(Class serviceInterface, String implementationName) {
+			this.serviceInterface = serviceInterface;
+			this.implementationName = implementationName;
+		}
+
+		public Service(Class serviceInterface, Object serviceInstance) {
+			this.serviceInterface = serviceInterface;
+
+			this.serviceInstance = serviceInstance;
+		}
+
+		/**
+		 * @return Returns the serviceInstance.
+		 */
+		public Object getServiceInstance() {
+			// check if there's already an instanciation available
+			// we can reuse here
+			if (serviceInstance == null) {
+				// load instance of service
+				serviceInstance = loadInstance(implementationName);
+			}
+
+			return serviceInstance;
+		}
+
+		/**
+		 * @return Returns the serviceName.
+		 */
+		public Class getServiceInterface() {
+			return serviceInterface;
+		}
+
+		/**
+		 * Load instance of class.
+		 * <p>
+		 * 
+		 * @param className
+		 *            class name
+		 * @return instance of class
+		 */
+		private Object loadInstance(String className) {
+			Object object = null;
+
+			try {
+				Class clazz = this.getClass().getClassLoader().loadClass(
+						className);
+
+				object = clazz.newInstance();
+
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+
+				e.printStackTrace();
+			}
+
+			return object;
+		}
 	}
 }

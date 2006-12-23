@@ -19,7 +19,7 @@ import org.columba.addressbook.facade.IFolderFacade;
 import org.columba.addressbook.facade.IGroupItem;
 import org.columba.addressbook.facade.IHeaderItem;
 import org.columba.api.exception.StoreException;
-import org.columba.core.services.ServiceRegistry;
+import org.columba.core.facade.ServiceFacadeRegistry;
 
 public class ListBuilderTest extends TestCase {
 
@@ -37,9 +37,9 @@ public class ListBuilderTest extends TestCase {
 		IContactFacade contactFacade = new MyContactFacade();
 		IFolderFacade folderFacade = new MyFolderFacade();
 
-		ServiceRegistry.getInstance().register(IContactFacade.class,
+		ServiceFacadeRegistry.getInstance().register(IContactFacade.class,
 				contactFacade);
-		ServiceRegistry.getInstance().register(IFolderFacade.class,
+		ServiceFacadeRegistry.getInstance().register(IFolderFacade.class,
 				folderFacade);
 
 		contact1 = new ContactItem("0", "name1", "firstname1", "lastname1",

@@ -16,10 +16,10 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import org.columba.api.exception.ServiceNotFoundException;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.gui.base.EmptyIcon;
 import org.columba.core.search.api.ISearchResult;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.mail.facade.IDialogFacade;
 import org.columba.mail.resourceloader.MailImageLoader;
 import org.columba.mail.search.MailSearchResult;

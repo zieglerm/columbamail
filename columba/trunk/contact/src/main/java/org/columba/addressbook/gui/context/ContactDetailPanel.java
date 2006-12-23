@@ -22,9 +22,9 @@ import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.PhoneModel;
 import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.contact.search.ContactSearchResult;
+import org.columba.core.facade.ServiceFacadeRegistry;
 import org.columba.core.gui.base.RoundedBorder;
 import org.columba.core.resourceloader.ImageLoader;
-import org.columba.core.services.ServiceRegistry;
 import org.columba.mail.facade.IDialogFacade;
 import org.jdesktop.swingx.JXHyperlink;
 
@@ -101,7 +101,7 @@ public class ContactDetailPanel extends JPanel {
 			label2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
 					try {
-						IDialogFacade facade = (IDialogFacade) ServiceRegistry
+						IDialogFacade facade = (IDialogFacade) ServiceFacadeRegistry
 								.getInstance()
 								.getService(
 										org.columba.mail.facade.IDialogFacade.class);
@@ -232,7 +232,7 @@ public class ContactDetailPanel extends JPanel {
 				String address = model.getPreferredEmail();
 
 				try {
-					IDialogFacade facade = (IDialogFacade) ServiceRegistry
+					IDialogFacade facade = (IDialogFacade) ServiceFacadeRegistry
 							.getInstance()
 							.getService(
 									org.columba.mail.facade.IDialogFacade.class);

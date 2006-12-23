@@ -21,7 +21,7 @@ import org.columba.addressbook.facade.IContactFacade;
 import org.columba.addressbook.facade.IFolderFacade;
 import org.columba.addressbook.facade.IModelFacade;
 import org.columba.api.exception.ServiceNotFoundException;
-import org.columba.core.services.ServiceRegistry;
+import org.columba.core.facade.ServiceFacadeRegistry;
 
 /**
  * Provides access to internal functionality for external components.
@@ -35,18 +35,18 @@ public final class ServiceConnector {
 
 	public static IContactFacade getContactFacade()
 			throws ServiceNotFoundException {
-		return (IContactFacade) ServiceRegistry.getInstance().getService(
+		return (IContactFacade) ServiceFacadeRegistry.getInstance().getService(
 				IContactFacade.class);
 	}
 
 	public static IFolderFacade getFolderFacade()
 			throws ServiceNotFoundException {
-		return (IFolderFacade) ServiceRegistry.getInstance().getService(
+		return (IFolderFacade) ServiceFacadeRegistry.getInstance().getService(
 				IFolderFacade.class);
 	}
 	
 	public static IModelFacade getModelFacade() throws ServiceNotFoundException {
-		return (IModelFacade) ServiceRegistry.getInstance().getService(
+		return (IModelFacade) ServiceFacadeRegistry.getInstance().getService(
 				IModelFacade.class);
 	}
 
