@@ -98,7 +98,7 @@
             <pathelement path="${lib.bsh}"/>
             <pathelement path="${native.base}/${lib.jdic}"/>
             <pathelement path="${lib.mac_mock}"/>
-            <pathelement path="${lib.flexdoc}"/>
+            <pathelement path="${lib.flexdock}"/>
             <pathelement path="${lib.commons.logging}"/>
             <pathelement path="${lib.ical4j}"/>
 	    	<pathelement path="${lib.migcalendar}"/>
@@ -182,7 +182,7 @@
             <include name="${lib.je}"/>
             <include name="${lib.groovy}"/>
             <include name="${lib.bsh}"/>
-            <include name="${lib.flexdoc}"/>
+            <include name="${lib.flexdock}"/>
             <include name="${lib.jython}"/>
 	   		<include name="${lib.commons.logging}"/>
             <include name="${lib.ical4j}"/>
@@ -437,7 +437,7 @@
             <manifest>
                 <attribute name="Main-Class" value="org.columba.core.main.Main"/>
                 <attribute name="Class-Path"
-                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdoc} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx} ${lib.antlr.jar} ${lib.asm-attrs.jar} ${lib.asm.jar} ${lib.cglib.jar} ${lib.commons-collections.jar} ${lib.commons-logging.jar} ${lib.dom4j.jar} ${lib.ehcache.jar} ${lib.ejb3-persistence.jar} ${lib.hibernate3.jar} ${lib.hibernate-annotations.jar} ${lib.hibernate-entitymanager.jar} ${lib.hsqldb.jar} ${lib.javassist.jar} ${lib.jboss-archive-browsing.jar} ${lib.jta.jar} ${lib.quaqua.jar} "/>
+                           value=" ${manual.jar} ${lib.lucene} ${lib.jargs} ${lib.jwizz} ${lib.plastic} ${lib.jhall} ${lib.forms} ${lib.ristretto} ${lib.jscf} ${lib.macchiato} ${lib.frapuccino} ${lib.jdom} ${lib.jpim} ${lib.je} ${lib.flexdock} ${lib.jython} ${lib.bsh} ${lib.groovy} ${lib.commons.logging} ${lib.ical4j} ${lib.migcalendar} ${lib.swingx} ${lib.antlr.jar} ${lib.asm-attrs.jar} ${lib.asm.jar} ${lib.cglib.jar} ${lib.commons-collections.jar} ${lib.commons-logging.jar} ${lib.dom4j.jar} ${lib.ehcache.jar} ${lib.ejb3-persistence.jar} ${lib.hibernate3.jar} ${lib.hibernate-annotations.jar} ${lib.hibernate-entitymanager.jar} ${lib.hsqldb.jar} ${lib.javassist.jar} ${lib.jboss-archive-browsing.jar} ${lib.jta.jar} ${lib.quaqua.jar} "/>
                 <attribute name="Sealed" value="false"/>
             </manifest>
         </jar>
@@ -503,7 +503,7 @@
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
                 <include name="${manual.jar}"/>
-                <include name="${lib.flexdoc}"/>
+                <include name="${lib.flexdock}"/>
 				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 		    	<include name="${lib.migcalendar}"/>
@@ -582,7 +582,7 @@
                 <include name="${lib.je}"/>
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
-                <include name="${lib.flexdoc}"/>
+                <include name="${lib.flexdock}"/>
 				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 		    	<include name="${lib.migcalendar}"/>
@@ -649,7 +649,7 @@
                 <include name="${lib.je}"/>
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
-                <include name="${lib.flexdoc}"/>
+                <include name="${lib.flexdock}"/>
 				<include name="${lib.commons.logging}"/>
 		        <include name="${lib.ical4j}"/>
 		    	<include name="${lib.migcalendar}"/>
@@ -726,7 +726,7 @@
                 <include name="${lib.je}"/>
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
-                <include name="${lib.flexdoc}"/>
+                <include name="${lib.flexdock}"/>
                 <include name="${lib.jython}"/>
 				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
@@ -820,7 +820,7 @@
             <replacefilter token="@groovy@" value="${lib.groovy}"/>
             <replacefilter token="@bsh@" value="${lib.bsh}"/>
             <replacefilter token="@native@" value="${lib.native}"/>
-            <replacefilter token="@flexdoc@" value="${lib.flexdoc}"/>
+            <replacefilter token="@flexdock@" value="${lib.flexdock}"/>
             <replacefilter token="@jython@" value="${lib.jython}"/>
 	        <replacefilter token="@commons.logging@" value="${lib.commons.logging}"/>
             <replacefilter token="@ical4j@" value="${lib.ical4j}"/>
@@ -917,7 +917,7 @@
                 <include name="${lib.je}"/>
                 <include name="${lib.groovy}"/>
                 <include name="${lib.bsh}"/>
-                <include name="${lib.flexdoc}"/>
+                <include name="${lib.flexdock}"/>
 				<include name="${lib.commons.logging}"/>
             	<include name="${lib.ical4j}"/>
 	    		<include name="${lib.migcalendar}"/>
@@ -998,7 +998,7 @@
             <arg value="/dGROOVY=${lib.groovy}"/>
             <arg value="/dBSH=${lib.bsh}"/>
             <arg value="/dJDIC=${lib.jdic}"/>
-            <arg value="/dFLEXDOC=${lib.flexdoc}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
             <arg value="/dJYTHON=${lib.jython}"/>
 		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 		    <arg value="/dICAL4J=${lib.ical4j}"/>
@@ -1050,7 +1050,7 @@
             <arg value="/dJDIC=${lib.jdic}"/>
             <arg value="/dGROOVY=${lib.groovy}"/>
             <arg value="/dBSH=${lib.bsh}"/>
-            <arg value="/dFLEXDOC=${lib.flexdoc}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
             <arg value="/dJYTHON=${lib.jython}"/>   
             <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 		    <arg value="/dICAL4J=${lib.ical4j}"/>
@@ -1109,7 +1109,7 @@
             <arg value="/dJDIC=${lib.jdic}"/>
             <arg value="/dGROOVY=${lib.groovy}"/>
             <arg value="/dBSH=${lib.bsh}"/>
-            <arg value="/dFLEXDOC=${lib.flexdoc} "/>
+            <arg value="/dflexdock=${lib.flexdock} "/>
             <arg value="/dJYTHON=${lib.jython}"/>        	
  	  	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 		    <arg value="/dICAL4J=${lib.ical4j}"/>
@@ -1158,7 +1158,7 @@
             <arg value="/dJDIC=${lib.jdic}"/>
             <arg value="/dGROOVY=${lib.groovy}"/>
             <arg value="/dBSH=${lib.bsh}"/>
-            <arg value="/dFLEXDOC=${lib.flexdoc}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
             <arg value="/dJYTHON=${lib.jython}"/> 
 		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
 		    <arg value="/dICAL4J=${lib.ical4j}"/>
