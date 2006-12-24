@@ -6,10 +6,10 @@
         version="1.0" 
         category="framework" 
         enabled="true">
-
     <extensionlist id="org.columba.core.action">
         <!--<extension id="OpenNewWindow" class="org.columba.core.gui.menu.OpenNewWindowSubmenu"/>-->
         <extension id="OpenNewMailWindow" class="org.columba.core.gui.globalactions.OpenNewMailWindowAction"/>
+
         <extension id="OpenNewAddressbookWindow" class="org.columba.core.gui.globalactions.OpenNewAddressbookWindowAction"/>
         <extension id="OpenNewMessageFrameWindow" class="org.columba.core.gui.action.OpenNewMessageFrameWindowAction"/>
         <extension id="PluginManagerDialog" class="org.columba.core.gui.globalactions.PluginManagerAction" />
@@ -101,6 +101,7 @@
  <extension id="Plastic" class="org.columba.core.gui.themes.plugin.PlasticLookAndFeelPlugin"> 
   <properties config="PlasticConfigPlugin" />
  </extension>
+ <extension id="System Default" class="org.columba.core.gui.theme.plugin.SystemLookAndFeelPlugin"/>
 </extensionlist>
 
 

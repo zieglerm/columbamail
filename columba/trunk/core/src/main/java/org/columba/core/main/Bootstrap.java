@@ -67,7 +67,8 @@ public class Bootstrap {
 
 	private static final String RESOURCE_PATH = "org.columba.core.i18n.global"; //$NON-NLS-1$
 
-	// TODO @author hubms have this flags, until the speed of the entitymanager is improved
+	// TODO @author hubms have this flags, until the speed of the entitymanager
+	// is improved
 	public static boolean ENABLE_TAGS = true;
 
 	private String path;
@@ -78,6 +79,16 @@ public class Bootstrap {
 
 		addNativeJarsToClasspath();
 		setLibraryPath();
+
+		// For the Mac ScreenBarMenus to work, this must be declared before
+		// *ANY* AWT / Swing gets initialised. Do *NOT* move it to plugin init
+		// location because that is too late...
+		if (OSInfo.isMac()) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+			System.setProperty(
+					"com.apple.mrj.application.apple.menu.about.name",
+					"Columba");
+		}
 
 		Logging.createDefaultHandler();
 		registerCommandLineArguments();
@@ -189,7 +200,7 @@ public class Bootstrap {
 
 		/* initialize services before dismissing the splash screen */
 		ServiceManager.getInstance().initServices();
-		
+
 		// register shutdown manager
 		ShutdownManager.getInstance().register(new Runnable() {
 			public void run() {
@@ -205,13 +216,13 @@ public class Bootstrap {
 		// ColumbaTrayIcon.getInstance().addToSystemTray(
 		// FrameManager.getInstance().getActiveFrameMediator()
 		// .getFrameMediator());
-		
+
 		profiler.push("tagging");
-		
+
 		// initialize tagging
 		if (ENABLE_TAGS)
 			AssociationStore.getInstance().init();
-		
+
 		profiler.pop("tagging");
 
 		// hide splash screen

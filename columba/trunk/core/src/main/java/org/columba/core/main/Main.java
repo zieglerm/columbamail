@@ -22,7 +22,6 @@ import java.security.PermissionCollection;
 import java.security.Permissions;
 import java.security.Policy;
 
-import org.columba.core.base.OSInfo;
 import org.columba.core.shutdown.ShutdownManager;
 
 /**
@@ -37,13 +36,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		// For the Mac ScreenBarMenus to work, this must be declared before
-		// *ANY* AWT / Swing gets initialised. Do *NOT* move it to plugin init
-		// location because that is too late...
-		if (OSInfo.isMac()) {
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-		}
-
+		
 		// @author: fdietz
 		//
 		// PROBLEM: Extensions don't run using Java Webstart (JWS)
@@ -80,11 +73,11 @@ public class Main {
 		start(args);
 	}
 
+	
 	public static void restart(String[] args) throws Exception {
 
 		// shutdown Columba
 		ShutdownManager.getInstance().shutdown(0);
-
 		// set global class loader to null
 		mainClassLoader = null;
 

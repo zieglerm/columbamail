@@ -16,6 +16,7 @@
 package org.columba.core.desktop;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -42,7 +43,10 @@ public class MacDesktop implements IDesktop {
 			FileManager.openURL(file.toURL().toString());
 		} catch (MalformedURLException e) {
 			return false;
+		} catch (IOException e) {
+			
 		}
+		
 		return true;
 	}
 
@@ -55,7 +59,11 @@ public class MacDesktop implements IDesktop {
 	}
 
 	public void browse(URL url) {
-		FileManager.openURL(url.toString());
+		try {
+			FileManager.openURL(url.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
