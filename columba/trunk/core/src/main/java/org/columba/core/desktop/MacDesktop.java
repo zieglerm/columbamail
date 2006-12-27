@@ -42,9 +42,11 @@ public class MacDesktop implements IDesktop {
 		try {
 			FileManager.openURL(file.toURL().toString());
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
 			return false;
-		} catch (IOException e) {
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		
 		return true;
@@ -61,7 +63,7 @@ public class MacDesktop implements IDesktop {
 	public void browse(URL url) {
 		try {
 			FileManager.openURL(url.toString());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
