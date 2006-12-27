@@ -234,9 +234,9 @@ public class FilterToolbar extends JPanel implements ActionListener,
 		// create filter criteria based on selected type
 		FilterCriteria c = createFilterCriteria(index);
 
-		if (selectedFolder.getId().equals("106"))
+		if (!selectedFolder.getId().equals("106"))
 			sourceFolder = selectedFolder;
-
+		
 		// set criteria for search folder
 		VirtualFolder searchFolder = prepareSearchFolder(c, sourceFolder);
 
