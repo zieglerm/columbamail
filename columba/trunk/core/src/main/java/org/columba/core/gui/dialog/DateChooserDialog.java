@@ -17,6 +17,7 @@
 package org.columba.core.gui.dialog;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,34 +39,34 @@ import org.columba.core.resourceloader.GlobalResourceLoader;
 
 public class DateChooserDialog extends JDialog implements ActionListener {
     protected DateChooser dateChooser;
-    
+
     protected JButton okButton;
     protected JButton cancelButton;
     protected JPanel panel;
-    
+
     protected boolean success = false;
-    
+
     protected JDialog dialog;
-    
-    public DateChooserDialog() {
-        super();
-        
+
+    public DateChooserDialog(JDialog parent) {
+        super(parent, true);
+
         //TODO (@author fdietz): i18n
         setTitle("Choose Date...");
-        
+
         dateChooser = new DateChooser();
-        
+
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        
+
         getContentPane().add(panel, BorderLayout.CENTER);
-        
+
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+
         panel.add(dateChooser, BorderLayout.CENTER);
-        
+
         JPanel bottomPanel = new JPanel();
-        
+
         /*
          * bottomPanel.setBorder(new WizardTopBorder()); Border border =
          * bottomPanel.getBorder(); Border margin =
@@ -74,45 +75,48 @@ public class DateChooserDialog extends JDialog implements ActionListener {
          */
         bottomPanel.setLayout(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         bottomPanel.add(buttonPanel, BorderLayout.EAST);
-        
+
         cancelButton = new ButtonWithMnemonic(GlobalResourceLoader.getString(
                 "global", "global", "cancel"));
         cancelButton.setActionCommand("CANCEL");
         cancelButton.addActionListener(this);
-        okButton = new JButton(GlobalResourceLoader.getString("global",
+        okButton = new ButtonWithMnemonic(GlobalResourceLoader.getString("global",
                 "global", "ok"));
         okButton.setActionCommand("OK");
         okButton.addActionListener(this);
-        
+
         buttonPanel.add(cancelButton);
         buttonPanel.add(okButton);
-        
+
         panel.add(bottomPanel, BorderLayout.SOUTH);
-        
+
         pack();
+
+
+        setLocationRelativeTo(null);
     }
-    
+
     public Date getDate() {
         return dateChooser.getSelectedDate().getTime();
     }
-    
+
     public void setDate(Date d) {
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         dateChooser.setSelectedDate(c);
     }
-    
+
     public boolean success() {
         return success;
     }
-    
+
     public void actionPerformed(ActionEvent ev) {
         String action = ev.getActionCommand();
-        
+
         if (action.equals("OK")) {
             success = true;
             setVisible(false);
