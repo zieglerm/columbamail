@@ -56,17 +56,17 @@ import org.columba.ristretto.smtp.SMTPException;
 import org.columba.ristretto.smtp.SMTPProtocol;
 
 /**
- * 
+ *
  * SMTPServer makes use of <class>SMTPProtocol </class> to add a higher
  * abstraction layer for sending messages.
- * 
+ *
  * It takes care of authentication all the details.
- * 
+ *
  * To send a message just create a <class>SendableMessage </class> object and
  * use <method>sendMessage </method>.
- * 
+ *
  * @author fdietz, Timo Stich <tstich@users.sourceforge.net>
- *  
+ *
  */
 public class SMTPServer implements Observer  {
 
@@ -75,7 +75,7 @@ public class SMTPServer implements Observer  {
 	protected SMTPProtocol protocol;
 
 	protected OutgoingItem smtpItem;
-	
+
 	protected Identity identity;
 
 	protected String fromAddress;
@@ -96,7 +96,7 @@ public class SMTPServer implements Observer  {
 		// initialise protocol layer
 		smtpItem = accountItem.getSmtpItem();
 
-		smtpItem.getRoot().addObserver(this);		
+		smtpItem.getRoot().addObserver(this);
 		protocol = new SMTPProtocol(smtpItem.get("host"), smtpItem.getInteger("port"));
 	}
 
@@ -106,14 +106,14 @@ public class SMTPServer implements Observer  {
 			protocol.openPort();
 
 			initialize();
-			
+
 			doSSL();
 		}
 	}
 
 	/**
 	 * Open connection to SMTP server and login if needed.
-	 * 
+	 *
 	 * @return true if connection was successful, false otherwise
 	 */
 	private void ensureAuthenticated() throws IOException, SMTPException,
@@ -126,7 +126,7 @@ public class SMTPServer implements Observer  {
 		// user's email address
 		fromAddress = identity.getAddress().getMailAddress();
 
-		
+
 
 		usingSSL = smtpItem.getBoolean("enable_ssl");
 		int authMethod = getLoginMethod();
@@ -195,7 +195,7 @@ public class SMTPServer implements Observer  {
 						// else bogus authentication mechanism
 						if (e.getCause() instanceof SMTPException) {
 							int errorCode = ((SMTPException) e.getCause()).getCode();
-							
+
 							// Authentication is not supported
 							if( errorCode == 504 ) {
 								//TODO: Add dialog to inform user that the smtp server
@@ -214,17 +214,17 @@ public class SMTPServer implements Observer  {
 												"error",
 												"authentication_process_error"),
 										JOptionPane.INFORMATION_MESSAGE);
-								
+
 								//Turn off authentication for the future
 								smtpItem.setString("login_method", Integer
 										.toString(AuthenticationManager.NONE));
-								
+
 								return;
 							}
-							
+
 						} else {
 							throw (SMTPException) e.getCause();
-						} 
+						}
 
 						// Some error in the client/server communication
 						//  --> fall back to default login process
@@ -252,7 +252,7 @@ public class SMTPServer implements Observer  {
 						} else {
 							throw new CommandCancelledException();
 						}
-						
+
 					}
 				} catch (SMTPException e) {
 					passDialog.showDialog(MessageFormat.format(
@@ -300,7 +300,8 @@ public class SMTPServer implements Observer  {
 									.getString("", "global", "cancel")
 									.replaceAll("&", "") };
 
-					int result = JOptionPane.showOptionDialog(null,
+					int result = JOptionPane.showOptionDialog(FrameManager.getInstance()
+							.getActiveFrame(),
 							MailResourceLoader.getString("dialog", "error",
 									"ssl_handshake_error")
 									+ ": "
@@ -364,7 +365,7 @@ public class SMTPServer implements Observer  {
 
 	/**
 	 * @return
-	 * @throws CommandCancelledException 
+	 * @throws CommandCancelledException
 	 */
 	public List checkSupportedAuthenticationMethods() throws IOException,
 			SMTPException, CommandCancelledException {
@@ -390,7 +391,7 @@ public class SMTPServer implements Observer  {
 			// Add a default PLAIN login as fallback
 			supportedMechanisms.add(new Integer(AuthenticationManager.SASL_PLAIN));
 		}
-		
+
 		return supportedMechanisms;
 	}
 
@@ -398,7 +399,7 @@ public class SMTPServer implements Observer  {
 		try {
 			capas = protocol.ehlo(InetAddress.getLocalHost());
 		} catch (SMTPException e1) {
-			// EHLO not supported -> AUTH not supported			
+			// EHLO not supported -> AUTH not supported
 			if( protocol.getState() < SMTPProtocol.PLAIN ) {
 				protocol.openPort();
 			}
@@ -410,7 +411,7 @@ public class SMTPServer implements Observer  {
 	/**
 	 * @param authType
 	 * @return
-	 * @throws CommandCancelledException 
+	 * @throws CommandCancelledException
 	 */
 	private int getLoginMethod() throws IOException, SMTPException, CommandCancelledException {
 		String authType = accountItem.getSmtpItem().get("login_method");
@@ -451,9 +452,9 @@ public class SMTPServer implements Observer  {
 	}
 
 	/**
-	 * 
+	 *
 	 * close the connection to the SMTP server
-	 *  
+	 *
 	 */
 	public void closeConnection() {
 		// Close Port
@@ -465,13 +466,13 @@ public class SMTPServer implements Observer  {
 	}
 
 	/**
-	 * 
+	 *
 	 * POP-before-SMTP authentication makes use of the POP3 authentication
 	 * mechanism, before sending mail.
-	 * 
+	 *
 	 * Basically you authenticate with the POP3 server, which allows you to use
 	 * the SMTP server for sending mail for a specific amount of time.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	protected void pop3Authentification() throws IOException, POP3Exception,
@@ -481,10 +482,10 @@ public class SMTPServer implements Observer  {
 
 	/**
 	 * Send a message
-	 * 
+	 *
 	 * For an complete example of creating a <class>SendableMessage </class>
 	 * object see <class>MessageComposer </class>
-	 * 
+	 *
 	 * @param message
 	 * @param workerStatusController
 	 * @throws Exception
@@ -493,7 +494,7 @@ public class SMTPServer implements Observer  {
 			IWorkerStatusController workerStatusController)
 			throws SMTPException, IOException, CommandCancelledException {
 		ensureAuthenticated();
-		
+
 		// send from address and recipient list to SMTP server
 		// ->all addresses have to be normalized
 		protocol.mail(identity.getAddress());
@@ -519,7 +520,7 @@ public class SMTPServer implements Observer  {
 
 		return host;
 	}
-	
+
 	public void dropConnection() throws IOException {
 		protocol.dropConnection();
 	}

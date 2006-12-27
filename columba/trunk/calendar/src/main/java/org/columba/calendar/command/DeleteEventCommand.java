@@ -24,6 +24,7 @@ import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class DeleteEventCommand extends Command {
 
@@ -41,7 +42,8 @@ public class DeleteEventCommand extends Command {
 		try {
 			store.remove(eventItem.getId());
 		} catch (StoreException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 			e.printStackTrace();
 		}
 	}

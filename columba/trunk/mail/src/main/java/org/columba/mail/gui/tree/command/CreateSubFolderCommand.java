@@ -25,6 +25,7 @@ import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
 import org.columba.core.command.Worker;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.FolderCreationException;
 import org.columba.mail.folder.FolderFactory;
@@ -33,7 +34,7 @@ import org.columba.mail.util.MailResourceLoader;
 
 /**
  * Create subfolder command.
- * 
+ *
  * @author Timo Stich (tstich@users.sourceforge.net)
  * @author fdietz
  */
@@ -43,7 +44,7 @@ public class CreateSubFolderCommand extends Command {
 
 	/**
 	 * Constructor for CreateSubFolderCommand.
-	 * 
+	 *
 	 * @param references
 	 */
 	public CreateSubFolderCommand(ICommandReference reference) {
@@ -72,7 +73,8 @@ public class CreateSubFolderCommand extends Command {
 			}
 		} catch (FolderCreationException ex) {
 			// show error message
-			JOptionPane.showMessageDialog(null, MessageFormat.format(
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), MessageFormat.format(
 					MailResourceLoader.getString("dialog", "folder",
 							"error_no_subfolder_allowed"),
 					new String[] { parentFolder.getName() }),

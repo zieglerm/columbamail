@@ -29,6 +29,7 @@ import org.columba.calendar.parser.CalendarImporter;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class ImportCalendarCommand extends Command {
 
@@ -60,7 +61,8 @@ public class ImportCalendarCommand extends Command {
 				try {
 					store.add(event);
 				} catch (StoreException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
+					JOptionPane.showMessageDialog(FrameManager.getInstance()
+							.getActiveFrame(), e.getMessage());
 					e.printStackTrace();
 				}
 			}

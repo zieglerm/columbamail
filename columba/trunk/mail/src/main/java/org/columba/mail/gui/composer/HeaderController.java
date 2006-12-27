@@ -36,7 +36,7 @@ import org.columba.mail.util.MailResourceLoader;
 
 /**
  * Recipients editor component.
- * 
+ *
  * @author fdietz
  */
 public class HeaderController {
@@ -104,7 +104,7 @@ public class HeaderController {
 				return true;
 		}
 
-		JOptionPane.showMessageDialog(null, MailResourceLoader.getString(
+		JOptionPane.showMessageDialog(controller.getComponent(), MailResourceLoader.getString(
 				"menu", "mainframe", "composer_no_recipients_found"));
 
 		return false;
@@ -114,11 +114,11 @@ public class HeaderController {
 		if (headerItem.isContact()) {
 			/*
 			 * String address = (String) headerItem.get("email;internet");
-			 * 
+			 *
 			 * if (AddressParser.isValid(address)) { return true; }
-			 * 
+			 *
 			 * address = (String) headerItem.get("displayname");
-			 * 
+			 *
 			 * if (AddressParser.isValid(address)) { return true; }
 			 */
 			return true;

@@ -33,12 +33,13 @@ import org.columba.calendar.ui.calendar.api.ICalendarView;
 import org.columba.calendar.ui.dialog.EditEventDialog;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.frame.FrameManager;
 
 /**
  * Edit activity.
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 
 public class EditActivityAction extends AbstractColumbaAction implements
@@ -55,7 +56,7 @@ public class EditActivityAction extends AbstractColumbaAction implements
 		// putValue(AbstractColumbaAction.SMALL_ICON, ResourceLoader
 		// .getImageIcon("new_appointment.png"));
 		setEnabled(false);
-		
+
 		ICalendarMediator m = (ICalendarMediator) getFrameMediator();
 		m.getCalendarView().addSelectionChangedListener(this);
 	}
@@ -86,15 +87,16 @@ public class EditActivityAction extends AbstractColumbaAction implements
 			}
 
 		} catch (StoreException e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e1.getMessage());
 			e1.printStackTrace();
 		}
 
 	}
 
 	public void selectionChanged(ActivitySelectionChangedEvent event) {
-		
-		
+
+
 		if (event.getSelection().length == 0)
 			setEnabled(false);
 		else

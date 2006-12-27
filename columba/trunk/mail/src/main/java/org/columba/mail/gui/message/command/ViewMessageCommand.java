@@ -31,6 +31,7 @@ import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
 import org.columba.core.context.base.api.IStructureValue;
 import org.columba.core.context.semantic.api.ISemanticContext;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.util.NameParser;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.AbstractMessageFolder;
@@ -49,7 +50,7 @@ import org.columba.ristretto.message.Flags;
 
 /**
  * @author Timo Stich (tstich@users.sourceforge.net)
- * 
+ *
  */
 public class ViewMessageCommand extends Command implements ISelectionListener {
 
@@ -77,7 +78,7 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 
 	/**
 	 * Constructor for ViewMessageCommand.
-	 * 
+	 *
 	 * @param references
 	 */
 	public ViewMessageCommand(IFrameMediator mediator,
@@ -114,12 +115,12 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 			fillContext();
 		}
 
-		
+
 	}
 
 	private void fillContext() {
 		if ( value == null) return;
-		
+
 		// create identity value
 		IStructureValue identity = value.addChild(
 				ISemanticContext.CONTEXT_NODE_IDENTITY,
@@ -156,7 +157,7 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 				.getMessageController();
 
 		bodyText = messageController.getText();
-		
+
 		// @TODO: assert(bodyText != null) or if (bodyText != null)
 		message.setString(ISemanticContext.CONTEXT_ATTR_BODY_TEXT,
 				ISemanticContext.CONTEXT_NAMESPACE_CORE, bodyText);
@@ -205,7 +206,8 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		} catch (FolderInconsistentException e) {
 			Object[] options = new String[] { MailResourceLoader.getString("",
 					"global", "ok").replaceAll("&", ""), };
-			int result = JOptionPane.showOptionDialog(null, MailResourceLoader
+			int result = JOptionPane.showOptionDialog(FrameManager.getInstance()
+					.getActiveFrame(), MailResourceLoader
 					.getString("dialog", "error", "message_deleted"), "Error",
 					JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null,
 					null, null);

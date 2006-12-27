@@ -41,6 +41,7 @@ import org.columba.chat.model.api.IBuddyStatus;
 import org.columba.chat.ui.frame.api.IChatFrameMediator;
 import org.columba.chat.ui.roaster.api.IRoasterController;
 import org.columba.core.command.CommandProcessor;
+import org.columba.core.gui.frame.FrameManager;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Packet;
@@ -48,7 +49,7 @@ import org.jivesoftware.smack.packet.Presence;
 
 /**
  * @author fdietz
- * 
+ *
  */
 public class RoasterTree extends JTree implements IRoasterController,
 		IConnectionChangedListener {
@@ -87,7 +88,7 @@ public class RoasterTree extends JTree implements IRoasterController,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.chat.ui.roaster.IRoasterTree#getSelected()
 	 */
 	public IBuddyStatus getSelected() {
@@ -108,7 +109,7 @@ public class RoasterTree extends JTree implements IRoasterController,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.chat.ui.roaster.IRoasterTree#updateBuddyPresence(org.columba.chat.api.IBuddyStatus)
 	 */
 	public void updateBuddyPresence(IBuddyStatus buddy) {
@@ -173,7 +174,8 @@ public class RoasterTree extends JTree implements IRoasterController,
 
 				int option = JOptionPane
 						.showConfirmDialog(
-								null,
+								FrameManager.getInstance()
+								.getActiveFrame(),
 								"The user "
 										+ from
 										+ " requests presence notification.\nDo you wish to allow them to see your "

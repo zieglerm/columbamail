@@ -1,16 +1,16 @@
 //The contents of this file are subject to the Mozilla Public License Version 1.1
-//(the "License"); you may not use this file except in compliance with the 
+//(the "License"); you may not use this file except in compliance with the
 //License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
 //
 //Software distributed under the License is distributed on an "AS IS" basis,
-//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License 
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 //for the specific language governing rights and
 //limitations under the License.
 //
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
 
@@ -32,9 +32,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import org.columba.core.gui.frame.FrameManager;
+
 /**
  * @author fdietz
- * 
+ *
  * This class manages all JavaHelp relevant helpsets, its also encapsulates the
  * broker which is used for context sensitiv help. This class is a singleton.
  */
@@ -67,7 +69,8 @@ public class HelpManager {
 
 			if (url == null) {
 				// could not find it!
-				JOptionPane.showMessageDialog(null, "HelpSet not found",
+				JOptionPane.showMessageDialog(FrameManager.getInstance()
+						.getActiveFrame(), "HelpSet not found",
 						"Error", JOptionPane.ERROR_MESSAGE);
 
 				return;
@@ -77,7 +80,8 @@ public class HelpManager {
 		try {
 			hs = new HelpSet(loader, url);
 		} catch (Exception ee) {
-			JOptionPane.showMessageDialog(null, "HelpSet not found", "Error",
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), "HelpSet not found", "Error",
 					JOptionPane.ERROR_MESSAGE);
 
 			return;
@@ -138,9 +142,9 @@ public class HelpManager {
 
 	/**
 	 * Associate button with topic ID.
-	 * 
+	 *
 	 * Topic ID's are listed in jhelpmap.jhm in package lib/usermanual.jar
-	 * 
+	 *
 	 * @param c
 	 *            component
 	 * @param helpID

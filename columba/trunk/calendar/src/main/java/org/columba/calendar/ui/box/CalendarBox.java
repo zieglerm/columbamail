@@ -50,7 +50,7 @@ public class CalendarBox extends JPanel implements IComponentBox {
 	private CalendarList list;
 
 	private JPopupMenu contextMenu;
-	
+
 	public CalendarBox() {
 
 		setLayout(new BorderLayout());
@@ -90,10 +90,10 @@ public class CalendarBox extends JPanel implements IComponentBox {
 			}
 		});
 
-	
+
 		list.add(getPopupMenu());
 		list.addMouseListener(new MyMouseListener());
-		
+
 		setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
 		JPanel p = new JPanel();
@@ -114,7 +114,7 @@ public class CalendarBox extends JPanel implements IComponentBox {
 
 	private JPopupMenu getPopupMenu() {
 		if ( contextMenu != null) return contextMenu;
-		
+
 		contextMenu = new JPopupMenu();
 
 		JMenuItem item = new JMenuItem("Open..");
@@ -183,11 +183,11 @@ public class CalendarBox extends JPanel implements IComponentBox {
 			}
 
 		} catch (StoreException e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			JOptionPane.showMessageDialog(this, e1.getMessage());
 			e1.printStackTrace();
 		}
 	}
-	
+
 	class MyMouseListener extends MouseAdapter {
 
 		@Override
@@ -219,7 +219,7 @@ public class CalendarBox extends JPanel implements IComponentBox {
 				}
 				// show context menu
 				getPopupMenu().show(e.getComponent(), p.x, p.y);
-			} 
+			}
 		}
 
 		/**

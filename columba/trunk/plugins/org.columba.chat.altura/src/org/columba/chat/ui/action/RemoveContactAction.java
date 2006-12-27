@@ -28,10 +28,11 @@ import org.columba.chat.model.api.IBuddyStatus;
 import org.columba.chat.ui.frame.api.IChatFrameMediator;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.frame.FrameManager;
 
 /**
  * @author fdietz
- * 
+ *
  */
 public class RemoveContactAction extends AbstractConnectionAwareAction {
 
@@ -61,10 +62,12 @@ public class RemoveContactAction extends AbstractConnectionAwareAction {
 			jabberId = buddy.getJabberId();
 		} else {
 			// prompt for jabber id
-			jabberId = JOptionPane.showInputDialog(null, "Enter jabber ID");
+			jabberId = JOptionPane.showInputDialog(FrameManager.getInstance()
+					.getActiveFrame(), "Enter jabber ID");
 		}
 
-		int option = JOptionPane.showConfirmDialog(null,
+		int option = JOptionPane.showConfirmDialog(FrameManager.getInstance()
+				.getActiveFrame(),
 				"Do you really want to remove " + jabberId
 						+ " from your roster?", "Remove Contact",
 				JOptionPane.YES_NO_OPTION);

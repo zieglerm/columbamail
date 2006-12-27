@@ -39,6 +39,7 @@ import org.columba.core.command.ProgressObservedInputStream;
 import org.columba.core.command.Worker;
 import org.columba.core.desktop.ColumbaDesktop;
 import org.columba.core.gui.frame.DefaultContainer;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.io.StreamUtils;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
@@ -73,7 +74,7 @@ public class OpenAttachmentCommand extends SaveAttachmentCommand {
 
 	/**
 	 * Constructor for OpenAttachmentCommand.
-	 * 
+	 *
 	 * @param references
 	 *            command parameters
 	 */
@@ -123,7 +124,7 @@ public class OpenAttachmentCommand extends SaveAttachmentCommand {
 						attachmentHandler.execute(new AttachmentContext(
 								tempFile, header));
 						attachmentHandlerExecuted &= true;
-					} catch (PluginException e1) { 
+					} catch (PluginException e1) {
 						LOG.severe("Error while loading plugin: "
 								+ e1.getMessage());
 						if (Logging.DEBUG)
@@ -247,7 +248,8 @@ public class OpenAttachmentCommand extends SaveAttachmentCommand {
 			lastDir = tempFile.getParentFile();
 
 			if (tempFile.exists()) {
-				if (JOptionPane.showConfirmDialog(null, "Overwrite File?",
+				if (JOptionPane.showConfirmDialog(FrameManager.getInstance()
+						.getActiveFrame(), "Overwrite File?",
 						"Warning", JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 					break;

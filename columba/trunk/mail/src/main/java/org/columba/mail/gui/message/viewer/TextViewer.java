@@ -90,7 +90,7 @@ import org.columba.ristretto.message.MimeTree;
 
 /**
  * Display message body text.
- * 
+ *
  * @author fdietz
  */
 public class TextViewer extends JPanel implements IMimePartViewer, Observer,
@@ -117,7 +117,7 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 
 	/*
 	 * private String body;
-	 * 
+	 *
 	 * private URL url;
 	 */
 
@@ -170,7 +170,7 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 			viewerPlugin = createHTMLViewerPluginInstance(selectedBrowser);
 			// in case of an error -> fall-back to Swing's built-in JTextPane
 			if (viewerPlugin == null || !viewerPlugin.initialized()) {
-				JOptionPane.showMessageDialog(null,
+				JOptionPane.showMessageDialog(this,
 						"Error while trying to load html viewer");
 
 				LOG
@@ -234,7 +234,7 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void initConfiguration() {
 		XmlElement gui = MailConfig.getInstance().get("options").getElement(
@@ -375,10 +375,10 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 	}
 
 	/**
-	 * 
+	 *
 	 * read text-properties from configuration and create a stylesheet for the
 	 * html-document
-	 * 
+	 *
 	 */
 	private void initStyleSheet() {
 		// read configuration from options.xml file
@@ -399,9 +399,9 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.gui.config.general.MailOptionsDialog
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	public void update(Observable arg0, Object arg1) {

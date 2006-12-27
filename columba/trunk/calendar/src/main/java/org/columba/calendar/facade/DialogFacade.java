@@ -9,6 +9,7 @@ import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.calendar.ui.dialog.EditEventDialog;
+import org.columba.core.gui.frame.FrameManager;
 
 public class DialogFacade {
 
@@ -39,7 +40,8 @@ public class DialogFacade {
 			}
 
 		} catch (StoreException e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e1.getMessage());
 			e1.printStackTrace();
 		}
 	}

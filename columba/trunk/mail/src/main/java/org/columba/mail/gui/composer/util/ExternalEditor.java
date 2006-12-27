@@ -26,6 +26,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import org.columba.core.desktop.ColumbaDesktop;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.util.FontProperties;
 import org.columba.core.util.TempFileStore;
 import org.columba.mail.gui.composer.AbstractEditorController;
@@ -42,14 +43,15 @@ public class ExternalEditor {
 	}
 
 	private File writeToFile(final AbstractEditorController editController) {
-		
+
 		File tmpFile = TempFileStore.createTempFileWithSuffix("txt");
 		FileWriter FO;
 
 		try {
 			FO = new FileWriter(tmpFile);
 		} catch (java.io.IOException ex) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
 					"Error: Cannot write to temp file needed "
 							+ "for external editor.");
 			return null;
@@ -63,7 +65,8 @@ public class ExternalEditor {
 
 			FO.close();
 		} catch (java.io.IOException ex) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
 					"Error: Cannot write to temp file needed "
 							+ "for external editor:\n" + ex.getMessage());
 			return null;
@@ -78,7 +81,8 @@ public class ExternalEditor {
 		try {
 			FI = new FileReader(tmpFile);
 		} catch (java.io.FileNotFoundException ex) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
 					"Error: Cannot read from temp file used "
 							+ "by external editor.");
 			return "";

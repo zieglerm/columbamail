@@ -1,16 +1,16 @@
 //The contents of this file are subject to the Mozilla Public License Version 1.1
-//(the "License"); you may not use this file except in compliance with the 
+//(the "License"); you may not use this file except in compliance with the
 //License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
 //
 //Software distributed under the License is distributed on an "AS IS" basis,
-//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License 
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 //for the specific language governing rights and
 //limitations under the License.
 //
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
 package org.columba.core.desktop;
@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.desktop.IDesktop;
 import org.columba.core.base.OSInfo;
 import org.columba.core.base.TextUtil;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.logging.Logging;
 import org.columba.core.resourceloader.GlobalResourceLoader;
 import org.jdesktop.jdic.desktop.Desktop;
@@ -75,7 +76,8 @@ public class JDICDesktop implements IDesktop {
 		try {
 			Desktop.open(file);
 		} catch (DesktopException e) {
-			JOptionPane.showMessageDialog(null, GlobalResourceLoader.getString(
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), GlobalResourceLoader.getString(
 					"org.columba.core.i18n.dialog", "error", "no_viewer"),
 					"Error", JOptionPane.ERROR_MESSAGE);
 
@@ -139,7 +141,8 @@ public class JDICDesktop implements IDesktop {
 		try {
 			Desktop.browse(url);
 		} catch (DesktopException e) {
-			JOptionPane.showMessageDialog(null, GlobalResourceLoader.getString(
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), GlobalResourceLoader.getString(
 					"org.columba.core.i18n.dialog", "error", "no_browser"),
 					"Error", JOptionPane.ERROR_MESSAGE);
 		}

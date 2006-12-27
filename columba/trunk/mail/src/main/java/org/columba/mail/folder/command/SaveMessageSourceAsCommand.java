@@ -32,6 +32,7 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
 import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.util.MailResourceLoader;
@@ -97,7 +98,8 @@ public class SaveMessageSourceAsCommand extends Command {
 
                 if (f.exists()) {
                     // file exists, user needs to confirm overwrite
-                    int confirm = JOptionPane.showConfirmDialog(null,
+                    int confirm = JOptionPane.showConfirmDialog(FrameManager.getInstance()
+        					.getActiveFrame(),
                             MailResourceLoader.getString("dialog", "saveas",
                                 "overwrite_existing_file"),
                             MailResourceLoader.getString("dialog", "saveas",

@@ -26,6 +26,7 @@ import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class MoveEventCommand extends Command {
 
@@ -53,7 +54,8 @@ public class MoveEventCommand extends Command {
 			// persist modified calendar
 			store.modify(eventItem.getId(), event);
 		} catch (StoreException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 			e.printStackTrace();
 		}
 

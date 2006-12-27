@@ -28,6 +28,7 @@ import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.IExtensionHandlerKeys;
 import org.columba.core.base.OSInfo;
 import org.columba.core.config.Config;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.themes.plugin.AbstractThemePlugin;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
@@ -38,11 +39,11 @@ import org.columba.core.xml.XmlElement;
  * <p>
  * L&F and feels are loaded as plugins.
  * <p>
- * 
+ *
  * @see org.columba.core.gui.themes.plugin.AbstractThemePlugin
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 public class ThemeSwitcher {
 
@@ -89,7 +90,8 @@ public class ThemeSwitcher {
 			if (Logging.DEBUG)
 				ex.printStackTrace();
 
-			JOptionPane.showMessageDialog(null, "Error while trying to load "
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), "Error while trying to load "
 					+ pluginName
 					+ " Look and Feel.\nSwitching back to default.");
 
@@ -104,7 +106,7 @@ public class ThemeSwitcher {
 	} /*
 		 * Gets the platform specific default theme. This is in all cases but
 		 * MacOS X the Plastic theme. On MacOs X we use the System L&F.
-		 * 
+		 *
 		 */
 
 	public static String getPlatformDefaultTheme() {

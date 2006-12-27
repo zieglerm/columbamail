@@ -41,7 +41,7 @@ import org.frapuccino.treetable.TreeTable;
 /**
  * This widget is a mix between a JTable and a JTree ( we need the JTree for the
  * Threaded viewing of mailing lists )
- * 
+ *
  * @version 0.9.1
  * @author fdietz
  */
@@ -62,7 +62,7 @@ public class TableView extends TreeTable {
 		this.headerTableModel = headerTableModel;
 
 		defaultRowHeight = getRowHeight();
-		
+
 		setModel(headerTableModel);
 
 		// load plugin handler used for the columns
@@ -75,18 +75,18 @@ public class TableView extends TreeTable {
 		}
 
 		getTree().setCellRenderer(new SubjectTreeRenderer(this));
-		
+
 		getTree().setLargeModel(true);
 	}
 
-	public boolean getScrollableTracksViewportHeight() { 
-        return getPreferredSize().height < getParent().getHeight(); 
-    } 
-	
+	public boolean getScrollableTracksViewportHeight() {
+        return getPreferredSize().height < getParent().getHeight();
+    }
+
 	public void resetRowHeight() {
 		setRowHeight(defaultRowHeight);
 	}
-	
+
 	/**
 	 * Enable/Disable tree renderer for the subject column.
 	 * <p>
@@ -100,7 +100,7 @@ public class TableView extends TreeTable {
 	 * renderer is applied. <br>
 	 * For this reason, we just remove the custom cell renderer for the
 	 * "Subject" column.
-	 * 
+	 *
 	 * @param b
 	 *            if true, enable tree renderer. False, otherwise
 	 */
@@ -129,7 +129,7 @@ public class TableView extends TreeTable {
 	/**
 	 * Create table column using plugin extension point
 	 * <b>org.columba.mail.tablerenderer </b>.
-	 * 
+	 *
 	 * @param name
 	 *            name of plugin ID
 	 * @param size
@@ -155,7 +155,7 @@ public class TableView extends TreeTable {
 					e.printStackTrace();
 				}
 
-				JOptionPane.showMessageDialog(null,
+				JOptionPane.showMessageDialog(this,
 						"Error while loading column: " + name + "\n"
 								+ e.getMessage());
 			}
@@ -170,7 +170,7 @@ public class TableView extends TreeTable {
 					size, false);
 		} else {
 			IExtension extension = handler.getExtension(name);
-			
+
 			String image = extension.getMetadata().getAttribute("icon");
 			String fixed = extension.getMetadata().getAttribute( "size");
 			boolean lockSize = false;
@@ -196,7 +196,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Set properties of this column.
-	 * 
+	 *
 	 * @param tc
 	 *            table column
 	 * @param name
@@ -220,8 +220,8 @@ public class TableView extends TreeTable {
 		// this is a hack for the multiline column
 		if ( name.equals("MultiLine")) {
 			setRowHeight(getRowHeight()*2);
-		} 
-		
+		}
+
 		if (cell != null) {
 			tc.setCellRenderer(cell);
 		}
@@ -241,7 +241,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Get selected message node.
-	 * 
+	 *
 	 * @return selected message node
 	 */
 	public MessageNode getSelectedNode() {
@@ -253,7 +253,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Get array of selected message nodes.
-	 * 
+	 *
 	 * @return arrary of selected message nodes
 	 */
 	public MessageNode[] getSelectedNodes() {
@@ -278,10 +278,10 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Get message node with UID
-	 * 
+	 *
 	 * @param uid
 	 *            UID of message node
-	 * 
+	 *
 	 * @return message node
 	 */
 	public MessageNode getMessagNode(Object uid) {
@@ -290,7 +290,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Select first row and make it visible.
-	 * 
+	 *
 	 * @return uid of selected row
 	 */
 	public Object selectFirstRow() {
@@ -320,7 +320,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Select last row and make it visible
-	 * 
+	 *
 	 * @return uid of selected row
 	 */
 	public Object selectLastRow() {
@@ -355,7 +355,7 @@ public class TableView extends TreeTable {
 	 * <p>
 	 * Go through all nodes and expand them. Afterwards select all rows in the
 	 * JTable.
-	 * 
+	 *
 	 * @see javax.swing.JTable#selectAll()
 	 */
 	public void selectAll() {
@@ -370,7 +370,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Scroll table to row and request focus.
-	 * 
+	 *
 	 * @param row
 	 *            selected row
 	 */
@@ -381,7 +381,7 @@ public class TableView extends TreeTable {
 
 	/**
 	 * Change the selection to the specified row
-	 * 
+	 *
 	 * @param row
 	 *            row to selected
 	 */
@@ -412,7 +412,7 @@ public class TableView extends TreeTable {
 	 * Yes, this was overwritten on purpose. Updating the table-model (swing's
 	 * internals - not Columba related ) always triggers an additional call to
 	 * clearSelection. This was the easiest place to circumvent this behaviour.
-	 * 
+	 *
 	 * @see javax.swing.JTable#clearSelection()
 	 */
 	public void clearSelection() {

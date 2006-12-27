@@ -339,7 +339,7 @@ public class IncomingServerPanel extends DefaultPanel implements ActionListener 
 
 		/*
 		 * builder.append(sslLabel, 3); builder.nextLine();
-		 * 
+		 *
 		 * builder.append(disableSSLConnectionRadioButton, 2);
 		 * builder.nextLine(); builder.append(enableSSLConnectionRadioButton,
 		 * 2); builder.nextLine();
@@ -561,7 +561,7 @@ public class IncomingServerPanel extends DefaultPanel implements ActionListener 
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void showPortChangeMessageBox() {
 		Runnable doHelloWorld = new Runnable() {
@@ -655,13 +655,13 @@ public class IncomingServerPanel extends DefaultPanel implements ActionListener 
 		String login = getLogin();
 
 		if (host.length() == 0) {
-			JOptionPane.showMessageDialog(null, MailResourceLoader.getString(
+			JOptionPane.showMessageDialog(this, MailResourceLoader.getString(
 					"dialog", "account", "You_have_to_enter_a_host_name"));
 
 			//$NON-NLS-1$
 			return false;
 		} else if (login.length() == 0) {
-			JOptionPane.showMessageDialog(null, MailResourceLoader.getString(
+			JOptionPane.showMessageDialog(this, MailResourceLoader.getString(
 					"dialog", "account", "You_have_to_enter_a_login_name"));
 
 			//$NON-NLS-1$

@@ -28,15 +28,16 @@ import javax.swing.JOptionPane;
 import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.util.MailResourceLoader;
 
 /**
  * Export all selected folders to a single MBOX mailbox file.
- * 
+ *
  * MBOX mailbox format: http://www.qmail.org/qmail-manual-html/man5/mbox.html
- * 
+ *
  * @author fdietz
  */
 public class ExportFolderCommand extends Command {
@@ -52,7 +53,7 @@ public class ExportFolderCommand extends Command {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.api.command.Command#execute(org.columba.api.command.Worker)
 	 */
 	public void execute(IWorkerStatusController worker) throws Exception {
@@ -121,7 +122,8 @@ public class ExportFolderCommand extends Command {
 						new Object[] { Integer.toString(counter) }));
 			}
 		} catch (IOException ioe) {
-			JOptionPane.showMessageDialog(null, MailResourceLoader.getString(
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), MailResourceLoader.getString(
 					"statusbar", "message", "err_export_messages_msg"),
 					MailResourceLoader.getString("statusbar", "messages",
 							"err_export_messages_title"),

@@ -26,6 +26,7 @@ import org.columba.chat.config.api.IAccount;
 import org.columba.chat.conn.api.IConnection.STATUS;
 import org.columba.chat.ui.frame.api.IChatFrameMediator;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.gui.util.PasswordDialog;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.SSLXMPPConnection;
@@ -65,7 +66,8 @@ public class ConnectCommand extends Command {
 
 		} catch (XMPPException e) {
 
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 
 			e.printStackTrace();
 
@@ -108,14 +110,14 @@ public class ConnectCommand extends Command {
 		if (!success)
 			return;
 
-		
-		
+
+
 		populateCommand.execute(worker);
 
 		Connection.XMPPConnection.getRoster().setSubscriptionMode(
 				Roster.SUBSCRIPTION_MANUAL);
 
-		
+
 
 	}
 
@@ -128,7 +130,7 @@ public class ConnectCommand extends Command {
 			return;
 
 		MainInterface.connection.setStatus(STATUS.ONLINE);
-		
+
 		populateCommand.updateGUI();
 
 		mediator.getRoasterTree().setEnabled(true);

@@ -26,6 +26,7 @@ import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class CopyEventCommand extends Command {
 
@@ -58,7 +59,8 @@ public class CopyEventCommand extends Command {
 			store.add(copy);
 
 		} catch (StoreException e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e1.getMessage());
 			e1.printStackTrace();
 		}
 	}

@@ -254,7 +254,7 @@ public class CreateFolderDialog extends JDialog implements ActionListener {
 
 	public IMailFolder getSelected() {
 		if ( tree.getSelectionPath() == null ) return null;
-		
+
 		return (IMailFolder) tree.getSelectionPath().getLastPathComponent();
 	}
 
@@ -271,7 +271,7 @@ public class CreateFolderDialog extends JDialog implements ActionListener {
 			// fixing bug with id 553176
 			if (name.indexOf('/') != -1) {
 				// if the character / is found shows the user a error message
-				JOptionPane.showMessageDialog(null, MailResourceLoader
+				JOptionPane.showMessageDialog(this, MailResourceLoader
 						.getString("dialog", "folder", "error_char_text"),
 						MailResourceLoader.getString("dialog", "folder",
 								"error_title"), JOptionPane.ERROR_MESSAGE);

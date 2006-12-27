@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.command.ICommandReference;
 import org.columba.core.base.cFileChooser;
 import org.columba.core.base.cFileFilter;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.ristretto.message.MimeHeader;
 
 
@@ -73,7 +74,8 @@ public class SaveAttachmentAsCommand extends SaveAttachmentCommand {
             lastDir = tempFile.getParentFile();
 
             if (tempFile.exists()) {
-                if (JOptionPane.showConfirmDialog(null, "Overwrite File?",
+                if (JOptionPane.showConfirmDialog(FrameManager.getInstance()
+    					.getActiveFrame(), "Overwrite File?",
                             "Warning", JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
                     break;

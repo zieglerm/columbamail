@@ -38,21 +38,21 @@ public class EditTagAction extends AbstractColumbaAction {
 			String name = editTagDialog.getName();
 			Color color = editTagDialog.getColor();
 			String descr = editTagDialog.getDescription();
-			
+
 			if (name != null && name.length() > 0)
 				tag.setName(name);
 			if (color != null)
 				tag.setColor(color);
 			if ( descr != null)
 				tag.setDescription(descr);
-			
+
 			try {
 				TagManager.getInstance().replaceTag(tag);
 			} catch (StoreException e) {
 				if (Logging.DEBUG)
 					e.printStackTrace();
-				JOptionPane.showMessageDialog(null, GlobalResourceLoader.getString(
-								"org.columba.core.i18n.dialog", "tagging", "EditTagAction.error_edit"));		
+				JOptionPane.showMessageDialog(frame, GlobalResourceLoader.getString(
+								"org.columba.core.i18n.dialog", "tagging", "EditTagAction.error_edit"));
 			}
 
 		}

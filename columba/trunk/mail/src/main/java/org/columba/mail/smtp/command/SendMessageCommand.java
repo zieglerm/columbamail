@@ -28,6 +28,7 @@ import org.columba.api.command.WorkerStatusChangedEvent;
 import org.columba.core.command.Command;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.command.Worker;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.ComposerCommandReference;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.composer.MessageComposer;
@@ -47,7 +48,7 @@ import org.columba.ristretto.message.Flags;
 import org.waffel.jscf.JSCFException;
 
 /**
- * 
+ *
  * This command is started when the user sends the message after creating it in
  * the composer window.
  * <p>
@@ -55,7 +56,7 @@ import org.waffel.jscf.JSCFException;
  * progress of sending the message.
  * <p>
  * If the user cancelles sending, the composer window will be opened again.
- * 
+ *
  * @author fdietz
  */
 public class SendMessageCommand extends Command {
@@ -67,7 +68,7 @@ public class SendMessageCommand extends Command {
 
 	/**
 	 * Constructor for SendMessageCommand.
-	 * 
+	 *
 	 * @param frameMediator
 	 * @param references
 	 */
@@ -75,12 +76,12 @@ public class SendMessageCommand extends Command {
 		super(reference);
 	}
 
-	
+
 
 	/*
 	 * validate command parameters. At the moment only checks if there are any
 	 * invalid email addresses
-	 * 
+	 *
 	 */
 	private boolean validArguments(ComposerCommandReference reference) {
 
@@ -95,10 +96,10 @@ public class SendMessageCommand extends Command {
 
 		// for(int i=0;i<references.length;i++)
 		// {
-		//		  
+		//
 		// invalidRecipient = references[i].getComposerController().getModel()
 		// .getInvalidRecipients();
-		//			
+		//
 		// if (invalidRecipient != null)
 		// {
 		//
@@ -108,13 +109,13 @@ public class SendMessageCommand extends Command {
 		// //composer window is already displayed
 		// // open composer view
 		// //showComposer = true;
-		//				
+		//
 		// return false;
 		//
 		// }
-		//			
+		//
 		// }
-		//		
+		//
 		return true;
 
 	}
@@ -168,7 +169,8 @@ public class SendMessageCommand extends Command {
 
 				return;
 			} else {
-				JOptionPane.showMessageDialog(null, e1.getMessage());
+				JOptionPane.showMessageDialog(FrameManager.getInstance()
+						.getActiveFrame(), e1.getMessage());
 
 				// open composer view
 				showComposer = true;

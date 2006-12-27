@@ -24,25 +24,27 @@ import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class AddEventCommand extends Command {
 
 	private IEvent event;
-	
+
 	public AddEventCommand(CalendarCommandReference ref, IEvent event) {
 		super(ref);
-		
+
 		this.event = event;
 	}
-	
+
 	@Override
 	public void execute(IWorkerStatusController worker) throws Exception {
 		ICalendarStore store = ((CalendarCommandReference)getReference()).getStore();
-		
+
 		try {
 			store.add(event);
 		} catch (StoreException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 			e.printStackTrace();
 		}
 	}

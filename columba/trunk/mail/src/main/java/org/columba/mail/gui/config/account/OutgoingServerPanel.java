@@ -376,7 +376,7 @@ public class OutgoingServerPanel extends DefaultPanel implements ActionListener 
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void updateAuthenticationComboBox() {
 		authenticationComboBox.removeAllItems();
@@ -500,7 +500,7 @@ public class OutgoingServerPanel extends DefaultPanel implements ActionListener 
 		boolean esmtp = isESmtp();
 
 		if (host.length() == 0) {
-			JOptionPane.showMessageDialog(null, MailResourceLoader.getString(
+			JOptionPane.showMessageDialog(this, MailResourceLoader.getString(
 					"dialog", "account", "You_have_to_enter_a_host_name"));
 
 			return false;
@@ -508,7 +508,7 @@ public class OutgoingServerPanel extends DefaultPanel implements ActionListener 
 			String login = getLogin();
 
 			if (login.length() == 0) {
-				JOptionPane.showMessageDialog(null, MailResourceLoader
+				JOptionPane.showMessageDialog(this, MailResourceLoader
 						.getString("dialog", "account",
 								"You_have_to_enter_a_login_name"));
 

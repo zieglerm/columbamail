@@ -24,6 +24,7 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.chat.Connection;
 import org.columba.chat.ui.frame.api.IChatFrameMediator;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 import org.jivesoftware.smack.XMPPException;
 
 public class AddContactCommand extends Command {
@@ -61,7 +62,8 @@ public class AddContactCommand extends Command {
 			populateCommand.execute(worker);
 
 		} catch (XMPPException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 			e.printStackTrace();
 		}
 	}

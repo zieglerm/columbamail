@@ -106,7 +106,8 @@ public abstract class AbstractMailboxImporter implements IExtensionInterface{
 
         if (getCount() == 0) {
             //TODO (@author fdietz): i18n
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
                 "Message import failed! No messages were added to the folder.\n" +
                 "This means that the parser didn't throw any exception even if " +
                 "it didn't recognize the mailbox format or the messagebox simply " +
@@ -145,7 +146,7 @@ public abstract class AbstractMailboxImporter implements IExtensionInterface{
                 int result = JOptionPane.showConfirmDialog(
                 		FrameManager.getInstance().getActiveFrame(),
                     "An error occured while importing a message. Try again?",
-                    "Retry message import?", 
+                    "Retry message import?",
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     i--;

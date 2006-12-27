@@ -28,7 +28,7 @@ public class AddTagAction extends AbstractColumbaAction {
 		if (dialog.getSuccess()) {
 			String tagName = dialog.getName();
 			Color color = dialog.getColor();
-			
+
 			if (tagName != null && tagName.length() > 0) {
 				Color c = dialog.getColor();
 				String descr = dialog.getDescription();
@@ -36,17 +36,17 @@ public class AddTagAction extends AbstractColumbaAction {
 					ITag tag = TagManager.getInstance().addTag(tagName);
 					if ( color != null) tag.setColor(color);
 					if ( descr != null ) tag.setDescription(descr);
-					
+
 					if (tag == null)
-						JOptionPane.showMessageDialog(null, "Error adding Tag");
+						JOptionPane.showMessageDialog(frame, "Error adding Tag");
 
 				} catch (StoreException e) {
 					if (Logging.DEBUG)
 						e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Error adding Tag");
+					JOptionPane.showMessageDialog(frame, "Error adding Tag");
 				}
 			}
-			
+
 		}
 
 	}

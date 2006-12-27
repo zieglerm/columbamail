@@ -36,15 +36,16 @@ import org.columba.calendar.ui.list.api.ICalendarSelectionChangedListener;
 import org.columba.core.command.Command;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.frame.FrameManager;
 
 /**
  * Import all calendar events into selected calendar.
  * <p>
  * User is prompted with an open file dialog to select one or multiple iCal
  * file.
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 public class ImportCalendarAction extends AbstractColumbaAction implements
 		ICalendarSelectionChangedListener {
@@ -69,7 +70,8 @@ public class ImportCalendarAction extends AbstractColumbaAction implements
 		ICalendarItem calendar = list.getSelected();
 
 		if (calendar == null) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
 					"No calendar for import selected.");
 			return;
 		}

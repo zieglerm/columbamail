@@ -100,7 +100,7 @@ import org.columba.ristretto.message.MimeTree;
  * <p>
  * IMAPFolder shouldn't use IMAPProtocol directly, instead it should use
  * IMAPStore.
- * 
+ *
  * @author fdietz
  */
 public class IMAPServer implements IMAPListener, Observer, IImapServer {
@@ -158,7 +158,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	private long lastCommunication;
 
 	private IStatusObservable observable;
-	
+
 	// minimal unchecked time is 30 Seconds
 	private int MIN_IDLE = 30 * 1000; // in ms
 
@@ -178,7 +178,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		this.item = item;
 
 		item.getRoot().addObserver(this);
-		
+
 		// create IMAP protocol
 		protocol = new IMAPProtocol(item.get("host"), item.getInteger("port"));
 		// register interest on status updates
@@ -423,7 +423,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 	/**
 	 * Gets the selected Authentication method or else the most secure.
-	 * 
+	 *
 	 * @return the authentication method
 	 */
 	private int getLoginMethod() throws CommandCancelledException, IOException {
@@ -459,9 +459,9 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 * Login to IMAP server.
 	 * <p>
 	 * Ask user for password.
-	 * 
+	 *
 	 * TODO (@author tstich): cleanup if all these ugly if, else cases
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	private void login() throws IOException, IMAPException,
@@ -594,9 +594,9 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 * @see org.columba.mail.imap.IImapServer#setFirstLoginAction(org.columba.mail.imap.IFirstLoginAction)
 	 */
 	public void setFirstLoginAction( IFirstLoginAction action) {
-		this.firstLoginAction = action;		
+		this.firstLoginAction = action;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#ensureSelectedState(org.columba.mail.folder.imap.IMAPFolder)
 	 */
@@ -623,7 +623,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 			// Convert to a MailboxStatus
 			selectedStatus = new MailboxStatus(messageFolderInfo);
 			statusDirty = false;
-			
+
 			selectedFolder = folder;
 
 			// delete any cached information
@@ -639,9 +639,9 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		} else {
 			return (int)(status.getUidNext() -1);
 		}
-		
+
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#getStatus(org.columba.mail.folder.imap.IMAPFolder)
 	 */
@@ -652,36 +652,36 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		if (selectedFolder != null && selectedFolder.equals(folder) && !statusDirty) {
 			// We don't need to issue a additional NOOP
 			// here since the ensureLogin() call above
-			// ensures also the correct Status in a 
+			// ensures also the correct Status in a
 			// MIN_IDLE interval timeframe.
-			
+
 			return selectedStatus;
 		}
-		
+
 		if( selectedFolder == null || protocol.getState() < IMAPProtocol.SELECTED) {
 			// if none selected select this folder instead of getting the status
 			ensureSelectedState(folder);
 			return selectedStatus;
 		}
-		
+
 		printStatusMessage(MessageFormat.format(MailResourceLoader.getString(
 				"statusbar", "message", "status"), new Object[] { folder
 				.getName() }));
 
 		MailboxStatus result = protocol.status(folder.getImapPath(), new String[] { "MESSAGES",
 				"UIDNEXT", "RECENT", "UNSEEN", "UIDVALIDITY" });
-		
+
 		// No response means zero!
 		if( result.getUnseen() == -1) result.setUnseen(0);
 		if( result.getRecent() == -1) result.setRecent(0);
 		statusDirty = false;
-		
+
 		return result;
 	}
 
 	/**
 	 * Fetch delimiter.
-	 * 
+	 *
 	 */
 	protected String fetchDelimiter() throws IOException, IMAPException,
 			CommandCancelledException {
@@ -876,14 +876,14 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 */
 	public int fetchUid( SequenceSet set, IMAPFolder folder ) throws IOException, IMAPException, CommandCancelledException {
 		ensureSelectedState(folder);
-		Integer[] result = protocol.fetchUid(set); 
+		Integer[] result = protocol.fetchUid(set);
 		if( result.length == 1)
 			return result[0].intValue();
 		else
 			return -1;
-				
+
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#fetchUids(org.columba.ristretto.imap.SequenceSet, org.columba.mail.folder.imap.IMAPFolder)
 	 */
@@ -1012,7 +1012,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		}
 	}
 
-	
+
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#fetchFlagsListStartFrom2(int, org.columba.mail.folder.imap.IMAPFolder)
 	 */
@@ -1030,7 +1030,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 			return new IMAPFlags[0];
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.columba.mail.imap.IImapServer#fetchNamespaces()
 	 */
@@ -1137,7 +1137,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 	/**
 	 * Ensure that we are in login state.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	protected void ensureLoginState() throws IOException, IMAPException,
@@ -1266,7 +1266,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 			SequenceSet uidSet = new SequenceSet(Arrays.asList(uids));
 
 			protocol.uidStore(uidSet, variant > 0, convertToFlags(variant));
-			
+
 			statusDirty = true;
 		} catch (IMAPDisconnectedException e) {
 			markMessage(uids, variant, folder);
@@ -1545,7 +1545,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 	/**
 	 * Check if string contains US-ASCII characters.
-	 * 
+	 *
 	 * @param s
 	 * @return true, if string contains US-ASCII characters
 	 */
@@ -1564,7 +1564,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 	/**
 	 * Create string representation of {@ link MarkMessageCommand}constants.
-	 * 
+	 *
 	 * @param variant
 	 * @return
 	 */
@@ -1667,7 +1667,8 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 				MailResourceLoader.getString("", "global", "cancel")
 						.replaceAll("&", "") };
 
-		int result = JOptionPane.showOptionDialog(null, message, "Warning",
+		int result = JOptionPane.showOptionDialog(FrameManager.getInstance()
+				.getActiveFrame(), message, "Warning",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 				options, options[0]);
 		return result;
@@ -1694,15 +1695,15 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 */
 	public void existsChanged(String arg0, int arg1) {
 		if( selectedStatus == null) return;
-		
+
 		selectedStatus.setMessages(arg1);
 		statusDirty = true;
-		
+
 		if (updatesEnabled) {
 			if( existsChangedAction != null) {
 				existsChangedAction.actionPerformed(selectedFolder);
 			}
-			
+
 			LOG.fine("Exists changed -> triggering update");
 
 		}
@@ -1717,7 +1718,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 		if( updateFlagAction != null) {
 			updateFlagAction.actionPerformed(selectedFolder, arg1);
 		}
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -1732,10 +1733,10 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 */
 	public void recentChanged(String arg0, int arg1) {
 		if( selectedStatus == null) return;
-		
+
 		selectedStatus.setRecent(arg1);
 		statusDirty = true;
-		
+
 		// We trigger an update only when the exists changed
 		// which should be equal with a Recent change.
 	}
@@ -1762,7 +1763,7 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 * @see org.columba.mail.imap.IImapServer#update(java.util.Observable, java.lang.Object)
 	 */
 	public void update(Observable o, Object arg) {
-		protocol = new IMAPProtocol(item.get("host"), item.getInteger("port"));		
+		protocol = new IMAPProtocol(item.get("host"), item.getInteger("port"));
 	}
 
 	/* (non-Javadoc)

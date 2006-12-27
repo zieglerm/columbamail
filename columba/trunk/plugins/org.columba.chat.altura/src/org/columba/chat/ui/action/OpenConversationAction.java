@@ -29,10 +29,11 @@ import org.columba.chat.resourceloader.ResourceLoader;
 import org.columba.chat.ui.frame.api.IChatFrameMediator;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.frame.FrameManager;
 
 /**
  * @author fdietz
- * 
+ *
  */
 public class OpenConversationAction extends AbstractConnectionAwareAction {
 
@@ -68,7 +69,8 @@ public class OpenConversationAction extends AbstractConnectionAwareAction {
 			jabberId = buddy.getJabberId();
 		} else {
 			// prompt for jabber id
-			jabberId = JOptionPane.showInputDialog(null, "Enter Jabber ID");
+			jabberId = JOptionPane.showInputDialog(FrameManager.getInstance()
+					.getActiveFrame(), "Enter Jabber ID");
 		}
 		CommandProcessor.getInstance()
 		.addOp(

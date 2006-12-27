@@ -28,6 +28,7 @@ import javax.swing.KeyStroke;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.gui.action.AbstractColumbaAction;
 import org.columba.core.gui.frame.DefaultContainer;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.resourceloader.GlobalResourceLoader;
 import org.columba.mail.config.MailConfig;
 import org.columba.mail.gui.composer.ComposerController;
@@ -63,13 +64,14 @@ public class NewMessageAction extends AbstractColumbaAction {
 
 		// if no account exists, return
 		if ( MailConfig.getInstance().getAccountList().count() == 0 ) {
-			JOptionPane.showMessageDialog(null, GlobalResourceLoader.getString(RESOURCE_PATH, "error",
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), GlobalResourceLoader.getString(RESOURCE_PATH, "error",
 			"no_account_defined"),"",JOptionPane.INFORMATION_MESSAGE);
-			
+
 			new AccountWizardLauncher().launchWizard(true);
 			return;
 		}
-		
+
 		ComposerController controller = new ComposerController();
 		new DefaultContainer(controller);
 

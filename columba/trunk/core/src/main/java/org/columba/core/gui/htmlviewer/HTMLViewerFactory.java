@@ -9,6 +9,7 @@ import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.IExtensionHandlerKeys;
 import org.columba.api.plugin.PluginException;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.gui.htmlviewer.api.IHTMLViewerPlugin;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
@@ -31,7 +32,8 @@ public class HTMLViewerFactory {
 			viewerPlugin = createHTMLViewerPluginInstance(selectedBrowser);
 			// in case of an error -> fall-back to Swing's built-in JTextPane
 			if (viewerPlugin == null || !viewerPlugin.initialized()) {
-				JOptionPane.showMessageDialog(null,
+				JOptionPane.showMessageDialog(FrameManager.getInstance()
+						.getActiveFrame(),
 						"Error while trying to load html viewer");
 
 				LOG

@@ -27,6 +27,7 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.command.Command;
 import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.util.MailResourceLoader;
@@ -37,9 +38,9 @@ import org.columba.ristretto.message.Flags;
  * Copy a set of messages from a source to a destination folder.
  * <p>
  * A dialog asks the user the destination folder.
- * 
+ *
  * @author fdietz
- *  
+ *
  */
 public class CopyMessageCommand extends Command {
 
@@ -50,10 +51,10 @@ public class CopyMessageCommand extends Command {
 	protected IMailbox destFolder;
 
 	protected IMailFolderCommandReference r;
-	
+
 	/**
 	 * Constructor for CopyMessageCommand.
-	 * 
+	 *
 	 * @param frameMediator
 	 * @param references
 	 */
@@ -129,7 +130,8 @@ public class CopyMessageCommand extends Command {
 							MailResourceLoader
 									.getString("", "global", "cancel") };
 
-					int result = JOptionPane.showOptionDialog(null,
+					int result = JOptionPane.showOptionDialog(FrameManager.getInstance()
+							.getActiveFrame(),
 							MailResourceLoader.getString("statusbar",
 									"message", errorCopyMessage),
 							MailResourceLoader.getString("statusbar",

@@ -28,6 +28,7 @@ import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
+import org.columba.core.gui.frame.FrameManager;
 
 public class ActivityMovedCommand extends Command {
 
@@ -56,7 +57,8 @@ public class ActivityMovedCommand extends Command {
 			// update store
 			store.modify(eventItem.getId(), model);
 		} catch (StoreException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(), e.getMessage());
 			e.printStackTrace();
 		}
 

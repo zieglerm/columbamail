@@ -37,6 +37,7 @@ import org.columba.core.command.Command;
 import org.columba.core.command.StatusObservableImpl;
 import org.columba.core.command.Worker;
 import org.columba.core.config.Config;
+import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.io.DiskIO;
 import org.columba.core.io.StreamUtils;
 import org.columba.core.xml.XmlElement;
@@ -83,7 +84,7 @@ public class SaveMessageBodyAsCommand extends Command {
 	private InputStream bodyStream;
 
 	private List attachments;
-	
+
     /**
      * Constructor for SaveMessageBodyAsCommand. Calls super constructor and
      * saves charset for later use
@@ -125,12 +126,12 @@ public class SaveMessageBodyAsCommand extends Command {
 
             header = srcFolder.getAllHeaderFields(uid);
             setupMessageBodyPart(uid, srcFolder,worker);
-            
+
             AttachmentModel attMod = new AttachmentModel();
             attMod.setCollection(srcFolder.getMimePartTree(uid));
 
             attachments = attMod.getDisplayedMimeParts();
-            
+
 			// determine type of body part
             boolean ishtml = false;
 
@@ -195,7 +196,8 @@ public class SaveMessageBodyAsCommand extends Command {
 
                 if (f.exists()) {
                     // file exists, user needs to confirm overwrite
-                    confirm = JOptionPane.showConfirmDialog(null,
+                    confirm = JOptionPane.showConfirmDialog(FrameManager.getInstance()
+        					.getActiveFrame(),
                             MailResourceLoader.getString("dialog", "saveas",
                                 "overwrite_existing_file"),
                             MailResourceLoader.getString("dialog", "saveas",
@@ -339,7 +341,7 @@ public class SaveMessageBodyAsCommand extends Command {
         } else {
             bodyPart = mimePartTree.getFirstTextPart("plain");
         }
-        
+
         if (bodyPart == null) {
         	bodyHeader = new MimeHeader();
         	bodyStream = new ByteArrayInputStream(new byte[0]);

@@ -58,9 +58,9 @@ import org.columba.ristretto.pop3.UidListEntry;
  * connection using SSL or not, login via the most secure or selected
  * authentication method. It also provides the capabilites to convert an POP3
  * uid to the index.
- * 
+ *
  * @see POP3Server
- * 
+ *
  * @author freddy, tstich
  */
 public class POP3Store implements Observer {
@@ -240,11 +240,11 @@ public class POP3Store implements Observer {
 	 * answer is false, we try to logout from the server and closing the
 	 * connection. The we begin again with open connection, showing dialog and
 	 * so on.
-	 * 
+	 *
 	 * @param worker
 	 *            used for cancel button
 	 * @throws Exception
-	 * 
+	 *
 	 * Bug number 619290 fixed.
 	 */
 	protected void login() throws IOException, POP3Exception,
@@ -253,7 +253,7 @@ public class POP3Store implements Observer {
 		boolean login = false;
 
 		char[] password = new char[0];
-		
+
 		boolean save = false;
 
 		int loginMethod = getLoginMethod();
@@ -400,7 +400,7 @@ public class POP3Store implements Observer {
 
 	/**
 	 * Gets the selected Authentication method or else the most secure.
-	 * 
+	 *
 	 * @return the authentication method
 	 */
 	private int getLoginMethod() throws CommandCancelledException, IOException {
@@ -455,7 +455,7 @@ public class POP3Store implements Observer {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void openConnection() throws IOException, POP3Exception,
 			CommandCancelledException {
@@ -552,7 +552,8 @@ public class POP3Store implements Observer {
 	}
 
 	private int showErrorDialog(String message) {
-		int result = JOptionPane.showConfirmDialog(null, message, "Warning",
+		int result = JOptionPane.showConfirmDialog(FrameManager.getInstance()
+				.getActiveFrame(), message, "Warning",
 				JOptionPane.WARNING_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
 		return result;
 	}
@@ -586,7 +587,7 @@ public class POP3Store implements Observer {
 
 	/**
 	 * @throws IOException
-	 * 
+	 *
 	 */
 	public void dropConnection() throws IOException {
 		protocol.dropConnection();

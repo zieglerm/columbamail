@@ -36,6 +36,7 @@ import org.columba.calendar.ui.list.api.ICalendarSelectionChangedListener;
 import org.columba.core.command.Command;
 import org.columba.core.command.CommandProcessor;
 import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.core.gui.frame.FrameManager;
 
 
 public class ExportCalendarAction extends AbstractColumbaAction implements
@@ -43,12 +44,12 @@ public class ExportCalendarAction extends AbstractColumbaAction implements
 
 	public ExportCalendarAction(IFrameMediator frameMediator) {
 		super(frameMediator, "Export Calendar");
-		
+
 		setEnabled(false);
-		
+
 		ICalendarMediator m = (ICalendarMediator) getFrameMediator();
 		ICalendarListView list = m.getListView();
-		
+
 		list.addSelectionChangedListener(this);
 	}
 
@@ -56,11 +57,12 @@ public class ExportCalendarAction extends AbstractColumbaAction implements
 		ICalendarMediator m = (ICalendarMediator) getFrameMediator();
 		ICalendarListView list = m.getListView();
 
-		// get selected calendar 
+		// get selected calendar
 		ICalendarItem calendar = list.getSelected();
 
 		if (calendar == null) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(FrameManager.getInstance()
+					.getActiveFrame(),
 					"No calendar for export selected.");
 			return;
 		}
@@ -75,13 +77,13 @@ public class ExportCalendarAction extends AbstractColumbaAction implements
 
 			ICalendarStore store = CalendarStoreFactory.getInstance()
 			.getLocaleStore();
-			
+
 			Command command = new ExportCalendarCommand(
 					new CalendarCommandReference(store, calendar), destFile);
 
 			CommandProcessor.getInstance().addOp(command);
-			
-			
+
+
 		}
 
 	}

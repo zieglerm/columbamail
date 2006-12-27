@@ -89,7 +89,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param frame
 	 *            parent frame
 	 * @param groupNode
@@ -282,7 +282,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 
 	/**
 	 * Add headeritem from ComboBox to List
-	 * 
+	 *
 	 */
 	private void addHeaderItem() {
 		String s = addComboBox.getText();
@@ -294,7 +294,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 			addComboBox.setText(""); //$NON-NLS-1$
 		} else {
 			JOptionPane
-					.showMessageDialog(null, AddressbookResourceLoader
+					.showMessageDialog(this, AddressbookResourceLoader
 							.getString("dialog",
 									"editgroupdialog", "You_can_only_add")); //$NON-NLS-1$
 		}
@@ -307,7 +307,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 		 * HeaderItem(HeaderItem.CONTACT); item.add("displayname",
 		 * AddressParser.getDisplayname(s)); item.add("email;internet",
 		 * AddressParser.getAddress(s));
-		 * 
+		 *
 		 * members.addElement(item); addComboBox.setText(""); } else {
 		 * JOptionPane.showMessageDialog( null, s + " is no valid email
 		 * address!"); } }
