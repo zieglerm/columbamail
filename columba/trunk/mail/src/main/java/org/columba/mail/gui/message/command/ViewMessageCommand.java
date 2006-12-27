@@ -228,9 +228,11 @@ public class ViewMessageCommand extends Command implements ISelectionListener {
 		value = mediator.getSemanticContext().createValue();
 
 		// from email address
-		if (srcFolder.getAttribute(uid, "columba.from") instanceof Address) {
-			from = (Address) srcFolder.getAttribute(uid, "columba.from");
-			name = NameParser.getInstance().parseDisplayName(from.getDisplayName());
+		Object from = srcFolder.getAttribute(uid, "columba.from");
+		if (from instanceof Address) {
+			name = NameParser.getInstance().parseDisplayName(((Address)from).getDisplayName());
+		} else if ( from instanceof String){
+			name = NameParser.getInstance().parseDisplayName((String) from);
 		}
 
 		subject = (String) srcFolder.getAttribute(uid, "columba.subject");
