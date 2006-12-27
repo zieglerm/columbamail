@@ -7,60 +7,60 @@
 <!--
 	    <menu id="menu_file_new">
 	    	<menuitem id="OpenNewMailWindow"/>
-	    	<menuitem id="OpenNewAddressbookWindow"/>	    	
+	    	<menuitem id="OpenNewAddressbookWindow"/>
 	    	<placeholder id="open" />
-	    </menu>	    
+	    </menu>
 -->
 		<separator/>
-		<placeholder id="top" />	
-		
+		<placeholder id="top" />
+
 		<!--<menuitem id="PrintSetup"/>
 		<separator/>-->
-		
+
 		<placeholder id="bottom" />
 		<separator/>
         <checkboxmenuitem id="WorkOffline"/>
         <separator/>
-		<menuitem id="Close"/>			
-		<menuitem id="Exit"/>			
+		<menuitem id="Close"/>
+		<menuitem id="Exit"/>
 	</menu>
-	
+
 	<menu id="menu_edit">
-		<menuitem id="Undo"/>			
-		<menuitem id="Redo"/>			
+		<menuitem id="Undo"/>
+		<menuitem id="Redo"/>
 		<separator/>
-		<menuitem id="Cut"/>			
-		<menuitem id="Copy"/>			
-		<menuitem id="Paste"/>	
-		
-				
+		<menuitem id="Cut"/>
+		<menuitem id="Copy"/>
+		<menuitem id="Paste"/>
+
+
 		<!-- <menuitem id="Delete"/> -->
-		
+
 		<!--<menuitem id="SelectAll"/> -->
-		
+
 		<separator/>
 		<!--<placeholder id="top"/>-->
 		<placeholder id="bottom"/>
 		<menuitem id="GlobalOptions"/>
 	</menu>
-	
-	<menu id="menu_view">	
+
+	<menu id="menu_view">
 		<menuitem id="Cancel"/>
 		<separator/>
-		
+
 		<placeholder id="top"/>
-		
+
 		<checkboxmenuitem id="ViewToolbar"/>
 		<separator/>
 
 		<imenu id="ChoosePerspectiveSubmenu"/>
 		<imenu id="ShowHideViewSubmenu"/>
 
-	
- 		
+
+
 
 		<placeholder id="show_hide"/>
-		
+
 
 		<!--
 		<menu id="menu_view_show_hide">
@@ -69,12 +69,12 @@
 		</menu>
 		-->
 
-		
-		
+
+
 		<placeholder id="bottom"/>
 		<seperator/>
 	</menu>
-	
+
 	<menu id="menu_utilities">
 	 <!--
 	 <menuitem id="OpenNewMailWindow"/>
@@ -84,7 +84,7 @@
 	 <menuitem id="OpenProfileManagerDialog" />
 	 <menuitem id="PluginManagerDialog" />
 	 <menuitem id="OpenExternalToolsDialog" />
-	 <menuitem id="Macro" />
+	 <!--<menuitem id="Macro" />-->
 	 <menuitem id="ViewLog" />
 	 <placeholder id="bottom"/>
 	</menu>
