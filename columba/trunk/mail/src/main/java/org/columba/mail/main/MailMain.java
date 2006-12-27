@@ -1,16 +1,16 @@
 //The contents of this file are subject to the Mozilla Public License Version 1.1
-//(the "License"); you may not use this file except in compliance with the 
+//(the "License"); you may not use this file except in compliance with the
 //License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
 //
 //Software distributed under the License is distributed on an "AS IS" basis,
-//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License 
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 //for the specific language governing rights and
 //limitations under the License.
 //
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
 package org.columba.mail.main;
@@ -60,7 +60,7 @@ import org.columba.ristretto.parser.ParserException;
 
 /**
  * Main entrypoint for mail component.
- * 
+ *
  * @author fdietz
  */
 public class MailMain implements IComponentPlugin {
@@ -71,7 +71,7 @@ public class MailMain implements IComponentPlugin {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void init() {
 		// Init PGP
@@ -92,7 +92,7 @@ public class MailMain implements IComponentPlugin {
 			ex.printStackTrace();
 		}*/
 
-		
+
 		Runnable plugin = new SaveAllFoldersPlugin();
 		BackgroundTaskManager.getInstance().register(plugin);
 
@@ -106,7 +106,7 @@ public class MailMain implements IComponentPlugin {
 
 		plugin = new ClearRecentFlagPlugin();
 		ShutdownManager.getInstance().register(plugin);
-		
+
 		ServiceFacadeRegistry.getInstance().register(
 				org.columba.mail.facade.IDialogFacade.class,
 				new DialogFacade());
@@ -115,10 +115,10 @@ public class MailMain implements IComponentPlugin {
 	public void registerCommandLineArguments() {
 		ColumbaCmdLineParser parser = ColumbaCmdLineParser.getInstance();
 
-		parser.addOption(OptionBuilder.create("compose"));
+		Option composeOption = new Option("compose", true, "compose message");
+		parser.addOption(composeOption);
 
 		Option mailOption = OptionBuilder.create("mail");
-
 		mailOption.setOptionalArg(true);
 
 		parser.addOption(mailOption);
@@ -130,7 +130,7 @@ public class MailMain implements IComponentPlugin {
 	public void handleCommandLineParameters(CommandLine commandLine) {
 
 		if (commandLine.hasOption("mail")) {
-
+			// check if the optional value exists
 			if (commandLine.getOptionValue("mail") != null) {
 				try {
 					ComposerModel model = new ComposerModel(MailUrlParser
@@ -158,10 +158,10 @@ public class MailMain implements IComponentPlugin {
 		}
 
 		if (commandLine.hasOption("compose")) {
+			String option = commandLine.getOptionValue("compose");
 			ComposerModel model = new ComposerModel(MessageOptionParser
-					.parse(commandLine.getOptionValue("compose")));
+					.parse(option));
 
-			// new NewMessageAction().actionPerformed(null);
 			ComposerController controller = new ComposerController();
 			new DefaultContainer(controller);
 
@@ -172,7 +172,7 @@ public class MailMain implements IComponentPlugin {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void postStartup() {
 		// Check default mail client

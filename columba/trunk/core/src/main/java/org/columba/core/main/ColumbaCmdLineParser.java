@@ -30,7 +30,7 @@ import org.columba.core.resourceloader.GlobalResourceLoader;
 /**
  * Parsing the commandline arguments and setting states, that can be used from
  * other components.
- * 
+ *
  * @author waffel
  */
 public class ColumbaCmdLineParser {
@@ -58,7 +58,7 @@ public class ColumbaCmdLineParser {
 
 	/**
 	 * Gets the instance of the ColumbaCmdLineParser.
-	 * 
+	 *
 	 * @return the singleton instance
 	 */
 	public static ColumbaCmdLineParser getInstance() {
@@ -71,7 +71,7 @@ public class ColumbaCmdLineParser {
 
 	/**
 	 * Adds an option to the CommandlineParser
-	 * 
+	 *
 	 * @param option
 	 *            a new command line argument.
 	 */
@@ -81,7 +81,7 @@ public class ColumbaCmdLineParser {
 
 	/**
 	 * Adds an OptionGroup to the CommandlineParser.
-	 * 
+	 *
 	 * @param option
 	 */
 	public void addOptionGroup(OptionGroup option) {
@@ -90,7 +90,7 @@ public class ColumbaCmdLineParser {
 
 	/**
 	 * Parses the commandline.
-	 * 
+	 *
 	 * @param args
 	 *            the arguments
 	 * @return the parsed CommandLine
@@ -104,9 +104,9 @@ public class ColumbaCmdLineParser {
 
 	/**
 	 * Gets the previously parsed Commandline.
-	 * 
+	 *
 	 * @see #parse(String[])
-	 * 
+	 *
 	 * @return the last parsed commandline
 	 */
 	public CommandLine getParsedCommandLine() {

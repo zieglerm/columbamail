@@ -93,11 +93,6 @@ public class Bootstrap {
 		Logging.createDefaultHandler();
 		registerCommandLineArguments();
 
-		// handle commandline parameters
-		if (handleCoreCommandLineParameters(args)) {
-			System.exit(0);
-		}
-
 		StackProfiler profiler = new StackProfiler();
 		profiler.push("main");
 		profiler.push("config");
@@ -177,6 +172,11 @@ public class Bootstrap {
 
 		// set application wide font
 		FontProperties.setFont();
+
+//		 handle commandline parameters
+		if (handleCoreCommandLineParameters(args)) {
+			System.exit(0);
+		}
 
 		// handle the commandline arguments of the modules
 		ComponentManager.getInstance().handleCommandLineParameters(
@@ -385,9 +385,9 @@ public class Bootstrap {
 	/**
 	 * This hacks the classloader to adjust the library path for convenient
 	 * native support.
-	 * 
+	 *
 	 * @author tstich
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	private void setLibraryPath() throws Exception {
@@ -427,9 +427,9 @@ public class Bootstrap {
 	 * I've cleaned this up using our new global class loader. This way we only
 	 * add a few new <code>URLs</code> to our class loader instead of
 	 * modifying the system class loader using reflection.
-	 * 
+	 *
 	 * @author tstich,fdietz
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	private void addNativeJarsToClasspath() throws Exception {

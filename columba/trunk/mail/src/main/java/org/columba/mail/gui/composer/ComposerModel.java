@@ -49,9 +49,9 @@ import org.columba.ristretto.message.StreamableMimePart;
 
 /**
  * @author frd
- * 
+ *
  * Model for message composer dialog
- * 
+ *
  */
 public class ComposerModel {
 
@@ -87,7 +87,7 @@ public class ComposerModel {
 	 * (example:mail@toplevel.mail.de)
 	 * <p>
 	 * TODO: see if we can replace the matching code with Ristretto stuff
-	 * 
+	 *
 	 */
 	private static final String emailRegExp = "[a-zA-Z0-9]+([_\\.-][a-zA-Z0-9]+)*@([a-zA-Z0-9]+([\\.-][a-zA-Z0-9]+)*)+\\.[a-zA-Z]{2,}";
 
@@ -118,7 +118,7 @@ public class ComposerModel {
 
 	/**
 	 * Creates a new model with a plain text message
-	 * 
+	 *
 	 * @param message
 	 *            Initial message to hold in the model
 	 */
@@ -128,7 +128,7 @@ public class ComposerModel {
 
 	/**
 	 * Creates a new model with an empty message
-	 * 
+	 *
 	 * @param html
 	 *            True for a html message, false for plain text
 	 */
@@ -139,17 +139,17 @@ public class ComposerModel {
 	/**
 	 * Constructs a new ComposerModel. The parameters are read from the
 	 * messageOptions.
-	 * 
+	 *
 	 * @param messageOptions
 	 */
-	public ComposerModel(Map messageOptions) {
+	public ComposerModel(Map<String,String> messageOptions) {
 		this();
 		setMessageOptions(messageOptions);
 	}
 
 	/**
 	 * Creates a new model
-	 * 
+	 *
 	 * @param message
 	 *            Initial message to hold in the model
 	 * @param html
@@ -177,7 +177,7 @@ public class ComposerModel {
 	 * Set source reference.
 	 * <p>
 	 * The message you are for example replying to.
-	 * 
+	 *
 	 * @param ref
 	 *            source reference
 	 */
@@ -189,7 +189,7 @@ public class ComposerModel {
 	 * Get source reference.
 	 * <p>
 	 * The message you are for example replying to.
-	 * 
+	 *
 	 * @return source reference
 	 */
 	public MailFolderCommandReference getSourceReference() {
@@ -198,7 +198,7 @@ public class ComposerModel {
 
 	/**
 	 * Set To: header
-	 * 
+	 *
 	 * @param a
 	 *            address array
 	 */
@@ -213,7 +213,7 @@ public class ComposerModel {
 
 	/**
 	 * Set Cc: header
-	 * 
+	 *
 	 * @param a
 	 *            address array
 	 */
@@ -226,7 +226,7 @@ public class ComposerModel {
 
 	/**
 	 * Set Bcc: header
-	 * 
+	 *
 	 * @param a
 	 *            address array
 	 */
@@ -377,7 +377,7 @@ public class ComposerModel {
 
 	/**
 	 * Returns the charsetName.
-	 * 
+	 *
 	 * @return String
 	 */
 	public Charset getCharset() {
@@ -390,7 +390,7 @@ public class ComposerModel {
 
 	/**
 	 * Sets the charsetName.
-	 * 
+	 *
 	 * @param charsetName
 	 *            The charsetName to set
 	 */
@@ -400,7 +400,7 @@ public class ComposerModel {
 
 	/**
 	 * Returns the signMessage.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isSignMessage() {
@@ -409,7 +409,7 @@ public class ComposerModel {
 
 	/**
 	 * Sets the signMessage.
-	 * 
+	 *
 	 * @param signMessage
 	 *            The signMessage to set
 	 */
@@ -419,7 +419,7 @@ public class ComposerModel {
 
 	/**
 	 * Returns the encryptMessage.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isEncryptMessage() {
@@ -428,7 +428,7 @@ public class ComposerModel {
 
 	/**
 	 * Sets the encryptMessage.
-	 * 
+	 *
 	 * @param encryptMessage
 	 *            The encryptMessage to set
 	 */
@@ -450,7 +450,7 @@ public class ComposerModel {
 
 	/**
 	 * Returns whether the model holds a html message or plain text
-	 * 
+	 *
 	 * @return True for html, false for text
 	 */
 	public boolean isHtml() {
@@ -459,7 +459,7 @@ public class ComposerModel {
 
 	/**
 	 * Sets whether the model holds a html message or plain text
-	 * 
+	 *
 	 * @param html
 	 *            True for html, false for text
 	 */
@@ -487,7 +487,7 @@ public class ComposerModel {
 		return output;
 	}
 
-	public void setMessageOptions(Map options) {
+	public void setMessageOptions(Map<String,String> options) {
 
 		addAddresses(options, "to");
 		addAddresses(options, "cc");
@@ -528,20 +528,7 @@ public class ComposerModel {
 					// if this is no URI
 					addFileAttachment(new File(s));
 				}
-			} else {
-				String[] attachments = (String[]) options.get("attachment");
-				for (int i = 0; i < attachments.length; i++) {
-					String s = attachments[i];
-					try {
-						URI uri = new URI(s);
-						addFileAttachment(new File(uri));
-					} catch (URISyntaxException e) {
-						// if this is no URI
-						addFileAttachment(new File(s));
-					}
-				}
 			}
-
 		}
 
 	}
