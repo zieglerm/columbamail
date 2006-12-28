@@ -46,7 +46,7 @@ import org.columba.ristretto.io.SourceInputStream;
  * The spam filter is executed on this message.
  * <p>
  * The Inbox filters are applied to the message.
- * 
+ *
  * @author fdietz
  */
 public class AddPOP3MessageCommand extends Command {
@@ -87,7 +87,7 @@ public class AddPOP3MessageCommand extends Command {
 		// even deletes the message
 		IMailFolderCommandReference ref = new MailFolderCommandReference(inboxFolder, new Object[] {uid});
 		MailCheckingManager.getInstance().fireNewMessageArrived(ref);
-		
+
 		// apply spam filter
 		boolean messageWasMoved = applySpamFilter(uid, worker);
 
@@ -101,7 +101,7 @@ public class AddPOP3MessageCommand extends Command {
 	 * Apply spam filter engine on message.
 	 * <p>
 	 * Message is marked as ham or spam.
-	 * 
+	 *
 	 * @param uid
 	 *            message uid.
 	 * @throws Exception
@@ -110,6 +110,7 @@ public class AddPOP3MessageCommand extends Command {
 			throws Exception {
 		// message belongs to which account?
 		AccountItem item = CommandHelper.retrieveAccountItem(inboxFolder, uid);
+		if ( item == null ) return false;
 
 		// if spam filter is not enabled -> return
 		if (!item.getSpamItem().isEnabled()) {
@@ -165,7 +166,7 @@ public class AddPOP3MessageCommand extends Command {
 
 	/**
 	 * Apply filters on new message.
-	 * 
+	 *
 	 * @param uid
 	 *            message uid
 	 */
