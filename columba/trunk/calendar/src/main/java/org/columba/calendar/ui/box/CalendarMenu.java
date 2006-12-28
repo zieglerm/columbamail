@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -14,9 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
-import org.columba.addressbook.folder.IContactFolder;
-import org.columba.addressbook.folder.IFolder;
-import org.columba.addressbook.gui.tree.AddressbookTreeModel;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.config.Config;
 import org.columba.calendar.config.api.ICalendarList;
