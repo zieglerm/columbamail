@@ -17,16 +17,16 @@
 //All Rights Reserved.
 package org.columba.calendar.ui.action.api;
 
-import org.columba.core.gui.action.AbstractColumbaAction;
+import org.columba.api.gui.IAbstractColumbaAction;
 
 public interface IActionFactory {
 
-	public abstract AbstractColumbaAction createEditAction();
+	public abstract IAbstractColumbaAction createEditAction();
 
-	public abstract AbstractColumbaAction createDeleteAction();
+	public abstract IAbstractColumbaAction createDeleteAction();
 
-	public abstract AbstractColumbaAction createNewAction();
+	public abstract IAbstractColumbaAction createNewAction();
 	
-	public abstract AbstractColumbaAction createActivityMovedAction();
+	public abstract IAbstractColumbaAction createActivityMovedAction();
 
 }
