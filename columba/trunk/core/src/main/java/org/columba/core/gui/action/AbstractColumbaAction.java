@@ -17,6 +17,7 @@ package org.columba.core.gui.action;
 
 import javax.swing.AbstractAction;
 
+import org.columba.api.gui.IAbstractColumbaAction;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.api.plugin.IExtensionInterface;
 
@@ -34,28 +35,7 @@ import org.columba.api.plugin.IExtensionInterface;
  */
 
 public abstract class AbstractColumbaAction extends AbstractAction
-    implements IExtensionInterface {
-    /**
-     * special label for toolbar buttons which is smaller
-     * than the regular label
-     *
-     * Example: Reply to Sender -> Reply
-     *
-     */
-    public static final String TOOLBAR_NAME = "ToolbarName";
-
-    /**
-     * The toolbar uses the large icon, whereas menuitems
-     * use the small one.
-     *
-     */
-    public static final String LARGE_ICON = "LargeIcon";
-
-    /**
-     * JavaHelp topic ID
-     */
-    public static final String TOPIC_ID = "TopicID";
-
+    implements IExtensionInterface, IAbstractColumbaAction {
     /**
      * show button text in toolbar
      */
@@ -76,37 +56,28 @@ public abstract class AbstractColumbaAction extends AbstractAction
     }
 
     /**
-     * Returns the frame controller
-     *
-     * @return FrameController
+     * {@inheritDoc}
      */
     public IFrameMediator getFrameMediator() {
         return frameMediator;
     }
 
     /**
-     * Sets the frameMediator.
-     *
-     * @param frameMediator
+     * {@inheritDoc}
      */
     public void setFrameMediator(IFrameMediator frameController) {
         this.frameMediator = frameController;
     }
 
     /**
-     * Return true if toolbar text should be visible
-     *
-     * @return boolean        true, if toolbar text should be enabled, false otherwise
-     *
+     * {@inheritDoc}
      */
     public boolean isShowToolBarText() {
         return showToolbarText;
     }
 
     /**
-     * Sets whether the toolbar text should be visible or not.
-     *
-     * @param showToolbarText
+     * {@inheritDoc}
      */
     public void setShowToolBarText(boolean showToolbarText) {
         if (this.showToolbarText != showToolbarText) {
