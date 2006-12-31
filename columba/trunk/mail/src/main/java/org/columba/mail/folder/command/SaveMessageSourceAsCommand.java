@@ -36,6 +36,7 @@ import org.columba.core.gui.frame.FrameManager;
 import org.columba.mail.command.IMailFolderCommandReference;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.util.MailResourceLoader;
+import org.columba.ristretto.coder.EncodedWord;
 
 
 /**
@@ -82,6 +83,7 @@ public class SaveMessageSourceAsCommand extends Command {
 
             //setup save dialog
             String subject = (String) srcFolder.getHeaderFields(uid, new String[] { "Subject" }).get("Subject");
+            subject = EncodedWord.decode(subject).toString();
             String defaultName = getValidFilename(subject, false);
 
             if (defaultName.length() == 0) {

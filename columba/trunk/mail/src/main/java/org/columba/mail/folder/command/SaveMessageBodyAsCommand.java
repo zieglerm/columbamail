@@ -50,6 +50,7 @@ import org.columba.mail.parser.text.HtmlParser;
 import org.columba.mail.util.MailResourceLoader;
 import org.columba.ristretto.coder.Base64DecoderInputStream;
 import org.columba.ristretto.coder.CharsetDecoderInputStream;
+import org.columba.ristretto.coder.EncodedWord;
 import org.columba.ristretto.coder.QuotedPrintableDecoderInputStream;
 import org.columba.ristretto.message.BasicHeader;
 import org.columba.ristretto.message.Header;
@@ -156,8 +157,8 @@ public class SaveMessageBodyAsCommand extends Command {
             fileChooser.setAccessory(inclHeaders);
 
             // setup dialog title, active filter and file name
-            String defaultName = getValidFilename((String) header.get("Subject"),
-                    true);
+            String subject = EncodedWord.decode( header.get("Subject")).toString();
+            String defaultName = getValidFilename(subject,true);
 
             if (ishtml) {
                 fileChooser.setDialogTitle(MailResourceLoader.getString(
