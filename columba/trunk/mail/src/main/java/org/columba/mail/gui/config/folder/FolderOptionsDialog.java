@@ -114,7 +114,7 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 
 	private MultiLineLabel enableLabel;
 
-	private JLabel enableTextIndexingLabel;
+	//private JLabel enableTextIndexingLabel;
 
 	private JCheckBox enableTextIndexingCheckBox;
 
@@ -227,8 +227,8 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 		builder.add(sizeLabel2, cc.xy(4, 11));
 
 		// @author tstich: Added Lucene gui element here
-		builder.add(enableTextIndexingLabel, cc.xy(2, 13));
-		builder.add(enableTextIndexingCheckBox, cc.xy(4, 13));
+		//builder.add(enableTextIndexingLabel, cc.xy(2, 13));
+		builder.add(enableTextIndexingCheckBox, cc.xywh(2, 13, 4, 1));
 
 		builder.appendGlueRow();
 
@@ -305,32 +305,32 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 
 		nameLabel = new LabelWithMnemonic(MailResourceLoader.getString(
 				"dialog", "folderoptions", "name")); //$NON-NLS-1$
-		nameLabel.setFont(boldFont);
+		//nameLabel.setFont(boldFont);
 		nameTextField = new JTextField();
 
 		totalLabel = new JLabel(MailResourceLoader.getString("dialog",
 				"folderoptions", "total")); //$NON-NLS-1$
-		totalLabel.setFont(boldFont);
+		//totalLabel.setFont(boldFont);
 		totalLabel2 = new JLabel("0"); //$NON-NLS-1$
 
 		unreadLabel = new JLabel(MailResourceLoader.getString("dialog",
 				"folderoptions", "unread")); //$NON-NLS-1$
-		unreadLabel.setFont(boldFont);
+		//unreadLabel.setFont(boldFont);
 		unreadLabel2 = new JLabel("0"); //$NON-NLS-1$
 
 		recentLabel = new JLabel(MailResourceLoader.getString("dialog",
 				"folderoptions", "recent")); //$NON-NLS-1$
-		recentLabel.setFont(boldFont);
+		//recentLabel.setFont(boldFont);
 		recentLabel2 = new JLabel("0"); //$NON-NLS-1$
 
 		sizeLabel = new JLabel(MailResourceLoader.getString("dialog",
 				"folderoptions", "mailbox_size")); //$NON-NLS-1$
-		sizeLabel.setFont(boldFont);
+		//sizeLabel.setFont(boldFont);
 		sizeLabel2 = new JLabel(); //$NON-NLS-1$
 
 		locationLabel = new JLabel(MailResourceLoader.getString("dialog",
 				"folderoptions", "location")); //$NON-NLS-1$
-		locationLabel.setFont(boldFont);
+		//locationLabel.setFont(boldFont);
 		locationLabel2 = new JLabel(""); //$NON-NLS-1$
 
 		exportButton = new ButtonWithMnemonic(MailResourceLoader.getString(
@@ -338,15 +338,15 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 		exportButton.setActionCommand("EXPORT"); //$NON-NLS-1$
 		exportButton.addActionListener(this);
 
-		enableTextIndexingLabel = new JLabel(MailResourceLoader.getString(
+	
+		enableTextIndexingCheckBox = new JCheckBox(MailResourceLoader.getString(
 				"dialog", "folderoptions", "enable_full-text_indexing")); //$NON-NLS-1$
-		enableTextIndexingLabel.setFont(boldFont);
-
-		enableTextIndexingCheckBox = new JCheckBox(); //$NON-NLS-1$
-
+		enableTextIndexingCheckBox.setToolTipText(MailResourceLoader.getString(
+				"dialog", "folderoptions", "enable_full-text_indexing_tooltip"));
+		
 		enableLabel = new MultiLineLabel(MailResourceLoader.getString(
 				"dialog", "folderoptions", "this_is_an_experimental_feature")); //$NON-NLS-1$
-		enableLabel.setFont(boldFont);
+		//enableLabel.setFont(boldFont);
 
 		overwriteLabel = new MultiLineLabel(MailResourceLoader.getString(
 				"dialog", "folderoptions", "select_individual_options"));
@@ -472,12 +472,12 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 			// only local folders have an full-text indexing capability
 			if (folder instanceof AbstractLocalFolder) {
 				item = folder.getConfiguration();
-
-				boolean bool = item.getBoolean("property", "enable_lucene"); //$NON-NLS-1$ //$NON-NLS-2$
+				// enable lucene search index by default
+				boolean bool = item.getBooleanWithDefault("property", "enable_lucene", true); //$NON-NLS-1$ //$NON-NLS-2$
 
 				enableTextIndexingCheckBox.setSelected(bool);
 			} else {
-				enableTextIndexingLabel.setEnabled(false);
+				//enableTextIndexingLabel.setEnabled(false);
 				enableTextIndexingCheckBox.setEnabled(false);
 			}
 		} else {

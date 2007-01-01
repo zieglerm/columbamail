@@ -5,7 +5,7 @@
  <folder type="LocalRootFolder" uid="100" >
   <property name="Local Folders" accessrights="system" subfolder="true" />
   
-  <folder type="MHFolder" uid="101">
+  <folder type="MBOXFolder" uid="101">
    <property name="Inbox" accessrights="system" subfolder="true" />
    <filterlist>
     <filter description="new filter" enabled="true">
@@ -46,12 +46,12 @@
     
   </folder> <!-- inbox -->
   
-  <folder type="MHFolder" uid="102">
+  <folder type="MBOXFolder" uid="102">
    <property name="Drafts" accessrights="system" subfolder="true" />
    <filterlist/>
   </folder>
   
-  <folder type="MHFolder" uid="107">
+  <folder type="MBOXFolder" uid="107">
    <property name="Templates" accessrights="system" subfolder="true" />
    <filterlist/>
   </folder>
@@ -61,12 +61,12 @@
    <filterlist/>
   </folder>
   
-  <folder type="MHFolder" uid="104">
+  <folder type="MBOXFolder" uid="104">
    <property name="Sent" accessrights="system" subfolder="true" />
    <filterlist/>
   </folder>
   
-  <folder type="MHFolder" uid="105">
+  <folder type="MBOXFolder" uid="105">
    <property name="Trash" accessrights="system" subfolder="true" />
    <filterlist/>
   </folder>

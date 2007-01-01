@@ -37,8 +37,9 @@ public class CachedMboxFolder extends AbstractLocalFolder {
 	public CachedMboxFolder(FolderItem item, String path) {
         super(item, path);
 
+        // enable lucene search index by default
         boolean enableLucene = getConfiguration().getBooleanWithDefault("property",
-                "enable_lucene", false);
+                "enable_lucene", true);
         if (enableLucene) {
             getSearchEngine().setNonDefaultEngine(new LuceneQueryEngine(this));
         }        
