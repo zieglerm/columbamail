@@ -1,16 +1,16 @@
 //The contents of this file are subject to the Mozilla Public License Version 1.1
-//(the "License"); you may not use this file except in compliance with the 
+//(the "License"); you may not use this file except in compliance with the
 //License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
 //
 //Software distributed under the License is distributed on an "AS IS" basis,
-//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License 
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 //for the specific language governing rights and
 //limitations under the License.
 //
 //The Original Code is "The Columba Project"
 //
 //The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
-//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
 package org.columba.mail.gui.config.general;
@@ -33,6 +33,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.KeyStroke;
@@ -60,7 +61,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Mail General Options Dialog
- * 
+ *
  * @author fdietz
  */
 public class MailOptionsDialog extends JDialog implements ActionListener {
@@ -93,9 +94,9 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 	protected CheckBoxWithMnemonic showAttachmentsInlineCheckBox;
 
 	private JLabel selectedBrowserLabel;
-	
+
 	protected JComboBox selectedBrowserComboBox;
-	
+
 	protected LabelWithMnemonic forwardLabel;
 
 	protected JComboBox forwardComboBox;
@@ -128,7 +129,7 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 			selectedBrowserComboBox.setSelectedItem(optionsItem
 					.getStringWithDefault(OptionsItem.MESSAGEVIEWER,
 							OptionsItem.SELECTED_BROWSER, "Default"));
-			
+
 			int delay = optionsItem.getIntegerWithDefault(
 					OptionsItem.MARKASREAD, OptionsItem.DELAY_INT, 2);
 			boolean enable = optionsItem.getBooleanWithDefault(
@@ -142,7 +143,7 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 					OptionsItem.ENABLED_BOOL, true);
 
 			enableSmiliesCheckBox.setSelected(enableSmilies);
-			
+
 			boolean preferHtml = optionsItem.getBooleanWithDefault(
 					OptionsItem.HTML, OptionsItem.PREFER_BOOL, true);
 
@@ -152,7 +153,7 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 					OptionsItem.HTML, OptionsItem.DISABLE_BOOL, true);
 
 			disableHtmlCheckBox.setSelected(disablehtml);
-			
+
 			boolean askSubject = composerItem.getBooleanWithDefault(
 					ComposerItem.SUBJECT, ComposerItem.ASK_IF_EMPTY_BOOL, true);
 
@@ -188,7 +189,7 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 			optionsItem.setBoolean(OptionsItem.MESSAGEVIEWER,
 					OptionsItem.INLINE_ATTACHMENTS_BOOL,
 					showAttachmentsInlineCheckBox.isSelected());
-				
+
 			optionsItem.setString(OptionsItem.MESSAGEVIEWER,
 					OptionsItem.SELECTED_BROWSER,
 					(String) selectedBrowserComboBox.getSelectedItem());
@@ -196,7 +197,7 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 			// notify configuration changes listeners
 			// @see org.columba.mail.gui.message.TextViewer
 			optionsItem.notifyObservers(OptionsItem.SELECTED_BROWSER);
-			
+
 			// send notification event
 			// @see org.columba.mail.gui.message.TextViewer
 			optionsItem.notifyObservers(OptionsItem.MESSAGEVIEWER_SMILIES);
@@ -294,9 +295,14 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 		}
 		selectedBrowserComboBox = new JComboBox(v.toArray(new String[0]));
 		selectedBrowserComboBox.setSelectedIndex(0);
-		selectedBrowserComboBox.setActionCommand("USE_DEFAULT_BROWSER");
-		selectedBrowserComboBox.addActionListener(this);
-		
+		selectedBrowserComboBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if ( selectedBrowserComboBox.getSelectedIndex() != 0)
+					JOptionPane
+					.showMessageDialog(MailOptionsDialog.this,
+							"This is an experimental feature and therefore requires a restart of Columba");
+			}});
+
 		// button panel
 		okButton = new ButtonWithMnemonic(MailResourceLoader.getString(
 				"global", "ok"));
@@ -353,9 +359,9 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 //		builder.append(showAttachmentsInlineCheckBox, 4);
 //		builder.nextLine();
 
-		
 
-		
+
+
 		// its maybe better to leave this option out of the dialog
 		// -> make it configurable in the xml file anyway
 		/*
@@ -407,9 +413,9 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 		getRootPane().registerKeyboardAction(this, "CANCEL",
 				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		
+
 		contentPane.add(new DialogHeaderPanel("Mail Options", "Change email-specific options"), BorderLayout.NORTH);
-		
+
 	}
 
 	public void actionPerformed(ActionEvent event) {
