@@ -4,22 +4,23 @@
     <!--
 	<menu id="menu_file_new" placeholderid="open">
 	    <separator />
-		<menuitem id="AddContactCard"/>	
-		<menuitem id="AddGroupCard"/>	
+		<menuitem id="AddContactCard"/>
+		<menuitem id="AddGroupCard"/>
 	</menu>
 	-->
-	
+
 	<menu id="menu_file" placeholderid="top">
 		<menuitem id="RemoveCard" />
         <menuitem id="EditProperties" />
         <imenu id="TagContactMenu" />
 	</menu>
-	
+
 	<menu id="menu_utilities" placeholderid="bottom">
 	    <separator />
+	    <menuitem id="ComposeMessage"/>
         <menuitem id="AddVCard"/>
         <menuitem id="ExportVCard" />
 	 	<menuitem id="AddressbookImport"/>
 	</menu>
-	
+
 </menubar>

@@ -64,7 +64,7 @@ public interface IconKeys {
 	public static final String HOME = "go-home.png";
 
 	public static final String GO_NEXT = "go-next.png";
-	
+
 	public static final String GO_PREVIOUS = "go-previous.png";
 
 	public static final String FOLDER = "folder.png";
@@ -76,20 +76,22 @@ public interface IconKeys {
 	public static final String FOLDER_REMOTE = "folder-remote.png";
 
 	public static final String FOLDER_DRAG_ACCEPT = "folder-drag-accept.png";
-	
+
 	public static final String COMPUTER = "computer.png";
-	
+
 	public static final String SERVER = "network-server.png";
-	
+
 	public static final String SERVER_WORKGROUP = "network-workgroup.png";
-	
+
 	public static final String CONTACT_NEW= "contact-new.png";
-	
+
 	public static final String ADDRESSBOOK= "addressbook.png";
 
-	public static final String CALENDAR = "office-calendar.png"; 
-	
+	public static final String CALENDAR = "office-calendar.png";
+
 	public static final String ONLINE= "network-receive.png";
-	
+
 	public static final String OFFLINE= "network-offline.png";
+
+	public static final String MAIL_NEW= "mail-new.png";
 }

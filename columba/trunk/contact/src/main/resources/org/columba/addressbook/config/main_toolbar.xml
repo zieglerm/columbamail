@@ -8,4 +8,6 @@
     <button action="EditProperties"/>
     <separator/>
     <button action="RemoveCard"/>
+    <separator/>
+    <button action="ComposeMessage"/>
 </toolbar>

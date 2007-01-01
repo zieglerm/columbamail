@@ -81,14 +81,28 @@ public class DialogFacade implements IDialogFacade {
 		CommandProcessor.getInstance().addOp(new ViewMessageCommand(c, r));
 	}
 
-	
 	public void openComposer(String contact) {
 		// Choice btw. text and html will be based on stored option
 		ComposerController controller = new ComposerController();
 		new DefaultContainer(controller);
 		ComposerModel model = controller.getModel();
 		Address adr = new Address(contact);
-		model.setTo(new Address[] {adr});
+		model.setTo(new Address[] { adr });
+		// model -> view
+		controller.updateComponents(true);
+	}
+
+	public void openComposer(String[] recipients) {
+		// Choice btw. text and html will be based on stored option
+		ComposerController controller = new ComposerController();
+		new DefaultContainer(controller);
+		ComposerModel model = controller.getModel();
+		Address[] adr = new Address[recipients.length];
+		for (int i = 0; i < recipients.length; i++) {
+			adr[i] = new Address(recipients[i]);
+		}
+
+		model.setTo(adr);
 		// model -> view
 		controller.updateComponents(true);
 	}
