@@ -214,8 +214,8 @@ public class OutgoingServerPanel extends DefaultPanel implements ActionListener 
 		builder.setLeadingColumnOffset(1);
 
 		// Add components to the panel:
-		builder.append(defaultAccountCheckBox, 7);
-		builder.nextLine();
+//		builder.append(defaultAccountCheckBox, 7);
+//		builder.nextLine();
 
 		builder.appendSeparator(MailResourceLoader.getString("dialog",
 				"account", "configuration"));
