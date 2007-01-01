@@ -412,7 +412,7 @@ public class Bootstrap {
 		propertyPath += libDir;
 
 		System.setProperty("java.library.path", propertyPath);
-		System.out.println("The java.library.path = " + propertyPath);
+		LOG.info("The java.library.path = " + propertyPath);
 		Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 		fieldSysPath.setAccessible(true);
 		if (fieldSysPath != null) {
