@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,9 +26,6 @@ import javax.swing.border.Border;
 
 import org.columba.core.gui.base.RoundedBorder;
 
-import com.jgoodies.forms.builder.ButtonBarBuilder;
-import com.jgoodies.forms.layout.Sizes;
-
 /**
  */
 class TitleBar extends JPanel {
@@ -43,6 +41,8 @@ class TitleBar extends JPanel {
 	private Color midColor;
 
 	private Color buttonBackground;
+
+	private boolean active = false;
 
 	public TitleBar(String text, Color midColor, Color fillColor) {
 		super();
@@ -61,7 +61,8 @@ class TitleBar extends JPanel {
 
 		layoutComponents();
 
-		setBorder(BorderFactory.createEmptyBorder(2, 5, 3, 0));
+		// setBorder(BorderFactory.createEmptyBorder(2, 5, 3, 0));
+		//setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 	}
 
 	private void layoutComponents() {
@@ -71,29 +72,35 @@ class TitleBar extends JPanel {
 
 		JPanel buttonEastPanel = new JPanel();
 		buttonEastPanel.setOpaque(false);
-		ButtonBarBuilder builder = new ButtonBarBuilder(buttonEastPanel);
+		// ButtonBarBuilder builder = new ButtonBarBuilder(buttonEastPanel);
+		//
+		// builder.addGlue();
 
-		builder.addGlue();
+		// JPanel p = new JPanel();
+		// p.setLayout(new FlowLayout());
 
 		for (int i = 0; i < rightButtonVector.size(); i++) {
-			builder.addFixedNarrow((JButton) rightButtonVector.get(i));
-			builder.addStrut(Sizes.pixel(2));
+			// builder.addFixedNarrow((JButton) rightButtonVector.get(i));
+			buttonEastPanel.add((JButton) rightButtonVector.get(i));
+			// if ( i<rightButtonVector.size()-1)
+			// builder.addStrut(Sizes.pixel(2));
 		}
 
 		add(buttonEastPanel, BorderLayout.EAST);
 
 		JPanel buttonWestPanel = new JPanel();
 		buttonWestPanel.setOpaque(false);
-		ButtonBarBuilder builder2 = new ButtonBarBuilder(buttonWestPanel);
+		// ButtonBarBuilder builder2 = new ButtonBarBuilder(buttonWestPanel);
 
-		builder2.addGlue();
+		// builder2.addGlue();
 
 		for (int i = 0; i < leftButtonVector.size(); i++) {
-			builder2.addFixedNarrow((JButton) leftButtonVector.get(i));
-			builder2.addStrut(Sizes.pixel(2));
+			buttonWestPanel.add((JButton) leftButtonVector.get(i));
+			// builder2.addFixedNarrow((JButton) leftButtonVector.get(i));
+			// builder2.addStrut(Sizes.pixel(2));
 		}
 
-		builder2.addStrut(Sizes.pixel(4));
+		// builder2.addStrut(Sizes.pixel(4));
 
 		add(buttonWestPanel, BorderLayout.WEST);
 
@@ -131,8 +138,10 @@ class TitleBar extends JPanel {
 		return label.getText();
 	}
 
-	public void setActiveTitleColor(Color activeTitleColor,
-			Color activeButtonBackground) {
+	public void setTitleColor(Color activeTitleColor,
+			Color activeButtonBackground, boolean active) {
+
+		this.active = active;
 
 		label.setForeground(activeTitleColor);
 
@@ -140,14 +149,14 @@ class TitleBar extends JPanel {
 
 	}
 
-	public void setInactiveTitleColor(Color inactiveTitleColor,
-			Color inactiveButtonBackground) {
-
-		label.setForeground(inactiveTitleColor);
-
-		buttonBackground = inactiveButtonBackground;
-
-	}
+	// public void setInactiveTitleColor(Color inactiveTitleColor,
+	// Color inactiveButtonBackground) {
+	//
+	// label.setForeground(inactiveTitleColor);
+	//
+	// buttonBackground = inactiveButtonBackground;
+	//
+	// }
 
 	public void setMidColor(Color color) {
 		this.midColor = color;
@@ -166,18 +175,20 @@ class TitleBar extends JPanel {
 		int h = getHeight();
 		int w = getWidth();
 
-		
-
 		Graphics2D g2 = (Graphics2D) g;
 
 		// g2.setColor(fillColor);
 		// g2.fillRect(0,0,w,h);
 
-		GradientPaint firstHalf = new GradientPaint(0, 0, fillColor, 0, h,
-				midColor);
-
-		g2.setPaint(firstHalf);
-		g2.fillRect(0, 0, w, h);
+		if ( active ) {
+			GradientPaint firstHalf = new GradientPaint(0, 0, fillColor, 0, h,
+					midColor);
+			g2.setPaint(firstHalf);
+			g2.fillRect(0, 0, w, h);
+		} else {
+			g2.setColor(fillColor);
+			g2.fillRect(0,0,w,h);
+		}
 
 		// GradientPaint painter = new GradientPaint(0, 0, midColor.brighter(),
 		// 0, 5, midColor);
@@ -224,37 +235,37 @@ class TitleBar extends JPanel {
 
 	}
 
-//	private GeneralPath generateTopPath(int w) {
-//		GeneralPath path;
-//		path = new GeneralPath();
-//		// top right
-//		path.append(new Arc2D.Float(w - 10 - 1, 0, 10, 10, 0, 90, Arc2D.OPEN),
-//				true);
-//		// top
-//		path.append(new Line2D.Float(5, 0, w - 5 - 1, 0), true);
-//		// top left
-//		path.append(new Arc2D.Float(0, 0, 10, 10, 90, 90, Arc2D.OPEN), true);
-//
-//		return path;
-//	}
+	// private GeneralPath generateTopPath(int w) {
+	// GeneralPath path;
+	// path = new GeneralPath();
+	// // top right
+	// path.append(new Arc2D.Float(w - 10 - 1, 0, 10, 10, 0, 90, Arc2D.OPEN),
+	// true);
+	// // top
+	// path.append(new Line2D.Float(5, 0, w - 5 - 1, 0), true);
+	// // top left
+	// path.append(new Arc2D.Float(0, 0, 10, 10, 90, 90, Arc2D.OPEN), true);
+	//
+	// return path;
+	// }
 
-//	private GeneralPath generatePath(int h, int w) {
-//		GeneralPath path = new GeneralPath();
-//		// top right
-//		path.append(new Arc2D.Float(w - 10 - 1, 0, 10, 10, 0, 90, Arc2D.OPEN),
-//				true);
-//		// top
-//		path.append(new Line2D.Float(5, 0, w - 5 - 1, 0), true);
-//		// top left
-//		path.append(new Arc2D.Float(0, 0, 10, 10, 90, 90, Arc2D.OPEN), true);
-//		// left
-//		path.append(new Line2D.Float(0, 5, 0, h - 1), true);
-//		// bottom
-//		path.append(new Line2D.Float(0, h - 1, w - 1, h - 1), true);
-//		// right
-//		path.append(new Line2D.Float(w - 1, 5, w - 1, h - 1), true);
-//		return path;
-//	}
+	// private GeneralPath generatePath(int h, int w) {
+	// GeneralPath path = new GeneralPath();
+	// // top right
+	// path.append(new Arc2D.Float(w - 10 - 1, 0, 10, 10, 0, 90, Arc2D.OPEN),
+	// true);
+	// // top
+	// path.append(new Line2D.Float(5, 0, w - 5 - 1, 0), true);
+	// // top left
+	// path.append(new Arc2D.Float(0, 0, 10, 10, 90, 90, Arc2D.OPEN), true);
+	// // left
+	// path.append(new Line2D.Float(0, 5, 0, h - 1), true);
+	// // bottom
+	// path.append(new Line2D.Float(0, h - 1, w - 1, h - 1), true);
+	// // right
+	// path.append(new Line2D.Float(w - 1, 5, w - 1, h - 1), true);
+	// return path;
+	// }
 
 	// class GradientPainter {
 	// private Color startColor;
@@ -379,7 +390,7 @@ class TitleBar extends JPanel {
 
 			setPreferredSize(new Dimension(12, 12));
 
-			// setMargin(new Insets(5,0,0,0));
+			//setMargin(new Insets(0,0,0,0));
 
 			addMouseListener(this);
 		}

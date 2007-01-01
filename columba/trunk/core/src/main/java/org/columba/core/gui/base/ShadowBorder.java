@@ -12,7 +12,7 @@ public class ShadowBorder implements Border {
 	private Insets insets;
 
 	public ShadowBorder() {
-		insets = new Insets(1, 1, 3, 3);
+		insets = new Insets(2, 2, 4, 4);
 	}
 
 	public Insets getBorderInsets(Component c) {
@@ -28,24 +28,49 @@ public class ShadowBorder implements Border {
 		if (c.getParent() != null)
 			bg = c.getParent().getBackground();
 		Color mid = bg.darker();
-		Color rect = UIManager.getColor("controlDkShadow");
+		Color rect = UIManager.getColor("controlHighlight");
 		Color edge = average(mid, bg);
 
-		g.setColor(bg);
-		g.fillRect(0, h - 3, 3, 3);
-		g.fillRect(w - 3, 0, 3, 3);
-		g.fillRect(w - 3, h - 3, 3, 3);
+		// g.setColor(bg);
+		// g.fillRect(0, h - 3, 3, 3);
+		// g.fillRect(w - 3, 0, 3, 3);
+		// g.fillRect(w - 3, h - 3, 3, 3);
 
+		w-=3;
+		h-=3;
 		g.setColor(rect);
-		g.drawRect(0, 0, w - 3, h - 3);
+		// g.drawRect(0, 0, w - 3, h - 3);
+		int ovalHeight = 3;
+		int ovalWidth = 3;
+		// left
+		g.drawLine(x, y + ovalHeight, x, y +h);
+		g.drawArc(x, y, 2 * ovalWidth, 2 * ovalHeight, 180, -90);
+		// top
+		g.drawLine(x + ovalWidth, y, x + w - ovalWidth, y);
+		g.drawArc(x + w - 2 * ovalWidth, y, 2 * ovalWidth, 2 * ovalHeight, 90,
+				-90);
+		// right
+		g.drawLine(x + w, y + ovalHeight, x + w, y + h);
+		// bottom
+		g.drawLine(x, y + h, x + w, y + h);
 
-		g.setColor(mid);
-		g.drawLine(1, h - 2, w - 2, h - 2);
-		g.drawLine(w - 2, 1, w - 2, h - 2);
-
-		g.setColor(edge);
-		g.drawLine(2, h - 1, w - 2, h - 1);
-		g.drawLine(w - 1, 2, w - 1, h - 2);
+		w+=1;
+		h+=1;
+		//	    
+		 g.setColor(edge);
+		 // bottom
+		 g.drawLine(x+1, h, x+w, h );
+		 // right
+		 g.drawLine(x+w, y+ovalHeight+1, x+w , y+h);
+//				
+//		 w+=1;
+//			h+=1;
+//		 g.setColor(edge);
+//		 // bottom
+//		 g.drawLine(x+2, h, x+w, h );
+//		 // right
+//		 g.drawLine(x+w, y+ovalHeight+2, x+w , y+h);
+		
 	}
 
 	private static Color average(Color c1, Color c2) {

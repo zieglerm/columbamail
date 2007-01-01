@@ -24,7 +24,7 @@ public class DockableView extends AbstractDockable implements
 		PropertyChangeListener {
 
 	public static Color INACTIVE_LABEL_COLOR = UIManager
-			.getColor("Menu.selectionForeground");
+			.getColor("Menu.foreground");
 
 	public static Color ACTIVE_LABEL_COLOR = UIManager
 			.getColor("Menu.selectionForeground");

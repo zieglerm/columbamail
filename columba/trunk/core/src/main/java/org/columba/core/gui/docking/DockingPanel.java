@@ -62,10 +62,10 @@ import org.flexdock.docking.DockingStub;
 
 		setBorder(new ShadowBorder());
 
-		titlebar.setMidColor(INACTIVE_MID_COLOR);
-		titlebar.setFillColor(INACTIVE_FILL_COLOR);
-
-		titlebar.setActiveTitleColor(INACTIVE_LABEL_COLOR, INACTIVE_MID_COLOR);
+//		titlebar.setMidColor(INACTIVE_MID_COLOR);
+//		titlebar.setFillColor(INACTIVE_FILL_COLOR);
+//
+//		titlebar.setTitleColor(INACTIVE_LABEL_COLOR, INACTIVE_MID_COLOR, false);
 
 	}
 
@@ -77,13 +77,13 @@ import org.flexdock.docking.DockingStub;
 			titlebar.setMidColor(ACTIVE_MID_COLOR);
 			titlebar.setFillColor(ACTIVE_FILL_COLOR);
 
-			titlebar.setActiveTitleColor(ACTIVE_LABEL_COLOR, ACTIVE_FILL_COLOR);
+			titlebar.setTitleColor(ACTIVE_LABEL_COLOR, ACTIVE_FILL_COLOR, true);
 		} else {
 			titlebar.setMidColor(INACTIVE_MID_COLOR);
 			titlebar.setFillColor(INACTIVE_FILL_COLOR);
 
-			titlebar.setActiveTitleColor(INACTIVE_LABEL_COLOR,
-					INACTIVE_MID_COLOR);
+			titlebar.setTitleColor(INACTIVE_LABEL_COLOR,
+					INACTIVE_FILL_COLOR, false);
 		}
 
 		contentPanel.repaint();
@@ -165,13 +165,13 @@ import org.flexdock.docking.DockingStub;
 		ACTIVE_START_COLOR = brighter(UIManager
 				.getColor("Menu.selectionBackground"));
 
-		INACTIVE_FILL_COLOR = brighter(UIManager.getColor("controlDkShadow"));
+		INACTIVE_FILL_COLOR = UIManager.getColor("control");
 
-		INACTIVE_MID_COLOR = UIManager.getColor("controlDkShadow");
+		INACTIVE_MID_COLOR = UIManager.getColor("control");
 
 		INACTIVE_START_COLOR = UIManager.getColor("control");
 
-		INACTIVE_LABEL_COLOR = UIManager.getColor("Menu.selectionForeground");
+		INACTIVE_LABEL_COLOR = UIManager.getColor("Menu.foreground");
 
 		ACTIVE_LABEL_COLOR = UIManager.getColor("Menu.selectionForeground");
 
