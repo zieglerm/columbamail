@@ -281,6 +281,7 @@ public class TableController implements ListSelectionListener, TableModelChanged
     // selected rows before updating the model
     // -> used later to restore the selection
     previouslySelectedRows = view.getSelectedRows();
+    previouslySelectedNodes = getView().getSelectedNodes();
 
     // folder in which the update occurs
     IFolder folder = event.getSrcFolder();
@@ -452,14 +453,15 @@ public class TableController implements ListSelectionListener, TableModelChanged
      * 0) { // skip if no message selected if (getView().getRowCount() > 0) // if folder contains messages // -> skip to fix
      * above bug return; }
      */
-
-    // rememember selected nodes
-    previouslySelectedNodes = getView().getSelectedNodes();
+    System.out.println("selection changed="+getView().getSelectedRow());
+    
+    // selected nodes
+    MessageNode[] nodes = getView().getSelectedNodes();
 
     List<String> v = new Vector<String>();
 
-    for (int i = 0; i < previouslySelectedNodes.length; i++) {
-      final MessageNode _node = previouslySelectedNodes[i];
+    for (int i = 0; i < nodes.length; i++) {
+      final MessageNode _node = nodes[i];
       if (_node != null) {
         final Integer _selectedNode = (Integer) _node.getUid();
         if (_selectedNode != null) {
