@@ -91,7 +91,7 @@ public class PluginTreeTableModel extends AbstractTreeTableModel {
     public boolean isCellEditable(int row, int col) {
         // enabled/disabled checkbox must be editable
         if (col == 2) {
-            return true;
+            return false;
         }
 
         // tree must be editable, otherwise you can't collapse/expand tree nodes
