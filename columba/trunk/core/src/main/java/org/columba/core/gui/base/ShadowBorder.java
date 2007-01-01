@@ -28,7 +28,7 @@ public class ShadowBorder implements Border {
 		if (c.getParent() != null)
 			bg = c.getParent().getBackground();
 		Color mid = bg.darker();
-		Color rect = UIManager.getColor("controlHighlight");
+		Color rect = UIManager.getColor("control").darker();
 		Color edge = average(mid, bg);
 
 		// g.setColor(bg);
@@ -56,13 +56,13 @@ public class ShadowBorder implements Border {
 
 		w+=1;
 		h+=1;
-		//	    
+		//
 		 g.setColor(edge);
 		 // bottom
 		 g.drawLine(x+1, h, x+w, h );
 		 // right
 		 g.drawLine(x+w, y+ovalHeight+1, x+w , y+h);
-//				
+//
 //		 w+=1;
 //			h+=1;
 //		 g.setColor(edge);
@@ -70,7 +70,7 @@ public class ShadowBorder implements Border {
 //		 g.drawLine(x+2, h, x+w, h );
 //		 // right
 //		 g.drawLine(x+w, y+ovalHeight+2, x+w , y+h);
-		
+
 	}
 
 	private static Color average(Color c1, Color c2) {
