@@ -52,7 +52,7 @@ import org.columba.ristretto.message.Flags;
 
 /**
  * Search provider uses virtual folder to search over all existing mail folders.
- * 
+ *
  * @author frd
  */
 public class MailSearchProvider implements ISearchProvider {
@@ -71,15 +71,15 @@ public class MailSearchProvider implements ISearchProvider {
 
 	private Vector<SearchIndex> indizes = new Vector<SearchIndex>();
 
-	//private Vector<VirtualFolder> searchFolders = new Vector<VirtualFolder>();
+	private Map<String, VirtualFolder> searchFolders = new Hashtable<String, VirtualFolder>();
 	private VirtualFolder lastSearchFolder;
 
 	private int totalResultCount = 0;
 
 	private ResourceBundle bundle;
-	
+
 	/**
-	 * check if a single criteria search was done. False, if a multiple criteria search was done. 
+	 * check if a single criteria search was done. False, if a multiple criteria search was done.
 	 */
 	private boolean singleCriteriaSearch = false;
 
@@ -118,14 +118,14 @@ public class MailSearchProvider implements ISearchProvider {
 		if (searchTerm.equals(""))
 			numberFormat = true;
 
-		
+
 		list.add(getCriteria(MailSearchProvider.CRITERIA_SUBJECT_CONTAINS,
 				searchTerm));
 		list.add(getCriteria(MailSearchProvider.CRITERIA_FROM_CONTAINS,
 				searchTerm));
 		list.add(getCriteria(MailSearchProvider.CRITERIA_BODY_CONTAINS,
 				searchTerm));
-		
+
 		if (numberFormat)
 			list.add(getCriteria(MailSearchProvider.CRITERIA_SIZE_GREATER_THAN,
 					searchTerm));
@@ -256,10 +256,10 @@ public class MailSearchProvider implements ISearchProvider {
 
 			for (int i = 0; i < uids.length; i++) {
 				SearchIndex idx = new SearchIndex(folder, uids[i]);
-				
-				System.out.println("--> idx.folder="+idx.folder.getId());
-				System.out.println("--> idx.message="+idx.messageId);
-				
+
+//				System.out.println("--> idx.folder="+idx.folder.getId());
+//				System.out.println("--> idx.message="+idx.messageId);
+
 				indizes.add(idx);
 			}
 
@@ -272,9 +272,9 @@ public class MailSearchProvider implements ISearchProvider {
 			Collections.sort(result, new MyComparator());
 
 			// remember search folder for "show total results" action
-			//searchFolders.put(searchRequestId, folder);
+			searchFolders.put(searchRequestId, folder);
 			lastSearchFolder = folder;
-			
+
 			LOG.info("cache search folder=" + searchRequestId);
 
 		} catch (Exception e) {
@@ -285,7 +285,7 @@ public class MailSearchProvider implements ISearchProvider {
 		totalResultCount = indizes.size();
 
 		singleCriteriaSearch = true;
-		
+
 		return result;
 	}
 
@@ -349,7 +349,7 @@ public class MailSearchProvider implements ISearchProvider {
 		}
 
 		// remember request id for "search in results"
-		//String searchRequestId = buf.toString();
+		String searchRequestId = buf.toString();
 
 		try {
 
@@ -376,7 +376,7 @@ public class MailSearchProvider implements ISearchProvider {
 				SearchIndex idx = new SearchIndex(folder, uids[i]);
 //				System.out.println("--> idx.folder="+idx.folder.getId());
 //				System.out.println("--> idx.message="+idx.messageId);
-				
+
 				indizes.add(idx);
 			}
 
@@ -389,9 +389,9 @@ public class MailSearchProvider implements ISearchProvider {
 			Collections.sort(result, new MyComparator());
 
 			// remember search folder for "show total results" action
-			//searchFolders.put(searchRequestId, folder);
+			searchFolders.put(searchRequestId, folder);
 			lastSearchFolder = folder;
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -400,7 +400,7 @@ public class MailSearchProvider implements ISearchProvider {
 		totalResultCount = indizes.size();
 
 		singleCriteriaSearch = false;
-		
+
 		return result;
 	}
 
@@ -426,7 +426,7 @@ public class MailSearchProvider implements ISearchProvider {
 					"columba.from");
 			Date date = (Date) folder.getAttribute(messageId, "columba.date");
 			String description = from.toString() + " " + date;
-			
+
 			VirtualHeader h = (VirtualHeader) folder.getHeaderList().get(messageId);
 			URI uri = SearchResultBuilder.createURI(h.getSrcFolder().getId(), h.getSrcUid());
 			System.out.println("uri="+uri.toString());
@@ -508,10 +508,10 @@ public class MailSearchProvider implements ISearchProvider {
 
 		VirtualFolder vFolder = lastSearchFolder;
 		// if complex use the last search folder
-//		if (searchCriteriaTechnicalName == null) {
-//			vFolder = searchFolders.values().iterator().next();
-//		} else
-//			vFolder = searchFolders.get(searchCriteriaTechnicalName);
+		if (searchCriteriaTechnicalName == null) {
+			vFolder = searchFolders.values().iterator().next();
+		} else
+			vFolder = searchFolders.get(searchCriteriaTechnicalName);
 
 		if (vFolder == null)
 			throw new IllegalArgumentException("vFolder for search critera <"
@@ -538,7 +538,7 @@ public class MailSearchProvider implements ISearchProvider {
 	/**
 	 * Comparator for message result. Sortes results by Date. More recent
 	 * results are shown first.
-	 * 
+	 *
 	 * @author frd
 	 */
 	class MyComparator implements Comparator {
