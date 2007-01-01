@@ -350,8 +350,8 @@ public class MailOptionsDialog extends JDialog implements ActionListener {
 		builder.nextLine();
 		builder.append(enableSmiliesCheckBox, 4);
 		builder.nextLine();
-		builder.append(showAttachmentsInlineCheckBox, 4);
-		builder.nextLine();
+//		builder.append(showAttachmentsInlineCheckBox, 4);
+//		builder.nextLine();
 
 		
 
