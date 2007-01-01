@@ -100,10 +100,10 @@ public class ContactBox extends JPanel implements IComponentBox {
 		list.add(getPopupMenu());
 		list.addMouseListener(new MyMouseListener());
 
-		setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+		//setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
 		JPanel p = new JPanel();
-		p.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
+		p.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
 		FormLayout layout = new FormLayout("pref, 2dlu, fill:default:grow",
 		// 2 columns
 				"fill:default:grow");
@@ -115,6 +115,7 @@ public class ContactBox extends JPanel implements IComponentBox {
 		add(p, BorderLayout.NORTH);
 
 		JScrollPane scrollPane = new JScrollPane(list);
+		//scrollPane.setBorder(null);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 

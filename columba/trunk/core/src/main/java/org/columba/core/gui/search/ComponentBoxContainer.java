@@ -19,10 +19,10 @@ import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXHyperlink;
 
 public class ComponentBoxContainer extends JPanel {
-	
+
 	private final static Color borderColor2 = UIManager.getColor("controlShadow");
 	private final static Color borderColor1 = UIManager.getColor("controlHighlight");
-	
+
 	private JXHyperlink link;
 
 	private JXCollapsiblePane collapsible;
@@ -35,7 +35,7 @@ public class ComponentBoxContainer extends JPanel {
 		collapsible = new JXCollapsiblePane();
 		collapsible.add(compBox.getView());
 		collapsible.setCollapsed(true);
-		
+
 		Action toggleAction = collapsible.getActionMap().get(
 				JXCollapsiblePane.TOGGLE_ACTION);
 		// use the collapse/expand icons from the JTree UI
@@ -110,8 +110,8 @@ public class ComponentBoxContainer extends JPanel {
 			if (isFirst(c)) {
 				g.drawLine(x, y + 2, x + width, y + 2);
 			}
-			g.setColor(borderColor2);
-			g.drawLine(x, y + height - 1, x + width, y + height - 1);
+//			g.setColor(borderColor2);
+//			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
 }

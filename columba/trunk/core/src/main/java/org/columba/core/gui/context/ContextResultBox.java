@@ -168,8 +168,8 @@ public class ContextResultBox extends JPanel {
 			if (isFirst(c)) {
 				g.drawLine(x, y + 2, x + width, y + 2);
 			}
-			g.setColor(borderColor2);
-			g.drawLine(x, y + height - 1, x + width, y + height - 1);
+//			g.setColor(borderColor2);
+//			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
 

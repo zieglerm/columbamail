@@ -46,9 +46,9 @@ private final static Color borderColor1 = UIManager
 	private ISearchCriteria criteria;
 
 	private ISearchProvider searchProvider;
-	
+
 	/**
-	 * 
+	 *
 	 * @param mediator
 	 * @param p
 	 * @param criteria
@@ -61,7 +61,7 @@ private final static Color borderColor1 = UIManager
 		this.resultPanel = resultPanel;
 		this.criteria = criteria;
 		this.searchProvider = p;
-		
+
 		collapsible = new JXCollapsiblePane();
 		//collapsible.getContentPane().setBackground(Color.WHITE);
 		collapsible.add(resultPanel.getView());
@@ -209,8 +209,8 @@ private final static Color borderColor1 = UIManager
 			if (isFirst(c)) {
 				g.drawLine(x, y + 2, x + width, y + 2);
 			}
-			g.setColor(borderColor2);
-			g.drawLine(x, y + height - 1, x + width, y + height - 1);
+//			g.setColor(borderColor2);
+//			g.drawLine(x, y + height - 1, x + width, y + height - 1);
 		}
 	}
 
