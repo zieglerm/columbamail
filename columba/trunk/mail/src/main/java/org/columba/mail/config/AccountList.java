@@ -62,7 +62,7 @@ public class AccountList extends DefaultItem {
         /*
          * if ((index >= 0) && (index < list.size())) return (AccountItem)
          * list.get(index);
-         * 
+         *
          * return null;
          */
         return new AccountItem(e);
@@ -84,7 +84,7 @@ public class AccountList extends DefaultItem {
 
     /*
      * search for SecurityItem based on To headerfield
-     *  
+     *
      */
     public SecurityItem getPGPItem(String to) {
         for (int i = 0; i < count(); i++) {
@@ -105,7 +105,7 @@ public class AccountList extends DefaultItem {
 
     /**
      * Get account using the email address to identify it.
-     * 
+     *
      * @param address
      *            email address
      * @return account item
@@ -170,7 +170,7 @@ public class AccountList extends DefaultItem {
         XmlElement emptyAccount = root.getElement("/template/" + type
                 + "/account");
 
-        
+
         if (emptyAccount != null) {
             AccountItem newAccount = new AccountItem((XmlElement) emptyAccount
                     .clone());
@@ -184,13 +184,13 @@ public class AccountList extends DefaultItem {
             String sigURL = "org/columba/mail/config/default_signature.txt";
             try {
 				DiskIO.copyResource(sigURL, signatureFile);
-				
+
 				newAccount.getIdentity().setSignature(signatureFile);
 			} catch (IOException e) {
 				//Do nothing
 			}
-            
-            
+
+
             return newAccount;
         }
 
@@ -234,6 +234,10 @@ public class AccountList extends DefaultItem {
     public AccountItem getDefaultAccount() {
         if (defaultAccount == null) {
             defaultAccount = uidGet(getDefaultAccountUid());
+            // fall back to first account as default
+            if ( defaultAccount == null ) {
+            	defaultAccount = get(0);
+            }
         }
 
         return defaultAccount;
