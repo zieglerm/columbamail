@@ -24,8 +24,7 @@ import javax.persistence.Query;
 
 import org.columba.core.association.api.IAssociation;
 import org.columba.core.association.api.IAssociationStore;
-import org.columba.core.config.Config;
-import org.columba.core.shutdown.ShutdownManager;
+import org.columba.core.config.DefaultConfigDirectory;
 
 public class AssociationStore implements IAssociationStore, Runnable {
 
@@ -45,7 +44,7 @@ public class AssociationStore implements IAssociationStore, Runnable {
 
 	/**
 	 * private constructor for the singelton implementation
-	 * 
+	 *
 	 */
 	private AssociationStore() {
 		factory = null;
@@ -170,10 +169,10 @@ public class AssociationStore implements IAssociationStore, Runnable {
 			}
 		}
 
-		ShutdownManager.getInstance().register(this);
+		//ShutdownManager.getInstance().register(this);
 
 		String connectionString = "jdbc:hsqldb:file:"
-				+ Config.getInstance().getConfigDirectory().getAbsolutePath()
+				+ DefaultConfigDirectory.getInstance().getCurrentPath().getAbsolutePath()
 				+ File.separator + "associations";
 
 		// start HSQLDB

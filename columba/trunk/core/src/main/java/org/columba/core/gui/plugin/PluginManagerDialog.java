@@ -54,7 +54,7 @@ import org.columba.api.plugin.IExtensionHandlerKeys;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.api.plugin.PluginLoadingFailedException;
 import org.columba.api.plugin.PluginMetadata;
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.InfoViewerDialog;
 import org.columba.core.gui.base.SingleSideEtchedBorder;
@@ -382,7 +382,7 @@ public class PluginManagerDialog extends JDialog implements ActionListener,
 	protected void installPlugin(File file) {
 		// use user's config folder in his/her home-folder
 		// all plugins reside in "<config-folder>/plugins"
-		File destination = new File(Config.getInstance().getConfigDirectory(),
+		File destination = new File(DefaultConfigDirectory.getInstance().getCurrentPath(),
 				"plugins");
 
 		LOG.info("extract "+file.getName()+" to "+ destination.getAbsolutePath());

@@ -15,7 +15,7 @@ import javax.swing.JPopupMenu;
 
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.config.ViewItem;
 import org.columba.core.gui.docking.XMLPersister;
 import org.flexdock.docking.Dockable;
@@ -34,7 +34,7 @@ public abstract class DockFrameController extends DefaultFrameController
 
 	private IDockable contextualPanelDockable;
 	private IDockable searchPanelDockable;
-	
+
 	/**
 	 * @param viewItem
 	 */
@@ -54,10 +54,10 @@ public abstract class DockFrameController extends DefaultFrameController
 		initComponents();
 
 	}
-	
+
 
 	/**
-	 * 
+	 *
 	 */
 	private void initComponents() {
 
@@ -65,7 +65,7 @@ public abstract class DockFrameController extends DefaultFrameController
 		dockingPort.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		searchPanelDockable = registerDockable(IDock.DOCKING_VIEW_SEARCH, "Search", getSearchPanel().getView(), null);
-	
+
 	}
 
 	/* (non-Javadoc)
@@ -83,7 +83,7 @@ public abstract class DockFrameController extends DefaultFrameController
 
 		boolean restoreSuccess = false;
 		// load docking settings from last user session
-		File configDirectory = Config.getInstance().getConfigDirectory();
+		File configDirectory = DefaultConfigDirectory.getInstance().getCurrentPath();
 		File dockDirectory = new File(configDirectory, "flexdock");
 		if (!dockDirectory.exists())
 			dockDirectory.mkdir();
@@ -118,7 +118,7 @@ public abstract class DockFrameController extends DefaultFrameController
 		super.savePositions();
 
 		try {
-			File configDirectory = Config.getInstance().getConfigDirectory();
+			File configDirectory = DefaultConfigDirectory.getInstance().getCurrentPath();
 			File dockDirectory = new File(configDirectory, "flexdock");
 			if (!dockDirectory.exists())
 				dockDirectory.mkdir();
@@ -156,7 +156,7 @@ public abstract class DockFrameController extends DefaultFrameController
 		list.add(dockable);
 
 		dockingPort.dock(dockable.getView(), dockable.getId());
-		
+
 	}
 
 	/**
@@ -275,14 +275,14 @@ public abstract class DockFrameController extends DefaultFrameController
 	 * loaded correctly or no persisted state is available yet.
 	 */
 	/**
-	 * 
+	 *
 	 */
 	public void loadDefaultPosition() {
 		dock(searchPanelDockable, REGION.WEST);
 		dock(contextualPanelDockable, REGION.EAST);
 	}
 
-	
+
 	/**
 	 * @see org.columba.api.gui.frame.IDock#showDockable(java.lang.String)
 	 */

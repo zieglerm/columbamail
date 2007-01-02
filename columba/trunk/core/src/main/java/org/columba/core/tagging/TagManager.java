@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.event.EventListenerList;
 
 import org.columba.api.exception.StoreException;
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.config.XmlConfig;
 import org.columba.core.tagging.api.ITag;
 import org.columba.core.tagging.api.ITagEvent;
@@ -21,8 +21,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 
 /**
- * 
- * 
+ *
+ *
  * @author mhub
  * @author frd (added eventing, replaced old configuration infrastructure)
  */
@@ -59,7 +59,7 @@ public class TagManager implements ITagManager {
 	 */
 	protected TagManager() {
 
-		File file = Config.getInstance().getConfigDirectory();
+		File file = DefaultConfigDirectory.getInstance().getCurrentPath();
 		File tagFile = new File(file, "tags.xml");
 
 		// load xml configuration
@@ -94,7 +94,7 @@ public class TagManager implements ITagManager {
 			tagsElement = new Element("tags");
 			document.setRootElement(tagsElement);
 		}
-		
+
 		List<Element> list = tagsElement.getChildren();
 		Iterator<Element> it = list.listIterator();
 		while (it.hasNext()) {

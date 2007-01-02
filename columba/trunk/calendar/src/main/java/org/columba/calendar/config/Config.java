@@ -23,6 +23,7 @@ import java.io.File;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.config.api.ICalendarList;
 import org.columba.calendar.config.api.IConfig;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.io.DiskIO;
 import org.columba.core.shutdown.ShutdownManager;
 
@@ -39,7 +40,7 @@ public class Config implements IConfig {
 	private Config() throws Exception {
 
 		// get Columba's top-level configuration directory
-		File file = org.columba.core.config.Config.getDefaultConfigPath();
+		File file = DefaultConfigDirectory.getDefaultPath();
 
 		// create top-level configuration directory
 		calendarDirectory = new File(file, "calendar");

@@ -26,7 +26,7 @@ import javax.swing.tree.DefaultTreeModel;
 import org.columba.api.plugin.IExtension;
 import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.gui.dialog.ErrorDialog;
 import org.columba.core.plugin.PluginManager;
 import org.columba.core.shutdown.ShutdownManager;
@@ -46,7 +46,7 @@ import org.columba.mail.util.MailResourceLoader;
 
 /**
  * @author freddy
- * 
+ *
  * To change this generated comment edit the template variable "typecomment":
  * Window>Preferences>Java>Templates. To enable and disable the creation of type
  * comments go to Window>Preferences>Java>Code Generation.
@@ -58,7 +58,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 	protected TempFolder tempFolder;
 
 	private Map<String, IMailFolder> temporaryFolders = new WeakHashMap<String,IMailFolder>();
-	
+
 	private static FolderTreeModel instance = new FolderTreeModel(MailConfig
 			.getInstance().getFolderConfig());
 
@@ -67,7 +67,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 		this.folderXmlConfig = folderConfig;
 
 		// create temporary folder in "<your-config-folder>/mail/"
-		tempFolder = new TempFolder(Config.getInstance().getConfigDirectory()
+		tempFolder = new TempFolder(DefaultConfigDirectory.getInstance().getCurrentPath()
 				+ "/mail/");
 
 		createDirectories(((IMailFolder) getRoot()).getConfiguration()
@@ -105,11 +105,11 @@ public class FolderTreeModel extends DefaultTreeModel {
 		return instance;
 	}
 
-	
+
 	public void addTemporaryFolder(IMailFolder folder) {
 		temporaryFolders.put(folder.getId(), folder);
 	}
-	
+
 	public void createDirectories(XmlElement parentTreeNode,
 			IMailFolder parentFolder) {
 		int count = parentTreeNode.count();
@@ -184,7 +184,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 
 		// parent directory for mail folders
 		// for example: ".columba/mail/"
-		String path = Config.getInstance().getConfigDirectory() + "/mail/";
+		String path = DefaultConfigDirectory.getInstance().getCurrentPath() + "/mail/";
 		Object[] args = { item, path };
 		IMailFolder folder = null;
 
@@ -215,7 +215,7 @@ public class FolderTreeModel extends DefaultTreeModel {
 
 		if ( temporaryFolders.containsKey(folderId))
 			return temporaryFolders.get(folderId);
-		
+
 		return null;
 	}
 

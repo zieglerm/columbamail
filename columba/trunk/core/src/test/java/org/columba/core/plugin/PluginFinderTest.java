@@ -21,45 +21,40 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.columba.core.config.Config;
 import org.columba.core.io.DiskIO;
 
 /**
  * @author fdietz
- *  
+ *
  */
 public class PluginFinderTest extends TestCase {
 
-    private File file;
-    
-    /*
-     * @see TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        //      create config-folder
-        file = new File("test_config");
-        file.mkdir();
+	private File file;
 
-        // initialize configuration - core
-       new Config(file);
-    }
-   
+	/*
+	 * @see TestCase#setUp()
+	 */
+	protected void setUp() throws Exception {
+		// create config-folder
+		file = new File("test_config");
+		file.mkdir();
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        // remove configuration directory
-        DiskIO.deleteDirectory(file);
-    }
-    
-    
-    public void test() {
-        // find all possible plugin directories
-        File[] pluginFolders = PluginFinder.searchPlugins();
-        
-        for ( int i=0; i<pluginFolders.length; i++) {
-            System.out.println("plugin-directory="+pluginFolders[i]);
-        }
-    }
+	}
+
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+		// remove configuration directory
+		DiskIO.deleteDirectory(file);
+	}
+
+	public void test() {
+		// find all possible plugin directories
+		File[] pluginFolders = PluginFinder.searchPlugins();
+
+		for (int i = 0; i < pluginFolders.length; i++) {
+			System.out.println("plugin-directory=" + pluginFolders[i]);
+		}
+	}
 }

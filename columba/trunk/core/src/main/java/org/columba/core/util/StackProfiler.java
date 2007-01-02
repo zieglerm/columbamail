@@ -8,9 +8,9 @@ import org.columba.core.logging.Logging;
 
 public class StackProfiler {
 
-	private static final java.util.logging.Logger LOG = 
+	private static final java.util.logging.Logger LOG =
         java.util.logging.Logger.getLogger("org.columba.core.util"); //$NON-NLS-1$
-	
+
 	/**
 	 * keeps a list of profile point ids
 	 */
@@ -29,7 +29,7 @@ public class StackProfiler {
 	/**
 	 * Set new profiling starting point. This is where the time measurment
 	 * actually starts.
-	 * 
+	 *
 	 * @param id
 	 *            unique id of profiling point
 	 */
@@ -54,11 +54,12 @@ public class StackProfiler {
 
 	/**
 	 * Close profiling point. This is where the time measurement actually ends.
-	 * 
+	 *
 	 * @param id
 	 *            unique id of profiling point
 	 */
 	public void pop(String id) {
+		System.out.println("id="+id);
 		// abort if not in debugging mode
 		if (Logging.DEBUG == false)
 			return;
@@ -94,7 +95,7 @@ public class StackProfiler {
 
 	/**
 	 * Print debug data.
-	 * 
+	 *
 	 * @param id
 	 *            unique profiling point id
 	 */

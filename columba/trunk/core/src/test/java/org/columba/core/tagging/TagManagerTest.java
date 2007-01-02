@@ -15,7 +15,6 @@ public class TagManagerTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		Config c = new Config(new File(""));
 		tm = new TagManager();
 	}
 

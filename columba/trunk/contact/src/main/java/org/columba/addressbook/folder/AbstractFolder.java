@@ -26,20 +26,19 @@ import java.util.Map;
 import javax.swing.event.EventListenerList;
 
 import org.columba.addressbook.config.FolderItem;
-import org.columba.addressbook.facade.IContactItem;
 import org.columba.addressbook.model.ContactModelFactory;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.api.exception.StoreException;
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.io.DiskIO;
 
 /**
  * Abstract base class for every contact folder.
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 public abstract class AbstractFolder extends AddressbookTreeNode implements
 		IContactStorage, IContactFolder {
@@ -73,7 +72,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	public AbstractFolder(FolderItem item) {
 		super(item);
 
-		String dir = Config.getInstance().getConfigDirectory()
+		String dir = DefaultConfigDirectory.getInstance().getCurrentPath()
 				+ "/addressbook/" + getId();
 
 		if (DiskIO.ensureDirectory(dir)) {
@@ -246,29 +245,29 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	/*
 	 * protected TreeNode[] getPathToRoot(TreeNode aNode, int depth) {
 	 * TreeNode[] retNodes;
-	 * 
+	 *
 	 * if (aNode == null) { if (depth == 0) { return null; } else { retNodes =
 	 * new TreeNode[depth]; } } else { depth++; retNodes =
 	 * getPathToRoot(aNode.getParent(), depth); retNodes[retNodes.length -
 	 * depth] = aNode; }
-	 * 
+	 *
 	 * return retNodes; }
 	 */
 
 	/**
 	 * Method getTreePath.
-	 * 
+	 *
 	 * @return String
 	 */
 	/*
 	 * public String getTreePath() { TreeNode[] treeNode = getPathToRoot(this,
 	 * 0);
-	 * 
+	 *
 	 * StringBuffer path = new StringBuffer();
-	 * 
+	 *
 	 * for (int i = 1; i < treeNode.length; i++) { AddressbookTreeNode folder =
 	 * (AddressbookTreeNode) treeNode[i]; path.append("/" + folder.getName()); }
-	 * 
+	 *
 	 * return path.toString(); }
 	 */
 
@@ -289,7 +288,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	}
 
 	/**
-	 * 
+	 *
 	 * @see org.columba.addressbook.folder.IContactStorage#modify(java.lang.Object,
 	 *      IContactModel)
 	 */
@@ -360,7 +359,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	private String generateNextMessageUid() {
 		return new Integer(nextMessageUid++).toString();
 	}
-	
+
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#add(IContactModel[])
 	 */

@@ -32,19 +32,20 @@ import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.xml.XmlElement;
 
 /**
  * This is the core class to handle i18n in columba, loading, handling and
  * returning localized strings. It should not be used directly, use
  * MailResourceLoader or AddressbookResourceLoader (or *ResourceLoader) instead.
- * 
+ *
  * Behaviour: When a resource is needed, getString() or getMnemonics() are
  * called. They look for a resource with that name (in the current locale
  * bundles). If it is not found, they look for the resource in the global
  * resource bundle (for the current locale). If this is not found, "FIXME" is
  * returned.
- * 
+ *
  * Example of usage: We need to get the text for "my_cool_button" located into
  * "org/columba/modules/mail/i18n/action/something_else_than_action" sPath:
  * org/columba/modules/mail/i18n/action/ => The complete package path. sName:
@@ -54,7 +55,7 @@ import org.columba.core.xml.XmlElement;
  * "my_cool_button"); b)
  * ResourceLoader.getString("org/columba/modules/mail/i18n/action",
  * "something_else_than_action", "my_cool_button"); They'll both work.
- * 
+ *
  * We need to gets its mnemonic: a) MailResourceLoader.getMnemonic("action",
  * "something_else_than_action", "my_cool_button"); b)
  * ResourceLoader.getMnemonic("org/columba/modules/mail/i18n/action",
@@ -105,7 +106,7 @@ public class GlobalResourceLoader {
 		locales.add(new Locale("en", ""));
 
 		FileFilter langpackFileFilter = new LangPackFileFilter();
-		File[] langpacks = Config.getInstance().getConfigDirectory().listFiles(
+		File[] langpacks = DefaultConfigDirectory.getInstance().getCurrentPath().listFiles(
 				langpackFileFilter);
 
 		for (int i = 0; i < langpacks.length; i++) {
@@ -147,8 +148,7 @@ public class GlobalResourceLoader {
 	protected static void initClassLoader() {
 		File langpack = null;
 		try {
-			langpack = lookupLanguagePackFile(Locale.getDefault(), Config
-					.getInstance().getConfigDirectory());
+			langpack = lookupLanguagePackFile(Locale.getDefault(), DefaultConfigDirectory.getInstance().getCurrentPath());
 		} catch (RuntimeException ex) {
 			// this is ok
 		}
@@ -219,14 +219,14 @@ public class GlobalResourceLoader {
 	 * This method returns the translation for the given string identifier. If
 	 * no translation is found, the default english item is used. Should this
 	 * fail too, the sID string will be returned.
-	 * 
+	 *
 	 * Example usage call: getString("org/columba/modules/mail/i18n/", "dialog",
 	 * "close") We'll look for "close" in
 	 * "org/columba/modules/mail/i18n/dialog/dialog_locale_LOCALE.properties"
 	 * Thus: sPath: "org/columba/modules/mail/i18n/dialog" sName: "dialog" sID:
 	 * "close" The bundle name will be:
 	 * "org/columba/modules/mail/i18n/dialog/dialog"
-	 * 
+	 *
 	 * Hypotetically this method should not be available to classes different
 	 * from *ResourceLoader (example: MailResourceLoader,
 	 * AddressbookResourceLoader); this means that *ResourceLoader classes *do

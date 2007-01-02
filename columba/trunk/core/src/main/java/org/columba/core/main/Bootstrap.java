@@ -40,6 +40,7 @@ import org.columba.core.backgroundtask.BackgroundTaskManager;
 import org.columba.core.base.OSInfo;
 import org.columba.core.component.ComponentManager;
 import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.config.SaveConfig;
 import org.columba.core.desktop.ColumbaDesktop;
 import org.columba.core.gui.base.DebugRepaintManager;
@@ -102,14 +103,14 @@ public class Bootstrap {
 		profiler.pop("profile");
 
 		// initialize configuration with selected profile
+		DefaultConfigDirectory.getInstance().setCurrentPath(profile.getLocation());
 		new Config(profile.getLocation());
 		profiler.pop("config");
 
 		// if user doesn't overwrite logger settings with commandline arguments
 		// just initialize default logging
 		// Logging.createDefaultHandler();
-		Logging.createDefaultFileHandler(Config.getInstance()
-				.getConfigDirectory());
+		Logging.createDefaultFileHandler(DefaultConfigDirectory.getDefaultPath());
 
 		for (int i = 0; i < args.length; i++) {
 			LOG.info("arg[" + i + "]=" + args[i]);
@@ -220,8 +221,11 @@ public class Bootstrap {
 		profiler.push("tagging");
 
 		// initialize tagging
-		if (ENABLE_TAGS)
+		if (ENABLE_TAGS) {
 			AssociationStore.getInstance().init();
+			// register for cleanup
+			ShutdownManager.getInstance().register(AssociationStore.getInstance());
+		}
 
 		profiler.pop("tagging");
 

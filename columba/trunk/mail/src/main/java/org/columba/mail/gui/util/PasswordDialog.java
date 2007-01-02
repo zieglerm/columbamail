@@ -39,7 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.KeyStroke;
 
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.resourceloader.ImageLoader;
@@ -47,7 +47,7 @@ import org.columba.mail.util.MailResourceLoader;
 
 /**
  * Password dialog prompts user for password.
- * 
+ *
  * @author fdietz
  */
 public class PasswordDialog extends JDialog implements ActionListener {
@@ -116,7 +116,7 @@ public class PasswordDialog extends JDialog implements ActionListener {
 	 * Note that the emailAddress parameter, needs to be really unique. I
 	 * therefore suggest a combination between host and login name, instead.
 	 * This way user can see his login name. -> changed method signature!
-	 * 
+	 *
 	 * @param login
 	 *            login name
 	 * @param host
@@ -224,9 +224,8 @@ public class PasswordDialog extends JDialog implements ActionListener {
 			if (!checkbox.isSelected()) {
 				return;
 			} else {
-				File configPath = Config.getInstance().getConfigDirectory();
-				File defaultConfigPath = Config
-						.getDefaultConfigPath();
+				File configPath = DefaultConfigDirectory.getInstance().getCurrentPath();
+				File defaultConfigPath = DefaultConfigDirectory.getDefaultPath();
 				while (!configPath.equals(defaultConfigPath)) {
 					configPath = configPath.getParentFile();
 					if (configPath == null) {

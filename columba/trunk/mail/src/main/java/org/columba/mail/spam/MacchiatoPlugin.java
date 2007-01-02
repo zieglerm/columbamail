@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.gui.frame.FrameManager;
 import org.columba.core.io.CloneStreamMaster;
 import org.columba.core.logging.Logging;
@@ -55,7 +55,7 @@ import org.macchiato.maps.ProbabilityMap;
  * <p>
  * If training mode is enabled, the spam filter automatically adds messages to
  * its frequency database.
- * 
+ *
  * @author fdietz
  */
 public class MacchiatoPlugin implements ISpamPlugin {
@@ -101,11 +101,11 @@ public class MacchiatoPlugin implements ISpamPlugin {
 	private boolean alreadyLoaded = false;
 
 	/**
-	 * 
+	 *
 	 */
 	public MacchiatoPlugin() {
 		// create directory <config-folder>/mail/spamdb
-		File configDirectory = Config.getInstance().getConfigDirectory();
+		File configDirectory = DefaultConfigDirectory.getInstance().getCurrentPath();
 		File mailDirectory = new File(configDirectory, "mail");
 		file = new File(mailDirectory, "spamdb");
 		if (!file.exists())
@@ -123,7 +123,7 @@ public class MacchiatoPlugin implements ISpamPlugin {
 	/**
 	 * Score message. Using a threshold of 90% here. Every message with at least
 	 * 90% is spam. This value should be increased in the future.
-	 * 
+	 *
 	 * @see org.columba.mail.spam.ISpamPlugin#scoreMessage(org.columba.mail.folder.IMailbox,
 	 *      java.lang.Object)
 	 */
@@ -310,7 +310,7 @@ public class MacchiatoPlugin implements ISpamPlugin {
 		/*
 		 * try { // only load if necessary if (!alreadyLoaded && file.exists()) {
 		 * FrequencyIO.load(db, file); }
-		 * 
+		 *
 		 * alreadyLoaded = true; } catch (IOException e) {
 		 * JOptionPane.showMessageDialog(
 		 * MainInterface.frameModel.getActiveFrame(), "An error occured while
@@ -318,7 +318,7 @@ public class MacchiatoPlugin implements ISpamPlugin {
 		 * loading database", JOptionPane.ERROR_MESSAGE); if
 		 * (MainInterface.DEBUG) { e.printStackTrace(); } // fail-case db = new
 		 * FrequencyDBImpl();
-		 * 
+		 *
 		 * alreadyLoaded = true; }
 		 */
 	}

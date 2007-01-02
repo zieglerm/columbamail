@@ -42,7 +42,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.gui.base.ButtonWithMnemonic;
 import org.columba.core.gui.base.CheckBoxWithMnemonic;
 import org.columba.core.gui.base.LabelWithMnemonic;
@@ -430,8 +430,8 @@ public class OutgoingServerPanel extends DefaultPanel implements ActionListener 
 			if (!storePasswordCheckBox.isSelected()) {
 				return;
 			} else {
-				File configPath = Config.getInstance().getConfigDirectory();
-				File defaultConfigPath = Config.getDefaultConfigPath();
+				File configPath = DefaultConfigDirectory.getInstance().getCurrentPath();
+				File defaultConfigPath = DefaultConfigDirectory.getDefaultPath();
 				while (!configPath.equals(defaultConfigPath)) {
 					configPath = configPath.getParentFile();
 					if (configPath == null) {

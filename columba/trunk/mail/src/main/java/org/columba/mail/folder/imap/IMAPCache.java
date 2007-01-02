@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.io.StreamCache;
 import org.columba.core.shutdown.ShutdownManager;
 import org.columba.ristretto.message.MimeTree;
@@ -34,34 +34,34 @@ import org.columba.ristretto.message.MimeTree;
 public class IMAPCache implements Runnable {
 
 	//TODO:add a configuration of the cache size
-	
+
 	private StreamCache cache;
 	private static IMAPCache instance = new IMAPCache();
-	
+
 	protected IMAPCache() {
-		File configDir = Config.getInstance().getConfigDirectory();
+		File configDir = DefaultConfigDirectory.getInstance().getCurrentPath();
 		cache = new StreamCache(new File(configDir, "imap_cache"));
-		
+
 		ShutdownManager.getInstance().register(this);
 	}
-	
+
 	public static IMAPCache getInstance() {
 		return instance;
 	}
-	
+
 	public void addMimeTree(IMAPFolder folder, Object uid, MimeTree mimeTree) throws IOException {
 		cache.activeAdd(createMimeTreeKey(folder, uid), convertToStream(mimeTree));
 	}
-	
+
 	public MimeTree getMimeTree(IMAPFolder folder, Object uid) throws IOException {
 		InputStream in = cache.get(createMimeTreeKey(folder, uid));
-		if( in != null ) {			
+		if( in != null ) {
 			try {
 				return (MimeTree) new ObjectInputStream(in).readObject();
 			} catch (Exception e) {
 				return null;
 			}
-			
+
 		} else {
 			return null;
 		}
@@ -70,21 +70,21 @@ public class IMAPCache implements Runnable {
 	private InputStream convertToStream(Object o) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
 		new ObjectOutputStream(out).writeObject(o);
-		
+
 		return new ByteArrayInputStream(out.toByteArray());
-		
+
 	}
-	
-	
+
+
 	public InputStream addMimeBody(IMAPFolder folder, Object uid, Integer[] address, InputStream data ) throws IOException {
 
 		return cache.passiveAdd(createMimeBodyKey(folder, uid, address), data);
 	}
-	
+
 	public InputStream getMimeBody(IMAPFolder folder, Object uid, Integer[] address) {
 		return cache.get(createMimeBodyKey(folder, uid, address));
 	}
-	
+
 	protected String createMimeBodyKey(IMAPFolder folder, Object uid, Integer[] address) {
 		return folder.getId() + uid.toString() +  addressToString(address);
 	}
@@ -92,13 +92,13 @@ public class IMAPCache implements Runnable {
 	protected String createMimeTreeKey(IMAPFolder folder, Object uid) {
 		return folder.getId() + uid.toString();
 	}
-	
+
 	protected String addressToString(Integer[] address) {
 		String result = address[0].toString();
 		for(int i=1; i<address.length; i++) {
 			result += "." + address[i];
 		}
-		
+
 		return result;
 	}
 

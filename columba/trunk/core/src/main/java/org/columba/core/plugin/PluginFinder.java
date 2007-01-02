@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.columba.core.config.Config;
+import org.columba.core.config.DefaultConfigDirectory;
 
 
 /**
@@ -57,7 +57,7 @@ public final class PluginFinder {
             LOG.fine("Folder \"" + programFolder.getPath() + "\" doesn't exist.");
         }
 
-        File configFolder = new File(Config.getInstance().getConfigDirectory(),
+        File configFolder = new File(DefaultConfigDirectory.getInstance().getCurrentPath(),
                 "plugins");
 
         if (configFolder.exists()) {
@@ -82,11 +82,11 @@ public final class PluginFinder {
 
         return null;
     }
-    
+
     /**
      * Filter out directories which are valid. Remove all
      * other files.
-     * 
+     *
      * @param files		array of plugin directories
      * @return			array of valid plugin directories
      */
@@ -99,14 +99,14 @@ public final class PluginFinder {
         }
         return (File[]) list.toArray(new File[0]);
     }
-    
-    
+
+
     /**
      * Check if directory is valid plugin directory.
      * <p>
      * A directory is valid if it contains a plugin.xml file
      * containing the plugin's meta information.
-     * 
+     *
      * @param file		plugin directory to check
      * @return			true, if directory contains plugin. False, otherwise.
      */
@@ -115,7 +115,7 @@ public final class PluginFinder {
             File plugin = new File(file, "plugin.xml");
             return plugin.exists();
         }
-        
+
         return false;
     }
 }

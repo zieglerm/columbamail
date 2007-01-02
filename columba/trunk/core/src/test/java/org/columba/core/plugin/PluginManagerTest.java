@@ -22,12 +22,11 @@ import java.io.File;
 import junit.framework.TestCase;
 
 import org.columba.api.plugin.IPluginManager;
-import org.columba.core.config.Config;
 import org.columba.core.io.DiskIO;
 
 /**
  * @author fdietz
- *  
+ *
  */
 public class PluginManagerTest extends TestCase {
 
@@ -37,12 +36,10 @@ public class PluginManagerTest extends TestCase {
 	 * @see TestCase#setUp()
 	 */
 	protected void setUp() throws Exception {
-		//      create config-folder
+		// create config-folder
 		file = new File("test_config");
 		file.mkdir();
 
-		// initialize configuration - core
-		new Config(file);
 	}
 
 	/**

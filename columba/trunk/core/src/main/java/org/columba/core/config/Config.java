@@ -53,10 +53,10 @@ import org.columba.core.xml.XmlIO;
  * <p>
  * Saving and loading of all configuration files is handled here, too.
  * <p>
- * 
+ *
  * @see org.columba.mail.config.MailConfig
  * @see org.columba.addressbook.config.AddressbookConfig
- * 
+ *
  * @deprecated use XmlConfig instead
  * @author fdietz
  */
@@ -83,7 +83,7 @@ public class Config implements IConfig {
 	 */
 	public Config(File thePath) {
 		if (thePath == null) {
-			thePath = getDefaultConfigPath();
+			thePath = DefaultConfigDirectory.getDefaultPath();;
 		}
 
 		this.path = thePath;
@@ -92,7 +92,7 @@ public class Config implements IConfig {
 		toolsFile = new File(thePath, "external_tools.xml"); //$NON-NLS-1$
 		viewsFile = new File(thePath, "views.xml"); //$NON-NLS-1$
 
-		
+
 		registerPlugin(CORE_STR, optionsFile.getName(), new OptionsXmlConfig(
 				optionsFile));
 		registerPlugin(CORE_STR, toolsFile.getName(), new DefaultXmlConfig(
@@ -100,7 +100,7 @@ public class Config implements IConfig {
 		registerPlugin(CORE_STR, viewsFile.getName(), new DefaultXmlConfig(
 				viewsFile));
 
-		
+
 		// register at shutdown manager
 		// -> this will save all configuration data, when closing Columba
 		final IShutdownManager shutdownManager = ShutdownManager.getInstance();
@@ -128,7 +128,7 @@ public class Config implements IConfig {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.core.config.IConfig#getConfigDirectory()
 	 */
 	public File getConfigDirectory() {
@@ -137,7 +137,7 @@ public class Config implements IConfig {
 
 	/**
 	 * Method registerPlugin.
-	 * 
+	 *
 	 * @param moduleName
 	 * @param id
 	 * @param configPlugin
@@ -176,7 +176,7 @@ public class Config implements IConfig {
 
 	/**
 	 * Method getPlugin.
-	 * 
+	 *
 	 * @param moduleName
 	 * @param id
 	 * @return DefaultXmlConfig
@@ -198,7 +198,7 @@ public class Config implements IConfig {
 
 	/**
 	 * Method addPlugin.
-	 * 
+	 *
 	 * @param moduleName
 	 * @param id
 	 * @param configPlugin
@@ -214,7 +214,7 @@ public class Config implements IConfig {
 
 	/**
 	 * Method getPluginList.
-	 * 
+	 *
 	 * @return List
 	 */
 	public List<DefaultXmlConfig> getPluginList() {
@@ -272,7 +272,7 @@ public class Config implements IConfig {
 
 	/**
 	 * Method getOptionsMainInterface.config.
-	 * 
+	 *
 	 * @return OptionsXmlConfig
 	 */
 	public OptionsXmlConfig getOptionsConfig() {

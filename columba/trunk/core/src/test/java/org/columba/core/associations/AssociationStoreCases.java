@@ -1,24 +1,19 @@
 package org.columba.core.associations;
 
-import java.io.File;
-
 import junit.framework.TestCase;
 
 import org.columba.core.association.AssociationStore;
-import org.columba.core.config.Config;
 
 public class AssociationStoreCases extends TestCase {
 
 	AssociationStore store;
 
 	protected void setUp() throws Exception {
-		super.setUp();
 		store = AssociationStore.getInstance();
-		Config c = new Config(new File(""));
 	}
 
 	protected void tearDown() throws Exception {
-		super.tearDown();
+		store.shutdown();
 	}
 
 	public void testAddAssociation() {

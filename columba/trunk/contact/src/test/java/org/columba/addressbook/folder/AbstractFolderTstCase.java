@@ -32,7 +32,7 @@ import org.columba.core.shutdown.ShutdownManager;
 
 /**
  * @author fdietz
- *  
+ *
  */
 public class AbstractFolderTstCase extends TestCase {
 
@@ -47,7 +47,7 @@ public class AbstractFolderTstCase extends TestCase {
 
 	/**
 	 * Constructor for AbstractFolderTestCase.
-	 * 
+	 *
 	 * @param arg0
 	 */
 	public AbstractFolderTstCase(String arg0) {
@@ -64,13 +64,13 @@ public class AbstractFolderTstCase extends TestCase {
 		File file = new File("test_config");
 		file.mkdir();
 
-		new Config(file);
+		//new Config(file);
 
 		Logging.DEBUG = true;
 		Logging.createDefaultHandler();
 
 		ShutdownManager.getInstance();
-		
+
 		new AddressbookMain();
 
 		// now load all available plugins

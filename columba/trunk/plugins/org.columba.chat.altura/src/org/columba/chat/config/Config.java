@@ -29,13 +29,14 @@ import java.util.Properties;
 
 import org.columba.chat.config.api.IAccount;
 import org.columba.chat.config.api.IConfig;
+import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.io.DiskIO;
 import org.columba.core.shutdown.ShutdownManager;
 
 /**
  * Configuration handling. Currently, using a Properties object to serialize an
  * {@link Account}. Default port for the jabber protocol is 5222.
- * 
+ *
  * @author fdietz
  */
 public class Config implements IConfig {
@@ -49,12 +50,12 @@ public class Config implements IConfig {
 	private Properties properties;
 
 	/**
-	 * 
+	 *
 	 */
 	public Config() {
 
 		// get Columba's top-level configuration directory
-		File parentFile = org.columba.core.config.Config.getDefaultConfigPath();
+		File parentFile = DefaultConfigDirectory.getDefaultPath();;
 
 		// create top-level configuration directory
 		chatDirectory = new File(parentFile, "chat");
@@ -153,7 +154,7 @@ public class Config implements IConfig {
 	/**
 	 * Save configuration to file. Automatically called by using the system
 	 * shutdown hook.
-	 * 
+	 *
 	 */
 	private void save() {
 		if (properties == null)
