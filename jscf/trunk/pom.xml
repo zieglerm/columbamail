@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.columba</groupId>
+  <artifactId>jscf</artifactId>
+  <packaging>jar</packaging>
+  <version>0.4</version>
+  <name>Java Security Component Framework</name>
+  <url>http://www.columbamail.org</url>
+  <inceptionYear>2000</inceptionYear>
+  <description>
+    JSCF is a framework which lets you easy integrate security stuff like GPG or SMIME into your application in a JDBC like
+    manner.
+  </description>
+  <mailingLists>
+    <mailingList>
+      <name>columba developer mailinglist</name>
+      <archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+      <subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:svn:http://svn.sourceforge.net/svnroot/columba</connection>
+    <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/columba</developerConnection>
+    <url>http://svn.sourceforge.net/viewvc/columba/</url>
+  </scm>
+  <developers>
+    <developer>
+      <name>Thomas Wabner</name>
+      <id>waffel</id>
+      <email>waffel@users.sourceforge.net</email>
+      <roles>
+        <role>Project leader</role>
+        <role>Developer</role>
+        <role>Build master</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <repositories>
+    <repository>
+      <id>columba</id>
+      <name>Colunba main repository</name>
+      <url>https://columba.hora-obscura.de/dav_columba</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <inherited>true</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <inherited>true</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <inherited>true</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <updateReleaseInfo>true</updateReleaseInfo>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-1</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changelog-maven-plugin</artifactId>
+        <version>2.0-beta-1</version>
+        <reportSets>
+          <reportSet>
+            <id>dual-report</id>
+            <configuration>
+              <type>range</type>
+              <range>30</range>
+            </configuration>
+            <reports>
+              <report>changelog</report>
+              <report>file-activity</report>
+              <report>dev-activity</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.0-beta-3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <distributionManagement>
+    <repository>
+      <id>columba</id>
+      <name>Columba main repository</name>
+      <url>dav:https://columba.hora-obscura.de/dav_columba</url>
+    </repository>
+  </distributionManagement>
+</project>
