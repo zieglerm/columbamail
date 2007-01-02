@@ -47,6 +47,7 @@ import org.columba.core.xml.XmlElement;
  */
 public class ThemeSwitcher {
 
+	private static final String QUAQUA_LF = "Quaqua";
 	private static final String DEFAULT_LF = "Plastic";
 
 	public static void setTheme() {
@@ -111,7 +112,7 @@ public class ThemeSwitcher {
 
 	public static String getPlatformDefaultTheme() {
 		if (OSInfo.isMac()) {
-			return UIManager.getSystemLookAndFeelClassName();
+			return QUAQUA_LF;
 		} else {
 			return DEFAULT_LF;
 		}
