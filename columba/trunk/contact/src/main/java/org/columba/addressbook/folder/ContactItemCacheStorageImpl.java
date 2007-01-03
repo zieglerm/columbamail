@@ -34,9 +34,9 @@ import org.jdom.Document;
 
 /**
  * Contact item cache storage.
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 
@@ -45,16 +45,16 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 			.getLogger("org.columba.addressbook.folder");
 
 	/**
-	 * 
+	 *
 	 * keeps a list of HeaderItem's we need for the table-view
-	 * 
+	 *
 	 */
 	private Hashtable<String, IContactModelPartial> map;
 
 	/**
-	 * 
+	 *
 	 * binary file named "header"
-	 * 
+	 *
 	 */
 	private File headerFile;
 
@@ -65,8 +65,10 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 
 	private AbstractFolder folder;
 
+	private boolean initialized = false;
+
 	/**
-	 * 
+	 *
 	 */
 	public ContactItemCacheStorageImpl(AbstractFolder folder) {
 		super();
@@ -82,10 +84,9 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 		/*
 		 * if (headerFile.exists()) { try { load(); headerCacheAlreadyLoaded =
 		 * true; } catch (Exception ex) { ex.printStackTrace();
-		 * 
+		 *
 		 * headerCacheAlreadyLoaded = false; } } else { sync(); }
 		 */
-		sync();
 	}
 
 	/**
@@ -93,6 +94,11 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	 */
 	public Map<String, IContactModelPartial> getContactItemMap()
 			throws StoreException {
+		if (!initialized) {
+			initCache();
+			initialized = true;
+		}
+
 		return map;
 	}
 
@@ -138,7 +144,7 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 
 	}
 
-	public void sync() {
+	private void initCache() {
 
 		File[] list = directoryFile.listFiles();
 		List<File> v = new Vector<File>();
@@ -179,8 +185,10 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 				IContactModel model = ContactModelXMLFactory.unmarshall(doc,
 						new Integer(i).toString());
 
-				IContactModelPartial item = ContactModelFactory.createContactModelPartial(model, new Integer(i).toString());
-				add(new Integer(i).toString(), item);
+				IContactModelPartial item = ContactModelFactory
+						.createContactModelPartial(model, new Integer(i)
+								.toString());
+				map.put(new Integer(i).toString(), item);
 
 				folder.setNextMessageUid(i + 1);
 			} catch (Exception ex) {
@@ -189,7 +197,6 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 		}
 
 		LOG.info("map-size()==" + map.size());
-
 	}
 
 	/**
