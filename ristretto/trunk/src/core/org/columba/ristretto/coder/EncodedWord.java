@@ -136,7 +136,7 @@ public class EncodedWord {
 	 * <br>
 	 * This algorithm tries to achieve several goals when decoding:
 	 * <li>never encode a single character but try to encode whole words</li>
-	 * <li>if two words must be encoded and there a no more than 10 characters
+	 * <li>if two words must be encoded and there a no more than 3 characters
 	 * 	inbetween, encode everything in one single encoded word</li>
 	 * <li>an encoded word must never be longer than 76 characters in total</li>
 	 * <li>ensure that no encodedWord is in a line-wrap (RFC822 advices to no have more than 78
@@ -154,23 +154,50 @@ public class EncodedWord {
 		StringBuffer result = new StringBuffer(input.length());
 		LinkedList words = new LinkedList();
 		String encodedWordPrototype;
+		
+		int maxLength;
 		if (type == QUOTED_PRINTABLE) {
 			encodedWordPrototype = "=?" + charset.displayName() + "?q?";
+			maxLength = 75 - encodedWordPrototype.length() - 2;
 		} else {
 			encodedWordPrototype = "=?" + charset.displayName() + "?b?";
+			maxLength = 75 - encodedWordPrototype.length() - 6;
 		}
-		int maxLength = 75 - (encodedWordPrototype.length() + 2);
+		
 
 		// First find words which need to be encoded
 		Matcher matcher = wordTokenizerPattern.matcher(input);
+		float encodedChar = type == QUOTED_PRINTABLE ? 3.0f : 4.0f/3.0f;
+		float normalChar = type == QUOTED_PRINTABLE ? 1.0f : 4.0f/3.0f;
+		
 		while (matcher.find()) {
 			String word = matcher.group(1);
+			float encodedLength = 0.0f;
+			int start = matcher.start();
+			int end = matcher.end();
+			boolean mustEncode = false;
+			
+			
 			for (int i = 0; i < word.length(); i++) {
 				if (word.charAt(i) > 127) {
-					words.add(new int[] { matcher.start(), matcher.end()});
-					break;
+					encodedLength += encodedChar;
+					mustEncode = true;
+				} else {
+					encodedLength += normalChar;
 				}
+				
+				// Split if too long
+				if( Math.ceil(encodedLength) > maxLength) {
+					words.add(new int[] {start, start + i, maxLength});
+					word = word.substring(i);
+					
+					start += i;
+					i = 0;
+					encodedLength = 0.0f;
+					mustEncode = false;
+				}				
 			}
+			if( mustEncode) words.add(new int[] { start, end, (int)Math.ceil(encodedLength)});
 		}
 
 		// No need to create encodedWords
@@ -179,21 +206,21 @@ public class EncodedWord {
 		}
 
 		// Second group them together if possible (see goals above)
-		Iterator it = words.iterator();
-		int[] last = (int[]) it.next();
-		while (it.hasNext()) {
-			int[] act = (int[]) it.next();
-			if ((last[1] - last[0] + act[1] - act[0] <= maxLength)
-				&& (act[0] - last[1] < 10)) {
-				it.remove();
+		int[] last = null;
+		for (int i=0; i<words.size() ; i++) {
+			int[] act = (int[]) words.get(i);
+			if (last != null && (last[2] + act[2] + (act[0] - last[1])*normalChar < maxLength)
+				&& (act[0] - last[1]) < 10) {
+				words.remove(i--);
 				last[1] = act[1];
+				last[2]+= act[2] + (act[0] - last[1]) * normalChar;
 			} else {
 				last = act;
 			}
 		}
 
 		// Create encodedWords
-		it = words.iterator();
+		Iterator it = words.iterator();
 		int lastWordEnd = 0;
 		while (it.hasNext()) {
 			int[] act = (int[]) it.next();
@@ -212,7 +239,6 @@ public class EncodedWord {
 					Base64.encode(charset.encode(CharBuffer.wrap(rawWord)));
 			}
 
-			// append encodedWord(s)
 			result.append(input.subSequence(lastWordEnd, act[0]));
 			result.append(encodedWordPrototype);
 			result.append(encodedPart);

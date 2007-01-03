@@ -102,7 +102,7 @@ public class EncodedWordTest extends TestCase {
 				input,
 				Charset.forName("ISO-8859-1"),
 				EncodedWord.QUOTED_PRINTABLE);
-		assertTrue(result.toString().equals("This is a test"));
+		assertEquals("This is a test", result.toString());
 	}
 
 	public void testEncodeSimple() {
@@ -126,9 +126,9 @@ public class EncodedWordTest extends TestCase {
 				input,
 				Charset.forName("ISO-8859-1"),
 				EncodedWord.QUOTED_PRINTABLE);
-		assertTrue(
-			result.toString().equals(
-				"This is a =?ISO-8859-1?q?s=FCmple_s=FCmple_?=test"));
+		assertEquals("This is a =?ISO-8859-1?q?s=FCmple_s=FCmple_?=test",
+			result.toString()
+				);
 	}
 
 	public void testEncodeSimpleBase64() {
@@ -167,11 +167,22 @@ public class EncodedWordTest extends TestCase {
 				input,
 				Charset.forName("ISO-8859-1"),
 				EncodedWord.QUOTED_PRINTABLE);
-		assertTrue(
-			result.toString().equals(
-				"This is a =?ISO-8859-1?q?s=FCmplebutmegalongencodedwordsothatthesecondencodedwordmustbe_?==?ISO-8859-1?q?s=FCmple_?=test"));
+		assertEquals("This is a =?ISO-8859-1?q?s=FCmplebutmegalongencodedwordsothatthesecondencodedwordmu?=stbe =?ISO-8859-1?q?s=FCmple_?=test",
+			result.toString());
 	}
 	
+	public void testEncodelong2() {
+		String input =
+			"This is a s\u00fcmplebutmegalongencodedwordsothatthesecondencodedwordmustbesplitwithoutthehelpofawhitespacewhatsoever";
+
+		StringBuffer result =
+			EncodedWord.encode(
+				input,
+				Charset.forName("ISO-8859-1"),
+				EncodedWord.BASE64);
+		assertEquals(
+			"This is a =?ISO-8859-1?b?c/xtcGxlYnV0bWVnYWxvbmdlbmNvZGVkd29yZHNvdGhhdHRoZXNlYw==?==?ISO-8859-1?b?b25kZW5jb2RlZHdvcmRtdXN0YmVzcGxpdHdpdGhvdXR0aGVoZWxwb2Y=?=awhitespacewhatsoever", result.toString());
+	}
 
 
 }
