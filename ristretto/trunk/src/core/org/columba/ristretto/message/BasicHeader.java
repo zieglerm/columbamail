@@ -37,6 +37,7 @@ package org.columba.ristretto.message;
 
 import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,6 +97,16 @@ public class BasicHeader {
 	 */
 	public Address getFrom() {
 		return getAddress(header.get("From"));
+	}
+
+	/**
+	 * Gets the field "Sender" from the header and uses the {@link AddressParser}
+	 * to return a parsed {@link Address} list
+	 * 
+	 * @return {[@link Adress} list
+	 */
+	public Address getSender() {
+		return getAddress(header.get("Sender"));
 	}
 	
 	/**
@@ -530,5 +541,13 @@ public class BasicHeader {
 		return result.toString();
 	}
 	
+	/**
+	 * Get all keys from the header.
+	 * 
+	 * @return Enumeration of keys
+	 */
+	public Enumeration getKeys() {
+		return header.getKeys();
+	}
 
 }
