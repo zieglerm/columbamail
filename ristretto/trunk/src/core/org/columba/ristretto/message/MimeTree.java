@@ -37,6 +37,7 @@ package org.columba.ristretto.message;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ import java.util.List;
  * 
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
-public class MimeTree implements Serializable {
+public class MimeTree implements Serializable, Iterable {
 	MimePart rootMimeNode;
 
 	/**
@@ -271,6 +272,10 @@ public class MimeTree implements Serializable {
 	 */
 	public void setRootMimeNode(MimePart rootMimeNode) {
 		this.rootMimeNode = rootMimeNode;
+	}
+
+	public Iterator<MimePart> iterator() {
+		return getAllLeafs().iterator();
 	}
 
 }
