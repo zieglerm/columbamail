@@ -13,7 +13,7 @@ public class AssociationStoreCases extends TestCase {
 	}
 
 	protected void tearDown() throws Exception {
-		store.shutdown();
+		//store.shutdown();
 	}
 
 	public void testAddAssociation() {
