@@ -1,11 +1,9 @@
 package org.columba.mail.search;
 
-import java.io.File;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
-import org.columba.core.config.DefaultConfigDirectory;
 import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
 import org.columba.mail.folder.IMailFolder;
@@ -14,8 +12,6 @@ import org.columba.mail.folder.virtual.VirtualFolder;
 import org.columba.mail.gui.tree.FolderTreeModel;
 
 public class SearchFolderFactory {
-
-
 
 	/**
 	 * Create search folder for simple search with a single criteria
@@ -95,12 +91,8 @@ public class SearchFolderFactory {
 	 * @return
 	 */
 	private static VirtualFolder createVirtualFolder(IMailFolder folder) {
-		// create path in "<your-config-folder>/mail/" directory
-		File f = DefaultConfigDirectory.getInstance().getCurrentPath();
-		File f2 = new File(f, "mail");
 
-		VirtualFolder searchFolder = new VirtualFolder("Search Result",
-				"VirtualFolder", f2.getAbsolutePath(), folder);
+		VirtualFolder searchFolder = new VirtualFolder("Search Result", folder);
 
 		// remove old filters
 		searchFolder.getFilter().getFilterRule().removeAll();

@@ -39,16 +39,17 @@ public class MailTagList extends TagList {
 
 		final MyListSelectionListener sl = new MyListSelectionListener();
 		addListSelectionListener(sl);
-		
+
 		// do not only update the tag search result when click on a different
 		// tag, also do a refresh of the same tag when double click on it
 		addMouseListener(new DoubleClickListener() {
 
 			@Override
 			public void doubleClick(MouseEvent event) {
-				sl.valueChanged(new ListSelectionEvent(event.getSource(), 0, 0, false));
+				sl.valueChanged(new ListSelectionEvent(event.getSource(), 0, 0,
+						false));
 			}
-			
+
 		});
 	}
 
@@ -69,7 +70,6 @@ public class MailTagList extends TagList {
 		return r;
 	}
 
-	
 	class MyListSelectionListener implements ListSelectionListener {
 		MyListSelectionListener() {
 		}
@@ -81,12 +81,12 @@ public class MailTagList extends TagList {
 			}
 
 			ITag result = (ITag) getSelectedValue();
-			
+
 			// if there is nothing selected return
 			if (result == null) {
 				return;
 			}
-			
+
 			// create a virtual folder with all messages holding this tag
 			Collection<String> uriList = AssociationStore.getInstance()
 					.getAssociatedItems("tagging", result.getId());
@@ -94,10 +94,10 @@ public class MailTagList extends TagList {
 			// TODO @author hubms show if there is already a virtual folder for
 			// this tag
 			String uuid = new UUIDGenerator().newUUID();
-			
+
 			// create a virtual folder
 			VirtualFolder taggedMessageFolder = new VirtualFolder(
-					"Tag Search Result", "VirtualFolder", uuid);
+					"Tag Search Result");
 
 			// should be a MutableTreeNode
 			Object root = ((TreeViewOwner) frameMediator).getTreeController()
@@ -108,8 +108,9 @@ public class MailTagList extends TagList {
 			for (Iterator<String> it = uriList.iterator(); it.hasNext();) {
 				String uri = it.next();
 				// skip all non-mail component items
-				if ( !uri.startsWith("columba://org.columba.mail")) continue;
-				
+				if (!uri.startsWith("columba://org.columba.mail"))
+					continue;
+
 				IMailFolderCommandReference r = getMessageFromURI(uri);
 				try {
 					Header header = ((IMailbox) r.getSourceFolder())

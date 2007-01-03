@@ -42,7 +42,7 @@ import org.columba.mail.util.MailResourceLoader;
 
 /**
  * @author frd
- * 
+ *
  * To change this generated comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
@@ -73,7 +73,7 @@ public class CreateVirtualFolderAction extends AbstractColumbaAction implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent evt) {
@@ -91,8 +91,7 @@ public class CreateVirtualFolderAction extends AbstractColumbaAction implements
 						.getTreeSelection();
 
 				VirtualFolder vfolder = (VirtualFolder) FolderFactory
-						.getInstance().createChild((IMailFolder) r.getSourceFolder(), name,
-								"VirtualFolder");
+						.getInstance().createVirtualFolder((IMailFolder) r.getSourceFolder(), name);
 
 				FolderTreeModel.getInstance().nodeStructureChanged((IMailFolder)r.getSourceFolder());
 
@@ -114,7 +113,7 @@ public class CreateVirtualFolderAction extends AbstractColumbaAction implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.core.gui.util.ISelectionListener#selectionChanged(org.columba.core.gui.util.SelectionChangedEvent)
 	 */
 	public void selectionChanged(SelectionChangedEvent e) {

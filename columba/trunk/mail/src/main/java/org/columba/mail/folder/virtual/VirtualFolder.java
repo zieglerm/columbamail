@@ -73,9 +73,9 @@ import org.columba.ristretto.message.MimeTree;
  * to the source folders. This happens on the Command and CommandReference
  * abstraction level.
  * <p>
- * 
+ *
  * @author fdietz
- * 
+ *
  */
 public class VirtualFolder extends AbstractMessageFolder implements
 		FolderListener {
@@ -90,18 +90,28 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	private boolean active;
 
 	private IMailFolder sourceFolder;
-	
+
+	// only called by FolderTreeModel.createDirectories() and FolderTreeModel.add()
 	public VirtualFolder(FolderItem item, String path) {
-		super(item, path);
-		
+		super(item);
+
 		headerList = new MemoryHeaderList();
 
 		ensureValidFilterElement();
 	}
 
-	public VirtualFolder(String name, String type, String path) {
-		super(name, type, path);
-		
+//	public VirtualFolder(FolderItem item) {
+//		super(item);
+//
+//		headerList = new MemoryHeaderList();
+//
+//		ensureValidFilterElement();
+//	}
+
+
+	public VirtualFolder(String name) {
+		super(name, "VirtualFolder");
+
 		IFolderItem item = getConfiguration();
 		item.setString("property", "accessrights", "user");
 		item.setString("property", "subfolder", "true");
@@ -112,14 +122,14 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 		ensureValidFilterElement();
 	}
-	
-	public VirtualFolder(String name, String type, String path, IMailFolder sourceFolder) {
-		this(name, type, path);
+
+	public VirtualFolder(String name, IMailFolder sourceFolder) {
+		this(name);
 
 		this.sourceFolder = sourceFolder;
 	}
-	
-	
+
+
 
 	private void registerWithSource() {
 		IMailFolder folder = getSourceFolder();
@@ -212,7 +222,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void revalidateSearch() {
 		VirtualHeader h;
@@ -312,7 +322,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 		 * FilterCriteria c = new
 		 * Filter(getConfiguration().getElement("filter")) .getFilterRule()
 		 * .get( 0);
-		 * 
+		 *
 		 * FilterCriteria newc = new
 		 * Filter(getConfiguration().getElement("filter")) .getFilterRule()
 		 * .get( 0); newc.setCriteria(c.getCriteriaString());
@@ -359,7 +369,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	protected void applySearch() throws Exception {
 		IMailFolder srcFolder = getSourceFolder();
-		
+
 		XmlElement filter = getConfiguration().getRoot().getElement("filter");
 
 		if (filter == null) {
@@ -389,11 +399,11 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	 * @return
 	 */
 	IMailFolder getSourceFolder() {
-		
+
 		String uid = getConfiguration().getString("property", "source_uid");
-		
+
 		if (sourceFolder != null && sourceFolder.getId().equals(uid)) return sourceFolder;
-		
+
 		IMailFolder folder = (IMailFolder) FolderTreeModel.getInstance()
 				.getFolder(uid);
 
@@ -404,19 +414,19 @@ public class VirtualFolder extends AbstractMessageFolder implements
 			throws Exception {
 
 		if (parent instanceof IMailbox) {
-			
+
 			IMailbox folder = (IMailbox) parent;
-			
+
 			// if the parent is a virtual folder the search cannot be applied directly
 			// look for the correct uids by finding the first non virtual folder
-			
+
 			Object[] resultUids = null;
-			
+
 			if (folder instanceof VirtualFolder)
 				resultUids = folder.searchMessages(filter, folder.getUids());
 			else
 				resultUids = folder.searchMessages(filter);
-			
+
 			String[] headerfields = CachedHeaderfields.getDefaultHeaderfields();
 
 			if (resultUids != null) {
@@ -458,7 +468,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 			}
 
 		}
-		
+
 		if (isRecursive()) {
 			for (Enumeration e = parent.children(); e.hasMoreElements();) {
 				IMailFolder folder = (IMailFolder) e.nextElement();
@@ -592,7 +602,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/**
 	 * Get virtual header.
-	 * 
+	 *
 	 * @param virtualUid
 	 *            virtual uid
 	 * @return virtual header
@@ -735,49 +745,49 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	 * public MailFolderCommandReference getCommandReference(
 	 * MailFolderCommandReference r) { MailFolderCommandReference[] newReference =
 	 * null;
-	 * 
+	 *
 	 * Object[] uids = r[0].getUids(); // if we didn't pass uid array here, use
 	 * all message in this virtual // folder try { if (uids == null) { uids =
 	 * getUids(); } } catch (Exception e1) { e1.printStackTrace(); }
-	 * 
+	 *
 	 * if (uids == null) { return r; }
-	 * 
+	 *
 	 * Hashtable list = new Hashtable();
-	 * 
+	 *
 	 * for (int i = 0; i < uids.length; i++) { VirtualHeader virtualHeader =
 	 * (VirtualHeader) headerList .get(uids[i]); AbstractMessageFolder srcFolder =
 	 * virtualHeader.getSrcFolder(); Object srcUid = virtualHeader.getSrcUid();
-	 * 
+	 *
 	 * if (list.containsKey(srcFolder)) { // bucket for this folder exists
 	 * already } else { // create new bucket for this folder list.put(srcFolder,
 	 * new Vector()); }
-	 * 
+	 *
 	 * List v = (Vector) list.get(srcFolder); v.add(srcUid); }
-	 * 
+	 *
 	 * newReference = new MailFolderCommandReference[list.size() + 2];
-	 * 
+	 *
 	 * int i = 0;
-	 * 
+	 *
 	 * for (Enumeration e = list.keys(); e.hasMoreElements();) {
 	 * AbstractMessageFolder srcFolder = (AbstractMessageFolder)
 	 * e.nextElement(); List v = (Vector) list.get(srcFolder);
-	 * 
+	 *
 	 * newReference[i] = new MailFolderCommandReference(srcFolder);
-	 * 
+	 *
 	 * Object[] uidArray = new Object[v.size()]; ((Vector)
 	 * v).copyInto(uidArray); newReference[i].setUids(uidArray);
 	 * newReference[i].setMarkVariant(r[0].getMarkVariant());
 	 * newReference[i].setMessage(r[0].getMessage());
 	 * newReference[i].setDestFile(r[0].getDestFile());
-	 * 
+	 *
 	 * i++; }
-	 * 
+	 *
 	 * if (r.length > 1) { newReference[i] = new
 	 * MailFolderCommandReference((AbstractMessageFolder) r[1] .getFolder()); }
 	 * else { newReference[i] = null; }
-	 * 
+	 *
 	 * newReference[i + 1] = r[0];
-	 * 
+	 *
 	 * return newReference; }
 	 */
 
@@ -842,7 +852,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#getUids(org.columba.api.command.IWorkerStatusController)
 	 */
 	public Object[] getUids() throws Exception {
@@ -871,7 +881,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#addMessage(java.io.InputStream)
 	 */
 	public Object addMessage(InputStream in) throws Exception {
@@ -881,7 +891,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getAttribute(java.lang.Object,
 	 *      java.lang.String)
 	 */
@@ -895,7 +905,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getFlags(java.lang.Object)
 	 */
 	public Flags getFlags(Object uid) throws Exception {
@@ -910,7 +920,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getHeaderFields(java.lang.Object,
 	 *      java.lang.String[])
 	 */
@@ -925,7 +935,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMessageSourceStream(java.lang.Object)
 	 */
 	public InputStream getMessageSourceStream(Object uid) throws Exception {
@@ -939,7 +949,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMimePartBodyStream(java.lang.Object,
 	 *      java.lang.Integer[])
 	 */
@@ -955,7 +965,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMimePartSourceStream(java.lang.Object,
 	 *      java.lang.Integer[])
 	 */
@@ -970,10 +980,10 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	}
 
 	/**
-	 * 
+	 *
 	 * VirtualFolder doesn't allow adding messages, in comparison to other
 	 * regular mailbox folders.
-	 * 
+	 *
 	 * @see org.columba.mail.folder.FolderTreeNode#supportsAddMessage()
 	 */
 	public boolean supportsAddMessage() {
@@ -982,7 +992,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/**
 	 * Virtual folders can only accept other Virtual folders as childs.
-	 * 
+	 *
 	 * @param newFolderType
 	 *            a folder to check if it is a Virtual folder.
 	 * @return true if the folder is a VirtualFolder; false otherwise.
@@ -1074,7 +1084,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#addMessage(java.io.InputStream,
 	 *      org.columba.ristretto.message.Attributes)
 	 */
@@ -1142,7 +1152,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailFolder#getRootFolder()
 	 */
 	public IMailFolder getRootFolder() {
@@ -1151,7 +1161,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#messageAdded(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void messageAdded(IFolderEvent e) {
@@ -1160,17 +1170,17 @@ public class VirtualFolder extends AbstractMessageFolder implements
 		return;
 		/*
 		 * AbstractMessageFolder folder = (AbstractMessageFolder)e.getSource();
-		 * 
+		 *
 		 * try { Object[] resultUids = folder.searchMessages(getFilter(), new
 		 * Object[] {e.getChanges()});
-		 * 
+		 *
 		 * if( resultUids.length > 0 ) { Header h =
 		 * folder.getHeaderFields(resultUids[0],
 		 * CachedHeaderfields.getDefaultHeaderfields()); ColumbaHeader header =
 		 * new ColumbaHeader(h);
 		 * header.setAttributes(folder.getAttributes(resultUids[0]));
 		 * header.setFlags(folder.getFlags(resultUids[0]));
-		 * 
+		 *
 		 * Object uid = add(header, folder, resultUids[0]);
 		 * fireMessageAdded(uid, getFlags(uid)); } } catch (Exception e1) {
 		 * e1.printStackTrace(); }
@@ -1179,7 +1189,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#messageRemoved(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void messageRemoved(IFolderEvent e) {
@@ -1208,7 +1218,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#messageFlagChanged(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void messageFlagChanged(IFolderEvent e) {
@@ -1260,7 +1270,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#folderPropertyChanged(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void folderPropertyChanged(IFolderEvent e) {
@@ -1269,7 +1279,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#folderAdded(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void folderAdded(IFolderEvent e) {
@@ -1282,7 +1292,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.event.IFolderListener#folderRemoved(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void folderRemoved(IFolderEvent e) {
@@ -1291,7 +1301,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void activate() throws Exception {
 		if (active)
@@ -1314,7 +1324,7 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailFolder#removeFolder()
 	 */
 	public void removeFolder() throws Exception {
