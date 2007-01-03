@@ -56,7 +56,7 @@ public abstract class AbstractMoveFolderAction extends AbstractColumbaAction
 	/**
 	 * Returns true if the action enables a folder with the specified index.
 	 * Implementing methods can rely on that the lastSelectedFolder is not null.
-	 * 
+	 *
 	 * @param folderIndex
 	 *            the index of the folder.
 	 * @return true if it should enable the action; false otherwise.
@@ -106,7 +106,7 @@ public abstract class AbstractMoveFolderAction extends AbstractColumbaAction
 	 * Enables or disables the action based on the last selected folder.
 	 */
 	private void reenableActionFromSelectedFolder() {
-		if (lastSelectedFolder == null) {
+		if ( (lastSelectedFolder == null) || (lastSelectedFolder.getParent() == null) ) {
 			setEnabled(false);
 		} else {
 			IFolderItem item = lastSelectedFolder.getConfiguration();
