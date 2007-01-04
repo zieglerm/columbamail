@@ -69,7 +69,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 	/**
 	 * parent directory for mail folders
-	 * 
+	 *
 	 * for example: "/home/donald/.columba/mail/"
 	 */
 	private String parentPath;
@@ -119,13 +119,13 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 	/**
 	 * @param type
 	 */
-	public IMAPRootFolder(String name, String type) {
-		super(name, type);
-
-		IFolderItem item = getConfiguration();
-		item.setString("property", "accessrights", "system");
-		item.setString("property", "subfolder", "true");
-	}
+//	public IMAPRootFolder(String name, String type) {
+//		super(name, type);
+//
+//		IFolderItem item = getConfiguration();
+//		item.setString("property", "accessrights", "system");
+//		item.setString("property", "subfolder", "true");
+//	}
 
 	public String getDefaultChild() {
 		return "IMAPFolder";
@@ -404,7 +404,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.FolderTreeNode#addSubfolder(org.columba.mail.folder.FolderTreeNode)
 	 */
 	public void addSubfolder(IMailFolder child) throws Exception {
@@ -412,12 +412,18 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 			getServer().createMailbox(child.getName(), null);
 		}
 
+
 		super.addSubfolder(child);
+	}
+
+	public void setInbox(IMAPFolder inbox) throws Exception {
+		super.addSubfolder(inbox);
+		super.add(inbox);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#save()
 	 */
 	public void save() throws Exception {
@@ -428,7 +434,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.RootFolder#getTrashFolder()
 	 */
 	public AbstractFolder getTrashFolder() {
@@ -446,7 +452,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.RootFolder#getInbox()
 	 */
 	public AbstractFolder getInboxFolder() {
@@ -457,7 +463,7 @@ public class IMAPRootFolder extends AbstractFolder implements RootFolder,
 	 * Parent directory for mail folders.
 	 * <p>
 	 * For example: /home/donald/.columba/mail
-	 * 
+	 *
 	 * @return Returns the parentPath.
 	 */
 	public String getParentPath() {

@@ -27,8 +27,12 @@ import org.columba.api.plugin.IExtension;
 import org.columba.api.plugin.IExtensionHandler;
 import org.columba.api.plugin.PluginHandlerNotFoundException;
 import org.columba.core.plugin.PluginManager;
+import org.columba.mail.config.AccountItem;
 import org.columba.mail.config.IFolderItem;
 import org.columba.mail.config.MailConfig;
+import org.columba.mail.folder.imap.IMAPFolder;
+import org.columba.mail.folder.imap.IMAPRootFolder;
+import org.columba.mail.gui.tree.FolderTreeModel;
 import org.columba.mail.plugin.IExtensionHandlerKeys;
 
 /**
@@ -173,6 +177,36 @@ public class FolderFactory {
 			throw new FolderCreationException(e);
 		}
 		return child;
+	}
+
+	public IMAPFolder createIMAPRootFolder(AccountItem account) throws FolderCreationException {
+
+		try {
+			IExtension extension = handler.getExtension("IMAPRootFolder");
+
+			IMAPRootFolder child = (IMAPRootFolder) extension.instanciateExtension(new Object[] {account, path});
+
+			// get root folder
+			IMailFolder parent = (IMailFolder) FolderTreeModel.getInstance().getRoot();
+
+			// Add child to parent
+			parent.addSubfolder(child);
+
+			// create mandatory IMAP Inbox folder
+			IExtension extension2 = handler.getExtension("IMAPFolder");
+			IMAPFolder inbox = (IMAPFolder) extension2.instanciateExtension(new Object[] {
+					"INBOX", "IMAPFolder", path });
+
+			// associate inbox with root folder
+			child.setInbox(inbox);
+
+			// notify folder tree model
+			FolderTreeModel.getInstance().nodeStructureChanged(parent);
+
+			return inbox;
+		} catch (Exception e) {
+			throw new FolderCreationException(e);
+		}
 	}
 
 	public String getGroup(String parentType) {

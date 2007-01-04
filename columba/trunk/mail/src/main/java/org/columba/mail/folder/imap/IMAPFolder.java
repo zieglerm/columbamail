@@ -74,14 +74,14 @@ public class IMAPFolder extends AbstractRemoteFolder {
 			.getLogger("org.columba.mail.folder.imap");
 
 	/**
-	 * 
+	 *
 	 */
 	private IImapServer store;
 
 	private IStatusObservable observable;
 
 	/**
-	 * 
+	 *
 	 */
 	protected boolean existsOnServer = true;
 
@@ -102,7 +102,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/**
 	 * Constructor for testing purposes only!
-	 * 
+	 *
 	 */
 	public IMAPFolder(IPersistantHeaderList headerList, IImapServer server) {
 		super("test", "IMAPFolder", "/tmp/");
@@ -127,6 +127,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	/**
 	 * @param type
 	 */
+	// only called by FolderFactory
 	public IMAPFolder(String name, String type, String path) throws Exception {
 		super(name, type, path);
 
@@ -176,7 +177,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/**
 	 * Method getStore.
-	 * 
+	 *
 	 * @return IMAPStore
 	 */
 	public IImapServer getServer() {
@@ -313,13 +314,13 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		 * // Somehow there are new messages that // have a lower index -> out
 		 * of sync if (localUids.size() - status.getMessages() + newMessages <
 		 * 0) {
-		 * 
+		 *
 		 * LOG.severe("Folder " + getName() + " is out of sync -> recreating the
 		 * cache!"); purgeHeaderList(); // all messages are new newMessages =
 		 * status.getMessages(); // Set the index of the largest Uid to 0 // ->
 		 * ensure it works with the fetch of new // messages part below
 		 * largestLocalUidIndex = 0; largestLocalUid = -1;
-		 * 
+		 *
 		 * localUids.clear(); }
 		 */
 		LOG.fine("Found " + newMessages + " new Messages");
@@ -699,7 +700,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/**
 	 * Method updateFlags.
-	 * 
+	 *
 	 * @param flagsList
 	 */
 	protected void setFlags(Flags[] flagsList) throws Exception {
@@ -741,7 +742,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 * <p>
 	 * The IMAP copy command also keeps the flags intact. So, there's no need to
 	 * change these manually.
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#innerCopy(org.columba.mail.folder.IMailbox,
 	 *      java.lang.Object, org.columba.api.command.IWorkerStatusController)
 	 */
@@ -836,7 +837,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/**
 	 * Method getImapPath.
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getImapPath() throws IOException, IMAPException,
@@ -899,7 +900,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.FolderTreeNode#addSubfolder(org.columba.mail.folder.FolderTreeNode)
 	 */
 	public void addSubfolder(IMailFolder child) throws Exception {
@@ -913,7 +914,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#getObservable()
 	 */
 	public IStatusObservable getObservable() {
@@ -926,7 +927,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#addMessage(java.io.InputStream)
 	 */
 	public Object addMessage(InputStream in, Attributes attributes, Flags flags)
@@ -963,7 +964,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getHeaderFields(java.lang.Object,
 	 *      java.lang.String[])
 	 */
@@ -990,7 +991,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMessageSourceStream(java.lang.Object)
 	 */
 	public InputStream getMessageSourceStream(Object uid) throws Exception {
@@ -999,7 +1000,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMimePartSourceStream(java.lang.Object,
 	 *      java.lang.Integer[])
 	 */
@@ -1009,8 +1010,8 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @see org.columba.mail.folder.IMailbox#getMimePartBodyStream(java.lang.Object,
 	 *      java.lang.Integer[])
 	 */
@@ -1028,7 +1029,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#isInboxFolder()
 	 */
 	public boolean isInboxFolder() {
@@ -1043,7 +1044,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.Folder#isTrashFolder()
 	 */
 	public boolean isTrashFolder() {
@@ -1058,7 +1059,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.IMailbox#addMessage(java.io.InputStream,
 	 *      org.columba.ristretto.message.Attributes)
 	 */
@@ -1093,7 +1094,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	/*
 	 * public IHeaderListStorage getHeaderListStorage() { if (attributeStorage ==
 	 * null) attributeStorage = new RemoteHeaderListStorage(this);
-	 * 
+	 *
 	 * return attributeStorage; }
 	 */
 
@@ -1127,7 +1128,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	/**
 	 * This is called from the UpdateFlagCommand which gets triggered from an
 	 * unexpected flags updated.
-	 * 
+	 *
 	 * @param flag
 	 * @throws IOException
 	 * @throws CommandCancelledException
@@ -1153,7 +1154,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.columba.mail.folder.AbstractMessageFolder#save()
 	 */
 	public void save() throws Exception {

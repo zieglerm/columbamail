@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 
 import org.columba.api.command.IStatusObservable;
 import org.columba.core.command.StatusObservableImpl;
-import org.columba.core.filter.Filter;
 import org.columba.core.filter.FilterList;
 import org.columba.core.filter.IFilter;
 import org.columba.core.filter.IFilterList;
@@ -34,7 +33,6 @@ import org.columba.core.io.DiskIO;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.config.IFolderItem;
-import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.command.MarkMessageCommand;
 import org.columba.mail.folder.event.FolderEvent;
 import org.columba.mail.folder.event.IFolderListener;
@@ -51,8 +49,9 @@ import org.columba.ristretto.message.MailboxInfo;
 import org.columba.ristretto.message.MimeHeader;
 
 /**
- * Abstract Basic AbstractMessageFolder class. It is subclassed by every folder class
- * containing messages and therefore offering methods to alter the mailbox.
+ * Abstract Basic AbstractMessageFolder class. It is subclassed by every folder
+ * class containing messages and therefore offering methods to alter the
+ * mailbox.
  * <p>
  * Folders are plugins and therefore dynamically created. This should make it
  * easy to write new folders in the future.
@@ -64,8 +63,8 @@ import org.columba.ristretto.message.MimeHeader;
  * <p>
  * Please note, that you only need to implement {@link DataStorageInstance}
  * which should be trivial in most cases. Then create a class extending
- * {@link AbstractLocalFolder}and plug your datastorage in this folder in overwriting
- * getDataStorageInstance() method.
+ * {@link AbstractLocalFolder}and plug your datastorage in this folder in
+ * overwriting getDataStorageInstance() method.
  * <p>
  * Last, don't forget to register your folder plugin:
  * <p>
@@ -171,7 +170,6 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		loadMessageFolderInfo();
 	}
 
-
 	// only used by VirtualFolder
 	public AbstractMessageFolder(String name, String type) {
 		super(name, type);
@@ -179,19 +177,19 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		loadMessageFolderInfo();
 	}
 
-	protected void recreateMessageFolderInfo(){
+	protected void recreateMessageFolderInfo() {
 		messageFolderInfo.reset();
 
 		try {
 			ICloseableIterator it = getHeaderList().headerIterator();
 
-			while(it.hasNext()) {
-				Flags flags = ((IColumbaHeader)it.next()).getFlags();
+			while (it.hasNext()) {
+				Flags flags = ((IColumbaHeader) it.next()).getFlags();
 				messageFolderInfo.incExists();
-				if( flags.getRecent() ) {
+				if (flags.getRecent()) {
 					messageFolderInfo.incRecent();
 				}
-				if( !flags.getSeen() ) {
+				if (!flags.getSeen()) {
 					messageFolderInfo.incUnseen();
 				}
 			}
@@ -205,6 +203,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	/**
 	 * Propagates an event to all registered listeners notifying them of a
 	 * message addition.
+	 *
 	 * @param flags
 	 */
 	public void fireMessageAdded(Object uid, Flags flags) {
@@ -245,23 +244,22 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	public void fireMessageRemoved(Object uid, Flags flags) {
 
 		try {
-			if( flags != null ) {
-			if (flags.getRecent()) {
-				getMessageFolderInfo().decRecent();
-			}
-			if (!flags.getSeen()) {
-				getMessageFolderInfo().decUnseen();
-			}
+			if (flags != null) {
+				if (flags.getRecent()) {
+					getMessageFolderInfo().decRecent();
+				}
+				if (!flags.getSeen()) {
+					getMessageFolderInfo().decUnseen();
+				}
 			}
 			getMessageFolderInfo().decExists();
 		} catch (MailboxInfoInvalidException e) {
 			recreateMessageFolderInfo();
 		}
 
-
 		setChanged(true);
 
-		//      update treenode
+		// update treenode
 		fireFolderPropertyChanged();
 
 		FolderEvent e = new FolderEvent(this, uid);
@@ -359,8 +357,6 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		return filterList;
 	}
 
-
-
 	/** ********************************** treenode implementation ********** */
 	/**
 	 * @see java.lang.Object#toString()
@@ -387,7 +383,6 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		// on startup, there's shouldn't be any recent messages
 		// -> we simply remember 0 recent messages here
 		// property.addAttribute("recent", "0");
-
 
 		property.addAttribute("recent", new Integer(info.getRecent())
 				.toString());
@@ -446,10 +441,9 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		}
 
 		// Check if the MessageFolderInfo is sane
-		if( !info.isSane() ) {
+		if (!info.isSane()) {
 			recreateMessageFolderInfo();
 		}
-
 
 	}
 
@@ -460,7 +454,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	 */
 	public void save() throws Exception {
 		saveMessageFolderInfo();
-		if( getSearchEngine() != null ) {
+		if (getSearchEngine() != null) {
 			getSearchEngine().save();
 		}
 	}
@@ -583,8 +577,8 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 			recreateMessageFolderInfo();
 		}
 
-//      update treenode
-		if ( updated )
+		// update treenode
+		if (updated)
 			fireFolderPropertyChanged();
 	}
 
@@ -746,10 +740,10 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	/**
 	 * Remove message from folder.
 	 * <p>
-	 * @author: fdietz
-	 * This method was intentionally changed to public also it isn't
-	 * accessed from outside. This is why it isn't found in IMailbox.
-	 * Only the VirtualFolder uses this public call.
+	 *
+	 * @author: fdietz This method was intentionally changed to public also it
+	 *          isn't accessed from outside. This is why it isn't found in
+	 *          IMailbox. Only the VirtualFolder uses this public call.
 	 *
 	 *
 	 * @param uid
@@ -769,8 +763,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	/**
 	 * @return Returns the attributeStorage.
 	 */
-	//public abstract IHeaderListStorage getHeaderListStorage();
-
+	// public abstract IHeaderListStorage getHeaderListStorage();
 	/**
 	 * @see org.columba.mail.folder.IMailbox#exists(java.lang.Object)
 	 */
@@ -798,7 +791,7 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 
 		getHeaderList().update(uid, header);
 
-		//  set folder changed flag
+		// set folder changed flag
 		// -> if not, the header cache wouldn't notice that something
 		// -> has changed. And wouldn't save the changes.
 		setChanged(true);
@@ -836,8 +829,8 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	/**
 	 * @param filter
 	 * @param uids
-	 * @return @throws
-	 *         Exception
+	 * @return
+	 * @throws Exception
 	 */
 	public Object[] searchMessages(IFilter filter, Object[] uids)
 			throws Exception {
@@ -849,8 +842,8 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 
 	/**
 	 * @param filter
-	 * @return @throws
-	 *         Exception
+	 * @return
+	 * @throws Exception
 	 */
 	public Object[] searchMessages(IFilter filter) throws Exception {
 		// if there is no search engine, try the default one
@@ -917,7 +910,6 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 	public boolean isReadOnly() {
 		return false;
 	}
-
 
 	/**
 	 * @return Returns the headerList.
