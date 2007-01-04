@@ -55,7 +55,6 @@
 	<classpathentry kind="lib" path="lib/forms-1.0.5.jar"/>
 	<classpathentry kind="lib" path="lib/macchiato-1.0pre1.jar"/>
 	<classpathentry kind="lib" path="lib/jscf-0.3.jar"/>
-	<classpathentry kind="lib" path="lib/groovy-all-1.0-jsr-02.jar"/>
 	<classpathentry kind="lib" path="lib/mac_mock.jar"/>
 	<classpathentry kind="lib" path="lib/quaqua.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.chat.altura/lib/smack.jar"/>
@@ -99,5 +98,6 @@
 	<classpathentry kind="lib" path="lib/jpa/hibernate-entitymanager.jar"/>
 	<classpathentry kind="lib" path="lib/flexdock-0.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/frapuccino-1.0pre1.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-1.0.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
