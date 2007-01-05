@@ -204,6 +204,12 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 		tableController.getView().getInputMap().put(
 				KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "DEL");
 
+
+		OpenMessageWithMessageFrameAction openAction = new OpenMessageWithMessageFrameAction(this);
+		tableController.getView().getActionMap().put("ENTER", openAction);
+		tableController.getView().getInputMap().put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "ENTER");
+
 		registerDockables();
 
 		tableController.createPopupMenu();
@@ -379,7 +385,7 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 	 * Double-click mouse listener for message list table component. <p/> If
 	 * message is marked as draft, the composer will be opened to edit the
 	 * message. Otherwise, the message will be viewed in the message frame.
-	 * 
+	 *
 	 * @author Frederik Dietz
 	 */
 	class TableMouseListener extends MouseAdapter {
