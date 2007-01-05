@@ -201,7 +201,7 @@ public class MailMain implements IComponentPlugin {
 		ActivateVirtualFolderCommand.activateAll((IMailFolder) FolderTreeModel
 				.getInstance().getRoot());
 	}
-
+	
 	private void checkDefaultClient() {
 		// Check if Columba is the default mail client
 		SystemDefaultMailClientHandler defaultClientHandler = new SystemDefaultMailClientHandler();
@@ -210,7 +210,7 @@ public class MailMain implements IComponentPlugin {
 
 		boolean checkDefault = item.getBooleanWithDefault(
 				"options/defaultclient", "check", true);
-
+		
 		if (checkDefault
 				&& defaultClientHandler.platfromSupportsDefaultMailClient()) {
 			if (!defaultClientHandler.isDefaultMailClient()) {
@@ -227,6 +227,18 @@ public class MailMain implements IComponentPlugin {
 
 				// Some error in the client/server communication
 				// --> fall back to default login process
+				
+				// @author hubms: wait until the first frame is displayable
+				// fix for bug [#CA-177]
+				while (!FrameManager.getInstance().getActiveFrame().isDisplayable()) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 				int result = JOptionPane.showConfirmDialog(FrameManager
 						.getInstance().getActiveFrame(), panel,
 						MailResourceLoader.getString("dialog", "defaultclient",
@@ -240,4 +252,5 @@ public class MailMain implements IComponentPlugin {
 			}
 		}
 	}
+
 }
