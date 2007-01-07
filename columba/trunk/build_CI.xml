@@ -25,7 +25,7 @@
     </description>
 
 <target name="build">
-   <ant antfile="build.xml" target="jar"/>
+   <ant antfile="build.xml" target="clean"/>
    <ant antfile="build.xml" target="test"/>
    <ant antfile="build_install4j.xml" target="install4j"/>
 </target>
