@@ -44,15 +44,6 @@
         </xmlvalidate>
     </target>
 
-	<taskdef name="install4j"
-	                 classname="com.install4j.Install4JTask"
-	                 classpath="C:\Program Files\install4j\bin\ant.jar"/>
-
-  <target name="install4j" depends="jar">
-    <install4j projectfile="multiplatform_release.install4j" release="${version}">
-    </install4j>
-  </target>
-
     <target name="init-native" description="Initialises platform dependent stuff">
         <condition property="native.base" value="${native.win32}">
             <os family="windows"/>
@@ -503,11 +494,26 @@
         <ant dir="${src.mail.test}" target="test" inheritrefs="true"/>
         <ant dir="${src.addressbook.test}" target="test" inheritrefs="true"/>
         -->
+    	<echo message="test-classes from ${test.dest}" />
+    	<echo message="reports go to ${report.base}" />
     	<junit printsummary="off" fork="yes" haltonfailure="no">
-			<formatter type="brief" usefile="false" />
-    		<classpath refid="compile.test.classpath"/>
-			<batchtest todir="${build.junit.xmlreport.dir}">
-				<fileset dir="${test.dest}">
+			<!--<formatter type="brief" usefile="false" />-->
+    		<formatter type="xml" />
+    		<classpath refid="run.test.classpath"/>
+			<batchtest todir="${report.base}">
+				<fileset dir="${src.core.test}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+				<fileset dir="${src.contact.test}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+				<fileset dir="${src.mail.test}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+				<fileset dir="${src.calendar.test}">
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />
 				</fileset>
@@ -551,7 +557,7 @@
 
     <!-- this target creates two zip-files, one for binary release and one for the source stuff -->
     <!-- this is also the release target ;-0 -->
-    <target name="release" depends="source, install4j, webstart"
+    <target name="release" depends="source, webstart"
             description="Builds a complete set of Columba release archives"/>
 
     <target name="webstart" depends="init-webstart, jar" description="Signs all jars for use with Java Webstart">
