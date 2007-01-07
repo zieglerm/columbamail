@@ -44,15 +44,6 @@
         </xmlvalidate>
     </target>
 
-	<taskdef name="install4j"
-	                 classname="com.install4j.Install4JTask"
-	                 classpath="C:\Program Files\install4j\bin\ant.jar"/>
-
-  <target name="install4j" depends="jar">
-    <install4j projectfile="multiplatform_release.install4j" release="${version}">
-    </install4j>
-  </target>
-
     <target name="init-native" description="Initialises platform dependent stuff">
         <condition property="native.base" value="${native.win32}">
             <os family="windows"/>
@@ -416,38 +407,10 @@
     <!-- compile the test classes -->
     <target name="compile-test" depends="compile, init-test" description="Compiles the Unit tests">
         <echo message="the classes are going to ${test.dest} "/>
-
-    	<echo message="compiling ${src.core.test}"/>
-        <javac destdir="${test.dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.core.test}"/>
-            <classpath refid="compile.test.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-    	<echo message="compiling ${src.contact.test}"/>
-        <javac destdir="${test.dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.contact.test}"/>
-            <classpath refid="compile.test.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-    	<echo message="compiling ${src.mail.test}"/>
-        <javac destdir="${test.dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.mail.test}"/>
-            <classpath refid="compile.test.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-    	<echo message="compiling ${src.calendar.test}"/>
-        <javac destdir="${test.dest}" target="1.5" source="1.5" deprecation="${deprecation}" >
-            <src path="${src.calendar.test}"/>
-            <classpath refid="compile.test.classpath"/>
-        	  <compilerarg value="${unchecked}"/>
-        </javac>
-
-    	<!--
         <ant dir="${src.core.test}" target="compile" inheritrefs="true"/>
         <ant dir="${src.mail.test}" target="compile" inheritrefs="true"/>
         <ant dir="${src.contact.test}" target="compile" inheritrefs="true"/>
         <ant dir="${src.calendar.test}" target="compile" inheritrefs="true"/>
-        -->
     </target>
 
     <!-- pack the files into one jar file with automatic manifest file -->
@@ -498,21 +461,9 @@
 
     <!-- run test for all defined testcases -->
     <target name="test" depends="compile-test" description="Runs all Unit tests. XML reports in report/">
-        <!--
         <ant dir="${src.columba.test}" target="test" inheritrefs="true"/>
         <ant dir="${src.mail.test}" target="test" inheritrefs="true"/>
         <ant dir="${src.addressbook.test}" target="test" inheritrefs="true"/>
-        -->
-    	<junit printsummary="off" fork="yes" haltonfailure="no">
-			<formatter type="brief" usefile="false" />
-    		<classpath refid="compile.test.classpath"/>
-			<batchtest todir="${build.junit.xmlreport.dir}">
-				<fileset dir="${test.dest}">
-					<include name="**/*Test*.java" />
-					<exclude name="**/AllTests.java" />
-				</fileset>
-			</batchtest>
-		</junit>
     </target>
 
     <target name="test-report" depends="test"
@@ -525,7 +476,208 @@
         </junitreport>
     </target>
 
+    <!-- create a release zip file for linux and unix flavors, containing the jar file and README, LICENSE, CHANGES, AUTHORS -->
+    <!-- this task is for a binary release -->
+    <target name="bin-unix" depends="jar, linefeeds-unix"
+            description="Creates packaged *nix Columba release">
+        <tar tarfile="${release.base}/columba-unix-${version}-bin.tar.bz2" compression="bzip2">
+            <tarfileset dir="${basedir}" prefix="columba-unix-${version}-bin">
+                <include name="README"/>
+                <include name="AUTHORS"/>
+                <include name="LICENSE"/>
+                <include name="CHANGES"/>
+                <include name="columba.jar"/>
+                <include name="${lib.forms}"/>
+                <include name="${lib.jscf}"/>
+                <include name="${lib.jargs}"/>
+                <include name="${lib.jwizz}"/>
+                <include name="${lib.jhall}"/>
+                <include name="${lib.ristretto}"/>
+                <include name="${lib.macchiato}"/>
+                <include name="${lib.frapuccino}"/>
+                <include name="${lib.lucene}"/>
+                <include name="${lib.plastic}"/>
+                <include name="${lib.jdom}"/>
+                <include name="${lib.jpim}"/>
+                <include name="${lib.je}"/>
+                <include name="${lib.groovy}"/>
+                <include name="${lib.bsh}"/>
+                <include name="${manual.jar}"/>
+                <include name="${lib.flexdock}"/>
+				<include name="${lib.commons.logging}"/>
+            	<include name="${lib.ical4j}"/>
+		    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
 
+ 	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
+                <include name="${native.linux}/**/*.jar"/>
+                <include name="${native.linux}/**/*.so"/>
+            </tarfileset>
+				<tarfileset dir="${basedir}" mode="755" prefix="columba-unix-${version}-bin">
+                <include name="run.sh"/>
+            </tarfileset>
+        </tar>
+    </target>
+
+	<!-- This task creates the Columba.exe's for windows-->
+	<!-- Therefore we use Janel (http://janel.sf.net) -->
+	<taskdef name="janel" classpath="${native.win32}/janel-ant-0.1.jar" classname="net.sf.janel.ant.JanelTask"/>
+	<target name="windows-launcher">
+		<janel exeType="console" exe="${native.win32}/Columba.exe" smallIcon="${res.core}/org/columba/core/icons/MISC/icon16.png" bigIcon="${res.core}/org/columba/core/icons/MISC/icon32.png"/>
+		<janel exeType="windows" exe="${native.win32}/Columbaw.exe" smallIcon="${res.core}/org/columba/core/icons/MISC/icon16.png" bigIcon="${res.core}/org/columba/core/icons/MISC/icon32.png"/>
+	</target>
+
+    <!-- create a release zip file for windows flavors, containing the jar file and README, LICENSE, CHANGES, AUTHORS -->
+    <!-- this task is for a binary release -->
+    <target name="bin-win32" depends="jar, linefeeds-win32, windows-launcher"
+            description="Creates packaged win32 Columba release">
+
+        <copy file="${native.win32}/Columba.lap" todir="${basedir}"/>
+
+        <replace file="${basedir}/Columba.lap">
+            <replacefilter token="{app}" value="."/>
+        </replace>
+
+        <copy file="${basedir}/Columba.lap" tofile="${basedir}\Columbaw.lap"/>
+
+        <zip zipfile="${release.base}/columba-win32-${version}-bin.zip">
+            <zipfileset dir="${basedir}" prefix="columba-win32-${version}-bin">
+                <include name="README"/>
+                <include name="AUTHORS"/>
+                <include name="LICENSE"/>
+                <include name="CHANGES"/>
+                <include name="columba.jar"/>
+                <include name="${manual.jar}"/>
+                <include name="${lib.forms}"/>
+                <include name="${lib.jscf}"/>
+                <include name="${lib.jargs}"/>
+                <include name="${lib.jwizz}"/>
+                <include name="${lib.jhall}"/>
+                <include name="${lib.ristretto}"/>
+                <include name="${lib.macchiato}"/>
+                <include name="${lib.frapuccino}"/>
+                <include name="${lib.lucene}"/>
+                <include name="${lib.plastic}"/>
+                <include name="${lib.jdom}"/>
+                <include name="${lib.jpim}"/>
+                <include name="${lib.je}"/>
+                <include name="${lib.groovy}"/>
+                <include name="${lib.bsh}"/>
+                <include name="${lib.flexdock}"/>
+				<include name="${lib.commons.logging}"/>
+            	<include name="${lib.ical4j}"/>
+		    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+
+	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
+                <include name="${native.win32}/lib/*.jar"/>
+                <include name="${native.win32}/lib/*.dll"/>
+                <include name="Columba.lap"/>
+                <include name="Columbaw.lap"/>
+            </zipfileset>
+            <zipfileset dir="${native.win32}" prefix="columba-win32-${version}-bin">
+                <include name="Columba.exe"/>
+                <include name="Columbaw.exe"/>
+            </zipfileset>
+        </zip>
+
+        <delete file="${basedir}/Columba.lap"/>
+        <delete file="${basedir}/Columbaw.lap"/>
+    </target>
+
+
+    <target name="bin-cross" depends="jar, linefeeds-win32"
+            description="Creates packaged cross-platform Columba release">
+        <zip zipfile="${release.base}/columba-${version}-bin.zip">
+            <zipfileset dir="${basedir}" prefix="columba-${version}-bin">
+                <include name="README"/>
+                <include name="AUTHORS"/>
+                <include name="LICENSE"/>
+                <include name="CHANGES"/>
+                <include name="columba.jar"/>
+                <include name="${manual.jar}"/>
+                <include name="${lib.forms}"/>
+                <include name="${lib.jscf}"/>
+                <include name="${lib.jargs}"/>
+                <include name="${lib.jwizz}"/>
+                <include name="${lib.jhall}"/>
+                <include name="${lib.ristretto}"/>
+                <include name="${lib.macchiato}"/>
+                <include name="${lib.frapuccino}"/>
+                <include name="${lib.lucene}"/>
+                <include name="${lib.plastic}"/>
+                <include name="${lib.jdom}"/>
+                <include name="${lib.jpim}"/>
+                <include name="${lib.je}"/>
+                <include name="${lib.groovy}"/>
+                <include name="${lib.bsh}"/>
+                <include name="${lib.flexdock}"/>
+				<include name="${lib.commons.logging}"/>
+		        <include name="${lib.ical4j}"/>
+		    	<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+
+ 	     	   	<!-- Mac OS/X -->
+  		      	<include name="${lib.quaqua}"/>
+
+            	<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
+            </zipfileset>
+        </zip>
+    </target>
 
     <!-- create a source zip file for linux and unix flavors containing all sources and README, LICENSE, CHANGES, AUTHORS -->
     <!-- this task is for a source release -->
@@ -551,7 +703,7 @@
 
     <!-- this target creates two zip-files, one for binary release and one for the source stuff -->
     <!-- this is also the release target ;-0 -->
-    <target name="release" depends="source, install4j, webstart"
+    <target name="release" depends="bin-unix,bin-win32,bin-cross,source, rpm, winsetup, winsetup-bundlejre, webstart"
             description="Builds a complete set of Columba release archives"/>
 
     <target name="webstart" depends="init-webstart, jar" description="Signs all jars for use with Java Webstart">
@@ -736,6 +888,300 @@
         <zip zipfile="default_i18n.zip" basedir="${res.base}" update="true">
             <include name="**/*.properties"/>
         </zip>
+    </target>
+
+    <target name="rpm" depends="init-rpm, jar" description="Creates the RPM package">
+        <copy toDir="${dist.rpm}/SPECS/" file="${dist.rpm}/columba.spec"/>
+        <replace file="${dist.rpm}/SPECS/columba.spec" token="@version@" value="${version}"/>
+
+        <mkdir dir="${dist.rpm}/SOURCES/columba-${version}"/>
+        <copy todir="${dist.rpm}/SOURCES/columba-${version}">
+            <fileset dir="${basedir}">
+                <include name="README"/>
+                <include name="AUTHORS"/>
+                <include name="LICENSE"/>
+                <include name="CHANGES"/>
+                <include name="columba.jar"/>
+                <include name="${lib.forms}"/>
+                <include name="${lib.jscf}"/>
+                <include name="${lib.jargs}"/>
+                <include name="${lib.jwizz}"/>
+                <include name="${lib.jhall}"/>
+                <include name="${lib.ristretto}"/>
+                <include name="${lib.macchiato}"/>
+                <include name="${lib.frapuccino}"/>
+                <include name="${lib.lucene}"/>
+                <include name="${lib.plastic}"/>
+                <include name="${lib.jdom}"/>
+                <include name="${lib.jpim}"/>
+                <include name="${lib.je}"/>
+                <include name="${lib.groovy}"/>
+                <include name="${lib.bsh}"/>
+                <include name="${lib.flexdock}"/>
+				<include name="${lib.commons.logging}"/>
+            	<include name="${lib.ical4j}"/>
+	    		<include name="${lib.migcalendar}"/>
+            	<include name="${lib.swingx}"/>
+
+	    	   	<!-- Mac OS/X -->
+    	    	<include name="${lib.quaqua}" />
+
+				<!-- jpa libs -->
+                <include name="${lib.antlr.jar}" />
+                <include name="${lib.asm-attrs.jar}" />
+                <include name="${lib.asm.jar}" />
+                <include name="${lib.cglib.jar}" />
+                <include name="${lib.commons-collections.jar}" />
+                <include name="${lib.commons-logging.jar}" />
+                <include name="${lib.dom4j.jar}" />
+                <include name="${lib.ehcache.jar}" />
+                <include name="${lib.ejb3-persistence.jar}" />
+                <include name="${lib.hibernate3.jar}" />
+                <include name="${lib.hibernate-annotations.jar}" />
+                <include name="${lib.hibernate-entitymanager.jar}" />
+                <include name="${lib.hsqldb.jar}" />
+                <include name="${lib.javassist.jar}" />
+                <include name="${lib.jboss-archive-browsing.jar}" />
+                <include name="${lib.jta.jar}" />
+
+                <include name="${manual.jar}"/>
+            </fileset>
+        </copy>
+        <copy todir="${dist.rpm}/SOURCES/columba-${version}/${native.linux}">
+            <fileset dir="${basedir}/${native.linux}">
+                <include name="${lib.jdic}"/>
+                <include name="lib/*.so"/>
+            </fileset>
+        </copy>
+
+        <copy toDir="${dist.rpm}/SOURCES/columba-${version}/" file="${dist.rpm}/run.sh"/>
+        <replace file="${dist.rpm}/SOURCES/columba-${version}/run.sh" token="@version@" value="${version}"/>
+
+        <tar destfile="${dist.rpm}/SOURCES/columba-${version}.tar">
+            <tarfileset dir="${dist.rpm}/SOURCES/columba-${version}" prefix="columba-${version}">
+                <include name="**"/>
+            </tarfileset>
+        </tar>
+
+        <rpm specFile="columba.spec" command="-bb --target noarch" topDir="${dist.rpm}" error="${dist.rpm}/error.txt"
+             output="${dist.rpm}/output.txt"/>
+
+        <copy toDir="${release.base}" file="${dist.rpm}/RPMS/noarch/columba-${version}-0.noarch.rpm"/>
+    </target>
+
+    <target name="winsetup" depends="linefeeds-win32, jar" description="Creates a Setup.exe with InnoSetup">
+        <fixcrlf eol="crlf" srcdir="${dist.win32}" includes="columba_setup.iss"/>
+        <echo message="NOTE: This task will only work if InnoSetup 4.2.7 or above is installed!"/>
+
+        <exec os="Linux, Solaris" executable="wine">
+            <arg value="C:\\Program Files\\Inno Setup 5\\iscc"/>
+            <arg value="${dist.win32}/columba_setup.iss"/>
+            <arg value="/dVERSION=${version}"/>
+            <arg value="/dJRE_FILE=none"/>
+
+            <arg value="/dRISTRETTO=${lib.ristretto}"/>
+            <arg value="/dJHALL=${lib.jhall}"/>
+            <arg value="/dUSERMANUAL=${manual.jar}"/>
+            <arg value="/dFORMS=${lib.forms}"/>
+            <arg value="/dMACCHIATO=${lib.macchiato}"/>
+            <arg value="/dWINPACK=${lib.winpack}"/>
+            <arg value="/dJNIWRAP=${lib.jniwrap}"/>
+            <arg value="/dFRAPUCCINO=${lib.frapuccino}"/>
+            <arg value="/dJSCF=${lib.jscf}"/>
+            <arg value="/dJARGS=${lib.jargs}"/>
+            <arg value="/dLUCENE=${lib.lucene}"/>
+            <arg value="/dJWIZZ=${lib.jwizz}"/>
+            <arg value="/dPLASTIC=${lib.plastic}"/>
+            <arg value="/dJE=${lib.je}"/>
+            <arg value="/dJDOM=${lib.jdom}"/>
+            <arg value="/dJPIM=${lib.jpim}"/>
+            <arg value="/dGROOVY=${lib.groovy}"/>
+            <arg value="/dBSH=${lib.bsh}"/>
+            <arg value="/dJDIC=${lib.jdic}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
+            <arg value="/dJYTHON=${lib.jython}"/>
+		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
+
+     	   	<!-- Mac OS/X -->
+        	<arg value="/dQUAQUA=${lib.quaqua}" />
+
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
+        </exec>
+
+        <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="c:\program files\inno setup 5\iscc">
+            <arg value="${dist.win32}/columba_setup.iss"/>
+            <arg value="/dVERSION=${version}"/>
+            <arg value="/dJRE_FILE=none"/>
+            <arg value="/dRISTRETTO=${lib.ristretto}"/>
+            <arg value="/dJHALL=${lib.jhall}"/>
+            <arg value="/dUSERMANUAL=${manual.jar}"/>
+            <arg value="/dFORMS=${lib.forms}"/>
+            <arg value="/dMACCHIATO=${lib.macchiato}"/>
+            <arg value="/dWINPACK=${lib.winpack}"/>
+            <arg value="/dJNIWRAP=${lib.jniwrap}"/>
+            <arg value="/dFRAPUCCINO=${lib.frapuccino}"/>
+            <arg value="/dJSCF=${lib.jscf}"/>
+            <arg value="/dJARGS=${lib.jargs}"/>
+            <arg value="/dLUCENE=${lib.lucene}"/>
+            <arg value="/dJWIZZ=${lib.jwizz}"/>
+            <arg value="/dPLASTIC=${lib.plastic}"/>
+            <arg value="/dJE=${lib.je}"/>
+            <arg value="/dJDOM=${lib.jdom}"/>
+            <arg value="/dJPIM=${lib.jpim}"/>
+            <arg value="/dJDIC=${lib.jdic}"/>
+            <arg value="/dGROOVY=${lib.groovy}"/>
+            <arg value="/dBSH=${lib.bsh}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
+            <arg value="/dJYTHON=${lib.jython}"/>
+            <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
+        </exec>
+    </target>
+
+    <target name="winsetup-bundlejre" depends="linefeeds-win32, jar"
+            description="Creates a Setup.exe with a bundled JRE">
+        <property file="jrebundle.properties"/>
+
+        <fixcrlf eol="crlf" srcdir="${dist.win32}" includes="columba_setup.iss"/>
+        <echo message="NOTE: This task will only work if InnoSetup 4.2.7 or above is installed!"/>
+        <echo message="!!Specify the JRE in jrebundle.properties!!"/>
+        <exec os="Linux, Solaris" executable="wine">
+            <arg value="C:\\Program Files\\Inno Setup 5\\iscc"/>
+            <arg value="${dist.win32}/columba_setup.iss"/>
+            <arg value="/dVERSION=${version}"/>
+            <arg value="/dBUNDLE_JRE=1"/>
+            <arg value="/dJRE_FILE=${jre.file}"/>
+            <arg value="/dJRE_SRC_PATH=${jre.srcpath}"/>
+            <arg value="/dRISTRETTO=${lib.ristretto}"/>
+            <arg value="/dJHALL=${lib.jhall}"/>
+            <arg value="/dUSERMANUAL=${manual.jar}"/>
+            <arg value="/dFORMS=${lib.forms}"/>
+            <arg value="/dMACCHIATO=${lib.macchiato}"/>
+            <arg value="/dWINPACK=${lib.winpack}"/>
+            <arg value="/dJNIWRAP=${lib.jniwrap}"/>
+            <arg value="/dFRAPUCCINO=${lib.frapuccino}"/>
+            <arg value="/dJSCF=${lib.jscf}"/>
+            <arg value="/dJARGS=${lib.jargs}"/>
+            <arg value="/dLUCENE=${lib.lucene}"/>
+            <arg value="/dJWIZZ=${lib.jwizz}"/>
+            <arg value="/dPLASTIC=${lib.plastic}"/>
+            <arg value="/dJE=${lib.je}"/>
+            <arg value="/dJDOM=${lib.jdom}"/>
+            <arg value="/dJPIM=${lib.jpim}"/>
+            <arg value="/dJDIC=${lib.jdic}"/>
+            <arg value="/dGROOVY=${lib.groovy}"/>
+            <arg value="/dBSH=${lib.bsh}"/>
+            <arg value="/dflexdock=${lib.flexdock} "/>
+            <arg value="/dJYTHON=${lib.jython}"/>
+ 	  	    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
+        </exec>
+
+        <exec os="Windows 95, Windows NT, Windows 2000, Windows XP" executable="iscc">
+            <arg value="${dist.win32}/columba_setup.iss"/>
+            <arg value="/dVERSION=${version}"/>
+            <arg value="/dBUNDLE_JRE=1"/>
+            <arg value="/dJRE_FILE=${jre.file}"/>
+            <arg value="/dRISTRETTO=${lib.ristretto}"/>
+            <arg value="/dJHALL=${lib.jhall}"/>
+            <arg value="/dUSERMANUAL=${manual.jar}"/>
+            <arg value="/dFORMS=${lib.forms}"/>
+            <arg value="/dMACCHIATO=${lib.macchiato}"/>
+            <arg value="/dWINPACK=${lib.winpack}"/>
+            <arg value="/dJNIWRAP=${lib.jniwrap}"/>
+            <arg value="/dFRAPUCCINO=${lib.frapuccino}"/>
+            <arg value="/dJSCF=${lib.jscf}"/>
+            <arg value="/dJARGS=${lib.jargs}"/>
+            <arg value="/dLUCENE=${lib.lucene}"/>
+            <arg value="/dJWIZZ=${lib.jwizz}"/>
+            <arg value="/dPLASTIC=${lib.plastic}"/>
+            <arg value="/dJE=${lib.je}"/>
+            <arg value="/dJDOM=${lib.jdom}"/>
+            <arg value="/dJPIM=${lib.jpim}"/>
+            <arg value="/dJDIC=${lib.jdic}"/>
+            <arg value="/dGROOVY=${lib.groovy}"/>
+            <arg value="/dBSH=${lib.bsh}"/>
+            <arg value="/dflexdock=${lib.flexdock}"/>
+            <arg value="/dJYTHON=${lib.jython}"/>
+		    <arg value="/dCOMMONS.LOGGING=${lib.commons.logging}"/>
+		    <arg value="/dICAL4J=${lib.ical4j}"/>
+            <arg value="/dMIGCALENDAR=${lib.migcalendar}"/>
+        	<arg value="/dSWINGX=${lib.swingx}"/>
+        	<!-- jpa libs -->
+        	<arg value="/dANTLR=${lib.antlr.jar}" />
+        	<arg value="/dASM-ATTRS=${lib.asm-attrs.jar}" />
+        	<arg value="/dASM=${lib.asm.jar}" />
+        	<arg value="/dCGLIB=${lib.cglib.jar}" />
+        	<arg value="/dCOMMONS-COLLECTIONS=${lib.commons-collections.jar}" />
+        	<arg value="/dCOMMONS-LOGGING=${lib.commons-logging.jar}" />
+        	<arg value="/dDOM4J=${lib.dom4j.jar}" />
+        	<arg value="/dEHCACHE=${lib.ehcache.jar}" />
+        	<arg value="/dEJB3-PERSISTENCE=${lib.ejb3-persistence.jar}" />
+        	<arg value="/dHIBERNATE3=${lib.hibernate3.jar}" />
+        	<arg value="/dHIBERNATE-ANNOTATIONS=${lib.hibernate-annotations.jar}" />
+        	<arg value="/dHIBERNATE-ENTITYMANAGER=${lib.hibernate-entitymanager.jar}" />
+        	<arg value="/dHSQLDB=${lib.hsqldb.jar}" />
+        	<arg value="/dJAVASSIST=${lib.javassist.jar}" />
+        	<arg value="/dJBOSS-ARCHIVE-BROWSING=${lib.jboss-archive-browsing.jar}" />
+        	<arg value="/dJTA=${lib.jta.jar}" />
+        </exec>
     </target>
 
     <target name="plugins" depends="compile" description="Builds all plugins">
