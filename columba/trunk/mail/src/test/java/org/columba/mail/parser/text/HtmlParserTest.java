@@ -130,24 +130,33 @@ public class HtmlParserTest extends TestCase {
     public void testsubstitiuteEmail1() {
     	String input = "test@mail.com";
     	
-    	assertEquals("<A HREF=\"mailto:" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(input) );
+    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
     }
 
     public void testsubstitiuteEmail2() {
     	String input = "te+st09@mail.com";
     	
-    	assertEquals("<A HREF=\"mailto:" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(input) );
+    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
     }
 
     public void testsubstitiuteEmail3() {
     	String input = "test09_+@mail.com";
     	
-    	assertEquals("<A HREF=\"mailto:" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(input) );
+    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
     }
 
     public void testsubstitiuteEmail4() {
     	String input = "test09_+@mail.af.two.three.four.five.com";
     	
-    	assertEquals("<A HREF=\"mailto:" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(input) );
+    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
+    }
+
+    public void testsubstitiuteEmailInUrl() {
+    	String input = "http://www.supercool.com/name=super@cool.com";
+    	
+    	// url decode
+    	String firstStep = HtmlParser.substituteURL(input);
+    	
+    	assertEquals("<A HREF=\"" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(firstStep) );
     }
 }

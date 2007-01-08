@@ -65,8 +65,11 @@ public final class HtmlParser {
 //do the bug [997599] "\\b([^\\s@]+@[^\\s]+)\\b";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_STR);
     private static final Pattern EMAIL_PATTERN_INC_LINK = Pattern.compile(
-            "<a[\\s\\n]*href=(\\\")?(mailto:)" + EMAIL_STR + "[^<]*</a>",
+            "<a[\\s\\n]*href=(\\\")?(mailto:)" + 
+            EMAIL_STR 
+            + "[^<]*</a>",
             Pattern.CASE_INSENSITIVE);
+
     private static final String PROT = "(http|https|ftp)";
     private static final String PUNC = ".,:;?!\\-";
     private static final String ANY = "\\S";
@@ -327,8 +330,8 @@ prot + "://  protocol and ://
         String html = HtmlParser.substituteSpecialCharacters(text);
 
         // parse for urls / email adresses and substite with HTML-code
-        html = HtmlParser.substituteURL(html);
-        html = HtmlParser.substituteEmailAddress(html);
+        // html = HtmlParser.substituteURL(html);
+        // html = HtmlParser.substituteEmailAddress(html);
 
         // insert surrounding html tags
         StringBuffer buf = new StringBuffer();
@@ -606,7 +609,8 @@ prot + "://  protocol and ://
      *                         (null on error)
      */
     public static String substituteEmailAddress(String s) {
-        return EMAIL_PATTERN.matcher(s).replaceAll("<A HREF=\"mailto:$1\">$1</A>");
+        // due to bug CA-174 changed: return EMAIL_PATTERN.matcher(s).replaceAll("<A HREF=\"mailto:$1\">$1</A>");
+    	return substituteEmailAddress(s, false);
     }
 
     /**
@@ -650,7 +654,7 @@ prot + "://  protocol and ://
                     // found an email address with links - is it the same?
                     int s2 = withLinkMatcher.start();
                     int e2 = withLinkMatcher.end();
-
+                    
                     if ((s2 < s1) && (e2 > e1)) {
                         // same email adress - just append and continue
                         buf.append(s.substring(pos, e2));
@@ -661,8 +665,38 @@ prot + "://  protocol and ://
                         insertLink = true;
                     }
                 } else {
-                    // no match with link tags
-                    insertLink = true;
+                    // no match with mailto link tags
+
+    				insertLink = true;
+                	
+                	// can be an email address in a link BUG CA-174
+                	// fix that with looking for an open link in the same line before
+                	// on the way from left to the current position of the email at s1
+    				// find the last open link <a
+                	Matcher openLink = Pattern.compile("<a", Pattern.CASE_INSENSITIVE).matcher(s);
+                	Matcher closeLink = Pattern.compile("</a>", Pattern.CASE_INSENSITIVE).matcher(s);
+                	int linkPos = 0;
+                	int savedLinkPos = -1;
+                	while (linkPos < s1) {
+                		savedLinkPos = linkPos;
+                		if (openLink.find(linkPos)) 
+                			linkPos = openLink.end();
+                		else
+                			break;
+                	}
+                	
+                	// found an open link
+                	if (savedLinkPos > -1) {
+                		// check if it is closed
+                		if (closeLink.find(savedLinkPos)) {
+                			// if the closing mark is after the s1 mark do not insert a link
+                			if (closeLink.end() >= s1) {
+                                buf.append(s.substring(pos, e1));
+                                pos = e1;
+                                insertLink = false; // already handled
+                			}
+                		}
+                	}
                 }
 
                 // shall we insert a link?
