@@ -29,7 +29,7 @@ public class TagCalendarMenu extends TaggingMenu implements
 	 */
 	public TagCalendarMenu(IFrameMediator frameMediator) {
 		super(frameMediator, ResourceLoader.getString("tagging",
-				"contact_tag_message"), "menu_tag_message");
+				"calendar_tag_message"), "menu_tag_message");
 
 		((CalendarFrameMediator) frameMediator).getCalendarView()
 				.addSelectionChangedListener(this);

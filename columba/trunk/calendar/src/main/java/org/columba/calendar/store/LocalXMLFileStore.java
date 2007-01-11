@@ -84,12 +84,15 @@ public class LocalXMLFileStore {
 		XMLOutputter outp = new XMLOutputter();
 
 		try {
-			outp.output(document, new FileOutputStream(file));
+			FileOutputStream s = new FileOutputStream(file);
+			outp.output(document, s);
+			s.close();
 		} catch (FileNotFoundException e) {
 			throw new StoreException(e);
 		} catch (IOException e) {
 			throw new StoreException(e);
 		}
+
 	}
 
 	public void modify(Object id, Document document) throws StoreException {

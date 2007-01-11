@@ -81,6 +81,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		dataStorage.save(id, document);
 
 		fireItemAdded(id);
+		
 	}
 
 	/**

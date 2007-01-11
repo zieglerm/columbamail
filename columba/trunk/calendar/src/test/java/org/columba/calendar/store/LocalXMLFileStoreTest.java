@@ -25,6 +25,7 @@ import junit.framework.TestCase;
 import org.columba.calendar.base.UUIDGenerator;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.parser.XCSDocumentParser;
+import org.columba.calendar.store.api.StoreException;
 import org.jdom.Document;
 
 public class LocalXMLFileStoreTest extends TestCase {
@@ -76,8 +77,16 @@ public class LocalXMLFileStoreTest extends TestCase {
 
 		storage.remove(uuid);
 
-		Document result = storage.load(uuid);
-		assertNull(result);
+		try {
+			Document result = storage.load(uuid);
+		} catch (StoreException e) {
+			// this is the expected cases
+			return;
+		} catch (Exception e) {
+			fail("Expected StoreException, not " + e.getMessage());
+		}
+
+		fail("Expected StoreException, got no exception");
 
 	}
 
