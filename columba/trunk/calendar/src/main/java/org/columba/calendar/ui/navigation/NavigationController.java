@@ -17,6 +17,7 @@
 //All Rights Reserved.
 package org.columba.calendar.ui.navigation;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.JComponent;
@@ -62,11 +63,12 @@ public class NavigationController implements ICalendarNavigationView {
 		// enable selection
 		dateAreaBean.setSelectionType(DateArea.SELECTION_TYPE_NORMAL);
 
-		long startMillis = new GregorianCalendar(2006, 0, 0).getTimeInMillis();
-		long endMillis = new GregorianCalendar(2006, 12, 31).getTimeInMillis();
+		Calendar today = Calendar.getInstance();
+		long startMillis = new GregorianCalendar(today.get(java.util.Calendar.YEAR), 0, 0).getTimeInMillis();
+		long endMillis = new GregorianCalendar(today.get(java.util.Calendar.YEAR), 12, 31).getTimeInMillis();
 		ImmutableDateRange dr = new ImmutableDateRange(startMillis, endMillis,
 				false, null, null);
-
+		
 		dateAreaBean.getDateArea().setVisibleDateRange(dr);
 		dateAreaBean.repaint();
 
@@ -74,7 +76,6 @@ public class NavigationController implements ICalendarNavigationView {
 				new DateChangeListener() {
 					public void dateRangeChanged(DateChangeEvent e) {
 						if (e.getType() == DateChangeEvent.SELECTED) {
-							
 
 							fireSelectionChanged(new DateRange(e.getNewRange()
 									.getStartMillis(), e.getNewRange()

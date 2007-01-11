@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -73,6 +74,9 @@ import com.miginfocom.util.states.ToolTipProvider;
 public class MainCalendarController implements InteractionListener,
 		ActivityMoveListener, ICalendarView, ActivityDragResizeListener {
 
+	private static final Logger LOG = Logger
+			.getLogger("org.columba.calendar.ui.calendar");
+
 	public static final String MAIN_WEEKS_CONTEXT = "mainWeeks";
 
 	public static final String MAIN_DAYS_CONTEXT = "mainDays";
@@ -82,6 +86,14 @@ public class MainCalendarController implements InteractionListener,
 	// private ThemeDateAreaContainer view;
 
 	public static final String PROP_FILTERED = "filterRow";
+
+	private static final int WEEKS_PER_YEAR = 52; // FIXME is this correct for
+
+	// every year?
+
+	private static final int DAYS_PER_YEAR = 365; // FIXME this is not correct
+
+	// for leap years!
 
 	private IActivity selectedActivity;
 
@@ -314,8 +326,8 @@ public class MainCalendarController implements InteractionListener,
 
 		for (Iterator it = cats.iterator(); it.hasNext();) {
 			Category cat = (Category) it.next();
-			Object isHidden = cat.getProperty(PropertyKey
-					.getKey(PROP_FILTERED));
+			Object isHidden = cat
+					.getProperty(PropertyKey.getKey(PROP_FILTERED));
 			if (MigUtil.isTrue(isHidden) == false)
 				it.remove();
 		}
@@ -448,21 +460,90 @@ public class MainCalendarController implements InteractionListener,
 		printDebug(newVisRange);
 
 		Calendar todayCalendar = Calendar.getInstance();
-		int today = todayCalendar.get(java.util.Calendar.DAY_OF_YEAR);
+		long difference = todayCalendar.getTimeInMillis()
+				- newVisRange.getMiddleMillis();
+		long difference_in_days = difference / (1000 * 60 * 60 * 24);
 
-		int selectedStartDay = newVisRange.getStart().get(
-				java.util.Calendar.DAY_OF_YEAR);
-		// int selectedEndDay = newVisRange.getStart().get(
-		// java.util.Calendar.DAY_OF_YEAR);
-
-		int diff = selectedStartDay - today;
-
-		newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, -diff);
+		newVisRange = rollWithYears(newVisRange,
+				java.util.Calendar.DAY_OF_YEAR, (int) (difference_in_days));
 
 		currentDateAreaBean.getDateArea().setVisibleDateRange(newVisRange);
 
 		currentDateAreaBean.revalidate();
 		currentDateAreaBean.repaint();
+	}
+
+	public static int getWeekOfYear(Calendar arg) {
+		// the java methods return a nice week of year, we need hard facts
+		return ((arg.get(java.util.Calendar.DAY_OF_YEAR) - 1) / 7) + 1;
+	}
+
+	public static DateRange rollWithYears(DateRange range, int mode, int amount) {
+		DateRange newVisRange = range;
+		DateRange rolledMiddle;
+		
+		switch (mode) {
+		case java.util.Calendar.DAY_OF_YEAR:
+
+			rolledMiddle = new DateRange(newVisRange.getMiddle(), newVisRange
+					.getMiddle().getTimeZone(), newVisRange.getLocale());
+
+			if ((rolledMiddle.getStartField(java.util.Calendar.DAY_OF_YEAR)
+					+ amount <= 0)) {
+				int days_of_year = rolledMiddle.getStartField(java.util.Calendar.DAY_OF_YEAR);
+				rolledMiddle.roll(java.util.Calendar.DAY_OF_YEAR, amount);
+				// FIXME correct year calculation
+				int day_difference = days_of_year - Math.abs(amount);
+				int years = (int) (Math.floor((day_difference) / DAYS_PER_YEAR) + (day_difference <= 0 ? -1 : 0) );
+				rolledMiddle.roll(java.util.Calendar.YEAR, years);
+			} else if (rolledMiddle
+					.getStartField(java.util.Calendar.DAY_OF_YEAR)
+					+ amount > DAYS_PER_YEAR) {
+				rolledMiddle.roll(java.util.Calendar.DAY_OF_YEAR, amount);
+				rolledMiddle.roll(java.util.Calendar.YEAR,
+						((amount - 1) / DAYS_PER_YEAR) + 1);
+			} else {
+				rolledMiddle.roll(java.util.Calendar.DAY_OF_YEAR, amount);
+			}
+
+			rolledMiddle.setSize(DateRange.RANGE_TYPE_DAY, newVisRange.getSize(
+					DateRange.RANGE_TYPE_DAY, true),
+					MutableDateRange.ALIGN_CENTER_DOWN);
+
+			newVisRange.setStart(rolledMiddle.getStart());
+			newVisRange.setEnd(rolledMiddle.getEnd(), true);
+
+			break;
+		case java.util.Calendar.WEEK_OF_YEAR:
+			rolledMiddle = rollWithYears(new DateRange(newVisRange.getMiddle(),
+					newVisRange.getMiddle().getTimeZone(), newVisRange
+							.getLocale()), java.util.Calendar.DAY_OF_YEAR,
+					amount * 7);
+
+			rolledMiddle.setSize(DateRange.RANGE_TYPE_DAY, newVisRange.getSize(
+					DateRange.RANGE_TYPE_DAY, true),
+					MutableDateRange.ALIGN_CENTER_DOWN);
+
+			if (getWeekOfYear(rolledMiddle.getStart()) > getWeekOfYear(rolledMiddle
+					.getEnd())) {
+				// it will not be done correctly, if the first statement is
+				// omitted
+				rolledMiddle.setSize(DateRange.RANGE_TYPE_DAY, 1,
+						MutableDateRange.ALIGN_CENTER_UP);
+				rolledMiddle.setSize(DateRange.RANGE_TYPE_DAY, newVisRange
+						.getSize(DateRange.RANGE_TYPE_DAY, true),
+						MutableDateRange.ALIGN_CENTER_UP);
+			}
+
+			newVisRange.setStart(rolledMiddle.getStart());
+			newVisRange.setEnd(rolledMiddle.getEnd(), true);
+
+			break;
+		default:
+			LOG.severe("Cannot roll! " + mode);
+		}
+
+		return newVisRange;
 	}
 
 	/*
@@ -476,19 +557,31 @@ public class MainCalendarController implements InteractionListener,
 
 		switch (currentViewMode) {
 		case ICalendarView.VIEW_MODE_DAY:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, 1);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, 1);
 
 			break;
 		case ICalendarView.VIEW_MODE_WEEK:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, 7);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, 7);
 
 			break;
 		case ICalendarView.VIEW_MODE_WORK_WEEK:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, 7);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, 7);
 
 			break;
 		case ICalendarView.VIEW_MODE_MONTH:
-			newVisRange.roll(java.util.Calendar.WEEK_OF_YEAR, 1);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.WEEK_OF_YEAR, 1);
 
 			break;
 		}
@@ -506,23 +599,35 @@ public class MainCalendarController implements InteractionListener,
 	 */
 	public void viewPrevious() {
 		DateRange newVisRange = new DateRange(currentDateAreaBean.getDateArea()
-				.getVisibleDateRange());
+				.getVisibleDateRangeCorrected());
 
 		switch (currentViewMode) {
 		case ICalendarView.VIEW_MODE_DAY:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, -1);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, -1);
 
 			break;
 		case ICalendarView.VIEW_MODE_WEEK:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, -7);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, -7);
 
 			break;
 		case ICalendarView.VIEW_MODE_WORK_WEEK:
-			newVisRange.roll(java.util.Calendar.DAY_OF_YEAR, -7);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.DAY_OF_YEAR, -7);
 
 			break;
 		case ICalendarView.VIEW_MODE_MONTH:
-			newVisRange.roll(java.util.Calendar.WEEK_OF_YEAR, -1);
+
+			// roll correctly over years
+			newVisRange = rollWithYears(newVisRange,
+					java.util.Calendar.WEEK_OF_YEAR, -1);
 
 			break;
 		}
