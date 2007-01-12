@@ -230,14 +230,17 @@ public class MailMain implements IComponentPlugin {
 				
 				// @author hubms: wait until the first frame is displayable
 				// fix for bug [#CA-177]
-				while (!FrameManager.getInstance().getActiveFrame().isDisplayable()) {
+				while (!(FrameManager.getInstance().getActiveFrame().isDisplayable())) {
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOG.severe(e.getMessage());
 					}
-				}
+				}				
+				
+				// fix for bug [#CA-199] java 1.6.0-b105 trick
+				if (!FrameManager.getInstance().getActiveFrame().isValid())
+					FrameManager.getInstance().getActiveFrame().doLayout();
 
 				int result = JOptionPane.showConfirmDialog(FrameManager
 						.getInstance().getActiveFrame(), panel,
