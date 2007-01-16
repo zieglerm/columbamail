@@ -105,7 +105,7 @@ public class JDICDesktop implements IDesktop {
 		// if win32 platform, prepend cmd.exe
 		// necessary for system environment variables usage
 		if ( OSInfo.isWin32Platform() ) {
-			command = "cmd.exe /C "+command;
+			command = "cmd.exe /C "+"\""+command+"\"";
 		}
 
 		Process child;
