@@ -10,12 +10,15 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.ElementIterator;
+import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.StyleContext;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.HTMLDocument.HTMLReader;
 
 import org.columba.core.gui.htmlviewer.api.IHTMLViewerPlugin;
 import org.columba.core.io.DiskIO;
@@ -110,6 +113,35 @@ public class JavaHTMLViewerPlugin extends JScrollPane implements
 		public AsynchronousHTMLDocument() {
 			super();
 			putProperty("IgnoreCharsetDirective", new Boolean(true));
+		}
+		
+		/*Overwrite the method to maintain line breaks when copying 
+		 * messages form the MessageViewer.
+		 * @author aoki-y
+		 * @see javax.swing.text.html.HTMLDocument#getReader(int)
+		 */
+		public HTMLEditorKit.ParserCallback getReader(int pos) {
+			Object desc = getProperty(Document.StreamDescriptionProperty);
+			if (desc instanceof URL) { 
+			    setBase((URL)desc);
+			}
+			HTMLReader reader = new MyReader(pos);
+			return reader;
+		    }
+		
+		public class MyReader extends HTMLDocument.HTMLReader{
+			public MyReader(int pos){super(pos);}
+			
+			protected void addSpecialElement(HTML.Tag t, MutableAttributeSet a) {
+				super.addSpecialElement(t,a);
+				if(t==HTML.Tag.BR){
+					int size=parseBuffer.size();
+					parseBuffer.removeElementAt(size-1);
+					char[] c={'\n'};
+					parseBuffer.addElement(new ElementSpec(
+					a.copyAttributes(), ElementSpec.ContentType,c,0,c.length));	
+				}
+			}
 		}
 
 		/**
