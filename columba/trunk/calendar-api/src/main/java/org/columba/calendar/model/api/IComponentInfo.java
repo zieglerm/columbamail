@@ -33,4 +33,8 @@ public interface IComponentInfo {
 	public abstract TYPE getType();
 	
 	public abstract String getCalendar();
+
+	public abstract void setCalendar(String calendar);
+	
+	public abstract IComponent getComponent();
 }

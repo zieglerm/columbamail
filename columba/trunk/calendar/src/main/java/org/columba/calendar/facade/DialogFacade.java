@@ -4,7 +4,7 @@ import java.net.URI;
 
 import javax.swing.JOptionPane;
 
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
@@ -29,11 +29,11 @@ public class DialogFacade {
 
 		// retrieve event from store
 		try {
-			IEvent model = (IEvent) store.get(activityId);
+			IEventInfo model = (IEventInfo) store.get(activityId);
 
 			EditEventDialog dialog = new EditEventDialog(null, model);
 			if (dialog.success()) {
-				IEvent updatedModel = dialog.getModel();
+				IEventInfo updatedModel = dialog.getModel();
 
 				// update store
 				store.modify(activityId, updatedModel);

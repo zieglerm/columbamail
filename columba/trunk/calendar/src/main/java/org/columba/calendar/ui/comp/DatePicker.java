@@ -42,8 +42,9 @@ public class DatePicker extends com.miginfocom.calendar.DatePicker {
 		// enable selection
 		dateAreaBean.setSelectionType(DateArea.SELECTION_TYPE_NORMAL);
 
-		long startMillis = new GregorianCalendar(2006, 0, 0).getTimeInMillis();
-		long endMillis = new GregorianCalendar(2006, 12, 31).getTimeInMillis();
+		Calendar today = Calendar.getInstance();
+		long startMillis = new GregorianCalendar(today.get(java.util.Calendar.YEAR), 0, 0).getTimeInMillis();
+		long endMillis = new GregorianCalendar(today.get(java.util.Calendar.YEAR), 12, 31).getTimeInMillis();
 		ImmutableDateRange dr = new ImmutableDateRange(startMillis, endMillis,
 				false, null, null);
 		dateAreaBean.getDateArea().setVisibleDateRange(dr);

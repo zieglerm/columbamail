@@ -17,57 +17,56 @@
 //All Rights Reserved.
 package org.columba.calendar.model;
 
-import java.util.Calendar;
-
+import org.columba.calendar.base.UUIDGenerator;
+import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IComponent.TYPE;
 
 public class EventInfo extends ComponentInfo implements IEventInfo {
-	private Calendar dtStart;
-
-	private Calendar dtEnt;
-
-	private String summary;
 	
-	private String location;
+	private IEvent event;
+	
+	public EventInfo(String id, String calendarId, IEvent event) {
+		super(id, TYPE.EVENT, calendarId, event);
+		this.event = event;
+	}
+	
+	public IEvent getEvent() {
+		return event;
+	}
 
-	public EventInfo(String id, Calendar dtStart, Calendar dtEnd,
-			String summary, String location, String calendarId) {
-		super(id, TYPE.EVENT, calendarId);
-
-		if (dtStart == null)
-			throw new IllegalArgumentException("dtStart == null");
-
-		if (dtEnd == null)
-			throw new IllegalArgumentException("dtEnd == null");
-
-		if (summary == null)
-			throw new IllegalArgumentException("summary == null");
-
-		if (location == null)
-			throw new IllegalArgumentException("location == null");
+	/**
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
 		
-		this.dtStart = dtStart;
-		this.dtEnt = dtEnd;
-		this.summary = summary;
-		this.location = location;
+		// create new event with new UUID
+		String newId = new UUIDGenerator().newUUID();
+		
+		Event newEvent = new Event(newId);
+		// copy all attributes
+		newEvent.setDtStart(getEvent().getDtStart());
+		newEvent.setDtEnd(getEvent().getDtEnd());
+		newEvent.setDtStamp(getEvent().getDtStamp());
+		newEvent.setSummary(getEvent().getSummary());
+		newEvent.setLocation(getEvent().getLocation());
+		newEvent.setCalendar(getCalendar());
 
+		EventInfo eventInfo = new EventInfo(newId, getCalendar(), newEvent);
+
+		return eventInfo;
 	}
-
-	public Calendar getDtStart() {
-		return dtStart;
-	}
-
-	public Calendar getDtEnt() {
-		return dtEnt;
-	}
-
-	public String getSummary() {
-		return summary;
-	}
-
-	public String getLocation() {
-		return location;
+	
+	/**
+	 * @see org.columba.calendar.model.api.IEvent#createCopy()
+	 */
+	public IEventInfo createCopy() {
+		try {
+			return (IEventInfo) clone();
+		} catch (CloneNotSupportedException e) {
+		}
+		return null;
 	}
 
 }

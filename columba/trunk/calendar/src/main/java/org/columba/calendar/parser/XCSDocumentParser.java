@@ -23,10 +23,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.columba.calendar.base.UUIDGenerator;
+import org.columba.calendar.model.Recurrence;
 import org.columba.calendar.model.api.ICALENDAR;
 import org.columba.calendar.model.api.IComponent.TYPE;
 import org.jdom.Document;
 import org.jdom.Element;
+
+import com.miginfocom.calendar.activity.recurrence.ByXXXRuleData;
+import com.miginfocom.calendar.activity.recurrence.RecurrenceRule;
 
 public class XCSDocumentParser {
 
@@ -336,7 +340,7 @@ public class XCSDocumentParser {
 			}
 		}
 	}
-
+	
 	public Enumeration getCategoryEnumeration() {
 		//Element child = getParentElement().getChild(ICALENDAR.CATEGORIES);
 		//List list = child.getChildren();
@@ -344,4 +348,146 @@ public class XCSDocumentParser {
 		// TODO categoryEnumeration
 		return null;
 	}
+	
+	public RecurrenceRule getRecurrenceRule() {
+		// RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1
+		// RRULE:FREQ=WEEKLY;UNTIL=20060725T215959;INTERVAL=1;BYDAY=TU
+		// RRULE:FREQ=YEARLY;INTERVAL=1
+		String rrule = get(ICALENDAR.RRULE);
+		String freqS = getRValue(rrule, "FREQ");
+		String intervalS = getRValue(rrule, "INTERVAL");
+		String countS = getRValue(rrule, "COUNT");
+		String untilS = getRValue(rrule, "UNTIL");
+		int freq = -1;
+		int interval = -1;
+		int count = -1;
+		Calendar untildate = null;
+		try {
+			if (freqS.equals("YEARLY"))
+				freq = Recurrence.RECURRENCE_ANNUALLY;
+			else if (freqS.equals("MONTHLY"))
+				freq = Recurrence.RECURRENCE_MONTHLY;
+			else if (freqS.equals("WEEKLY"))
+				freq = Recurrence.RECURRENCE_WEEKLY;
+			else if (freqS.equals("DAILY"))
+				freq = Recurrence.RECURRENCE_DAILY;
+			
+			/*
+			else if (freqS.equals("HOURLY"))
+				freq = Recurrence.RECURRENCE_HOURLY;
+			else if (freqS.equals("MINUTELY"))
+				freq = Recurrence.RECURRENCE_HOURLY;
+			else if (freqS.equals("SECONDLY"))
+				freq = Recurrence.RECURRENCE_SECONDLY;
+			*/
+			
+			if (intervalS.length() > 0)
+				interval = Integer.parseInt(intervalS);
+			if (countS.length() > 0)
+				count = Integer.parseInt(countS);
+			if (untilS.length() > 0)
+			try {
+				untildate = DateParser.createCalendarFromDateString(untilS);
+			} catch (IllegalArgumentException e) {
+				LOG.severe("getRecurrenceRule: date parsing exception");
+			}
+		} catch (NumberFormatException e) {
+			LOG.severe("getRecurrenceRule: number parsing exception");
+		}
+		
+		if (freq < 0)
+			return null;
+		
+		RecurrenceRule r = new RecurrenceRule();
+		r.setFrequency(Recurrence.toFrequency(freq));
+		if (interval > -1)
+			r.setInterval(interval);
+		if (count > -1)
+			r.setRepetitionCount(count);
+		if (untildate != null)
+			r.setUntilDate(untildate);
+		return r;
+	}
+	
+	public static String getRValue(String rrule, String property) {
+		// find the property in the rrule string
+		String irrule = rrule.toLowerCase();
+		String iproperty = property.toLowerCase() + "=";
+		String DELIMITER = ";";
+		if (irrule.indexOf(iproperty) > -1) {
+			int valuestart = irrule.indexOf(iproperty) + iproperty.length();
+			int valueend = irrule.indexOf(DELIMITER, valuestart);
+			if (valueend < 0)
+				valueend = irrule.length();
+			return rrule.substring(valuestart, valueend);
+		}
+		return "";
+	}
+
+	public void setRecurrenceRule(RecurrenceRule r) {
+		
+		// no recurrency, so nothing in the string
+		if (r == null) {
+			set(ICALENDAR.RRULE, "");
+			return;
+		}
+		
+		// build string
+		String freqString = null;
+		switch (r.getFrequency()) {  
+			case Calendar.YEAR: freqString = "YEARLY"; break;
+			case Calendar.MONTH: freqString = "MONTHLY"; break; 
+			case Calendar.WEEK_OF_YEAR: freqString = "WEEKLY"; break;
+			case Calendar.DAY_OF_YEAR: freqString = "DAILY"; break;
+			case Calendar.HOUR: freqString = "HOURLY"; break;
+			case Calendar.MINUTE: freqString = "MINUTELY"; break;
+			case Calendar.SECOND: freqString = "SECONDLY";
+		}
+		if (freqString == null)
+			throw new IllegalArgumentException("freqString = null");
+		
+		if (r.getByXXXRules() != null) {
+			for (int i = 0; i < r.getByXXXRules().length; i++) {
+				ByXXXRuleData rr = r.getByXXXRules()[i];
+				System.out.println("weekdayiny = " + rr.getRelativeWeekDayInYearOrMonth());
+				for (int j = 0; j < rr.getValues().length; j++) {
+					System.out.println(" value " + j + " = " + rr.getValues()[j]);
+				}
+				System.out.println("calendarfield = " + rr.getCalendarField());
+			}
+		}
+		
+		String rruleString = "FREQ="+freqString;
+		// optional parts
+		if (r.getRepetitionCount() != null) 
+			rruleString += ";COUNT="+r.getRepetitionCount();
+		if (r.getInterval() > 0)
+			rruleString += ";INTERVAL="+r.getInterval();
+		if (r.getUntilDate() != null)
+			//UNTIL=20070627T215959
+			rruleString += ";UNTIL="+dateString(r.getUntilDate());
+		
+		set(ICALENDAR.RRULE, rruleString);
+	}
+
+	private String dateString(Calendar d) {
+		String s = "";
+		s += d.get(Calendar.YEAR);
+		s += (d.get(Calendar.MONTH) < Calendar.OCTOBER ? "0" + (d.get(Calendar.MONTH)+1) : d.get(Calendar.MONTH)+1);
+		s += d.get(Calendar.DAY_OF_MONTH);
+		s += "T";
+		s += (d.get(Calendar.HOUR_OF_DAY) < 10 ? "0" + d.get(Calendar.HOUR_OF_DAY) : d.get(Calendar.HOUR_OF_DAY));
+		s += (d.get(Calendar.MINUTE) < 10 ? "0" + d.get(Calendar.MINUTE) : d.get(Calendar.MINUTE));
+		s += (d.get(Calendar.SECOND) < 10 ? "0" + d.get(Calendar.SECOND) : d.get(Calendar.SECOND));
+		return s;
+	}
+
+	public void setCategories(String categories) {
+		set(ICALENDAR.CATEGORIES, categories);
+	}
+	
+	public String getCategories() {
+		return get(ICALENDAR.CATEGORIES);
+	}
+
 }

@@ -22,7 +22,6 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
-import java.util.Hashtable;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;

@@ -18,11 +18,17 @@
 package org.columba.calendar.parser;
 
 import org.columba.calendar.model.Event;
+import org.columba.calendar.model.EventInfo;
+import org.columba.calendar.model.Recurrence;
 import org.columba.calendar.model.api.ICALENDAR;
-import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.model.api.IRecurrence;
 import org.columba.calendar.model.api.IComponent.TYPE;
 import org.jdom.Document;
+
+import com.miginfocom.calendar.activity.recurrence.RecurrenceRule;
 
 public final class VCalendarModelFactory {
 
@@ -30,7 +36,7 @@ public final class VCalendarModelFactory {
 		super();
 	}
 
-	public static Document marshall(IComponent c) throws SyntaxException,
+	public static Document marshall(IComponentInfo c) throws SyntaxException,
 			IllegalArgumentException {
 
 		if (c == null)
@@ -41,23 +47,38 @@ public final class VCalendarModelFactory {
 		model.setId(c.getId());
 
 		if (c.getType() == TYPE.EVENT) {
-			IEvent event = (IEvent) c;
-			model.setDescription(event.getDescription());
-			model.setSummary(event.getSummary());
+			IEventInfo eventInfo = (IEventInfo) c;
+			model.setDescription(eventInfo.getEvent().getDescription());
+			model.setSummary(eventInfo.getEvent().getSummary());
 
-			if (event.getDtStart() != null)
-				model.setDTStart(event.getDtStart());
+			if (eventInfo.getEvent().getDtStart() != null)
+				model.setDTStart(eventInfo.getEvent().getDtStart());
 
-			if (event.getDtEnt() != null)
-				model.setDTEnd(event.getDtEnt());
+			if (eventInfo.getEvent().getDtEnd() != null)
+				model.setDTEnd(eventInfo.getEvent().getDtEnd());
 
-			if (event.getDtStamp() != null)
-				model.setDTStamp(event.getDtStamp());
+			if (eventInfo.getEvent().getDtStamp() != null)
+				model.setDTStamp(eventInfo.getEvent().getDtStamp());
 
-			model.setEventClass(event.getEventClass());
-			model.setLocation(event.getLocation());
+			model.setEventClass(eventInfo.getEvent().getEventClass());
+			model.setLocation(eventInfo.getEvent().getLocation());
 			
-			model.setCalendar(event.getCalendar());
+			if (eventInfo.getEvent().getRecurrence() != null && eventInfo.getEvent().getRecurrence().getType() != IRecurrence.RECURRENCE_NONE) {
+				RecurrenceRule r = new RecurrenceRule();
+				IRecurrence columbaRecurrence = eventInfo.getEvent().getRecurrence();
+				r.setFrequency(Recurrence.toFrequency(columbaRecurrence.getType()));
+				r.setInterval(columbaRecurrence.getInterval());
+				if (columbaRecurrence.getEndType() == IRecurrence.RECURRENCE_END_MAXOCCURRENCES)
+					r.setRepetitionCount(columbaRecurrence.getEndMaxOccurrences());
+				else if (columbaRecurrence.getEndType() == IRecurrence.RECURRENCE_END_ENDDATE)
+					r.setUntilDate(columbaRecurrence.getEndDate());
+				// FIXME r.setPos();
+				model.setRecurrenceRule(r);
+			}
+			
+			model.setCategories(eventInfo.getEvent().getCategories());
+			
+			model.setCalendar(eventInfo.getCalendar());
 		}
 
 		// TODO finish marshalling of all available properties
@@ -65,7 +86,7 @@ public final class VCalendarModelFactory {
 
 	}
 
-	public static IComponent unmarshall(Document document)
+	public static IComponentInfo unmarshall(Document document)
 			throws SyntaxException, IllegalArgumentException {
 
 		if (document == null)
@@ -86,7 +107,7 @@ public final class VCalendarModelFactory {
 				event.setDtStart(model.getDTStart());
 
 			if (model.getDTEnd() != null)
-				event.setDtEnt(model.getDTEnd());
+				event.setDtEnd(model.getDTEnd());
 
 			if (model.getDTStamp() != null)
 				event.setDtStamp(model.getDTStamp());
@@ -94,11 +115,33 @@ public final class VCalendarModelFactory {
 			event.setEventClass(model.getEventClass());
 			event.setLocation(model.getLocation());
 
-			event.setCalendar(model.getCalendar());
+			event.setAllDayEvent(ParserHelper.isAllDayEvent(model.getDTStart(), model.getDTEnd()));
 			
+			event.setCategories(model.getCategories());
+			
+			RecurrenceRule r = model.getRecurrenceRule();
+			if (r != null) {
+				// create recurrence
+				Recurrence columbaRecurrence = new Recurrence(Recurrence.fromFrequency(r.getFrequency()));
+				columbaRecurrence.setEndType(IRecurrence.RECURRENCE_END_FOREVER);
+				columbaRecurrence.setInterval(r.getInterval());
+				if (r.getRepetitionCount() != null) {
+					columbaRecurrence.setEndType(IRecurrence.RECURRENCE_END_MAXOCCURRENCES);
+					columbaRecurrence.setEndMaxOccurrences(r.getRepetitionCount());
+				} else if (r.getUntilDate() != null) {
+					columbaRecurrence.setEndType(IRecurrence.RECURRENCE_END_ENDDATE);
+					columbaRecurrence.setEndDate(r.getUntilDate());
+				}
+				// FIXME r.setPos();
+				event.setRecurrence(columbaRecurrence);
+			}
+			
+			IEventInfo eventInfo = new EventInfo((String) model.getId(), model.getCalendar(), event);
+			eventInfo.setCalendar(model.getCalendar());
+
 			// TODO finish unmarshalling of all available properties
 
-			return event;
+			return eventInfo;
 		}
 
 		else

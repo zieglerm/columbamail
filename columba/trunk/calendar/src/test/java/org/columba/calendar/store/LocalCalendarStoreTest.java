@@ -6,7 +6,8 @@ import junit.framework.TestCase;
 
 import org.columba.calendar.base.UUIDGenerator;
 import org.columba.calendar.model.Event;
-import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.EventInfo;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.store.api.StoreException;
 
 public class LocalCalendarStoreTest extends TestCase {
@@ -28,12 +29,13 @@ public class LocalCalendarStoreTest extends TestCase {
 		model.setSummary("summary");
 		model.setDescription("description");
 		
-		storage.add(model);
+		EventInfo eventInfo = new EventInfo(uuid, "calendar1", model);
+		storage.add(eventInfo);
 
 		boolean exists = storage.exists(uuid);
 		assertTrue(exists);
 
-		IComponent result = storage.get(uuid);
+		IComponentInfo result = storage.get(uuid);
 		assertNotNull(result);
 
 	}
@@ -44,13 +46,15 @@ public class LocalCalendarStoreTest extends TestCase {
 		Event model = new Event(uuid);
 		model.setSummary("summary");
 		model.setDescription("description");
+		
+		EventInfo eventInfo = new EventInfo(uuid, "calendar1", model);
 
-		storage.add(model);
+		storage.add(eventInfo);
 
 		storage.remove(uuid);
 
 		try {
-			IComponent result = storage.get(uuid);
+			IComponentInfo result = storage.get(uuid);
 		} catch (StoreException e) {
 			// that is the expected case
 			return;

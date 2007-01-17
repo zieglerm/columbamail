@@ -55,13 +55,13 @@ import java.util.Calendar;
  * 
  */
 public interface IEvent extends IComponent, ICategoryList, IAttachmentList {
-
+	
 	/**
-	 * @return Returns the dtEnt.
+	 * @return Returns the dtEnd.
 	 */
-	public abstract Calendar getDtEnt();
+	public abstract Calendar getDtEnd();
 
-	public abstract void setDtEnt(Calendar dtEnt);
+	public abstract void setDtEnd(Calendar dtEnd);
 
 	/**
 	 * @return Returns the location.
@@ -119,7 +119,20 @@ public interface IEvent extends IComponent, ICategoryList, IAttachmentList {
 
 	public abstract void setEventClass(String eventClass);
 	
+	/**
+	 * @return Returns the allDayEvent flag
+	 */
+	public abstract boolean isAllDayEvent();
 
-	public abstract IEvent createCopy();
+	public abstract void setAllDayEvent(boolean allDayEventFlag);
+	
+	/**
+	 * @return Returns the status  
+	 */
+	public abstract String getStatus();
+	public abstract void setStatus(String status);
+	
+	public abstract IRecurrence getRecurrence();
+	public abstract void setRecurrence(IRecurrence recurrence);
 	
 }

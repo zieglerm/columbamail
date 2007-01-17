@@ -47,7 +47,7 @@ public class FilteringModel extends AbstractListModel implements
 		filteredList.clear();
 		for (IEventInfo element : list) {
 			String s = search.toLowerCase();
-			if (element.getSummary().toLowerCase().indexOf(s) != -1)
+			if (element.getEvent().getSummary().toLowerCase().indexOf(s) != -1)
 				filteredList.add(element);
 		}
 		fireContentsChanged(this, 0, getSize());

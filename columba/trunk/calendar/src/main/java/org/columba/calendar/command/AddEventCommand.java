@@ -20,7 +20,7 @@ package org.columba.calendar.command;
 import javax.swing.JOptionPane;
 
 import org.columba.api.command.IWorkerStatusController;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
@@ -28,9 +28,9 @@ import org.columba.core.gui.frame.FrameManager;
 
 public class AddEventCommand extends Command {
 
-	private IEvent event;
+	private IEventInfo event;
 
-	public AddEventCommand(CalendarCommandReference ref, IEvent event) {
+	public AddEventCommand(CalendarCommandReference ref, IEventInfo event) {
 		super(ref);
 
 		this.event = event;

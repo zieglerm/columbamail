@@ -19,7 +19,7 @@ package org.columba.calendar.store;
 
 import javax.swing.event.EventListenerList;
 
-import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
 import org.columba.calendar.store.api.IStoreListener;
 import org.columba.calendar.store.api.StoreEvent;
@@ -38,11 +38,11 @@ public abstract class AbstractCalendarStore {
 
 	}
 
-	public abstract IComponent get(Object id) throws StoreException;
+	public abstract IComponentInfo get(Object id) throws StoreException;
 
-	public abstract void add(IComponent basicModel) throws StoreException;
+	public abstract void add(IComponentInfo basicModel) throws StoreException;
 
-	public void modify(Object id, IComponent basicModel) throws StoreException {
+	public void modify(Object id, IComponentInfo basicModel) throws StoreException {
 		if (id == null)
 			throw new IllegalArgumentException("id == null");
 		if (basicModel == null)

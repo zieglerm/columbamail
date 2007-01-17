@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.calendar.base.api.ICalendarItem;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.parser.CalendarImporter;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
@@ -51,11 +51,11 @@ public class ImportCalendarCommand extends Command {
 
 		for (int i = 0; i < sourceFiles.length; i++) {
 
-			Iterator<IEvent> it = new CalendarImporter()
-					.importCalendar(sourceFiles[i]);
+			Iterator<IEventInfo> it = new CalendarImporter()
+					.importCalendar(calendar, sourceFiles[i]);
 
 			while (it.hasNext()) {
-				IEvent event = it.next();
+				IEventInfo event = it.next();
 				event.setCalendar(calendar.getId());
 
 				try {

@@ -680,4 +680,6 @@ public interface ICALENDAR {
 	
 	public final static String X_COLUMBA_CALENDAR = "x-columba-calendar";
 
+
+
 }

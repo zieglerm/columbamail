@@ -23,12 +23,13 @@ import java.util.Iterator;
 
 import org.columba.calendar.base.UUIDGenerator;
 import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IRecurrence;
 
 public class Event extends Component implements IEvent {
 
 	private Calendar dtStart;
 
-	private Calendar dtEnt;
+	private Calendar dtEnd;
 
 	private String transsp;
 
@@ -41,23 +42,29 @@ public class Event extends Component implements IEvent {
 	private String priority;
 
 	private String eventClass;
-
+	
+	private String status;
+	
+	private boolean allDayEvent;
+	
+	private IRecurrence recurrence;
+		
 	private URL url;
 
 	private CategoryList categoryList = new CategoryList();
 
 	public Event() {
 		super(TYPE.EVENT);
-
+		
 		dtStart = Calendar.getInstance();
-		dtEnt = Calendar.getInstance();
+		dtEnd = Calendar.getInstance();
 	}
 
 	public Event(String id) {
 		super(id, TYPE.EVENT);
 
 		dtStart = Calendar.getInstance();
-		dtEnt = Calendar.getInstance();
+		dtEnd = Calendar.getInstance();
 	}
 
 	public Event(Calendar dtStart, Calendar dtEnd, String summary) {
@@ -73,13 +80,13 @@ public class Event extends Component implements IEvent {
 			throw new IllegalArgumentException("summary == null");
 
 		this.dtStart = dtStart;
-		this.dtEnt = dtEnd;
+		this.dtEnd = dtEnd;
 		this.summary = summary;
 
 	}
 
-	public Calendar getDtEnt() {
-		return dtEnt;
+	public Calendar getDtEnd() {
+		return dtEnd;
 	}
 
 	public String getLocation() {
@@ -143,11 +150,11 @@ public class Event extends Component implements IEvent {
 	}
 
 	/**
-	 * @param dtEnt
-	 *            The dtEnt to set.
+	 * @param dtEnd
+	 *            The dtEnd to set.
 	 */
-	public void setDtEnt(Calendar dtEnt) {
-		this.dtEnt = dtEnt;
+	public void setDtEnd(Calendar dtEnd) {
+		this.dtEnd = dtEnd;
 	}
 
 	/**
@@ -216,23 +223,41 @@ public class Event extends Component implements IEvent {
 		// copy all attributes
 
 		event.setDtStart(getDtStart());
-		event.setDtEnt(getDtEnt());
+		event.setDtEnd(getDtEnd());
 		event.setDtStamp(getDtStamp());
 		event.setSummary(getSummary());
 		event.setLocation(getLocation());
 		event.setCalendar(getCalendar());
+		
+		event.setAllDayEvent(isAllDayEvent());
+		
+		event.setRecurrence(getRecurrence());
 
 		return event;
 	}
 
-	/**
-	 * @see org.columba.calendar.model.api.IEvent#createCopy()
-	 */
-	public IEvent createCopy() {
-		try {
-			return (IEvent) clone();
-		} catch (CloneNotSupportedException e) {
-		}
-		return null;
+	public boolean isAllDayEvent() {
+		return allDayEvent;
 	}
+
+	public void setAllDayEvent(boolean allDayEventFlag) {
+		this.allDayEvent = allDayEventFlag;
+	}
+
+	public IRecurrence getRecurrence() {
+		return recurrence;
+	}
+
+	public void setRecurrence(IRecurrence recurrence) {
+		this.recurrence = recurrence;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }

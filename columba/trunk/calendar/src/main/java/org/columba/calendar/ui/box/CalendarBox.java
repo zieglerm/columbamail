@@ -172,11 +172,11 @@ public class CalendarBox extends JPanel implements IComponentBox {
 
 		// retrieve event from store
 		try {
-			IEvent model = (IEvent) store.get(selected.getId());
+			IEventInfo model = (IEventInfo) store.get(selected.getId());
 
 			EditEventDialog dialog = new EditEventDialog(null, model);
 			if (dialog.success()) {
-				IEvent updatedModel = dialog.getModel();
+				IEventInfo updatedModel = dialog.getModel();
 
 				// update store
 				store.modify(selected.getId(), updatedModel);

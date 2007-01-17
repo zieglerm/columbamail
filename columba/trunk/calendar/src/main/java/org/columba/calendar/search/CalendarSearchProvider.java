@@ -10,8 +10,9 @@ import javax.swing.ImageIcon;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.model.api.IComponent;
-import org.columba.calendar.model.api.IEvent;
-import org.columba.calendar.model.api.ITodo;
+import org.columba.calendar.model.api.IComponentInfo;
+import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.model.api.ITodoInfo;
 import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.search.BasicResultPanel;
@@ -128,20 +129,20 @@ public class CalendarSearchProvider implements ISearchProvider {
 			Iterator<String> it = store.findBySummary(searchTerm);
 			while (it.hasNext()) {
 				String id = it.next();
-				IComponent c = store.get(id);
+				IComponentInfo c = store.get(id);
 
 				if (c.getType().equals(IComponent.TYPE.EVENT)) {
-					IEvent event = (IEvent) c;
+					IEventInfo event = (IEventInfo) c;
 
-					result.add(new CalendarSearchResult(event.getSummary(),
-							event.getLocation(), SearchResultBuilder.createURI(
-									event.getCalendar(), event.getId()), c));
+					result.add(new CalendarSearchResult(event.getEvent().getSummary(),
+							event.getEvent().getLocation(), SearchResultBuilder.createURI(
+									event.getCalendar(), event.getId()), c.getComponent()));
 				} else if (c.getType().equals(IComponent.TYPE.TODO)) {
-					ITodo todo = (ITodo) c;
+					ITodoInfo todo = (ITodoInfo) c;
 
-					result.add(new CalendarSearchResult(todo.getSummary(), todo
-							.getDescription(), SearchResultBuilder.createURI(
-							todo.getCalendar(), todo.getId()), c));
+					result.add(new CalendarSearchResult(todo.getTodo().getSummary(), todo
+							.getTodo().getDescription(), SearchResultBuilder.createURI(
+							todo.getCalendar(), todo.getId()), c.getComponent()));
 				} else
 					throw new IllegalArgumentException(
 							"unsupported component type " + c.getType());

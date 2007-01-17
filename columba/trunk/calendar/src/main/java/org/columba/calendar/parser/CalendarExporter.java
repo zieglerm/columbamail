@@ -37,6 +37,7 @@ import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
 
 import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.store.api.ICalendarStore;
 
@@ -62,7 +63,7 @@ public class CalendarExporter {
 		Iterator<String> it = store.getIdIterator(calendarId);
 		while (it.hasNext()) {
 			String id = it.next();
-			IComponent c = store.get(id);
+			IComponentInfo c = store.get(id);
 			if (c.getType() == IComponent.TYPE.EVENT) {
 				IEvent event = (IEvent) c;
 
@@ -75,7 +76,7 @@ public class CalendarExporter {
 		outputter.output(calendar, fout);
 	}
 
-	public void exportSingleEvent(File file, IComponent component,
+	public void exportSingleEvent(File file, IComponentInfo component,
 			ICalendarStore store) throws Exception {
 		FileOutputStream fout = new FileOutputStream(file);
 
@@ -111,7 +112,7 @@ public class CalendarExporter {
 			URISyntaxException, ParseException {
 		PropertyFactory factory = PropertyFactoryImpl.getInstance();
 		java.util.Calendar start = event.getDtStart();
-		java.util.Calendar end = event.getDtEnt();
+		java.util.Calendar end = event.getDtEnd();
 		// java.util.Calendar stamp = event.getDtStamp();
 		String summary = event.getSummary();
 		String location = event.getLocation();

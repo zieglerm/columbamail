@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.command.ICommandReference;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.calendar.base.api.IActivity;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
@@ -45,14 +45,14 @@ public class ActivityMovedCommand extends Command {
 				.getActivity();
 
 		try {
-			IEvent model = (IEvent) store.get(eventItem.getId());
+			IEventInfo model = (IEventInfo) store.get(eventItem.getId());
 
 			Calendar start = eventItem.getDtStart();
 			Calendar end = eventItem.getDtEnd();
 
 			// update start/end time
-			model.setDtStart(start);
-			model.setDtEnt(end);
+			model.getEvent().setDtStart(start);
+			model.getEvent().setDtEnd(end);
 
 			// update store
 			store.modify(eventItem.getId(), model);

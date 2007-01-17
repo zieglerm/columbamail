@@ -40,7 +40,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import org.columba.calendar.base.CalendarItem;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.model.api.IRecurrence;
 import org.columba.calendar.ui.comp.CalendarPicker;
 import org.columba.calendar.ui.comp.DatePicker;
 import org.columba.calendar.ui.comp.TimePicker;
@@ -84,6 +85,10 @@ public class EditEventDialog extends JDialog implements ActionListener {
 	JComboBox alarmComboBox = new JComboBox();
 
 	JButton alarmButton = new JButton();
+	
+	// click on this button will open the recurrence dialog
+	JButton recurrenceButton = new JButton();
+	JCheckBox recurrenceCheckBox = new JCheckBox();
 
 	DatePicker startDayDatePicker;
 
@@ -91,9 +96,9 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 	boolean success = false;
 
-	private IEvent model;
+	private IEventInfo model;
 
-	public EditEventDialog(JFrame parentFrame, IEvent model) {
+	public EditEventDialog(JFrame parentFrame, IEventInfo model) {
 		super(parentFrame, true);
 
 		this.model = model;
@@ -110,16 +115,17 @@ public class EditEventDialog extends JDialog implements ActionListener {
 		classComboBox.addItem("Public");
 		classComboBox.addItem("Confidential");
 
-		descriptionTextArea.setEnabled(false);
+		descriptionTextArea.setEnabled(true);
 		categoriesButton.setEnabled(false);
 		categoriesTextField.setEnabled(false);
-		allDayCheckBox.setEnabled(false);
+		allDayCheckBox.setEnabled(true);
 		classComboBox.setEnabled(false);
 		
 		categoriesButton.setEnabled(false);
 		alarmButton.setEnabled(false);
 		alarmCheckBox.setEnabled(false);
 		alarmComboBox.setEnabled(false);
+		recurrenceButton.setEnabled(false);
 		
 		setLayout(new BorderLayout());
 		getContentPane().add(
@@ -185,7 +191,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 	private JPanel createPanel() {
 		JPanel jpanel1 = new JPanel();
 		FormLayout formlayout1 = new FormLayout(
-				"FILL:DEFAULT:NONE,FILL:DEFAULT:NONE,FILL:DEFAULT:GROW(1.0),FILL:DEFAULT:NONE",
+				"FILL:DEFAULT:NONE,FILL:DEFAULT:NONE,FILL:DEFAULT:GROW(1.0),FILL:DEFAULT:NONE,FILL:DEFAULT:NONE",
 				"3dlu,CENTER:DEFAULT:NONE,3dlu,FILL:DEFAULT:GROW(1.0),6dlu,CENTER:DEFAULT:NONE,3dlu,CENTER:DEFAULT:NONE,3dlu");
 		CellConstraints cc = new CellConstraints();
 		jpanel1.setLayout(formlayout1);
@@ -269,7 +275,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 		JPanel jpanel1 = new JPanel();
 		FormLayout formlayout1 = new FormLayout(
 				"3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:GROW(1.0),3dlu,FILL:DEFAULT:GROW(1.0),3dlu,FILL:DEFAULT:NONE",
-				"3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE,3dlu");
+				"3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE,3dlu");
 		CellConstraints cc = new CellConstraints();
 		jpanel1.setLayout(formlayout1);
 
@@ -279,6 +285,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 				CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 		allDayCheckBox.setActionCommand("All Day");
+		allDayCheckBox.addActionListener(this);
 		allDayCheckBox.setText("All Day");
 		jpanel1.add(allDayCheckBox, cc.xy(8, 2));
 
@@ -302,6 +309,14 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 		jpanel1.add(createPanel3(), cc.xywh(4, 6, 3, 1));
 
+		recurrenceCheckBox.setText("Recurrence");
+		recurrenceCheckBox.setActionCommand("Recurrence");
+		recurrenceCheckBox.addActionListener(this);
+		jpanel1.add(recurrenceCheckBox, new CellConstraints(2, 8, 1, 1,
+				CellConstraints.RIGHT, CellConstraints.DEFAULT));
+
+		jpanel1.add(createPanel4(), cc.xywh(4, 8, 3, 1));
+
 		return jpanel1;
 	}
 
@@ -321,6 +336,23 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 		return jpanel1;
 	}
+	
+	private JPanel createPanel4() {
+		JPanel jpanel4 = new JPanel();
+
+		FormLayout formlayout1 = new FormLayout(
+				"CENTER:DEFAULT:NONE,3dlu,FILL:DEFAULT:NONE",
+				"CENTER:DEFAULT:NONE");
+		CellConstraints cc = new CellConstraints();
+		jpanel4.setLayout(formlayout1);
+		
+		recurrenceButton.setActionCommand("RecurrenceDialog");
+		recurrenceButton.setText("Recurrence...");
+		recurrenceButton.addActionListener(this);
+		
+		jpanel4.add(recurrenceButton, cc.xy(1, 1));
+		return jpanel4;
+	}
 
 	public boolean success() {
 		return success;
@@ -328,49 +360,106 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 	public void updateComponents(boolean b) {
 		if (b) {
-			summaryTextField.setText(model.getSummary());
-			locationTextField.setText(model.getLocation());
-			categoriesTextField.setText(model.getCategories());
-			descriptionTextArea.setText(model.getDescription());
+			summaryTextField.setText(model.getEvent().getSummary());
+			locationTextField.setText(model.getEvent().getLocation());
+			categoriesTextField.setText(model.getEvent().getCategories());
+			descriptionTextArea.setText(model.getEvent().getDescription());
+			
+			if (model.getEvent().isAllDayEvent()) {
+				// disable time pickers
+				startTimePicker.setEnabled(false);
+				endTimePicker.setEnabled(false);
+			} else {
+				// enable time pickers
+				startTimePicker.setEnabled(true);
+				endTimePicker.setEnabled(true);
+			}
 
-			Calendar start = model.getDtStart();
+			Calendar start = model.getEvent().getDtStart();
 			startDayDatePicker.setDate(start);
 			startTimePicker.setTime(start.get(Calendar.HOUR_OF_DAY), start.get(Calendar.MINUTE));
-			Calendar end = model.getDtEnt();
+			Calendar end = model.getEvent().getDtEnd();
 			endDayDatePicker.setDate(end);
 			endTimePicker.setTime(end.get(Calendar.HOUR_OF_DAY), end.get(Calendar.MINUTE));
+			
+			allDayCheckBox.setSelected(model.getEvent().isAllDayEvent());
 			
 			String calendar = model.getCalendar();
 			if ( calendar != null )
 				calendarPicker.setSelectedItem(model.getCalendar());
 			else
 				calendarPicker.setSelectedIndex(0);
+
+			if (model.getEvent().getRecurrence() != null && model.getEvent().getRecurrence().getType() != IRecurrence.RECURRENCE_NONE) {
+				recurrenceCheckBox.setSelected(true);
+				recurrenceButton.setEnabled(true);
+			}
+			
+			categoriesTextField.setText(model.getEvent().getCategories());
 			
 		} else {
-			model.setSummary(summaryTextField.getText());
-			model.setLocation(locationTextField.getText());
-			model.setCategories(categoriesTextField.getText());
-			model.setDescription(descriptionTextArea.getText());
+			model.getEvent().setSummary(summaryTextField.getText());
+			model.getEvent().setLocation(locationTextField.getText());
+			model.getEvent().setCategories(categoriesTextField.getText());
+			model.getEvent().setDescription(descriptionTextArea.getText());
 
 			Calendar start = startDayDatePicker.getDate();
-			int hour = startTimePicker.getHour();
-			int minutes = startTimePicker.getMinutes();
-			start.set(Calendar.HOUR_OF_DAY, hour);
-			start.set(Calendar.MINUTE, minutes);
-			model.setDtStart(start);
-			
 			Calendar end = endDayDatePicker.getDate();
-			hour = endTimePicker.getHour();
-			minutes = endTimePicker.getMinutes();
-			end.set(Calendar.HOUR_OF_DAY, hour);
-			end.set(Calendar.MINUTE, minutes);
-			model.setDtEnt(end);
+			int startHour = 0;
+			int startMinutes = 0;
+			int endHour = 0;
+			int endMinutes = 0;
+			
+			if (allDayCheckBox.isSelected()) {
+				
+				// disable time pickers
+				startTimePicker.setEnabled(false);
+				endTimePicker.setEnabled(false);
+				
+				startHour = 0;
+				startMinutes = 0;
+				start.set(Calendar.HOUR_OF_DAY, startHour);
+				start.set(Calendar.MINUTE, startMinutes);
+
+				endHour = 0;
+				endMinutes = 0;
+				end.set(Calendar.HOUR_OF_DAY, endHour);
+				end.set(Calendar.MINUTE, endMinutes);
+
+			} else {
+				// enable time pickers
+				startTimePicker.setEnabled(true);
+				endTimePicker.setEnabled(true);
+
+				startHour = startTimePicker.getHour();
+				startMinutes = startTimePicker.getMinutes();
+				start.set(Calendar.HOUR_OF_DAY, startHour);
+				start.set(Calendar.MINUTE, startMinutes);
+
+				endHour = endTimePicker.getHour();
+				endMinutes = endTimePicker.getMinutes();
+				end.set(Calendar.HOUR_OF_DAY, endHour);
+				end.set(Calendar.MINUTE, endMinutes);
+			}
+			
+			model.getEvent().setDtStart(start);
+
+			model.getEvent().setAllDayEvent(allDayCheckBox.isSelected());
+			
+			model.getEvent().setDtEnd(end);
 
 			CalendarItem calendar = (CalendarItem) calendarPicker.getSelectedItem();
 			model.setCalendar(calendar.getId());
 			
 			// update modification timestamp
-			model.setDtStamp(Calendar.getInstance());
+			model.getEvent().setDtStamp(Calendar.getInstance());
+			
+			model.getEvent().setCategories(categoriesTextField.getText());
+			
+			if (!recurrenceCheckBox.isSelected()) {
+				if (model.getEvent().getRecurrence() != null)
+					model.getEvent().setRecurrence(null);
+			}
 		}
 	}
 
@@ -388,13 +477,36 @@ public class EditEventDialog extends JDialog implements ActionListener {
 		} else if (action.equals("CANCEL")) {
 			success = false;
 			setVisible(false);
+		} else if (action.equals("All Day")) {
+			if (allDayCheckBox.isSelected()) {
+				// disable time pickers
+				startTimePicker.setEnabled(false);
+				endTimePicker.setEnabled(false);
+			} else {
+				// enable time pickers
+				startTimePicker.setEnabled(true);
+				endTimePicker.setEnabled(true);
+			}
+		} else if (action.equals("RecurrenceDialog")) {
+			RecurrenceDialog r = new RecurrenceDialog(null, model);
+			if (r.success()) {
+				model = r.getModel();
+			}
+		} else if (action.equals("Recurrence")) {
+			if (recurrenceCheckBox.isSelected()) {
+				// enable button
+				recurrenceButton.setEnabled(true);
+			} else {
+				// disable button
+				recurrenceButton.setEnabled(false);
+			}
 		}
 	}
 
 	/**
 	 * @return Returns the model.
 	 */
-	public IEvent getModel() {
+	public IEventInfo getModel() {
 		return model;
 	}
 

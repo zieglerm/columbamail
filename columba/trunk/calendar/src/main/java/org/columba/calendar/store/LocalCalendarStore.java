@@ -26,8 +26,8 @@ import java.util.Vector;
 import org.columba.calendar.base.UUIDGenerator;
 import org.columba.calendar.model.ComponentInfoList;
 import org.columba.calendar.model.DateRange;
-import org.columba.calendar.model.EventInfo;
 import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
 import org.columba.calendar.model.api.IDateRange;
 import org.columba.calendar.model.api.IEvent;
@@ -59,7 +59,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 	/**
 	 * @see org.columba.calendar.store.AbstractCalendarStore#add(org.columba.calendar.model.api.IComponent)
 	 */
-	public void add(IComponent basicModel) throws StoreException {
+	public void add(IComponentInfo basicModel) throws StoreException {
 
 		if (basicModel == null)
 			throw new IllegalArgumentException("basicModel == null");
@@ -81,7 +81,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		dataStorage.save(id, document);
 
 		fireItemAdded(id);
-		
+
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 	/**
 	 * @see org.columba.calendar.store.AbstractCalendarStore#get(java.lang.Object)
 	 */
-	public IComponent get(Object id) throws StoreException {
+	public IComponentInfo get(Object id) throws StoreException {
 
 		if (id == null)
 			throw new IllegalArgumentException("id == null");
@@ -107,7 +107,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		if (document == null)
 			throw new StoreException("document == null, id=" + id);
 
-		IComponent basicModel = null;
+		IComponentInfo basicModel = null;
 		try {
 			basicModel = VCalendarModelFactory.unmarshall(document);
 		} catch (SyntaxException e) {
@@ -123,7 +123,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 	 * @see org.columba.calendar.store.AbstractCalendarStore#modify(java.lang.Object,
 	 *      org.columba.calendar.model.api.IComponent)
 	 */
-	public void modify(Object id, IComponent basicModel) throws StoreException {
+	public void modify(Object id, IComponentInfo basicModel) throws StoreException {
 		if (id == null)
 			throw new IllegalArgumentException("id == null");
 
@@ -172,7 +172,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		while (it.hasNext()) {
 			Document document = (Document) it.next();
 
-			IComponent basicModel = null;
+			IComponentInfo basicModel = null;
 			try {
 				basicModel = VCalendarModelFactory.unmarshall(document);
 			} catch (SyntaxException e) {
@@ -182,17 +182,13 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 			}
 
 			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEvent event = (IEvent) basicModel;
-				IEventInfo item = new EventInfo(event.getId(), event
-						.getDtStart(), event.getDtEnt(), event.getSummary(),
-						event.getLocation(), event.getCalendar());
-				list.add(item);
+				IEventInfo event = (IEventInfo) basicModel;
+				list.add(event);
 			}
 		}
 
 		return list;
 	}
-
 
 	public IComponentInfoList getComponentInfoList(String calendarId)
 			throws StoreException {
@@ -202,7 +198,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		while (it.hasNext()) {
 			Document document = (Document) it.next();
 
-			IComponent basicModel = null;
+			IComponentInfo basicModel = null;
 			try {
 				basicModel = VCalendarModelFactory.unmarshall(document);
 			} catch (SyntaxException e) {
@@ -212,13 +208,9 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 			}
 
 			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEvent event = (IEvent) basicModel;
+				IEventInfo event = (IEventInfo) basicModel;
 				if (event.getCalendar().equals(calendarId)) {
-					IEventInfo item = new EventInfo(event.getId(), event
-							.getDtStart(), event.getDtEnt(),
-							event.getSummary(), event.getLocation(), event
-									.getCalendar());
-					list.add(item);
+					list.add(event);
 				}
 			}
 		}
@@ -233,7 +225,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		while (it.hasNext()) {
 			Document document = (Document) it.next();
 
-			IComponent basicModel = null;
+			IComponentInfo basicModel = null;
 			try {
 				basicModel = VCalendarModelFactory.unmarshall(document);
 			} catch (SyntaxException e) {
@@ -259,7 +251,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		while (it.hasNext()) {
 			Document document = (Document) it.next();
 
-			IComponent basicModel = null;
+			IComponentInfo basicModel = null;
 			try {
 				basicModel = VCalendarModelFactory.unmarshall(document);
 			} catch (SyntaxException e) {
@@ -269,7 +261,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 			}
 
 			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEvent event = (IEvent) basicModel;
+				IEventInfo event = (IEventInfo) basicModel;
 				if (event.getCalendar().equals(calendarId))
 					result.add(event.getId());
 			}
@@ -293,11 +285,11 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		Iterator<String> it = getIdIterator();
 		while (it.hasNext()) {
 			String id = it.next();
-			IComponent c = get(id);
+			IComponentInfo c = get(id);
 			if (c.getType().equals(IComponent.TYPE.EVENT)) {
 				IEvent event = (IEvent) c;
 				Calendar startDate = event.getDtStart();
-				Calendar endDate = event.getDtEnt();
+				Calendar endDate = event.getDtEnd();
 				IDateRange dr = new DateRange(startDate, endDate);
 				if (dateRange.equals(dr))
 					result.add(id);
@@ -326,7 +318,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		Iterator<String> it = getIdIterator();
 		while (it.hasNext()) {
 			String id = it.next();
-			IComponent c = get(id);
+			IComponentInfo c = get(id);
 			if (c.getType().equals(IComponent.TYPE.EVENT)) {
 				IEvent event = (IEvent) c;
 				Calendar sd = event.getDtStart();
@@ -357,7 +349,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		Iterator<String> it = getIdIterator();
 		while (it.hasNext()) {
 			String id = it.next();
-			IComponent c = get(id);
+			IComponentInfo c = get(id);
 			if (c.getType().equals(IComponent.TYPE.EVENT)) {
 				IEvent event = (IEvent) c;
 				String summary = event.getSummary();

@@ -163,16 +163,16 @@ public class CalendarList extends JXList {
 
 			IEventInfo result = (IEventInfo) value;
 
-			titleLabel.setText(result.getSummary());
+			titleLabel.setText(result.getEvent().getSummary());
 			iconLabel.setIcon(ResourceLoader
 					.getSmallIcon(IconKeys.NEW_APPOINTMENT));
-			if (result.getLocation() != null
-					&& result.getLocation().length() > 0)
-				descriptionLabel.setText(result.getLocation());
+			if (result.getEvent().getLocation() != null
+					&& result.getEvent().getLocation().length() > 0)
+				descriptionLabel.setText(result.getEvent().getLocation());
 			else
 				descriptionLabel.setText("no Location specified");
 
-			startDateLabel.setText(df.format(result.getDtStart().getTime()));
+			startDateLabel.setText(df.format(result.getEvent().getDtStart().getTime()));
 			return this;
 		}
 

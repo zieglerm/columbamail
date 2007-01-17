@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.calendar.base.api.IActivity;
-import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.parser.CalendarExporter;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
@@ -49,7 +49,7 @@ public class SaveEventToFileCommand extends Command {
 				.getActivity();
 
 		try {
-			IComponent c = store.get(eventItem.getId());
+			IComponentInfo c = store.get(eventItem.getId());
 
 			new CalendarExporter().exportSingleEvent(file, c, store);
 		} catch (StoreException e) {

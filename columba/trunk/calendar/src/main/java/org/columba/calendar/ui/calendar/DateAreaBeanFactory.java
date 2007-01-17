@@ -32,13 +32,21 @@ import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import org.columba.calendar.parser.ParserHelper;
+
+import com.miginfocom.ashape.AShapeUtil;
 import com.miginfocom.ashape.DefaultAShapeProvider;
+import com.miginfocom.ashape.interaction.OverrideFilter;
+import com.miginfocom.ashape.shapes.AShape;
 import com.miginfocom.ashape.shapes.RootAShape;
 import com.miginfocom.ashape.shapes.TextAShape;
 import com.miginfocom.beans.DateAreaBean;
 import com.miginfocom.beans.DateHeaderBean;
 import com.miginfocom.beans.GridDimensionLayoutBean;
+import com.miginfocom.calendar.activity.Activity;
+import com.miginfocom.calendar.activity.ActivityInteractor;
 import com.miginfocom.calendar.activity.renderer.AShapeRenderer;
+import com.miginfocom.calendar.activity.view.ActivityView;
 import com.miginfocom.calendar.datearea.DateArea;
 import com.miginfocom.calendar.datearea.DefaultDateArea;
 import com.miginfocom.calendar.decorators.AbstractGridDecorator;
@@ -57,6 +65,8 @@ import com.miginfocom.util.dates.BoundaryRounder;
 import com.miginfocom.util.dates.DateFormatList;
 import com.miginfocom.util.dates.DateRange;
 import com.miginfocom.util.dates.DateRangeI;
+import com.miginfocom.util.dates.DateRangeRounder;
+import com.miginfocom.util.dates.MutableDateRange;
 import com.miginfocom.util.gfx.GfxUtil;
 import com.miginfocom.util.gfx.ShapeGradientPaint;
 import com.miginfocom.util.gfx.geometry.AbsRect;
@@ -530,6 +540,38 @@ public class DateAreaBeanFactory {
 		defaultShapeFactory.setShape(HORSHAPE, null);
 		// defaultShapeFactory.setShape(AShapeCreator.createTraslucentShapeHorizontal(),
 		// null);
+		
+		// layout.setVisualDateRangeRounder(new BoundaryRounder(DateRangeI.RANGE_TYPE_DAY, true, false, false));
+		// DateRangeRounder for AllDay Events
+		layout.setVisualDateRangeRounder(new DateRangeRounder() {
+
+			public MutableDateRange round(MutableDateRange arg0) {
+				
+				MutableDateRange c = arg0.getDateRangeClone();
+				
+				// set the start to 00:00:00
+				c.setStartField(java.util.Calendar.MINUTE, 0);
+				c.setStartField(java.util.Calendar.SECOND, 0);
+				c.setStartField(java.util.Calendar.HOUR_OF_DAY, 0);
+				
+				// if the end is on 00:00:00, round it to 23:59:59.999
+				if ((arg0.getEnd().get(java.util.Calendar.HOUR_OF_DAY) == 0)
+					&& (arg0.getEnd().get(java.util.Calendar.MINUTE) == 0)
+					&& (arg0.getEnd().get(java.util.Calendar.SECOND) == 0)) {
+
+					c.setEndMillis(arg0.getEndMillis()-1, false);
+
+				} else {
+					// else set it to 23:59:59.999
+					c.setEndField(java.util.Calendar.MINUTE, 59);
+					c.setEndField(java.util.Calendar.SECOND, 59);
+					c.setEndField(java.util.Calendar.HOUR_OF_DAY, 23);
+				}
+				
+				return c;
+			}
+			
+		});
 
 		return monthlyDateAreaBean;
 	}

@@ -17,26 +17,13 @@
 //All Rights Reserved.
 package org.columba.calendar.model.api;
 
-import java.util.Calendar;
 
-public interface IEventInfo extends IComponentInfo{
-	/**
-	 * @return Returns the dtStart.
-	 */
-	public abstract Calendar getDtStart();
+// is used for storing more information than in an iCalendar VEvent
+
+public interface IEventInfo extends IComponentInfo {
 	
-	/**
-	 * @return Returns the dtEnt.
-	 */
-	public abstract Calendar getDtEnt();
+	public abstract IEvent getEvent();
 	
-	/**
-	 * @return Returns the summary.
-	 */
-	public abstract String getSummary();
-	
-	public abstract String getCalendar();
-	
-	public abstract String getLocation();
-	
+	public abstract IEventInfo createCopy();
+
 }

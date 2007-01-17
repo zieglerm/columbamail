@@ -112,9 +112,14 @@ public class TagCalendarMenu extends TaggingMenu implements
 		return uri;
 	}
 
-	// check if contact is tagged
+	// check if calendar item is tagged
 	private boolean checkAssocation(String folderId, String eventId, ITag tag) {
 		URI uri = createURI(folderId, eventId);
+		if (AssociationStore.getInstance() == null)
+			System.out.println("ASSOCIATION STORE IS NULL!");
+		if (uri == null)
+			System.out.println("URI IS NULL!");
+		
 		Collection<IAssociation> c = AssociationStore.getInstance()
 				.getAllAssociations(uri.toString());
 

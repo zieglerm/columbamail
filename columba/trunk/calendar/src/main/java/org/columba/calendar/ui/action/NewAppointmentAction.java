@@ -24,8 +24,10 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.command.AddEventCommand;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.model.Event;
+import org.columba.calendar.model.EventInfo;
 import org.columba.calendar.model.api.IDateRange;
 import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.resourceloader.IconKeys;
 import org.columba.calendar.resourceloader.ResourceLoader;
 import org.columba.calendar.store.CalendarStoreFactory;
@@ -82,10 +84,13 @@ public class NewAppointmentAction extends AbstractColumbaAction {
 			model.setDtStart(start);
 			Calendar c = (Calendar) start.clone();
 			c.add(Calendar.MINUTE, 30);
-			model.setDtEnt(c);
+			model.setDtEnd(c);
 		}
+		
+		// FIXME calendar?
+		IEventInfo eventInfo = new EventInfo(model.getId(), "", model);
 
-		EditEventDialog dialog = new EditEventDialog(null, model);
+		EditEventDialog dialog = new EditEventDialog(null, eventInfo);
 
 		if (dialog.success()) {
 
@@ -93,7 +98,7 @@ public class NewAppointmentAction extends AbstractColumbaAction {
 					.getLocaleStore();
 
 			Command command = new AddEventCommand(new CalendarCommandReference(
-					store), model);
+					store), eventInfo);
 			CommandProcessor.getInstance().addOp(command);
 
 		}

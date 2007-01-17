@@ -79,6 +79,7 @@ public class LocalXMLFileStore {
 		if (document == null)
 			throw new IllegalArgumentException("document == null");
 
+		// FIXME check if the id is a correct file name! 
 		File file = getFile(id);
 
 		XMLOutputter outp = new XMLOutputter();
@@ -157,17 +158,23 @@ public class LocalXMLFileStore {
 		}
 
 		public Object next() {
-
+			
+			Document document = null;
+			
 			// filename = "uuid.xcs"
+			while (files[nextIndex].getName().indexOf(".") == -1) {
+				nextIndex++;
+			}
+			
 			String filename = files[nextIndex].getName();
+
 			// remove ".xcs"
 			String uid = filename.substring(0, filename.indexOf("."));
-			Document document = null;
-
 			document = load(uid);
+			
 			nextIndex++;
-
 			return document;
+
 		}
 
 		public void remove() {

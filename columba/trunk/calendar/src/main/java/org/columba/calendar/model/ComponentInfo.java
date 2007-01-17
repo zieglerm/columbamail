@@ -17,6 +17,7 @@
 //All Rights Reserved.
 package org.columba.calendar.model;
 
+import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponent.TYPE;
 
@@ -27,14 +28,18 @@ public class ComponentInfo implements IComponentInfo {
 	private TYPE type;
 	
 	private String calendarId;
+	
+	private IComponent component;
 
-	public ComponentInfo(String id, TYPE type, String calendarId) {
+	public ComponentInfo(String id, TYPE type, String calendarId, IComponent component) {
 		if (id == null)
 			throw new IllegalArgumentException("id == null");
 		if (type == null)
 			throw new IllegalArgumentException("type == null");
 		if (calendarId == null)
 			throw new IllegalArgumentException("calendarId == null");
+		if (component == null)
+			throw new IllegalArgumentException("component == null");
 		
 		this.id = id;
 		this.type = type;
@@ -51,6 +56,14 @@ public class ComponentInfo implements IComponentInfo {
 
 	public String getCalendar() {
 		return calendarId;
+	}
+
+	public IComponent getComponent() {
+		return component;
+	}
+
+	public void setCalendar(String calendar) {
+		this.calendarId = calendar;	
 	}
 
 }

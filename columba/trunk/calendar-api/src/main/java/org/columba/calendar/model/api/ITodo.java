@@ -84,6 +84,6 @@ public interface ITodo extends IComponent, ICategoryList, IAttachmentList {
 	/**
 	 * @return Returns the eventClass.
 	 */
-	public abstract String getEventClass();
+	public abstract String getEventClass();	
 
 }

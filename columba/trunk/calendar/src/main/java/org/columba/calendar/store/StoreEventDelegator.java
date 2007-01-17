@@ -27,7 +27,9 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 
 import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.IStoreListener;
 import org.columba.calendar.store.api.StoreEvent;
@@ -113,11 +115,11 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 
 				ICalendarStore store = (ICalendarStore) next.getSource();
 				try {
-					IComponent model = store.get(next.getChanges());
+					IComponentInfo model = store.get(next.getChanges());
 					// we only update changes for events currently
 					if (model.getType() == IComponent.TYPE.EVENT) {
 						Activity act = CalendarHelper
-								.createActivity((IEvent) model);
+								.createActivity((IEventInfo) model);
 
 						ActivityDepository.getInstance().addBrokedActivity(act,
 								this, CategoryStructureEvent.ADDED_CREATED);
@@ -151,7 +153,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 
 				ICalendarStore store = (ICalendarStore) next.getSource();
 				try {
-					IComponent model = store.get(next.getChanges());
+					IComponentInfo model = store.get(next.getChanges());
 					// we only update changes for events currently
 					if (model.getType() == IComponent.TYPE.EVENT) {
 
@@ -162,7 +164,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 
 						// create new activity
 						Activity act = CalendarHelper
-								.createActivity((IEvent) model);
+								.createActivity((IEventInfo) model);
 						ActivityDepository.getInstance().addBrokedActivity(act,
 								this, CategoryStructureEvent.ADDED_CREATED);
 					}

@@ -18,11 +18,14 @@
 package org.columba.calendar.ui.base;
 
 import org.columba.calendar.model.DateRange;
+import org.columba.calendar.model.Recurrence;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.model.api.IRecurrence;
 
 import com.miginfocom.calendar.activity.Activity;
 import com.miginfocom.calendar.activity.DefaultActivity;
+import com.miginfocom.calendar.activity.recurrence.RecurrenceRule;
 import com.miginfocom.util.dates.DateRangeI;
 import com.miginfocom.util.dates.ImmutableDateRange;
 
@@ -30,38 +33,31 @@ public class CalendarHelper {
 
 	public static Activity createActivity(IEventInfo model) {
 
-		long startMillis = model.getDtStart().getTimeInMillis();
-		long endMillis = model.getDtEnt().getTimeInMillis();
+		long startMillis = model.getEvent().getDtStart().getTimeInMillis();
+		long endMillis = model.getEvent().getDtEnd().getTimeInMillis();
+		
 		ImmutableDateRange dr = new ImmutableDateRange(startMillis, endMillis,
 				false, null, null);
 
 		// A recurring event
 		Activity act = new DefaultActivity(dr, model.getId());
-		act.setSummary(model.getSummary());
-		// act.setLocation(model.getLocation());
-		// act.setDescription(model.getDescription());
-
+		act.setSummary(model.getEvent().getSummary());
+		act.setLocation(model.getEvent().getLocation());
+		act.setDescription(model.getEvent().getDescription());
+		IRecurrence columbaRecurrence = model.getEvent().getRecurrence();
+		if (columbaRecurrence != null && columbaRecurrence.getType() != IRecurrence.RECURRENCE_NONE) {
+			RecurrenceRule r = new RecurrenceRule();
+			r.setFrequency(Recurrence.toFrequency(columbaRecurrence.getType()));
+			r.setInterval(columbaRecurrence.getInterval());
+			if (columbaRecurrence.getEndType() == IRecurrence.RECURRENCE_END_MAXOCCURRENCES)
+				r.setRepetitionCount(columbaRecurrence.getEndMaxOccurrences());
+			if (columbaRecurrence.getEndType() == IRecurrence.RECURRENCE_END_ENDDATE)
+				r.setUntilDate(columbaRecurrence.getEndDate());
+			act.setRecurrence(r);
+		}
+				
 		String calendar = model.getCalendar();
 		// this is for the calendar component and only used internally
-		act.setCategoryIDs(new Object[] { calendar });
-		
-		return act;
-	}
-
-	public static Activity createActivity(IEvent model) {
-
-		long startMillis = model.getDtStart().getTimeInMillis();
-		long endMillis = model.getDtEnt().getTimeInMillis();
-		ImmutableDateRange dr = new ImmutableDateRange(startMillis, endMillis,
-				false, null, null);
-
-		// A recurring event
-		Activity act = new DefaultActivity(dr, model.getId());
-		act.setSummary(model.getSummary());
-		act.setLocation(model.getLocation());
-		act.setDescription(model.getDescription());
-
-		String calendar = model.getCalendar();
 		act.setCategoryIDs(new Object[] { calendar });
 		
 		return act;
@@ -73,7 +69,7 @@ public class CalendarHelper {
 				.getEndMillis(false));
 
 		model.setDtStart(cRange.getStartTime());
-		model.setDtEnt(cRange.getEndTime());
+		model.setDtEnd(cRange.getEndTime());
 
 	}
 

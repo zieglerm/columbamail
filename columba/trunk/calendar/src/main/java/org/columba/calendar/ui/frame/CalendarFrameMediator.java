@@ -31,8 +31,9 @@ import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IDateRange;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.resourceloader.ResourceLoader;
 import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
@@ -349,16 +350,16 @@ public class CalendarFrameMediator extends DockFrameController implements
 
 				ICalendarStore store = CalendarStoreFactory.getInstance()
 						.getLocaleStore();
-				IComponent c = store.get(selection[0].getId());
+				IComponentInfo c = store.get(selection[0].getId());
 
 				if (c.getType().equals(IComponent.TYPE.EVENT)) {
-					IEvent event = (IEvent) c;
+					IEventInfo event = (IEventInfo) c;
 
-					String summary = event.getSummary();
-					String description = event.getDescription();
-					String location = event.getLocation();
-					Calendar dtStart = event.getDtStart();
-					Calendar dtEnd = event.getDtEnt();
+					String summary = event.getEvent().getSummary();
+					String description = event.getEvent().getDescription();
+					String location = event.getEvent().getLocation();
+					Calendar dtStart = event.getEvent().getDtStart();
+					Calendar dtEnd = event.getEvent().getDtEnd();
 
 					// create empty value
 					IStructureValue value = getSemanticContext().createValue();

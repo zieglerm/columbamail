@@ -27,9 +27,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import org.columba.calendar.parser.ParserHelper;
+
 import com.miginfocom.ashape.AShapeUtil;
 import com.miginfocom.ashape.interaction.DefaultInteractionBroker;
 import com.miginfocom.ashape.interaction.MouseKeyInteractor;
+import com.miginfocom.ashape.interaction.OverrideFilter;
 import com.miginfocom.ashape.shapes.AShape;
 import com.miginfocom.ashape.shapes.ContainerAShape;
 import com.miginfocom.ashape.shapes.DrawAShape;
@@ -37,6 +40,9 @@ import com.miginfocom.ashape.shapes.FeatherAShape;
 import com.miginfocom.ashape.shapes.FillAShape;
 import com.miginfocom.ashape.shapes.RootAShape;
 import com.miginfocom.ashape.shapes.TextAShape;
+import com.miginfocom.calendar.activity.Activity;
+import com.miginfocom.calendar.activity.ActivityInteractor;
+import com.miginfocom.calendar.activity.view.ActivityView;
 import com.miginfocom.calendar.datearea.DefaultDateArea;
 import com.miginfocom.util.command.DefaultCommand;
 import com.miginfocom.util.gfx.GfxUtil;
@@ -64,7 +70,6 @@ public class ActivityShapeFactory {
 
 	public static final String DEFAULT_SHADOW_SHAPE_NAME = "defaultShadow";
 
-	
 	/**
 	 * Creates the default shape.
 	 * 
@@ -78,39 +83,44 @@ public class ActivityShapeFactory {
 		Color textPaint = new Color(50, 50, 50);
 		// Color shadowPaint = new Color(0, 0, 0, 100);
 		Color shadowPaint = null;
-	
+
 		Font textFont = UIManager.getFont("Label.font");
-	
+
 		RootAShape root = new RootAShape();
 		ContainerAShape container = new ContainerAShape(
 				DEFAULT_CONTAINER_SHAPE_NAME, AbsRect.FILL);
-	
+
 		FillAShape bgAShape = new FillAShape(DEFAULT_BACKGROUND_SHAPE_NAME,
 				new RoundRectangle(0, 0, 1, 1, 8, 8), AbsRect.FILL_INSIDE,
 				bgPaint, GfxUtil.AA_HINT_ON);
-	
+
 		PlaceRect titleTextAbsRect = new AbsRect(new AtStart(2),
-				new AtStart(1), new AtEnd(0), new AtStart(14), null, null, null);
+				new AtStart(1), new AtEnd(0), new AtEnd(0), null, null, null);
 		TextAShape titleText = new TextAShape(DEFAULT_TITLE_TEXT_SHAPE_NAME,
-				"$startTime$ - $endTimeExcl$ ($timeZoneShort$)",
-				titleTextAbsRect, TextAShape.TYPE_SINGE_LINE, textFont,
+				"$startTime$ $summary$",
+				titleTextAbsRect, TextAShape.TYPE_WRAP_TEXT, textFont,
 				textPaint, new AtStart(0), new AtStart(-3), GfxUtil.AA_HINT_ON);
+		// TextAShape titleText = new TextAShape(DEFAULT_TITLE_TEXT_SHAPE_NAME,
+		//		"$startTime$ - $endTimeExcl$ ($timeZoneShort$)",
+		//		titleTextAbsRect, TextAShape.TYPE_SINGE_LINE, textFont,
+		//		textPaint, new AtStart(0), new AtStart(-3), GfxUtil.AA_HINT_ON);
 		titleText.setAttribute(AShape.A_CLIP_TYPE, AShape.CLIP_PARENT_BOUNDS);
-	
+
 		PlaceRect mainTextAbsRect = new AbsRect(new AtStart(2),
 				new AtStart(16), new AtEnd(0), new AtEnd(0), null, null, null);
+		
 		TextAShape mainText = new TextAShape(DEFAULT_MAIN_TEXT_SHAPE_NAME,
 				"$summary$", mainTextAbsRect, TextAShape.TYPE_WRAP_TEXT,
 				textFont, textPaint, new AtStart(0), new AtStart(0),
 				GfxUtil.AA_HINT_ON);
-	
+
 		DrawAShape outlineAShape = new DrawAShape(DEFAULT_OUTLINE_SHAPE_NAME,
 				new RoundRectangle(0, 0, 1, 1, 8, 8), AbsRect.FILL,
 				outlinePaint, new BasicStroke(1f), GfxUtil.AA_HINT_ON);
 		outlineAShape.setAttribute(AShape.A_MOUSE_CURSOR, Cursor
 				.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		outlineAShape.setAttribute(AShape.A_REPORT_HIT_AREA, Boolean.TRUE);
-	
+
 		PlaceRect bgAbsRect = new AbsRect(new AtStart(0), new AtStart(0),
 				new AtEnd(0), new AtEnd(0), null, null,
 				new Insets(-2, -2, 2, 2));
@@ -122,32 +132,32 @@ public class ActivityShapeFactory {
 		FeatherAShape shadowShape = new FeatherAShape(
 				DEFAULT_SHADOW_SHAPE_NAME, filledShadow, new Color(255, 255,
 						255, 0), 5, shwSI);
-	
+
 		bgAShape.addSubShape(titleText);
-		bgAShape.addSubShape(mainText);
-	
+		// bgAShape.addSubShape(mainText);
+
 		container.addSubShape(shadowShape);
 		container.addSubShape(bgAShape);
 		container.addSubShape(outlineAShape);
 		root.addSubShape(container);
 		root.setRepaintPadding(new Insets(4, 4, 4, 4));
-	
+
 		if (dimension == SwingConstants.VERTICAL) {
 			AShapeUtil.enableMouseOverCursor(root);
 			AShapeUtil.enableMouseOverState(outlineAShape);
-	
+
 			AShapeUtil.setResizeBoxes(outlineAShape, dimension, 4);
-	
+
 			// Drag, resize interactions
 			Integer button = new Integer(MouseEvent.BUTTON1);
-	
+
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_PRESS,
 					DefaultDateArea.AE_SELECTED_PRESSED, true, false, button);
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_PRESS,
 					DefaultDateArea.AE_DRAG_PRESSED, true, true, button);
-	
+
 			DefaultCommand entCmd = new DefaultCommand(
 					DefaultInteractionBroker.CMD_FIRE_INTERACTION_EVENT, null,
 					DefaultDateArea.AE_MOUSE_ENTERED, null);
@@ -156,7 +166,7 @@ public class ActivityShapeFactory {
 					DefaultDateArea.AE_MOUSE_EXITED, null);
 			AShapeUtil.addEnterExitCommands(outlineAShape, entCmd, exitCmd,
 					true);
-	
+
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_CLICK, DefaultDateArea.AE_CLICKED,
 					true, false, button);
@@ -166,19 +176,53 @@ public class ActivityShapeFactory {
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_POPUP_TRIGGER,
 					DefaultDateArea.AE_POPUP_TRIGGER, true, true, null);
-	
+
 			// Block mouse moves to the underlaying component won't restore the
 			// Cursor
 			AShapeUtil.addMouseEventBlock(outlineAShape, false, new Integer(
 					MouseEvent.MOUSE_MOVED));
+			
+			// all day events
+			ActivityInteractor.setStaticOverride(
+					AShapeUtil.DEFAULT_TITLE_TEXT_SHAPE_NAME, AShape.A_TEXT,
+					new OverrideFilter() {
+
+						private final String newTemplate = ActivityInteractor.TEMPL_SUMMARY.toString();
+
+						public Object getOverride(Object subject,
+								Object defaultObject) {
+							Activity act = ((ActivityView) subject).getModel();
+							return ParserHelper.isAllDayEvent(act
+									.getBaseDateRange().getStart(), act
+									.getBaseDateRange().getEnd()) ? newTemplate
+									: defaultObject;
+						}
+					});
+
+			ActivityInteractor.setStaticOverride(
+					AShapeUtil.DEFAULT_MAIN_TEXT_SHAPE_NAME, AShape.A_TEXT,
+					new OverrideFilter() {
+
+						private final String newTemplate = ActivityInteractor.TEMPL_SUMMARY.toString();
+
+						public Object getOverride(Object subject,
+								Object defaultObject) {
+							Activity act = ((ActivityView) subject).getModel();
+							return ParserHelper.isAllDayEvent(act
+									.getBaseDateRange().getStart(), act
+									.getBaseDateRange().getEnd()) ? newTemplate
+									: defaultObject;
+						}
+					});
+
 		} else {
 			AShapeUtil.enableMouseOverCursor(root);
 			AShapeUtil.enableMouseOverState(outlineAShape);
-	
+
 			// AShapeUtil.addResizeBoxes(root, SwingConstants.HORIZONTAL, 4);
-	
+
 			// Drag, resize interactions
-	
+
 			Integer button = new Integer(MouseEvent.BUTTON1);
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_PRESS,
@@ -186,30 +230,33 @@ public class ActivityShapeFactory {
 			AShapeUtil.addMouseFireEvent(outlineAShape,
 					MouseKeyInteractor.MOUSE_PRESS,
 					DefaultDateArea.AE_DRAG_PRESSED, true, true, button);
-	
+
 			AShapeUtil.addMouseEventBlock(outlineAShape, false, new Integer(
 					MouseEvent.MOUSE_MOVED));
-			
+
 		}
-	
-		// differnt border for recurrent events
-		// ActivityInteractor.setStaticOverride("outline", AShape.A_PAINT,
+
+		// different border for recurrent events
+		// ActivityInteractor.setStaticOverride(
+		// AShapeUtil.DEFAULT_OUTLINE_SHAPE_NAME, AShape.A_STROKE,
 		// new OverrideFilter() {
 		// public Object getOverride(Object subject,
 		// Object defaultObject) {
 		// return ((ActivityView) subject).getModel()
-		// .isRecurrent() ? Color.YELLOW : defaultObject;
+		// .isRecurrent() ? new BasicStroke(1.0f,
+		// BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+		// 0, new float[] { 9 }, 0) : defaultObject;
 		// }
 		// });
-	
+
 		// differnt outline color is selected
-		// AShapeUtil.setStateOverride(outlineAShape, GenericStates.SELECTED,
-		// AShape.A_PAINT, new Color(255, 255, 50));
-	
+		AShapeUtil.setStateOverride(outlineAShape, GenericStates.SELECTED,
+				AShape.A_PAINT, new Color(150, 200, 0));
+
 		// bold outline if selected
 		AShapeUtil.setStateOverride(outlineAShape, GenericStates.SELECTED,
-				AShape.A_STROKE, new BasicStroke(2.5f));
-	
+				AShape.A_STROKE, new BasicStroke(2.0f));
+
 		return root;
 	}
 

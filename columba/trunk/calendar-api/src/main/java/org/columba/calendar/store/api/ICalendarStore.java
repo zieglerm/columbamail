@@ -3,7 +3,7 @@ package org.columba.calendar.store.api;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
 import org.columba.calendar.model.api.IDateRange;
 
@@ -14,11 +14,11 @@ import org.columba.calendar.model.api.IDateRange;
  */
 public interface ICalendarStore {
 
-	IComponent get(Object uid) throws StoreException;
+	IComponentInfo get(Object uid) throws StoreException;
 
-	void add(IComponent calendarModel) throws StoreException;
+	void add(IComponentInfo calendarModel) throws StoreException;
 
-	void modify(Object uid, IComponent calendarModel) throws StoreException;
+	void modify(Object uid, IComponentInfo calendarModel) throws StoreException;
 
 	void remove(Object uid) throws StoreException;
 

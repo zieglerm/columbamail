@@ -24,6 +24,8 @@ import org.columba.calendar.model.api.ICategoryList;
 
 public class CategoryList implements ICategoryList {
 
+	private static final String SEPARATOR = ", ";
+	
 	private Vector<String> vector = new Vector<String>();
 
 	public CategoryList() {
@@ -43,13 +45,21 @@ public class CategoryList implements ICategoryList {
 	}
 
 	public String getCategories() {
-		// TODO (@author fdietz): add catgory support
-		return null;
+		String inline = "";
+		for (String c : vector)
+			inline += c + SEPARATOR;
+		if (inline.endsWith(SEPARATOR))
+			inline = inline.substring(0, inline.length() - SEPARATOR.length());
+		return inline;
 	}
 
 	public void setCategories(String categories) {
-		// TODO (Sauthor fdietz): add catgory support
+		this.vector.clear();
 		
+		String[] carray = categories.split(SEPARATOR);
+		for (int i = 0; i < carray.length; i++)
+			this.vector.add(carray[i]);
+
 	}
 
 }

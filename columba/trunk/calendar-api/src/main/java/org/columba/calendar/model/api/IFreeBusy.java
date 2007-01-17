@@ -65,7 +65,7 @@ public interface IFreeBusy extends IComponent {
 	public abstract Calendar getDtStart();
 
 	/**
-	 * @return Returns the dtEnt.
+	 * @return Returns the dtEnd.
 	 */
-	public abstract Calendar getDtEnt();
+	public abstract Calendar getDtEnd();
 }

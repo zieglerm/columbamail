@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.base.api.ICalendarItem;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.core.command.Command;
@@ -46,7 +46,7 @@ public class MoveEventCommand extends Command {
 
 		try {
 			// retrieve event from store
-			IEvent event = (IEvent) store.get(eventItem.getId());
+			IEventInfo event = (IEventInfo) store.get(eventItem.getId());
 
 			// set new calendar id
 			event.setCalendar(calendar.getId());

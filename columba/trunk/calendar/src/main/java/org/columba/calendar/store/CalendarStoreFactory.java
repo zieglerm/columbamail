@@ -30,6 +30,7 @@ import org.columba.calendar.store.api.ICalendarStoreFactory;
 //import org.columba.calendar.store.api.StoreException;
 import org.columba.calendar.ui.base.CalendarHelper;
 import org.columba.core.io.DiskIO;
+import org.python.modules.synchronize;
 
 import com.miginfocom.calendar.activity.Activity;
 import com.miginfocom.calendar.activity.ActivityDepository;
@@ -82,7 +83,7 @@ public class CalendarStoreFactory implements ICalendarStoreFactory {
 	 * getInstance method
 	 * @return instance
 	 */
-	public static CalendarStoreFactory getInstance() {
+	public static synchronized CalendarStoreFactory getInstance() {
 		return instance;
 	}
 

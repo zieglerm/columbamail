@@ -19,43 +19,25 @@ package org.columba.calendar.model;
 
 import java.util.Calendar;
 
+import org.columba.calendar.model.api.IComponent;
+import org.columba.calendar.model.api.ITodo;
 import org.columba.calendar.model.api.ITodoInfo;
 
 public class TodoInfo extends Component implements ITodoInfo {
-	private Calendar dtStart;
 
-	private Calendar due;
+	private Todo todo;
 
-	private String summary;
-
-	public TodoInfo(String id, Calendar dtStart, Calendar due, String summary) {
+	public TodoInfo(String id, Calendar dtStart, Calendar due, String summary, Todo todo) {
 		super(id, TYPE.TODO);
-
-		if (dtStart == null)
-			throw new IllegalArgumentException("dtStart == null");
-		
-		if (due == null)
-			throw new IllegalArgumentException("due == null");
-		
-		if (summary == null)
-			throw new IllegalArgumentException("summary == null");
-		
-		this.dtStart = dtStart;
-		this.due = due;
-		this.summary = summary;
-		
+		this.todo = todo;
 	}
 
-	public Calendar getDtStart() {
-		return dtStart;
+	public IComponent getComponent() {
+		return todo;
 	}
 
-	public Calendar getDue() {
-		return due;
-	}
-
-	public String getSummary() {
-		return summary;
+	public ITodo getTodo() {
+		return todo;
 	}
 
 }

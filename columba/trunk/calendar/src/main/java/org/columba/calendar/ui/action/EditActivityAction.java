@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
@@ -75,13 +76,13 @@ public class EditActivityAction extends AbstractColumbaAction implements
 
 		// retrieve event from store
 		try {
-			IEvent model = (IEvent) store.get(id);
+			IEventInfo model = (IEventInfo) store.get(id);
 
 			EditEventDialog dialog = new EditEventDialog(m.getContainer()
 					.getFrame(), model);
 			if (dialog.success()) {
-				IEvent updatedModel = dialog.getModel();
-
+				IEventInfo updatedModel = dialog.getModel();
+				
 				// update store
 				store.modify(id, updatedModel);
 			}
