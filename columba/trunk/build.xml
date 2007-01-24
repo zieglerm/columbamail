@@ -160,11 +160,10 @@
         <!-- signing jar-files for Java WebStart -->
         <!-- all libs and columba.jar need to be signed -->
         <!-- you need to specify the alias and the passwords on the commandline -->
-		<property name="jar.file" value="lib/ristretto-20061214-all.jar" />
-		<property name="alias" value="sau" description="signing jar-files for Java WebStart" />
-		<property name="storepath" value="${basedir}/../../../keytool/store/keystore" />
-		<property name="keypass" value="password" />
-		<property name="webstart.codebase" value="http://www.35-35.net/columba" />
+        <property name="alias" value="TheColumbaProject" description="signing jar-files for Java WebStart"/>
+        <property name="storepass" value="columba"/>
+        <property name="keypass" value="columba"/>
+        <property name="webstart.codebase" value="http://columbamail.org/webstart"/>
 
         <fileset dir="${release.base}/webstart" id="sign.jars">
             <include name="columba.jar"/>
@@ -649,9 +648,9 @@
             </fileset>
         </copy>
 
-    	<signjar alias="${alias}" keystore="${storepath}" storepass="${keypass}">
-    		<fileset refid="sign.jars" />
-    	</signjar>
+        <signjar alias="${alias}" storepass="${storepass}" keypass="${keypass}">
+            <fileset refid="sign.jars"/>
+        </signjar>
 
         <replace dir="${release.base}/webstart" includes="*.jnlp">
             <replacefilter token="@codebase@" value="${webstart.codebase}"/>
