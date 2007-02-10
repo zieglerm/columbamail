@@ -44,6 +44,7 @@ import org.frapuccino.checkboxlist.CheckBoxListDemo;
 import org.frapuccino.common.FrameBuilder;
 import org.frapuccino.dynamicitemlistpanel.DynamicItemListDemo;
 import org.frapuccino.editablelist.EditableListDemo;
+import org.frapuccino.htmleditor.demo.HtmlEditorDemo;
 import org.frapuccino.iconpanel.IconPanelDemo;
 import org.frapuccino.swing.DynamicFileTransferHandlerDemo;
 import org.frapuccino.swing.JTreeUtil;
@@ -106,6 +107,7 @@ public class AllDemos extends JPanel implements ActionListener, TreeSelectionLis
         addDemo(new TreeTableDemo());
         addDemo(new ThreadArcsDemo());
         addDemo(new DynamicItemListDemo());
+        addDemo(new HtmlEditorDemo());
 
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(this);

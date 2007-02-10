@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
@@ -15,30 +16,29 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-public abstract class DropDownButton extends JButton implements ChangeListener,
+public class DropDownButton extends JButton implements ChangeListener,
 		PopupMenuListener, ActionListener, PropertyChangeListener {
+
 	private final JButton mainButton = this;
 
-	private final JButton arrowButton = new JButton(new ImageIcon(getClass()
-			.getResource("dropdown.gif")));
+	private final JButton arrowButton = new JButton("a");
 
 	private boolean popupVisible = false;
 
-	public DropDownButton() {
+	private JPopupMenu popupMenu;
+
+	public DropDownButton(JPopupMenu popupMenu) {
+		this.popupMenu = popupMenu;
+
 		mainButton.getModel().addChangeListener(this);
 		arrowButton.getModel().addChangeListener(this);
 		arrowButton.addActionListener(this);
-		arrowButton.setMargin(new Insets(3, 0, 3, 0));
 		mainButton.addPropertyChangeListener("enabled", this); // NOI18N
 	}
-
-	/*------------------------------[ PropertyChangeListener ]---------------------------------------------------*/
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		arrowButton.setEnabled(mainButton.isEnabled());
 	}
-
-	/*------------------------------[ ChangeListener ]---------------------------------------------------*/
 
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == mainButton.getModel()) {
@@ -60,15 +60,11 @@ public abstract class DropDownButton extends JButton implements ChangeListener,
 		}
 	}
 
-	/*------------------------------[ ActionListener ]---------------------------------------------------*/
-
 	public void actionPerformed(ActionEvent ae) {
 		JPopupMenu popup = getPopupMenu();
 		popup.addPopupMenuListener(this);
 		popup.show(mainButton, 0, mainButton.getHeight());
 	}
-
-	/*------------------------------[ PopupMenuListener ]---------------------------------------------------*/
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 		popupVisible = true;
@@ -81,28 +77,23 @@ public abstract class DropDownButton extends JButton implements ChangeListener,
 
 		mainButton.getModel().setRollover(false);
 		arrowButton.getModel().setSelected(false);
-		((JPopupMenu) e.getSource()).removePopupMenuListener(this); // act as
-		// good
-		// programmer
-		// :)
+		((JPopupMenu) e.getSource()).removePopupMenuListener(this);
 	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {
 		popupVisible = false;
 	}
 
-	/*------------------------------[ Other Methods ]---------------------------------------------------*/
+	private JPopupMenu getPopupMenu() {
+		return popupMenu;
+	}
 
-	protected abstract JPopupMenu getPopupMenu();
-
-	public JButton addToToolBar(JToolBar toolbar) {
-		JToolBar tempBar = new JToolBar();
-		tempBar.setAlignmentX(0.5f);
-		tempBar.setRollover(true);
+	public JComponent getToolBarComponent() {
+		JPanel tempBar = new JPanel();
+		//tempBar.setAlignmentX(0.5f);
 		tempBar.add(mainButton);
 		tempBar.add(arrowButton);
-		tempBar.setFloatable(false);
-		toolbar.add(tempBar);
-		return mainButton;
+
+		return tempBar;
 	}
 }
