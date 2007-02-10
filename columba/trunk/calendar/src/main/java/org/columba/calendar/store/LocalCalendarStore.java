@@ -235,7 +235,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 			}
 
 			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEvent event = (IEvent) basicModel;
+				IEventInfo event = (IEventInfo) basicModel;
 				result.add(event.getId());
 			}
 		}
@@ -351,8 +351,8 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 			String id = it.next();
 			IComponentInfo c = get(id);
 			if (c.getType().equals(IComponent.TYPE.EVENT)) {
-				IEvent event = (IEvent) c;
-				String summary = event.getSummary();
+				IEventInfo event = (IEventInfo) c;
+				String summary = event.getEvent().getSummary();
 				if (summary.indexOf(searchTerm) != -1)
 					result.add(id);
 			} else if (c.getType().equals(IComponent.TYPE.TODO)) {
