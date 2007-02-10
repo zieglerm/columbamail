@@ -6,13 +6,14 @@
 	<property name="dest" value="${src}/classes" />
 	<property name="test-dest" value="${basedir}/test-classes"/>
 	<property name="dest-demo" value="${basedir}/demo-classes"/>
-	
+
 	<!-- Properties for all source dirs -->
     <property name="src.dir" value="src"/>
     <property name="src.java" value="${src.dir}/java"/>
     <property name="src.test" value="${src.dir}/test"/>
     <property name="src.demo" value="${src.dir}/demo"/>
-    
+	<property name="src.res" value="${src.dir}/res"/>
+
 	<!-- Properties for the report generation -->
     <property name="reports.dir" value="reports"/>
     <property name="reports.test" value="${reports.dir}/testresults"/>
@@ -22,18 +23,19 @@
     <property name="build.dir" value="build"/>
 	<property name="build.coverage.instrumented.dir" value="${build.dir}/instrumented-classes"/>
 	<property name="build.junit.xmlreport.dir" value="${build.dir}/testreport-xml"/>
-	
+
     <property name="ownclasspath" value="${dest}:${src}/lib/junit.jar:${src}/lib/jcoverage.jar"/>
-    
+
     <!-- Common targets =================================== -->
-    
+
+
 	<target name="clean" depends="temp-clean">
 		<delete dir="${dest}"/>
 		<delete dir="${test-dest}"/>
 		<delete dir="${dest-demo}"/>
 		<delete dir="${reports.dir}"/>
 	</target>
-	
+
 		<!-- Cleans temporary files that is used for report generation -->
 	<target name="temp-clean">
 		<delete dir="${build.dir}"/>
@@ -43,35 +45,45 @@
 		<delete dir="${build.coverage.instrumented.dir}"/>
  		<delete dir="${build.junit.xmlreport.dir}"/>
 	</target>
-	
-    
+
+	<target name="copy-resources" description="Copies all resources to the classes/ folder">
+		<echo message="resources are going to ${dest} "/>
+
+		<echo message="copy resources from ${src.res}"/>
+	        <copy todir="${dest}">
+	            <fileset dir="${src.res}">
+	                <include name="**"/>
+	            </fileset>
+	        </copy>
+	</target>
+
     <!-- Build targets =================================== -->
-	<target name="compile">
+	<target name="compile" depends="copy-resources">
 		<echo message="compile frappuccino core"/>
 		<mkdir dir="${dest}"/>
 		<javac srcdir="${src.java}" classpath="${ownclasspath}" destdir="${dest}" encoding="ISO-8859-1" debug="yes"/>
 	</target>
-	
+
 	<target name="compile-demo" depends="compile">
 		<echo message="compile macchiato demo"/>
 		<mkdir dir="${dest-demo}"/>
 		<javac srcdir="${src.demo}" classpath="${ownclasspath}" destdir="${dest-demo}" encoding="ISO-8859-1" debug="yes"/>
 	</target>
-	
-	
+
+
     <!-- Test targets =================================== -->
 	<target name="compile-tests" depends="compile">
 		<echo message="compile frapuccino test code"/>
 		<mkdir dir="${test-dest}"/>
 		<javac srcdir="${src.test}" destdir="${test-dest}" encoding="ISO-8859-1" debug="yes">
 		 <classpath>
-	
+
 		  <pathelement path="${src.test}"/>
 		  <pathelement path="${ownclasspath}"/>
 		 </classpath>
 		</javac>
 	</target>
-	
+
     <target name="test" depends="compile-tests" description="run tests">
         <junit printsummary="off" fork="yes" haltonfailure="no">
             <formatter type="brief" usefile="false"/>
@@ -85,10 +97,10 @@
 					<exclude name="**/AllTests.java"/>
 				</fileset>
 			</batchtest>
-        </junit>        
-    </target>    
-	
-	
+        </junit>
+    </target>
+
+
     <!-- Distribution targets =================================== -->
 	<!-- pack the files into one jar file with automatic manifest file -->
 	<target name="jar" depends="compile" description="creates the frapuccino.jar file">
@@ -96,6 +108,7 @@
 		<echo message="the jar file is going to be frapuccino-${version}.jar "/>
 		<jar basedir="${dest}" jarfile="frapuccino-${version}.jar">
 			<include name="**/*.class"/>
+			<include name="**/*.properties"/>
 			<exclude name="**/*.jar"/>
 			<exclude name="README"/>
 			<exclude name="CHANGES"/>
@@ -105,7 +118,7 @@
 			<exclude name="libs/**"/>
 		</jar>
 	</target>
-	
+
 	<!-- pack the files into one demo jar file with a manifest file -->
 	<target name="jar-demo" depends="compile-demo" description="creates the frapuccino.jar demo file">
 		<delete file="frapuccino-demo.jar"/>
@@ -113,27 +126,27 @@
 		<mkdir dir="${build.dir}"/>
 		<jar jarfile="${build.dir}/frapuccino-demo.jar">
 			<fileset dir="${dest}"/>
-			<fileset dir="${dest-demo}"/>    
+			<fileset dir="${dest-demo}"/>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="org.frapuccino.AllDemos"/>
-			</manifest>			
+			</manifest>
 		</jar>
 	</target>
-	
-	
+
+
     <!-- Report generation =================================== -->
-    
+
     <taskdef classpath="lib/jcoverage.jar" resource="tasks.properties"/>
     <target name="test-reports" depends="compile-tests" description="--> generates reports about testing">
-    	
+
     	<!-- Instrument all classes prior to testing. -->
 		<instrument todir="${build.coverage.instrumented.dir}">
 			<fileset dir="${dest}">
 				<include name="**/*.class"/>
 			</fileset>
 		</instrument>
-    	
+
     	<!-- Start testing and generate a HTML report from tests -->
     	<mkdir dir="${build.junit.xmlreport.dir}"/>
 		<junit printsummary="no" fork="yes" haltonerror="no">
@@ -143,7 +156,7 @@
 				<pathelement path="${build.coverage.instrumented.dir}"/>
 			</classpath>
 			<classpath location="lib\jcoverage.jar"/>
-			<formatter type="xml"/> 
+			<formatter type="xml"/>
 			<batchtest todir="${build.junit.xmlreport.dir}">
 				<fileset dir="${src.test}">
 					<include name="**/*Test*.java"/>
@@ -158,7 +171,7 @@
 			</fileset>
 			<report format="frames" todir="${reports.test}"/>
 		</junitreport>
-		
+
 		<!-- Generate a coverage report -->
 		<report srcdir="${src.java}" destdir="${reports.coverage}"/>
 		<antcall target="temp-clean"/>
