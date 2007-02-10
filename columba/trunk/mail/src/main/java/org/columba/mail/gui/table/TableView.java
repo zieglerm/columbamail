@@ -310,7 +310,8 @@ public class TableView extends TreeTable {
 
 			// scrolling to the first row
 			scrollRectToVisible(getCellRect(0, 0, false));
-			requestFocus();
+//			 @author: fdietz never request focus
+			//requestFocus();
 
 			return uid;
 		}
@@ -341,7 +342,9 @@ public class TableView extends TreeTable {
 
 			// scrolling to the first row
 			scrollRectToVisible(getCellRect(getRowCount() - 1, 0, false));
-			requestFocus();
+
+//			 @author: fdietz never request focus
+			//requestFocus();
 
 			return uid;
 		}
@@ -376,7 +379,9 @@ public class TableView extends TreeTable {
 	 */
 	public void makeRowVisible(int row) {
 		scrollRectToVisible(getCellRect(row, 0, false));
-		requestFocus();
+
+//		 @author: fdietz never request focus
+		//requestFocus();
 	}
 
 	/**

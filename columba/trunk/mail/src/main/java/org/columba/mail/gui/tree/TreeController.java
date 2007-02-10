@@ -61,7 +61,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Constructor for tree controller.
-	 * 
+	 *
 	 * @param controller
 	 *            the parent controller.
 	 * @param model
@@ -98,7 +98,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Returns the tree view.
-	 * 
+	 *
 	 * @return the tree view.
 	 */
 	public TreeView getView() {
@@ -107,7 +107,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Set the specified folder as seleceted.
-	 * 
+	 *
 	 * @param folder
 	 *            the new selected folder.
 	 */
@@ -116,7 +116,8 @@ public class TreeController implements TreeSelectionListener,
 
 		TreePath path = folder.getSelectionTreePath();
 
-		view.requestFocus();
+		// @author: fdietz never request focus
+		//view.requestFocus();
 		/*
 		 * view.setLeadSelectionPath(path); view.setAnchorSelectionPath(path);
 		 */
@@ -143,7 +144,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Returns the pop up menu for the controller.
-	 * 
+	 *
 	 * @return the pop up menu.
 	 */
 	public JPopupMenu getPopupMenu() {
@@ -159,7 +160,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Returns the mailFrameController.
-	 * 
+	 *
 	 * @return MailFrameController
 	 */
 	public IFrameMediator getFrameController() {
@@ -197,7 +198,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Saves the tree expanded state.
-	 * 
+	 *
 	 * @param folder
 	 *            the folder to get the configuration for.
 	 * @param path
@@ -244,7 +245,7 @@ public class TreeController implements TreeSelectionListener,
 
 	/**
 	 * Set a new folder comparator for sorting the folders.
-	 * 
+	 *
 	 * @param comparator
 	 *            the folder comparator to use.
 	 */
@@ -283,7 +284,7 @@ public class TreeController implements TreeSelectionListener,
 
 		if (node == null)
 			return;
-		
+
 		// safe to cast to IMailFolder here, because only those are visible to the user
 		fireFolderSelectionChangedEvent((IMailFolder)node);
 	}
