@@ -92,9 +92,9 @@ public class ReplyCommand extends Command {
         controller.updateComponents(true);
         
         // Set the focus to the editor pane and set cursor to the top
-        controller.getEditorController().getViewUIComponent().requestFocus();
-        controller.getEditorController().getViewUIComponent().moveCaretPosition(0);
-        controller.getEditorController().getViewUIComponent().select(0,0);
+        controller.getCurrentEditor().getViewUIComponent().requestFocus();
+        controller.getCurrentEditor().getViewUIComponent().moveCaretPosition(0);
+        controller.getCurrentEditor().getViewUIComponent().select(0,0);
     }
 
     public void execute(IWorkerStatusController worker) throws Exception {

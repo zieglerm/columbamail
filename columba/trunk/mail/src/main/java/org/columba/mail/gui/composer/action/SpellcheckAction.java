@@ -68,10 +68,10 @@ public class SpellcheckAction extends AbstractColumbaAction {
         //String checked =
         //	composerController.getComposerSpellCheck().checkText(
         //		composerController.getEditorController().getView().getText());
-        String checked = composerController.getComposerSpellCheck().checkText(composerController.getEditorController()
+        String checked = composerController.getComposerSpellCheck().checkText(composerController.getCurrentEditor()
                                                                                                 .getViewText());
 
         //composerController.getEditorController().getView().setText(checked);
-        composerController.getEditorController().setViewText(checked);
+        composerController.getCurrentEditor().setViewText(checked);
     }
 }

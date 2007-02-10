@@ -53,7 +53,7 @@ public class ExternalEditorAction extends AbstractColumbaAction {
 
 		composerController.getView().getFrame().setEnabled(false);
 
-		composerController.getEditorController().setViewEnabled(false);
+		composerController.getCurrentEditor().setViewEnabled(false);
 
 		final SwingWorker worker = new SwingWorker() {
 			public Object construct() {
@@ -63,7 +63,7 @@ public class ExternalEditorAction extends AbstractColumbaAction {
 				try {
 
 					Ed.startExternalEditor(composerController
-							.getEditorController());
+							.getCurrentEditor());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -75,7 +75,7 @@ public class ExternalEditorAction extends AbstractColumbaAction {
 			public void finished() {
 				composerController.getView().getFrame().setEnabled(true);
 
-				composerController.getEditorController().setViewEnabled(true);
+				composerController.getCurrentEditor().setViewEnabled(true);
 
 			}
 		};

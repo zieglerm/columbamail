@@ -33,24 +33,24 @@ public class ComposerText implements IEditableText {
 	}
 
 	public void setCaretPosition(int position) {
-		controller.getEditorController().getViewUIComponent().setCaretPosition(
+		controller.getCurrentEditor().getViewUIComponent().setCaretPosition(
 				position);
 	}
 
 	public void moveCaretPosition(int position) {
-		controller.getEditorController().getViewUIComponent()
+		controller.getCurrentEditor().getViewUIComponent()
 				.moveCaretPosition(position);
 	}
 
 	public String getText() {
-		return controller.getEditorController().getViewUIComponent().getText();
+		return controller.getCurrentEditor().getViewUIComponent().getText();
 	}
 
 	public void setText(String text) {
-		controller.getEditorController().getViewUIComponent().setText(text);
+		controller.getCurrentEditor().getViewUIComponent().setText(text);
 	}
 
 	public void grabFocus() {
-		controller.getEditorController().getViewUIComponent().grabFocus();
+		controller.getCurrentEditor().getViewUIComponent().grabFocus();
 	}
 }

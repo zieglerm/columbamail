@@ -26,20 +26,17 @@ import java.util.Vector;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import org.columba.addressbook.facade.IContactItem;
-import org.columba.addressbook.facade.IHeaderItem;
-import org.columba.addressbook.facade.IModelFacade;
-import org.columba.api.exception.ServiceNotFoundException;
+import javax.swing.event.EventListenerList;
+
 import org.columba.core.desktop.ColumbaDesktop;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.config.AccountItem;
 import org.columba.mail.config.MailConfig;
-import org.columba.mail.connector.ServiceConnector;
 import org.columba.mail.message.ColumbaMessage;
 import org.columba.mail.message.IColumbaMessage;
-import org.columba.mail.parser.NormalizeRecipientListParser;
 import org.columba.mail.parser.ListBuilder;
 import org.columba.mail.parser.ListParser;
+import org.columba.mail.parser.NormalizeRecipientListParser;
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.message.Address;
 import org.columba.ristretto.message.Header;
@@ -108,6 +105,8 @@ public class ComposerModel {
 	 * text (false)
 	 */
 	private boolean isHtmlMessage;
+
+	private EventListenerList listenerList = new EventListenerList();
 
 	/**
 	 * Create a new model with an empty plain text message (default behaviour)
@@ -470,8 +469,8 @@ public class ComposerModel {
 	public List getRCPTVector() {
 		List<String> output = new Vector<String>();
 
-		List<String> l = new NormalizeRecipientListParser().normalizeRCPTVector(ListBuilder
-				.createFlatList(getToList()));
+		List<String> l = new NormalizeRecipientListParser()
+				.normalizeRCPTVector(ListBuilder.createFlatList(getToList()));
 		if (l != null)
 			output.addAll(l);
 
@@ -558,6 +557,59 @@ public class ComposerModel {
 				}
 			}
 
+		}
+	}
+
+	/** **************************** event handling ***************************** */
+
+	/**
+	 * Adds a listener.
+	 */
+	public void addModelChangedListener(IComposerModelChangedListener listener) {
+		listenerList.add(IComposerModelChangedListener.class, listener);
+	}
+
+	/**
+	 * Removes a previously registered listener.
+	 */
+	public void removeModelChangedListener(
+			IComposerModelChangedListener listener) {
+		listenerList.remove(IComposerModelChangedListener.class, listener);
+	}
+
+	/**
+	 * Propagates an event to all registered listeners notifying them of changes
+	 */
+	public void fireModelChanged() {
+		ComposerModelChangedEvent e = new ComposerModelChangedEvent(this);
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == IComposerModelChangedListener.class) {
+				((IComposerModelChangedListener) listeners[i + 1])
+						.modelChanged(e);
+			}
+		}
+	}
+
+	/**
+	 * Propagates an event to all registered listeners notifying them of changes
+	 */
+	public void fireHtmlModelChanged(boolean htmlEnabled) {
+		ComposerModelChangedEvent e = new ComposerModelChangedEvent(this, htmlEnabled);
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length - 2; i >= 0; i -= 2) {
+			if (listeners[i] == IComposerModelChangedListener.class) {
+				((IComposerModelChangedListener) listeners[i + 1])
+						.htmlModeChanged(e);
+			}
 		}
 	}
 }
