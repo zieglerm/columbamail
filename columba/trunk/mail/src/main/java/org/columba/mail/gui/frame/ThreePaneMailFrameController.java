@@ -607,16 +607,16 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 						.getString("global", "dockable_messageviewer"),
 				messageController, popup);
 
-		TagList tagList = new MailTagList(this);
-		JScrollPane tagListScrollPane = new JScrollPane(tagList);
-		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		tagListScrollPane
-				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+//		TagList tagList = new MailTagList(this);
+//		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+//		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		tagListScrollPane
+//				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		tagListDockable = registerDockable("mail_taglist", MailResourceLoader
-				.getString("global", "dockable_taglist"), tagListScrollPane,
-				new TagPopupMenu(this, tagList));
-		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
+//		tagListDockable = registerDockable("mail_taglist", MailResourceLoader
+//				.getString("global", "dockable_taglist"), tagListScrollPane,
+//				new TagPopupMenu(this, tagList));
+//		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
 	}
 
 	/**

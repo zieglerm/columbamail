@@ -48,10 +48,10 @@ public class DockableView extends AbstractDockable implements
 
 		menuButton = titleBar.addButton(new MenuIcon(), new MenuAction(this
 				.getPersistentId()), BorderLayout.WEST);
-		titleBar.addButton(new PinIcon(),
-				new PinAction(this.getPersistentId()), BorderLayout.EAST);
-		titleBar.addButton(new MaximizeIcon(), new MaximizeAction(this
-				.getPersistentId()), BorderLayout.EAST);
+//		titleBar.addButton(new PinIcon(),
+//				new PinAction(this.getPersistentId()), BorderLayout.EAST);
+//		titleBar.addButton(new MaximizeIcon(), new MaximizeAction(this
+//				.getPersistentId()), BorderLayout.EAST);
 		titleBar.addButton(new CloseIcon(), new CloseAction(this
 				.getPersistentId()), BorderLayout.EAST);
 

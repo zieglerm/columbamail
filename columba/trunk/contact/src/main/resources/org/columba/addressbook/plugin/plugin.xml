@@ -33,7 +33,7 @@
  <extension id="EditProperties" class="org.columba.addressbook.gui.action.EditPropertiesAction"/>
  <extension id="RemoveCard" class="org.columba.addressbook.gui.action.RemoveCardAction"/>
  <extension id="ExportVCard" class="org.columba.addressbook.gui.action.ExportVCardAction"/>
- <extension id="TagContactMenu" class="org.columba.addressbook.gui.action.TagContactMenu"/>
+ <!--  <extension id="TagContactMenu" class="org.columba.addressbook.gui.action.TagContactMenu"/> -->
  <extension id="ComposeMessage" class="org.columba.addressbook.gui.action.ComposeMessageAction"/>
 </extensionlist>
 

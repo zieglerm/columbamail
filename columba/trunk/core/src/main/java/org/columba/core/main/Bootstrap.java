@@ -70,7 +70,7 @@ public class Bootstrap {
 
 	// TODO @author hubms have this flags, until the speed of the entitymanager
 	// is improved
-	public static boolean ENABLE_TAGS = true;
+	public static boolean ENABLE_TAGS = false;
 
 	private String path;
 

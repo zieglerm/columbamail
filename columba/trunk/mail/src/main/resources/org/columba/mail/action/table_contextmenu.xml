@@ -29,7 +29,7 @@
 	<menuitem id="AddAllSendersToAddressbook"/>
 	<separator/>
 	<imenu id="ColorMessageMenu"/>
-	<imenu id="TagMessageMenu"/>
+	<!-- <imenu id="TagMessageMenu"/>  -->
 		<separator/>
 		<menu id="menu_message_mark">
 		 <menuitem id="ToggleReadFlag"/>

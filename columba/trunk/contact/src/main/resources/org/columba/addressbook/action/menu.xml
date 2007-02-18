@@ -12,7 +12,7 @@
 	<menu id="menu_file" placeholderid="top">
 		<menuitem id="RemoveCard" />
         <menuitem id="EditProperties" />
-        <imenu id="TagContactMenu" />
+       <!-- <imenu id="TagContactMenu" />  --> 
 	</menu>
 
 	<menu id="menu_utilities" placeholderid="bottom">

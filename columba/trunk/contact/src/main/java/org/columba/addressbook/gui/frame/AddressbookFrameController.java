@@ -117,17 +117,17 @@ public class AddressbookFrameController extends DockFrameController implements
 				AddressbookResourceLoader.getString("global",
 						"dockable_contactlist"), p, null);
 
-		TagList tagList = new ContactTagList(this);
-		JScrollPane tagListScrollPane = new JScrollPane(tagList);
-		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		tagListScrollPane
-				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+//		TagList tagList = new ContactTagList(this);
+//		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+//		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		tagListScrollPane
+//				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		tagListDockable = registerDockable("addressbook_taglist",
-				AddressbookResourceLoader.getString("global",
-						"dockable_taglist"), tagListScrollPane,
-				new TagPopupMenu(this, tagList));
-		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
+//		tagListDockable = registerDockable("addressbook_taglist",
+//				AddressbookResourceLoader.getString("global",
+//						"dockable_taglist"), tagListScrollPane,
+//				new TagPopupMenu(this, tagList));
+//		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
 
 	}
 

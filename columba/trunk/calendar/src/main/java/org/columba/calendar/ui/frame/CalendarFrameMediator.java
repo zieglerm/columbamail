@@ -146,16 +146,16 @@ public class CalendarFrameMediator extends DockFrameController implements
 				.getString("global", "dockable_maincalendar"),
 				calendarController.getView(), null);
 
-		TagList tagList = new CalendarTagList(this);
-		JScrollPane tagListScrollPane = new JScrollPane(tagList);
-		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		tagListScrollPane
-				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+//		TagList tagList = new CalendarTagList(this);
+//		JScrollPane tagListScrollPane = new JScrollPane(tagList);
+//		tagListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		tagListScrollPane
+//				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		tagListDockable = registerDockable("calendar_taglist", ResourceLoader
-				.getString("global", "dockable_taglist"), tagListScrollPane,
-				new TagPopupMenu(this, tagList));
-		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
+//		tagListDockable = registerDockable("calendar_taglist", ResourceLoader
+//				.getString("global", "dockable_taglist"), tagListScrollPane,
+//				new TagPopupMenu(this, tagList));
+//		tagList.setPopupMenu(new TagPopupMenu(this, tagList));
 
 	}
 

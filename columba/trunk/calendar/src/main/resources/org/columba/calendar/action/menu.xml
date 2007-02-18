@@ -18,7 +18,7 @@
 		<separator />
 		<menuitem id="EditActivity" />
 		<menuitem id="DeleteActivity" />
-		<imenu id="TagCalendarMenu" />
+		<!-- <imenu id="TagCalendarMenu" />  -->
 		<separator />
 		<imenu id="CopyActivity" />
 		<imenu id="MoveActivity" />
