@@ -56,5 +56,14 @@ public class MimeTreeParserTest extends TestCase {
 		
 		MimeTree structure = MimeTreeParser.parse(response);
 	}
+
+	public void testDBug1() throws ParserException {
+		String input = "* 1 FETCH (UID 17 BODYSTRUCTURE (((\"text\" \"plain\" (\"charset\" \"windows-1252\") NIL NIL \"quoted-printable\" 812 12 NIL NIL NIL)(\"text\" \"html\" (\"charset\" \"windows-1252\") NIL NIL \"quoted-printable\" 1416 26 NIL NIL NIL) \"alternative\" (\"boundary\" \"----=_NextPart_001_0010_01C7539D.DACFC990\") NIL NIL)(\"image\" \"gif\" (\"name\" \"qjzea.gif\") \"<006901c7538d$1746f990$6c822ecf@WM \\\"(S65>\\\">\" NIL \"base64\" 11974 NIL NIL NIL) \"related\" (\"type\" \"multipart/alternative\" \"boundary\" \"----=_NextPart_000_000F_01C7539D.DACFC990\") NIL NIL))\r\n";
+		IMAPResponse response = IMAPResponseParser.parse(input);
+		
+		MimeTree structure = MimeTreeParser.parse(response);
+		structure.count();
+	}
+
 	
 }

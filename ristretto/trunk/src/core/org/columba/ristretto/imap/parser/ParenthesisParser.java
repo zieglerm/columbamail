@@ -61,7 +61,14 @@ public class ParenthesisParser {
 		
 		while( idx < s.length() ) {
 			switch( s.charAt(idx) ) {
-				case '\"' : {
+			
+			case '\\' : {
+				// ignore next character
+				idx++;
+				break;
+			}
+			
+			    case '\"' : {
 					// toggle Quotes mode
 					mode ^= 1;
 					break;

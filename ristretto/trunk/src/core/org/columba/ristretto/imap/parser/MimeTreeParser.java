@@ -434,9 +434,18 @@ class BodystructureTokenizer {
 
 		if (s.charAt(i.a) == '\"') {
 			i.b = s.indexOf("\"", i.a + 1);
-
+			
+			// Make sure the quote wasn't escaped
+			while(s.charAt(i.b-1) == '\\') {				
+				i.b = s.indexOf("\"", i.b + 1);
+			}
+			
 			result.setType(Item.STRING);
-			result.setValue(s.substring(i.a + 1, i.b));
+			// Remove any escape characters
+			String value = s.substring(i.a + 1, i.b);
+			value = value.replaceAll("\\\\", "");
+			
+			result.setValue(value);
 		}
 
 		// Literal
@@ -474,7 +483,8 @@ class BodystructureTokenizer {
 				result.setType(Item.NUMBER);
 			}
 		}
-
+		
+		
 		return result;
 	}
 }
