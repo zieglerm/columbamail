@@ -453,7 +453,7 @@ public class TableController implements ListSelectionListener, TableModelChanged
      * 0) { // skip if no message selected if (getView().getRowCount() > 0) // if folder contains messages // -> skip to fix
      * above bug return; }
      */
-    System.out.println("selection changed="+getView().getSelectedRow());
+    //System.out.println("selection changed="+getView().getSelectedRow());
     
     // selected nodes
     MessageNode[] nodes = getView().getSelectedNodes();
