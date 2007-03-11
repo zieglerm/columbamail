@@ -618,12 +618,15 @@ public class ComposerController extends DefaultFrameController implements
 		boolean wasHtml = composerModel.isHtml();
 		composerModel = model;
 
-		if (wasHtml != composerModel.isHtml()) {
-			setHtmlState(composerModel.isHtml());
-		}
+//		if (wasHtml != composerModel.isHtml()) {
+//			setHtmlState(composerModel.isHtml());
+//		}
 
 		// Update all component according to the new model
 		updateComponents(true);
+
+
+
 	}
 
 	public Charset getCharset() {
@@ -968,16 +971,16 @@ public class ComposerController extends DefaultFrameController implements
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	public void update(Observable observable, Object obj) {
-		if (observable instanceof XmlElement) {
-			// possibly change btw. html and text
-			XmlElement e = (XmlElement) obj;
-
-			if (e.getName().equals("html")) {
-				String enableHtml = e.getAttribute("enable", "false");
-
-				// This action should only be enabled in html mode
-				getModel().setHtml(Boolean.valueOf(enableHtml).booleanValue());
-			}
-		}
+//		if (observable instanceof XmlElement) {
+//			// possibly change btw. html and text
+//			XmlElement e = (XmlElement) obj;
+//
+//			if (e.getName().equals("html")) {
+//				String enableHtml = e.getAttribute("enable", "false");
+//
+//				// This action should only be enabled in html mode
+//				getModel().setHtml(Boolean.valueOf(enableHtml).booleanValue());
+//			}
+//		}
 	}
 }
