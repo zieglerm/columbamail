@@ -183,6 +183,7 @@ public final class GPGStatement implements JSCFStatement {
 			fout = new FileOutputStream(tempFile);
 			StreamUtils.streamCopy(signature, fout);
 			fout.flush();
+      fout.close();
 			paramMap.put("sigfile", tempFile.getAbsolutePath());
 		} catch (Exception e) {
 			throw new JSCFException(
