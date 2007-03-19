@@ -83,6 +83,7 @@ public class CachedMboxFolder extends AbstractLocalFolder {
 	 * @see org.columba.mail.folder.AbstractMessageFolder#save()
 	 */
 	public void save() throws Exception {
+		super.save();
 		((MboxDataStorage)getDataStorageInstance()).save();
 	}
 }
