@@ -22,6 +22,7 @@ import java.io.InputStream;
 import org.columba.mail.composer.SendableMessage;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.folder.headercache.BerkeleyDBHeaderList;
+import org.columba.mail.folder.mbox.CachedMboxFolder;
 import org.columba.mail.folder.mh.CachedMHFolder;
 import org.columba.mail.message.ColumbaMessage;
 import org.columba.ristretto.message.Attributes;
@@ -35,7 +36,7 @@ import org.columba.ristretto.message.Flags;
  * 
  * @author fdietz
  */
-public class OutboxFolder extends CachedMHFolder {
+public class OutboxFolder extends CachedMboxFolder {
 
 	private SendListManager[] sendListManager = new SendListManager[2];
 
