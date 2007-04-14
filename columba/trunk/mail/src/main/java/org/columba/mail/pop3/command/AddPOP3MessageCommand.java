@@ -81,12 +81,7 @@ public class AddPOP3MessageCommand extends Command {
 		r.setMarkVariant(MarkMessageCommand.MARK_AS_RECENT);
 		new MarkMessageCommand(r).execute(worker);
 
-		// TODO: @author fdietz
-		// This call here might cause problems, because the reference might not be valid
-		// later anymore if a message filter moves the message to a different folder or
-		// even deletes the message
-		IMailFolderCommandReference ref = new MailFolderCommandReference(inboxFolder, new Object[] {uid});
-		MailCheckingManager.getInstance().fireNewMessageArrived(ref);
+		
 
 		// apply spam filter
 		boolean messageWasMoved = applySpamFilter(uid, worker);
