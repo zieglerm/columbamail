@@ -540,7 +540,18 @@
         <echo message="the zipfile is going to columba-${version}-src.zip "/>
         <zip zipfile="${release.base}/columba-${version}-src.zip" update="true">
             <zipfileset dir="." prefix="columba-${version}-src">
-                <include name="**/*.java"/>
+                <include name="core/**"/>
+		<include name="core-api/**"/>
+		<include name="contact/**"/>
+		<include name="contact-api/**"/>
+		<include name="contact-facade/**"/>
+		<include name="calendar/**"/>
+		<include name="calendar-api/**"/>
+		<include name="calendar-facade/**"/>
+		<include name="mail/**"/>
+		<include name="mail-api/**"/>
+		<include name="mail-facade/**"/>
+		<include name="META-INF/**"/>
                 <include name="plugins/**"/>
                 <include name="native/**"/>
                 <include name="lib/**"/>
