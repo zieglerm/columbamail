@@ -70,6 +70,8 @@ public class SortDecorator extends TableModelDecorator {
 
 	public void tableChanged(TableModelEvent e) {
 		allocate();
+
+		sort(selectedColumn);
 	}
 
 	public Object getValueAt(int row, int column) {
