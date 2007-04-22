@@ -94,8 +94,8 @@ public class GroupModel implements IGroupModel {
 
 		for (int i = 0; i < members.count(); i++) {
 			XmlElement m = members.getElement(i);
-			Integer str = new Integer(m.getAttribute("uid"));
-			if ( str.equals(uid) )
+			String str = m.getAttribute("uid");
+			if (str.equals(uid.toString()))
 				return m;
 		}
 
@@ -118,7 +118,8 @@ public class GroupModel implements IGroupModel {
 	public void remove(Object uid) {
 		XmlElement m = getMember(uid);
 
-		m.removeFromParent();
+		if (m != null)
+			m.removeFromParent();
 	}
 
 	public void removeAllMembers() {
