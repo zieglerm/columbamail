@@ -113,7 +113,10 @@ public class ListBuilder {
 			IContactItem contactItem = retrieveContactItem(str);
 			if (contactItem != null) {
 				// found contact item in contact component
-				result.add(contactItem.getEmailAddress());
+				String address = contactItem.getEmailAddress();
+				if ((address == null) || address.equals(""))
+					continue;
+				result.add(address);
 			} else {
 				// check if its a group item
 
@@ -128,7 +131,7 @@ public class ListBuilder {
 						IContactItem i = it2.next();
 						String address = i.getEmailAddress();
 
-						if (address == null) {
+						if ((address == null) || address.equals("")) {
 							continue;
 						}
 
