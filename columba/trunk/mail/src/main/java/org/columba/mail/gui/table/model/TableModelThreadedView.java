@@ -168,12 +168,12 @@ public class TableModelThreadedView implements ModelVisitor {
 
 		String id = (String) header.get("Message-ID");
 
-		if (id == null) {
+		if ((id == null) || id.equals("")) {
 			id = (String) header.get("Message-Id");
 		}
 
 		// if no Message-Id: available create bogus
-		if (id == null) {
+		if ((id == null) || id.equals("")) {
 			id = new String("<bogus-id:" + (idCount++) + ">");
 			header.set("Message-ID", id);
 		}
