@@ -53,8 +53,6 @@ public class SubjectTreeRenderer extends DefaultTreeCellRenderer {
 
 	private JTable table;
 
-	private TableColumn tc;
-
 	/**
 	 * @param table
 	 */
@@ -78,9 +76,7 @@ public class SubjectTreeRenderer extends DefaultTreeCellRenderer {
 	}
 
 	public void setBounds(int x, int y, int w, int h) {
-		if (tc == null) {
-			tc = table.getColumn("Subject");
-		}
+		TableColumn tc = table.getColumn("Subject");
 
 		super.setBounds(x, y, tc.getWidth() - x, h);
 	}
