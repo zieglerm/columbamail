@@ -178,11 +178,15 @@ public class ContactModelXMLFactory {
 
 		ContactModel model = new ContactModel(id);
 		
-		model.setSortString(parser.get(VCARD.SORTSTRING));
 		// compatibility - using SORTSTRING internally
-		if ( model.getSortString() == null) {
-			model.setSortString(parser.get(VCARD.DISPLAYNAME));
+		String sortstring = parser.get(VCARD.SORTSTRING);
+		if ((sortstring == null) || sortstring.equals("")) {
+			sortstring = parser.get(VCARD.FN);
 		}
+		if ((sortstring == null) || sortstring.equals("")) {
+			sortstring = parser.get(VCARD.DISPLAYNAME);
+		}
+		model.setSortString(sortstring);
 
 		model.setFormattedName(parser.get(VCARD.FN));
 		model.setNickName(parser.get(VCARD.NICKNAME));
