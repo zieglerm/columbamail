@@ -147,52 +147,43 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	private void initCache() {
 
 		File[] list = directoryFile.listFiles();
-		List<File> v = new Vector<File>();
 
 		for (int i = 0; i < list.length; i++) {
 			File file = list[i];
-			File renamedFile;
 			String name = file.getName();
 			int index = name.indexOf("header");
 
 			if (index == -1) {
 
 				if ((file.exists()) && (file.length() > 0)) {
-					renamedFile = new File(file.getParentFile(),
-							file.getName() + '~');
-					file.renameTo(renamedFile);
+					int extension = name.indexOf('.');
+					if (extension == -1)
+						continue;
+					int uid;
+					try {
+						uid = Integer.parseInt(name.substring(0, extension));
+					} catch(NumberFormatException e) {
+						continue;
+					}
 
-					v.add(renamedFile);
+					try {
+						Document doc = XmlNewIO.load(file);
+
+						IContactModel model = ContactModelXMLFactory.unmarshall(doc,
+								new Integer(uid).toString());
+
+						IContactModelPartial item = ContactModelFactory
+								.createContactModelPartial(model, new Integer(uid)
+										.toString());
+						map.put(new Integer(uid).toString(), item);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 
 			} else {
 				// header file found
 				headerFile.delete();
-			}
-		}
-
-		for (int i = 0; i < v.size(); i++) {
-			File file = (File) v.get(i);
-
-			File newFile = new File(file.getParentFile(), (new Integer(i))
-					.toString()
-					+ ".xml");
-			file.renameTo(newFile);
-			try {
-
-				Document doc = XmlNewIO.load(newFile);
-
-				IContactModel model = ContactModelXMLFactory.unmarshall(doc,
-						new Integer(i).toString());
-
-				IContactModelPartial item = ContactModelFactory
-						.createContactModelPartial(model, new Integer(i)
-								.toString());
-				map.put(new Integer(i).toString(), item);
-
-				folder.setNextMessageUid(i + 1);
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 

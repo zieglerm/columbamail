@@ -45,7 +45,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 
 	protected EventListenerList listenerList = new EventListenerList();
 
-	protected int nextMessageUid;
+	protected int nextMessageUid = 0;
 
 	/**
 	 * folder where we save everything name of folder is usually the UID-number
@@ -345,18 +345,14 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 * @return Returns the messageUid.
 	 */
 	public int getNextMessageUid() {
+		while(exists(new Integer(nextMessageUid).toString())) {
+			nextMessageUid++;
+		}
 		return nextMessageUid;
 	}
 
-	/**
-	 * @param messageUid
-	 *            The messageUid to set.
-	 */
-	public void setNextMessageUid(int messageUid) {
-		this.nextMessageUid = messageUid;
-	}
-
 	private String generateNextMessageUid() {
+		getNextMessageUid();
 		return new Integer(nextMessageUid++).toString();
 	}
 
