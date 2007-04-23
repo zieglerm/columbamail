@@ -17,6 +17,8 @@
 //All Rights Reserved.
 package org.columba.mail.gui.contact.list;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -66,6 +68,8 @@ public class ContactListModel extends AbstractListModel {
 	public void addElement(IHeaderItem item) {
 		list.add(item);
 
+		sort();
+
 		int index = list.indexOf(item);
 
 		fireIntervalAdded(this, index, index);
@@ -74,6 +78,8 @@ public class ContactListModel extends AbstractListModel {
 	public void setHeaderItemList(List<IHeaderItem> l) {
 
 		this.list = l;
+
+		sort();
 
 		fireContentsChanged(this, 0, list.size() - 1);
 	}
@@ -120,5 +126,34 @@ public class ContactListModel extends AbstractListModel {
 		int index = list.indexOf(item);
 
 		remove(index);
+	}
+
+	class HeaderItemComperator implements Comparator {
+		public int compare(Object o1, Object o2) {
+			IHeaderItem item1 = (IHeaderItem) o1;
+			IHeaderItem item2 = (IHeaderItem) o2;
+
+			if ((item1 == null) || (item2 == null)) {
+				return 0;
+			}
+
+			if (item1.isContact() && !item2.isContact())
+				return -1;
+			else if (!item1.isContact() && item2.isContact())
+				return 1;
+
+			return item1.getName().compareToIgnoreCase(item2.getName());
+		}
+
+		public boolean equals(Object obj) {
+			if (obj instanceof HeaderItemComperator)
+				return true;
+
+			return false;
+		}
+	}
+
+	public void sort() {
+		Collections.sort(list, new HeaderItemComperator());
 	}
 }
