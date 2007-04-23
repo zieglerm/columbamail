@@ -149,7 +149,11 @@ public class ContactDNDListView extends ContactList implements
 			IHeaderItem newItem = null;
 			try {
 				IModelFacade c = ServiceConnector.getModelFacade();
-				newItem = c.createHeaderItem();
+				if (old.isContact())
+					newItem = c.createContactItem();
+				else
+					newItem = c.createGroupItem();
+
 				newItem.setName(old.getName());
 				newItem.setDescription(old.getDescription());
 			} catch (ServiceNotFoundException e) {
