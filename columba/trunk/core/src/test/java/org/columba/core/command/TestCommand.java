@@ -12,12 +12,11 @@ public class TestCommand extends Command {
   }
   
   public TestCommand() {
-    super(null);
-    // nothing to do
+    super(new DefaultCommandReference());
   }
 
   public TestCommand(DefaultProcessorTest test, int id, int priority) {
-    super(null);
+    super(new DefaultCommandReference());
     this.id = id;
     this.test = test;
     this.priority = priority;

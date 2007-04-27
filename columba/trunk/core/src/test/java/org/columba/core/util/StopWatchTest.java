@@ -73,11 +73,11 @@ public class StopWatchTest extends TestCase {
     public void testTiming() throws InterruptedException {
         StopWatch watch = new StopWatch();
 
-        Thread.sleep(50);
+        Thread.sleep(100);
         watch.stop();
 
-        if (watch.getTiming() < 50) {
-            fail("Stopwatch returned too small value. expected < 50 but was <" +
+        if (watch.getTiming() < 100) {
+            fail("Stopwatch returned too small value. expected > 100 but was <" +
                 watch.getTiming() + ">");
         }
     }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 import org.columba.core.config.Config;
+import org.columba.core.shutdown.ShutdownManager;
 import org.columba.core.tagging.api.ITag;
 
 public class TagManagerTest extends TestCase {
@@ -15,10 +16,11 @@ public class TagManagerTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		tm = new TagManager();
+		tm = TagManager.getInstance();
 	}
 
 	protected void tearDown() throws Exception {
+		ShutdownManager.getInstance().shutdown(0);
 		super.tearDown();
 	}
 

@@ -53,8 +53,12 @@ public class PluginFinderTest extends TestCase {
 		// find all possible plugin directories
 		File[] pluginFolders = PluginFinder.searchPlugins();
 
-		for (int i = 0; i < pluginFolders.length; i++) {
-			System.out.println("plugin-directory=" + pluginFolders[i]);
+		if (pluginFolders == null) {
+			System.out.println("no plugin directories found");
+		} else {
+			for (int i = 0; i < pluginFolders.length; i++) {
+				System.out.println("plugin-directory=" + pluginFolders[i]);
+			}
 		}
 	}
 }
