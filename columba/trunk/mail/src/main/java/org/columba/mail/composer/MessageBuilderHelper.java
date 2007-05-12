@@ -269,15 +269,22 @@ public class MessageBuilderHelper {
 
 		if (messageId != null) {
 			model.setHeaderField("In-Reply-To", messageId);
+		}
 
-			String references = (String) header.get("References");
+		String references = (String) header.get("References");
+		if (references == null)
+			references = (String) header.get("In-Reply-To");
 
-			if (references != null) {
+		if (messageId != null) {
+			if (references != null)
 				references = references + " " + messageId;
-				references = removeDoubleEntries(references);
+			else
+				references = messageId;
+		}
 
-				model.setHeaderField("References", references);
-			}
+		if (references != null) {
+			references = removeDoubleEntries(references);
+			model.setHeaderField("References", references);
 		}
 	}
 
