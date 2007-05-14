@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import org.columba.mail.message.ColumbaHeader;
 import org.columba.mail.message.IColumbaHeader;
 
 /**
@@ -183,6 +182,16 @@ public class TableModelThreadedView implements ModelVisitor {
 		return id;
 	}
 
+	private void addToHashmap(MessageNode node) {
+		for (Enumeration enumeration = node.children(); enumeration
+				.hasMoreElements();) {
+			MessageNode child = (MessageNode) enumeration.nextElement();
+			String id = getMessageID(child);
+			hashtable.put(id, child);
+			addToHashmap(child);
+		}
+	}
+
 	/**
 	 * Save every MessageNode in HashMap for later reference.
 	 * <p>
@@ -194,15 +203,7 @@ public class TableModelThreadedView implements ModelVisitor {
 	private void createHashmap(MessageNode rootNode) {
 		hashtable = new HashMap(rootNode.getChildCount());
 
-		// save every message-id in hashtable for later reference
-		for (Enumeration enumeration = rootNode.children(); enumeration
-				.hasMoreElements();) {
-			MessageNode node = (MessageNode) enumeration.nextElement();
-			String id = getMessageID(node);
-
-			hashtable.put(id, node);
-
-		}
+		addToHashmap(rootNode);
 	}
 
 	/**
@@ -211,42 +212,32 @@ public class TableModelThreadedView implements ModelVisitor {
 	 * 
 	 * @param node
 	 *            root MessageNode
+	 * 
+	 * @return returns true if a descendant node is not seen
 	 */
-	protected void sort(int columnNumber, MessageNode node) {
-		for (int i = 0; i < node.getChildCount(); i++) {
-			MessageNode child = (MessageNode) node.getChildAt(i);
-
-			//if ( ( child.isLeaf() == false ) && ( !child.getParent().equals(
-			// node ) ) )
-			if (!child.isLeaf()) {
-				// has children
-				List v = child.getVector();
+	protected boolean sort(int columnNumber, MessageNode node, boolean dosort) {
+		boolean containsRecent = false;
+		if (!node.isLeaf()) {
+			if (dosort) {
+				List v = node.getVector();
 				Collections.sort(v, new MessageHeaderComparator(columnNumber,
 						true));
-
-				// check if there are messages marked as recent
-				//  -> in case underline parent node
-				boolean contains = containsRecentChildren(child);
-				child.setHasRecentChildren(contains);
 			}
-		}
-	}
 
-	protected boolean containsRecentChildren(MessageNode parent) {
-		for (int i = 0; i < parent.getChildCount(); i++) {
-			MessageNode child = (MessageNode) parent.getChildAt(i);
+			for( int i = 0; i < node.getChildCount(); i++) {
+				MessageNode child = (MessageNode)node.getChildAt(i);
 
-			if (((ColumbaHeader) child.getHeader()).getFlags().getSeen() == false) {
-				// recent found
-				LOG.info("found recent message");
+				if (sort(columnNumber, child, dosort))
+					containsRecent = true;
 
-				return true;
-			} else {
-				containsRecentChildren(child);
+				if (!child.getHeader().getFlags().getSeen())
+					containsRecent = true;
 			}
 		}
 
-		return false;
+		node.setHasRecentChildren(containsRecent);
+
+		return containsRecent;
 	}
 
 	class MessageHeaderComparator implements Comparator {
@@ -321,15 +312,42 @@ public class TableModelThreadedView implements ModelVisitor {
 		}
 	}
 
+	protected void flatten(MessageNode rootNode) {
+		idCount = 0;
+
+		if (rootNode == null) {
+			return;
+		}
+
+		createHashmap(rootNode);
+
+		Iterator it = hashtable.keySet().iterator();
+		while (it.hasNext()) {
+			String key = (String) it.next();
+
+			MessageNode node = (MessageNode) hashtable.get(key);
+			node.setHasRecentChildren(false);
+			if (!rootNode.isNodeAncestor(node)) {
+				rootNode.add(node);
+			}
+		}
+	}
+
 	/**
 	 * @see org.columba.mail.gui.table.model.ModelVisitor#visit(org.columba.mail.gui.table.model.TreeTableModelInterface)
 	 */
 	public void visit(HeaderTableModel realModel) {
-		if ( enabled == false ) return;
-		
-		thread(realModel.getRootNode());
+		if (!enabled) {
+			flatten(realModel.getRootNode());
+		} else {
+			thread(realModel.getRootNode());
+			// go through whole tree and sort the siblings after date
+			sort(realModel.getColumnNumber("Date"), realModel.getRootNode(), true);
+		}
+	}
 
-		//		 go through whole tree and sort the siblings after date
-		sort(realModel.getColumnNumber("Date"), realModel.getRootNode());
+	public void updateHasRecent(HeaderTableModel realModel) {
+		if (enabled)
+			sort(0, realModel.getRootNode(), false);
 	}
 }

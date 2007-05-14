@@ -103,6 +103,13 @@ public class HeaderTableModel extends AbstractTreeTableModel implements IHeaderT
 
 	}
 
+	private void removeFromMap(MessageNode node) {
+		for (int i = 0; i < node.getChildCount(); i++)
+			removeFromMap((MessageNode)node.getChildAt(i));
+
+		map.remove(node.getUid());
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -114,15 +121,16 @@ public class HeaderTableModel extends AbstractTreeTableModel implements IHeaderT
 				MessageNode node = (MessageNode) map.get(uids[i]);
 
 				if (node != null) {
-					map.remove(node);
+					removeFromMap(node);
 
 					if (node.getParent() != null) {
 						getTreeModel().removeNodeFromParent(node);
 					}
 				}
 			}
-
 		}
+
+		update();
 	}
 
 	public void reset() {
@@ -151,7 +159,20 @@ public class HeaderTableModel extends AbstractTreeTableModel implements IHeaderT
 		
 		
 	}
-	
+
+	public void expandUnseen(MessageNode node) {
+		if (node == null)
+			return;
+		for (int i = 0; i < node.getChildCount(); i++) {
+			expandUnseen((MessageNode)node.getChildAt(i));
+		}
+
+		if (!node.getHeader().getFlags().getSeen()) {
+			TreePath path = new TreePath(node.getPath()).getParentPath();
+			getTree().expandPath(path);
+		}
+	}
+
 	public void update() {
 		if ((headerList == null) || (headerList.count() == 0)) {
 			// table is empty
@@ -195,6 +216,8 @@ public class HeaderTableModel extends AbstractTreeTableModel implements IHeaderT
 		}
 		
 		getTreeModel().nodeStructureChanged(getRootNode());
+		
+		expandUnseen(root);
 		
 		fireTableDataChanged();
 	}

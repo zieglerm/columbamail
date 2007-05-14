@@ -342,6 +342,7 @@ public class TableController implements ListSelectionListener, TableModelChanged
 
     case TableModelChangedEvent.MARK: {
       getHeaderTableModel().modify(event.getUids());
+      getTableModelThreadedView().updateHasRecent(headerTableModel);
 
       break;
     }
@@ -536,22 +537,6 @@ public class TableController implements ListSelectionListener, TableModelChanged
 
     if (updateModel)
       getHeaderTableModel().update();
-
-    if (enableThreadedMode) {
-      // expand all unread message nodes
-      for (int i = 0; i < getView().getRowCount(); i++) {
-        LOG.info("i=" + i + " count=" //$NON-NLS-1$ //$NON-NLS-2$
-            + getView().getRowCount());
-
-        TreePath path = getView().getTree().getPathForRow(i);
-        MessageNode node = (MessageNode) path.getLastPathComponent();
-        IColumbaHeader h = node.getHeader();
-        boolean unseen = !h.getFlags().getSeen();
-        if (unseen) {
-          getView().getTree().expandPath(path);
-        }
-      }
-    }
   }
 
   /**
