@@ -141,7 +141,7 @@ public class ComposerModel {
 	 *
 	 * @param messageOptions
 	 */
-	public ComposerModel(Map<String,String> messageOptions) {
+	public ComposerModel(Map<String,Object> messageOptions) {
 		this();
 		setMessageOptions(messageOptions);
 	}
@@ -486,7 +486,7 @@ public class ComposerModel {
 		return output;
 	}
 
-	public void setMessageOptions(Map<String,String> options) {
+	public void setMessageOptions(Map<String,Object> options) {
 
 		addAddresses(options, "to");
 		addAddresses(options, "cc");
