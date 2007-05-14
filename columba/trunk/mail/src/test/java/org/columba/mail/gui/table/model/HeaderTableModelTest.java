@@ -101,6 +101,7 @@ public class HeaderTableModelTest extends TestCase {
         model.set(list);
 
         // remove MessageNode with uid=0
+        list.remove(new Integer(0));
         model.remove(new Object[] { new Integer(0)});
 
         // check number of tree nodes

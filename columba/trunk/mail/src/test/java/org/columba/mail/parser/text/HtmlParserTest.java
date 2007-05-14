@@ -17,15 +17,10 @@
 //All Rights Reserved.
 package org.columba.mail.parser.text;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.charset.Charset;
 
 import junit.framework.TestCase;
 
-import org.columba.core.io.StreamUtils;
 
 public class HtmlParserTest extends TestCase {
 

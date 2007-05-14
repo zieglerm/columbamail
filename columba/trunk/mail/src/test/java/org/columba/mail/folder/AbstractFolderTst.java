@@ -19,16 +19,9 @@ package org.columba.mail.folder;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import junit.framework.TestCase;
-
-import org.columba.addressbook.main.AddressbookMain;
-import org.columba.core.config.Config;
-import org.columba.core.logging.Logging;
-import org.columba.core.plugin.PluginManager;
-import org.columba.mail.main.MailMain;
 
 /**
  * Abstract testcase creates a folder in setUp and removes it in tearDown.

@@ -48,7 +48,6 @@ public class GetMimePartSourceStreamTest extends AbstractFolderTst {
     public void test() throws Exception {
         // add message "1.eml" as inputstream to folder
         String input = FolderTstHelper.getString(1);
-        System.out.println("input=" + input);
 
         // create stream from string
         ByteArrayInputStream inputStream = FolderTstHelper
@@ -63,7 +62,6 @@ public class GetMimePartSourceStreamTest extends AbstractFolderTst {
 
         // create string from inputstream
         String output = FolderTstHelper.getStringFromInputStream(outputStream);
-        System.out.println("output=" + output);
 
         input = FolderTstHelper.getString("1_1_mimepart.eml");
         

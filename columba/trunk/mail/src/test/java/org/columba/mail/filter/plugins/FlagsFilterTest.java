@@ -21,7 +21,6 @@ import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.mail.folder.command.MarkMessageCommand;
-import org.columba.ristretto.message.Flags;
 
 
 /**

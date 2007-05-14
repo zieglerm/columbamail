@@ -35,40 +35,65 @@ public class MessageOptionParser {
 
 		List<CharSequence> result = new ArrayList<CharSequence>();
 		boolean quoted = false;
-
+		String current = "";
 		int start = 0;
 		int i;
+		char quotechar = '\0';
+		boolean escaped = false;
 
 		for (i = 0; i < input.length(); i++) {
 			char c = input.charAt(i);
 
 			switch (c) {
-			case '\"': {
-				quoted ^= true;
+			case '\"':
+			case '\'': {
+				if (!escaped && (!quoted || c == quotechar)) {
+					current += input.subSequence(start, i);
+					start = i + 1;
+					quoted ^= true;
+					quotechar = c;
+				}
 				break;
 			}
 
-			case ',': {
+			case '\\':
 				if (!quoted) {
-					result.add(input.subSequence(start, i));
+					escaped = true;
+					current += input.subSequence(start, i);
+					start = i + 1;
+					break;
+				}
+
+			case ',': {
+				if (!escaped && !quoted) {
+					result.add(current + input.subSequence(start, i));
+					current = "";
 					start = i + 1;
 				}
 				break;
 			}
 			}
+
+			if (c != '\\')
+				escaped = false;
 		}
+
 		if (start < i) {
-			result.add(input.subSequence(start, i));
+			current += input.subSequence(start, i);
+		}
+
+		if (!current.equals("")) {
+			result.add(current);
 		}
 
 		return (CharSequence[]) result.toArray(new CharSequence[0]);
 	}
 
-	public static Map<String,String> parse(String in) {
+	public static Map<String,Object> parse(String in) {
 		if (in == null)
 			throw new IllegalArgumentException("in == null");
 
-		Hashtable<String, String> map = new Hashtable<String, String>();
+		Hashtable<String, Object> map = new Hashtable<String, Object>();
 		CharSequence[] sequence = tokenizeList(in);
 		for (int i = 0; i < sequence.length; i++) {
 			String s = (String) sequence[i];
@@ -80,7 +105,16 @@ public class MessageOptionParser {
 			if (index != -1) {
 				String key = s.substring(0, index);
 				String value = s.substring(index + 1, s.length());
-				map.put(key, value);
+				// split values
+				CharSequence[] sequencevalues = tokenizeList(value);
+				if (sequencevalues.length == 1)
+					map.put(key, value);
+				else {
+					String []values = new String[sequencevalues.length];
+					for (int j = 0; j < values.length; j++)
+						values[j] = (String)sequencevalues[j];
+					map.put(key, values);
+				}
 			}
 		}
 

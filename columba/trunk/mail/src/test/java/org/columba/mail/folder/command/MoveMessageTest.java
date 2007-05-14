@@ -45,7 +45,7 @@ public class MoveMessageTest extends AbstractFolderTst {
     public void testMoveMessage() throws Exception {
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
-        System.out.println("input=" + input);
+
         // create stream from string
         ByteArrayInputStream inputStream = FolderTstHelper.getByteArrayInputStream(input);
         // add stream to folder

@@ -40,9 +40,6 @@ public class MessageSetTokenizerTest extends TestCase {
         while (tok.hasNext()) {
             List sublist = (List) tok.next();
 
-            System.out.print("start=" + sublist.get(0));
-            System.out.println(" end=" + sublist.get(sublist.size() - 1));
-
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
@@ -65,9 +62,6 @@ public class MessageSetTokenizerTest extends TestCase {
 
         while (tok.hasNext()) {
             List sublist = (List) tok.next();
-
-            System.out.print("start=" + sublist.get(0));
-            System.out.println(" end=" + sublist.get(sublist.size() - 1));
 
             // if this is the last token, check if the last element
             // is the same than in the array
@@ -92,9 +86,6 @@ public class MessageSetTokenizerTest extends TestCase {
         while (tok.hasNext()) {
             List sublist = (List) tok.next();
 
-            System.out.print("start=" + sublist.get(0));
-            System.out.println(" end=" + sublist.get(sublist.size() - 1));
-
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
@@ -118,9 +109,6 @@ public class MessageSetTokenizerTest extends TestCase {
         while (tok.hasNext()) {
             List sublist = (List) tok.next();
 
-            System.out.print("start=" + sublist.get(0));
-            System.out.println(" end=" + sublist.get(sublist.size() - 1));
-
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
@@ -143,9 +131,6 @@ public class MessageSetTokenizerTest extends TestCase {
 
         while (tok.hasNext()) {
             List sublist = (List) tok.next();
-
-            System.out.print("start=" + sublist.get(0));
-            System.out.println(" end=" + sublist.get(sublist.size() - 1));
 
             // if this is the last token, check if the last element
             // is the same than in the array

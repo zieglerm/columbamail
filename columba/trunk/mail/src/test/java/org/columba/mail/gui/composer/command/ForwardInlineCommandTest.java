@@ -49,7 +49,7 @@ public class ForwardInlineCommandTest extends AbstractComposerTst {
 
         // add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
-        System.out.println("input=" + input);
+
         // create stream from string
         InputStream inputStream = FolderTstHelper
                 .getByteArrayInputStream(input);
@@ -77,7 +77,7 @@ public class ForwardInlineCommandTest extends AbstractComposerTst {
     
     public void testForewardWithAttachment() throws Exception {
         String input = FolderTstHelper.getString("0_attachment.eml");
-        System.out.println("input=" + input);
+
         // create stream from string
         InputStream inputStream =
             FolderTstHelper.getByteArrayInputStream(input);

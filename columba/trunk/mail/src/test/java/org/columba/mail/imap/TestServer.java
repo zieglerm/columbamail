@@ -8,7 +8,6 @@ import java.util.Observable;
 
 import org.columba.api.command.IStatusObservable;
 import org.columba.core.command.CommandCancelledException;
-import org.columba.core.filter.FilterRule;
 import org.columba.core.filter.IFilterRule;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.ImapItem;
@@ -35,6 +34,8 @@ public class TestServer implements IImapServer {
 	private IHeaderList headerList;
 	private ArrayList<IColumbaHeader> indices;
 	
+	public TestServer() {
+	}
 	
 	public TestServer(MailboxStatus status) {
 		super();

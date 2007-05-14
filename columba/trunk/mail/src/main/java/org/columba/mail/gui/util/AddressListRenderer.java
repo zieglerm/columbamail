@@ -54,7 +54,7 @@ public class AddressListRenderer {
 			result.append(createAddressHTMLString(addresses[0]));
 
 			for (int i = 1; i < addresses.length; i++) {
-				// result.append(", ");
+				result.append(", ");
 				result.append(createAddressHTMLString(addresses[i]));
 			}
 		}
@@ -65,12 +65,8 @@ public class AddressListRenderer {
 	public static String[] convertToStringArray(Address[] addresses) {
 		Vector vector = new Vector();
 
-		if ((addresses != null) && (addresses.length > 0)) {
-			//String str = createAddressString(addresses[0]);
-			//vector.add(str);
-
+		if (addresses != null) {
 			for (int i = 0; i < addresses.length; i++) {
-				// result.append(", ");
 				String str = createAddressString(addresses[i]);
 				vector.add(str);
 			}
@@ -93,8 +89,8 @@ public class AddressListRenderer {
 		result.append("<A HREF=\"mailto:");
 		if (address.getDisplayName().length() != 0) {
 			result.append(address.getDisplayName());
-			result.append(" ");
-			result.append("<" + address.getMailAddress() + ">");
+			result.append("%20");
+			result.append("%3C" + address.getMailAddress() + "%3E");
 
 		} else
 			result.append(address.getMailAddress());

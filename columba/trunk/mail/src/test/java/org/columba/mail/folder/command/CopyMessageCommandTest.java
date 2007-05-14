@@ -51,7 +51,7 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 	public void testCopyMessage() throws Exception {
 		// add message "0.eml" as inputstream to folder
 		String input = FolderTstHelper.getString(0);
-		System.out.println("input=" + input);
+
 		// create stream from string
 		ByteArrayInputStream inputStream = FolderTstHelper
 				.getByteArrayInputStream(input);
@@ -95,7 +95,7 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 	public void testCopyMessageAttribute() throws Exception {
 		//  add message "0.eml" as inputstream to folder
 		String input = FolderTstHelper.getString(0);
-		System.out.println("input=" + input);
+
 		// create stream from string
 		ByteArrayInputStream inputStream = FolderTstHelper
 				.getByteArrayInputStream(input);

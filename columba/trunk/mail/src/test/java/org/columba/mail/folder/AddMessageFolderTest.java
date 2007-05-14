@@ -19,7 +19,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.columba.mail.folder.command.MarkMessageCommand;
-import org.columba.ristretto.message.MailboxInfo;
 
 /**
  * Add message to folder testcase.
@@ -60,7 +59,6 @@ public class AddMessageFolderTest extends AbstractFolderTst {
 
         // add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
-        System.out.println("input=" + input);
 
         // create stream from string
         ByteArrayInputStream inputStream = FolderTstHelper
@@ -103,7 +101,6 @@ public class AddMessageFolderTest extends AbstractFolderTst {
 
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
-        System.out.println("input=" + input);
 
         // create stream from string
         ByteArrayInputStream inputStream = FolderTstHelper

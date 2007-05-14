@@ -27,7 +27,7 @@ public class MessageOptionParserTest extends TestCase {
 		Map result = MessageOptionParser.parse(input);
 		
 		assertEquals(1, result.keySet().size());
-		assertEquals(result.get("to"), "test@star.de");		
+		assertEquals("test@star.de", result.get("to"));		
 	}
 	
 	public void testSingleQuoted() {
@@ -35,7 +35,7 @@ public class MessageOptionParserTest extends TestCase {
 		Map result = MessageOptionParser.parse(input);
 		
 		assertEquals(1, result.keySet().size());
-		assertEquals(result.get("to"), "test@star.de");		
+		assertEquals("test@star.de", result.get("to"));		
 	}
 
 	public void testSingleEscaped() {
@@ -43,7 +43,7 @@ public class MessageOptionParserTest extends TestCase {
 		Map result = MessageOptionParser.parse(input);
 		
 		assertEquals(1, result.keySet().size());
-		assertEquals(result.get("subject"), "'High' comma!");		
+		assertEquals("'High' comma!", result.get("subject"));		
 	}
 
 	public void testMultiple() {

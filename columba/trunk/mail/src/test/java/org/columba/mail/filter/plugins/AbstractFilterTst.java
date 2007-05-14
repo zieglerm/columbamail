@@ -22,15 +22,10 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.columba.addressbook.main.AddressbookMain;
-import org.columba.core.config.Config;
-import org.columba.core.logging.Logging;
-import org.columba.core.plugin.PluginManager;
 import org.columba.mail.folder.AbstractMessageFolder;
 import org.columba.mail.folder.FolderTstHelper;
 import org.columba.mail.folder.MHFolderFactory;
 import org.columba.mail.folder.MailboxTstFactory;
-import org.columba.mail.main.MailMain;
 
 /**
  * Base class for all filter tests.
