@@ -129,14 +129,14 @@ public class FetchNewMessagesCommand extends Command {
 				log(MessageFormat.format(MailResourceLoader.getString(
 						"statusbar", "message", "fetched_count"),
 						new Object[] { new Integer(newMessageCount) }));
+
+				// get inbox-folder from pop3-server preferences
+				IMailbox inboxFolder = server.getFolder();
+				
+				// notify listeners
+				IMailFolderCommandReference ref = new MailFolderCommandReference(inboxFolder, newMessagesUidList.toArray());
+				MailCheckingManager.getInstance().fireNewMessageArrived(ref);
 			}
-			
-			// get inbox-folder from pop3-server preferences
-			IMailbox inboxFolder = server.getFolder();
-			
-			// notify listeners
-			IMailFolderCommandReference ref = new MailFolderCommandReference(inboxFolder, newMessagesUidList.toArray());
-			MailCheckingManager.getInstance().fireNewMessageArrived(ref);
 			
 		} catch (CommandCancelledException e) {
 			server.logout();
