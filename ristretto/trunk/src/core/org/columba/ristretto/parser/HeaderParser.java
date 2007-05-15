@@ -160,7 +160,7 @@ public class HeaderParser {
 
 		for( int i=1; i<key.length(); i++) {
 			act = key.charAt(i);
-			if( last == '-' || (( last == 'I' || last == 'i') && act == 'd') ) {
+			if( last == '-' || (( last == 'I' || last == 'i') && (act == 'd' || act == 'D')) ) {
 				normalizedKey.append(Character.toUpperCase(act));
 			} else {
 				normalizedKey.append(Character.toLowerCase(act) );
