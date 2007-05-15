@@ -173,7 +173,7 @@ public class BasicHeader {
 	public String getSubject() {
 		String subject = header.get("Subject");
 		if( subject != null) return EncodedWord.decode( subject ).toString();
-		else return null; 
+		else return ""; 
 	}
 	
 	/**
