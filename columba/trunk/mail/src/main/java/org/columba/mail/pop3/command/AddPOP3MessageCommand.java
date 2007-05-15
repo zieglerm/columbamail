@@ -72,7 +72,9 @@ public class AddPOP3MessageCommand extends Command {
 		// add message to folder
 		SourceInputStream messageStream = new SourceInputStream(message
 				.getSource());
-		Object uid = inboxFolder.addMessage(messageStream);
+		Object uid = inboxFolder.addMessage(messageStream,
+				message.getHeader().getAttributes(),
+				message.getHeader().getFlags());
 		messageStream.close();
 
 		// mark message as recent
