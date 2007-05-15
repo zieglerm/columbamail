@@ -184,7 +184,7 @@ public class Header implements Streamable, Serializable  {
 		}
 		
 		while( foldPos != -1 && foldPos < line.length() ) {
-			result.append( line.subSequence(0, foldPos));		
+			result.append( line.subSequence(lastFoldPos, foldPos));		
 			result.append("\r\n ");
 			lastFoldPos = foldPos;
 
