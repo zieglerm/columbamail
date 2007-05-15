@@ -84,12 +84,15 @@ public class DefaultCriteriaRow implements IExtensionInterface {
 		panel.setLayout(gridbag);
 
 		comboMenu = new ComboMenu();
+		String typestring = criteria.getTypeString();
 		String[] ids = pluginHandler.getPluginIdList();
-		for (String element : ids) {
+		for (int i = 0; i < ids.length; i++) {
 			// TODO localize filter action names
-			comboMenu.addMenuItem(element, element);
+			comboMenu.addMenuItem(ids[i], ids[i]);
+			if (typestring.equals(ids[i]))
+				comboMenu.setSelectedItem(i);
 		}
-		comboMenu.setText(criteria.getTypeString());
+		comboMenu.setText(typestring);
 		comboMenu.addItemListener(criteriaList);
 
 		c.fill = GridBagConstraints.VERTICAL;

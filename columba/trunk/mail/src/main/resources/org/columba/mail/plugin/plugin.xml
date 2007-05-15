@@ -250,11 +250,11 @@
 	</extension>
 	<extension id="Match all"
 		class="org.columba.mail.filter.plugins.MatchAllFilter">
-		<properties ui="default" />
+		<properties ui="Match all" />
 	</extension>
 	<extension id="Sender is in Addressbook"
 		class="org.columba.mail.filter.plugins.AddressbookFilter">
-		<properties ui="default" />
+		<properties ui="Sender is in Addressbook" />
 	</extension>
 </extensionlist>
 
