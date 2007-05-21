@@ -151,7 +151,7 @@ public class Address implements Serializable, Comparable {
             Address a = (Address) arg0;
             result = true;
             if (mailAddress != null) {
-                result = result && mailAddress.equals(a.getMailAddress());
+                result = result && mailAddress.equalsIgnoreCase(a.getMailAddress());
             }
         }
 
@@ -201,7 +201,7 @@ public class Address implements Serializable, Comparable {
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object arg0) {
-        return mailAddress.compareTo(((Address) arg0).getMailAddress());
+        return mailAddress.compareToIgnoreCase(((Address) arg0).getMailAddress());
     }
 
     /**
