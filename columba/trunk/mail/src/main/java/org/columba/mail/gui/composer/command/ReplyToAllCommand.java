@@ -103,7 +103,20 @@ public class ReplyToAllCommand extends ReplyCommand {
         model.setTo(to);
         
         // bug #997560 (fdietz): CC: should be in Cc:, instead of To:
-        model.setCc(rfcHeader.getCc());
+        LinkedList ccList = new LinkedList();
+        ccList.addAll(Arrays.asList(rfcHeader.getCc()));
+
+        it = ccList.iterator();
+        while (it.hasNext()) {
+            Address act = (Address) it.next();
+
+            // Remove the mail address from the receiver account
+            if (accountAddress != null && accountAddress.equals(act)) {
+                it.remove();
+            }
+        }
+        Address[] cc = (Address[]) ccList.toArray(new Address[] {  });
+        model.setCc(cc);
 
         // create In-Reply-To:, References: headerfields
         MessageBuilderHelper.createMailingListHeaderItems(header, model);
