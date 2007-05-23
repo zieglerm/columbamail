@@ -100,21 +100,6 @@ public class Config implements IConfig {
 		registerPlugin(CORE_STR, viewsFile.getName(), new DefaultXmlConfig(
 				viewsFile));
 
-
-		// register at shutdown manager
-		// -> this will save all configuration data, when closing Columba
-		final IShutdownManager shutdownManager = ShutdownManager.getInstance();
-
-		shutdownManager.register(new Runnable() {
-			public void run() {
-				try {
-					save();
-				} catch (final Exception e) {
-					LOG.severe(e.getMessage());
-				}
-			}
-		});
-
 		instance = this;
 	}
 
