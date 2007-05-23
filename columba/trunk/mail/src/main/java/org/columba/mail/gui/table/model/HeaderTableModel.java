@@ -217,7 +217,8 @@ public class HeaderTableModel extends AbstractTreeTableModel implements IHeaderT
 		
 		getTreeModel().nodeStructureChanged(getRootNode());
 		
-		expandUnseen(root);
+		if (enableThreadedView)
+			expandUnseen(root);
 		
 		fireTableDataChanged();
 	}
