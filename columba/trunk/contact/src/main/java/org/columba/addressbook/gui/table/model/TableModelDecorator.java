@@ -29,9 +29,8 @@ import org.columba.addressbook.model.IContactModelPartial;
  * @author fdietz
  */
 public abstract class TableModelDecorator
-		implements
-			ContactItemTableModel,
-			TableModelListener {
+		extends ContactItemTableModel
+		implements TableModelListener {
 	// the model which is decorated
 	private ContactItemTableModel realModel;
 
@@ -41,9 +40,6 @@ public abstract class TableModelDecorator
 	}
 
 	/** *********************** TableModel implementation ******************* */
-	public void addTableModelListener(TableModelListener l) {
-		realModel.addTableModelListener(l);
-	}
 
 	public Class getColumnClass(int columnIndex) {
 		return realModel.getColumnClass(columnIndex);

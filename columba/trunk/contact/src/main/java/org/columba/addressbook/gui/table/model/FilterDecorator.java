@@ -18,13 +18,11 @@
 package org.columba.addressbook.gui.table.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.event.TableModelEvent;
 
-import org.columba.addressbook.model.ContactModelPartial;
 import org.columba.addressbook.model.IContactModelPartial;
 
 /**
@@ -60,25 +58,13 @@ public class FilterDecorator extends TableModelDecorator {
 		return list.size();
 	}
 
-	/**
-	 * @see org.columba.addressbook.gui.table.model.ContactItemTableModel#setContactItemMap(org.columba.addressbook.model.ContactItemMap)
-	 */
-	public void setContactItemMap(Map<String,IContactModelPartial> list) {
-		super.setContactItemMap(list);
-		
-		if ( list != null)
-			filter();
-	}
-
 	protected void filter() {
 		this.list = new ArrayList();
 
 		pattern = pattern.toLowerCase();
 
-		Iterator it = getRealModel().getContactItemMap().values().iterator();
-		int i = 0;
-		while (it.hasNext()) {
-			ContactModelPartial item = (ContactModelPartial) it.next();
+		for (int i = 0; i < getRealModel().getRowCount(); i++) {
+			IContactModelPartial item = getRealModel().getContactItem(i);
 			String name = item.getName();
 			String adr = item.getAddress();
 
@@ -90,8 +76,9 @@ public class FilterDecorator extends TableModelDecorator {
 				this.list.add(new Integer(i));
 
 			}
-			i++;
 		}
+
+		fireTableDataChanged();
 	}
 
 	/**

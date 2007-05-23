@@ -31,9 +31,7 @@ import org.columba.addressbook.model.IContactModelPartial;
  * 
  * @author fdietz
  */
-public class AddressbookTableModel extends AbstractTableModel
-		implements
-			ContactItemTableModel {
+public class AddressbookTableModel extends ContactItemTableModel {
 	
 	/** JDK 1.4+ logging framework logger, used for logging. */
     private static final Logger LOG = Logger

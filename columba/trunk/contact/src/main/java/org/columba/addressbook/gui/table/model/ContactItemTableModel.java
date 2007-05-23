@@ -17,7 +17,7 @@ package org.columba.addressbook.gui.table.model;
 
 import java.util.Map;
 
-import javax.swing.table.TableModel;
+import javax.swing.table.AbstractTableModel;
 
 import org.columba.addressbook.model.IContactModelPartial;
 
@@ -27,10 +27,10 @@ import org.columba.addressbook.model.IContactModelPartial;
  * 
  * @author fdietz
  */
-public interface ContactItemTableModel extends TableModel {
-    void setContactItemMap(Map<String,IContactModelPartial> list);
+public abstract class ContactItemTableModel extends AbstractTableModel {
+    abstract void setContactItemMap(Map<String,IContactModelPartial> list);
 
-    Map<String,IContactModelPartial> getContactItemMap();
+    abstract Map<String,IContactModelPartial> getContactItemMap();
     
-    IContactModelPartial getContactItem(int index);
+    abstract IContactModelPartial getContactItem(int index);
 }

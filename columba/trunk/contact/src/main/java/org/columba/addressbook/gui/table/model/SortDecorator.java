@@ -51,17 +51,6 @@ public class SortDecorator extends TableModelDecorator {
 	}
 
 	/**
-	 * @see org.columba.addressbook.gui.table.model.ContactItemTableModel#setHeaderItemList(org.columba.addressbook.folder.HeaderItemList)
-	 */
-	public void setContactItemMap(Map<String,IContactModelPartial> list) {
-
-		super.setContactItemMap(list);
-
-		sort(selectedColumn);
-
-	}
-
-	/**
 	 * @see org.columba.addressbook.gui.table.model.ContactItemTableModel#getHeaderItem(int)
 	 */
 	public IContactModelPartial getContactItem(int index) {
@@ -100,6 +89,8 @@ public class SortDecorator extends TableModelDecorator {
 				}
 			}
 		}
+
+		fireTableDataChanged();
 	}
 
 	private void swap(int i, int j) {
