@@ -87,13 +87,8 @@ public class AddressListRenderer {
 		StringBuffer result = new StringBuffer();
 		//tstich: Someone added <html> tags here. This is not the right place!
 		result.append("<A HREF=\"mailto:");
-		if (address.getDisplayName().length() != 0) {
-			result.append(address.getDisplayName());
-			result.append("%20");
-			result.append("%3C" + address.getMailAddress() + "%3E");
 
-		} else
-			result.append(address.getMailAddress());
+		result.append(address.getMailAddress());
 
 		result.append("\">");
 

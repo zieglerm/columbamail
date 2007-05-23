@@ -62,8 +62,8 @@ public class AddressListRendererTest extends TestCase {
     public void testRenderWithDisplayName() {
         Address[] addresses = new Address[] {new Address("Emil", "email@internet.org"), new Address("Alfred", "ftp@internet.org")};
         String actual = AddressListRenderer.renderToHTMLWithLinks(addresses).toString();
-        String expected = "<a href=\"mailto:Emil%20%3Cemail@internet.org%3E\">Emil &lt;email@internet.org&gt;</a>, "
-            + "<a href=\"mailto:Alfred%20%3Cftp@internet.org%3E\">Alfred &lt;ftp@internet.org&gt;</a>";
+        String expected = "<a href=\"mailto:email@internet.org\">Emil &lt;email@internet.org&gt;</a>, "
+            + "<a href=\"mailto:ftp@internet.org\">Alfred &lt;ftp@internet.org&gt;</a>";
         assertEquals("address wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
     }
 }
