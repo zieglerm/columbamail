@@ -104,7 +104,7 @@ public class AddSenderToAddressbookCommand extends Command {
 				// add contact to addressbook
 				IContactItem contactItem = modelFacade.createContactItem();
 				FacadeUtil.getInstance().initContactItem(contactItem, address.getDisplayName(), address.getMailAddress());
-				contactFacade.addContact(null);
+				contactFacade.addContact(contactItem);
 			} catch (ParserException e) {
 				e.printStackTrace();
 			} catch (StoreException e) {
