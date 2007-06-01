@@ -90,6 +90,9 @@ public class DefaultLabelRenderer extends DefaultTableCellRenderer implements
 
 		setBorder(null);
 
+		if (value == null)
+			return this;
+
 		// TreePath path = tree.getPathForRow(row);
 		MessageNode messageNode = (MessageNode) value;
 
