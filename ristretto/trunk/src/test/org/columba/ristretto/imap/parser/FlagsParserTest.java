@@ -81,4 +81,19 @@ public class FlagsParserTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
+	
+	public void test3() {
+		try {
+			IMAPResponse response = IMAPResponseParser.parse("* 12 FETCH (UID 120 FLAGS (\\Recent Seen Holodrio FLAGGED))");
+			IMAPFlags test = FlagsParser.parse(response);
+			
+			assertTrue( test.get(Flags.RECENT) );
+			assertTrue( test.get(Flags.SEEN) );
+			assertTrue( test.get(Flags.FLAGGED) );
+			assertTrue( ((Integer)test.getUid()).intValue() == 120);
+		} catch (ParserException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
