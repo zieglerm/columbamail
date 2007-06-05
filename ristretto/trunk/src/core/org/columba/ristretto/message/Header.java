@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.SourceInputStream;
@@ -53,7 +54,7 @@ import org.columba.ristretto.io.Streamable;
  */
 public class Header implements Streamable, Serializable  {
 	private static final int MAXLINELENGTH = 78;
-	private Hashtable header;
+	private IgnoreCaseHashtable header;
 
 	private static final String[] unlimitedFields = {
 			"received",  "x-"
@@ -64,7 +65,7 @@ public class Header implements Streamable, Serializable  {
 	 * Constructs the Header.
 	 */
 	public Header() {
-		header = new Hashtable();	
+		header = new IgnoreCaseHashtable();	
 	}
 	
 	/**
@@ -119,7 +120,7 @@ public class Header implements Streamable, Serializable  {
 	 */
 	public Object clone() {
 		Header cloneHeader = new Header();
-		cloneHeader.header = (Hashtable) this.header.clone();
+		cloneHeader.header = (IgnoreCaseHashtable) this.header.clone();
 		return cloneHeader;
 	}
 	
@@ -228,15 +229,15 @@ public class Header implements Streamable, Serializable  {
 	/**
 	 * @return Returns the header.
 	 */
-	public Hashtable getHeader() {
+	public Map getHeader() {
 		return header;
 	}
 
 	/**
 	 * @param header The header to set.
 	 */
-	public void setHeader(Hashtable header) {
-		this.header = header;
+	public void setHeader(Map header) {
+		this.header = (IgnoreCaseHashtable)header;
 	}
 	
 	

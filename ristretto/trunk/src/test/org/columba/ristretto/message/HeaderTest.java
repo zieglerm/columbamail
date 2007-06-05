@@ -57,4 +57,15 @@ public class HeaderTest extends TestCase {
 		assertTrue(headerString.equals("Subject: This is a test message\r\nTo: Frederik Dietz <fdietz@users.sourceforge.net>, Columba Developer Mailinglist\r\n  <columba-devel@lists.sourceforge.net>\r\nFrom: Timo Stich <tstich@users.sourceforge.net\r\n\r\n")); 
 	}
 
+
+	public void testIgnoreCaseOnKey() {
+		Header testHeader = new Header();
+		testHeader.set("FrOm","Timo Stich <tstich@users.sourceforge.net");
+		testHeader.set("To","Frederik Dietz <fdietz@users.sourceforge.net>, Columba Developer Mailinglist <columba-devel@lists.sourceforge.net>");
+		testHeader.set("Subject","This is a test message");
+
+		assertEquals("Timo Stich <tstich@users.sourceforge.net", testHeader.get("fRoM")); 
+		
+	}
+
 }

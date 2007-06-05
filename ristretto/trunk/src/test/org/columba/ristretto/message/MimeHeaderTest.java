@@ -63,7 +63,7 @@ public class MimeHeaderTest extends TestCase {
 		MimeHeader mimeHeader = new MimeHeader(header);
 		assertTrue(mimeHeader.getContentParameter("boundary").equals("blabla"));
 	}
-
+	
 	public void testContentParameterMultiple() {
 		Header header = new Header();
 		header.set("Content-Type","multipart/mixed; charset=\"iso-8859-1\"; boundary=\"bla bla\"");
