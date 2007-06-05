@@ -74,9 +74,10 @@ public class MimeHeaderTest extends TestCase {
 	
 	public void testWOQuotes() {
 		Header header= new Header();
-		header.set("Content-Type", "text/plain; charset=iso-8859-1");
+		header.set("Content-type", "text/html; charset=iso-8859-1");
 		MimeHeader mimeHeader = new MimeHeader( header );
 		assertEquals( mimeHeader.getContentParameter("charset"), "iso-8859-1");
+		assertEquals( "html", mimeHeader.getMimeType().getSubtype());
 	}
 	
 	public void testFromParsedHeader() throws Exception {

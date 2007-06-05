@@ -112,12 +112,7 @@ public class MimeHeader implements  Streamable, Serializable  {
 	 */
 	public MimeType getMimeType() {
 		try {
-			String type = header.get("Content-Type");
-			if( type == null) {
-				type = header.get("Content-type");
-			}
-			
-			return MimeTypeParser.parse( type );
+			return MimeTypeParser.parse(header.get("Content-Type"));
 		} catch (ParserException e) {
 			return new MimeType();
 		}		

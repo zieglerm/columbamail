@@ -61,7 +61,7 @@ public class ColumbaMailParserTest extends TestCase {
 	
 	public void testMailboxes() {
 		try {
-			testMailBox(new File("src/mail/test/org/columba/mail/message/testsuite.mbox"));
+			testMailBox(new File("src/test/org/columba/ristretto/message/testsuite.mbox"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -78,9 +78,9 @@ public class ColumbaMailParserTest extends TestCase {
 		Source messageSource;
 		
 		while( matcher.find() ) {
-			messageSource = (Source) source.subSequence(lastStart, matcher.start());
+			messageSource = source.subSource(lastStart, matcher.start());
 			message = MessageParser.parse( messageSource );
-			System.out.println( message.getHeader().toString() );
+			//System.out.println( message.getHeader().toString() );
 			lastStart = matcher.end();
 		}
 		

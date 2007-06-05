@@ -81,7 +81,7 @@ public class MimeTreeRendererTest extends TestCase {
 			String message = result.toString();
 			System.out.println( message );
 			
-			assertEquals( "Date: Thu, 1 Jan 1970 01:00:00 +0100\r\nSubject: This is a test mail\r\nTo: \"Timo Stich\" <tstich@users.sourceforge.net>\r\nContent-Transfer-Encoding: 7bit\r\nFrom: \"Timo Stich\" <tstich@users.sourceforge.net>\r\nContent-Type: text/plain; charset=\"us-ascii\"\r\n\r\nBody" , message);			
+			assertEquals( "Content-Type: text/plain; charset=\"us-ascii\"\r\nDate: Thu, 1 Jan 1970 01:00:00 +0100\r\nSubject: This is a test mail\r\nContent-Transfer-Encoding: 7bit\r\nTo: \"Timo Stich\" <tstich@users.sourceforge.net>\r\nFrom: \"Timo Stich\" <tstich@users.sourceforge.net>\r\n\r\nBody" , message);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

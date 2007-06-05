@@ -560,9 +560,9 @@ public boolean add(Map.Entry<String,V> o) {
         if (!(o instanceof Map.Entry))
             return false;
         Map.Entry entry = (Map.Entry)o;
-        Object key = entry.getKey();
+        String key = (String)entry.getKey();
         Entry[] tab = table;
-        int hash = key.hashCode();
+        int hash = key.toLowerCase().hashCode();
         int index = (hash & 0x7FFFFFFF) % tab.length;
 
         for (Entry e = tab[index]; e != null; e = e.next)
@@ -575,9 +575,9 @@ public boolean add(Map.Entry<String,V> o) {
         if (!(o instanceof Map.Entry))
             return false;
         Map.Entry<String,V> entry = (Map.Entry<String,V>) o;
-    String key = entry.getKey();
+        String key = entry.getKey();
         Entry[] tab = table;
-        int hash = key.hashCode();
+        int hash = key.toLowerCase().hashCode();
         int index = (hash & 0x7FFFFFFF) % tab.length;
 
         for (Entry<V> e = tab[index], prev = null; e != null;
@@ -712,7 +712,7 @@ public synchronized int hashCode() {
     Entry[] tab = table;
     for (int i = 0; i < tab.length; i++)
         for (Entry e = tab[i]; e != null; e = e.next)
-            h += e.key.hashCode() ^ e.value.hashCode();
+            h += e.key.toLowerCase().hashCode() ^ e.value.hashCode();
     loadFactor = -loadFactor;  // Mark hashCode computation complete
 
 return h;
@@ -803,7 +803,7 @@ private void reconstitutionPut(Entry[] tab, String key, V value)
     }
     // Makes sure the key is not already in the hashtable.
     // This should not happen in deserialized version.
-    int hash = key.hashCode();
+    int hash = key.toLowerCase().hashCode();
     int index = (hash & 0x7FFFFFFF) % tab.length;
     for (Entry<V> e = tab[index] ; e != null ; e = e.next) {
         if ((e.hash == hash) && e.key.equals(key)) {

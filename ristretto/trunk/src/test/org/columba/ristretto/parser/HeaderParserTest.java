@@ -229,6 +229,22 @@ public class HeaderParserTest extends TestCase {
 		}
 	}
 	
+
+	public void testKeyIgnoreCase() {
+		try {
+			String testHeaderInput =
+				"mesSaGe-id: Simple\r\nIn-reply-To: Test\r\nsubject: Bla\r\n\r\n";
+			Source testSource = new CharSequenceSource(testHeaderInput);
+			Header testHeader = HeaderParser.parse(testSource);
+			assertTrue(testHeader.length() == 3);
+			assertTrue(testHeader.get("Message-ID").equals("Simple"));
+			assertTrue(testHeader.get("in-reply-to").equals("Test"));
+			assertTrue(testHeader.get("subJect").equals("Bla"));
+		} catch (ParserException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void testInputStream2() {
 		try {
 			String testHeaderInput =

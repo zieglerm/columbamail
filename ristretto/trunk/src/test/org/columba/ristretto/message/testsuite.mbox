@@ -4,7 +4,7 @@ To: dnaber@mini.gt.owl.de
 Subject: buffer overflow test 1
 Date: Fri, 12 May 2000 19:56:24 +0200
 X-Mailer: KMail [version 1.1.41.10]
-Content-Type: Multipart/Mixed;
+Content-type: Multipart/Mixed;
   boundary="Boundary-=_iQNCvpGcxytLGtYlrytKoUmKdNOB"
 MIME-Version: 1.0
 Message-Id: <00051219562400.00478@pluto>
@@ -659,7 +659,7 @@ Status: RO
 X-Status: O
 
 bla
-äüü
+ï¿½ï¿½ï¿½
 
 From aaa@aaa Mon Jan 01 00:00:00 1997
 Received: by mini (mbox dnaber)
