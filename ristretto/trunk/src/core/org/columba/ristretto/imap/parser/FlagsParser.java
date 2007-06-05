@@ -80,7 +80,7 @@ import org.columba.ristretto.message.Flags;
 public class FlagsParser {
 
 
-	private static final Pattern flagsPattern = Pattern.compile("(\\\\|$)?(Answered)|(Flagged)|(Deleted)|(Seen)|(Draft)|(Recent)|(Junk) ?", Pattern.CASE_INSENSITIVE);
+	private static final Pattern flagsPattern = Pattern.compile("(Answered)|(Flagged)|(Deleted)|(Seen)|(Draft)|(Recent)|(Junk)", Pattern.CASE_INSENSITIVE);
 	
 
 	/**
@@ -103,17 +103,17 @@ public class FlagsParser {
 			while( matcher.find()) {
 				if( matcher.group(1) != null ) {
 					result.set(Flags.ANSWERED);
-				} else if( matcher.group(3) != null ) {
+				} else if( matcher.group(2) != null ) {
 					result.set(Flags.FLAGGED);					
-				} else if( matcher.group(4) != null ) {
+				} else if( matcher.group(3) != null ) {
 					result.set(Flags.DELETED);					
-				} else if( matcher.group(5) != null ) {
+				} else if( matcher.group(4) != null ) {
 					result.set(Flags.SEEN);					
-				} else if( matcher.group(6) != null ) {
+				} else if( matcher.group(5) != null ) {
 					result.set(Flags.DRAFT);					
-				} else if( matcher.group(7) != null ) {
+				} else if( matcher.group(6) != null ) {
 					result.set(Flags.RECENT);					
-				} else if( matcher.group(8) != null ) {
+				} else if( matcher.group(7) != null ) {
 				    result.set(IMAPFlags.JUNK);					
 				}
 			}
