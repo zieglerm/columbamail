@@ -341,6 +341,8 @@ public class StatusBar extends JStatusBar implements TaskManagerListener,
 			// clear label
 			label.setText("");
 
+			progressBar.setValue(0);
+
 			// stop clear timer
 			clearTextTimer.stop();
 
