@@ -118,8 +118,10 @@ public class MailMain implements IComponentPlugin {
 		Option composeOption = new Option("compose", true, "compose message");
 		parser.addOption(composeOption);
 
-		Option mailOption = OptionBuilder.create("mail");
-		mailOption.setOptionalArg(true);
+		Option mailOption = OptionBuilder.
+				hasOptionalArg().
+				withLongOpt("mailurl").
+				create("mail");
 
 		parser.addOption(mailOption);
 	}
