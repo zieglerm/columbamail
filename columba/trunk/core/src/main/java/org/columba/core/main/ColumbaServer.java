@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -60,11 +61,6 @@ public class ColumbaServer {
 	 * The singleton instance of this class.
 	 */
 	private static ColumbaServer instance;
-
-	/**
-	 * Random number generator for port numbers.
-	 */
-	private static Random random = new Random();
 
 	/**
 	 * The port range Columba should use is between LOWEST_PORT and 65536.
@@ -132,10 +128,14 @@ public class ColumbaServer {
 
 			while (serverSocket == null) {
 				// create random port number within range
+				Random random = new Random();
 				port = random.nextInt(65536 - LOWEST_PORT) + LOWEST_PORT;
 
 				try {
-					serverSocket = new ServerSocket(port);
+					serverSocket = new ServerSocket();
+
+					// bind to localhost
+					serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
 
 					// store port number in file
 					SessionController.serializePortNumber(port);
