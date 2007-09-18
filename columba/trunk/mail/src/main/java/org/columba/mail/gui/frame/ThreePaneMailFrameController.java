@@ -441,27 +441,32 @@ public class ThreePaneMailFrameController extends AbstractMailFrameController
 
 		protected void processPopup(final MouseEvent event) {
 
-			isTablePopupEvent = true;
-
 			JTable table = tableController.getView();
 
-			int selectedRows = table.getSelectedRowCount();
+			boolean showPupupMenu = true;
 
-			if (selectedRows <= 1) {
+			if (table.getSelectedRowCount() <= 1) {
 				// select node
 				int row = table
 						.rowAtPoint(new Point(event.getX(), event.getY()));
-				table.setRowSelectionInterval(row, row);
+
+				if (row != -1) {
+					isTablePopupEvent = true;
+					table.setRowSelectionInterval(row, row);
+				} else {
+					showPupupMenu = false;
+				}
 			}
 
-			SwingUtilities.invokeLater(new Runnable() {
-
-				public void run() {
-					tableController.getPopupMenu().show(event.getComponent(),
-							event.getX(), event.getY());
-					isTablePopupEvent = false;
-				}
-			});
+			if (showPupupMenu) {
+				SwingUtilities.invokeLater(new Runnable() {
+	
+					public void run() {
+						tableController.getPopupMenu().show(event.getComponent(),
+								event.getX(), event.getY());
+					}
+				});
+			}
 		}
 	}
 
