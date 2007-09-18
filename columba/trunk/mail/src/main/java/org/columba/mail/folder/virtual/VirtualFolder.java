@@ -32,8 +32,6 @@ import javax.swing.JDialog;
 
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.filter.Filter;
-import org.columba.core.filter.FilterCriteria;
-import org.columba.core.filter.FilterRule;
 import org.columba.core.filter.IFilter;
 import org.columba.core.filter.IFilterCriteria;
 import org.columba.core.filter.IFilterRule;
@@ -41,7 +39,6 @@ import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.FolderItem;
 import org.columba.mail.config.IFolderItem;
 import org.columba.mail.filter.MailFilterCriteria;
-import org.columba.mail.folder.AbstractLocalFolder;
 import org.columba.mail.folder.AbstractMessageFolder;
 import org.columba.mail.folder.FolderChildrenIterator;
 import org.columba.mail.folder.FolderFactory;
@@ -52,7 +49,6 @@ import org.columba.mail.folder.event.IFolderEvent;
 import org.columba.mail.folder.headercache.CachedHeaderfields;
 import org.columba.mail.folder.headercache.MemoryHeaderList;
 import org.columba.mail.folder.imap.IMAPFolder;
-import org.columba.mail.folder.mh.CachedMHFolder;
 import org.columba.mail.folder.search.DefaultSearchEngine;
 import org.columba.mail.gui.config.search.SearchFrame;
 import org.columba.mail.gui.frame.AbstractMailFrameController;
@@ -427,43 +423,9 @@ public class VirtualFolder extends AbstractMessageFolder implements
 			else
 				resultUids = folder.searchMessages(filter);
 
-			String[] headerfields = CachedHeaderfields.getDefaultHeaderfields();
-
 			if (resultUids != null) {
 				for (int i = 0; i < resultUids.length; i++) {
-					ColumbaHeader header = null;
-
-					if (folder instanceof VirtualFolder) {
-						// get source folder reference
-						VirtualHeader virtualHeader = ((VirtualFolder) folder)
-								.getVirtualHeader(resultUids[i]);
-						IMailbox sourceFolder = virtualHeader.getSrcFolder();
-						Object sourceUid = virtualHeader.getSrcUid();
-
-						Header h = sourceFolder.getHeaderFields(sourceUid,
-								headerfields);
-						header = new ColumbaHeader(h);
-						header.setAttributes(sourceFolder
-								.getAttributes(sourceUid));
-						header.setFlags(sourceFolder.getFlags(sourceUid));
-						Object uid = add((ColumbaHeader) header, sourceFolder,
-								sourceUid);
-						fireMessageAdded(uid, getFlags(uid));
-					} else {
-						if (!folder.exists(resultUids[i]))
-							continue;
-
-						Header h = folder.getHeaderFields(resultUids[i],
-								headerfields);
-						header = new ColumbaHeader(h);
-						header.setAttributes(folder
-								.getAttributes(resultUids[i]));
-						header.setFlags(folder.getFlags(resultUids[i]));
-						Object uid = add(header, folder, resultUids[i]);
-						fireMessageAdded(uid, getFlags(uid));
-
-					}
-
+					addFilteredMessage(resultUids[i], folder);
 				}
 			}
 
@@ -479,6 +441,42 @@ public class VirtualFolder extends AbstractMessageFolder implements
 
 				applySearch(folder, filter);
 			}
+		}
+	}
+
+	private void addFilteredMessage(Object resultUid, IMailbox folder) throws Exception {
+		String[] headerfields = CachedHeaderfields.getDefaultHeaderfields();
+
+		ColumbaHeader header = null;
+
+		if (folder instanceof VirtualFolder) {
+			// get source folder reference
+			VirtualHeader virtualHeader = ((VirtualFolder) folder)
+					.getVirtualHeader(resultUid);
+			IMailbox sourceFolder = virtualHeader.getSrcFolder();
+			Object sourceUid = virtualHeader.getSrcUid();
+
+			Header h = sourceFolder.getHeaderFields(sourceUid,
+					headerfields);
+			header = new ColumbaHeader(h);
+			header.setAttributes(sourceFolder
+					.getAttributes(sourceUid));
+			header.setFlags(sourceFolder.getFlags(sourceUid));
+			Object uid = add((ColumbaHeader) header, sourceFolder,
+					sourceUid);
+			fireMessageAdded(uid, getFlags(uid));
+		} else {
+			if (!folder.exists(resultUid))
+				return;
+
+			Header h = folder.getHeaderFields(resultUid,
+					headerfields);
+			header = new ColumbaHeader(h);
+			header.setAttributes(folder
+					.getAttributes(resultUid));
+			header.setFlags(folder.getFlags(resultUid));
+			Object uid = add(header, folder, resultUid);
+			fireMessageAdded(uid, getFlags(uid));
 		}
 	}
 
@@ -1165,26 +1163,20 @@ public class VirtualFolder extends AbstractMessageFolder implements
 	 * @see org.columba.mail.folder.event.IFolderListener#messageAdded(org.columba.mail.folder.event.IFolderEvent)
 	 */
 	public void messageAdded(IFolderEvent e) {
-		// deactivate the folder
-		deactivate();
-		return;
-		/*
-		 * AbstractMessageFolder folder = (AbstractMessageFolder)e.getSource();
-		 *
-		 * try { Object[] resultUids = folder.searchMessages(getFilter(), new
-		 * Object[] {e.getChanges()});
-		 *
-		 * if( resultUids.length > 0 ) { Header h =
-		 * folder.getHeaderFields(resultUids[0],
-		 * CachedHeaderfields.getDefaultHeaderfields()); ColumbaHeader header =
-		 * new ColumbaHeader(h);
-		 * header.setAttributes(folder.getAttributes(resultUids[0]));
-		 * header.setFlags(folder.getFlags(resultUids[0]));
-		 *
-		 * Object uid = add(header, folder, resultUids[0]);
-		 * fireMessageAdded(uid, getFlags(uid)); } } catch (Exception e1) {
-		 * e1.printStackTrace(); }
-		 */
+		AbstractMessageFolder folder = (AbstractMessageFolder)e.getSource();
+
+		try {
+			Object[] resultUids = folder.searchMessages(getFilter(), new
+					Object[] {e.getChanges()});
+
+			if (resultUids != null) {
+				for (int i = 0; i < resultUids.length; i++) {
+					addFilteredMessage(resultUids[i], folder);
+				}
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/*
