@@ -92,6 +92,9 @@ public class MailMain implements IComponentPlugin {
 			ex.printStackTrace();
 		}*/
 
+		// instantiate FolderTreeModel here to make sure the folders
+		// are saved after ClearRecentFlagPlugin is executed
+		FolderTreeModel.getInstance();
 
 		Runnable plugin = new SaveAllFoldersPlugin();
 		BackgroundTaskManager.getInstance().register(plugin);

@@ -67,8 +67,6 @@ public class ClearRecentFlagPlugin implements Runnable {
 						Object uids[] = folder.searchMessages(RECENT_FILTER);
 						folder.markMessage(uids,
 								MarkMessageCommand.MARK_AS_NOTRECENT);
-
-						folder.save();
 					} catch (Exception e1) {
 					}
 				}
