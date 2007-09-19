@@ -36,7 +36,6 @@
 package org.columba.ristretto.parser;
 
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -187,8 +186,8 @@ public class DateParser {
 		if (!matcher.find())
 			throw new ParserException("Invalid Date: " + dateString);
 		int year = Integer.parseInt(matcher.group());
-		if (year < 99) {
-			if (year < 49)
+		if (year <= 99) {
+			if (year <= 49)
 				year += 2000;
 			else
 				year += 1900;
@@ -211,8 +210,23 @@ public class DateParser {
 					zoneoffset = -zoneoffset;
 				}
 			} else if (matcher.group(6) != null) {
-				TimeZone timezone = TimeZone.getTimeZone(matcher.group(6));
-				zoneoffset = timezone.getOffset(date);
+				if (matcher.group(6).equals("EDT")) {
+					zoneoffset = 4 * 3600000l;
+				} else if (matcher.group(6).equals("EST")) {
+					zoneoffset = 5 * 3600000l;
+				} else if (matcher.group(6).equals("CDT")) {
+					zoneoffset = 5 * 3600000l;
+				} else if (matcher.group(6).equals("CST")) {
+					zoneoffset = 6 * 3600000l;
+				} else if (matcher.group(6).equals("MDT")) {
+					zoneoffset = 6 * 3600000l;
+				} else if (matcher.group(6).equals("MST")) {
+					zoneoffset = 7 * 3600000l;
+				} else if (matcher.group(6).equals("PDT")) {
+					zoneoffset = 7 * 3600000l;
+				} else if (matcher.group(6).equals("PST")) {
+					zoneoffset = 8 * 3600000l;
+				}
 			}
 		}
 		date += zoneoffset;
