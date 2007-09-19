@@ -787,6 +787,13 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 
 		IColumbaHeader header = getHeaderList().get(uid);
 
+		Flags flags = header.getFlags();
+
+		if (flags == null) {
+			return;
+		}
+		Flags oldFlags = (Flags) flags.clone();
+
 		header.getAttributes().put(key, value);
 
 		getHeaderList().update(uid, header);
@@ -795,6 +802,8 @@ public abstract class AbstractMessageFolder extends AbstractFolder implements
 		// -> if not, the header cache wouldn't notice that something
 		// -> has changed. And wouldn't save the changes.
 		setChanged(true);
+
+		fireMessageFlagChanged(uid, oldFlags, 0);
 	}
 
 	/**
