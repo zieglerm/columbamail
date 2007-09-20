@@ -188,8 +188,9 @@ class CodeStringParser {
 	 */
 	public String getValue() {
 		try {
-			return (String) hit.invoke((Object) parent, (Object) null);
+			return (String) hit.invoke((Object) parent, (Object []) null);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new String("<Unhandled Exception occcured>");
 		}
 	}
