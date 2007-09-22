@@ -139,15 +139,13 @@ public class EditPropertiesAction extends DefaultTableAction implements
 			GroupFolder folder = (GroupFolder) mediator.getTree()
 					.getSelectedFolder();
 
-			IGroupModel card = folder.getGroup();
+			IGroupModel group = folder.getGroup();
 
 			EditGroupDialog dialog = new EditGroupDialog(mediator.getView()
-					.getFrame(), card, (AbstractFolder) folder.getParent());
+					.getFrame(), group, (AbstractFolder) folder.getParent());
 
 			if (dialog.getResult()) {
-				// re-select folder
-				mediator.getTree().setSelectedFolder(folder);
-
+				folder.modelChanged();
 			}
 
 		}

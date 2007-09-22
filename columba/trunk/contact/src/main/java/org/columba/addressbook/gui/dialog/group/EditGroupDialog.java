@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -38,17 +40,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
-import javax.swing.text.JTextComponent;
 
 import org.columba.addressbook.folder.AbstractFolder;
-import org.columba.addressbook.gui.autocomplete.AddressCollector;
-import org.columba.addressbook.gui.autocomplete.DefaultAddressComboBox;
 import org.columba.addressbook.gui.list.AddressbookDNDListView;
 import org.columba.addressbook.gui.list.AddressbookListModel;
+import org.columba.addressbook.model.IBasicModelPartial;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.addressbook.model.IGroupModel;
 import org.columba.addressbook.util.AddressbookResourceLoader;
 import org.columba.core.gui.base.ButtonWithMnemonic;
+import org.columba.core.gui.base.DoubleClickListener;
 import org.columba.core.gui.base.SingleSideEtchedBorder;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -59,7 +60,14 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class EditGroupDialog extends JDialog implements ActionListener,
 		KeyListener {
-	private AddressbookDNDListView list;
+
+	private AddressbookDNDListView parentList;
+
+	private AddressbookListModel parentMembers;
+
+	private AddressbookDNDListView groupList;
+
+	private AddressbookListModel groupMembers;
 
 	private JButton addButton;
 
@@ -72,10 +80,6 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 	private JTextField nameTextField;
 
 	private JTextField descriptionTextField;
-
-	private DefaultAddressComboBox addComboBox;
-
-	private AddressbookListModel members;
 
 	private boolean result;
 
@@ -146,19 +150,22 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 	private JPanel createGroupPanel() {
 		JPanel panel = new JPanel();
 		FormLayout layout = new FormLayout(
-				"6dlu, fill:default:grow, 6px, default", //$NON-NLS-1$
-				"default, 12px, default, 6px, default, fill:default:grow"); //$NON-NLS-1$
+				"fill:default:grow, 12dlu, fill:default:grow", //$NON-NLS-1$
+				"default, 4px, fill:default:grow, 6px, default"); //$NON-NLS-1$
 
 		PanelBuilder builder = new PanelBuilder(layout, panel);
 		CellConstraints cc = new CellConstraints();
 
 		builder.addSeparator(AddressbookResourceLoader.getString("dialog",
-				"editgroupdialog", "group_members"), cc.xywh(1, 1, 4, 1)); //$NON-NLS-1$
+				"editgroupdialog", "addressbook"), cc.xy(1, 1)); //$NON-NLS-1$
+		builder.addSeparator(AddressbookResourceLoader.getString("dialog",
+				"editgroupdialog", "group_members"), cc.xy(3, 1)); //$NON-NLS-1$
 
-		builder.add(addComboBox, cc.xy(2, 3));
-		builder.add(addButton, cc.xy(4, 3));
-		builder.add(new JScrollPane(list), cc.xywh(2, 5, 1, 2));
-		builder.add(removeButton, cc.xy(4, 5));
+		builder.add(new JScrollPane(parentList), cc.xy(1, 3));
+		builder.add(new JScrollPane(groupList), cc.xy(3, 3));
+
+		builder.add(addButton, cc.xy(1, 5));
+		builder.add(removeButton, cc.xy(3, 5));
 
 		return panel;
 	}
@@ -170,7 +177,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
 		FormLayout layout = new FormLayout("fill:default:grow", //$NON-NLS-1$
-				"default, 12px, fill:default:grow"); //$NON-NLS-1$
+				"default, 16px, fill:default:grow"); //$NON-NLS-1$
 
 		CellConstraints cc = new CellConstraints();
 		mainPanel.setLayout(layout);
@@ -202,13 +209,29 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 				"dialog", "editgroupdialog", "description_2")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		descriptionTextField = new JTextField();
 
-		addComboBox = new DefaultAddressComboBox(parentFolder.getId(), false);
-		((JTextComponent) addComboBox.getEditor().getEditorComponent())
-				.addKeyListener(this);
+		groupMembers = new AddressbookListModel();
+		parentList = new AddressbookDNDListView(groupMembers);
+		parentList.setMinimumSize(new Dimension(200, 300));
+		parentList.setAcceptDrop(false);
+		parentList.addMouseListener(new DoubleClickListener(){
+			public void doubleClick(MouseEvent ev) {
+				actionPerformed(new ActionEvent(parentList, 0, "ADD"));
+			}
 
-		members = new AddressbookListModel();
-		list = new AddressbookDNDListView(members);
-		list.setMinimumSize(new Dimension(200, 300));
+		});
+
+		parentMembers = new AddressbookListModel();
+		Map<String, IContactModelPartial> l = parentFolder.getContactItemMap();
+
+		for (Iterator<IContactModelPartial> it = l.values().iterator(); it.hasNext();) {
+			IContactModelPartial p = (IContactModelPartial) it.next();
+			parentMembers.addElement(p);
+		}
+		parentList.setModel(parentMembers);
+
+		groupMembers = new AddressbookListModel();
+		groupList = new AddressbookDNDListView(groupMembers);
+		groupList.setMinimumSize(new Dimension(200, 300));
 
 		addButton = new JButton("Add"); //$NON-NLS-1$
 		addButton.addActionListener(this);
@@ -244,7 +267,7 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 			nameTextField.setText(group.getName()); //$NON-NLS-1$
 			descriptionTextField.setText(group.getDescription()); //$NON-NLS-1$
 
-			members = new AddressbookListModel();
+			groupMembers = new AddressbookListModel();
 
 			String[] m = group.getMembers();
 
@@ -255,14 +278,14 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 
 					IContactModelPartial item = l.get(m[i]);
 
-					members.addElement(item);
+					groupMembers.addElement(item);
 				}
 			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
 
-			this.list.setModel(members);
+			this.groupList.setModel(groupMembers);
 		} else {
 			// settext
 			group.setName(nameTextField.getText()); //$NON-NLS-1$
@@ -272,10 +295,8 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 			group.removeAllMembers();
 
 			// add children
-			for (int i = 0; i < members.getSize(); i++) {
-				IContactModelPartial item = (IContactModelPartial) members.get(i);
-				String uid = item.getId();
-				group.addMember(uid);
+			for (int i = 0; i < groupMembers.getSize(); i++) {
+				group.addMember(groupMembers.get(i).getId());
 			}
 		}
 	}
@@ -285,33 +306,11 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 	 *
 	 */
 	private void addHeaderItem() {
-		String s = addComboBox.getText();
-		Object o = AddressCollector.getInstance().getHeaderItem(s);
+		Object[] list = parentList.getSelectedValues();
 
-		if (o != null) {
-			// this is a headeritem from autocompletion
-			members.addElement((IContactModelPartial) o);
-			addComboBox.setText(""); //$NON-NLS-1$
-		} else {
-			JOptionPane
-					.showMessageDialog(this, AddressbookResourceLoader
-							.getString("dialog",
-									"editgroupdialog", "You_can_only_add")); //$NON-NLS-1$
+		for (int i = 0; i < list.length; i++) {
+			groupMembers.addElement((IBasicModelPartial) list[i]);
 		}
-
-		// in the future, it will be possible to also add new addresses
-
-		/*
-		 * else { // this is a string // -> check for validity if
-		 * (AddressParser.isValid(s)) { HeaderItem item= new
-		 * HeaderItem(HeaderItem.CONTACT); item.add("displayname",
-		 * AddressParser.getDisplayname(s)); item.add("email;internet",
-		 * AddressParser.getAddress(s));
-		 *
-		 * members.addElement(item); addComboBox.setText(""); } else {
-		 * JOptionPane.showMessageDialog( null, s + " is no valid email
-		 * address!"); } }
-		 */
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -342,11 +341,10 @@ public class EditGroupDialog extends JDialog implements ActionListener,
 		} else if (command.equals("ADD")) { //$NON-NLS-1$
 			addHeaderItem();
 		} else if (command.equals("REMOVE")) { //$NON-NLS-1$
+			Object[] list = groupList.getSelectedValues();
 
-			int[] array = list.getSelectedIndices();
-
-			for (int j = 0; j < array.length; j++) {
-				members.remove(array[j]);
+			for (int i = 0; i < list.length; i++) {
+				groupMembers.removeElement((IBasicModelPartial) list[i]);
 			}
 		}
 	}

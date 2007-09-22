@@ -19,6 +19,8 @@ package org.columba.addressbook.gui.table;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JTable;
@@ -39,6 +41,7 @@ import org.columba.addressbook.gui.frame.AddressbookFrameMediator;
 import org.columba.addressbook.gui.table.model.AddressbookTableModel;
 import org.columba.addressbook.gui.table.model.FilterDecorator;
 import org.columba.addressbook.gui.table.model.SortDecorator;
+import org.columba.addressbook.gui.tree.TreeView;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.core.gui.dialog.ErrorDialog;
 import org.columba.core.logging.Logging;
@@ -71,11 +74,11 @@ public class TableController implements TreeSelectionListener, FolderListener,
 
 		addressbookModel = new AddressbookTableModel();
 
-		sortDecorator = new SortDecorator(addressbookModel);
+		filterDecorator = new FilterDecorator(addressbookModel);
 
-		filterDecorator = new FilterDecorator(sortDecorator);
+		sortDecorator = new SortDecorator(filterDecorator);
 
-		view = new TableView(this, filterDecorator);
+		view = new TableView(this, sortDecorator);
 
 		addMouseListenerToHeaderInTable();
 
@@ -84,7 +87,7 @@ public class TableController implements TreeSelectionListener, FolderListener,
 		// register as focus owner
 		FocusManager.getInstance().registerComponent(this);
 
-		
+		selectedFolder = null;
 	}
 
 	/**
@@ -109,8 +112,11 @@ public class TableController implements TreeSelectionListener, FolderListener,
 						sortDecorator
 								.setSortOrder(!sortDecorator.isSortOrder());
 
+					String[] uids = getUids();
+
 					sortDecorator.sort(column);
 
+					setSelectedItems(uids);
 				}
 			}
 		};
@@ -134,7 +140,7 @@ public class TableController implements TreeSelectionListener, FolderListener,
 	}
 
 	public void setSelectedFolder(IContactStorage store) {
-		filterDecorator.setContactItemMap(((AbstractFolder) store)
+		sortDecorator.setContactItemMap(((AbstractFolder) store)
 				.getContactItemMap());
 	}
 
@@ -142,33 +148,41 @@ public class TableController implements TreeSelectionListener, FolderListener,
 	 * Update table on tree selection changes.
 	 */
 	public void valueChanged(TreeSelectionEvent e) {
-		AddressbookTreeNode node = (AddressbookTreeNode) e.getPath()
-				.getLastPathComponent();
+		if (!(e.getSource() instanceof TreeView))
+				return;
 
-		if (node == null) {
-			return;
+		if (selectedFolder != null) {
+			((AbstractFolder) selectedFolder).removeFolderListener(this);
 		}
 
-		if (node instanceof IContactStorage) {
-			try {
+		TreeView treeview = (TreeView)e.getSource();
 
-				((AbstractFolder) node).removeFolderListener(this);
+		if ( treeview.getSelectionPath() != null) {
+			AddressbookTreeNode node = (AddressbookTreeNode) treeview.getSelectionPath()
+					.getLastPathComponent();
 
-				selectedFolder = node;
-				((AbstractFolder) node).addFolderListener(this);
-
-				filterDecorator
-						.setContactItemMap(((AbstractFolder) selectedFolder)
-								.getContactItemMap());
-			} catch (Exception e1) {
-				if (Logging.DEBUG)
-					e1.printStackTrace();
-
-				ErrorDialog.createDialog(e1.getMessage(), e1);
+			if (node instanceof IContactStorage) {
+				try {
+					((AbstractFolder) node).addFolderListener(this);
+	
+					selectedFolder = node;
+	
+					sortDecorator
+							.setContactItemMap(((AbstractFolder) selectedFolder)
+									.getContactItemMap());
+	
+					return;
+				} catch (Exception e1) {
+					if (Logging.DEBUG)
+						e1.printStackTrace();
+	
+					ErrorDialog.createDialog(e1.getMessage(), e1);
+				}
 			}
-		} else {
-			filterDecorator.setContactItemMap(null);
 		}
+
+		sortDecorator.setContactItemMap(null);
+		selectedFolder = null;
 	}
 
 	/**
@@ -183,7 +197,7 @@ public class TableController implements TreeSelectionListener, FolderListener,
 		IContactModelPartial item;
 
 		for (int i = 0; i < rows.length; i++) {
-			item = (IContactModelPartial) filterDecorator
+			item = (IContactModelPartial) sortDecorator
 					.getContactItem(rows[i]);
 			uids[i] = item.getId();
 		}
@@ -207,6 +221,18 @@ public class TableController implements TreeSelectionListener, FolderListener,
 		IContactItem item = (IContactItem) sortDecorator.getContactItem(row);
 
 		return item;
+	}
+
+	public void setSelectedItems(String[] uids) {
+		IContactModelPartial item;
+		List<String> l = Arrays.asList(uids);
+
+		for (int i = 0; i < sortDecorator.getRowCount(); i++) {
+			item = (IContactModelPartial) sortDecorator
+					.getContactItem(i);
+			if (l.contains(item.getId()))
+				view.addRowSelectionInterval(i, i);
+		}
 	}
 
 	/** ********************** FolderListener ***************** */

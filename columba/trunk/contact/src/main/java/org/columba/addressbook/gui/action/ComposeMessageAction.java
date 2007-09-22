@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import org.columba.addressbook.folder.AddressbookFolder;
 import org.columba.addressbook.gui.frame.AddressbookFrameMediator;
 import org.columba.addressbook.model.IContactModel;
-import org.columba.addressbook.util.AddressbookResourceLoader;
 import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.core.facade.ServiceFacadeRegistry;

@@ -17,20 +17,26 @@
 //All Rights Reserved.
 package org.columba.addressbook.gui.tree;
 
+import java.awt.event.MouseEvent;
+
 import javax.swing.JComponent;
 import javax.swing.tree.TreePath;
 
 import org.columba.addressbook.folder.AbstractFolder;
+import org.columba.addressbook.folder.GroupFolder;
+import org.columba.addressbook.gui.dialog.group.EditGroupDialog;
 import org.columba.addressbook.gui.focus.FocusManager;
 import org.columba.addressbook.gui.focus.FocusOwner;
 import org.columba.addressbook.gui.frame.AddressbookFrameController;
+import org.columba.addressbook.model.IGroupModel;
+import org.columba.core.gui.base.DoubleClickListener;
 
 /**
  * 
  * 
  * @author fdietz
  */
-public class TreeController implements FocusOwner {
+public class TreeController extends DoubleClickListener implements FocusOwner {
 
 	TreeView view;
 
@@ -44,7 +50,9 @@ public class TreeController implements FocusOwner {
 		this.frameController = frameController;
 
 		view = new TreeView(frameController);
-		
+
+		view.addMouseListener(this);
+
 //		 register as focus owner
 		FocusManager.getInstance().registerComponent(this);
 	}
@@ -187,5 +195,29 @@ public class TreeController implements FocusOwner {
 	 */
 	public void undo() {
 
+	}
+
+
+	public void doubleClick(MouseEvent e) {
+		if (e.getButton()==MouseEvent.BUTTON1 && e.getClickCount() > 1) {
+			AbstractFolder f = getSelectedFolder();
+			if (!(f instanceof GroupFolder) )
+				return;
+
+			GroupFolder folder = (GroupFolder)f;
+
+			if (folder == null)
+				return;
+
+			IGroupModel group = folder.getGroup();
+
+			EditGroupDialog dialog = new EditGroupDialog(
+					frameController.getView().getFrame(),
+					group, (AbstractFolder) folder.getParent());
+
+			if (dialog.getResult()) {
+				folder.modelChanged();
+			}
+		}
 	}
 }

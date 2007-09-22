@@ -26,10 +26,12 @@ import org.columba.core.xml.XmlElement;
 public class GroupModel implements IGroupModel {
 
 	private XmlElement root;
+	private XmlElement property;
 	private String folderUid;
 	
-	public GroupModel(XmlElement group, String folderUid) {
+	public GroupModel(XmlElement group, XmlElement property, String folderUid) {
 		this.root = group;
+		this.property = property;
 		this.folderUid = folderUid;
 
 	}
@@ -37,12 +39,11 @@ public class GroupModel implements IGroupModel {
 	public GroupModel() {
 
 		root = new XmlElement("group");
+		property = new XmlElement("property");
+		XmlElement members = new XmlElement("members");
 
-		XmlElement members = root.getElement("members");
-		if (members == null) {
-			members = new XmlElement("members");
-			root.addElement(members);
-		}
+		property.addElement(root);
+		root.addElement(members);
 	}
 
 	public XmlElement getRootElement() {
@@ -50,12 +51,12 @@ public class GroupModel implements IGroupModel {
 	}
 
 	public void setName(String name) {
-		root.addAttribute("name", name);
+		property.addAttribute("name", name);
 
 	}
 
 	public String getName() {
-		return root.getAttribute("name");
+		return property.getAttribute("name");
 	}
 
 	public void setDescription(String description) {

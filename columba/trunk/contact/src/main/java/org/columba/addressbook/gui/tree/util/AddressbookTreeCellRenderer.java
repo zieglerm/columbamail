@@ -18,26 +18,15 @@ package org.columba.addressbook.gui.tree.util;
 import java.awt.Component;
 
 import javax.swing.JTree;
-import javax.swing.border.Border;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.columba.addressbook.folder.AddressbookTreeNode;
 
 @SuppressWarnings({"serial","serial"})
 public class AddressbookTreeCellRenderer extends DefaultTreeCellRenderer {
-	Border unselectedBorder = null;
-
-	Border selectedBorder = null;
-
-	boolean isBordered = true;
-
-	boolean bool;
 
 	public AddressbookTreeCellRenderer(boolean bool) {
 		super();
-
-		this.bool = bool;
-
 	}
 
 	public Component getTreeCellRendererComponent(JTree tree, Object value,

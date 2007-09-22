@@ -17,6 +17,8 @@
 //All Rights Reserved.
 package org.columba.addressbook.gui.list;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -67,12 +69,16 @@ public class AddressbookListModel extends AbstractListModel {
 
 		int index = list.indexOf(item);
 
+		sort();
+
 		fireIntervalAdded(this, index, index);
 	}
 
 	public void setHeaderItemList(List<IBasicModelPartial> l) {
 
 		this.list = l;
+
+		sort();
 
 		fireContentsChanged(this, 0, list.size() - 1);
 	}
@@ -123,5 +129,29 @@ public class AddressbookListModel extends AbstractListModel {
 		int index = list.indexOf(item);
 
 		remove(index);
+	}
+
+	class IBasicModelPartialComperator implements Comparator {
+		public int compare(Object o1, Object o2) {
+			IBasicModelPartial item1 = (IBasicModelPartial) o1;
+			IBasicModelPartial item2 = (IBasicModelPartial) o2;
+
+			if ((item1 == null) || (item2 == null)) {
+				return 0;
+			}
+
+			return item1.getName().compareToIgnoreCase(item2.getName());
+		}
+
+		public boolean equals(Object obj) {
+			if (obj instanceof IBasicModelPartialComperator)
+				return true;
+
+			return false;
+		}
+	}
+
+	public void sort() {
+		Collections.sort(list, new IBasicModelPartialComperator());
 	}
 }

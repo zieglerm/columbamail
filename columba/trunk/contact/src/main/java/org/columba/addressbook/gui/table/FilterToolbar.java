@@ -112,7 +112,12 @@ public class FilterToolbar extends JPanel implements ActionListener {
 		public void update() {
 			FilterDecorator model = table.getFilterDecorator();
 			model.setPattern(textField.getText());
+
+			String[] uids = table.getUids();
+
 			table.getAddressbookModel().fireTableDataChanged();
+
+			table.setSelectedItems(uids);
 		}
 	}
 }
