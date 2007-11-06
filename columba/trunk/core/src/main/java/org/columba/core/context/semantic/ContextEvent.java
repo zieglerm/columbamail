@@ -7,8 +7,6 @@ import org.columba.core.context.semantic.api.IContextEvent;
 
 public class ContextEvent extends EventObject implements IContextEvent {
 
-	private Object source;
-
 	private IStructureValue value;
 
 	public ContextEvent(Object source, IStructureValue value) {

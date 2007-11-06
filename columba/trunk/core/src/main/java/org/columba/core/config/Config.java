@@ -25,10 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.columba.api.shutdown.IShutdownManager;
 import org.columba.core.base.OSInfo;
 import org.columba.core.io.DiskIO;
-import org.columba.core.shutdown.ShutdownManager;
 import org.columba.core.xml.XmlElement;
 import org.columba.core.xml.XmlIO;
 
