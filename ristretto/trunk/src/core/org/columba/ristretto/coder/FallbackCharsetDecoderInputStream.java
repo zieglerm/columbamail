@@ -108,28 +108,20 @@ public class FallbackCharsetDecoderInputStream extends FilterInputStream {
 		CoderResult result;
 		int read;
 
-		
 		inBytes.clear();
-		inBytes.limit(1);
+		inBytes.limit(0);
 
-		read = in.read();		
-		if( read == -1) return -1;
-		inBytes.put( 0, (byte) read );
-		
-		outChars.clear();
-		result = decoder.decode(inBytes, outChars, in.available() == 0);
+		do {
+			read = in.read();
+			if( read == -1)
+				return -1;
 
-				
-		// Do we need to read a second byte?
-		if( outChars.position() == 0 ) {
-			read = in.read();		
-			if( read == -1) return -1;
 			inBytes.limit(inBytes.limit()+1);
 			inBytes.put(inBytes.limit()-1,(byte) read);
 
 			outChars.clear();
 			result = decoder.decode(inBytes, outChars, in.available() == 0);
-		}
+		} while(outChars.position() == 0);
 		
 		ByteBuffer test = charset.encode(outChars);
 		while( test.capacity() == 0 && fallback()) {
