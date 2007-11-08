@@ -17,6 +17,7 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.command;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -31,8 +32,10 @@ import org.columba.core.io.StreamUtils;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.composer.MessageBuilderHelper;
+import org.columba.mail.config.AccountItem;
 import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.IMailbox;
+import org.columba.mail.gui.composer.ComposerController;
 import org.columba.mail.gui.composer.ComposerModel;
 import org.columba.mail.gui.composer.util.QuoteFilterInputStream;
 import org.columba.mail.gui.util.AddressListRenderer;
@@ -96,7 +99,7 @@ public class ForwardInlineCommand extends ForwardCommand {
 		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
 				.getRoot().getElement("/options/html");
 
-		// Which Bodypart shall be shown? (html/plain)
+		// Which Bodypart shall be used? (html/plain)
 		MimePart bodyPart = null;
 		Integer[] bodyPartAddress = null;
 		if (Boolean.valueOf(html.getAttribute("prefer")).booleanValue()) {
@@ -113,14 +116,6 @@ public class ForwardInlineCommand extends ForwardCommand {
 
 			String quotedBodyText = createQuotedBody(bodyPart.getHeader(),
 					folder, uids, bodyPartAddress);
-
-			/*
-			 * *20040210, karlpeder* Remove html comments - they are not
-			 * displayed properly in the composer
-			 */
-			if (bodyPart.getHeader().getMimeType().getSubtype().equals("html")) {
-				quotedBodyText = HtmlParser.removeComments(quotedBodyText);
-			}
 
 			model.setBodyText(quotedBodyText);
 		}
@@ -153,19 +148,19 @@ public class ForwardInlineCommand extends ForwardCommand {
             model.addMimePart(new InputStreamMimePart(mp.getHeader(), bodyStream));
 		}
 
+		// select the account this mail was received from
+        Integer accountUid = (Integer) folder.getAttribute(uids[0],
+                "columba.accountuid");
+        AccountItem accountItem = MessageBuilderHelper
+                .getAccountItem(accountUid);
+        model.setAccountItem(accountItem);
 	}
 
 	private void initMimeHeader(MimePart bodyPart) {
-		MimeHeader bodyHeader = bodyPart.getHeader();
-
-		if (bodyHeader.getMimeType().getSubtype().equals("html")) {
-			model.setHtml(true);
-		} else {
-			model.setHtml(false);
-		}
+		model.setHtml(ComposerController.useHtml());
 
 		// Select the charset of the original message
-		String charset = bodyHeader.getContentParameter("charset");
+		String charset = bodyPart.getHeader().getContentParameter("charset");
 
         if (charset != null) {
         	try {
@@ -210,6 +205,12 @@ public class ForwardInlineCommand extends ForwardCommand {
 					.forName(charset));
 		}
 
+        boolean wasHtml;
+        if (header.getMimeType().getSubtype().equals("html"))
+        	wasHtml = true;
+        else
+        	wasHtml = false;
+
 		String quotedBody;
 		// Quote original message - different methods for text and html
 		if (model.isHtml()) {
@@ -243,10 +244,19 @@ public class ForwardInlineCommand extends ForwardCommand {
 					+ MailResourceLoader.getString("header", "header", "to")
 					+ ": " + to);
 			buf.append("</p>");
-			buf.append(HtmlParser.removeComments( // comments are not displayed
-					// correctly in composer
-					HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
-							.toString())));
+
+			String htmlbody;
+            if (wasHtml) {
+            	htmlbody = HtmlParser.removeComments(// comments are not displayed
+                                                     // correctly in composer
+            			HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
+            					.toString()));
+            } else {
+            	htmlbody = HtmlParser.substituteSpecialCharacters(
+            			StreamUtils.readCharacterStream(bodyStream).toString());
+            }
+            buf.append(htmlbody);
+
 			buf.append("<p>");
 			buf.append(MailResourceLoader.getString("dialog", "composer",
 					"original_message_end"));
@@ -259,15 +269,24 @@ public class ForwardInlineCommand extends ForwardCommand {
 			String date = DateFormat.getDateTimeInstance(DateFormat.LONG,
 					DateFormat.MEDIUM).format(rfcHeader.getDate());
 			String from = rfcHeader.getFrom().toString();			
-		
+
+			InputStream textbodyStream;
+			if (wasHtml) {
+				String textbody = HtmlParser.htmlToText(StreamUtils.readCharacterStream(bodyStream).
+						toString());
+
+				textbodyStream = new ByteArrayInputStream(textbody.getBytes());
+			} else {
+				textbodyStream = bodyStream;
+			}
 			// Text: Addition of > before each line
 			StringBuffer buf = StreamUtils.readCharacterStream(
-					new QuoteFilterInputStream(bodyStream));
-			
+					new QuoteFilterInputStream(textbodyStream));
+
 	        buf.insert(0, ">\n");
 			buf.insert(0, "> Date: " + date + "\n");
 	        buf.insert(0, "> From: " + from + "\n");
-					
+
 			quotedBody = buf.toString();
 		}
 

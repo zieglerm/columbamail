@@ -75,15 +75,14 @@ public class AccountController implements ItemListener {
 
 	public void updateComponents(boolean b) {
 		if (b) {
-			view.setSelectedItem(((ComposerModel) controller.getModel())
-					.getAccountItem());
+			view.setSelectedItem(controller.getModel().getAccountItem());
 
 			/*
 			 * encryptMenuItem.setSelected(model.isEncryptMessage());
 			 * signMenuItem.setSelected(model.isSignMessage());
 			 */
 		} else {
-			((ComposerModel) controller.getModel())
+			controller.getModel()
 					.setAccountItem((AccountItem) view.getSelectedItem());
 
 			/*

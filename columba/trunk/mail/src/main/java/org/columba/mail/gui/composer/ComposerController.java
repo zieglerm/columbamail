@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
@@ -92,7 +91,7 @@ import com.jgoodies.forms.layout.Sizes;
  * @author fdietz
  */
 public class ComposerController extends DefaultFrameController implements
-		CharsetOwnerInterface, ItemListener, Observer {
+		CharsetOwnerInterface, ItemListener {
 
 	/** JDK 1.4+ logging framework logger, used for logging. */
 	private static final Logger LOG = Logger
@@ -114,12 +113,7 @@ public class ComposerController extends DefaultFrameController implements
 
 	private ComposerModel composerModel;
 
-	private Charset charset;
-
 	private EventListenerList listenerList = new EventListenerList();
-
-	/** Buffer for listeners used by addContainerListenerForEditor and createView */
-	private List containerListenerBuffer;
 
 	private JSplitPane attachmentSplitPane;
 
@@ -183,12 +177,7 @@ public class ComposerController extends DefaultFrameController implements
 
 		// set default html or text based on stored option
 		// ... can be overridden by setting the composer model
-		XmlElement optionsElement = MailConfig.getInstance().get(
-				"composer_options").getElement("/options");
-
-		// composer can either edit in html or plain text mode
-		// listen for configuration changes
-		initHtmlConfiguration(optionsElement);
+		getModel().setHtml(useHtml());
 
 		htmlEditor = new HtmlEditorController2(this);
 
@@ -209,6 +198,8 @@ public class ComposerController extends DefaultFrameController implements
 
 		showAttachmentPanel();
 
+		XmlElement optionsElement = MailConfig.getInstance().get(
+				"composer_options").getElement("/options");
 		// Hack to ensure charset is set correctly at start-up
 		XmlElement charsetElement = optionsElement.getElement("charset");
 
@@ -240,7 +231,9 @@ public class ComposerController extends DefaultFrameController implements
 		editorComponent.setTransferHandler(compositeHandler);
 	}
 
-	private void initHtmlConfiguration(XmlElement optionsElement) {
+	public static boolean useHtml() {
+		XmlElement optionsElement = MailConfig.getInstance().get(
+				"composer_options").getElement("/options");
 
 		XmlElement htmlElement = optionsElement.getElement("html");
 
@@ -249,18 +242,9 @@ public class ComposerController extends DefaultFrameController implements
 			htmlElement = optionsElement.addSubElement("html");
 		}
 
-		String enableHtml = htmlElement.getAttribute("enable", "false");
+		String useHtml = htmlElement.getAttribute("enable", "false");
 
-		// register for configuration changes for the html(enabled/disabled)
-		// state
-		htmlElement.addObserver(this);
-
-		// set model based on configuration
-		if (enableHtml.equals("true")) {
-			getModel().setHtml(true);
-		} else {
-			getModel().setHtml(false);
-		}
+		return useHtml.equals("true");
 	}
 
 	/**
@@ -444,8 +428,6 @@ public class ComposerController extends DefaultFrameController implements
 
 		centerPanel.add(topPanel, BorderLayout.NORTH);
 
-		// no attachments
-		// -> only show bodytext editor
 		centerPanel.add(editorPanel, BorderLayout.CENTER);
 
 		attachmentPanelShown = false;
@@ -509,7 +491,7 @@ public class ComposerController extends DefaultFrameController implements
 			return false;
 		}
 
-		return !headerController.checkState();
+		return headerController.checkState();
 	}
 
 	public void updateComponents(boolean b) {
@@ -550,10 +532,6 @@ public class ComposerController extends DefaultFrameController implements
 	 * @return TextEditorController
 	 */
 	public AbstractEditorController getCurrentEditor() {
-		/*
-		 * *20030906, karlpeder* Method signature changed to return an
-		 * AbstractEditorController
-		 */
 		return currentEditorController;
 	}
 
@@ -599,9 +577,6 @@ public class ComposerController extends DefaultFrameController implements
 	 * @return Composer model
 	 */
 	public ComposerModel getModel() {
-		// if (composerModel == null) // *20030907, karlpeder* initialized in
-		// init
-		// composerModel = new ComposerModel();
 		return composerModel;
 	}
 
@@ -618,25 +593,21 @@ public class ComposerController extends DefaultFrameController implements
 		boolean wasHtml = composerModel.isHtml();
 		composerModel = model;
 
-//		if (wasHtml != composerModel.isHtml()) {
-//			setHtmlState(composerModel.isHtml());
-//		}
+		if (wasHtml != composerModel.isHtml()) {
+			updateEditorHtmlState();
+		} else {
+			updateComponents(true);
+		}
 
-		// Update all component according to the new model
-		updateComponents(true);
-
-
-
+		fireCharsetChanged(new CharsetEvent(this, getModel().getCharset()));
 	}
 
 	public Charset getCharset() {
-		return charset;
+		return getModel().getCharset();
 	}
 
 	public void setCharset(Charset charset) {
-		this.charset = charset;
-
-		((ComposerModel) getModel()).setCharset(charset);
+		getModel().setCharset(charset);
 		fireCharsetChanged(new CharsetEvent(this, charset));
 	}
 
@@ -661,7 +632,32 @@ public class ComposerController extends DefaultFrameController implements
 		}
 	}
 
+	private void updateEditorHtmlState() {
+		// switch editor and resync view with model
+		if (composerModel.isHtml())
+			currentEditorController = htmlEditor;
+		else
+			currentEditorController = textEditor;
+
+		// sync view with new update to date model
+		updateComponents(true);
+
+		// change ui container
+		layoutEditorContainer();
+
+		// enable/disable html toolbar
+		if (composerModel.isHtml()) {
+			editorPanel.add(toolbarPanel, BorderLayout.NORTH);
+		} else {
+			editorPanel.remove(toolbarPanel);
+		}
+
+		editorPanel.validate();
+	}
+
 	public void setHtmlState(boolean enableHtml) {
+		if (enableHtml == composerModel.isHtml())
+			return;
 
 		composerModel.setHtml(enableHtml);
 
@@ -686,26 +682,7 @@ public class ComposerController extends DefaultFrameController implements
 
 		composerModel.setBodyText(newBody);
 
-		// switch editor and resync view with model
-		if (enableHtml)
-			currentEditorController = htmlEditor;
-		else
-			currentEditorController = textEditor;
-
-		// sync view with new update to date model
-		updateComponents(true);
-
-		// change ui container
-		layoutEditorContainer();
-
-		// enable/disable html toolbar
-		if (enableHtml) {
-			editorPanel.add(toolbarPanel, BorderLayout.NORTH);
-		} else {
-			editorPanel.remove(toolbarPanel);
-		}
-
-		editorPanel.validate();
+		updateEditorHtmlState();
 	}
 
 	/**
@@ -713,7 +690,6 @@ public class ComposerController extends DefaultFrameController implements
 	 * @see org.columba.core.gui.frame.DefaultFrameController#close(org.columba.api.gui.frame.IContainer)
 	 */
 	public void close(IContainer container) {
-
 		// don't prompt user if composer should be closed
 		if (isPromptOnDialogClosing() == false)
 			return;
@@ -762,7 +738,6 @@ public class ComposerController extends DefaultFrameController implements
 	}
 
 	private void saveConfiguration() {
-
 		// save charset
 		XmlElement optionsElement = MailConfig.getInstance().get(
 				"composer_options").getElement("/options");
@@ -963,24 +938,5 @@ public class ComposerController extends DefaultFrameController implements
 		// make sure that JFrame is not closed automatically
 		// -> we want to prompt the user to save his work
 		container.setCloseOperation(false);
-	}
-
-	/**
-	 * Method is called when composer configuration changed
-	 *
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	public void update(Observable observable, Object obj) {
-//		if (observable instanceof XmlElement) {
-//			// possibly change btw. html and text
-//			XmlElement e = (XmlElement) obj;
-//
-//			if (e.getName().equals("html")) {
-//				String enableHtml = e.getAttribute("enable", "false");
-//
-//				// This action should only be enabled in html mode
-//				getModel().setHtml(Boolean.valueOf(enableHtml).booleanValue());
-//			}
-//		}
 	}
 }

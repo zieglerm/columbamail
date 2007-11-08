@@ -33,6 +33,7 @@ import org.columba.mail.gui.composer.ComposerModel;
 import org.columba.mail.gui.config.template.ChooseTemplateDialog;
 import org.columba.mail.gui.tree.FolderTreeModel;
 import org.columba.mail.message.IHeaderList;
+import org.columba.mail.parser.text.HtmlParser;
 import org.columba.ristretto.message.MimePart;
 import org.columba.ristretto.message.MimeTree;
 
@@ -79,7 +80,7 @@ public class ReplyWithTemplateCommand extends ReplyCommand {
 		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
 				.getRoot().getElement("/options/html");
 
-		// Which Bodypart shall be shown? (html/plain)
+		// Which Bodypart shall be used? (html/plain)
 		MimePart bodyPart = null;
 
 		if (Boolean.valueOf(html.getAttribute("prefer")).booleanValue()) {
@@ -100,9 +101,19 @@ public class ReplyWithTemplateCommand extends ReplyCommand {
 			// get answer from template
 			String templateBody = getTemplateBody();
 
-			model.setBodyText(quotedBodyText + templateBody);
+			String bodytext;
+			if (model.isHtml()) {
+				bodytext = "<html><body>" + HtmlParser.getHtmlBody(quotedBodyText) +
+						"<br>" + templateBody + "</body></html>";
+			} else {
+				bodytext = quotedBodyText + "\n" + templateBody;
+			}
+			model.setBodyText(bodytext);
 		} else {
-			model.setBodyText(getTemplateBody());
+			String bodytext = getTemplateBody();
+			if (model.isHtml())
+				bodytext = "<html><body>" + bodytext + "</body></html>";
+			model.setBodyText(bodytext);
 		}
 	}
 
@@ -131,20 +142,46 @@ public class ReplyWithTemplateCommand extends ReplyCommand {
 		// get bodytext of template message
 		MimeTree tree = templateFolder.getMimePartTree(uid);
 
-		// *20030926, karlpeder* Added html support
-		// MimePart mp = tree.getFirstTextPart("plain");
-		MimePart mp;
+		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
+				.getRoot().getElement("/options/html");
 
-		if (model.isHtml()) {
-			mp = tree.getFirstTextPart("html");
+		// Which Bodypart shall be used? (html/plain)
+		MimePart bodyPart = null;
+
+		if (Boolean.valueOf(html.getAttribute("prefer")).booleanValue()) {
+			bodyPart = tree.getFirstTextPart("html");
 		} else {
-			mp = tree.getFirstTextPart("text");
+			bodyPart = tree.getFirstTextPart("plain");
 		}
 
-		InputStream bodyStream = templateFolder.getMimePartBodyStream(uid, mp
+		InputStream bodyStream = templateFolder.getMimePartBodyStream(uid, bodyPart
 				.getAddress());
 
-		String body = StreamUtils.readCharacterStream(bodyStream).toString();
+		boolean wasHtml;
+        if (bodyPart.getHeader().getMimeType().getSubtype().equals("html"))
+        	wasHtml = true;
+        else
+        	wasHtml = false;
+
+        String body;
+        if (model.isHtml()) {
+        	if (wasHtml) {
+        		body = HtmlParser.removeComments(// comments are not displayed
+        											 // correctly in composer
+        				HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
+        						.toString()));
+        	} else {
+        		body = HtmlParser.substituteSpecialCharacters(
+            			StreamUtils.readCharacterStream(bodyStream).toString());
+        	}
+        } else {
+        	if (wasHtml) {
+        		body = HtmlParser.htmlToText(StreamUtils.readCharacterStream(bodyStream).
+        				toString());
+        	} else {
+        		body = StreamUtils.readCharacterStream(bodyStream).toString();
+        	}
+        }
 
 		bodyStream.close();
 		return body;

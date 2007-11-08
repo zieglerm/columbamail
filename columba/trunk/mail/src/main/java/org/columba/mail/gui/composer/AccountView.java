@@ -39,11 +39,8 @@ import org.columba.ristretto.message.Address;
  */
 
 public class AccountView extends JComboBox {
-    AccountController controller;
-
     public AccountView(AccountController controller) {
         super();
-        this.controller = controller;
 
         setRenderer(new AccountListRenderer());
     }
@@ -51,13 +48,11 @@ public class AccountView extends JComboBox {
 
 
  class AccountListRenderer extends JLabel implements ListCellRenderer {
-    protected ImageIcon image1;
-    protected ImageIcon image2;
+    protected static final ImageIcon image1 = ImageLoader.getSmallIcon(IconKeys.COMPUTER);
+    protected static final ImageIcon image2 = ImageLoader.getSmallIcon(IconKeys.SERVER);
 
     public AccountListRenderer() {
         setOpaque(true);
-        image1 = ImageLoader.getSmallIcon(IconKeys.COMPUTER);
-        image2 = ImageLoader.getSmallIcon(IconKeys.SERVER);
     }
 
     public Component getListCellRendererComponent(JList list, Object value,
@@ -76,8 +71,7 @@ public class AccountView extends JComboBox {
             Address identity = item.getIdentity().getAddress();
 
             setText(accountName + ":   " + identity.toString());
-            //setText(accountName);
-            
+
             if (item.isPopAccount()) {
                 setIcon(image1);
             } else {

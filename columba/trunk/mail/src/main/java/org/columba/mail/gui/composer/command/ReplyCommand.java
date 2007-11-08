@@ -16,6 +16,7 @@
 
 package org.columba.mail.gui.composer.command;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -123,7 +124,7 @@ public class ReplyCommand extends Command {
         XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
                 .getRoot().getElement("/options/html");
 
-        // Which Bodypart shall be shown? (html/plain)
+        // Which Bodypart shall be used? (html/plain)
         MimePart bodyPart = null;
 
         if (Boolean.valueOf(html.getAttribute("prefer")).booleanValue()) {
@@ -148,16 +149,10 @@ public class ReplyCommand extends Command {
     }
 
     protected void initMimeHeader(MimePart bodyPart) {
-        MimeHeader bodyHeader = bodyPart.getHeader();
-
-        if (bodyHeader.getMimeType().getSubtype().equals("html")) {
-            model.setHtml(true);
-        } else {
-            model.setHtml(false);
-        }
+        model.setHtml(ComposerController.useHtml());
 
         // Select the charset of the original message
-        String charset = bodyHeader.getContentParameter("charset");
+        String charset = bodyPart.getHeader().getContentParameter("charset");
 
         if (charset != null) {
         	try {
@@ -223,7 +218,13 @@ public class ReplyCommand extends Command {
         		// 	Stick with the default charset
         	}
         }
-        
+
+        boolean wasHtml;
+        if (header.getMimeType().getSubtype().equals("html"))
+        	wasHtml = true;
+        else
+        	wasHtml = false;
+
         String quotedBody;
         // Quote original message - different methods for text and html
         if (model.isHtml()) {
@@ -257,10 +258,19 @@ public class ReplyCommand extends Command {
                     + MailResourceLoader.getString("header", "header", "to")
                     + ": " + to);
             buf.append("</p>");
-            buf.append(HtmlParser.removeComments(// comments are not displayed
-                                                 // correctly in composer
-                    HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
-                            .toString())));
+
+            String htmlbody;
+            if (wasHtml) {
+            	htmlbody = HtmlParser.removeComments(// comments are not displayed
+                                                     // correctly in composer
+            			HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
+            					.toString()));
+            } else {
+            	htmlbody = HtmlParser.substituteSpecialCharacters(
+            			StreamUtils.readCharacterStream(bodyStream).toString());
+            }
+            buf.append(htmlbody);
+
             buf.append("<p>");
             buf.append(MailResourceLoader.getString("dialog", "composer",
                     "original_message_end"));
@@ -268,8 +278,17 @@ public class ReplyCommand extends Command {
 
             quotedBody = buf.toString();
         } else {
-            // Text: Addition of > before each line
-            quotedBody = StreamUtils.readCharacterStream(new QuoteFilterInputStream(bodyStream)).toString();
+        	InputStream textbodyStream;
+        	if (wasHtml) {
+        		String textbody = HtmlParser.htmlToText(StreamUtils.readCharacterStream(bodyStream).
+        				toString());
+
+        		textbodyStream = new ByteArrayInputStream(textbody.getBytes());
+        	} else {
+        		textbodyStream = bodyStream;
+        	}
+        	// Text: Addition of > before each line
+        	quotedBody = StreamUtils.readCharacterStream(new QuoteFilterInputStream(textbodyStream)).toString();
         }
 
         bodyStream.close();

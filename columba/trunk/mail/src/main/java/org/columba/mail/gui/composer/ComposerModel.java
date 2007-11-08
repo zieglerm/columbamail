@@ -598,7 +598,7 @@ public class ComposerModel {
 	/**
 	 * Propagates an event to all registered listeners notifying them of changes
 	 */
-	public void fireHtmlModelChanged(boolean htmlEnabled) {
+	public void fireHtmlModeChanged(boolean htmlEnabled) {
 		ComposerModelChangedEvent e = new ComposerModelChangedEvent(this, htmlEnabled);
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();

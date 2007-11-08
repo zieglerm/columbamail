@@ -26,6 +26,7 @@ import org.columba.core.command.Command;
 import org.columba.core.gui.frame.DefaultContainer;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.composer.MessageBuilderHelper;
+import org.columba.mail.config.AccountItem;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.composer.ComposerController;
 import org.columba.mail.gui.composer.ComposerModel;
@@ -104,6 +105,13 @@ public class ForwardCommand extends Command {
 				.getMessageSourceStream(uids[0]);
 		model.addMimePart(new InputStreamMimePart(mimeHeader,
 				messageSourceStream));
+
+		// select the account this mail was received from
+        Integer accountUid = (Integer) folder.getAttribute(uids[0],
+                "columba.accountuid");
+        AccountItem accountItem = MessageBuilderHelper
+                .getAccountItem(accountUid);
+        model.setAccountItem(accountItem);
 	}
 
 	/**

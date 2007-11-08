@@ -20,6 +20,7 @@ package org.columba.mail.gui.composer.command;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -28,10 +29,15 @@ import org.columba.api.command.IWorkerStatusController;
 import org.columba.core.io.StreamUtils;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.command.MailFolderCommandReference;
+import org.columba.mail.composer.MessageBuilderHelper;
+import org.columba.mail.config.AccountItem;
 import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.composer.ComposerModel;
 import org.columba.mail.parser.text.HtmlParser;
+import org.columba.ristretto.coder.Base64DecoderInputStream;
+import org.columba.ristretto.coder.CharsetDecoderInputStream;
+import org.columba.ristretto.coder.QuotedPrintableDecoderInputStream;
 import org.columba.ristretto.message.BasicHeader;
 import org.columba.ristretto.message.Header;
 import org.columba.ristretto.message.InputStreamMimePart;
@@ -89,7 +95,7 @@ public class RedirectCommand extends ForwardCommand {
 		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
 				.getRoot().getElement("/options/html");
 
-		// Which Bodypart shall be shown? (html/plain)
+		// Which Bodypart shall be show? (html/plain)
 		MimePart bodyPart = null;
 		Integer[] bodyPartAddress = null;
 		if (Boolean.valueOf(html.getAttribute("prefer")).booleanValue()) {
@@ -104,16 +110,8 @@ public class RedirectCommand extends ForwardCommand {
 
 			bodyPartAddress = bodyPart.getAddress();
 
-			String quotedBodyText = createQuotedBody(folder, uids,
-					bodyPartAddress);
-
-			/*
-			 * *20040210, karlpeder* Remove html comments - they are not
-			 * displayed properly in the composer
-			 */
-			if (bodyPart.getHeader().getMimeType().getSubtype().equals("html")) {
-				quotedBodyText = HtmlParser.removeComments(quotedBodyText);
-			}
+			String quotedBodyText = createQuotedBody(bodyPart.getHeader(),
+					folder, uids, bodyPartAddress);
 
 			model.setBodyText(quotedBodyText);
 		}
@@ -133,6 +131,12 @@ public class RedirectCommand extends ForwardCommand {
 			model.addMimePart(new InputStreamMimePart(mp.getHeader(), stream));
 		}
 
+		// select the account this mail was received from
+        Integer accountUid = (Integer) folder.getAttribute(uids[0],
+                "columba.accountuid");
+        AccountItem accountItem = MessageBuilderHelper
+                .getAccountItem(accountUid);
+        model.setAccountItem(accountItem);
 	}
 
 	private void initMimeHeader(MimePart bodyPart) {
@@ -167,9 +171,29 @@ public class RedirectCommand extends ForwardCommand {
 				+ " (by way of " + rfcHeader.get("To") + ")");
 	}
 
-	protected String createQuotedBody(IMailbox folder, Object[] uids,
-			Integer[] address) throws IOException, Exception {
+	protected String createQuotedBody(MimeHeader header, IMailbox folder,
+			Object[] uids, Integer[] address) throws IOException, Exception {
 		InputStream bodyStream = folder.getMimePartBodyStream(uids[0], address);
+
+		// Do decoding stuff
+        switch( header.getContentTransferEncoding() ) {
+        	case MimeHeader.QUOTED_PRINTABLE : {
+        		bodyStream = new QuotedPrintableDecoderInputStream(bodyStream);
+        		break;
+        	}
+        	
+        	case MimeHeader.BASE64 : {
+        		bodyStream = new Base64DecoderInputStream(bodyStream);
+        	}
+        }
+        String charset = header.getContentParameter("charset");
+        if( charset != null ) {
+        	try {
+        		bodyStream = new CharsetDecoderInputStream(bodyStream, Charset.forName(charset));
+        	} catch( UnsupportedCharsetException e ) {
+        		// 	Stick with the default charset
+        	}
+        }
 
 		String quotedBody;
 		// Quote original message - different methods for text and html
@@ -179,9 +203,8 @@ public class RedirectCommand extends ForwardCommand {
 			// build message orginal ; mod:2004629 SWITT
 			StringBuffer buf = new StringBuffer();
 			buf.append("<html><body>");
-			buf.append(HtmlParser.removeComments( // comments are not
-													// displayed
-					// correctly in composer
+			buf.append(HtmlParser.removeComments(// comments are not displayed
+												 // correctly in composer
 					HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(
 							bodyStream).toString())));
 			buf.append("</body></html>");

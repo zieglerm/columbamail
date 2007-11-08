@@ -64,53 +64,36 @@ public class SubjectDialog extends JDialog implements ActionListener {
         subjectTextField.selectAll();
         subjectTextField.getDocument().addDocumentListener(new MyDocumentListener());
 
-       //TODO (@author fdietz):  i18n
+        //TODO (@author fdietz):  i18n
         setTitle("Enter Subject...");
 
-        //dialog.getContentPane().setLayout( new BoxLayout( dialog.getContentPane(), BoxLayout.Y_AXIS ) );
         getContentPane().setLayout(new BorderLayout());
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-        //centerPanel.setLayout( new BoxLayout( centerPanel, BoxLayout.Y_AXIS ) );
         centerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        /*
-TitledBorder etched = javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Login ");
-centerPanel.setBorder( etched );
-*/
         JPanel panel = new JPanel();
-
         panel.setLayout(new BorderLayout());
 
         JPanel leftInformationPanel = new JPanel();
-        leftInformationPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 5,
-                5));
+        leftInformationPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
         leftInformationPanel.setLayout(new GridLayout(0, 1, 50, 5));
         panel.add(leftInformationPanel, BorderLayout.CENTER);
 
         JPanel rightInformationPanel = new JPanel();
         rightInformationPanel.setLayout(new GridLayout(0, 1, 50, 5));
-        rightInformationPanel.setBorder(BorderFactory.createEmptyBorder(0, 5,
-                5, 5));
+        rightInformationPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
         panel.add(rightInformationPanel, BorderLayout.EAST);
 
         leftInformationPanel.add(subjectLabel);
         rightInformationPanel.add(subjectTextField);
 
-        //centerPanel.add( Box.createRigidArea( new java.awt.Dimension(0,5) ) );
         centerPanel.add(panel, BorderLayout.NORTH);
 
-        /*
-JPanel panel = new JPanel();
-panel.setLayout( new BoxLayout( panel, BoxLayout.X_AXIS ) );
-panel.add( hostLabel );
-centerPanel.add( panel );
-*/
-        //centerPanel.add( Box.createRigidArea( new java.awt.Dimension(0,5) ) );
-        //centerPanel.add( Box.createRigidArea( new java.awt.Dimension(0,5) ) );
         getContentPane().add(centerPanel, BorderLayout.CENTER);
+
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());

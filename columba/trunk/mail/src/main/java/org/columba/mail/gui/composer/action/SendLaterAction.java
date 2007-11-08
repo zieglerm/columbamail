@@ -61,7 +61,7 @@ public class SendLaterAction extends AbstractColumbaAction {
 	public void actionPerformed(ActionEvent evt) {
 		final ComposerController composerController = (ComposerController) getFrameMediator();
 
-		if (composerController.checkState()) {
+		if (!composerController.checkState()) {
 			return;
 		}
 

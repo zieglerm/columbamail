@@ -18,9 +18,6 @@ package org.columba.mail.gui.composer;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.MailConfig;
 import org.columba.mail.gui.composer.util.SubjectDialog;
@@ -32,7 +29,7 @@ import org.columba.mail.util.MailResourceLoader;
  * 
  * @author fdietz
  */
-public class SubjectController implements DocumentListener, Observer {
+public class SubjectController implements Observer {
     private SubjectView view;
     private ComposerController controller;
     private XmlElement subject;
@@ -62,27 +59,22 @@ public class SubjectController implements DocumentListener, Observer {
         }
     }
 
-    public void installListener() {
-        view.installListener(this);
-    }
-
     public void updateComponents(boolean b) {
         if (b) {
-            view.setText(controller.getModel().getHeaderField("Subject"));
+            view.setText(controller.getModel().getSubject());
         } else {
-            controller.getModel().setHeaderField("Subject", view.getText());
+            controller.getModel().setSubject(view.getText());
         }
     }
 
     public boolean checkState() {
-        String subject = controller.getModel().getHeaderField("Subject");
+        String subject = controller.getModel().getSubject();
 
-        if (ask == true) {
+        if (ask) {
             if (subject.length() == 0) {
                 subject = new String(MailResourceLoader.getString("dialog",
                             "composer", "composer_no_subject")); //$NON-NLS-1$
 
-                //SubjectDialog dialog = new SubjectDialog(composerInterface.composerFrame);
                 SubjectDialog dialog = new SubjectDialog();
                 dialog.showDialog(subject);
 
@@ -90,21 +82,11 @@ public class SubjectController implements DocumentListener, Observer {
                     subject = dialog.getSubject();
                 }
 
-                controller.getModel().setHeaderField("Subject", subject);
+                controller.getModel().setSubject(subject);
             }
         }
 
         return true;
-    }
-
-    /**************** DocumentListener implementation ***************/
-    public void insertUpdate(DocumentEvent e) {
-    }
-
-    public void removeUpdate(DocumentEvent e) {
-    }
-
-    public void changedUpdate(DocumentEvent e) {
     }
 
     /*
