@@ -118,16 +118,16 @@ public class TableModelThreadedView implements ModelVisitor {
 
 				return true;
 			}
-		} else if (references != null) {
+		}
+
+		if (references != null) {
 			references = references.trim();
 
 			String[] referenceList = parseReferences(references);
-			int count = referenceList.length;
 
-			if (count >= 1) {
-				// the last element is the direct parent
+			for (int i = referenceList.length - 1; i >= 0; i--) {
 				MessageNode parent = (MessageNode) hashtable
-						.get(referenceList[referenceList.length - 1].trim());
+						.get(referenceList[i].trim());
 				if (parent != null) {
 					parent.add(node);
 					return true;
