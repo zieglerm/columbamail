@@ -296,8 +296,6 @@ public class MessageBuilderHelper {
 			entries.add(matcher.group(1));
 		}
 
-		Collections.sort(entries);
-
 		Iterator it = entries.iterator();
 		StringBuffer result = new StringBuffer();
 
