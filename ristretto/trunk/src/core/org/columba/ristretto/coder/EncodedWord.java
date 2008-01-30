@@ -79,7 +79,7 @@ public class EncodedWord {
 
 	// tokenizes a string into words
 	private static final Pattern wordTokenizerPattern =
-		Pattern.compile("\\b([^\\s]+[\\s]*)");
+		Pattern.compile("([^\\s]+[\\s]*)");
 
 	private static final Pattern whitespacePattern = Pattern.compile(" ");
 
