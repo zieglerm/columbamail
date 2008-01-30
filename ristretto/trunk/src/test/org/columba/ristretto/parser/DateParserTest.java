@@ -125,8 +125,8 @@ public class DateParserTest extends TestCase {
 		}
 		GregorianCalendar c = new GregorianCalendar();
 		c.clear();
-		c.setTimeZone(TimeZone.getTimeZone("PDT"));
-		//		year, month, date, hour, second
+		c.setTimeZone(TimeZone.getTimeZone("PST8PDT"));
+		// year, month, date, hour, second
 		c.set(2003, 5, 19, 9, 46, 0);
 		Date testDate = c.getTime();
 		assertTrue(testDate.equals(date));
