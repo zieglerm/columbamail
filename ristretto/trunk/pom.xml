@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>columba</groupId>
+	<artifactId>ristretto</artifactId>
+	<version>1.0_RC3</version>
+	<packaging>jar</packaging>
+	<description>
+		Ristretto is a low-level mail api for Java. It offers a fast and easy way to enhance your software with SMTP,
+		POP3 and IMAP capabilities.
+	</description>
+	<name>Low-Level mail api for Java.</name>
+	<url>http://www.columbamail.org</url>
+	<inceptionYear>2000</inceptionYear>
+	<mailingLists>
+		<mailingList>
+			<name>columba developer mailinglist</name>
+			<archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:svn:http://svn.sourceforge.net/svnroot/columba</connection>
+		<developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/columba</developerConnection>
+		<url>http://svn.sourceforge.net/viewvc/columba/</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<name>Timo Stich</name>
+			<id>tstich</id>
+			<email>tstich@users.sourceforge.net</email>
+			<roles>
+				<role>Project Leader</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Thomas Wabner</name>
+			<id>waffel</id>
+			<email>waffel@users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+				<role>Build master</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<repositories>
+		<repository>
+			<id>columba</id>
+			<name>Colunba main repository</name>
+			<url>https://columba.hora-obscura.de/dav_columba</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<sourceDirectory>src/core</sourceDirectory>
+		<testSourceDirectory>src/test</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<updateReleaseInfo>true</updateReleaseInfo>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-1</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit-addons</groupId>
+			<artifactId>junit-addons</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>columba</id>
+			<name>Columba main repository</name>
+			<url>dav:https://columba.hora-obscura.de/dav_columba</url>
+		</repository>
+	</distributionManagement>
+</project>
