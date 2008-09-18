@@ -116,6 +116,56 @@ public class MimeTree implements Serializable, Iterable {
 	}
 
 	/**
+	 * Collects all MIME parts with the specified ContentType and the
+	 * prefered Subtype if specified
+	 * 
+	 * @param node the root node of the MimeTree
+	 * @param contentType the content type
+	 * @param preferedSubtype a preferred Subtype or <code>null</code>
+	 * @return the List of MIME parts.
+	 */
+	public List getInlineParts(MimePart node, String contentType, String preferedSubtype) {
+		List list = new LinkedList();
+		String type = node.getHeader().getMimeType().getType();
+
+		if (!node.isInline())
+			return list;
+
+		if (type.equals(contentType)) {
+			list.add(node);
+			return list;
+		} else if (type.equals("multipart")) {
+			String subtype = node.getHeader().getMimeType().getSubtype();
+
+			if (subtype.equals("alternative")) {
+				List alternatives = getLeafsWithContentType(node, contentType);
+				MimePart alternative = null;
+
+				for (int i = 0; i < alternatives.size(); i++) {
+					MimePart a = (MimePart) alternatives.get(i);
+					if (!a.isInline())
+						continue;
+
+					alternative = (MimePart) alternatives.get(i);
+
+					if (alternative.getHeader().getMimeType().getSubtype().equals(preferedSubtype))
+						break;
+				}
+
+				if (alternative != null) {
+					list.add(alternative);
+				}
+			} else {
+				for (int i = 0; i < node.countChilds(); i++) {
+					list.addAll(getInlineParts(node.getChild(i), contentType, preferedSubtype));
+				}
+			}
+		}
+
+		return list;
+	}
+
+	/**
 	 * Gets the first MimePart that is of content type Text.
 	 * If a prefered Subtype is specified first this is searched
 	 * for. If none is found the first Text part is returned.

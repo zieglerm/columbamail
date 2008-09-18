@@ -210,4 +210,16 @@ public class MimePart implements Serializable {
 		return size;
 	}
 
+	/**
+	 * Check if this is an inline part
+	 * 
+	 * @return true, if this is an inline part
+	 */
+	public boolean isInline() {
+		String contentDisposition = header.getContentDisposition();
+		if (contentDisposition == null || contentDisposition.equals("inline"))
+			return true;
+
+		return false;
+	}
 }
