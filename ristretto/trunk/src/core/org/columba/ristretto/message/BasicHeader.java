@@ -58,11 +58,11 @@ public class BasicHeader {
 	/**
 	 * Priority value
 	 */
-	public final static int HIGHEST = 5;
+	public final static int HIGHEST = 1;
 	/**
 	 * Priority value
 	 */
-	public final static int HIGH = 4;
+	public final static int HIGH = 2;
 	/**
 	 * Priority value
 	 */
@@ -70,11 +70,11 @@ public class BasicHeader {
 	/**
 	 * Priority value
 	 */
-	public final static int LOW = 2;
+	public final static int LOW = 4;
 	/**
 	 * Priority value
 	 */
-	public final static int LOWEST = 1;
+	public final static int LOWEST = 5;
 	
 	private static final Pattern whiteSpaceTokenizer = Pattern.compile("\\s*([^\\s]+)");
 	
