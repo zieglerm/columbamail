@@ -41,8 +41,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.columba.ristretto.message.MimePart;
-
 /**
  * The BodyStrcuture of a MIME message.
  * 
