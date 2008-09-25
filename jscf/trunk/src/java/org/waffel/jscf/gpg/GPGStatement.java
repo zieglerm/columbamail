@@ -200,17 +200,28 @@ public final class GPGStatement implements JSCFStatement {
 			String[] obj = new String[0];
 			// starting process
 			Process p = this.executeCommand(cmdList.toArray(obj));
+
+			StreamGlobber errStream = new StreamGlobber(p.getErrorStream());
+			StreamGlobber resStream = new StreamGlobber(p.getInputStream());
+
+			errStream.start();
+			resStream.start();
+
 			// write the pgpMessage out
 			StreamUtils.streamCopy(message, p.getOutputStream());
 			p.getOutputStream().close();
+			errStream.join();
+			resStream.join();
 
 			resultSet.setReturnValue(p.waitFor());
-			String error = StreamUtils.readInString(p.getErrorStream())
-					.toString();
-			resultSet
-					.setErrorStream(new ByteArrayInputStream(error.getBytes()));
-			resultSet
-					.setResultStream(new ByteArrayInputStream(error.getBytes()));
+
+			String error = StreamUtils.readInString(errStream.getRetStream()).toString();
+			resultSet.setErrorStream(new ByteArrayInputStream(error.getBytes()));
+			resultSet.setResultStream(new ByteArrayInputStream(error.getBytes()));
+
+			p.getInputStream().close();
+			p.getErrorStream().close();
+
 			p.destroy();
 			fout.close();
 			tempFile.delete();

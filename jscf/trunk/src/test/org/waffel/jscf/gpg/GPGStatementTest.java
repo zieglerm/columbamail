@@ -310,7 +310,6 @@ public final class GPGStatementTest extends TestCase {
 	 */
 	public void testCheckPassphrase() throws Exception {
 		JSCFConnection pgpCon = null;
-		JSCFResultSet res = null;
 		pgpCon = JSCFDriverManager
 				.getConnection("jscf:gpg::/usr/bin/gpg:testid:test");
 		JSCFStatement stmt = pgpCon.createStatement();

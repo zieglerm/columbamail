@@ -18,14 +18,11 @@
  */
 package org.waffel.jscf.gpg;
 
-import java.io.ByteArrayInputStream;
-
 import junit.framework.TestCase;
 
 import org.waffel.jscf.JSCFConnection;
 import org.waffel.jscf.JSCFDriverManager;
 import org.waffel.jscf.JSCFResultSet;
-import org.waffel.jscf.JSCFStatement;
 
 /**
  * This class should test for failings.
@@ -43,7 +40,6 @@ public class GPGStatementFailTest extends TestCase {
     public void testProgramNotFound() throws Exception {
         try {
             JSCFConnection pgpCon = null;
-            JSCFResultSet res = null;
             JSCFDriverManager.registerJSCFDriver(new GPGDriver());
             pgpCon = JSCFDriverManager.getConnection("jscf:gpg::/fail/gpg",
                     "testid", "test");
