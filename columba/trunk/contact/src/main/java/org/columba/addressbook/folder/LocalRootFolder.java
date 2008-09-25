@@ -29,7 +29,7 @@ import org.columba.core.resourceloader.ImageLoader;
  * @author
  */
 public class LocalRootFolder extends AddressbookTreeNode {
-    protected ImageIcon localIcon = ImageLoader.getSmallIcon(
+    protected final static ImageIcon localIcon = ImageLoader.getSmallIcon(
             IconKeys.COMPUTER);
 
     public LocalRootFolder(FolderItem item) {

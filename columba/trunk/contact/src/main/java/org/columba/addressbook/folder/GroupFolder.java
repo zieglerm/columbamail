@@ -17,7 +17,6 @@
 //All Rights Reserved.
 package org.columba.addressbook.folder;
 
-import java.util.Hashtable;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -28,7 +27,6 @@ import org.columba.addressbook.model.GroupModel;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.addressbook.model.IGroupModel;
-import org.columba.api.command.IWorkerStatusController;
 import org.columba.api.exception.StoreException;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
@@ -42,14 +40,13 @@ import org.columba.core.xml.XmlElement;
  * @author fdietz
  *  
  */
-public class GroupFolder extends AbstractFolder implements IContactStorage, IGroupFolder {
+public class GroupFolder extends AbstractFolder
+		implements IContactStorage, IGroupFolder, FolderListener {
 
 	private IGroupModel group;
 
-	Map<String,IContactModelPartial> map = new Hashtable<String,IContactModelPartial>();
-
-	private ImageIcon groupImageIcon = ImageLoader
-	.getSmallIcon(IconKeys.USER);
+	private static final ImageIcon groupImageIcon = ImageLoader
+			.getSmallIcon(IconKeys.USER);
 
 	/**
 	 * @param name
@@ -76,7 +73,13 @@ public class GroupFolder extends AbstractFolder implements IContactStorage, IGro
 		group = new GroupModel(e, property, getId());
 	}
 
-	public void createChildren(IWorkerStatusController worker) {
+	/**
+	 * @see org.columba.addressbook.folder.IContactStorage#get(java.lang.Object)
+	 */
+	public IContactModel get(String uid) throws StoreException {
+		AbstractFolder parent = (AbstractFolder) getParent();
+
+		return parent.get(uid);
 	}
 
 	/**
@@ -84,10 +87,12 @@ public class GroupFolder extends AbstractFolder implements IContactStorage, IGro
 	 */
 	public String add(IContactModel contact) throws StoreException {
 		String uid = contact.getId();
+		AbstractFolder parent = (AbstractFolder) getParent();
+		IContactModelPartial item = parent.getContactItemMap().get(uid);
+
+		cacheStorage.add(uid, item);
 
 		group.addMember(uid);
-
-		updateContactItemMap();
 
 		fireItemAdded(uid);
 
@@ -95,63 +100,39 @@ public class GroupFolder extends AbstractFolder implements IContactStorage, IGro
 	}
 
 	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#count()
-	 */
-	public int count() throws StoreException{
-
-		return group.count();
-	}
-
-	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#exists(java.lang.Object)
-	 */
-	public boolean exists(String uid) throws StoreException{
-
-		return group.exists(uid);
-	}
-
-	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#get(java.lang.Object)
-	 */
-	public IContactModel get(String uid) throws StoreException {
-
-		AbstractFolder parent = (AbstractFolder) getParent();
-
-		return parent.get(uid);
-	}
-
-	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#modify(java.lang.Object,
 	 *      IContactModel)
 	 */
 	public void modify(String uid, IContactModel contact) throws StoreException {
-		AbstractFolder parent = (AbstractFolder) getParent();
+		super.modify(uid, contact);
 
+		AbstractFolder parent = (AbstractFolder) getParent();
 		parent.modify(uid, contact);
 
-		updateContactItemMap();
-
 		fireItemChanged(uid);
-
 	}
 
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#remove(java.lang.Object)
 	 */
 	public void remove(String uid) throws StoreException {
-		group.remove(uid);
+		super.remove(uid);
 
-		updateContactItemMap();
+		group.remove(uid);
 
 		fireItemRemoved(uid);
 	}
 
-	private void updateContactItemMap() {
+	private void updateCacheStorage() {
+		if (cacheStorage == null) {
+			cacheStorage = new ContactItemCacheStorageImpl(this);
+			((AbstractFolder) getParent()).addFolderListener(this);
+		} else {
+			cacheStorage.getContactItemMap().clear();
+		}
+
 		AbstractFolder parent = (AbstractFolder) getParent();
-
 		Map<String,IContactModelPartial> parentmap = parent.getContactItemMap();
-
-		map.clear();
 
 		String[] members = group.getMembers();
 		for (int i = 0; i < members.length; i++) {
@@ -162,18 +143,17 @@ public class GroupFolder extends AbstractFolder implements IContactStorage, IGro
 
 				remove(members[i]);
 			} else {
-				map.put(members[i], p);
+				cacheStorage.getContactItemMap().put(members[i], p);
 			}
 		}
 	}
 
-	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#getHeaderItemList()
-	 */
-	public Map<String,IContactModelPartial> getContactItemMap() throws StoreException {
-		updateContactItemMap();
+	public ContactItemCacheStorage getCacheStorage() {
+		if (cacheStorage == null) {
+			updateCacheStorage();
+		}
 
-		return map;
+		return cacheStorage;
 	}
 
 	/**
@@ -193,8 +173,23 @@ public class GroupFolder extends AbstractFolder implements IContactStorage, IGro
 	public void modelChanged() {
 		AddressbookTreeModel.getInstance().nodeChanged(this);
 
-		updateContactItemMap();
+		updateCacheStorage();
 
 		fireItemAdded(null);
+	}
+
+	public void itemAdded(IFolderEvent e) {
+		updateCacheStorage();
+		fireItemAdded(null);
+	}
+
+	public void itemChanged(IFolderEvent e) {
+		updateCacheStorage();
+		fireItemChanged(null);
+	}
+
+	public void itemRemoved(IFolderEvent e) {
+		updateCacheStorage();
+		fireItemRemoved(null);
 	}
 }

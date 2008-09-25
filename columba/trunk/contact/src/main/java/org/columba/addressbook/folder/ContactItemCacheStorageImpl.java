@@ -17,20 +17,12 @@
 //All Rights Reserved.
 package org.columba.addressbook.folder;
 
-import java.io.File;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-import java.util.logging.Logger;
 
-import org.columba.addressbook.model.ContactModelFactory;
-import org.columba.addressbook.model.ContactModelXMLFactory;
 import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.api.exception.StoreException;
-import org.columba.core.xml.XmlNewIO;
-import org.jdom.Document;
 
 /**
  * Contact item cache storage.
@@ -39,11 +31,6 @@ import org.jdom.Document;
  *
  */
 public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
-
-	/** JDK 1.4+ logging framework logger, used for logging. */
-	private static final Logger LOG = Logger
-			.getLogger("org.columba.addressbook.folder");
-
 	/**
 	 *
 	 * keeps a list of HeaderItem's we need for the table-view
@@ -53,52 +40,17 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 
 	/**
 	 *
-	 * binary file named "header"
-	 *
-	 */
-	private File headerFile;
-
-	/**
-	 * directory where contact files are stored
-	 */
-	private File directoryFile;
-
-	private AbstractFolder folder;
-
-	private boolean initialized = false;
-
-	/**
-	 *
 	 */
 	public ContactItemCacheStorageImpl(AbstractFolder folder) {
 		super();
 
-		this.folder = folder;
-
 		map = new Hashtable<String, IContactModelPartial>();
-
-		directoryFile = folder.getDirectoryFile();
-
-		headerFile = new File(directoryFile, ".header");
-
-		/*
-		 * if (headerFile.exists()) { try { load(); headerCacheAlreadyLoaded =
-		 * true; } catch (Exception ex) { ex.printStackTrace();
-		 *
-		 * headerCacheAlreadyLoaded = false; } } else { sync(); }
-		 */
 	}
 
 	/**
 	 * @see org.columba.addressbook.folder.ContactItemCacheStorage#getHeaderItemMap()
 	 */
-	public Map<String, IContactModelPartial> getContactItemMap()
-			throws StoreException {
-		if (!initialized) {
-			initCache();
-			initialized = true;
-		}
-
+	public Map<String, IContactModelPartial> getContactItemMap() {
 		return map;
 	}
 
@@ -107,7 +59,7 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	 */
 	public void add(String uid, IContactModelPartial item)
 			throws StoreException {
-		getContactItemMap().put(uid, item);
+		map.put(uid, item);
 
 	}
 
@@ -115,7 +67,7 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	 * @see org.columba.addressbook.folder.ContactItemCacheStorage#remove(java.lang.Object)
 	 */
 	public void remove(String uid) throws StoreException {
-		getContactItemMap().remove(uid);
+		map.remove(uid);
 
 	}
 
@@ -125,8 +77,8 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	 */
 	public void modify(String uid, IContactModelPartial item)
 			throws StoreException {
-		getContactItemMap().remove(item);
-		getContactItemMap().put(uid, item);
+		map.remove(uid);
+		map.put(uid, item);
 
 	}
 
@@ -142,52 +94,6 @@ public class ContactItemCacheStorageImpl implements ContactItemCacheStorage {
 	 */
 	public void load() throws StoreException {
 
-	}
-
-	private void initCache() {
-
-		File[] list = directoryFile.listFiles();
-
-		for (int i = 0; i < list.length; i++) {
-			File file = list[i];
-			String name = file.getName();
-			int index = name.indexOf("header");
-
-			if (index == -1) {
-
-				if ((file.exists()) && (file.length() > 0)) {
-					int extension = name.indexOf('.');
-					if (extension == -1)
-						continue;
-					int uid;
-					try {
-						uid = Integer.parseInt(name.substring(0, extension));
-					} catch(NumberFormatException e) {
-						continue;
-					}
-
-					try {
-						Document doc = XmlNewIO.load(file);
-
-						IContactModel model = ContactModelXMLFactory.unmarshall(doc,
-								new Integer(uid).toString());
-
-						IContactModelPartial item = ContactModelFactory
-								.createContactModelPartial(model, new Integer(uid)
-										.toString());
-						map.put(new Integer(uid).toString(), item);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-
-			} else {
-				// header file found
-				headerFile.delete();
-			}
-		}
-
-		LOG.info("map-size()==" + map.size());
 	}
 
 	/**

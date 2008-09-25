@@ -36,12 +36,12 @@ import org.jdom.Document;
  */
 public class XmlDataStorage implements DataStorage {
 
-	private AbstractFolder folder;
+	private LocalFolder folder;
 
 	/**
 	 * 
 	 */
-	public XmlDataStorage(AbstractFolder folder) {
+	public XmlDataStorage(LocalFolder folder) {
 		super();
 
 		this.folder = folder;

@@ -17,7 +17,6 @@
 //All Rights Reserved.
 package org.columba.addressbook.folder;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -31,8 +30,6 @@ import org.columba.addressbook.model.IContactModel;
 import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.api.command.IWorkerStatusController;
 import org.columba.api.exception.StoreException;
-import org.columba.core.config.DefaultConfigDirectory;
-import org.columba.core.io.DiskIO;
 
 /**
  * Abstract base class for every contact folder.
@@ -45,41 +42,21 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 
 	protected EventListenerList listenerList = new EventListenerList();
 
-	protected int nextMessageUid = 0;
-
-	/**
-	 * folder where we save everything name of folder is usually the UID-number
-	 */
-	private File directoryFile;
+	protected int nextContactUid = 0;
 
 	/**
 	 * FolderItem keeps information about the folder for example: name,
 	 * accessrights, type
 	 */
 
-	private ContactItemCacheStorage cacheStorage;
+	protected ContactItemCacheStorage cacheStorage = null;
 
 	public AbstractFolder(String name, String dir) {
 		super(name);
-
-		if (DiskIO.ensureDirectory(dir)) {
-			directoryFile = new File(dir);
-		}
-
-		cacheStorage = new ContactItemCacheStorageImpl(this);
 	}
 
 	public AbstractFolder(FolderItem item) {
 		super(item);
-
-		String dir = DefaultConfigDirectory.getInstance().getCurrentPath()
-				+ "/addressbook/" + getId();
-
-		if (DiskIO.ensureDirectory(dir)) {
-			directoryFile = new File(dir);
-		}
-
-		cacheStorage = new ContactItemCacheStorageImpl(this);
 	}
 
 	/**
@@ -153,16 +130,11 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 		}
 	}
 
-    /**
-     * Returns folder where we save everything name of folder is usually the UID-number
-     *
-     * @return folder where we save everything name of folder is usually the UID-number
-     */
-    public File getDirectoryFile() {
-        return directoryFile;
+	public void createChildren(IWorkerStatusController worker) {
 	}
 
-	public void createChildren(IWorkerStatusController worker) {
+	public ContactItemCacheStorage getCacheStorage() {
+		return cacheStorage;
 	}
 
 	/**
@@ -170,7 +142,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 */
 	public Map<String, IContactModelPartial> getContactItemMap()
 			throws StoreException {
-		return cacheStorage.getContactItemMap();
+		return getCacheStorage().getContactItemMap();
 	}
 
 	/**
@@ -178,14 +150,14 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 */
 	public Map<String, IContactModelPartial> getContactItemMap(String[] ids)
 			throws StoreException {
-		return cacheStorage.getContactItemMap(ids);
+		return getCacheStorage().getContactItemMap(ids);
 	}
 
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#findByEmailAddress(java.lang.String)
 	 */
 	public String findByEmailAddress(String emailAddress) throws StoreException {
-		Iterator it = getContactItemMap().values().iterator();
+		Iterator<IContactModelPartial> it = getContactItemMap().values().iterator();
 		while (it.hasNext()) {
 			IContactModelPartial item = (IContactModelPartial) it.next();
 			String address = item.getAddress();
@@ -194,7 +166,6 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 				String id = item.getId();
 				return id;
 			}
-
 		}
 		return null;
 	}
@@ -203,7 +174,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 * @see org.columba.addressbook.folder.IContactStorage#findByName(java.lang.String)
 	 */
 	public String findByName(String name) throws StoreException {
-		Iterator it = getContactItemMap().values().iterator();
+		Iterator<IContactModelPartial> it = getContactItemMap().values().iterator();
 		while (it.hasNext()) {
 			IContactModelPartial item = (IContactModelPartial) it.next();
 			String sortas = item.getName();
@@ -220,7 +191,6 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 				String id = item.getId();
 				return id;
 			}
-
 		}
 		return null;
 	}
@@ -280,9 +250,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 		IContactModelPartial item = ContactModelFactory
 				.createContactModelPartial(contact, uid);
 
-		cacheStorage.add(uid, item);
-
-		fireItemAdded(uid);
+		getCacheStorage().add(uid, item);
 
 		return uid;
 	}
@@ -297,18 +265,14 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 		IContactModelPartial item = ContactModelFactory
 				.createContactModelPartial(contact, uid);
 
-		cacheStorage.modify(uid, item);
-
-		fireItemChanged(uid);
+		getCacheStorage().modify(uid, item);
 	}
 
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#remove(java.lang.Object)
 	 */
 	public void remove(String uid) throws StoreException {
-		cacheStorage.remove(uid);
-
-		fireItemRemoved(uid);
+		getCacheStorage().remove(uid);
 	}
 
 	/**
@@ -320,14 +284,14 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 * @see org.columba.addressbook.folder.IContactStorage#count()
 	 */
 	public int count() throws StoreException {
-		return cacheStorage.count();
+		return getCacheStorage().count();
 	}
 
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#exists(java.lang.Object)
 	 */
 	public boolean exists(String uid) throws StoreException {
-		return cacheStorage.exists(uid);
+		return getCacheStorage().exists(uid);
 	}
 
 	/**
@@ -344,27 +308,15 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	/**
 	 * @return Returns the messageUid.
 	 */
-	public int getNextMessageUid() {
-		while(exists(new Integer(nextMessageUid).toString())) {
-			nextMessageUid++;
+	public int getNextContactUid() {
+		while(exists(new Integer(nextContactUid).toString())) {
+			nextContactUid++;
 		}
-		return nextMessageUid;
+		return nextContactUid;
 	}
 
 	private String generateNextMessageUid() {
-		getNextMessageUid();
-		return new Integer(nextMessageUid++).toString();
+		getNextContactUid();
+		return new Integer(nextContactUid++).toString();
 	}
-
-	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#add(IContactModel[])
-	 */
-	public String[] add(IContactModel[] contacts) throws StoreException {
-		String[] uids = new String[contacts.length];
-		for (int i = 0; i < contacts.length; i++)
-			uids[i] = add(contacts[i]);
-
-		return uids;
-	}
-
 }

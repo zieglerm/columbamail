@@ -15,9 +15,18 @@
 //All Rights Reserved.
 package org.columba.addressbook.folder;
 
+import java.io.File;
+
 import org.columba.addressbook.config.FolderItem;
+import org.columba.addressbook.model.ContactModelFactory;
+import org.columba.addressbook.model.ContactModelXMLFactory;
 import org.columba.addressbook.model.IContactModel;
+import org.columba.addressbook.model.IContactModelPartial;
 import org.columba.api.exception.StoreException;
+import org.columba.core.config.DefaultConfigDirectory;
+import org.columba.core.io.DiskIO;
+import org.columba.core.xml.XmlNewIO;
+import org.jdom.Document;
 
 /**
  * 
@@ -33,18 +42,94 @@ import org.columba.api.exception.StoreException;
  */
 public abstract class LocalFolder extends AbstractFolder {
 
-	protected DataStorage dataStorage;
+	protected DataStorage dataStorage = null;
+
+	/**
+	 * directory where contact files are stored
+	 */
+	private File directoryFile;
 
 	public LocalFolder(String name, String path) {
 		super(name, path);
+
+		if (DiskIO.ensureDirectory(path)) {
+			directoryFile = new File(path);
+		}
 	}
 
 	public LocalFolder(FolderItem item) {
 		super(item);
 
+		String dir = DefaultConfigDirectory.getInstance().getCurrentPath()
+				+ "/addressbook/" + getId();
+
+		if (DiskIO.ensureDirectory(dir)) {
+			directoryFile = new File(dir);
+		}
+	}
+
+	private void initCache() {
+		cacheStorage = new ContactItemCacheStorageImpl(this);
+
+		File[] list = directoryFile.listFiles();
+
+		for (int i = 0; i < list.length; i++) {
+			File file = list[i];
+			String name = file.getName();
+			int index = name.indexOf("header");
+
+			if (index == -1) {
+
+				if ((file.exists()) && (file.length() > 0)) {
+					int extension = name.indexOf('.');
+					if (extension == -1)
+						continue;
+					int uid;
+					try {
+						uid = Integer.parseInt(name.substring(0, extension));
+					} catch(NumberFormatException e) {
+						continue;
+					}
+
+					try {
+						Document doc = XmlNewIO.load(file);
+
+						IContactModel model = ContactModelXMLFactory.unmarshall(doc,
+								new Integer(uid).toString());
+
+						IContactModelPartial item = ContactModelFactory
+								.createContactModelPartial(model, new Integer(uid)
+										.toString());
+						cacheStorage.add(new Integer(uid).toString(), item);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+
+			} else {
+				// header file found
+				file.delete();
+			}
+		}
+	}
+
+	public ContactItemCacheStorage getCacheStorage() {
+		if (cacheStorage == null) {
+			initCache();
+		}
+		return cacheStorage;
 	}
 
 	public abstract DataStorage getDataStorageInstance();
+
+	/**
+     * Returns folder where we save everything name of folder is usually the UID-number
+     *
+     * @return folder where we save everything name of folder is usually the UID-number
+     */
+    public File getDirectoryFile() {
+        return directoryFile;
+	}
 
 	/**
 	 * @see org.columba.addressbook.folder.IContactStorage#add(IContactModel)
@@ -54,14 +139,9 @@ public abstract class LocalFolder extends AbstractFolder {
 
 		getDataStorageInstance().save(uid, contact);
 
-		return uid;
-	}
+		fireItemAdded(uid);
 
-	/**
-	 * @see org.columba.addressbook.folder.IContactStorage#get(java.lang.Object)
-	 */
-	public IContactModel get(String uid) throws StoreException {
-		return getDataStorageInstance().load(uid);
+		return uid;
 	}
 
 	/**
@@ -73,6 +153,7 @@ public abstract class LocalFolder extends AbstractFolder {
 
 		getDataStorageInstance().modify(uid, contact);
 
+		fireItemChanged(uid);
 	}
 
 	/**
@@ -83,5 +164,13 @@ public abstract class LocalFolder extends AbstractFolder {
 
 		getDataStorageInstance().remove(uid);
 
+		fireItemRemoved(uid);
+	}
+
+	/**
+	 * @see org.columba.addressbook.folder.IContactStorage#get(java.lang.Object)
+	 */
+	public IContactModel get(String uid) throws StoreException {
+		return getDataStorageInstance().load(uid);
 	}
 }

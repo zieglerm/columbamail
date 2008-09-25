@@ -88,7 +88,9 @@ public class AddVCardAction extends DefaultTreeAction {
 							new CharSequenceSource(strbuf.toString())));
 
 					// add to folder
-					destinationFolder.add(cards);
+					for (int j = 0; j < cards.length; j++) {
+						destinationFolder.add(cards[i]);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

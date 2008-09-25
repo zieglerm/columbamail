@@ -81,6 +81,8 @@ public class ExportVCardAction extends DefaultTableAction {
 
 					VCardParser.write(contact, s);
 
+					s.close();
+
 				} catch (FileNotFoundException e) {
 
 					e.printStackTrace();

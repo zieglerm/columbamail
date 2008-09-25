@@ -67,7 +67,7 @@ public class ParserUtil {
 			list.add(t);
 		}
 
-		return (String[]) list.toArray(new String[] { "" });
+		return (String[]) list.toArray(new String[0]);
 
 	}
 

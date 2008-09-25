@@ -36,10 +36,10 @@ public abstract class AddressbookTreeNode extends DefaultMutableTreeNode
 	protected final static ImageIcon expandedIcon = ImageLoader
 			.getSmallIcon(IconKeys.FOLDER_OPEN);
 
-	private static int nextFolderUid = 0;
-
-	protected ImageIcon collapsedIcon = ImageLoader
+	protected final static ImageIcon collapsedIcon = ImageLoader
 			.getSmallIcon(IconKeys.FOLDER);
+
+	private static int nextFolderUid = 0;
 
 	protected FolderItem node;
 
@@ -212,10 +212,8 @@ public abstract class AddressbookTreeNode extends DefaultMutableTreeNode
 	}
 
 	public String getName() {
-		String name = null;
-
 		FolderItem item = getFolderItem();
-		name = item.getString("property", "name");
+		String name = item.getString("property", "name");
 
 		return name;
 	}

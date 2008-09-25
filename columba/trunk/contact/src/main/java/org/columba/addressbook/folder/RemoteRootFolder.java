@@ -29,7 +29,7 @@ import org.columba.core.resourceloader.ImageLoader;
  * @author fdietz
  */
 public class RemoteRootFolder extends AddressbookTreeNode {
-    ImageIcon remoteIcon = ImageLoader.getSmallIcon(IconKeys.SERVER);
+    final static ImageIcon remoteIcon = ImageLoader.getSmallIcon(IconKeys.SERVER);
 
     /**
  * Constructor for RemoteRootFolder.

@@ -58,7 +58,9 @@ public class VCardImporter extends DefaultAddressbookImporter {
 		
 		IContactModel[] cards = VCardParser.read(in);
 
-		saveContacts(cards);
+		for (int i = 0; i < cards.length; i++) {
+			saveContact(cards[i]);
+		}
 	}
 
 	/**
