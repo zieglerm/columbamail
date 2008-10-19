@@ -44,7 +44,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		Object uid = getSourceFolder().add(c);
 		assertNotNull(uid);
-		assertEquals("nextUid", 1, getSourceFolder().getNextMessageUid());
+		assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
 
 	}
 
@@ -55,7 +55,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		Object uid = getSourceFolder().add(c);
 		assertNotNull(uid);
-		assertEquals("nextUid", 1, getSourceFolder().getNextMessageUid());
+		assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
 
 		c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
@@ -63,7 +63,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		uid = getSourceFolder().add(c);
 
-		assertEquals("nextUid", 2, getSourceFolder().getNextMessageUid());
+		assertEquals("nextUid", 2, getSourceFolder().getNextContactUid());
 
 		c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
@@ -71,7 +71,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		uid = getSourceFolder().add(c);
 
-		assertEquals("nextUid", 3, getSourceFolder().getNextMessageUid());
+		assertEquals("nextUid", 3, getSourceFolder().getNextContactUid());
 
 	}
 

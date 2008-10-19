@@ -44,6 +44,7 @@
 	<classpathentry kind="src" path="plugins/org.columba.mail.PlaySoundFilterAction/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.mail.ToOrCcFilter/src"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/bsh-2.0b2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/usermanual.jar"/>
 	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
@@ -64,7 +65,6 @@
 	<classpathentry kind="lib" path="plugins/org.columba.core.LiquidLookAndFeel/lib/liquidlnf.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.MetouiaLookAndFeel/lib/metouia.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.WinLAFLookAndFeel/lib/winlaf-0.5.1.jar"/>
-	<classpathentry kind="lib" path="lib/bsh-2.0b2.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-1.4.3.jar"/>
 	<classpathentry kind="lib" path="lib/tagsoup-1.0rc3.jar"/>
 	<classpathentry kind="lib" path="lib/je-2.1.30.jar"/>

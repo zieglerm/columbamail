@@ -89,7 +89,11 @@ public class AbstractFolderTstCase extends TestCase {
 	protected void tearDown() throws Exception {
 		for (Iterator iterator = folders.iterator(); iterator.hasNext();) {
 			AbstractFolder folder = (AbstractFolder) iterator.next();
-			File f = folder.getDirectoryFile();
+			if ( !(folder instanceof LocalFolder))
+					continue;
+
+			LocalFolder localfolder = (LocalFolder)folder;
+			File f = localfolder.getDirectoryFile();
 
 			// delete all mails in folder
 			File[] list = f.listFiles();
