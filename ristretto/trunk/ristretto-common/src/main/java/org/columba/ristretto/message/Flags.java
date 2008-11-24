@@ -140,7 +140,7 @@ public class Flags implements Saveable, Cloneable {
      * @param mask mask the Flag to clear (eg #ANSWERED)
      */
     public void clear(short mask) {
-        flags &= 0x0ffffffff ^ mask;
+        flags &= ~mask;
     }
 
     /**
@@ -287,7 +287,7 @@ public class Flags implements Saveable, Cloneable {
     }
 
     /** {@inheritDoc} */
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         Flags clone;
         try {
             clone = (Flags) super.clone();
