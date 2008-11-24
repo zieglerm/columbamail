@@ -104,7 +104,7 @@ public class ResponseTextCodeParser {
             }
         } else {
             result.setType(ResponseTextCode.UNSPECIFIED);
-            result.setStringValue(in.toString());
+            result.setStringValue(in);
         }
         
         return result;
