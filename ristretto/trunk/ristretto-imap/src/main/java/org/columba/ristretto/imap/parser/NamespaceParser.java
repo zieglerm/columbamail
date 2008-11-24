@@ -120,7 +120,7 @@ public class NamespaceParser {
 
 						// add it as a String[] to the namespace
 						ns.setExtensionParameter((String[]) parameterList
-								.toArray(new String[0]));
+              .toArray(new String[parameterList.size()]));
 					}
 
 					result.addNamespace(i, ns);

@@ -247,7 +247,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (String[]) result.toArray(new String[0]);
+		return (String[]) result.toArray(new String[result.size()]);
 	}
 
 	/**
@@ -753,7 +753,7 @@ public class IMAPProtocol implements AuthenticationServer {
 			}
 		}
 
-		return (ListInfo[]) result.toArray(new ListInfo[0]);
+		return (ListInfo[]) result.toArray(new org.columba.ristretto.imap.ListInfo[result.size()]);
 	}
 
 	/**
@@ -1205,7 +1205,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (IMAPFlags[]) result.toArray(new IMAPFlags[0]);
+		return (IMAPFlags[]) result.toArray(new org.columba.ristretto.imap.IMAPFlags[result.size()]);
 	}
 
 	
@@ -1245,7 +1245,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (Integer[]) result.toArray(new Integer[0]);
+		return (Integer[]) result.toArray(new Integer[result.size()]);
 	}
 
 	private IMAPHeader[] fetchHeaderFieldsCore(String c, SequenceSet set,
@@ -1279,7 +1279,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (IMAPHeader[]) result.toArray(new IMAPHeader[0]);
+		return (IMAPHeader[]) result.toArray(new org.columba.ristretto.imap.IMAPHeader[result.size()]);
 	}
 
 	/**
@@ -1339,7 +1339,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (IMAPHeader[]) result.toArray(new IMAPHeader[0]);
+		return (IMAPHeader[]) result.toArray(new org.columba.ristretto.imap.IMAPHeader[result.size()]);
 	}
 
 	/**
@@ -1649,7 +1649,7 @@ public CopyInfo uidCopy(SequenceSet set, String mailbox) throws IOException,
 		if (!responses[responses.length - 1].isOK())
 			throwException(responses[responses.length - 1]);
 
-		return (IMAPFlags[]) result.toArray(new IMAPFlags[0]);
+		return (IMAPFlags[]) result.toArray(new org.columba.ristretto.imap.IMAPFlags[result.size()]);
 	}
 
 	/**

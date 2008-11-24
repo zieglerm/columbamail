@@ -156,6 +156,6 @@ public class AddressParser {
 			result.add(input.subSequence(start, i));			
 		}		
 		
-		return (CharSequence[])result.toArray(new CharSequence[0]);
+		return (CharSequence[]) result.toArray(new CharSequence[result.size()]);
 	}
 }
