@@ -896,9 +896,7 @@ public class IMAPProtocol implements AuthenticationServer {
 		List args = new LinkedList();
 		args.add(MailboxNameUTF7Converter.encode(mailbox));
 		if (optargs != null) {
-			for (int i = 0; i < optargs.length; i++) {
-				args.add(optargs[i]);
-			}
+      args.addAll(java.util.Arrays.asList(optargs));
 		}
 		args.add(message);
 
@@ -1099,9 +1097,7 @@ public class IMAPProtocol implements AuthenticationServer {
 			args.add("CHARSET");
 			args.add(charset);
 		}
-		for (int i = 0; i < search.length; i++) {
-			args.add(search[i]);
-		}
+    args.addAll(java.util.Arrays.asList(search));
 
 		if (charset == null) {
 			command = new IMAPCommand(tagFactory.nextTag(), c, args.toArray());
