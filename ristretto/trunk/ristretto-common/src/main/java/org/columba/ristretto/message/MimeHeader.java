@@ -35,6 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
+import org.columba.ristretto.coder.EncodedWord;
+import org.columba.ristretto.io.Streamable;
+import org.columba.ristretto.parser.MimeTypeParser;
+import org.columba.ristretto.parser.ParserException;
+
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -42,11 +47,6 @@ import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.coder.EncodedWord;
-import org.columba.ristretto.io.Streamable;
-import org.columba.ristretto.parser.MimeTypeParser;
-import org.columba.ristretto.parser.ParserException;
 
 /**
  * Wrapper around a {@link Header} to convieniently access Mime-Specific header fields.

@@ -36,16 +36,7 @@
 package org.columba.ristretto.imap.parser;
 
 import org.columba.ristretto.imap.IMAPResponse;
-import org.columba.ristretto.message.Attributes;
-import org.columba.ristretto.message.Header;
-import org.columba.ristretto.message.LocalMimePart;
-import org.columba.ristretto.message.Message;
-import org.columba.ristretto.message.MessageMimePart;
-import org.columba.ristretto.message.MimeHeader;
-import org.columba.ristretto.message.MimePart;
-import org.columba.ristretto.message.MimeTree;
-import org.columba.ristretto.message.MimeType;
-import org.columba.ristretto.message.StreamableMimePart;
+import org.columba.ristretto.message.*;
 import org.columba.ristretto.parser.ParserException;
 
 /**

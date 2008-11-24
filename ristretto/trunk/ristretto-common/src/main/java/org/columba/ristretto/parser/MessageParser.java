@@ -35,14 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
-import java.io.IOException;
-
 import org.columba.ristretto.io.Source;
-import org.columba.ristretto.message.Header;
-import org.columba.ristretto.message.LocalMimePart;
-import org.columba.ristretto.message.Message;
-import org.columba.ristretto.message.MimeHeader;
-import org.columba.ristretto.message.MimeTree;
+import org.columba.ristretto.message.*;
+
+import java.io.IOException;
 
 /**
  * Parser for a RFC 2822 or 2045 compliant message.

@@ -35,17 +35,17 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.pop3;
 
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.concurrency.Mutex;
 import org.columba.ristretto.io.ConnectionDroppedException;
 import org.columba.ristretto.io.TempSourceFactory;
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.pop3.parser.POP3ResponseParser;
+
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * FilterInputStream that capsules the InputStream from the

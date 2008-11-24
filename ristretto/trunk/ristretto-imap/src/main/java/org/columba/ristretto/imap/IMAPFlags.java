@@ -35,10 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
+import org.columba.ristretto.message.Flags;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
-
-import org.columba.ristretto.message.Flags;
 
 /**
  * Extends the Flags with JUNK and UID from IMAP.

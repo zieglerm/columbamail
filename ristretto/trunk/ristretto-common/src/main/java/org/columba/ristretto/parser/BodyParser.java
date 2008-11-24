@@ -35,17 +35,17 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.message.Header;
 import org.columba.ristretto.message.LocalMimePart;
 import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimeType;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parser for the MIME structure of a RFC 2822 or RFC 2045 compliant message.

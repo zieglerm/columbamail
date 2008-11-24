@@ -35,10 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
+import org.columba.ristretto.message.MimeType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.message.MimeType;
 
 /**
  * Parser for MIME types as defined in RFC 2045.

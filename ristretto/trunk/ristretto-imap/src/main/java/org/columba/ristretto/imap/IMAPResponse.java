@@ -35,13 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
+import org.columba.ristretto.io.CharSequenceSource;
+import org.columba.ristretto.io.Source;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.io.CharSequenceSource;
-import org.columba.ristretto.io.Source;
 
 /**
  * This class represents a response from an IMAP server.

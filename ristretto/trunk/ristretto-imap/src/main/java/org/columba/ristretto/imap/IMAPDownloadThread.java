@@ -35,20 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.logging.Logger;
-
 import org.columba.ristretto.concurrency.Mutex;
-import org.columba.ristretto.io.AsyncInputStream;
-import org.columba.ristretto.io.MemBuffer;
-import org.columba.ristretto.io.MemBufferInputStream;
-import org.columba.ristretto.io.MemBufferOutputStream;
-import org.columba.ristretto.io.TempFileInputStream;
-import org.columba.ristretto.io.TempSourceFactory;
+import org.columba.ristretto.io.*;
+
+import java.io.*;
+import java.util.logging.Logger;
 
 /**
  * Thread for asynchronous download from the IMAP

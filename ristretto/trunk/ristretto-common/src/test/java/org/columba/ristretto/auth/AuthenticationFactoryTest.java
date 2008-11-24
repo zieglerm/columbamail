@@ -35,11 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.auth;
 
-import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.columba.ristretto.auth.mechanism.PlainMechanism;
+
+import java.util.List;
 
 public class AuthenticationFactoryTest extends TestCase {
     

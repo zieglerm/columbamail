@@ -35,20 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.pop3;
 
+import org.columba.ristretto.concurrency.Mutex;
+import org.columba.ristretto.io.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Logger;
-
-import org.columba.ristretto.concurrency.Mutex;
-import org.columba.ristretto.io.AsyncInputStream;
-import org.columba.ristretto.io.MemBuffer;
-import org.columba.ristretto.io.MemBufferInputStream;
-import org.columba.ristretto.io.MemBufferOutputStream;
-import org.columba.ristretto.io.TempSourceFactory;
-import org.columba.ristretto.io.VariableSizeFileBuffer;
-import org.columba.ristretto.io.VariableSizeFileBufferInputStream;
-import org.columba.ristretto.io.VariableSizeFileBufferOutputStream;
 
 /**
  * Thread that is used to asynchronously download

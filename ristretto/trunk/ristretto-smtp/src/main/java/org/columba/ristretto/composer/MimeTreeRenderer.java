@@ -35,15 +35,15 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.composer;
 
-import java.io.InputStream;
-import java.util.Hashtable;
-
 import org.columba.ristretto.composer.mimepartrenderers.DefaultMimePartRenderer;
 import org.columba.ristretto.composer.mimepartrenderers.MultipartRenderer;
 import org.columba.ristretto.composer.mimepartrenderers.TextpartRenderer;
 import org.columba.ristretto.message.MimePart;
 import org.columba.ristretto.message.MimeTree;
 import org.columba.ristretto.message.MimeType;
+
+import java.io.InputStream;
+import java.util.Hashtable;
 
 /**
  * Provides methods to render a MimeTree.

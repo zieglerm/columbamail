@@ -18,7 +18,7 @@
  * Portions created by the Initial Developers are Copyright (C) 2004
  * All Rights Reserved.
  *
- * Contributor(s): Voxmobili SA
+ * Contributor(s):
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -33,66 +33,40 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-package org.columba.ristretto.imap.parser;
+package org.columba.ristretto.auth.mechanism;
 
-import org.columba.ristretto.imap.IMAPResponse;
-import org.columba.ristretto.imap.QuotaInfo;
-import org.columba.ristretto.parser.ParserException;
+import org.columba.ristretto.auth.AuthenticationException;
+import org.columba.ristretto.auth.AuthenticationMechanism;
+import org.columba.ristretto.auth.AuthenticationServer;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.IOException;
 
 /**
- * Parser for the OutaInfo.
- *
+ * Implementation of the PLAIN SASL AuthenticationMechanism.
+ * 
+ * @author Timo Stich <tstich@users.sourceforge.net>
  */
-public class QuotaInfoParser 
-{
-	private static final Pattern quotaPattern = Pattern.compile("(\\d+)\\s(\\d+)");
+public class PlainMechanism implements AuthenticationMechanism {
 
-	/**
-	 * Parse the QuotaInfo of the IMAP response.
-	 * 
-	 * @param in
-	 * @return the QuotaInfo
-	 * @throws ParserException
-	 */
-	public static QuotaInfo parse(IMAPResponse in) throws ParserException
-	{
-		return parse(in, null);
-	}
-
-	/**
-	 * Parse the QuotaInfo of the IMAP reponse and set the
-	 * information in the given QuotaInfo.
-	 * 
-	 * @param in
-	 * @param quotaInfo the preset QuotaInfo
-	 * @return the QuotaInfo
-	 * @throws ParserException
-	 */
-	public static QuotaInfo parse(IMAPResponse in, QuotaInfo quotaInfo) throws ParserException
-	{
-		QuotaInfo result = (quotaInfo != null) ? quotaInfo : new QuotaInfo();
-
-		Matcher quotaMatcher = quotaPattern.matcher(in.getResponseMessage());
-		if (quotaMatcher.find()) {
-
-			try {
-				result.setSize(Long.parseLong(quotaMatcher.group(1)));
-			}
-			catch (NumberFormatException e) {
-				throw new ParserException(e);
-			}
-
-			try {
-				result.setMaxSize(Long.parseLong(quotaMatcher.group(2)));
-			}
-			catch (NumberFormatException e) {
-				throw new ParserException(e);
-			}
-		}
-
-		return result;
-	}
+    /**
+     * @see org.columba.ristretto.auth.AuthenticationMechanism#authenticate(org.columba.ristretto.auth.AuthenticationServer, java.lang.String, char[])
+     */
+    public void authenticate(
+        AuthenticationServer server,
+        String user,
+        char[] password)
+        throws IOException, AuthenticationException {        	
+        	server.authReceive();
+        
+        	byte[] userBytes = user.getBytes("UTF-8");
+        	byte[] passwordBytes = new String(password).getBytes("UTF-8");
+        	byte[] command = new byte[userBytes.length + passwordBytes.length + 2];
+        	
+        	command[0] = 0;
+        	System.arraycopy(userBytes, 0, command, 1, userBytes.length);
+        	command[userBytes.length+1] = 0;
+        	System.arraycopy(passwordBytes, 0, command, userBytes.length+2, passwordBytes.length);
+        	
+        	server.authSend(command);
+    }
 }

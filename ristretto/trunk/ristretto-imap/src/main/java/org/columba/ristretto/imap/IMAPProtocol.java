@@ -35,6 +35,20 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
+import org.columba.ristretto.auth.*;
+import org.columba.ristretto.coder.Base64;
+import org.columba.ristretto.config.RistrettoConfig;
+import org.columba.ristretto.imap.parser.*;
+import org.columba.ristretto.log.LogInputStream;
+import org.columba.ristretto.log.LogOutputStream;
+import org.columba.ristretto.log.RistrettoLogger;
+import org.columba.ristretto.message.MailboxInfo;
+import org.columba.ristretto.message.MimeTree;
+import org.columba.ristretto.parser.ParserException;
+import org.columba.ristretto.ssl.RistrettoSSLSocketFactory;
+
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,42 +57,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSocket;
-
-import org.columba.ristretto.auth.AuthenticationException;
-import org.columba.ristretto.auth.AuthenticationFactory;
-import org.columba.ristretto.auth.AuthenticationMechanism;
-import org.columba.ristretto.auth.AuthenticationServer;
-import org.columba.ristretto.auth.NoSuchAuthenticationException;
-import org.columba.ristretto.coder.Base64;
-import org.columba.ristretto.config.RistrettoConfig;
-import org.columba.ristretto.imap.parser.AppendInfoParser;
-import org.columba.ristretto.imap.parser.CopyInfoParser;
-import org.columba.ristretto.imap.parser.FlagsParser;
-import org.columba.ristretto.imap.parser.IMAPHeaderParser;
-import org.columba.ristretto.imap.parser.ListInfoParser;
-import org.columba.ristretto.imap.parser.MailboxInfoParser;
-import org.columba.ristretto.imap.parser.MailboxStatusParser;
-import org.columba.ristretto.imap.parser.MimeTreeParser;
-import org.columba.ristretto.imap.parser.NamespaceParser;
-import org.columba.ristretto.imap.parser.NumberListParser;
-import org.columba.ristretto.imap.parser.QuotaInfoParser;
-import org.columba.ristretto.imap.parser.StringListParser;
-import org.columba.ristretto.imap.parser.UIDParser;
-import org.columba.ristretto.log.LogInputStream;
-import org.columba.ristretto.log.LogOutputStream;
-import org.columba.ristretto.log.RistrettoLogger;
-import org.columba.ristretto.message.MailboxInfo;
-import org.columba.ristretto.message.MimeTree;
-import org.columba.ristretto.parser.ParserException;
-import org.columba.ristretto.ssl.RistrettoSSLSocketFactory;
+import java.util.*;
 
 /**
  * IMAP Protocol implementation.

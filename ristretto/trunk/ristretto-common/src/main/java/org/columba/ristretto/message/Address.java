@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import java.io.IOException;
-import java.io.Serializable;
-
 import org.columba.ristretto.parser.AddressParser;
 import org.columba.ristretto.parser.ParserException;
+
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Address is the representation of a mail address as specified by RFC 2822.

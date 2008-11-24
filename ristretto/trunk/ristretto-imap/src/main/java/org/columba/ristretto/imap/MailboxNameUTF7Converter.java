@@ -35,10 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
+import org.columba.ristretto.coder.Base64;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-
-import org.columba.ristretto.coder.Base64;
 
 /**
  * @author tstich

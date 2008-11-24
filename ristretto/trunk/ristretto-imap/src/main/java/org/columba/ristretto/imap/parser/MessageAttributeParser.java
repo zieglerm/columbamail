@@ -35,10 +35,10 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
+import org.columba.ristretto.message.Attributes;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.message.Attributes;
 
 /**
  * Parser for MessageAttributes.

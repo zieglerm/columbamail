@@ -35,14 +35,6 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import java.io.ByteArrayInputStream;
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.concurrency.Mutex;
 import org.columba.ristretto.imap.parser.IMAPResponseParser;
 import org.columba.ristretto.imap.parser.MessageAttributeParser;
@@ -51,6 +43,14 @@ import org.columba.ristretto.io.ConnectionDroppedException;
 import org.columba.ristretto.io.TempSourceFactory;
 import org.columba.ristretto.message.Attributes;
 import org.columba.ristretto.parser.ParserException;
+
+import java.io.ByteArrayInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 

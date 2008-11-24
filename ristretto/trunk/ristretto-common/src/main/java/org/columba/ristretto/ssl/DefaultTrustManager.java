@@ -35,9 +35,8 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.ssl;
 
-import java.security.cert.X509Certificate;
-
 import javax.net.ssl.X509TrustManager;
+import java.security.cert.X509Certificate;
 
 /**
  * @author fdietz

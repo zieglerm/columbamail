@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.parser.ParserException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Main parser for the reponses received
@@ -54,30 +54,40 @@ public class IMAPResponseParser {
 	// Pattern to classify the response in tagged/untagged/continuation
 	// and to access the text of the reponse without the trailing CRLF
 	private static final Pattern response =
-		Pattern.compile("^((\\*)" +		// group 2 is untagged			"|([0-9a-zA-Z]+)" + 		// group 3 is the tag			"|(\\+)) " +				// group 4 is continuation			"([^\r\n]*)\r?\n?");		// group 5 is the rest of the response without a optional CRLF
+		Pattern.compile("^((\\*)" +		// group 2 is untagged
+			"|([0-9a-zA-Z]+)" + 		// group 3 is the tag
+			"|(\\+)) " +				// group 4 is continuation
+			"([^\r\n]*)\r?\n?");		// group 5 is the rest of the response without a optional CRLF
 
 	
 	// Pattern to classify a status reponse.		
 	private static final Pattern resp_cond =
 		Pattern.compile(
-			"^(OK|BAD|NO|BYE|PREAUTH) " +	// group 1 is the status type			"(\\[(\\w+[^\\]]+)\\])?" +  // group 3 is an optional text code			
+			"^(OK|BAD|NO|BYE|PREAUTH) " +	// group 1 is the status type
+			"(\\[(\\w+[^\\]]+)\\])?" +  // group 3 is an optional text code			
 			" ?([^\r\n]*)");					// group 4 is the message
 
 
 	// Pattern to classify a mailbox data response.			
 	private static final Pattern mailbox_data =
 		Pattern.compile(
-			"^((FLAGS|LIST|LSUB|SEARCH|STATUS|CAPABILITY|NAMESPACE)" +	// group2 contains a simple command with no prenumber			"|((\\d+) " +										// group4 contains a prenumber			"(EXISTS|RECENT)))" +								// group5 the command to the prenumber			" ?([^\r\n]*)");									// group6 contains the data
+			"^((FLAGS|LIST|LSUB|SEARCH|STATUS|CAPABILITY|NAMESPACE)" +	// group2 contains a simple command with no prenumber
+			"|((\\d+) " +										// group4 contains a prenumber
+			"(EXISTS|RECENT)))" +								// group5 the command to the prenumber
+			" ?([^\r\n]*)");									// group6 contains the data
 			
 			
 	// Pattern to classify a message data response.		
 	private static final Pattern message_data =
-		Pattern.compile("^(\\d+) " +							//group1 contains the prenumber			"(EXPUNGE|FETCH)" +									//group2 contains the command			" ?([^\r\n]*)");									//group3 contains the data
+		Pattern.compile("^(\\d+) " +							//group1 contains the prenumber
+			"(EXPUNGE|FETCH)" +									//group2 contains the command
+			" ?([^\r\n]*)");									//group3 contains the data
 
 
 	// Pattern to classify a continuation response.
 	private static final Pattern resp_cont =
-		Pattern.compile("^(\\[(\\w+[^\\]]+)\\] )?" +		// group2 contains optional text code			"([^\r\n]*)");									// group3 contains the message
+		Pattern.compile("^(\\[(\\w+[^\\]]+)\\] )?" +		// group2 contains optional text code
+			"([^\r\n]*)");									// group3 contains the message
 
 
 	/**

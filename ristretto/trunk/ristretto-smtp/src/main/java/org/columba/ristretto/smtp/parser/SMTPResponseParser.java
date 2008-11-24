@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.smtp.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.smtp.SMTPResponse;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parses a response line from a SMTP server.

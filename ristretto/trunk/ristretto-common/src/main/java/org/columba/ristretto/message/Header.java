@@ -35,15 +35,14 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import java.io.InputStream;
-import java.io.Serializable;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Map;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.SourceInputStream;
 import org.columba.ristretto.io.Streamable;
+
+import java.io.InputStream;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Map;
 
 /**
  * Datastructure that stores headers. This is basically

@@ -35,12 +35,12 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
+import org.columba.ristretto.io.Source;
+import org.columba.ristretto.message.Header;
+
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.io.Source;
-import org.columba.ristretto.message.Header;
 
 /**
  * Parser for headers as defined in RFC 2822 and RFC 2045.

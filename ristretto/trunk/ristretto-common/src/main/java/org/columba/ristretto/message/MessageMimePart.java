@@ -35,9 +35,9 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import java.io.InputStream;
-
 import org.columba.ristretto.io.SourceInputStream;
+
+import java.io.InputStream;
 
 /**
  * MimePart that contain an inline message.

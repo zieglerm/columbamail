@@ -33,64 +33,66 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-package org.columba.ristretto.composer;
+package org.columba.ristretto.composer.mimepartrenderers;
 
-import org.columba.ristretto.coder.Base64;
+import org.columba.ristretto.composer.MimePartRenderer;
+import org.columba.ristretto.composer.MimeTreeRenderer;
+import org.columba.ristretto.io.SequenceInputStream;
+import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimePart;
+import org.columba.ristretto.message.StreamableMimePart;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.Random;
-
+import java.util.Vector;
 
 /**
- * Abstract class that is used to render a mimepart
+ * MIME Multipart renderer.
  * 
  * <br>
- * <b>RFC(s):</b> 2045
- * 
+ * <b>RFC(s):</b> 2046
  * @author Timo Stich <tstich@users.sourceforge.net>
  */
-public abstract class MimePartRenderer {
-	private static final int BOUNDARY_LENGTH = 32;
-	
-	private static Random random = new Random();
-
+public class MultipartRenderer extends MimePartRenderer {
 
 	/**
-	 * The renderer is registered for the returned mimetype(s)
-	 * when calling {@link org.columba.ristretto.composer.MimeTreeRenderer#addMimePartRenderer(MimePartRenderer)}.
-	 * <br>
-	 * A renderer may register for all subtypes of a given type or to a
-	 * specific type/subtype.
-	 * <br>
-	 * <b>Example:</b> "text", "multipart/signed", ...
-	 * 
-	 * @return the registration string
+	 * @see org.columba.ristretto.composer.MimePartRenderer#getRegisterString()
 	 */
-	public abstract String getRegisterString();
-
-
-	/**
-	 * Renders the MimePart
-	 * 
-	 * @param part the mimepart to render
-	 * @return the inputstream of the rendered mimepart
-	 * @throws Exception
-	 */
-	public abstract InputStream render(MimePart part) throws Exception;
-
-
-	/**
-	 * Creates a unique boundary that may be used to separate multiparts
-	 * 
-	 * @return a unique boundary
-	 */
-	protected CharSequence createUniqueBoundary() {		
-		byte[] bytes = new byte[BOUNDARY_LENGTH];
-		random.nextBytes(bytes);
-		
-		return Base64.encode( ByteBuffer.wrap(bytes) );
+	public String getRegisterString() {
+		return "multipart";
 	}
+
+	/**
+	 * @see org.columba.ristretto.composer.MimePartRenderer#render(org.columba.ristretto.message.MimePart)
+	 */
+	public InputStream render(MimePart part) throws Exception {
+		Vector streams = new Vector(part.countChilds() * 2 + 3);
+
+		MimeHeader header = part.getHeader();
+		
+		// Create boundary to separate the mime-parts
+		String boundary = createUniqueBoundary().toString();
+		header.putContentParameter("boundary", boundary );		
+		byte[] startBoundary = ( "\r\n--" + boundary + "\r\n" ).getBytes();
+		byte[] endBoundary = ( "\r\n--" + boundary + "--\r\n" ).getBytes();
+		
+		// Create the header and body (if it has one) of the multipart
+		streams.add( header.getHeader().getInputStream() );
+		if( part instanceof StreamableMimePart) 
+			streams.add( ((StreamableMimePart)part).getInputStream() );
+		
+		// Add the mime-parts 		
+		for( int i=0; i<part.countChilds(); i++ ) {		
+			streams.add(new ByteArrayInputStream( startBoundary ));	
+			streams.add(MimeTreeRenderer.getInstance().renderMimePart(part.getChild(i)));
+		}
+		
+		// Create the closing boundary
+		streams.add( new ByteArrayInputStream( endBoundary ) );
+		
+		return new SequenceInputStream( streams );
+	}
+
 	
+
 }

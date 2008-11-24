@@ -35,14 +35,14 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
+import org.columba.ristretto.io.StreamUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Iterator;
-
-import org.columba.ristretto.io.StreamUtils;
 
 /**
  * Command which is send to the IMAP Server. IMAPCommand is used by the

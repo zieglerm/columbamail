@@ -35,15 +35,15 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import java.util.List;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.imap.IMAPFlags;
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.message.Attributes;
 import org.columba.ristretto.message.Flags;
+
+import java.util.List;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author fdietz

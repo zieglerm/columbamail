@@ -35,21 +35,12 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.auth;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.columba.ristretto.auth.mechanism.*;
+
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.auth.mechanism.CramMD5Mechanism;
-import org.columba.ristretto.auth.mechanism.DigestMD5Mechanism;
-import org.columba.ristretto.auth.mechanism.LoginMechanism;
-import org.columba.ristretto.auth.mechanism.PlainMechanism;
-import org.columba.ristretto.auth.mechanism.SaslWrapper;
 
 
 /**

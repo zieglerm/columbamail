@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.pop3.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.pop3.POP3Response;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parser for repsonses of a POP3 server.

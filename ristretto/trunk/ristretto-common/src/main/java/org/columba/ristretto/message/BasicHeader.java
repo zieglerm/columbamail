@@ -35,17 +35,17 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
+import org.columba.ristretto.coder.EncodedWord;
+import org.columba.ristretto.parser.AddressParser;
+import org.columba.ristretto.parser.DateParser;
+import org.columba.ristretto.parser.ParserException;
+
 import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.coder.EncodedWord;
-import org.columba.ristretto.parser.AddressParser;
-import org.columba.ristretto.parser.DateParser;
-import org.columba.ristretto.parser.ParserException;
 
 /**
  * Wrapper around the {@link Header} to provide a convienient

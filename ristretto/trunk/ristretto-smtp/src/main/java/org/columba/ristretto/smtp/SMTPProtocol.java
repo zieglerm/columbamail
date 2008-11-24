@@ -35,24 +35,7 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.smtp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.nio.ByteBuffer;
-import java.util.LinkedList;
-import java.util.logging.Logger;
-
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSocket;
-
-import org.columba.ristretto.auth.AuthenticationException;
-import org.columba.ristretto.auth.AuthenticationFactory;
-import org.columba.ristretto.auth.AuthenticationMechanism;
-import org.columba.ristretto.auth.AuthenticationServer;
-import org.columba.ristretto.auth.NoSuchAuthenticationException;
+import org.columba.ristretto.auth.*;
 import org.columba.ristretto.coder.Base64;
 import org.columba.ristretto.config.RistrettoConfig;
 import org.columba.ristretto.log.LogInputStream;
@@ -62,6 +45,18 @@ import org.columba.ristretto.message.Address;
 import org.columba.ristretto.parser.AddressParser;
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.ssl.RistrettoSSLSocketFactory;
+
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSocket;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.nio.ByteBuffer;
+import java.util.LinkedList;
+import java.util.logging.Logger;
 
 /**
  * Implementation of the client side SMTP protocol.

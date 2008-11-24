@@ -35,13 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.imap.ListInfo;
 import org.columba.ristretto.imap.MailboxNameUTF7Converter;
 import org.columba.ristretto.parser.ParserException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author frd

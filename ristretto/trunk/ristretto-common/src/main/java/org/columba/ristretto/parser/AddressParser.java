@@ -35,13 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
+import org.columba.ristretto.message.Address;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.columba.ristretto.message.Address;
 
 /**
  * Parser for mail addresses as defined in RFC 2822.

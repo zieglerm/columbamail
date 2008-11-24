@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.io;
 
+import org.columba.ristretto.concurrency.Semaphore;
+
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.columba.ristretto.concurrency.Semaphore;
 
 /**
  * InputStream for asynchronous download. It works

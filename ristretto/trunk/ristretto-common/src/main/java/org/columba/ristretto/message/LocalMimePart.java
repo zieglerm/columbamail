@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import java.io.InputStream;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.io.SourceInputStream;
+
+import java.io.InputStream;
 
 /**
  * LocalMimeParts refer to parsed messages that come from a {@link Source}

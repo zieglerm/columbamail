@@ -35,13 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.smtp;
 
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.columba.ristretto.io.ConnectionDroppedException;
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.smtp.parser.SMTPResponseParser;
+
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This stream is used to read responses from a SMTP server. Every response is

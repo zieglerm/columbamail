@@ -35,26 +35,7 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.pop3;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSocket;
-
-import org.columba.ristretto.auth.AuthenticationException;
-import org.columba.ristretto.auth.AuthenticationFactory;
-import org.columba.ristretto.auth.AuthenticationMechanism;
-import org.columba.ristretto.auth.AuthenticationServer;
-import org.columba.ristretto.auth.NoSuchAuthenticationException;
+import org.columba.ristretto.auth.*;
 import org.columba.ristretto.coder.Base64;
 import org.columba.ristretto.concurrency.Mutex;
 import org.columba.ristretto.config.RistrettoConfig;
@@ -66,6 +47,20 @@ import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.pop3.parser.ScanListParser;
 import org.columba.ristretto.pop3.parser.UIDListParser;
 import org.columba.ristretto.ssl.RistrettoSSLSocketFactory;
+
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSocket;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of the client side POP3 Protocol.

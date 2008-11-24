@@ -2,17 +2,7 @@ package org.columba.ristretto.message;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
-import java.util.AbstractCollection;
-import java.util.AbstractSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 public class IgnoreCaseHashtable<V>
 extends Dictionary<String, V>
