@@ -274,7 +274,7 @@ public class IMAPProtocol implements AuthenticationServer {
 	}
 
 	/**
-	 * @param responses
+	 * @param response
 	 * @throws IMAPException
 	 */
 	private void throwException(IMAPResponse response) throws IMAPException {
