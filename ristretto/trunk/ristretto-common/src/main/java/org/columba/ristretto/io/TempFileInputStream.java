@@ -49,7 +49,7 @@ public class TempFileInputStream extends FileInputStream {
 	 * Constructs a TempFileInputStream. The file specified
 	 * will be deleted when the stream is closed.
 	 * 
-	 * @param file
+	 * @param tempFile the temporary file to be used
 	 * @throws FileNotFoundException
 	 */
 	public TempFileInputStream(File tempFile) throws FileNotFoundException {
