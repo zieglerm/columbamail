@@ -17,7 +17,7 @@
 		Ristretto is a low-level mail api for Java. It offers a fast and easy way to enhance your software with SMTP,
 		POP3 and IMAP capabilities.
 	</description>
-	<name>Imap related classes for the Low-Level mail api Ristretto for Java.</name>
+	<name>Smtp related classes for the Low-Level mail api Ristretto for Java.</name>
 	<url>http://www.columbamail.org</url>
 	<inceptionYear>2000</inceptionYear>
 	<mailingLists>
