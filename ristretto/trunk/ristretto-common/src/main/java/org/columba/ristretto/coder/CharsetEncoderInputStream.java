@@ -51,7 +51,6 @@ import java.nio.charset.CoderResult;
  */
 public class CharsetEncoderInputStream extends FilterInputStream {
 
-	private Charset charset;
 	private CharsetEncoder encoder;
 	
 	private CharBuffer inBytes;
@@ -68,7 +67,7 @@ public class CharsetEncoderInputStream extends FilterInputStream {
 	 */
 	public CharsetEncoderInputStream(InputStream arg0, Charset charset) {
 		super(arg0);
-		this.charset = charset;
+		final java.nio.charset.Charset charset1=charset;
 		encoder = charset.newEncoder();
 		
 		inBytes = CharBuffer.allocate(1);

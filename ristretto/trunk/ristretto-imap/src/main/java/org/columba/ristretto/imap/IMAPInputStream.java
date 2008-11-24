@@ -72,8 +72,6 @@ public class IMAPInputStream extends FilterInputStream {
 
 	private StringBuffer lineBuffer;
 
-	private LinkedList observerList;
-
 	/**
 	 * Constructs the IMAPInputStream.
 	 * 
@@ -87,7 +85,7 @@ public class IMAPInputStream extends FilterInputStream {
 		literalMatcher = literalPattern.matcher("");
 		lineBuffer = new StringBuffer();
 
-		observerList = new LinkedList();
+		final java.util.LinkedList observerList=new java.util.LinkedList();
 		mutex = new Mutex();
 
 		this.protocol = protocol;

@@ -52,7 +52,6 @@ import java.nio.charset.CodingErrorAction;
  */
 public class CharsetDecoderInputStream extends FilterInputStream {
 
-	private Charset charset;
 	private CharsetDecoder decoder;
 
 	private ByteBuffer inBytes;
@@ -66,7 +65,7 @@ public class CharsetDecoderInputStream extends FilterInputStream {
 	 */
 	public CharsetDecoderInputStream(InputStream arg0, Charset charset) {
 		super(arg0);
-		this.charset = charset;
+		final java.nio.charset.Charset charset1=charset;
 		decoder = charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
 		
 		inBytes = ByteBuffer.allocate(5);
