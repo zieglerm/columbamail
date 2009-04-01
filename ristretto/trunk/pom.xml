@@ -148,6 +148,7 @@
 		<module>ristretto-imap</module>
 		<module>ristretto-pop3</module>
 		<module>ristretto-smtp</module>
+		<module>ristretto-examples</module>
 	</modules>
 
 

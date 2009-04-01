@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>ristretto</artifactId>
+    <groupId>columba</groupId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>columba</groupId>
+  <artifactId>ristretto-examples</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <description>
+    Ristretto is a low-level mail api for Java. It offers a fast and easy way to enhance your software with SMTP,
+    POP3 and IMAP capabilities.
+  </description>
+  <name>Examples for the Low-Level mail api Ristretto for Java.</name>
+  <url>http://www.columbamail.org</url>
+  <inceptionYear>2000</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>columba developer mailinglist</name>
+      <archive>https://sourceforge.net/mailarchive/forum.php?forum_id=2388</archive>
+      <subscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/mailman/listinfo/columba-devel</unsubscribe>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:svn:http://svn.sourceforge.net/svnroot/columba</connection>
+    <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/columba</developerConnection>
+    <url>http://svn.sourceforge.net/viewvc/columba/</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Timo Stich</name>
+      <id>tstich</id>
+      <email>tstich@users.sourceforge.net</email>
+      <roles>
+        <role>Project Leader</role>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Thomas Wabner</name>
+      <id>waffel</id>
+      <email>waffel@users.sourceforge.net</email>
+      <roles>
+        <role>Developer</role>
+        <role>Build master</role>
+      </roles>
+    </developer>
+  </developers>
+  
+  <dependencies>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-imap</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-pop3</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-smtp</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+   </dependencies>
+
+</project>
