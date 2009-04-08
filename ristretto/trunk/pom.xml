@@ -117,6 +117,17 @@
 					<updateReleaseInfo>true</updateReleaseInfo>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assemble/src.xml</descriptor>
+            <descriptor>src/assemble/bin.xml</descriptor>
+          </descriptors>
+        </configuration>
+      </plugin>
+			
 		</plugins>
 
 		<extensions>

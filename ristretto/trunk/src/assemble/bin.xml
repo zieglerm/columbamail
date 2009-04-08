@@ -1,0 +1,22 @@
+<assembly>
+  <id>bin</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>columba:ristretto-common</include>
+        <include>columba:ristretto-examples</include>
+        <include>columba:ristretto-imap</include>
+        <include>columba:ristretto-pop3</include>
+        <include>columba:ristretto-smtp</include>
+      </includes>
+      <binaries>
+        <outputDirectory>modules/${artifactId}</outputDirectory>
+        <unpack>false</unpack>
+      </binaries>
+    </moduleSet>
+  </moduleSets>
+</assembly>
