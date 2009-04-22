@@ -39,8 +39,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.io.StreamUtils;
@@ -50,9 +48,13 @@ import org.columba.ristretto.pop3.ScanListEntry;
 import org.columba.ristretto.pop3.UidListEntry;
 import org.columba.ristretto.testserver.SimpleTestServerSession;
 import org.columba.ristretto.testserver.TestServer;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class POP3Protocol2Test extends TestCase {
+public class POP3Protocol2Test {
 
+	@Test
 	public void testOpenPort() throws IOException, POP3Exception {
        
         
@@ -64,13 +66,14 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		 protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		 Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testPlainLogin() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -82,17 +85,17 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
-
+	@Test
 	public void testApopLogin() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK POP3 server ready <1896.697170952@dbc.mtview.ca.us>\r\n", "QUIT\r\n");
 		testSession.addDialog("APOP mrose c4c9334bac560ecc979e58001b3e22fb\r\n", "+OK\r\n");
@@ -103,16 +106,17 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.apop("mrose", "tanstaaf".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testLoginServerDrop() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "USER test\r\n");
 		testSession.addDialog("USER test\r\n", "");
@@ -122,21 +126,21 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		try {
 			protocol.userPass("test", "star".toCharArray());
-			assertTrue(false);
+			Assert.assertTrue(false);
 		} catch (IOException e) {
-			assertTrue(true);
+			Assert.assertTrue(true);
 		} 
 		
-		assertTrue( protocol.getState() == POP3Protocol.NOT_CONNECTED);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.NOT_CONNECTED);
 		
 		testServer.stop();
 	}
 	
-	
+	@Test
 	public void testStat() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -149,22 +153,22 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		int[] stat = protocol.stat();
-		assertTrue( stat[0] == 2);
-		assertTrue( stat[1] == 230);
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( stat[0] == 2);
+		Assert.assertTrue( stat[1] == 230);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
-
+	@Test
 	public void testList() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -177,27 +181,27 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		ScanListEntry[] list = protocol.list();
-		assertTrue( list.length == 2);
-		assertTrue( list[0].getIndex() == 1);
-		assertTrue( list[0].getSize() == 150);		
+		Assert.assertTrue( list.length == 2);
+		Assert.assertTrue( list[0].getIndex() == 1);
+		Assert.assertTrue( list[0].getSize() == 150);		
 		
-		assertTrue( list[1].getIndex() == 2);
-		assertTrue( list[1].getSize() == 230);
+		Assert.assertTrue( list[1].getIndex() == 2);
+		Assert.assertTrue( list[1].getSize() == 230);
 		
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
-
+	@Test
 	public void testListParam() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -210,22 +214,23 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		ScanListEntry list = protocol.list(2);
-		assertTrue( list.getIndex() == 2);
-		assertTrue( list.getSize() == 230);
+		Assert.assertTrue( list.getIndex() == 2);
+		Assert.assertTrue( list.getSize() == 230);
 		
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testRetrSizeOk() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -240,21 +245,22 @@ public class POP3Protocol2Test extends TestCase {
 		String messageOriginal = "This is a simple Test\r\nmessage\r\n. with a dot at start\r\n";
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		
 		Source message = new CharSequenceSource( StreamUtils.readInString( protocol.retr(1 ,messageOriginal.length()) ) );		
-		assertEquals( messageOriginal, message.toString());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertEquals( messageOriginal, message.toString());
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testRetrSizeSmaller() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -269,21 +275,22 @@ public class POP3Protocol2Test extends TestCase {
 		String messageOriginal = "This is a simple Test\r\nmessage\r\n. with a dot at start\r\n";
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		
 		Source message = new CharSequenceSource( StreamUtils.readInString( protocol.retr(1 ,messageOriginal.length()-5) ) );		
-		assertEquals( messageOriginal, message.toString());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertEquals( messageOriginal, message.toString());
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
+	@Test
 	public void testRetrSizeBigger() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -298,22 +305,22 @@ public class POP3Protocol2Test extends TestCase {
 		String messageOriginal = "This is a simple Test\r\nmessage\r\n. with a dot at start\r\n";
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		
 		Source message = new CharSequenceSource( StreamUtils.readInString( protocol.retr(1 ,messageOriginal.length()+5) ) );		
-		assertEquals( messageOriginal, message.toString());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertEquals( messageOriginal, message.toString());
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
-	
+	@Test
 	public void testDele() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -326,19 +333,20 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
-		assertTrue( protocol.dele(1));
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.dele(1));
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
+	@Test
 	public void testNoop() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -351,19 +359,20 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.noop();
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testRset() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -376,19 +385,20 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.rset();
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
+	@Test
 	public void testTop() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -401,20 +411,21 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		Source top = protocol.top(1,1);
-		assertTrue( top.toString().equals("This is the first line\r\n"));
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( top.toString().equals("This is the first line\r\n"));
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
+	@Test
 	public void testUidl() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -427,27 +438,27 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		UidListEntry[] list = protocol.uidl();
-		assertTrue( list.length == 2);
-		assertTrue( list[0].getIndex() == 1);
-		assertTrue( list[0].getUid().equals("uid1"));		
+		Assert.assertTrue( list.length == 2);
+		Assert.assertTrue( list[0].getIndex() == 1);
+		Assert.assertTrue( list[0].getUid().equals("uid1"));		
 		
-		assertTrue( list[1].getIndex() == 2);
-		assertTrue( list[1].getUid().equals("uid2"));
+		Assert.assertTrue( list[1].getIndex() == 2);
+		Assert.assertTrue( list[1].getUid().equals("uid2"));
 		
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 
-
+	@Test
 	public void testUidlParam() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -460,22 +471,23 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		UidListEntry list = protocol.uidl(2);
-		assertTrue( list.getIndex() == 2);
-		assertTrue( list.getUid().equals("uid2"));
+		Assert.assertTrue( list.getIndex() == 2);
+		Assert.assertTrue( list.getUid().equals("uid2"));
 		
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		protocol.quit();
 		
 		testServer.stop();
 	}
 	
+	@Test
 	public void testCapa() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("CAPA\r\n", "+OK\r\nTOP\r\nAUTH\r\n.\r\n");
@@ -486,13 +498,13 @@ public class POP3Protocol2Test extends TestCase {
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		String[] list = protocol.capa();
 		
-		assertTrue( list.length == 2);
-		assertTrue( list[0].equals("TOP"));
-		assertTrue( list[1].equals("AUTH"));
+		Assert.assertTrue( list.length == 2);
+		Assert.assertTrue( list[0].equals("TOP"));
+		Assert.assertTrue( list[1].equals("AUTH"));
 		
 		protocol.quit();
 		
@@ -503,7 +515,8 @@ public class POP3Protocol2Test extends TestCase {
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+	@BeforeClass
+    public static void setUp() throws Exception {
         Logger.getLogger("org.columba.ristretto").setLevel(Level.ALL);
     }
 

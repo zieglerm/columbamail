@@ -9,14 +9,16 @@ import org.columba.ristretto.pop3.POP3Exception;
 import org.columba.ristretto.pop3.POP3Protocol;
 import org.columba.ristretto.testserver.SimpleTestServerSession;
 import org.columba.ristretto.testserver.TestServer;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class POP3LargeDownloadTest extends TestCase{
+public class POP3LargeDownloadTest {
 
 	private static final int SIZE = 1000000;
 	private String largeMessage;
 	
+	@Test
 	public void testLargerAsExpected() throws IOException, POP3Exception {
 			SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 			testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -29,19 +31,20 @@ public class POP3LargeDownloadTest extends TestCase{
 			POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 			
 			protocol.openPort();
-			assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+			Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 			
 			protocol.userPass("test", "star".toCharArray());
-			assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+			Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 			
 			
 			Source message = new CharSequenceSource( StreamUtils.readInString( protocol.retr(1 , 600000) ) );		
-			assertEquals( largeMessage, message.toString());
-			assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+			Assert.assertEquals( largeMessage, message.toString());
+			Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 			
 			testServer.stop();
 	}
 	
+	@Test
 	public void testSmallerAsExpected() throws IOException, POP3Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("+OK <test@timestamp>\r\n", "QUIT\r\n");
 		testSession.addDialog("USER test\r\n", "+OK\r\n");
@@ -54,22 +57,22 @@ public class POP3LargeDownloadTest extends TestCase{
 		POP3Protocol protocol = new POP3Protocol("localhost", 50110);
 		
 		protocol.openPort();
-		assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.AUTHORIZATION);
 		
 		protocol.userPass("test", "star".toCharArray());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		
 		Source message = new CharSequenceSource( StreamUtils.readInString( protocol.retr(1 , 6000000) ) );		
-		assertEquals( largeMessage, message.toString());
-		assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
+		Assert.assertEquals( largeMessage, message.toString());
+		Assert.assertTrue( protocol.getState() == POP3Protocol.TRANSACTION);
 		
 		testServer.stop();
 }
 
 	
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		StringBuffer largeTemp = new StringBuffer();
 		
 		for( int i=1; i< SIZE; i++) {
