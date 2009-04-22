@@ -8,14 +8,33 @@
     <moduleSet>
       <includes>
         <include>columba:ristretto-common</include>
-        <include>columba:ristretto-examples</include>
         <include>columba:ristretto-imap</include>
         <include>columba:ristretto-pop3</include>
         <include>columba:ristretto-smtp</include>
+        <include>columba:ristretto-examples</include>
       </includes>
       <sources>
-        <outputDirectory>sources/${artifactId}</outputDirectory>
+        <fileSets>
+          <fileSet>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>.settings/**</exclude>
+              <exclude>.project</exclude>
+              <exclude>.classpath</exclude>
+            </excludes>
+          </fileSet>
+        </fileSets>
       </sources>
     </moduleSet>
   </moduleSets>
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>pom.xml</include>
+        <include>README</include>
+        <include>LICENSE</include>
+        <include>AUTHORS</include>
+      </includes>
+    </fileSet>
+  </fileSets>
 </assembly>
