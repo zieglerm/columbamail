@@ -35,18 +35,12 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class HeaderTest extends TestCase {
+public class HeaderTest{
 
-	/**
-	 * Constructor for HeaderTest.
-	 * @param arg0
-	 */
-	public HeaderTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testToString() {
 		Header testHeader = new Header();
 		testHeader.set("From","Timo Stich <tstich@users.sourceforge.net");
@@ -54,17 +48,17 @@ public class HeaderTest extends TestCase {
 		testHeader.set("Subject","This is a test message");
 		
 		String headerString = testHeader.toString();
-		assertTrue(headerString.equals("Subject: This is a test message\r\nTo: Frederik Dietz <fdietz@users.sourceforge.net>, Columba Developer Mailinglist\r\n  <columba-devel@lists.sourceforge.net>\r\nFrom: Timo Stich <tstich@users.sourceforge.net\r\n\r\n")); 
+		Assert.assertTrue(headerString.equals("Subject: This is a test message\r\nTo: Frederik Dietz <fdietz@users.sourceforge.net>, Columba Developer Mailinglist\r\n  <columba-devel@lists.sourceforge.net>\r\nFrom: Timo Stich <tstich@users.sourceforge.net\r\n\r\n")); 
 	}
 
-
+	@Test
 	public void testIgnoreCaseOnKey() {
 		Header testHeader = new Header();
 		testHeader.set("FrOm","Timo Stich <tstich@users.sourceforge.net");
 		testHeader.set("To","Frederik Dietz <fdietz@users.sourceforge.net>, Columba Developer Mailinglist <columba-devel@lists.sourceforge.net>");
 		testHeader.set("Subject","This is a test message");
 
-		assertEquals("Timo Stich <tstich@users.sourceforge.net", testHeader.get("fRoM")); 
+		Assert.assertEquals("Timo Stich <tstich@users.sourceforge.net", testHeader.get("fRoM")); 
 		
 	}
 

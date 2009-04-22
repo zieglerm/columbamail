@@ -28,22 +28,25 @@ package org.columba.ristretto.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
-
-import junit.framework.TestCase;
 
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.message.Message;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MessageParserTest extends TestCase {
+public class MessageParserTest {
 
-  public void testAllMailsinTestFolder() throws IOException {
-    URL resource = Thread.currentThread().getContextClassLoader().getResource(
-        "org/columba/ristretto/parser/testmails/test1.mail");
-    File file = new File(resource.getPath());
+  @Test
+  public void testAllMailsinTestFolder() throws IOException, URISyntaxException {
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    URL resource = contextClassLoader.getResource("org/columba/ristretto/parser/testmails/test1.mail");
+    File file = new File(resource.toURI());
     File dir = file.getParentFile();
-
+    Assert.assertTrue(dir.exists());
     File[] testMails = dir.listFiles();
+    Assert.assertNotNull(testMails);
     Message message = null;
 
     for (int i = 0; i < testMails.length; i++) {
@@ -62,4 +65,5 @@ public class MessageParserTest extends TestCase {
     }
 
   }
+
 }

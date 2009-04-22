@@ -43,7 +43,8 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -51,11 +52,12 @@ import junit.framework.TestCase;
  *
  * @author redsolo
  */
-public class AttributesTest extends TestCase {
+public class AttributesTest {
 
     /**
      * Tests the get() and put methods.
      */
+	@Test
     public void testPutAndGet() {
         Attributes attrs = new Attributes();
         Object value1 = new Integer(13);
@@ -63,15 +65,16 @@ public class AttributesTest extends TestCase {
         Object value2 = Boolean.FALSE;
         attrs.put("key-2", value2);
         attrs.put("key-4", value1);
-        assertSame("Value for the first key was not correct", value1, attrs.get("key-1"));
-        assertSame("Value for the second key was not correct", value2, attrs.get("key-2"));
-        assertSame("Value for the third key was not correct", value1, attrs.get("key-4"));
+        Assert.assertSame("Value for the first key was not correct", value1, attrs.get("key-1"));
+        Assert.assertSame("Value for the second key was not correct", value2, attrs.get("key-2"));
+        Assert.assertSame("Value for the third key was not correct", value1, attrs.get("key-4"));
     }
 
     /**
      * Tests the load() method, ie. actually tests the constructor.
      * @throws IOException thrown by the write() method in the object output stream.
      */
+	@Test
     public void testLoad() throws IOException {
         ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream output = new ObjectOutputStream(byteOutputStream);
@@ -87,10 +90,10 @@ public class AttributesTest extends TestCase {
         ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(byteOutputStream.toByteArray()));
         Attributes attrs = new Attributes(input);
 
-        assertEquals("The size was not correct after loading", 3, attrs.count());
-        assertEquals("Float key 1's value is not correct", new Float(3.5f), attrs.get("float-1"));
-        assertEquals("Float key 2's value is not correct", new Float(999.9f), attrs.get("float-2"));
-        assertEquals("Integer key 1's value is not correct", new Integer(1), attrs.get("int-1"));
+        Assert.assertEquals("The size was not correct after loading", 3, attrs.count());
+        Assert.assertEquals("Float key 1's value is not correct", new Float(3.5f), attrs.get("float-1"));
+        Assert.assertEquals("Float key 2's value is not correct", new Float(999.9f), attrs.get("float-2"));
+        Assert.assertEquals("Integer key 1's value is not correct", new Integer(1), attrs.get("int-1"));
     }
 
     /**
@@ -98,6 +101,7 @@ public class AttributesTest extends TestCase {
      * @throws IOException thrown by the object input stream.
      * @throws ClassNotFoundException thrown by the object input stream.
      */
+	@Test
     public void testSave() throws IOException, ClassNotFoundException {
         Map expected = new HashMap();
         expected.put("put-str-1", "hejhopp");
@@ -115,49 +119,52 @@ public class AttributesTest extends TestCase {
         attr.save(new ObjectOutputStream(byteOutputStream));
 
         ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(byteOutputStream.toByteArray()));
-        assertEquals("Number of written objects wasnt correct", 4, input.readInt());
+        Assert.assertEquals("Number of written objects wasnt correct", 4, input.readInt());
         String key = input.readUTF();
-        assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
+        Assert.assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
         key = input.readUTF();
-        assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
+        Assert.assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
         key = input.readUTF();
-        assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
+        Assert.assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
         key = input.readUTF();
-        assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
-        assertEquals("The stream was not empty after reading all four objects", 0, input.available());
+        Assert.assertEquals("Value for key '" + key + "' wasnt correct", expected.get(key), input.readObject());
+        Assert.assertEquals("The stream was not empty after reading all four objects", 0, input.available());
     }
 
     /**
      * Tests the count() method.
      */
+	@Test
     public void testCount() {
         Attributes attr = new Attributes();
         attr.put("put-str-1", "hejhopp");
         attr.put("put-int-1", new Integer(-1));
         attr.put("put-str-2", "ristrettos");
         attr.put("put-float-1", new Float(3.5f));
-        assertEquals("The count() method didnt return the correct size", 4, attr.count());
+        Assert.assertEquals("The count() method didnt return the correct size", 4, attr.count());
     }
 
     /**
      * Tests the clone() method.
      */
+	@Test
     public void testClone() {
         Attributes attr = new Attributes();
         attr.put("key", "value");
         attr.put("key2", "value2");
         attr.put("key3", "value5");
         Attributes clone = (Attributes) attr.clone();
-        assertNotSame("The object is the same object after a clone", attr, clone);
-        assertEquals("Attributes sizes are not the same", attr.count(), clone.count());
-        assertSame("The key pairs are not the same", attr.get("key"), clone.get("key"));
-        assertSame("The key pairs are not the same", attr.get("key2"), clone.get("key2"));
-        assertSame("The key pairs are not the same", attr.get("key3"), clone.get("key3"));
+        Assert.assertNotSame("The object is the same object after a clone", attr, clone);
+        Assert.assertEquals("Attributes sizes are not the same", attr.count(), clone.count());
+        Assert.assertSame("The key pairs are not the same", attr.get("key"), clone.get("key"));
+        Assert.assertSame("The key pairs are not the same", attr.get("key2"), clone.get("key2"));
+        Assert.assertSame("The key pairs are not the same", attr.get("key3"), clone.get("key3"));
     }
 
     /**
      * Test the equals() method.
      */
+	@Test
     public void testEquals() {
         Attributes expected = new Attributes();
         expected.put("key-e-1", "value-e-1");
@@ -169,19 +176,20 @@ public class AttributesTest extends TestCase {
         actual.put("key-e-4", "value-e-4");
         actual.put("key-e-int", new Integer(3));
 
-        assertTrue("The equals() method returned false for equal objects", actual.equals(expected));
-        assertTrue("The equals() method returned false for equal objects", expected.equals(actual));
-        assertFalse("The objects are equal though one is null", expected.equals(null));
+        Assert.assertTrue("The equals() method returned false for equal objects", actual.equals(expected));
+        Assert.assertTrue("The equals() method returned false for equal objects", expected.equals(actual));
+        Assert.assertFalse("The objects are equal though one is null", expected.equals(null));
 
         actual.put("key-e-int", new Integer(4));
-        assertFalse("The equals() method returned true for non equal objects", actual.equals(expected));
-        assertFalse("The equals() method returned true for non equal objects", expected.equals(actual));
-        assertFalse("The equals() method returned true, when the objects were of different types", expected.equals(new Integer(4)));
+        Assert.assertFalse("The equals() method returned true for non equal objects", actual.equals(expected));
+        Assert.assertFalse("The equals() method returned true for non equal objects", expected.equals(actual));
+        Assert.assertFalse("The equals() method returned true, when the objects were of different types", expected.equals(new Integer(4)));
     }
 
     /**
      * Test the hashcode() method.
      */
+	@Test
     public void testHashCode() {
         Attributes expected = new Attributes();
         expected.put("key-e-1", "value-e-1");
@@ -193,10 +201,10 @@ public class AttributesTest extends TestCase {
         actual.put("key-e-4", "value-e-4");
         actual.put("key-e-int", new Integer(3));
 
-        assertEquals("The hashcode() returned different values for equal objects", actual.hashCode(), expected.hashCode());
-        assertEquals("The hashcode() returned different values for equal objects", expected.hashCode(), actual.hashCode());
+        Assert.assertEquals("The hashcode() returned different values for equal objects", actual.hashCode(), expected.hashCode());
+        Assert.assertEquals("The hashcode() returned different values for equal objects", expected.hashCode(), actual.hashCode());
 
         actual.put("key-e-int", new Integer(3));
-        assertTrue("The hashcode() returned same values for non equal objects", actual.hashCode() == expected.hashCode());
+        Assert.assertTrue("The hashcode() returned same values for non equal objects", actual.hashCode() == expected.hashCode());
     }
 }

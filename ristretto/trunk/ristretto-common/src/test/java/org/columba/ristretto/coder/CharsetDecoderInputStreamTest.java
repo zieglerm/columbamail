@@ -41,10 +41,12 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class CharsetDecoderInputStreamTest extends TestCase {
+public class CharsetDecoderInputStreamTest {
 	
+	@Test
 	public void testISO_8859_15() {
 		String test = "S\u0034mple Str\00edng";
 		try {
@@ -56,7 +58,7 @@ public class CharsetDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue( result.toString().equals(test));
+			Assert.assertTrue( result.toString().equals(test));
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -67,6 +69,7 @@ public class CharsetDecoderInputStreamTest extends TestCase {
 				
 	}
 
+	@Test
 	public void testUTF8() {
 		String test = "S\u0034mple Str\00edng";
 		try {
@@ -78,7 +81,7 @@ public class CharsetDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue( result.toString().equals(test));
+			Assert.assertTrue( result.toString().equals(test));
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -89,6 +92,7 @@ public class CharsetDecoderInputStreamTest extends TestCase {
 				
 	}
 	
+	@Test
 	public void testUTF8_2() {
 		String test = "\u0413\u0424";
 		try {
@@ -100,7 +104,7 @@ public class CharsetDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue( result.toString().equals(test));
+			Assert.assertTrue( result.toString().equals(test));
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

@@ -38,30 +38,37 @@ package org.columba.ristretto.coder;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class QuotedPrintableEncoderInputStreamTest extends TestCase {
 
+public class QuotedPrintableEncoderInputStreamTest {
+
+	@Test
 	public void testEncodedNone() throws Exception {
 		String input = "This is a\tTest";
-		assertTrue(runEncoder(input).equals("This is a\tTest"));
+		Assert.assertTrue(runEncoder(input).equals("This is a\tTest"));
 	}
 
+	@Test
 	public void testEncodedSimple() throws Exception {
 		String input = "This is a \u00dcest";
-		assertTrue(runEncoder(input).equals("This is a =DCest"));
+		Assert.assertTrue(runEncoder(input).equals("This is a =DCest"));
 	}
 
+	@Test
 	public void testEncodedWSBreak() throws Exception {
 		String input = "This is a \n\u00dcest ";
-		assertTrue(runEncoder(input).equals("This is a=20\r\n=DCest=20"));
+		Assert.assertTrue(runEncoder(input).equals("This is a=20\r\n=DCest=20"));
 	}
 
+	@Test
 	public void testEncodedLongline()  throws Exception {
 		String input = "This is a very long line that has in total some f\u00fcnfundsiebzig +1 characters";
-		assertTrue(runEncoder(input).equals("This is a very long line that has in total some f=FCnfundsiebzig +1 charac=\r\nters"));
+		Assert.assertTrue(runEncoder(input).equals("This is a very long line that has in total some f=FCnfundsiebzig +1 charac=\r\nters"));
 	}
     
+	@Test
     public void testVeryLongLine() throws Exception {
         String input = "\n"+
             "> Kann sie als Word unm\u00e4glich per Mail schicken. Die screenshots und Quellcodes m\u00e4ssen ja komplett angeglichen werden. Entweder dann bei Euch \u00e4ber Standleitung runterziehen oder Netzwerk???\n"+

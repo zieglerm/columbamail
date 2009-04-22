@@ -41,33 +41,34 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import junit.framework.TestCase;
-
-
+import org.junit.Assert;
+import org.junit.Test;
 /**
  * @author redsolo
  */
-public class AddressTest extends TestCase {
+public class AddressTest {
 
     /**
      * Test the get() methods.
      */
+	@Test
     public void testGet() {
         Address addr = new Address("Emil", "email@lonneberga.se");
-        assertEquals("The display name isnt correct", "Emil", addr.getDisplayName());
-        assertEquals("The address isnt correct", "email@lonneberga.se", addr.getMailAddress());
-        assertEquals("The short name isnt correct", "Emil", addr.getShortAddress());
-        assertEquals("The cannonical mail isnt correct", "<email@lonneberga.se>", addr.getCanonicalMailAddress());
+        Assert.assertEquals("The display name isnt correct", "Emil", addr.getDisplayName());
+        Assert.assertEquals("The address isnt correct", "email@lonneberga.se", addr.getMailAddress());
+        Assert.assertEquals("The short name isnt correct", "Emil", addr.getShortAddress());
+        Assert.assertEquals("The cannonical mail isnt correct", "<email@lonneberga.se>", addr.getCanonicalMailAddress());
     }
 
     /**
      * Test the set() methods.
      */
+	@Test
     public void testSet() {
         Address addr = new Address("not@this.on");
-        assertNotNull("The display wasnt null", addr.getDisplayName());
+        Assert.assertNotNull("The display wasnt null", addr.getDisplayName());
         addr.setDisplayName("a NAME");
-        assertEquals("The set display name failed", "a NAME", addr.getDisplayName());
+        Assert.assertEquals("The set display name failed", "a NAME", addr.getDisplayName());
     }
 
     /**
@@ -75,6 +76,7 @@ public class AddressTest extends TestCase {
      * @throws IOException thrown by the stream handling.
      * @throws ClassNotFoundException thrown by the readObject() method.
      */
+	@Test
     public void testSerializing() throws IOException, ClassNotFoundException {
         Address expected = new Address("Emil", "email@lonneberga.se");
 
@@ -82,11 +84,11 @@ public class AddressTest extends TestCase {
         ObjectOutputStream output = new ObjectOutputStream(byteOutput);
 
         output.writeObject(expected);
-        assertTrue("The stream is empty after writing", byteOutput.size() > 0);
+        Assert.assertTrue("The stream is empty after writing", byteOutput.size() > 0);
 
         ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(byteOutput.toByteArray()));
         Address actual = (Address) input.readObject();
-        assertEquals("The serializing didnt work", expected, actual);
+        Assert.assertEquals("The serializing didnt work", expected, actual);
     }
 
     /**
@@ -94,6 +96,7 @@ public class AddressTest extends TestCase {
      * @throws IOException thrown by the stream handling.
      * @throws ClassNotFoundException thrown by the readObject() method.
      */
+	@Test
     public void testSerializing2() throws IOException, ClassNotFoundException {
         Address expected = new Address("email@lonneberga.se");
         expected.setDisplayName(null);
@@ -102,37 +105,39 @@ public class AddressTest extends TestCase {
         ObjectOutputStream output = new ObjectOutputStream(byteOutput);
 
         output.writeObject(expected);
-        assertTrue("The stream is empty after writing", byteOutput.size() > 0);
+        Assert.assertTrue("The stream is empty after writing", byteOutput.size() > 0);
 
         ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(byteOutput.toByteArray()));
         Address actual = (Address) input.readObject();
-        assertEquals("The serializing didnt work", expected, actual);
+        Assert.assertEquals("The serializing didnt work", expected, actual);
     }
 
     /**
      * Test the equals() and hashCode() methods.
      */
+	@Test
     public void testEquals() {
         Address addr1 = new Address("Emil", "email@lonneberga.se");
         Address addr2 = new Address("Emil", "email@lonneberga.se");
         Address addr3 = new Address("Emil", "email@lonneberga.de");
-        assertTrue("The objects arent equal", addr1.equals(addr2));
-        assertTrue("The objects arent equal", addr2.equals(addr1));
-        assertFalse("The objects are equal though they are different types", addr2.equals(new Integer(3)));
-        assertFalse("The objects are equal though one is null", addr2.equals(null));
-        assertFalse("The objects are equal", addr1.equals(addr3));
-        assertFalse("The objects are equal", addr3.equals(addr1));
-        assertEquals("Equal objects has different hashcodes", addr1.hashCode(), addr2.hashCode());
-        assertFalse("Unequal objects has same hashcodes", addr1.hashCode() == addr3.hashCode());
+        Assert.assertTrue("The objects arent equal", addr1.equals(addr2));
+        Assert.assertTrue("The objects arent equal", addr2.equals(addr1));
+        Assert.assertFalse("The objects are equal though they are different types", addr2.equals(new Integer(3)));
+        Assert.assertFalse("The objects are equal though one is null", addr2.equals(null));
+        Assert.assertFalse("The objects are equal", addr1.equals(addr3));
+        Assert.assertFalse("The objects are equal", addr3.equals(addr1));
+        Assert.assertEquals("Equal objects has different hashcodes", addr1.hashCode(), addr2.hashCode());
+        Assert.assertFalse("Unequal objects has same hashcodes", addr1.hashCode() == addr3.hashCode());
     }
 
     /**
      * Tests the compareTo method.
      */
+	@Test
     public void testCompareTo() {
         Address addr1 = new Address("Emil", "email@lonneberga.se");
         Address addr2 = new Address("Emil", "email@lonneberga.se");
-        assertTrue("The compareTo method failed", addr1.compareTo(addr2) == 0);
-        assertTrue("The compareTo method failed", addr1.compareTo(new Address("bah@bahcity.net")) > 0);
+        Assert.assertTrue("The compareTo method failed", addr1.compareTo(addr2) == 0);
+        Assert.assertTrue("The compareTo method failed", addr1.compareTo(new Address("bah@bahcity.net")) > 0);
     }
 }

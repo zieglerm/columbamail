@@ -35,43 +35,38 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
-import junit.framework.TestCase;
 
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.message.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class HeaderParserTest extends TestCase {
+public class HeaderParserTest {
 
-	/**
-	 * Constructor for HeaderParserTest.
-	 * @param arg0
-	 */
-	public HeaderParserTest(String arg0) {
-		super(arg0);
-	}
-
+	@Test
 	public void testInputStreamSimpleFoldedLine() {
 		try {
 			String testHeaderInput = "Folded: Line\r\n test\r\n\r\n";
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
-			assertTrue(testHeader.length() == 1);
-			assertTrue(testHeader.get("Folded").equals("Linetest"));
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(testHeader.get("Folded").equals("Linetest"));
 
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testInputStreamMultiFoldedLine() {
 		try {
 			String testHeaderInput =
 				"Folded: Line\r\n test\r\n\t multiple\r\n  folded\r\n\r\n";
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
-			assertTrue(testHeader.length() == 1);
-			assertTrue(
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(
 				testHeader.get("Folded").equals("Linetest multiple folded"));
 
 		} catch (ParserException e) {
@@ -79,34 +74,37 @@ public class HeaderParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInputStreamSimpleLine() {
 		try {
 			String testHeaderInput = "Simple: Test\r\n\r\n";
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(testHeader.get("Simple").equals("Test"));
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(testHeader.get("Simple").equals("Test"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	@Test
 	public void testEmptyValue() {
 		try {
 			String testHeaderInput = "Simple: \r\n\r\n";
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(testHeader.get("Simple").equals(""));
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(testHeader.get("Simple").equals(""));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	@Test
 	public void testInputStreamMultiLine() {
 		try {
 			String testHeaderInput =
@@ -114,15 +112,16 @@ public class HeaderParserTest extends TestCase {
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 2);
-			assertTrue(testHeader.get("Simple").equals("Test"));
-			assertTrue(testHeader.get("Is").equals("not enough"));
+			Assert.assertTrue(testHeader.length() == 2);
+			Assert.assertTrue(testHeader.get("Simple").equals("Test"));
+			Assert.assertTrue(testHeader.get("Is").equals("not enough"));
 
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testInputStreamSimpleQuoted() {
 		try {
 			String testHeaderInput =
@@ -130,8 +129,8 @@ public class HeaderParserTest extends TestCase {
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(
 				testHeader.get("Simple").equals(
 					"bla:Test\" with (simple) Quotes\""));
 
@@ -141,6 +140,7 @@ public class HeaderParserTest extends TestCase {
 
 	}
 
+	@Test
 	public void testInputStreamQuotedFolded() {
 		try {
 			String testHeaderInput =
@@ -148,8 +148,8 @@ public class HeaderParserTest extends TestCase {
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(
 				testHeader.get("Simple").equals(
 					"Test\" with (folded) Quotes\""));
 
@@ -158,20 +158,22 @@ public class HeaderParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInputStream8BitSafe() {
 		try {
 			String testHeaderInput = "Simple: \"??????\"\r\n\r\n";
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(testHeader.get("Simple").equals("\"??????\""));
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(testHeader.get("Simple").equals("\"??????\""));
 
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testBogusQuoted() {
 		try {
 			String testHeaderInput =
@@ -179,26 +181,28 @@ public class HeaderParserTest extends TestCase {
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 1);
-			assertTrue(testHeader.get("Bogus").equals("\"blabl\"bla\"bla"));
+			Assert.assertTrue(testHeader.length() == 1);
+			Assert.assertTrue(testHeader.get("Bogus").equals("\"blabl\"bla\"bla"));
 
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testSourcePosition() {
 		try {
 			String testHeaderInput = "Test: Simple\r\n\r\nThis is the body";
 			Source testSource = new CharSequenceSource(testHeaderInput);
 			Header testHeader = HeaderParser.parse(testSource);
 			String body = testSource.fromActualPosition().toString();
-			assertTrue(body.equals("This is the body"));
+			Assert.assertTrue(body.equals("This is the body"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testHeaderEndDetection() {
 		try {
 			String testHeaderInput =
@@ -206,7 +210,7 @@ public class HeaderParserTest extends TestCase {
 			Source testSource = new CharSequenceSource(testHeaderInput);
 			Header testHeader = HeaderParser.parse(testSource);
 			String body = testSource.fromActualPosition().toString();
-			assertTrue(
+			Assert.assertTrue(
 				body.equals(
 					"This is the body: but with a header like text\r\n"));
 		} catch (ParserException e) {
@@ -214,37 +218,39 @@ public class HeaderParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testKeyNormalization() {
 		try {
 			String testHeaderInput =
 				"mesSaGe-id: Simple\r\nIn-Reply-To: Test\r\nsubject: Bla\r\n\r\n";
 			Source testSource = new CharSequenceSource(testHeaderInput);
 			Header testHeader = HeaderParser.parse(testSource);
-			assertTrue(testHeader.length() == 3);
-			assertTrue(testHeader.get("Message-ID").equals("Simple"));
-			assertTrue(testHeader.get("In-Reply-To").equals("Test"));
-			assertTrue(testHeader.get("Subject").equals("Bla"));
+			Assert.assertTrue(testHeader.length() == 3);
+			Assert.assertTrue(testHeader.get("Message-ID").equals("Simple"));
+			Assert.assertTrue(testHeader.get("In-Reply-To").equals("Test"));
+			Assert.assertTrue(testHeader.get("Subject").equals("Bla"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 	
-
+	@Test
 	public void testKeyIgnoreCase() {
 		try {
 			String testHeaderInput =
 				"mesSaGe-id: Simple\r\nIn-reply-To: Test\r\nsubject: Bla\r\n\r\n";
 			Source testSource = new CharSequenceSource(testHeaderInput);
 			Header testHeader = HeaderParser.parse(testSource);
-			assertTrue(testHeader.length() == 3);
-			assertTrue(testHeader.get("Message-ID").equals("Simple"));
-			assertTrue(testHeader.get("in-reply-to").equals("Test"));
-			assertTrue(testHeader.get("subJect").equals("Bla"));
+			Assert.assertTrue(testHeader.length() == 3);
+			Assert.assertTrue(testHeader.get("Message-ID").equals("Simple"));
+			Assert.assertTrue(testHeader.get("in-reply-to").equals("Test"));
+			Assert.assertTrue(testHeader.get("subJect").equals("Bla"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
 	public void testInputStream2() {
 		try {
 			String testHeaderInput =
@@ -260,7 +266,7 @@ public class HeaderParserTest extends TestCase {
 			Header testHeader =
 				HeaderParser.parse(new CharSequenceSource(testHeaderInput));
 
-			assertTrue(testHeader.length() == 6);
+			Assert.assertTrue(testHeader.length() == 6);
 
 		} catch (ParserException e) {
 			e.printStackTrace();

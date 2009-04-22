@@ -35,51 +35,48 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.parser.HeaderParser;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MimeHeaderTest extends TestCase {
+public class MimeHeaderTest {
 
-	/**
-	 * Constructor for NewMimeHeaderTest.
-	 * @param arg0
-	 */
-	public MimeHeaderTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testDefaultHeader() {
 		MimeHeader header = new MimeHeader();
 		MimeType type = header.getMimeType();
-		assertTrue( type.getType().equals("text"));
-		assertTrue( type.getSubtype().equals("plain"));
+		Assert.assertTrue( type.getType().equals("text"));
+		Assert.assertTrue( type.getSubtype().equals("plain"));
 	}
 	
+	@Test
 	public void testContentParameterSimple() {
 		Header header = new Header();
 		header.set("Content-Type","multipart/mixed;boundary= \"blabla\"");
 		MimeHeader mimeHeader = new MimeHeader(header);
-		assertTrue(mimeHeader.getContentParameter("boundary").equals("blabla"));
+		Assert.assertTrue(mimeHeader.getContentParameter("boundary").equals("blabla"));
 	}
 	
+	@Test
 	public void testContentParameterMultiple() {
 		Header header = new Header();
 		header.set("Content-Type","multipart/mixed; charset=\"iso-8859-1\"; boundary=\"bla bla\"");
 		MimeHeader mimeHeader = new MimeHeader(header);
-		assertEquals(mimeHeader.getContentParameter("boundary"), "bla bla");
-		assertEquals(mimeHeader.getContentParameter("charset"), "iso-8859-1");
+		Assert.assertEquals(mimeHeader.getContentParameter("boundary"), "bla bla");
+		Assert.assertEquals(mimeHeader.getContentParameter("charset"), "iso-8859-1");
 	}
 	
+	@Test
 	public void testWOQuotes() {
 		Header header= new Header();
 		header.set("Content-type", "text/html; charset=iso-8859-1");
 		MimeHeader mimeHeader = new MimeHeader( header );
-		assertEquals( mimeHeader.getContentParameter("charset"), "iso-8859-1");
-		assertEquals( "html", mimeHeader.getMimeType().getSubtype());
+		Assert.assertEquals( mimeHeader.getContentParameter("charset"), "iso-8859-1");
+		Assert.assertEquals( "html", mimeHeader.getMimeType().getSubtype());
 	}
 	
+	@Test
 	public void testFromParsedHeader() throws Exception {
 		String test = "Return-Path: <xxxx@xxxxxxxx.de>\r\n" +
 				"X-Flags: 0000\r\n" +
@@ -111,7 +108,7 @@ public class MimeHeaderTest extends TestCase {
 		
 		Header header = HeaderParser.parse(new CharSequenceSource( test ));
 		MimeHeader mimeHeader = new MimeHeader( header );
-		assertEquals( "iso-8859-1", mimeHeader.getContentParameter("charset") );
+		Assert.assertEquals( "iso-8859-1", mimeHeader.getContentParameter("charset") );
 		
 	}
 	

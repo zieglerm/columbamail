@@ -37,13 +37,14 @@ package org.columba.ristretto.auth.mechanism;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.auth.AuthenticationException;
 import org.columba.ristretto.auth.AuthenticationMechanism;
+import org.junit.Test;
+import org.junit.Assert;
 
-public class PlainMechanismTest extends TestCase {
+public class PlainMechanismTest {
 
+	@Test  
     public void testOK() throws IOException {
         TestAuthServer server = new TestAuthServer("\0test\0foo".getBytes());
         AuthenticationMechanism mechanism = new PlainMechanism();
@@ -54,9 +55,10 @@ public class PlainMechanismTest extends TestCase {
         	e.printStackTrace();
         }
                 
-        assertTrue( server.isOk());
+        Assert.assertTrue( server.isOk());
     }
     
+	@Test
     public void testFailure() throws IOException {
         TestAuthServer server = new TestAuthServer("\0test\0oo".getBytes());
         AuthenticationMechanism mechanism = new PlainMechanism();
@@ -67,6 +69,6 @@ public class PlainMechanismTest extends TestCase {
             e.printStackTrace();
         }
         
-        assertFalse( server.isOk());
+        Assert.assertFalse( server.isOk());
     }
    }

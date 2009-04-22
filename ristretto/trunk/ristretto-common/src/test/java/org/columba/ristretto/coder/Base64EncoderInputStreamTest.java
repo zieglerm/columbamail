@@ -41,18 +41,12 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Random;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class Base64EncoderInputStreamTest extends TestCase {
+public class Base64EncoderInputStreamTest{
 
-	/**
-	 * Constructor for Base64EncoderInputStreamTest.
-	 * @param arg0
-	 */
-	public Base64EncoderInputStreamTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void test0Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080, (byte)0x040,(byte)0x0ff, (byte)0x080, (byte)0x040};
 		String result = "/4BA/4BA";
@@ -62,16 +56,17 @@ public class Base64EncoderInputStreamTest extends TestCase {
 		try {
 			int next = in.read();
 			while( next != -1 ) {
-				assertTrue( next == result.charAt(pos++));
+				Assert.assertTrue( next == result.charAt(pos++));
 				next = in.read();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 8);
+		Assert.assertTrue( pos == 8);
 	}
 
+	@Test
 	public void test1Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080, (byte)0x040,(byte)0x0ff, (byte)0x080 };
 		String result = "/4BA/4A=";
@@ -81,17 +76,18 @@ public class Base64EncoderInputStreamTest extends TestCase {
 		try {
 			int next = in.read();
 			while( next != -1 ) {
-				assertTrue( next == result.charAt(pos++));
+				Assert.assertTrue( next == result.charAt(pos++));
 				next = in.read();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 8);
+		Assert.assertTrue( pos == 8);
 	}
 
 
+	@Test
 	public void test2Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080, (byte)0x040,(byte)0x0ff };
 		String result = "/4BA/w==";
@@ -101,16 +97,17 @@ public class Base64EncoderInputStreamTest extends TestCase {
 		try {
 			int next = in.read();
 			while( next != -1 ) {
-				assertTrue( next == result.charAt(pos++));
+				Assert.assertTrue( next == result.charAt(pos++));
 				next = in.read();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 8);
+		Assert.assertTrue( pos == 8);
 	}
 	
+	@Test
 	public void testEncodeDecode() {
 		Random random = new Random();
 		byte[] testInput = new byte[(int) (random.nextFloat() * 1024)];
@@ -133,7 +130,7 @@ public class Base64EncoderInputStreamTest extends TestCase {
 			if(testInput[i] != next ) {
 				System.out.println( i );
 			}
-			assertTrue(testInput[i] == next);			
+			Assert.assertTrue(testInput[i] == next);			
 		}		
 	}
 }

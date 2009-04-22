@@ -40,13 +40,14 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.SourceInputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class CharsetEncoderInputStreamTest extends TestCase {
+public class CharsetEncoderInputStreamTest {
 
+	@Test
 	public void testUS_ASCII() {
 		String input = "This is a test";
 		Charset charset = Charset.forName("US-ASCII");
@@ -61,7 +62,7 @@ public class CharsetEncoderInputStreamTest extends TestCase {
 			int next = in.read();
 			int pos = 0;
 			while (next != -1) {
-				assertTrue(bytes[pos++] == next);
+				Assert.assertTrue(bytes[pos++] == next);
 				next = in.read();
 			}
 		} catch (UnsupportedEncodingException e) {
@@ -71,6 +72,7 @@ public class CharsetEncoderInputStreamTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testISO_8859_1() {
 		String input = "This is a \u00e4est";
 		Charset charset = Charset.forName("ISO-8859-1");
@@ -85,7 +87,7 @@ public class CharsetEncoderInputStreamTest extends TestCase {
 			int next = in.read();
 			int pos = 0;
 			while (next != -1) {
-				assertTrue(bytes[pos++] == next);
+				Assert.assertTrue(bytes[pos++] == next);
 				next = in.read();
 			}
 		} catch (UnsupportedEncodingException e) {
@@ -94,7 +96,8 @@ public class CharsetEncoderInputStreamTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Test
 	public void testISO_2022_JP() {
 			String input = "\u3061\u3061\u3062";
 			Charset charset = Charset.forName("ISO-2022-JP");
@@ -109,7 +112,7 @@ public class CharsetEncoderInputStreamTest extends TestCase {
 				int next = in.read();
 				int pos = 0;
 				while (next != -1) {
-					assertTrue(bytes[pos++] == next);
+					Assert.assertTrue(bytes[pos++] == next);
 					next = in.read();
 				}
 			} catch (UnsupportedEncodingException e) {

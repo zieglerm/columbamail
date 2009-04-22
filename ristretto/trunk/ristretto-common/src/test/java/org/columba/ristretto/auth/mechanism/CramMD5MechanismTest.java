@@ -2,13 +2,14 @@ package org.columba.ristretto.auth.mechanism;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.auth.AuthenticationException;
 import org.columba.ristretto.auth.AuthenticationMechanism;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class CramMD5MechanismTest extends TestCase {
+public class CramMD5MechanismTest {
 
+		@Test
 	   public void testOK() throws IOException {
 	        TestAuthServer server = new TestAuthServer();
 	        server.addResponse("<1896.697170952@postoffice.reston.mci.net>".getBytes());
@@ -21,9 +22,10 @@ public class CramMD5MechanismTest extends TestCase {
 	        	e.printStackTrace();
 	        }
 	                
-	        assertTrue( server.isOk());
+	        Assert.assertTrue( server.isOk());
 	    }
 
+		@Test
 	    public void testFailure() throws IOException {
 	        TestAuthServer server = new TestAuthServer();
 	        server.addCall("tim".getBytes());
@@ -36,7 +38,7 @@ public class CramMD5MechanismTest extends TestCase {
 	            e.printStackTrace();
 	        }
 	        
-	        assertFalse( server.isOk());
+	        Assert.assertFalse( server.isOk());
 	    }
 	   
 	

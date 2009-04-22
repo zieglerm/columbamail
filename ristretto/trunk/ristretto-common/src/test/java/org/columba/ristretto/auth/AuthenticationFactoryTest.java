@@ -35,59 +35,71 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.auth;
 
-import junit.framework.TestCase;
-import org.columba.ristretto.auth.mechanism.PlainMechanism;
-
 import java.util.List;
 
-public class AuthenticationFactoryTest extends TestCase {
-    
-    public void testSupports() {
-        assertEquals(AuthenticationFactory.getInstance().isSupported("PLAIN"), true );       
-        assertEquals(AuthenticationFactory.getInstance().isSupported("XYZ"), false );       
-    }
-    
-    public void testGetSupportedMechanisms() {
-        List mechanisms = AuthenticationFactory.getInstance().getSupportedMechanisms();
-        
-        assertNotNull( mechanisms );
-        assertEquals( mechanisms.size() >= 2, true);
-    }
-    
-    public void testGetSecurestMechanism() {
-        try {
-            assertEquals( AuthenticationFactory.getInstance().getSecurestMethod("AUTH LOGIN PLAIN"), "LOGIN" ); 
-        } catch (NoSuchAuthenticationException e) {
-            fail(e.getMessage());
-        }
+import org.columba.ristretto.auth.mechanism.PlainMechanism;
+import org.junit.Assert;
+import org.junit.Test;
 
-        try {
-            assertEquals( AuthenticationFactory.getInstance().getSecurestMethod("AUTH XYZ PLAIN"), "PLAIN" ); 
-        } catch (NoSuchAuthenticationException e) {
-            fail(e.getMessage());
-        }
-    
-        try {
-            AuthenticationFactory.getInstance().getSecurestMethod("AUTH XYZ UVW");
-            fail();
-        } catch (NoSuchAuthenticationException e) {
-            assertEquals( e.getMessage(),"AUTH XYZ UVW" );
-        }
-    }
-    
-    public void testGetAuthenticationMethod() {
-        try {
-            assertTrue( AuthenticationFactory.getInstance().getAuthentication("PLAIN") instanceof PlainMechanism);
-        } catch (NoSuchAuthenticationException e) {
-            fail(e.getMessage());
-        }
+public class AuthenticationFactoryTest {
 
-        try {
-            AuthenticationFactory.getInstance().getAuthentication("XYZ");
-            fail();
-        } catch (NoSuchAuthenticationException e) {
-            assertEquals( e.getMessage(), "XYZ");
-        }
+	@Test
+	public void testSupports() {
+		Assert.assertEquals(AuthenticationFactory.getInstance().isSupported(
+				"PLAIN"), true);
+		Assert.assertEquals(AuthenticationFactory.getInstance().isSupported(
+				"XYZ"), false);
+	}
 
-    }
+	@Test
+	public void testGetSupportedMechanisms() {
+		List mechanisms = AuthenticationFactory.getInstance()
+				.getSupportedMechanisms();
+
+		Assert.assertNotNull(mechanisms);
+		Assert.assertEquals(mechanisms.size() >= 2, true);
+	}
+
+	@Test
+	public void testGetSecurestMechanism() {
+		try {
+			Assert.assertEquals(AuthenticationFactory.getInstance()
+					.getSecurestMethod("AUTH LOGIN PLAIN"), "LOGIN");
+		} catch (NoSuchAuthenticationException e) {
+			Assert.fail(e.getMessage());
+		}
+
+		try {
+			Assert.assertEquals(AuthenticationFactory.getInstance()
+					.getSecurestMethod("AUTH XYZ PLAIN"), "PLAIN");
+		} catch (NoSuchAuthenticationException e) {
+			Assert.fail(e.getMessage());
+		}
+
+		try {
+			AuthenticationFactory.getInstance().getSecurestMethod(
+					"AUTH XYZ UVW");
+			Assert.fail();
+		} catch (NoSuchAuthenticationException e) {
+			Assert.assertEquals(e.getMessage(), "AUTH XYZ UVW");
+		}
+	}
+
+	@Test
+	public void testGetAuthenticationMethod() {
+		try {
+			Assert.assertTrue(AuthenticationFactory.getInstance()
+					.getAuthentication("PLAIN") instanceof PlainMechanism);
+		} catch (NoSuchAuthenticationException e) {
+			Assert.fail(e.getMessage());
+		}
+
+		try {
+			AuthenticationFactory.getInstance().getAuthentication("XYZ");
+			Assert.fail();
+		} catch (NoSuchAuthenticationException e) {
+			Assert.assertEquals(e.getMessage(), "XYZ");
+		}
+
+	}
 }

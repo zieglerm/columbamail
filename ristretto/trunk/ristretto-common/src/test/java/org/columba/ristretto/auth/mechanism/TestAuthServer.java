@@ -42,7 +42,9 @@ import java.util.List;
 
 import org.columba.ristretto.auth.AuthenticationException;
 import org.columba.ristretto.auth.AuthenticationServer;
+import org.junit.Ignore;
 
+@Ignore
 public class TestAuthServer implements AuthenticationServer {
     
     private String result;

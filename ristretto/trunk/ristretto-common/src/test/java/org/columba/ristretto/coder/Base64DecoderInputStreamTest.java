@@ -40,21 +40,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.SourceInputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class Base64DecoderInputStreamTest extends TestCase {
+public class Base64DecoderInputStreamTest {
 
-	/**
-	 * Constructor for Base64DecoderInputStreamTest.
-	 * @param arg0
-	 */
-	public Base64DecoderInputStreamTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void test0Pads() {
 		String input = "/4BA/4BA";
 		CharSequenceSource source = new CharSequenceSource( input );
@@ -65,16 +58,17 @@ public class Base64DecoderInputStreamTest extends TestCase {
 		try {
 			int nextIn = base64in.read();
 			while( nextIn != -1 ) {
-				assertTrue( nextIn == result[pos++]);
+				Assert.assertTrue( nextIn == result[pos++]);
 				nextIn = base64in.read();						 		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 6 );
+		Assert.assertTrue( pos == 6 );
 	}
 
+	@Test
 	public void test1Pads() {
 		String input = "/4BA/4A=";
 		CharSequenceSource source = new CharSequenceSource( input );
@@ -85,17 +79,18 @@ public class Base64DecoderInputStreamTest extends TestCase {
 		try {
 			int nextIn = base64in.read();
 			while( nextIn != -1 ) {
-				assertTrue( nextIn == result[pos++]);
+				Assert.assertTrue( nextIn == result[pos++]);
 				nextIn = base64in.read();						 		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 5 );
+		Assert.assertTrue( pos == 5 );
 	}
 
 
+	@Test
 	public void test2Pads() {
 		String input = "/4BA/w==";
 		CharSequenceSource source = new CharSequenceSource( input );
@@ -106,17 +101,17 @@ public class Base64DecoderInputStreamTest extends TestCase {
 		try {
 			int nextIn = base64in.read();
 			while( nextIn != -1 ) {
-				assertTrue( nextIn == result[pos++]);
+				Assert.assertTrue( nextIn == result[pos++]);
 				nextIn = base64in.read();						 		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 4 );
+		Assert.assertTrue( pos == 4 );
 	}
 
-
+	@Test
 	public void testBreak() {
 		String input = "/4B\nA/4\r\nBA";
 		CharSequenceSource source = new CharSequenceSource( input );
@@ -127,16 +122,17 @@ public class Base64DecoderInputStreamTest extends TestCase {
 		try {
 			int nextIn = base64in.read();
 			while( nextIn != -1 ) {
-				assertTrue( nextIn == result[pos++]);
+				Assert.assertTrue( nextIn == result[pos++]);
 				nextIn = base64in.read();						 		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		assertTrue( pos == 6 );
+		Assert.assertTrue( pos == 6 );
 	}
 	
+	@Test
 	public void testencodedecode() {
 		Random random = new Random();
 		byte[] testInput = new byte[(int) (random.nextFloat() * 1024)];
@@ -148,7 +144,7 @@ public class Base64DecoderInputStreamTest extends TestCase {
 				if(testInput[i] != next ) {
 					System.out.println( i + " " + testInput[i] + " != "+ next);
 				}
-				assertTrue(testInput[i] == next);			
+				Assert.assertTrue(testInput[i] == next);			
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

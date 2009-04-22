@@ -37,9 +37,9 @@ package org.columba.ristretto.message.io;
 
 import java.util.Random;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.MemBuffer;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author tstich
@@ -47,8 +47,9 @@ import org.columba.ristretto.io.MemBuffer;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class MemBufferTest extends TestCase {
+public class MemBufferTest {
 
+	@Test
 	public void testInputSingle() {
 		MemBuffer buffer = new MemBuffer();
 		
@@ -56,14 +57,14 @@ public class MemBufferTest extends TestCase {
 		new Random().nextBytes(input);
 		
 		for( int i=0; i<input.length; i++) {
-			assertEquals( i, buffer.size());
+			Assert.assertEquals( i, buffer.size());
 			buffer.append(input[i]);
-			assertEquals( input[i], buffer.get(i));
-			assertEquals( i+1, buffer.size());
+			Assert.assertEquals( input[i], buffer.get(i));
+			Assert.assertEquals( i+1, buffer.size());
 		}
 	}
 
-	
+	@Test
 	public void testInputArray() {
 		MemBuffer buffer = new MemBuffer();
 		
@@ -71,17 +72,17 @@ public class MemBufferTest extends TestCase {
 		new Random().nextBytes(input);
 
 		buffer.append(input);
-		assertEquals( input.length, buffer.size());
+		Assert.assertEquals( input.length, buffer.size());
 		
 		byte[] test = new byte[2050];
-		assertEquals( 2000, buffer.get(50, test)); 
-		assertEquals( input[50], test[0]);
+		Assert.assertEquals( 2000, buffer.get(50, test)); 
+		Assert.assertEquals( input[50], test[0]);
 		
 		
-		assertEquals( 2050, buffer.get(0, test) );
+		Assert.assertEquals( 2050, buffer.get(0, test) );
 		
 		for( int i=0; i<input.length; i++) {			
-			assertEquals( input[i], test[i]);
+			Assert.assertEquals( input[i], test[i]);
 		}
 	}
 	

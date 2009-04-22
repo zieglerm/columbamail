@@ -41,6 +41,9 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.junit.Ignore;
+
+@Ignore
 public class TestServer implements Runnable {
 
 	protected ServerSocket serverSocket;

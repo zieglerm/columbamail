@@ -40,10 +40,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class QuotedPrintableDecoderInputStreamTest extends TestCase {
+public class QuotedPrintableDecoderInputStreamTest  {
 
+	@Test
 	public void testDecodeNone() {
 		try {
 			String input = "This is a\tTest";
@@ -56,7 +58,7 @@ public class QuotedPrintableDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue(result.toString().equals("This is a\tTest"));
+			Assert.assertTrue(result.toString().equals("This is a\tTest"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -64,6 +66,7 @@ public class QuotedPrintableDecoderInputStreamTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testDecodeSimple() {
 		try {
 			String input = "This is a =DCest"; // =DC == UE
@@ -76,7 +79,7 @@ public class QuotedPrintableDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue(result.toString().equals("This is a \u00dcest"));
+			Assert.assertTrue(result.toString().equals("This is a \u00dcest"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -85,6 +88,7 @@ public class QuotedPrintableDecoderInputStreamTest extends TestCase {
 	}
 
 
+	@Test
 	public void testDecodeSoftlinebreak() {
 		try {
 			String input = "This is a =\r\n=DCest";
@@ -97,7 +101,7 @@ public class QuotedPrintableDecoderInputStreamTest extends TestCase {
 				next = in.read();
 			}
 			
-			assertTrue(result.toString().equals("This is a \u00dcest"));
+			Assert.assertTrue(result.toString().equals("This is a \u00dcest"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

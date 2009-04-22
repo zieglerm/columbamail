@@ -1,5 +1,5 @@
 /*
- * BEGIN LICENSE BLOCK Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *  BEGIN LICENSE BLOCK Version: MPL 1.1/GPL 2.0/LGPL 2.1
  * 
  * The contents of this file are subject to the Mozilla Public License Version 1.1 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
@@ -30,14 +30,17 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.AsyncInputStream;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-public class AsyncSourceInputStreamTest extends TestCase {
+public class AsyncSourceInputStreamTest {
 
   byte[] test = new byte[1000];
 
+  @Test
   public void test1() throws IOException {
     AsyncInputStream in = new AsyncInputStream(new ByteArrayInputStream(test), test.length);
 
@@ -48,23 +51,24 @@ public class AsyncSourceInputStreamTest extends TestCase {
 
     for (int i = 0; i < 1000; i++) {
       // this will eventually block
-      assertEquals(test[i], (byte) in.read());
+      Assert.assertEquals(test[i], (byte) in.read());
     }
 
     // blocking worked if it took us more than 1 sec
-    assertTrue(System.currentTimeMillis() - time > 500);
+    Assert.assertTrue(System.currentTimeMillis() - time > 500);
   }
 
   /**
    * @see junit.framework.TestCase#setUp()
    */
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     Random r = new Random();
     r.nextBytes(test);
   }
 }
 
+@Ignore
 class TestWriter implements Runnable {
 
   private final AsyncInputStream in;

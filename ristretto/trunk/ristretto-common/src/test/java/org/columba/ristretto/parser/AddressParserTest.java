@@ -35,12 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.message.Address;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class AddressParserTest extends TestCase {
+public class AddressParserTest{
 
+	@Test
 	public void testSingle1() {
 		String testString = "Peter ?lafton <xyt@zpt.de>";
 		
@@ -49,17 +50,18 @@ public class AddressParserTest extends TestCase {
 		try {
 			address = AddressParser.parseAddress(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
 		Address testAddress = new Address( "Peter ?lafton", "xyt@zpt.de");
 		
-		assertTrue( address.equals( testAddress ));
-		assertTrue( address.getDisplayName().equals("Peter ?lafton"));
-		assertTrue( address.toString().equals("\"Peter ?lafton\" <xyt@zpt.de>"));
+		Assert.assertTrue( address.equals( testAddress ));
+		Assert.assertTrue( address.getDisplayName().equals("Peter ?lafton"));
+		Assert.assertTrue( address.toString().equals("\"Peter ?lafton\" <xyt@zpt.de>"));
 	}
 
+	@Test
 	public void testSingle8() {
 		String testString = "mail@timostich.de, ";
 		
@@ -68,12 +70,12 @@ public class AddressParserTest extends TestCase {
 		try {
 			address = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
-		assertEquals(1, address.length);
-		assertEquals("mail@timostich.de", address[0].getMailAddress());
+		Assert.assertEquals(1, address.length);
+		Assert.assertEquals("mail@timostich.de", address[0].getMailAddress());
 	}
 
 	/*	
@@ -94,6 +96,7 @@ public class AddressParserTest extends TestCase {
 */	
 	
 	
+	@Test
 	public void testSingle2() {
 		String testString = "<xyt@zpt.de>";
 		
@@ -102,18 +105,19 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
 		Address testAddress = new Address( "xyt@zpt.de");
 		
-		assertTrue( addressList.length == 1);
-		assertTrue( ((Address) addressList[0]).equals( testAddress ));
-		assertTrue( ((Address) addressList[0]).getDisplayName().equals(""));
-		assertEquals( addressList[0].getMailAddress(), "xyt@zpt.de");
+		Assert.assertTrue( addressList.length == 1);
+		Assert.assertTrue( ((Address) addressList[0]).equals( testAddress ));
+		Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals(""));
+		Assert.assertEquals( addressList[0].getMailAddress(), "xyt@zpt.de");
 	}
 
+	@Test
 	public void testSingle3() {
 		String testString = "xyt@zpt.de";
 		
@@ -122,17 +126,18 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
 		Address testAddress = new Address( "xyt@zpt.de");
 		
-		assertTrue( addressList.length == 1);
-		assertTrue( ((Address) addressList[0]).equals( testAddress ));
-		assertTrue( ((Address) addressList[0]).getDisplayName().equals(""));			
+		Assert.assertTrue( addressList.length == 1);
+		Assert.assertTrue( ((Address) addressList[0]).equals( testAddress ));
+		Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals(""));			
 	}
 
+	@Test
 	public void testSingle4() {
 	    String testString = "\"Peter ?lafton\" <xyt@zpt.de>";
 	    
@@ -141,18 +146,18 @@ public class AddressParserTest extends TestCase {
 	    try {
 	        addressList = AddressParser.parseMailboxList(testString);
 	    } catch (ParserException e) {
-	        assertTrue(false);
+	    	Assert.assertTrue(false);
 	        return;
 	    }
 	    
 	    Address testAddress = new Address( "Peter ?lafton", "xyt@zpt.de");
 	    
-	    assertTrue( addressList.length == 1);
-	    assertTrue( ((Address) addressList[0]).equals( testAddress ));
-	    assertTrue( ((Address) addressList[0]).getDisplayName().equals("Peter ?lafton"));	
+	    Assert.assertTrue( addressList.length == 1);
+	    Assert.assertTrue( ((Address) addressList[0]).equals( testAddress ));
+	    Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals("Peter ?lafton"));	
 	}
 	
-	
+	@Test
 	public void testMultiple1() {
 		String testString = "Peter ?lafton <xyt@zpt.de>, xyt@zpt.de, <xyt@zpt.de>";		
 		
@@ -160,17 +165,18 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
-		assertTrue( addressList.length == 3);
-		assertTrue( ((Address) addressList[0]).equals( new Address( "Peter ?lafton", "xyt@zpt.de") ));
-		assertTrue( ((Address) addressList[0]).getDisplayName().equals("Peter ?lafton"));	
-		assertTrue( ((Address) addressList[1]).equals( new Address( "xyt@zpt.de") ));
-		assertTrue( ((Address) addressList[2]).equals( new Address( "xyt@zpt.de") ));
+		Assert.assertTrue( addressList.length == 3);
+		Assert.assertTrue( ((Address) addressList[0]).equals( new Address( "Peter ?lafton", "xyt@zpt.de") ));
+		Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals("Peter ?lafton"));	
+		Assert.assertTrue( ((Address) addressList[1]).equals( new Address( "xyt@zpt.de") ));
+		Assert.assertTrue( ((Address) addressList[2]).equals( new Address( "xyt@zpt.de") ));
 	}
 	
+	@Test
 	public void testMultiple2() {
 		String testString = "hans, peter, lukas";		
 		
@@ -178,17 +184,17 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
-		assertTrue( addressList.length == 3);
-		assertTrue( ((Address) addressList[0]).equals( new Address( "hans") ));
-		assertTrue( ((Address) addressList[1]).equals( new Address( "peter") ));
-		assertTrue( ((Address) addressList[2]).equals( new Address( "lukas") ));
+		Assert.assertTrue( addressList.length == 3);
+		Assert.assertTrue( ((Address) addressList[0]).equals( new Address( "hans") ));
+		Assert.assertTrue( ((Address) addressList[1]).equals( new Address( "peter") ));
+		Assert.assertTrue( ((Address) addressList[2]).equals( new Address( "lukas") ));
 	}
 
-	
+	@Test
 	public void testMultipleQuoted1() {
 		String testString = "\"Rmazam, Peter\" <xyt@zpt.de>, \"Bkalbal, Olaf\" <zkn@opb.com>";
 		
@@ -197,17 +203,18 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
-		assertTrue( addressList.length == 2);
-		assertTrue( ((Address) addressList[0]).equals( new Address( "Rmazam, Peter", "xyt@zpt.de") ));
-		assertTrue( ((Address) addressList[0]).getDisplayName().equals("Rmazam, Peter"));			
-		assertTrue( ((Address) addressList[1]).equals( new Address( "Bkalbal, Olaf", "zkn@opb.com") ));
-		assertTrue( ((Address) addressList[1]).getDisplayName().equals("Bkalbal, Olaf"));			
+		Assert.assertTrue( addressList.length == 2);
+		Assert.assertTrue( ((Address) addressList[0]).equals( new Address( "Rmazam, Peter", "xyt@zpt.de") ));
+		Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals("Rmazam, Peter"));			
+		Assert.assertTrue( ((Address) addressList[1]).equals( new Address( "Bkalbal, Olaf", "zkn@opb.com") ));
+		Assert.assertTrue( ((Address) addressList[1]).getDisplayName().equals("Bkalbal, Olaf"));			
 	}
 	
+	@Test
 	public void testSingle5() {
 	    String testString = "columba-devel-admin@lists.sourceforge.net";
 	    
@@ -216,31 +223,32 @@ public class AddressParserTest extends TestCase {
 	    try {
 		        addressList = AddressParser.parseMailboxList(testString);
 	    } catch (ParserException e) {
-	        assertTrue(false);
+	    	Assert.assertTrue(false);
 	        return;
 	    }
 	    
 	    Address testAddress = new Address( "columba-devel-admin@lists.sourceforge.net");
 	    
-	    assertTrue( addressList.length == 1);
-	    assertTrue( ((Address) addressList[0]).equals( testAddress ));
+	    Assert.assertTrue( addressList.length == 1);
+	    Assert.assertTrue( ((Address) addressList[0]).equals( testAddress ));
 	}
 	
 	
-	
-	
+	@Test
 	public void testAddressToString1() {
 		Address testAddress = new Address( "Timo Stich", "tstich@users.sourceforge.net");
 		String addressString = testAddress.toString();
-		assertTrue( addressString.equals("\"Timo Stich\" <tstich@users.sourceforge.net>"));
+		Assert.assertTrue( addressString.equals("\"Timo Stich\" <tstich@users.sourceforge.net>"));
 	}
 
+	@Test
 	public void testAddressToString2() {
 		Address testAddress = new Address( "tstich@users.sourceforge.net");
 		String addressString = testAddress.toString();
-		assertTrue( addressString.equals("tstich@users.sourceforge.net"));
+		Assert.assertTrue( addressString.equals("tstich@users.sourceforge.net"));
 	}
 	
+	@Test
 	public void testSingle6() {
 		String testString = "=?ISO-8859-1?Q?J=F6rg_Tester?= <tester@test.de>";
 		
@@ -248,15 +256,16 @@ public class AddressParserTest extends TestCase {
 		try {
 			address = AddressParser.parseAddress(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
 		Address testAddress = new Address( "=?ISO-8859-1?Q?J=F6rg_Tester?=", "tester@test.de");
 		
-		assertTrue( address.equals( testAddress ));
+		Assert.assertTrue( address.equals( testAddress ));
 	}
 
+	@Test
 	public void testSingle7() {
 		String testString = "\"info@spreadshirt.de\"<info@spreadshirt.de>";
 		
@@ -265,16 +274,16 @@ public class AddressParserTest extends TestCase {
 		try {
 			addressList = AddressParser.parseMailboxList(testString);
 		} catch (ParserException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 			return;
 		}
 		
 		Address testAddress = new Address( "info@spreadshirt.de", "info@spreadshirt.de");
 		
-		assertTrue( addressList.length == 1);
-		assertTrue( ((Address) addressList[0]).equals( testAddress ));
-		assertTrue( ((Address) addressList[0]).getDisplayName().equals("info@spreadshirt.de"));
-		assertEquals( addressList[0].getMailAddress(), "info@spreadshirt.de");
+		Assert.assertTrue( addressList.length == 1);
+		Assert.assertTrue( ((Address) addressList[0]).equals( testAddress ));
+		Assert.assertTrue( ((Address) addressList[0]).getDisplayName().equals("info@spreadshirt.de"));
+		Assert.assertEquals( addressList[0].getMailAddress(), "info@spreadshirt.de");
 	}
 
 }

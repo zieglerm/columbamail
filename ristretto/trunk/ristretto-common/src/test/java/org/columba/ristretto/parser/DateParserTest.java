@@ -39,19 +39,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class DateParserTest extends TestCase {
+public class DateParserTest {
 
-	/**
-	 * Constructor for DateParserTest.
-	 * @param arg0
-	 */
-	public DateParserTest(String arg0) {
-		super(arg0);
-	}
-
+	@Test
 	public void testParseString1() {
 //		day, month, year, hour, minute
 		String testData = "07 Mar 2003 19:20";
@@ -73,6 +66,7 @@ public class DateParserTest extends TestCase {
 		Assert.assertTrue( testDate.equals(date) );
 	}
 
+	@Test
 	public void testParseString7() {
 //		day, month, year, hour, minute
 		String testData = "Wed May 25 12:59:16 2005 +0100";
@@ -94,7 +88,7 @@ public class DateParserTest extends TestCase {
 		Assert.assertEquals( testDate, date );
 	}
 	
-	
+	@Test
 	public void testParseString2() {
 		String testStr = "Thu, 6 Feb 2003 11:05:12 +0100";
 		
@@ -111,9 +105,10 @@ public class DateParserTest extends TestCase {
 		c.set(2003, 1, 6, 11,5,12);
 		Date testDate = c.getTime();
 		
-		assertTrue(testDate.equals(date));
+		Assert.assertTrue(testDate.equals(date));
 	}
 	
+	@Test
 	public void testParseString3() {
 		String testStr = "19 Jun 2003 09:46 PDT";
 		
@@ -129,9 +124,10 @@ public class DateParserTest extends TestCase {
 		// year, month, date, hour, second
 		c.set(2003, 5, 19, 9, 46, 0);
 		Date testDate = c.getTime();
-		assertTrue(testDate.equals(date));
+		Assert.assertTrue(testDate.equals(date));
 	}
 	
+	@Test
 	public void testParseString4() {
 		String testStr = "Thu, 17 Apr 03 10:06 -0400";
 		Date date = null;
@@ -149,9 +145,10 @@ public class DateParserTest extends TestCase {
 		c.set(2003, 3, 17, 10, 6, 0);
 		Date testDate = c.getTime();
 
-		assertTrue(testDate.equals(date));
+		Assert.assertTrue(testDate.equals(date));
 	}
 
+	@Test
 	public void testParseString5() {
 		String testStr = "Wed, 2 July 2003 18:12:33 +0000";
 		
@@ -167,9 +164,10 @@ public class DateParserTest extends TestCase {
 		//		year, month, date, hour, second
 		c.set(2003, 6, 2, 18, 12, 33);
 		Date testDate = c.getTime();
-		assertTrue(testDate.equals(date));
+		Assert.assertTrue(testDate.equals(date));
 	}
 	
+	@Test
 	public void testParseString6() {
 		String testStr = "  Wed,  2\tJuly  2003 18:12:33 +0000  ";
 		
@@ -185,9 +183,10 @@ public class DateParserTest extends TestCase {
 		//		year, month, date, hour, second
 		c.set(2003, 6, 2, 18, 12, 33);
 		Date testDate = c.getTime();
-		assertTrue(testDate.equals(date));
+		Assert.assertTrue(testDate.equals(date));
 	}
 
+	@Test
 	public void testParseLeapYear1() {
 		String testStr = "Tue,  2 Mar 2004 18:12:33 +0000  ";
 		
@@ -203,9 +202,10 @@ public class DateParserTest extends TestCase {
 		//		year, month, date, hour, second
 		c.set(2004, 2, 2, 18, 12, 33);
 		Date testDate = c.getTime();
-		assertEquals(testDate, date);
+		Assert.assertEquals(testDate, date);
 	}
 
+	@Test
 	public void testParseLeapYear2() {
 		String testStr = "Tue,  29 Feb 2004 18:12:33 +0000  ";
 		
@@ -221,6 +221,6 @@ public class DateParserTest extends TestCase {
 		//		year, month, date, hour, second
 		c.set(2004, 1, 29, 18, 12, 33);
 		Date testDate = c.getTime();
-		assertEquals(testDate, date);
+		Assert.assertEquals(testDate, date);
 	}
 }
