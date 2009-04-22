@@ -38,16 +38,18 @@ package org.columba.ristretto.smtp;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SMTPInputStreamTest extends TestCase {
+public class SMTPInputStreamTest{
 
+	@Test
     public void testResponse() throws IOException, SMTPException {
         String responseString = "250 message\r\n";
         SMTPInputStream in = new SMTPInputStream( new ByteArrayInputStream(responseString.getBytes()));
         
         SMTPResponse response = in.readSingleLineResponse();
-        assertTrue(response != null);
+        Assert.assertTrue(response != null);
     }
     
 }
