@@ -35,40 +35,47 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SearchKeyTest extends TestCase {
+public class SearchKeyTest {
     
+	@Test
     public void testFlag() {
         SearchKey sk = new SearchKey(SearchKey.FLAGGED);
-        assertEquals("FLAGGED", sk.toString());
+        Assert.assertEquals("FLAGGED", sk.toString());
     }
     
+	@Test
     public void testString() {
         SearchKey sk = new SearchKey(SearchKey.BODY,"Hello");
-        assertEquals("BODY Hello", sk.toString());
+        Assert.assertEquals("BODY Hello", sk.toString());
     }
 
+	@Test
     public void testInt() {
         SearchKey sk = new SearchKey(SearchKey.SMALLER,new Integer(100));
-        assertEquals("SMALLER 100", sk.toString());
+        Assert.assertEquals("SMALLER 100", sk.toString());
     }
 
+	@Test
     public void testOr() {
         SearchKey sk = new SearchKey(SearchKey.OR,new SearchKey(SearchKey.SEEN), new SearchKey(SearchKey.DELETED));
-        assertEquals("OR SEEN DELETED", sk.toString());
+        Assert.assertEquals("OR SEEN DELETED", sk.toString());
     }
 
+	@Test
     public void testHeader() {
         SearchKey sk = new SearchKey(SearchKey.HEADER, "X-Priority","3");
-        assertEquals("HEADER X-Priority 3", sk.toString());
+        Assert.assertEquals("HEADER X-Priority 3", sk.toString());
     }
     
+	@Test
     public void testList() {
         IMAPDateTime now = new IMAPDateTime();
         SearchKey sk = new SearchKey(SearchKey.BEFORE, now);
         sk.add( new SearchKey(SearchKey.SEEN));
         sk.add( new SearchKey(SearchKey.DELETED));
-        assertEquals("(BEFORE " + now.toString() +  " SEEN DELETED)", sk.toString());        
+        Assert.assertEquals("(BEFORE " + now.toString() +  " SEEN DELETED)", sk.toString());        
     }
 }

@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.imap.ListInfo;
 import org.columba.ristretto.io.CharSequenceSource;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author frd
@@ -47,83 +47,83 @@ import org.columba.ristretto.io.CharSequenceSource;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class ListInfoParserTest extends TestCase {
 
-	/**
-	 * Constructor for ListInfoTest.
-	 * @param arg0
-	 */
-	public ListInfoParserTest(String arg0) {
-		super(arg0);
-	}
+public class ListInfoParserTest {
 
+	@Test
 	public void testParse1() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LIST (\\NoSelect) \"/\" \"\"\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertTrue(listInfo.getParameter(ListInfo.NOSELECT));
-		assertTrue(listInfo.getDelimiter().equals("/"));
-		assertTrue(listInfo.getName().equals(""));
+		Assert.assertTrue(listInfo.getParameter(ListInfo.NOSELECT));
+		Assert.assertTrue(listInfo.getDelimiter().equals("/"));
+		Assert.assertTrue(listInfo.getName().equals(""));
 	}
 
+	@Test
 	public void testParse2() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LSUB () \".\" testbox\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertTrue(!listInfo.getParameter(ListInfo.NOSELECT));
-		assertTrue(listInfo.getDelimiter().equals(".") );
-		assertTrue(listInfo.getName().equals("testbox"));
+		Assert.assertTrue(!listInfo.getParameter(ListInfo.NOSELECT));
+		Assert.assertTrue(listInfo.getDelimiter().equals(".") );
+		Assert.assertTrue(listInfo.getName().equals("testbox"));
 	}
 
+	@Test
 	public void testParse3() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LIST () \"/\" {0}\r\n");
 		r.addLiteral( new CharSequenceSource("testbox/\r") );
 		
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertTrue(!listInfo.getParameter(ListInfo.NOSELECT));
-		assertTrue(listInfo.getDelimiter().equals("/") );
-		assertTrue(listInfo.getName().equals("testbox/\r"));
+		Assert.assertTrue(!listInfo.getParameter(ListInfo.NOSELECT));
+		Assert.assertTrue(listInfo.getDelimiter().equals("/") );
+		Assert.assertTrue(listInfo.getName().equals("testbox/\r"));
 	}
 
+	@Test
 	public void testParse4() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LSUB (\\UnMarked) \"/\" Trash\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertTrue(listInfo.getParameter(ListInfo.UNMARKED));
-		assertTrue(listInfo.getDelimiter().equals("/") );
-		assertTrue(listInfo.getName().equals("Trash"));
+		Assert.assertTrue(listInfo.getParameter(ListInfo.UNMARKED));
+		Assert.assertTrue(listInfo.getDelimiter().equals("/") );
+		Assert.assertTrue(listInfo.getName().equals("Trash"));
 	}
 	
+	@Test
 	public void testParse5() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LSUB () \"\\\\\" Trash\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertEquals("\\\\", listInfo.getDelimiter() );
-		assertTrue(listInfo.getName().equals("Trash"));
+		Assert.assertEquals("\\\\", listInfo.getDelimiter() );
+		Assert.assertTrue(listInfo.getName().equals("Trash"));
 	}
 	
+	@Test
 	public void testParseHasNoChildren() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LIST (\\HasNoChildren) \"/\" Journal\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertEquals("/", listInfo.getDelimiter() );
-		assertEquals("Journal", listInfo.getName());
-		assertTrue(listInfo.getParameter(ListInfo.HASNOCHILDREN));
+		Assert.assertEquals("/", listInfo.getDelimiter() );
+		Assert.assertEquals("Journal", listInfo.getName());
+		Assert.assertTrue(listInfo.getParameter(ListInfo.HASNOCHILDREN));
 	}
 
+	@Test
 	public void testParseHasChildren() throws Exception {
 		IMAPResponse r = IMAPResponseParser.parse("* LIST (\\HasChildren) \"/\" INBOX\r\n");
 
 		ListInfo listInfo = ListInfoParser.parse(r);
 		
-		assertEquals("/", listInfo.getDelimiter() );
-		assertEquals("INBOX", listInfo.getName());
-		assertTrue(listInfo.getParameter(ListInfo.HASCHILDREN));
+		Assert.assertEquals("/", listInfo.getDelimiter() );
+		Assert.assertEquals("INBOX", listInfo.getName());
+		Assert.assertTrue(listInfo.getParameter(ListInfo.HASCHILDREN));
 	}
 }

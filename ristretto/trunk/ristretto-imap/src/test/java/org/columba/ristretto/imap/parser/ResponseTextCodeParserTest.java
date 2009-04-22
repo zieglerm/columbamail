@@ -35,34 +35,37 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.ResponseTextCode;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class ResponseTextCodeParserTest extends TestCase {
+public class ResponseTextCodeParserTest {
     
+	@Test
     public void testAlert() throws ParserException {
         ResponseTextCode tc = ResponseTextCodeParser.parse("ALERT");
         
-        assertEquals(tc.getType(), ResponseTextCode.ALERT);
+        Assert.assertEquals(tc.getType(), ResponseTextCode.ALERT);
     }
     
+	@Test
     public void testCapability() throws ParserException {
         ResponseTextCode tc = ResponseTextCodeParser.parse("CAPABILITY IMAP4rev1 STARTTLS LOGINDISABLED");
         String[] results = new String[] { "IMAP4rev1", "STARTTLS", "LOGINDISABLED"};
         
-        assertEquals(tc.getType(), ResponseTextCode.CAPABILITY);
+        Assert.assertEquals(tc.getType(), ResponseTextCode.CAPABILITY);
         for( int i=0; i<results.length; i++ ) {
-            assertEquals(tc.getStringArrayValue()[i], results[i]);
+        	Assert.assertEquals(tc.getStringArrayValue()[i], results[i]);
         }
     }
 
+	@Test
     public void testUnseen() throws ParserException {
         ResponseTextCode tc = ResponseTextCodeParser.parse("UNSEEN 12");
         
-        assertEquals(tc.getType(), ResponseTextCode.UNSEEN);
-        assertEquals(tc.getIntValue(), 12);
+        Assert.assertEquals(tc.getType(), ResponseTextCode.UNSEEN);
+        Assert.assertEquals(tc.getIntValue(), 12);
     }
 
 }

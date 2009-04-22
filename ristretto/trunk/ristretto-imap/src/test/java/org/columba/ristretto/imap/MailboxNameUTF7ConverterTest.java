@@ -35,88 +35,98 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 
 /**
  * @author tstich
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
-public class MailboxNameUTF7ConverterTest extends TestCase {
+public class MailboxNameUTF7ConverterTest {
 
+	@Test
 	public void testEncode1() {
 		String input = "plain";
 		
-		assertEquals(input, MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals(input, MailboxNameUTF7Converter.encode(input));
 	}
 	
+	@Test
 	public void testEncode2() {
 		String input = "plain&";
 		
-		assertEquals("plain&-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("plain&-", MailboxNameUTF7Converter.encode(input));
 	}
 
+	@Test
 	public void testEncode3() {
 		String input = "\u00e4bel";
 		
-		assertEquals("&AOQ-bel", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("&AOQ-bel", MailboxNameUTF7Converter.encode(input));
 	}
 	
 
+	@Test
 	public void testEncode4() {
 		String input = "\u00e4bel\u00f6";
 		
-		assertEquals("&AOQ-bel&APY-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("&AOQ-bel&APY-", MailboxNameUTF7Converter.encode(input));
 	}
 
+	@Test
 	public void testEncode5() {
 		String input = "\u00e4bel\u00f6";
 		
-		assertEquals("&AOQ-bel&APY-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("&AOQ-bel&APY-", MailboxNameUTF7Converter.encode(input));
 	}
 	
-	
+	@Test
 	public void testEncodeNihongo() {
 		String input = "\u65E5\u672C\u8A9E";
 		
-		assertEquals("&ZeVnLIqe-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("&ZeVnLIqe-", MailboxNameUTF7Converter.encode(input));
 	}
 	
+	@Test
 	public void testEncodetalef() {
 		String input = "t\u05D0";
 		
-		assertEquals("t&BdA-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("t&BdA-", MailboxNameUTF7Converter.encode(input));
 	}
 
+	@Test
 	public void testEncodePath() {
 		String input = "~peter/mail/\u53F0\u5317/\u65E5\u672C\u8A9E";
 		
-		assertEquals("~peter/mail/&U,BTFw-/&ZeVnLIqe-", MailboxNameUTF7Converter.encode(input));
+		Assert.assertEquals("~peter/mail/&U,BTFw-/&ZeVnLIqe-", MailboxNameUTF7Converter.encode(input));
 	}
 
+	@Test
 	public void testDecodePath() {
 		String input = "~peter/mail/&U,BTFw-/&ZeVnLIqe-";
 		
-		assertEquals("~peter/mail/\u53F0\u5317/\u65E5\u672C\u8A9E", MailboxNameUTF7Converter.decode(input));
+		Assert.assertEquals("~peter/mail/\u53F0\u5317/\u65E5\u672C\u8A9E", MailboxNameUTF7Converter.decode(input));
 	}
 	
+	@Test
 	public void testDecode2() {
 		String input = "plain";
 		
-		assertEquals("plain", MailboxNameUTF7Converter.decode(input));
+		Assert.assertEquals("plain", MailboxNameUTF7Converter.decode(input));
 	}
 
+	@Test
 	public void testDecode3() {
 		String input = "&AOQ-bel";
 		
-		assertEquals("\u00e4bel", MailboxNameUTF7Converter.decode(input));
+		Assert.assertEquals("\u00e4bel", MailboxNameUTF7Converter.decode(input));
 	}
 	
+	@Test
 	public void testDecode1() {
 		String input = "plain&-";
 		
-		assertEquals("plain&", MailboxNameUTF7Converter.decode(input));
+		Assert.assertEquals("plain&", MailboxNameUTF7Converter.decode(input));
 	}
 	
 	

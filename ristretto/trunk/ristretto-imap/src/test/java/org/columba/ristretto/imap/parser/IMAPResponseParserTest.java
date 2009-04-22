@@ -35,182 +35,195 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.imap.ResponseTextCode;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class IMAPResponseParserTest extends TestCase {
+public class IMAPResponseParserTest {
 	
+	@Test
 	public void testUntaggedStatus1() {
 		String responseString = "* OK Alles klar!\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getResponseSubType().equals("OK"));
-			assertTrue(response.getResponseMessage().equals("Alles klar!"));
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getResponseSubType().equals("OK"));
+			Assert.assertTrue(response.getResponseMessage().equals("Alles klar!"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testUntaggedStatus2() {
 		String responseString = "* OK [UNSEEN 12] Alles klar!\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getResponseSubType().equals("OK"));
-			assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.UNSEEN);
-			assertEquals(response.getResponseTextCode().getIntValue(), 12);
-			assertTrue(response.getResponseMessage().equals("Alles klar!"));
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getResponseSubType().equals("OK"));
+			Assert.assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.UNSEEN);
+			Assert.assertEquals(response.getResponseTextCode().getIntValue(), 12);
+			Assert.assertTrue(response.getResponseMessage().equals("Alles klar!"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testUntaggedMailbox1() {
 		String responseString = "* LIST mailboxlist\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getResponseSubType().equals("LIST"));
-			assertTrue(response.getResponseMessage().equals("mailboxlist"));
-			assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_MAILBOX_DATA);
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getResponseSubType().equals("LIST"));
+			Assert.assertTrue(response.getResponseMessage().equals("mailboxlist"));
+			Assert.assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_MAILBOX_DATA);
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testUntaggedMailbox2() {
 		String responseString = "* 512 EXISTS\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getResponseSubType().equals("EXISTS"));
-			assertTrue(response.getPreNumber() == 512);
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getResponseSubType().equals("EXISTS"));
+			Assert.assertTrue(response.getPreNumber() == 512);
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testUntaggedMessage1() {
 		String responseString = "* 12 FETCH fetchblabla\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getPreNumber() == 12);
-			assertTrue(response.getResponseSubType().equals("FETCH"));
-			assertTrue(response.getResponseMessage().equals("fetchblabla"));
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getPreNumber() == 12);
+			Assert.assertTrue(response.getResponseSubType().equals("FETCH"));
+			Assert.assertTrue(response.getResponseMessage().equals("fetchblabla"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 	
+	@Test
 	public void testUntaggedMessage2() {
 		String responseString = "* 124 EXPUNGE\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue(response.getPreNumber() == 124);
-			assertTrue(response.getResponseSubType().equals("EXPUNGE"));
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue(response.getPreNumber() == 124);
+			Assert.assertTrue(response.getResponseSubType().equals("EXPUNGE"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testTaggedStatus1() {
 		String responseString = "A01 OK Alles klar!\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(response.isTagged());
-			assertTrue(response.getTag().equals("A01"));
-			assertTrue(response.getResponseSubType().equals("OK"));
-			assertTrue(response.getResponseMessage().equals("Alles klar!"));
+			Assert.assertTrue(response.isTagged());
+			Assert.assertTrue(response.getTag().equals("A01"));
+			Assert.assertTrue(response.getResponseSubType().equals("OK"));
+			Assert.assertTrue(response.getResponseMessage().equals("Alles klar!"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 	
+	@Test
 	public void testTaggedStatus2() {
 		String responseString = "A142 OK [READ-WRITE] SELECT completed";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(response.isTagged());
-			assertTrue(response.getTag().equals("A142"));
-			assertTrue(response.getResponseSubType().equals("OK"));
-			assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.READ_WRITE);
-			assertTrue(response.getResponseMessage().equals("SELECT completed"));
+			Assert.assertTrue(response.isTagged());
+			Assert.assertTrue(response.getTag().equals("A142"));
+			Assert.assertTrue(response.getResponseSubType().equals("OK"));
+			Assert.assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.READ_WRITE);
+			Assert.assertTrue(response.getResponseMessage().equals("SELECT completed"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testContinuation1() {
 		String responseString = "+ give me more\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_CONTINUATION);
-			assertTrue(response.getResponseMessage().equals("give me more"));
+			Assert.assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_CONTINUATION);
+			Assert.assertTrue(response.getResponseMessage().equals("give me more"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testContinuation2() {
 		String responseString = "+ [UIDVALIDITY 385752904] give me more\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_CONTINUATION);
-			assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.UIDVALIDITY );
-			assertEquals(response.getResponseTextCode().getIntValue(), 385752904);
-			assertTrue(response.getResponseMessage().equals("give me more"));
+			Assert.assertTrue(response.getResponseType() == IMAPResponse.RESPONSE_CONTINUATION);
+			Assert.assertEquals(response.getResponseTextCode().getType(), ResponseTextCode.UIDVALIDITY );
+			Assert.assertEquals(response.getResponseTextCode().getIntValue(), 385752904);
+			Assert.assertTrue(response.getResponseMessage().equals("give me more"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 
+	@Test
 	public void testCapabilities() {
 		String responseString = "* CAPABILITY IMAP4REV1 IDLE NAMESPACE MAILBOX-REFERRALS SCAN SORT THREAD=REFERENCES THREAD=ORDEREDSUBJECT MULTIAPPEND\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertTrue( response.getResponseSubType().equals("CAPABILITY"));
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertTrue( response.getResponseSubType().equals("CAPABILITY"));
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 
 	}
 	
+	@Test
 	public void testResponseTextCode1() {
 		String responseString = "* OK [PERMANENTFLAGS (\\Answered \\Flagged \\Draft \\Deleted \\Seen)]\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(!response.isTagged());
-			assertEquals( ResponseTextCode.PERMANENTFLAGS, response.getResponseTextCode().getType());
+			Assert.assertTrue(!response.isTagged());
+			Assert.assertEquals( ResponseTextCode.PERMANENTFLAGS, response.getResponseTextCode().getType());
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 		
 	}
 
+	@Test
 	public void testResponseTextCode2() {
 		String responseString = "3 OK [READ_WRITE] completed\r\n";
 		try {
 			IMAPResponse response = IMAPResponseParser.parse(responseString);
 			
-			assertTrue(response.isTagged());
-			assertEquals( ResponseTextCode.READ_WRITE, response.getResponseTextCode().getType());
+			Assert.assertTrue(response.isTagged());
+			Assert.assertEquals( ResponseTextCode.READ_WRITE, response.getResponseTextCode().getType());
 		} catch (ParserException e) {
 			e.printStackTrace();
 		} 		

@@ -35,9 +35,9 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.NamespaceCollection;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author tstich
@@ -45,66 +45,71 @@ import org.columba.ristretto.imap.NamespaceCollection;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class NamespaceParserTest extends TestCase {
+public class NamespaceParserTest {
 
+	@Test
 	public void testExample1() throws Exception {
 		String test = "((\"\" \"/\")) NIL NIL";
 		NamespaceCollection result = NamespaceParser.parse(test);
 		
-		assertEquals("", result.getPersonalNamespace().getPrefix());
-		assertEquals("/", result.getPersonalNamespace().getDelimiter());
+		Assert.assertEquals("", result.getPersonalNamespace().getPrefix());
+		Assert.assertEquals("/", result.getPersonalNamespace().getDelimiter());
 	}
 	
+	@Test
 	public void testExample2() throws Exception {
 		String test = "NIL NIL ((\"\" \".\"))";
 		NamespaceCollection result = NamespaceParser.parse(test);
 		
-		assertEquals("", result.getSharedNamespace().getPrefix());
-		assertEquals(".", result.getSharedNamespace().getDelimiter());
+		Assert.assertEquals("", result.getSharedNamespace().getPrefix());
+		Assert.assertEquals(".", result.getSharedNamespace().getDelimiter());
 	}
 
+	@Test
 	public void testExample3() throws Exception {
 		String test = "((\"\" \"/\")) NIL ((\"Public Folders/\" \"/\"))";
 		NamespaceCollection result = NamespaceParser.parse(test);
 		
-		assertEquals("", result.getPersonalNamespace().getPrefix());
-		assertEquals("/", result.getPersonalNamespace().getDelimiter());
-		assertEquals("Public Folders/", result.getSharedNamespace().getPrefix());
-		assertEquals("/", result.getSharedNamespace().getDelimiter());
+		Assert.assertEquals("", result.getPersonalNamespace().getPrefix());
+		Assert.assertEquals("/", result.getPersonalNamespace().getDelimiter());
+		Assert.assertEquals("Public Folders/", result.getSharedNamespace().getPrefix());
+		Assert.assertEquals("/", result.getSharedNamespace().getDelimiter());
 	}
 
+	@Test
 	public void testExample4() throws Exception {
 		String test = "((\"\" \"/\")) ((\"~\" \"/\")) ((\"#shared/\" \"/\")(\"#public/\" \"/\")(\"#ftp/\" \"/\")(\"#news.\" \".\"))";
 		NamespaceCollection result = NamespaceParser.parse(test);
 		
-		assertEquals("", result.getPersonalNamespace(0).getPrefix());
-		assertEquals("/", result.getPersonalNamespace(0).getDelimiter());
+		Assert.assertEquals("", result.getPersonalNamespace(0).getPrefix());
+		Assert.assertEquals("/", result.getPersonalNamespace(0).getDelimiter());
 
-		assertEquals("~", result.getOtherUserNamespace(0).getPrefix());
-		assertEquals("/", result.getOtherUserNamespace(0).getDelimiter());		
+		Assert.assertEquals("~", result.getOtherUserNamespace(0).getPrefix());
+		Assert.assertEquals("/", result.getOtherUserNamespace(0).getDelimiter());		
 		
-		assertEquals("#shared/", result.getSharedNamespace(0).getPrefix());
-		assertEquals("/", result.getSharedNamespace(0).getDelimiter());
-		assertEquals("#public/", result.getSharedNamespace(1).getPrefix());
-		assertEquals("/", result.getSharedNamespace(1).getDelimiter());
-		assertEquals("#ftp/", result.getSharedNamespace(2).getPrefix());
-		assertEquals("/", result.getSharedNamespace(2).getDelimiter());
-		assertEquals("#news.", result.getSharedNamespace(3).getPrefix());
-		assertEquals(".", result.getSharedNamespace(3).getDelimiter());
+		Assert.assertEquals("#shared/", result.getSharedNamespace(0).getPrefix());
+		Assert.assertEquals("/", result.getSharedNamespace(0).getDelimiter());
+		Assert.assertEquals("#public/", result.getSharedNamespace(1).getPrefix());
+		Assert.assertEquals("/", result.getSharedNamespace(1).getDelimiter());
+		Assert.assertEquals("#ftp/", result.getSharedNamespace(2).getPrefix());
+		Assert.assertEquals("/", result.getSharedNamespace(2).getDelimiter());
+		Assert.assertEquals("#news.", result.getSharedNamespace(3).getPrefix());
+		Assert.assertEquals(".", result.getSharedNamespace(3).getDelimiter());
 	}
 
+	@Test
 	public void testExample5() throws Exception {
 		String test = "((\"\" \"/\")(\"#mh/\" \"/\" \"X-PARAM\" (\"FLAG1\" \"FLAG2\"))) NIL NIL";
 		NamespaceCollection result = NamespaceParser.parse(test);
 		
-		assertEquals("", result.getPersonalNamespace(0).getPrefix());
-		assertEquals("/", result.getPersonalNamespace(0).getDelimiter());
+		Assert.assertEquals("", result.getPersonalNamespace(0).getPrefix());
+		Assert.assertEquals("/", result.getPersonalNamespace(0).getDelimiter());
 
-		assertEquals("#mh/", result.getPersonalNamespace(1).getPrefix());
-		assertEquals("/", result.getPersonalNamespace(1).getDelimiter());
-		assertEquals("X-PARAM", result.getPersonalNamespace(1).getExtensionName());
-		assertEquals("FLAG1", result.getPersonalNamespace(1).getExtensionParameter()[0]);
-		assertEquals("FLAG2", result.getPersonalNamespace(1).getExtensionParameter()[1]);
+		Assert.assertEquals("#mh/", result.getPersonalNamespace(1).getPrefix());
+		Assert.assertEquals("/", result.getPersonalNamespace(1).getDelimiter());
+		Assert.assertEquals("X-PARAM", result.getPersonalNamespace(1).getExtensionName());
+		Assert.assertEquals("FLAG1", result.getPersonalNamespace(1).getExtensionParameter()[0]);
+		Assert.assertEquals("FLAG2", result.getPersonalNamespace(1).getExtensionParameter()[1]);
 	}
 
 }

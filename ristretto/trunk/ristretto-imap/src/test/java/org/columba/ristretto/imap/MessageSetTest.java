@@ -35,7 +35,8 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author frd
@@ -43,16 +44,9 @@ import junit.framework.TestCase;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class MessageSetTest extends TestCase {
+public class MessageSetTest {
 
-	/**
-	 * Constructor for MessageSetTest.
-	 * @param arg0
-	 */
-	public MessageSetTest(String arg0) {
-		super(arg0);
-	}
-
+	@Test
 	public void testParse() {
 		Integer[] uids = {
 			new Integer(0) ,new Integer(1),new Integer(2),new Integer(3),
@@ -62,9 +56,10 @@ public class MessageSetTest extends TestCase {
 		MessageSet set = new MessageSet(uids);
 		
 		String result = set.getString();
-		assertTrue( result.equals("0:3,7,10"));
+		Assert.assertTrue( result.equals("0:3,7,10"));
 	}
 
+	@Test
 	public void testParse2() {
 		Integer[] uids = {
 			new Integer(0) ,new Integer(1),new Integer(2),new Integer(3),
@@ -74,9 +69,10 @@ public class MessageSetTest extends TestCase {
 		MessageSet set = new MessageSet(uids);
 		
 		String result = set.getString();
-		assertTrue( result.equals("0:3,7:9,11"));
+		Assert.assertTrue( result.equals("0:3,7:9,11"));
 	}
 
+	@Test
 	public void testParse3() {
 		Integer[] uids = {
 			new Integer(0) ,new Integer(1),new Integer(2),new Integer(3),
@@ -86,7 +82,7 @@ public class MessageSetTest extends TestCase {
 		MessageSet set = new MessageSet(uids);
 		
 		String result = set.getString();
-		assertTrue( result.equals("0:3,7:10"));
+		Assert.assertTrue( result.equals("0:3,7:10"));
 	}
 
 }

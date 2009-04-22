@@ -35,12 +35,12 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPFlags;
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.message.Flags;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author frd
@@ -48,49 +48,44 @@ import org.columba.ristretto.parser.ParserException;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class FlagsParserTest extends TestCase {
+public class FlagsParserTest{
 
-	/**
-	 * Constructor for FlagsParserTest.
-	 * @param arg0
-	 */
-	public FlagsParserTest(String arg0) {
-		super(arg0);
-	}
-
+	@Test
 	public void test1() {
 		try {
 			IMAPResponse response = IMAPResponseParser.parse("* 12 FETCH (FLAGS (\\Seen) UID 255)");
 			IMAPFlags test = FlagsParser.parse(response);
 			
-			assertTrue( test.get(Flags.SEEN) );
-			assertTrue( ((Integer)test.getUid()).intValue() == 255);
+			Assert.assertTrue( test.get(Flags.SEEN) );
+			Assert.assertTrue( ((Integer)test.getUid()).intValue() == 255);
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void test2() {
 		try {
 			IMAPResponse response = IMAPResponseParser.parse("* 12 FETCH (UID 120 FLAGS (\\Recent))");
 			IMAPFlags test = FlagsParser.parse(response);
 			
-			assertTrue( test.get(Flags.RECENT) );
-			assertTrue( ((Integer)test.getUid()).intValue() == 120);
+			Assert.assertTrue( test.get(Flags.RECENT) );
+			Assert.assertTrue( ((Integer)test.getUid()).intValue() == 120);
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@Test
 	public void test3() {
 		try {
 			IMAPResponse response = IMAPResponseParser.parse("* 12 FETCH (UID 120 FLAGS (\\Recent Seen Holodrio FLAGGED))");
 			IMAPFlags test = FlagsParser.parse(response);
 			
-			assertTrue( test.get(Flags.RECENT) );
-			assertTrue( test.get(Flags.SEEN) );
-			assertTrue( test.get(Flags.FLAGGED) );
-			assertTrue( ((Integer)test.getUid()).intValue() == 120);
+			Assert.assertTrue( test.get(Flags.RECENT) );
+			Assert.assertTrue( test.get(Flags.SEEN) );
+			Assert.assertTrue( test.get(Flags.FLAGGED) );
+			Assert.assertTrue( ((Integer)test.getUid()).intValue() == 120);
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
