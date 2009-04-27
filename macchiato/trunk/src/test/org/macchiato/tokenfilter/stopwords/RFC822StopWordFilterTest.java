@@ -17,8 +17,8 @@ package org.macchiato.tokenfilter.stopwords;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
 
@@ -27,17 +27,10 @@ import org.macchiato.tokenizer.WhitespaceStringTokenizer;
  *
  * @author fdietz
  */
-public class RFC822StopWordFilterTest extends TestCase {
+public class RFC822StopWordFilterTest{
 
-	/**
-	 * Constructor for RFC822StopWordFilterTest.
-	 * @param arg0
-	 */
-	public RFC822StopWordFilterTest(String arg0) {
-		super(arg0);
-	}
-
-	public void test() {
+    @Test
+    public void test() {
 		String input= "From: snake Date: peter pan";
 		WhitespaceStringTokenizer tokenizer=
 			new WhitespaceStringTokenizer(input);
@@ -59,7 +52,7 @@ public class RFC822StopWordFilterTest extends TestCase {
 		}
 
 		for (int i= 0; i < v1.size(); i++) {
-			assertEquals((String) v1.get(i), (String) v2.get(i));
+			Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
 		}
 	}
 

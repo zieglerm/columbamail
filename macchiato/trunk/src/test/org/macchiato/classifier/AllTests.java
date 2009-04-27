@@ -15,20 +15,13 @@
 //All Rights Reserved.
 package org.macchiato.classifier;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({CombineProbabilitiesTest.class, DefaultClassifierTest.class})
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite= new TestSuite("Test for org.macchiato.classifier");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(CombineProbabilitiesTest.class));
-		suite.addTest(new TestSuite(DefaultClassifierTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

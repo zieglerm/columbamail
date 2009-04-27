@@ -17,24 +17,17 @@ package org.macchiato.tokenfilter.stopwords;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
 
 /**
  * @author fdietz
  */
-public class EnglishStopWordFilterTest extends TestCase {
+public class EnglishStopWordFilterTest {
 
-    /**
-     * Constructor for EnglishStopWordFilterTest.
-     * @param arg0
-     */
-    public EnglishStopWordFilterTest(String arg0) {
-        super(arg0);
-    }
-
+    @Test
     public void test() {
         String input = "by snake but peter and pan the";
         WhitespaceStringTokenizer tokenizer =
@@ -57,7 +50,7 @@ public class EnglishStopWordFilterTest extends TestCase {
         }
 
         for (int i = 0; i < v1.size(); i++) {
-            assertEquals((String) v1.get(i), (String) v2.get(i));
+            Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
         }
     }
 

@@ -15,21 +15,15 @@
 //All Rights Reserved.
 package org.macchiato.tokenizer;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  */
-public class WhitespaceStringTokenizerTest extends TestCase {
+public class WhitespaceStringTokenizerTest{
 
-	/**
-	 * Constructor for WhitespaceStringTokenizerTest.
-	 * @param arg0
-	 */
-	public WhitespaceStringTokenizerTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void testString() {
 		String source= "Dies ist ein Test";
 
@@ -40,9 +34,9 @@ public class WhitespaceStringTokenizerTest extends TestCase {
 			tokens[i]= tokenizer.nextToken();
 		}
 
-		assertEquals((String) tokens[0].getString(), "Dies");
-		assertEquals((String) tokens[1].getString(), "ist");
-		assertEquals((String) tokens[2].getString(), "ein");
-		assertEquals((String) tokens[3].getString(), "Test");
+		Assert.assertEquals((String) tokens[0].getString(), "Dies");
+		Assert.assertEquals((String) tokens[1].getString(), "ist");
+		Assert.assertEquals((String) tokens[2].getString(), "ein");
+		Assert.assertEquals((String) tokens[3].getString(), "Test");
 	}
 }

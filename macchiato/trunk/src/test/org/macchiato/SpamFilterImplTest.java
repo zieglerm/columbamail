@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.TestCase;
-
+import org.junit.Test;
 import org.macchiato.io.CSVHelper;
 import org.macchiato.log.MacchiatoLogger;
 
@@ -31,18 +30,11 @@ import org.macchiato.log.MacchiatoLogger;
  *
  * @author fdietz
  */
-public class SpamFilterImplTest extends TestCase {
+public class SpamFilterImplTest {
 
 	private final static int FRAME_SIZE= 40;
 
-	/**
-	 * Constructor for SpamFilterImplTest.
-	 * @param arg0
-	 */
-	public SpamFilterImplTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 		List list= new ArrayList();
 		list.add(new Float(0.9));
@@ -75,7 +67,8 @@ public class SpamFilterImplTest extends TestCase {
 		}
 
 	}
-	
+
+    @Test
 	public void testSingleMessage() throws Exception {
 		File[] spamFileList=
 			filterDirectories(new File("res/spam").listFiles());
@@ -95,6 +88,7 @@ public class SpamFilterImplTest extends TestCase {
 
 	}
 
+    @Test
 	public void test2() throws Exception {
 		File[] spamFileList=
 			filterDirectories(new File("res/spam").listFiles());

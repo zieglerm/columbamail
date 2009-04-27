@@ -15,25 +15,20 @@
 //All Rights Reserved.
 package org.macchiato.probability;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  */
-public class ProbabilityTest extends TestCase {
 
-    /**
-     * Constructor for ProbabilityTest.
-     * @param arg0
-     */
-    public ProbabilityTest(String arg0) {
-        super(arg0);
-    }
-    
+public class ProbabilityTest{
+
+    @Test
     public void test() {
         float result = Probability.calc(5, 2);
         
-        assertEquals(0.71, result, 0.01);
+        Assert.assertEquals(0.71, result, 0.01);
     }
 
 }

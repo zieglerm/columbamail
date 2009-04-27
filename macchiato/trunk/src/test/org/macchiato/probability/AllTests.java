@@ -15,19 +15,14 @@
 //All Rights Reserved.
 package org.macchiato.probability;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ProbabilityTest.class})
 public class AllTests {
 
-	public static Test suite() {
-		TestSuite suite= new TestSuite("Test for org.macchiato.probability");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(ProbabilityTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

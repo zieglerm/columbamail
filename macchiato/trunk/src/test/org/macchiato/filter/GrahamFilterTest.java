@@ -15,8 +15,8 @@
 //All Rights Reserved.
 package org.macchiato.filter;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.log.MacchiatoLogger;
 
 /**
@@ -24,22 +24,15 @@ import org.macchiato.log.MacchiatoLogger;
  *
  * @author fdietz
  */
-public class GrahamFilterTest extends TestCase {
+public class GrahamFilterTest {
 
-	/**
-	 * Constructor for GrahamFilterTest.
-	 * @param arg0
-	 */
-	public GrahamFilterTest(String arg0) {
-		super(arg0);
-	}
-	
+    @Test
 	public void test() {
 		float score = new GrahamFilter().scoreTerm(0, 1, 382, 587);
 		
 		MacchiatoLogger.log.info("score="+score);
 		
-		assertEquals(0.4f,score, 0.1);
+		Assert.assertEquals(0.4f,score, 0.1);
 		
 		float score2 = new GrahamFilter().scoreTerm(3, 0, 382, 587);
 		

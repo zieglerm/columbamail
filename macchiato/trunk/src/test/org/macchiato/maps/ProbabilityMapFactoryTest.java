@@ -15,23 +15,16 @@
 //All Rights Reserved.
 package org.macchiato.maps;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
-
 
 /**
  * @author fdietz
  */
-public class ProbabilityMapFactoryTest extends TestCase {
-    /**
-     * Constructor for ProbabilityMapFactoryTest.
-     * @param arg0
-     */
-    public ProbabilityMapFactoryTest(String arg0) {
-        super(arg0);
-    }
+public class ProbabilityMapFactoryTest {
 
+    @Test
     public void test() {
         OccurencesMap spam = new OccurencesMapImpl();
         spam.addToken("snake");
@@ -52,26 +45,26 @@ public class ProbabilityMapFactoryTest extends TestCase {
         ham.addToken("Peter");
         ham.addToken("Peter");
         ham.addToken("Peter");
-        
+
         ham.addToken("snake");
-		ham.addToken("snake");
-		
-		ham.addToken("tiger");
-		spam.addToken("bird");
+        ham.addToken("snake");
+
+        ham.addToken("tiger");
+        spam.addToken("bird");
 
         ProbabilityMapImpl resultMap = (ProbabilityMapImpl) ProbabilityMapFactory.createProbabilityMap(spam,
                 ham);
         resultMap.printResults();
-        
+
         // note that "snake" has 5 occurences as spam, 2 occurences as ham
         // -> 5 / 2+5 = 5 / 7 = 0.71
-		float result = resultMap.getProbability(new Token("snake"));
-		assertEquals(0.71, result, 0.01);
-		
-		// "fly" has only 1 occurences as spam, 0 as ham
-		assertEquals(1.0, resultMap.getProbability(new Token("fly")), 0.01);
-		
-		// "Peter" has multiple occurences as ham, 0 as spam
-		assertEquals(0.0, resultMap.getProbability(new Token("Peter")), 0.01);
+        float result = resultMap.getProbability(new Token("snake"));
+        Assert.assertEquals(0.71, result, 0.01);
+
+        // "fly" has only 1 occurences as spam, 0 as ham
+        Assert.assertEquals(1.0, resultMap.getProbability(new Token("fly")), 0.01);
+
+        // "Peter" has multiple occurences as ham, 0 as spam
+        Assert.assertEquals(0.0, resultMap.getProbability(new Token("Peter")), 0.01);
     }
 }

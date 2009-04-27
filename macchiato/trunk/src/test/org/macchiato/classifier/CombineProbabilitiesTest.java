@@ -18,32 +18,27 @@ package org.macchiato.classifier;
 import java.util.List;
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.macchiato.log.MacchiatoLogger;
 
 /**
  * @author fdietz
  */
-public class CombineProbabilitiesTest extends TestCase {
+public class CombineProbabilitiesTest{
 
-	/**
-	 * Constructor for CombineProbabilitiesTest.
-	 * @param arg0
-	 */
-	public CombineProbabilitiesTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 		List list= new Vector();
 		list.add(new Float("0.6"));
 		list.add(new Float("0.72"));
 
 		float result= CombineProbabilities.combine(list);
-		assertEquals(0.794f, result, 0.01f);
+		Assert.assertEquals(0.794f, result, 0.01f);
 	}
 
+    @Test
 	public void test2() {
 		List list= new Vector();
 		list.add(new Float("0.9"));
@@ -58,9 +53,10 @@ public class CombineProbabilitiesTest extends TestCase {
 		float result= CombineProbabilities.combine(list);
 		System.out.println("result=" + result);
 
-		assertEquals(1.0f, result, 0.01f);
+		Assert.assertEquals(1.0f, result, 0.01f);
 	}
 
+    @Test
 	public void test3() {
 		List list= new Vector();
 		list.add(new Float("0.01"));
@@ -79,14 +75,15 @@ public class CombineProbabilitiesTest extends TestCase {
 		float result= CombineProbabilities.combine(list);
 		System.out.println("result=" + result);
 
-		assertEquals(0.0f, result, 0.01f);
+		Assert.assertEquals(0.0f, result, 0.01f);
 	}
 
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         new MacchiatoLogger();
     }
 }

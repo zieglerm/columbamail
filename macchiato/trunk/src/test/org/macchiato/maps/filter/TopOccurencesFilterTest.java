@@ -17,8 +17,8 @@ package org.macchiato.maps.filter;
 
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.log.MacchiatoLogger;
 import org.macchiato.maps.OccurencesMap;
 import org.macchiato.maps.OccurencesMapImpl;
@@ -29,16 +29,9 @@ import org.macchiato.tokenizer.Token;
  *
  * @author fdietz
  */
-public class TopOccurencesFilterTest extends TestCase {
+public class TopOccurencesFilterTest{
 
-	/**
-	 * Constructor for TopOccurencesFilterTest.
-	 * @param arg0
-	 */
-	public TopOccurencesFilterTest(String arg0) {
-		super(arg0);
-	}
-	
+    @Test
 	public void test() {
 		OccurencesMap map = new OccurencesMapImpl();
 		map.addToken("snake");
@@ -67,9 +60,9 @@ public class TopOccurencesFilterTest extends TestCase {
 		Token dragon = (Token) it.next();
 		MacchiatoLogger.log.info("dragon="+dragon.getString());
 		
-		assertEquals(5, map.getOccurences(snake));
-		assertEquals(3, map.getOccurences(tiger));
-		assertEquals(2, map.getOccurences(dragon));
+		Assert.assertEquals(5, map.getOccurences(snake));
+		Assert.assertEquals(3, map.getOccurences(tiger));
+		Assert.assertEquals(2, map.getOccurences(dragon));
 	}
 
 }

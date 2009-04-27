@@ -15,21 +15,14 @@
 //All Rights Reserved.
 package org.macchiato.classifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author fdietz
  */
-public class DefaultClassifierTest extends TestCase {
+public class DefaultClassifierTest {
 
-    /**
-     * Constructor for DefaultClassifierTest.
-     * @param arg0
-     */
-    public DefaultClassifierTest(String arg0) {
-        super(arg0);
-    }
-    
+    @Test
     public void test() {
         
     }

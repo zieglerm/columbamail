@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.macchiato.maps.OccurencesMapImpl;
 
 /**
@@ -29,19 +30,12 @@ import org.macchiato.maps.OccurencesMapImpl;
  *
  * @author fdietz
  */
-public class InputStreamTokenizerTest extends TestCase {
-	/**
-	 * Constructor for InputStreamTokenizerTest.
-	 * @param arg0
-	 */
-	public InputStreamTokenizerTest(String arg0) {
-		super(arg0);
-	}
-
+public class InputStreamTokenizerTest{
 	/**
 	 * Test outputs all tokens.
 	 *
 	 */
+    @Test
 	public void testInputStream() {
 		try {
 			File file= new File("res/spam/test1.txt");
@@ -66,6 +60,7 @@ public class InputStreamTokenizerTest extends TestCase {
 	 * Count occurence of every token
 	 *
 	 */
+    @Test
 	public void testInputStream2() {
 		try {
 			File file=

@@ -17,24 +17,17 @@ package org.macchiato.tokenfilter;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
 
 /**
  * @author fdietz
  */
-public class ToLowerCaseFilterTest extends TestCase {
+public class ToLowerCaseFilterTest{
 
-    /**
-     * Constructor for ToLowerCaseFilterTest.
-     * @param arg0
-     */
-    public ToLowerCaseFilterTest(String arg0) {
-        super(arg0);
-    }
-
+    @Test
     public void test() {
         String input = "SnaKe Peter PAN";
         WhitespaceStringTokenizer tokenizer =
@@ -56,7 +49,7 @@ public class ToLowerCaseFilterTest extends TestCase {
         }
 
         for (int i = 0; i < v1.size(); i++) {
-            assertEquals((String) v1.get(i), (String) v2.get(i));
+            Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
         }
     }
 

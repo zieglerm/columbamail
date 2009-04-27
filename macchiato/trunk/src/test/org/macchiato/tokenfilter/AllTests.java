@@ -15,24 +15,16 @@
 //All Rights Reserved.
 package org.macchiato.tokenfilter;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({CombinedFilterTest.class, HtmlFilterTest.class,
+    NumberFilterTest.class, ToLowerCaseFilterTest.class,
+    WhitespaceFilterTest.class,WordFilterTest.class})
 public class AllTests {
 
-	public static Test suite() {
-		TestSuite suite= new TestSuite("Test for org.macchiato.tokenfilter");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(CombinedFilterTest.class));
-		suite.addTest(new TestSuite(HtmlFilterTest.class));
-		suite.addTest(new TestSuite(ToLowerCaseFilterTest.class));
-		suite.addTest(new TestSuite(WhitespaceFilterTest.class));
-		suite.addTest(new TestSuite(NumberFilterTest.class));
-		suite.addTest(new TestSuite(WordFilterTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

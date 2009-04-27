@@ -17,8 +17,8 @@
 //All Rights Reserved.
 package org.macchiato;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.db.DBToken;
 import org.macchiato.db.DBTokenImpl;
 import org.macchiato.db.FrequencyDB;
@@ -28,8 +28,9 @@ import org.macchiato.db.FrequencyDBImpl;
  * @author fdietz
  *  
  */
-public class DBWrapperTest extends TestCase {
+public class DBWrapperTest {
 
+    @Test
 	public void testCleanupDB() {
 		FrequencyDB db = new FrequencyDBImpl();
 		DBWrapper wrapper = new DBWrapper(db);
@@ -56,10 +57,10 @@ public class DBWrapperTest extends TestCase {
 		wrapper.cleanupDB(9);
 		
 		// oldest token should be removed
-		assertEquals("db size", 9, wrapper.tokenCount());
+		Assert.assertEquals("db size", 9, wrapper.tokenCount());
 
 		// "frog" token should be removed
-		assertEquals("shouldn't contain", false, wrapper.contains("frog"));
+		Assert.assertEquals("shouldn't contain", false, wrapper.contains("frog"));
 	}
 
 	/**

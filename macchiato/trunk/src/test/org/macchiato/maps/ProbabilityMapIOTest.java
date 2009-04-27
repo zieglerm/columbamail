@@ -17,8 +17,8 @@ package org.macchiato.maps;
 
 import java.io.File;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 
 /**
@@ -26,16 +26,9 @@ import org.macchiato.tokenizer.Token;
  *
  * @author fdietz
  */
-public class ProbabilityMapIOTest extends TestCase {
+public class ProbabilityMapIOTest{
 
-	/**
-	 * Constructor for ProbabilityMapIOTest.
-	 * @param arg0
-	 */
-	public ProbabilityMapIOTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 
 		ProbabilityMap map= new ProbabilityMapImpl();
@@ -58,8 +51,8 @@ public class ProbabilityMapIOTest extends TestCase {
 			e.printStackTrace();
 		}
 			
-		assertEquals(0.4, map2.getProbability(new Token("fred")), 0.01);
-		assertEquals(0.6, map2.getProbability(new Token("castore")), 0.01);
+		Assert.assertEquals(0.4, map2.getProbability(new Token("fred")), 0.01);
+		Assert.assertEquals(0.6, map2.getProbability(new Token("castore")), 0.01);
 
 	}
 

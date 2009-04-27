@@ -17,8 +17,8 @@ package org.macchiato.tokenfilter;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.Tokenizer;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
@@ -28,15 +28,8 @@ import org.macchiato.tokenizer.WhitespaceStringTokenizer;
  *
  * @author fdietz
  */
-public class HtmlFilterTest extends TestCase {
+public class HtmlFilterTest{
 
-	/**
-	 * Constructor for HtmlFilterTest.
-	 * @param arg0
-	 */
-	public HtmlFilterTest(String arg0) {
-		super(arg0);
-	}
 
 	/**
 	 * tested tags:
@@ -50,6 +43,7 @@ public class HtmlFilterTest extends TestCase {
 	 * asdfd<html>
 	 *
 	 */
+    @Test
 	public void test() {
 		String data= "<html> <html>&nbsp;snake1&nbsp; &nbsp; snake2<html> <body snake <br> peter pan pan.&nbsp;/body> </html>";
 
@@ -82,7 +76,7 @@ public class HtmlFilterTest extends TestCase {
 		}
 
 		for (int i= 0; i < v1.size(); i++) {
-			assertEquals((String) v1.get(i), (String) v2.get(i));
+			Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
 		}
 	}
 

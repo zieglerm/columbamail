@@ -71,7 +71,7 @@
 	<target name="compile-tests" depends="compile">
 		<echo message="compile ${name} test code" />
 		<mkdir dir="${build.test}" />
-		<javac srcdir="${src.test}" classpath="${build.core}:${lib.dir}/junit.jarlib/je.jar" destdir="${build.test}" encoding="ISO-8859-1" debug="yes" />
+		<javac srcdir="${src.test}" classpath="${build.core}:${lib.dir}/junit-4.5.jar:${lib.dir}/je.jar" destdir="${build.test}" encoding="ISO-8859-1" debug="yes" />
 	</target>
 
 	<target name="test" depends="compile-tests" description="--> run tests">
@@ -80,7 +80,8 @@
 			<classpath>
 				<pathelement path="${build.core}" />
 				<pathelement path="${build.test}" />
-				<pathelement path="${lib}/junit.jar" />
+				<pathelement path="lib/junit-4.5.jar" />
+                <pathelement path="${lib}/junit.jar" />
 				<pathelement path="${lib}/je.jar" />
 			</classpath>
 			<batchtest todir="${build.junit.xmlreport.dir}">
@@ -190,7 +191,7 @@
 				<pathelement path="${build.coverage.instrumented.dir}" />
 				<pathelement path="${build.core}" />
 				<pathelement path="${build.test}" />
-				<pathelement path="${lib}/junit.jar" />
+				<pathelement path="${lib}/junit-4.5.jar" />
 			</classpath>
 			<classpath location="lib\jcoverage.jar" />
 			<formatter type="xml" />

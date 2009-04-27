@@ -18,28 +18,21 @@ package org.macchiato.tokenizer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * 
  *
  * @author fdietz
  */
-public class HTMLInputStreamTokenizerTest extends TestCase {
+public class HTMLInputStreamTokenizerTest {
 
-	/**
-	 * Constructor for HTMLInputStreamTokenizerTest.
-	 * @param arg0
-	 */
-	public HTMLInputStreamTokenizerTest(String arg0) {
-		super(arg0);
-	}
 
 	/**
 		 * Test outputs all tokens.
 		 *
 		 */
+    @Test
 	public void testInputStream() {
 		try {
 			File file= new File("res/parsing/html_test1.txt");

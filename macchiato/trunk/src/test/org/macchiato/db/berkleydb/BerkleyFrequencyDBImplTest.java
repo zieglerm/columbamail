@@ -17,26 +17,18 @@
 //All Rights Reserved.
 package org.macchiato.db.berkleydb;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.db.DBToken;
 import org.macchiato.db.DBTokenImpl;
-import org.macchiato.db.berkleydb.BerkleyFrequencyDBImpl;
 
 /**
  * @author fdietz
  *
  */
-public class BerkleyFrequencyDBImplTest extends TestCase {
+public class BerkleyFrequencyDBImplTest {
 
-	/**
-	 * Constructor for FrequencyDBTest.
-	 * @param arg0
-	 */
-	public BerkleyFrequencyDBImplTest(String arg0) {
-		super(arg0);
-	}
-	
+    @Test
 	public void test() {
 		BerkleyFrequencyDBImpl db= new BerkleyFrequencyDBImpl();
 
@@ -46,8 +38,8 @@ public class BerkleyFrequencyDBImplTest extends TestCase {
 		db.addToken(token);
 		
 		token= db.getToken("frog");
-		assertEquals(5, token.getBadCount());
-		assertEquals(0, token.getGoodCount());
+		Assert.assertEquals(5, token.getBadCount());
+		Assert.assertEquals(0, token.getGoodCount());
 		
 		
 		token= new DBTokenImpl("frog");
@@ -61,13 +53,13 @@ public class BerkleyFrequencyDBImplTest extends TestCase {
 		db.addToken(token);
 
 		token= db.getToken("frog");
-		assertEquals(1, token.getBadCount());
-		assertEquals(2, token.getGoodCount());
+		Assert.assertEquals(1, token.getBadCount());
+		Assert.assertEquals(2, token.getGoodCount());
 		
 
 		token= db.getToken("peter");
-		assertEquals(2, token.getBadCount());
-		assertEquals(5, token.getGoodCount());
+		Assert.assertEquals(2, token.getBadCount());
+		Assert.assertEquals(5, token.getGoodCount());
 		
 		db.close();
 	}

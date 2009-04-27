@@ -15,23 +15,16 @@
 //All Rights Reserved.
 package org.macchiato.maps;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 
 /**
  * @author fdietz
  */
-public class OccurencesMapTest extends TestCase {
+public class OccurencesMapTest {
 
-    /**
-     * Constructor for StatisticsTest.
-     * @param arg0
-     */
-    public OccurencesMapTest(String arg0) {
-        super(arg0);
-    }
-
+    @Test
     public void testStats() {
         OccurencesMapImpl stats = new OccurencesMapImpl();
 
@@ -40,11 +33,12 @@ public class OccurencesMapTest extends TestCase {
         stats.addToken("tiger");
         stats.addToken("dragon");
 
-        assertEquals(2, stats.getOccurences("snake"));
-        assertEquals(1, stats.getOccurences("tiger"));
-        assertEquals(1, stats.getOccurences("dragon"));
+        Assert.assertEquals(2, stats.getOccurences("snake"));
+        Assert.assertEquals(1, stats.getOccurences("tiger"));
+        Assert.assertEquals(1, stats.getOccurences("dragon"));
     }
 
+    @Test
     public void testPercentage() {
         OccurencesMapImpl stats = new OccurencesMapImpl();
 
@@ -62,7 +56,7 @@ public class OccurencesMapTest extends TestCase {
         stats.addToken("fly");
         
         // 50% of those tokens are of value "snake"
-        assertEquals(0.5, stats.getTokenCountInPercentage(new Token("snake")) , 0);
+        Assert.assertEquals(0.5, stats.getTokenCountInPercentage(new Token("snake")) , 0);
     }
 
 }

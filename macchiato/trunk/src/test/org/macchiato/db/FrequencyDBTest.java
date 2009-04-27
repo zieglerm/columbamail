@@ -15,23 +15,17 @@
 //All Rights Reserved.
 package org.macchiato.db;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * 
  *
  * @author fdietz
  */
-public class FrequencyDBTest extends TestCase {
+public class FrequencyDBTest{
 
-	/**
-	 * Constructor for FrequencyDBTest.
-	 * @param arg0
-	 */
-	public FrequencyDBTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 		FrequencyDBImpl db= new FrequencyDBImpl();
 
@@ -41,8 +35,8 @@ public class FrequencyDBTest extends TestCase {
 		db.addToken(token);
 		
 		token= db.getToken("frog");
-		assertEquals(5, token.getBadCount());
-		assertEquals(0, token.getGoodCount());
+		Assert.assertEquals(5, token.getBadCount());
+		Assert.assertEquals(0, token.getGoodCount());
 		
 		
 		token= new DBTokenImpl("frog");
@@ -56,13 +50,13 @@ public class FrequencyDBTest extends TestCase {
 		db.addToken(token);
 
 		token= db.getToken("frog");
-		assertEquals(1, token.getBadCount());
-		assertEquals(2, token.getGoodCount());
+		Assert.assertEquals(1, token.getBadCount());
+		Assert.assertEquals(2, token.getGoodCount());
 		
 
 		token= db.getToken("peter");
-		assertEquals(2, token.getBadCount());
-		assertEquals(5, token.getGoodCount());
+		Assert.assertEquals(2, token.getBadCount());
+		Assert.assertEquals(5, token.getGoodCount());
 	}
 
 }

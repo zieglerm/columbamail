@@ -15,21 +15,14 @@
 //All Rights Reserved.
 package org.macchiato.maps;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({OccurencesMapTest.class,ProbabilityMapFactoryTest.class,ProbabilityMapIOTest.class})
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite= new TestSuite("Test for org.macchiato.maps");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(OccurencesMapTest.class));
-		suite.addTest(new TestSuite(ProbabilityMapFactoryTest.class));
-		suite.addTest(new TestSuite(ProbabilityMapIOTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

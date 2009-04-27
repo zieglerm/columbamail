@@ -16,9 +16,8 @@
 package org.macchiato.tokenfilter;
 
 import java.util.Vector;
-
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.Tokenizer;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
@@ -28,16 +27,9 @@ import org.macchiato.tokenizer.WhitespaceStringTokenizer;
  *
  * @author fdietz
  */
-public class NumberFilterTest extends TestCase {
+public class NumberFilterTest {
 
-	/**
-	 * Constructor for NumberFilterTest.
-	 * @param arg0
-	 */
-	public NumberFilterTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 		String data=
 			"34 snake 23.4234 5,4 peter 23.2.34 pan -500 +6,45";
@@ -68,7 +60,7 @@ public class NumberFilterTest extends TestCase {
 		}
 
 		for (int i= 0; i < v1.size(); i++) {
-			assertEquals((String) v1.get(i), (String) v2.get(i));
+			Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
 		}
 	}
 

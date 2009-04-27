@@ -15,21 +15,14 @@
 //All Rights Reserved.
 package org.macchiato.tokenfilter.stopwords;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({EnglishStopWordFilterTest.class,RFC822StopWordFilterTest.class})
 public class AllTests {
 
-	public static Test suite() {
-		TestSuite suite=
-			new TestSuite("Test for org.macchiato.tokenfilter.stopwords");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(EnglishStopWordFilterTest.class));
-		suite.addTest(new TestSuite(RFC822StopWordFilterTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

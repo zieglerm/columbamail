@@ -17,8 +17,8 @@ package org.macchiato.tokenfilter;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.Tokenizer;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
@@ -28,16 +28,9 @@ import org.macchiato.tokenizer.WhitespaceStringTokenizer;
  *
  * @author fdietz
  */
-public class WordFilterTest extends TestCase {
+public class WordFilterTest {
 
-	/**
-	 * Constructor for WordFilterTest.
-	 * @param arg0
-	 */
-	public WordFilterTest(String arg0) {
-		super(arg0);
-	}
-
+    @Test
 	public void test() {
 		String data= "34 snake-test 23.4234 5,4 peter 23.2.34 pan size=3D\"20\"";
 
@@ -67,7 +60,7 @@ public class WordFilterTest extends TestCase {
 		}
 
 		for (int i= 0; i < v1.size(); i++) {
-			assertEquals((String) v1.get(i), (String) v2.get(i));
+			Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
 		}
 	}
 

@@ -15,20 +15,14 @@
 //All Rights Reserved.
 package org.macchiato.tokenizer;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({HTMLInputStreamTokenizerTest.class,
+    InputStreamTokenizerTest.class, WhitespaceStringTokenizerTest.class})
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite= new TestSuite("Test for org.macchiato.tokenizer");
-		//$JUnit-BEGIN$
-		suite.addTest(new TestSuite(InputStreamTokenizerTest.class));
-		suite.addTest(new TestSuite(WhitespaceStringTokenizerTest.class));
-		//$JUnit-END$
-		return suite;
-	}
 }

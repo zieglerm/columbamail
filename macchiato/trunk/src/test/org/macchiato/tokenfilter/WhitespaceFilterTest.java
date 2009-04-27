@@ -17,23 +17,17 @@ package org.macchiato.tokenfilter;
 
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.macchiato.tokenizer.Token;
 import org.macchiato.tokenizer.WhitespaceStringTokenizer;
 
 /**
  * @author fdietz
  */
-public class WhitespaceFilterTest extends TestCase {
-	/**
-	 * Constructor for WhitespaceFilterTest.
-	 * @param arg0
-	 */
-	public WhitespaceFilterTest(String arg0) {
-		super(arg0);
-	}
-
+public class WhitespaceFilterTest {
+	
+    @Test
 	public void testFilter() {
 		String input= " snake  peter pan ";
 		WhitespaceStringTokenizer tokenizer=
@@ -55,7 +49,7 @@ public class WhitespaceFilterTest extends TestCase {
 		}
 
 		for (int i= 0; i < v1.size(); i++) {
-			assertEquals((String) v1.get(i), (String) v2.get(i));
+			Assert.assertEquals((String) v1.get(i), (String) v2.get(i));
 		}
 	}
 }
