@@ -20,89 +20,95 @@ package org.columba.calendar.store;
 import java.io.File;
 import java.util.Iterator;
 
-import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.columba.calendar.base.UUIDGenerator;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.parser.XCSDocumentParser;
 import org.columba.calendar.store.api.StoreException;
 import org.jdom.Document;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 
-public class LocalXMLFileStoreTest extends TestCase {
+public class LocalXMLFileStoreTest {
 
-	private File file;
+    private File file;
+    private LocalXMLFileStore storage;
 
-	private LocalXMLFileStore storage;
+    @Before
+    public void setUp() throws Exception {
+        file = new File("test_calendar");
 
-	protected void setUp() throws Exception {
-		file = new File("test_calendar");
+        storage = new LocalXMLFileStore(file);
+    }
 
-		storage = new LocalXMLFileStore(file);
-	}
+    @Test
+    public void testAddGet() throws Exception {
 
-	public void testAddGet() throws Exception {
-		
-		XCSDocumentParser model = new XCSDocumentParser(IComponent.TYPE.EVENT);
-		String uuid = model.getId();
-		storage.save(uuid, model.getDocument());
+        XCSDocumentParser model = new XCSDocumentParser(IComponent.TYPE.EVENT);
+        String uuid = model.getId();
+        storage.save(uuid, model.getDocument());
 
-		boolean exists = storage.exists(uuid);
-		assertTrue(exists);
+        boolean exists = storage.exists(uuid);
+        Assert.assertTrue(exists);
 
-		Document result = storage.load(uuid);
-		assertNotNull(result);
+        Document result = storage.load(uuid);
+        Assert.assertNotNull(result);
 
-	}
+    }
 
-	public void testIterator() throws Exception {
-		String uuid1 = new UUIDGenerator().newUUID();
-		XCSDocumentParser model1 = new XCSDocumentParser(IComponent.TYPE.EVENT);
-		storage.save(uuid1, model1.getDocument());
-		String uuid2 = new UUIDGenerator().newUUID();
-		XCSDocumentParser model2 = new XCSDocumentParser(IComponent.TYPE.EVENT);
-		storage.save(uuid2, model2.getDocument());
+    @Test
+    public void testIterator() throws Exception {
+        String uuid1 = new UUIDGenerator().newUUID();
+        XCSDocumentParser model1 = new XCSDocumentParser(IComponent.TYPE.EVENT);
+        storage.save(uuid1, model1.getDocument());
+        String uuid2 = new UUIDGenerator().newUUID();
+        XCSDocumentParser model2 = new XCSDocumentParser(IComponent.TYPE.EVENT);
+        storage.save(uuid2, model2.getDocument());
 
-		Iterator it = storage.iterator();
-		Document result1 = (Document) it.next();
-		Document result2 = (Document) it.next();
+        Iterator it = storage.iterator();
+        Document result1 = (Document) it.next();
+        Document result2 = (Document) it.next();
 
-		assertNotNull(result1);
-		assertNotNull(result2);
-	}
+        Assert.assertNotNull(result1);
+        Assert.assertNotNull(result2);
+    }
 
-	public void testRemove() throws Exception {
-		String uuid = new UUIDGenerator().newUUID();
-		XCSDocumentParser model = new XCSDocumentParser(IComponent.TYPE.EVENT);
-		storage.save(uuid, model.getDocument());
+    @Test
+    public void testRemove() throws Exception {
+        String uuid = new UUIDGenerator().newUUID();
+        XCSDocumentParser model = new XCSDocumentParser(IComponent.TYPE.EVENT);
+        storage.save(uuid, model.getDocument());
 
-		storage.remove(uuid);
+        storage.remove(uuid);
 
-		try {
-			Document result = storage.load(uuid);
-		} catch (StoreException e) {
-			// this is the expected cases
-			return;
-		} catch (Exception e) {
-			fail("Expected StoreException, not " + e.getMessage());
-		}
+        try {
+            Document result = storage.load(uuid);
+        } catch (StoreException e) {
+            // this is the expected cases
+            return;
+        } catch (Exception e) {
+            Assert.fail("Expected StoreException, not " + e.getMessage());
+        }
 
-		fail("Expected StoreException, got no exception");
+        Assert.fail("Expected StoreException, got no exception");
 
-	}
+    }
 
-	protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
 
-		
-		// delete all data in directory
-		File[] list = file.listFiles();
 
-		for (int i = 0; i < list.length; i++) {
-			list[i].delete();
-		}
+        // delete all data in directory
+        File[] list = file.listFiles();
 
-		// delete folder
-		file.delete();
-		
-	}
+        for (int i = 0; i < list.length; i++) {
+            list[i].delete();
+        }
 
+        // delete folder
+        file.delete();
+
+    }
 }

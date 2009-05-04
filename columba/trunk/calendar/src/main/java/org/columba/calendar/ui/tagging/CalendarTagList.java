@@ -93,7 +93,7 @@ public class CalendarTagList extends TagList {
 						"tag_" + result.getId(), result.getName());
 			}
 
-			// mark it as selected
+                // mark it as selected
 			category.setProperty(Category.PROP_IS_HIDDEN, Boolean
 					.valueOf(false), Boolean.TRUE);
 			System.out.println("tag: " + category.getId().toString());
