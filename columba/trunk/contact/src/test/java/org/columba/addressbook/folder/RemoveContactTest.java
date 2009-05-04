@@ -19,6 +19,8 @@ package org.columba.addressbook.folder;
 
 import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -26,27 +28,19 @@ import org.columba.addressbook.model.EmailModel;
  */
 public class RemoveContactTest extends AbstractFolderTstCase {
 
-	/**
-	 * @param test
-	 */
-	public RemoveContactTest(String test) {
-		super(test);
-		
-	}
+    /*
+     * Class under test for void remove(Object)
+     */
+    @Test
+    public void testRemoveObject() throws Exception {
+        ContactModel c = new ContactModel();
+        c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
+        c.setNickName("nickname");
 
-	/*
-	 * Class under test for void remove(Object)
-	 */
-	public void testRemoveObject() throws Exception {
-		ContactModel c = new ContactModel();
-		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
-		c.setNickName("nickname");
+        String uid = getSourceFolder().add(c);
 
-		String uid = getSourceFolder().add(c);
-		
-		getSourceFolder().remove(uid);
+        getSourceFolder().remove(uid);
 
-		assertEquals("folder contact count == 0", 0, getSourceFolder().count());
-	}
-
+        Assert.assertEquals("folder contact count == 0", 0, getSourceFolder().count());
+    }
 }

@@ -1,22 +1,13 @@
 package org.columba.addressbook.folder;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({VirtualFolderContactTest.class, AddContactTest.class,
+    ModifyContactTest.class, GetContactTest.class, RemoveContactTest.class,
+    GetHeaderItemListTest.class})
 public class AllTests {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for org.columba.addressbook.folder");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(VirtualFolderContactTest.class);
-		suite.addTestSuite(AddContactTest.class);
-		suite.addTestSuite(ModifyContactTest.class);
-		suite.addTestSuite(GetContactTest.class);
-		suite.addTestSuite(RemoveContactTest.class);
-		suite.addTestSuite(GetHeaderItemListTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
+// place holder class for JUnit test annotations
 }

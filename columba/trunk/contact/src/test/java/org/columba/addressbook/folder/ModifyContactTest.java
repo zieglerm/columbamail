@@ -20,6 +20,8 @@ package org.columba.addressbook.folder;
 import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModel;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -27,15 +29,8 @@ import org.columba.addressbook.model.IContactModel;
  */
 public class ModifyContactTest extends AbstractFolderTstCase {
 
-	/**
-	 * @param arg0
-	 */
-	public ModifyContactTest(String arg0) {
-		super(arg0);
-		
-	}
-	
 
+    @Test
 	public void testModify() throws Exception{
 		ContactModel c = new ContactModel();
 
@@ -48,7 +43,7 @@ public class ModifyContactTest extends AbstractFolderTstCase {
 		
 		IContactModel c2 = getSourceFolder().get(uid);
 
-		assertEquals("nichname", "new", c2.getNickName());
+		Assert.assertEquals("nichname", "new", c2.getNickName());
 	}
 
 }

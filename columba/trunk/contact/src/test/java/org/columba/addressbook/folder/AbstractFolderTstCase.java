@@ -22,105 +22,93 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import junit.framework.TestCase;
 
 import org.columba.addressbook.main.AddressbookMain;
-import org.columba.core.config.Config;
 import org.columba.core.logging.Logging;
 import org.columba.core.plugin.PluginManager;
 import org.columba.core.shutdown.ShutdownManager;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * @author fdietz
  *
  */
-public class AbstractFolderTstCase extends TestCase {
+public class AbstractFolderTstCase {
 
-	private AddressbookFolder sourceFolder;
+    private AddressbookFolder sourceFolder;
+    private AddressbookFolder destFolder;
+    /** A set with all created folders. */
+    private Set folders;
+    private static int folderId = 0;
 
-	private AddressbookFolder destFolder;
 
-	/** A set with all created folders. */
-	private Set folders;
+    /*
+     * @see TestCase#setUp()
+     */
+    @Before
+    public void setUp() throws Exception {
 
-	private static int folderId = 0;
+        //		 create config-folder
+        File file = new File("test_config");
+        file.mkdir();
 
-	/**
-	 * Constructor for AbstractFolderTestCase.
-	 *
-	 * @param arg0
-	 */
-	public AbstractFolderTstCase(String arg0) {
-		super(arg0);
+        //new Config(file);
 
-	}
+        Logging.DEBUG = true;
+        Logging.createDefaultHandler();
 
-	/*
-	 * @see TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
+        ShutdownManager.getInstance();
 
-		//		 create config-folder
-		File file = new File("test_config");
-		file.mkdir();
+        new AddressbookMain();
 
-		//new Config(file);
+        // now load all available plugins
+        PluginManager.getInstance().initExternalPlugins();
 
-		Logging.DEBUG = true;
-		Logging.createDefaultHandler();
+        folders = new HashSet();
+        sourceFolder = FolderTstFactory.createFolder(folderId++);
+        folders.add(sourceFolder);
+        destFolder = FolderTstFactory.createFolder(folderId++);
+        folders.add(destFolder);
+    }
 
-		ShutdownManager.getInstance();
+    @After
+    public void tearDown() throws Exception {
+        for (Iterator iterator = folders.iterator(); iterator.hasNext();) {
+            AbstractFolder folder = (AbstractFolder) iterator.next();
+            if (!(folder instanceof LocalFolder)) {
+                continue;
+            }
 
-		new AddressbookMain();
+            LocalFolder localfolder = (LocalFolder) folder;
+            File f = localfolder.getDirectoryFile();
 
-		// now load all available plugins
-		PluginManager.getInstance().initExternalPlugins();
+            // delete all mails in folder
+            File[] list = f.listFiles();
 
-		folders = new HashSet();
-		sourceFolder = FolderTstFactory.createFolder(folderId++);
-		folders.add(sourceFolder);
-		destFolder = FolderTstFactory.createFolder(folderId++);
-		folders.add(destFolder);
-	}
+            if (list != null) {
+                for (int i = 0; i < list.length; i++) {
+                    list[i].delete();
+                }
+            }
 
-	/*
-	 * @see TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		for (Iterator iterator = folders.iterator(); iterator.hasNext();) {
-			AbstractFolder folder = (AbstractFolder) iterator.next();
-			if ( !(folder instanceof LocalFolder))
-					continue;
+            // delete folder
+            f.delete();
+        }
+        new File(FolderTstHelper.homeDirectory + "/folders/").delete();
+    }
 
-			LocalFolder localfolder = (LocalFolder)folder;
-			File f = localfolder.getDirectoryFile();
+    /**
+     * @return Returns the destFolder.
+     */
+    public AddressbookFolder getDestFolder() {
+        return destFolder;
+    }
 
-			// delete all mails in folder
-			File[] list = f.listFiles();
-
-			if (list != null) {
-				for (int i = 0; i < list.length; i++) {
-					list[i].delete();
-				}
-			}
-
-			// delete folder
-			f.delete();
-		}
-		new File(FolderTstHelper.homeDirectory + "/folders/").delete();
-	}
-
-	/**
-	 * @return Returns the destFolder.
-	 */
-	public AddressbookFolder getDestFolder() {
-		return destFolder;
-	}
-
-	/**
-	 * @return Returns the sourceFolder.
-	 */
-	public AddressbookFolder getSourceFolder() {
-		return sourceFolder;
-	}
+    /**
+     * @return Returns the sourceFolder.
+     */
+    public AddressbookFolder getSourceFolder() {
+        return sourceFolder;
+    }
 }

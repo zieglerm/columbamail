@@ -55,270 +55,282 @@ import org.columba.addressbook.model.PhoneModel;
  */
 public class VCardParser {
 
-	/**
-	 * Write vcard contact to outpustream.
-	 * 
-	 * @param c
-	 *            contact data
-	 * @param out
-	 *            outputstream
-	 */
-	public static void write(IContactModel c, OutputStream out) {
-		ContactIOFactory ciof = Pim.getContactIOFactory();
-		ContactMarshaller marshaller = ciof.createContactMarshaller();
-		marshaller.setEncoding("UTF-8");
+    /**
+     * Write vcard contact to outpustream.
+     *
+     * @param c
+     *            contact data
+     * @param out
+     *            outputstream
+     */
+    public static void write(IContactModel c, OutputStream out) {
+        ContactIOFactory ciof = Pim.getContactIOFactory();
+        ContactMarshaller marshaller = ciof.createContactMarshaller();
+        marshaller.setEncoding("UTF-8");
 
-		// create jpim contact instance
-		net.wimpi.pim.contact.model.Contact exportContact = new ContactImpl();
+        // create jpim contact instance
+        net.wimpi.pim.contact.model.Contact exportContact = new ContactImpl();
 
-		PersonalIdentity identity = new PersonalIdentityImpl();
-		exportContact.setPersonalIdentity(identity);
+        PersonalIdentity identity = new PersonalIdentityImpl();
+        exportContact.setPersonalIdentity(identity);
 
-		// set sort-string/displayname
+        // set sort-string/displayname
 
-		identity.setSortString(c.getSortString());
+        identity.setSortString(c.getSortString());
 
-		// set first name
-		identity.setFirstname(c.getGivenName());
-		// set formatted name
-		identity.setFormattedName(c.getFormattedName());
-		// set last name
+        // set first name
+        identity.setFirstname(c.getGivenName());
+        // set formatted name
+        identity.setFormattedName(c.getFormattedName());
+        // set last name
 
-		identity.setLastname(c.getFamilyName());
-		
-		identity.setBirthDate(c.getBirthday());
+        identity.setLastname(c.getFamilyName());
 
-		// add all additional names (middle names)
-		String[] s = ParserUtil.getArrayOfString(c.getAdditionalNames(), ",");
-		for (int i = 0; i < s.length; i++) {
-			identity.addAdditionalName(s[i]);
-		}
+        identity.setBirthDate(c.getBirthday());
 
-		// add all nicknames
-		s = ParserUtil.getArrayOfString(c.getNickName(), ",");
-		for (int i = 0; i < s.length; i++) {
-			identity.addNickname(s[i]);
-		}
+        // add all additional names (middle names)
+        String[] s;
+        if (c.getAdditionalNames() != null) {
+            s = ParserUtil.getArrayOfString(c.getAdditionalNames(), ",");
+            for (int i = 0; i < s.length; i++) {
+                identity.addAdditionalName(s[i]);
+            }
+        }
 
-		// add all prefixes
-		s = ParserUtil.getArrayOfString(c.getNamePrefix(), ",");
-		for (int i = 0; i < s.length; i++) {
-			identity.addPrefix(s[i]);
-		}
+        // add all nicknames
+        if (c.getNickName() != null) {
+            s = ParserUtil.getArrayOfString(c.getNickName(), ",");
+            for (int i = 0; i < s.length; i++) {
+                identity.addNickname(s[i]);
+            }
+        }
 
-		// add all suffixes
-		s = ParserUtil.getArrayOfString(c.getNameSuffix(), ",");
-		for (int i = 0; i < s.length; i++) {
-			identity.addSuffix(s[i]);
-		}
+        // add all prefixes
+        if (c.getNamePrefix() != null) {
+            s = ParserUtil.getArrayOfString(c.getNamePrefix(), ",");
+            for (int i = 0; i < s.length; i++) {
+                identity.addPrefix(s[i]);
+            }
+        }
 
-		// set website/homepage
-		exportContact.setURL(c.getHomePage());
+        // add all suffixes
+        if (c.getNameSuffix() != null) {
+            s = ParserUtil.getArrayOfString(c.getNameSuffix(), ",");
+            for (int i = 0; i < s.length; i++) {
+                identity.addSuffix(s[i]);
+            }
+        }
 
-		Communications communications = new CommunicationsImpl();
-		exportContact.setCommunications(communications);
+        // set website/homepage
+        exportContact.setURL(c.getHomePage());
 
-		// add email addresses
+        Communications communications = new CommunicationsImpl();
+        exportContact.setCommunications(communications);
 
-		Iterator it = c.getEmailIterator();
-		while (it.hasNext()) {
-			IEmailModel model = (IEmailModel) it.next();
-			EmailAddress adr = new EmailAddressImpl();
-			adr.setType(EmailAddress.TYPE_INTERNET);
-			adr.setAddress(model.getAddress());
-			communications.addEmailAddress(adr);
-		}
+        // add email addresses
 
-		// add all addresses
-		Iterator it2 = c.getAddressIterator();
-		while (it2.hasNext()) {
-			AddressModel model = (AddressModel) it2.next();
-			Address adr = new AddressImpl();
-			adr.setCity(model.getCity());
-			adr.setPostalCode(model.getZipPostalCode());
-			adr.setPostBox(model.getPoBox());
-			adr.setRegion(model.getStateProvinceCounty());
-			adr.setStreet(model.getStreet());
-			adr.setLabel(model.getLabel());
-			exportContact.addAddress(adr);
-		}
-		
-		OrganizationalIdentity organizationalIdentity = new OrganizationalIdentityImpl();
-		exportContact.setOrganizationalIdentity(organizationalIdentity);
-		organizationalIdentity.setOrganization(new OrganizationImpl());
+        Iterator it = c.getEmailIterator();
+        while (it.hasNext()) {
+            IEmailModel model = (IEmailModel) it.next();
+            EmailAddress adr = new EmailAddressImpl();
+            adr.setType(EmailAddress.TYPE_INTERNET);
+            adr.setAddress(model.getAddress());
+            communications.addEmailAddress(adr);
+        }
 
-		// set name of organization
-		organizationalIdentity.getOrganization().setName(c.getOrganisation());
+        // add all addresses
+        Iterator it2 = c.getAddressIterator();
+        while (it2.hasNext()) {
+            AddressModel model = (AddressModel) it2.next();
+            Address adr = new AddressImpl();
+            adr.setCity(model.getCity());
+            adr.setPostalCode(model.getZipPostalCode());
+            adr.setPostBox(model.getPoBox());
+            adr.setRegion(model.getStateProvinceCounty());
+            adr.setStreet(model.getStreet());
+            adr.setLabel(model.getLabel());
+            exportContact.addAddress(adr);
+        }
 
-		exportContact.setNote(c.getNote());
-		
-		// save contact to outputstream
-		marshaller.marshallContact(out, exportContact);
-	}
+        OrganizationalIdentity organizationalIdentity = new OrganizationalIdentityImpl();
+        exportContact.setOrganizationalIdentity(organizationalIdentity);
+        organizationalIdentity.setOrganization(new OrganizationImpl());
 
-	/**
-	 * Fill the contact model from the import contact
-	 * 
-	 * @param importContact import contact
-	 * 
-	 * @return contact model
-	 * 
-	 */
-	public static ContactModel fillContactModel(net.wimpi.pim.contact.model.Contact importContact) {
-		ContactModel c = new ContactModel();
+        // set name of organization
+        organizationalIdentity.getOrganization().setName(c.getOrganisation());
 
-		OrganizationalIdentity organisationalIdentity = importContact
-				.getOrganizationalIdentity();
+        exportContact.setNote(c.getNote());
 
-		
-		if (importContact.hasPersonalIdentity()) {
-			PersonalIdentity identity = importContact.getPersonalIdentity();
-			
-			// sort-string
-			c.setSortString(identity.getSortString());
+        // save contact to outputstream
+        marshaller.marshallContact(out, exportContact);
+    }
 
-			// list of nick names
-			if (identity.getNicknameCount() > 0)
-				c.setNickName(ParserUtil.getStringOfArray(identity
-						.listNicknames(), ","));
+    /**
+     * Fill the contact model from the import contact
+     *
+     * @param importContact import contact
+     * 
+     * @return contact model
+     *
+     */
+    public static ContactModel fillContactModel(net.wimpi.pim.contact.model.Contact importContact) {
+        ContactModel c = new ContactModel();
 
-			// list of prefixes
-			if (identity.listPrefixes().length > 0)
-				c.setNamePrefix(ParserUtil.getStringOfArray(identity
-						.listPrefixes(), ","));
+        OrganizationalIdentity organisationalIdentity = importContact.getOrganizationalIdentity();
 
-			c.setFamilyName(identity.getLastname());
-			c.setGivenName(identity.getFirstname());
 
-			// list of additional names (middle names)
-			if (identity.listAdditionalNames().length > 0)
-				c.setAdditionalNames(ParserUtil.getStringOfArray(identity
-						.listAdditionalNames(), ","));
+        if (importContact.hasPersonalIdentity()) {
+            PersonalIdentity identity = importContact.getPersonalIdentity();
 
-			// list of suffices
-			if (identity.listSuffixes().length > 0)
-				c.setNameSuffix(ParserUtil.getStringOfArray(identity
-						.listSuffixes(), ","));
+            // sort-string
+            c.setSortString(identity.getSortString());
 
-			// formatted name
-			c.setFormattedName(identity.getFormattedName());
-			
-			// birthday
-			Date birthday = importContact.getPersonalIdentity().getBirthDate();
-			if ( birthday != null)
-				c.setBirthday(birthday);
-			
-		}
+            // list of nick names
+            if (identity.getNicknameCount() > 0) {
+                c.setNickName(ParserUtil.getStringOfArray(identity.listNicknames(), ","));
+            }
 
-		// url to website/homepage
-		c.setHomePage(importContact.getURL());
+            // list of prefixes
+            if (identity.listPrefixes().length > 0) {
+                c.setNamePrefix(ParserUtil.getStringOfArray(identity.listPrefixes(), ","));
+            }
 
-		// email addresses and phone numbers
-		if (importContact.hasCommunications()) {
-			Communications communications = importContact.getCommunications();
+            c.setFamilyName(identity.getLastname());
+            c.setGivenName(identity.getFirstname());
 
-			Iterator it = communications.getEmailAddresses();
-			while (it.hasNext()) {
-				EmailAddress adr = (EmailAddress) it.next();
-				
-				int type = EmailModel.TYPE_WORK;
-				if (adr.isType("HOME"))
-					type = EmailModel.TYPE_HOME;
-				else if (adr.isType("WORK"))
-					type = EmailModel.TYPE_WORK;
-				else if (adr.isType("OTHER"))
-					type = EmailModel.TYPE_OTHER;
-				
-				c.addEmail(new EmailModel(adr.getAddress(),
-						type));
-			}
-			
-			it = communications.getPhoneNumbers();
-			while (it.hasNext()) {
-				PhoneNumber phone = (PhoneNumber)it.next();
-				
-				int type = PhoneModel.TYPE_BUSINESS_PHONE;
-				if ( phone.isCar())
-					type = PhoneModel.TYPE_CAR_PHONE;
-				else if ( phone.isCellular())
-					type = PhoneModel.TYPE_MOBILE_PHONE;
-				else if ( phone.isFax())
-					type = PhoneModel.TYPE_HOME_FAX;
-				else if ( phone.isHome())
-					type = PhoneModel.TYPE_HOME_PHONE;
-				else if ( phone.isISDN())
-					type = PhoneModel.TYPE_ISDN;
-				else if ( phone.isPager())
-					type = PhoneModel.TYPE_PAGER;
-				else if ( phone.isWork())
-					type = PhoneModel.TYPE_BUSINESS_PHONE;
-				
-				c.addPhone(new PhoneModel(phone.getNumber(), type));
-			}
-		}
-		
-		// address list
-		if ( importContact.listAddresses().length > 0 ) {
-			// not that the editor ui only supports max of 3 addresses to edit
-			Address[] addresses = importContact.listAddresses(); 
-			for ( int i=0; i<addresses.length; i++) {
-				Address a = addresses[i];
-				
-				int type = -1;
-				if ( a.isHome())
-					type = AddressModel.TYPE_HOME;
-				else if ( a.isWork())
-					type = AddressModel.TYPE_WORK;
-				else
-					type = AddressModel.TYPE_OTHER;
-				
-				
-				AddressModel adr = new AddressModel(a.getPostBox(), a.getStreet(), a.getCity(), a.getPostalCode(), a.getRegion(), a.getCountry(), a.getLabel(), type );
-				
-				c.addAddress(adr);
-			}
-		}
+            // list of additional names (middle names)
+            if (identity.listAdditionalNames().length > 0) {
+                c.setAdditionalNames(ParserUtil.getStringOfArray(identity.listAdditionalNames(), ","));
+            }
 
-		// name of organisation
-		if ( organisationalIdentity != null) {
-			if (organisationalIdentity.hasOrganization())
-				c.setOrganisation(organisationalIdentity.getOrganization().getName());
-			
-			c.setTitle(organisationalIdentity.getTitle());
-			c.setProfession(organisationalIdentity.getRole());
-		}
-		
-		c.setNote(importContact.getNote());
-		
-		// dummy address
-		if (!c.getEmailIterator().hasNext())
-			c.addEmail(new EmailModel("", EmailModel.TYPE_WORK));
-		
-		return c;
-	}
+            // list of suffices
+            if (identity.listSuffixes().length > 0) {
+                c.setNameSuffix(ParserUtil.getStringOfArray(identity.listSuffixes(), ","));
+            }
 
-	/**
-	 * Parse vCard contact data from inputstream.
-	 * 
-	 * @param in
-	 *            inputstream to vCard data
-	 * @return contact
-	 */
-	public static IContactModel[] read(InputStream in) {
-		ContactIOFactory ciof = Pim.getContactIOFactory();
-		ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
-		unmarshaller.setEncoding("UTF-8");
+            // formatted name
+            c.setFormattedName(identity.getFormattedName());
 
-		net.wimpi.pim.contact.model.Contact[] importContacts = unmarshaller
-				.unmarshallContacts(in);
+            // birthday
+            Date birthday = importContact.getPersonalIdentity().getBirthDate();
+            if (birthday != null) {
+                c.setBirthday(birthday);
+            }
 
-		ContactModel[] contacts = new ContactModel[importContacts.length];
+        }
 
-		for (int i = 0; i < importContacts.length; i++) {
-			contacts[i] = fillContactModel(importContacts[i]);
-		}
-		
-		return contacts;
-	}
+        // url to website/homepage
+        c.setHomePage(importContact.getURL());
 
+        // email addresses and phone numbers
+        if (importContact.hasCommunications()) {
+            Communications communications = importContact.getCommunications();
+
+            Iterator it = communications.getEmailAddresses();
+            while (it.hasNext()) {
+                EmailAddress adr = (EmailAddress) it.next();
+
+                int type = EmailModel.TYPE_WORK;
+                if (adr.isType("HOME")) {
+                    type = EmailModel.TYPE_HOME;
+                } else if (adr.isType("WORK")) {
+                    type = EmailModel.TYPE_WORK;
+                } else if (adr.isType("OTHER")) {
+                    type = EmailModel.TYPE_OTHER;
+                }
+
+                c.addEmail(new EmailModel(adr.getAddress(),
+                        type));
+            }
+
+            it = communications.getPhoneNumbers();
+            while (it.hasNext()) {
+                PhoneNumber phone = (PhoneNumber) it.next();
+
+                int type = PhoneModel.TYPE_BUSINESS_PHONE;
+                if (phone.isCar()) {
+                    type = PhoneModel.TYPE_CAR_PHONE;
+                } else if (phone.isCellular()) {
+                    type = PhoneModel.TYPE_MOBILE_PHONE;
+                } else if (phone.isFax()) {
+                    type = PhoneModel.TYPE_HOME_FAX;
+                } else if (phone.isHome()) {
+                    type = PhoneModel.TYPE_HOME_PHONE;
+                } else if (phone.isISDN()) {
+                    type = PhoneModel.TYPE_ISDN;
+                } else if (phone.isPager()) {
+                    type = PhoneModel.TYPE_PAGER;
+                } else if (phone.isWork()) {
+                    type = PhoneModel.TYPE_BUSINESS_PHONE;
+                }
+
+                c.addPhone(new PhoneModel(phone.getNumber(), type));
+            }
+        }
+
+        // address list
+        if (importContact.listAddresses().length > 0) {
+            // not that the editor ui only supports max of 3 addresses to edit
+            Address[] addresses = importContact.listAddresses();
+            for (int i = 0; i < addresses.length; i++) {
+                Address a = addresses[i];
+
+                int type = -1;
+                if (a.isHome()) {
+                    type = AddressModel.TYPE_HOME;
+                } else if (a.isWork()) {
+                    type = AddressModel.TYPE_WORK;
+                } else {
+                    type = AddressModel.TYPE_OTHER;
+                }
+
+
+                AddressModel adr = new AddressModel(a.getPostBox(), a.getStreet(), a.getCity(), a.getPostalCode(), a.getRegion(), a.getCountry(), a.getLabel(), type);
+
+                c.addAddress(adr);
+            }
+        }
+
+        // name of organisation
+        if (organisationalIdentity != null) {
+            if (organisationalIdentity.hasOrganization()) {
+                c.setOrganisation(organisationalIdentity.getOrganization().getName());
+            }
+
+            c.setTitle(organisationalIdentity.getTitle());
+            c.setProfession(organisationalIdentity.getRole());
+        }
+
+        c.setNote(importContact.getNote());
+
+        // dummy address
+        if (!c.getEmailIterator().hasNext()) {
+            c.addEmail(new EmailModel("", EmailModel.TYPE_WORK));
+        }
+
+        return c;
+    }
+
+    /**
+     * Parse vCard contact data from inputstream.
+     *
+     * @param in
+     *            inputstream to vCard data
+     * @return contact
+     */
+    public static IContactModel[] read(InputStream in) {
+        ContactIOFactory ciof = Pim.getContactIOFactory();
+        ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
+        unmarshaller.setEncoding("UTF-8");
+
+        net.wimpi.pim.contact.model.Contact[] importContacts = unmarshaller.unmarshallContacts(in);
+
+        ContactModel[] contacts = new ContactModel[importContacts.length];
+
+        for (int i = 0; i < importContacts.length; i++) {
+            contacts[i] = fillContactModel(importContacts[i]);
+        }
+
+        return contacts;
+    }
 }

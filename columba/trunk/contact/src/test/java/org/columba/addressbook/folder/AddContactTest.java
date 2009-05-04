@@ -19,6 +19,8 @@ package org.columba.addressbook.folder;
 
 import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -26,36 +28,30 @@ import org.columba.addressbook.model.EmailModel;
  */
 public class AddContactTest extends AbstractFolderTstCase {
 
-	/**
-	 * @param arg0
-	 */
-	public AddContactTest(String arg0) {
-		super(arg0);
-
-	}
-
 	/*
 	 * Class under test for Object add(Contact)
 	 */
+    @Test
 	public void testAddContact() throws Exception {
 		ContactModel c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
 		c.setNickName("nickname");
 
 		Object uid = getSourceFolder().add(c);
-		assertNotNull(uid);
-		assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
+		Assert.assertNotNull(uid);
+		Assert.assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
 
 	}
 
+    @Test
 	public void testAddContact2() throws Exception {
 		ContactModel c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
 		c.setNickName("nickname");
 
 		Object uid = getSourceFolder().add(c);
-		assertNotNull(uid);
-		assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
+		Assert.assertNotNull(uid);
+		Assert.assertEquals("nextUid", 1, getSourceFolder().getNextContactUid());
 
 		c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
@@ -63,7 +59,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		uid = getSourceFolder().add(c);
 
-		assertEquals("nextUid", 2, getSourceFolder().getNextContactUid());
+		Assert.assertEquals("nextUid", 2, getSourceFolder().getNextContactUid());
 
 		c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
@@ -71,7 +67,7 @@ public class AddContactTest extends AbstractFolderTstCase {
 
 		uid = getSourceFolder().add(c);
 
-		assertEquals("nextUid", 3, getSourceFolder().getNextContactUid());
+		Assert.assertEquals("nextUid", 3, getSourceFolder().getNextContactUid());
 
 	}
 

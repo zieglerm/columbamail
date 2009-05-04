@@ -22,6 +22,8 @@ import java.util.Map;
 import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModelPartial;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -29,17 +31,11 @@ import org.columba.addressbook.model.IContactModelPartial;
  */
 public class GetHeaderItemListTest extends AbstractFolderTstCase {
 
-	/**
-	 * @param arg0
-	 */
-	public GetHeaderItemListTest(String arg0) {
-		super(arg0);
-
-	}
 
 	/*
 	 * Class under test for HeaderItemList getHeaderItemList()
 	 */
+    @Test
 	public void testGetHeaderItemList() throws Exception {
 		ContactModel c = new ContactModel();
 		c.addEmail(new EmailModel("test@test.de", EmailModel.TYPE_HOME));
@@ -51,7 +47,7 @@ public class GetHeaderItemListTest extends AbstractFolderTstCase {
 
 		IContactModelPartial item = list.get(uid);
 
-		assertEquals("same displayname", c.getSortString(), item
+		Assert.assertEquals("same displayname", c.getSortString(), item
 				.getName());
 	}
 

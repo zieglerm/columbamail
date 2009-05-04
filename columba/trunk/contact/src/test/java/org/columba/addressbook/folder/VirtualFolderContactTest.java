@@ -4,14 +4,12 @@ import org.columba.addressbook.folder.virtual.VirtualFolder;
 import org.columba.addressbook.model.ContactModel;
 import org.columba.addressbook.model.EmailModel;
 import org.columba.addressbook.model.IContactModel;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class VirtualFolderContactTest extends AbstractFolderTstCase {
 
-	public VirtualFolderContactTest(String arg0) {
-		super(arg0);	
-	}
-	
-
+    @Test
 	public void testAdd() throws Exception{
 		ContactModel c = new ContactModel();
 
@@ -25,9 +23,10 @@ public class VirtualFolderContactTest extends AbstractFolderTstCase {
 		
 		IContactModel c2 = vf.get(id);
 
-		assertEquals("nickname", c2.getNickName());
+		Assert.assertEquals("nickname", c2.getNickName());
 	}
-	
+
+    @Test
 	public void testModify() throws Exception{
 		ContactModel c = new ContactModel();
 
@@ -45,7 +44,7 @@ public class VirtualFolderContactTest extends AbstractFolderTstCase {
 		
 		IContactModel c2 = vf.get(id);
 
-		assertEquals("new", c2.getNickName());
+		Assert.assertEquals("new", c2.getNickName());
 	}
 	
 }
