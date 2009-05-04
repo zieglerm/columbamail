@@ -16,23 +16,25 @@
 package org.columba.mail.imap;
 
 import java.util.List;
-
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Boundary testcases.
  *
  * @author fdietz
  */
-public class MessageSetTokenizerTest extends TestCase {
+public class MessageSetTokenizerTest {
+
+    @Test
     public void test() {
         int max = 1000;
 
         Object[] uids = new Object[max];
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
             uids[i] = new Integer(i);
+        }
 
         int stepSize = 100;
         MessageSetTokenizer tok = new MessageSetTokenizer(uids, stepSize);
@@ -43,19 +45,21 @@ public class MessageSetTokenizerTest extends TestCase {
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
-                assertEquals(sublist.get(sublist.size() - 1),
-                    uids[uids.length - 1]);
+                Assert.assertEquals(sublist.get(sublist.size() - 1),
+                        uids[uids.length - 1]);
             }
         }
     }
 
+    @Test
     public void test2() {
         int max = 1001;
 
         Object[] uids = new Object[max];
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
             uids[i] = new Integer(i);
+        }
 
         int stepSize = 100;
         MessageSetTokenizer tok = new MessageSetTokenizer(uids, stepSize);
@@ -66,19 +70,21 @@ public class MessageSetTokenizerTest extends TestCase {
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
-                assertEquals(sublist.get(sublist.size() - 1),
-                    uids[uids.length - 1]);
+               Assert.assertEquals(sublist.get(sublist.size() - 1),
+                        uids[uids.length - 1]);
             }
         }
     }
 
+    @Test
     public void test3() {
         int max = 999;
 
         Object[] uids = new Object[max];
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
             uids[i] = new Integer(i);
+        }
 
         int stepSize = 100;
         MessageSetTokenizer tok = new MessageSetTokenizer(uids, stepSize);
@@ -89,19 +95,21 @@ public class MessageSetTokenizerTest extends TestCase {
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
-                assertEquals(sublist.get(sublist.size() - 1),
-                    uids[uids.length - 1]);
+                Assert.assertEquals(sublist.get(sublist.size() - 1),
+                        uids[uids.length - 1]);
             }
         }
     }
 
+    @Test
     public void test4() {
         int max = 99;
 
         Object[] uids = new Object[max];
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
             uids[i] = new Integer(i);
+        }
 
         int stepSize = 100;
         MessageSetTokenizer tok = new MessageSetTokenizer(uids, stepSize);
@@ -112,19 +120,21 @@ public class MessageSetTokenizerTest extends TestCase {
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
-                assertEquals(sublist.get(sublist.size() - 1),
-                    uids[uids.length - 1]);
+                Assert.assertEquals(sublist.get(sublist.size() - 1),
+                        uids[uids.length - 1]);
             }
         }
     }
 
+    @Test
     public void test5() {
         int max = 1;
 
         Object[] uids = new Object[max];
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
             uids[i] = new Integer(i);
+        }
 
         int stepSize = 100;
         MessageSetTokenizer tok = new MessageSetTokenizer(uids, stepSize);
@@ -135,8 +145,8 @@ public class MessageSetTokenizerTest extends TestCase {
             // if this is the last token, check if the last element
             // is the same than in the array
             if (tok.hasNext() == false) {
-                assertEquals(sublist.get(sublist.size() - 1),
-                    uids[uids.length - 1]);
+                Assert.assertEquals(sublist.get(sublist.size() - 1),
+                        uids[uids.length - 1]);
             }
         }
     }

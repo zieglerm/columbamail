@@ -18,140 +18,150 @@
 package org.columba.mail.parser.text;
 
 import java.nio.charset.Charset;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class HtmlParserTest {
 
+    public Charset testCharset = Charset.forName("iso-8859-1");
 
-public class HtmlParserTest extends TestCase {
-
-	public Charset testCharset = Charset.forName("iso-8859-1");
-	
+    @Test
     public void testSubstituteURL1() {
         String input = "This page http://columba.sourceforge.net is net!";
 
         String result = HtmlParser.substituteURL(input);
-        assertEquals("This page <A HREF=\"http://columba.sourceforge.net\">http://columba.sourceforge.net</A> is net!", result);
+        Assert.assertEquals("This page <A HREF=\"http://columba.sourceforge.net\">http://columba.sourceforge.net</A> is net!", result);
     }
 
+    @Test
     public void testSubstituteURL3() {
         String input = "This page \t(http://columba.sourceforge.net/phpBB2/viewtopic.php?p=239#239) is net!";
 
         String result = HtmlParser.substituteURL(input);
-     
-        assertEquals(
+
+        Assert.assertEquals(
                 "This page \t(<A HREF=\"http://columba.sourceforge.net/phpBB2/viewtopic.php?p=239#239\">http://columba.sourceforge.net/phpBB2/viewtopic.php?p=239#239</A>) is net!",
                 result);
     }
 
+    @Test
     public void testSubstituteURL4() {
         String input = "This page http://columba.sourceforge.net. is net!";
 
         String result = HtmlParser.substituteURL(input);
-        assertEquals("This page <A HREF=\"http://columba.sourceforge.net\">http://columba.sourceforge.net</A>. is net!", result);
+        Assert.assertEquals("This page <A HREF=\"http://columba.sourceforge.net\">http://columba.sourceforge.net</A>. is net!", result);
     }
 
+    @Test
     public void testSubstituteURL5() {
         String input = "This page http://test.com/$255. is net!";
 
         String result = HtmlParser.substituteURL(input);
-        assertEquals("This page <A HREF=\"http://test.com/$255\">http://test.com/$255</A>. is net!", result);
+        Assert.assertEquals("This page <A HREF=\"http://test.com/$255\">http://test.com/$255</A>. is net!", result);
     }
-    
+
+    @Test
     public void testSubstituteURL6() {
         String input = "http://columbamail.org/jira/browse/CA-117<br>";
 
         String result = HtmlParser.substituteURL(input);
-     
-        assertEquals(
+
+        Assert.assertEquals(
                 "<A HREF=\"http://columbamail.org/jira/browse/CA-117\">http://columbamail.org/jira/browse/CA-117</A><br>",
                 result);
     }
-    
+
+    @Test
     public void testRemoveComments1() {
         String input = "<html><body><p><!- this is a text without comments -></p></body></html>";
         String result = HtmlParser.removeComments(input);
-        assertTrue(result
-                .equals("<html><body><p><!- this is a text without comments -></p></body></html>"));
+        Assert.assertTrue(result.equals("<html><body><p><!- this is a text without comments -></p></body></html>"));
     }
 
+    @Test
     public void testRemoveComments2() {
         String input = "<html><body><p><!-- this is a comment -->And some text</p></body></html>";
         String result = HtmlParser.removeComments(input);
-        assertTrue(result
-                .equals("<html><body><p>And some text</p></body></html>"));
+        Assert.assertTrue(result.equals("<html><body><p>And some text</p></body></html>"));
     }
 
+    @Test
     public void testRemoveComments3() {
-        String input = "<html><body><p><!-- this is a comment \n"
-                + "\t\twhich is spread over \n"
-                + "   multiple lines-->And some text</p> \n\n"
-                + "<h1>A header </h><!-- a little comment --><p>"
-                + "<i>The end</i></p></body></html>";
+        String input = "<html><body><p><!-- this is a comment \n" + "\t\twhich is spread over \n" + "   multiple lines-->And some text</p> \n\n" + "<h1>A header </h><!-- a little comment --><p>" + "<i>The end</i></p></body></html>";
         String result = HtmlParser.removeComments(input);
-        assertTrue(result.equals("<html><body><p>And some text</p> \n\n"
-                + "<h1>A header </h><p>" + "<i>The end</i></p></body></html>"));
+        Assert.assertTrue(result.equals("<html><body><p>And some text</p> \n\n" + "<h1>A header </h><p>" + "<i>The end</i></p></body></html>"));
     }
-    
+
+    @Test
     public void testrestoreSpecialCharacters1() {
-    	String input = "this &#59; is encoded!";
-    	
-    	assertEquals("this ; is encoded!", HtmlParser.restoreSpecialCharacters(testCharset, input));
+        String input = "this &#59; is encoded!";
+
+        Assert.assertEquals("this ; is encoded!", HtmlParser.restoreSpecialCharacters(testCharset, input));
     }
 
+    @Test
     public void testrestoreSpecialCharacters2() {
-    	String input = "this &auml; is encoded!";
-    	
-    	assertEquals("this \u00e4 is encoded!", HtmlParser.restoreSpecialCharacters(testCharset, input));
+        String input = "this &auml; is encoded!";
+
+        Assert.assertEquals("this \u00e4 is encoded!", HtmlParser.restoreSpecialCharacters(testCharset, input));
     }
 
+    @Test
     public void testrestoreSpecialCharacters3() {
-    	String input = "this is &frac12; encoded &#59; !";
-    	
-    	assertEquals("this is \u00bd encoded ; !", HtmlParser.restoreSpecialCharacters(testCharset, input));
+        String input = "this is &frac12; encoded &#59; !";
+
+        Assert.assertEquals("this is \u00bd encoded ; !", HtmlParser.restoreSpecialCharacters(testCharset, input));
     }
 
+    @Test
     public void testrestoreSpecialCharacters4() {
-    	String input = "this is&lt;encoded&gt;!";
-    	
-    	assertEquals("this is<encoded>!", HtmlParser.restoreSpecialCharacters(testCharset, input));
+        String input = "this is&lt;encoded&gt;!";
+
+        Assert.assertEquals("this is<encoded>!", HtmlParser.restoreSpecialCharacters(testCharset, input));
     }
 
+    @Test
     public void testrestoreSpecialCharacters5() {
-    	String input = "&frac12; this is &#160;this is &#59;this is &#59;this is &#59;\nthis is &#59;\nthis is &#59;";
-    	
-    	assertEquals("\u00bd this is \u00a0this is ;this is ;this is ;\nthis is ;\nthis is ;", HtmlParser.restoreSpecialCharacters(testCharset, input));
+        String input = "&frac12; this is &#160;this is &#59;this is &#59;this is &#59;\nthis is &#59;\nthis is &#59;";
+
+        Assert.assertEquals("\u00bd this is \u00a0this is ;this is ;this is ;\nthis is ;\nthis is ;", HtmlParser.restoreSpecialCharacters(testCharset, input));
     }
-    
+
+    @Test
     public void testsubstitiuteEmail1() {
-    	String input = "test@mail.com";
-    	
-    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
+        String input = "test@mail.com";
+
+        Assert.assertEquals(("<A HREF=\"mailto:" + input + "\">" + input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input));
     }
 
+    @Test
     public void testsubstitiuteEmail2() {
-    	String input = "te+st09@mail.com";
-    	
-    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
+        String input = "te+st09@mail.com";
+
+        Assert.assertEquals(("<A HREF=\"mailto:" + input + "\">" + input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input));
     }
 
+    @Test
     public void testsubstitiuteEmail3() {
-    	String input = "test09_+@mail.com";
-    	
-    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
+        String input = "test09_+@mail.com";
+
+        Assert.assertEquals(("<A HREF=\"mailto:" + input + "\">" + input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input));
     }
 
+    @Test
     public void testsubstitiuteEmail4() {
-    	String input = "test09_+@mail.af.two.three.four.five.com";
-    	
-    	assertEquals(("<A HREF=\"mailto:" + input +"\">"+ input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input) );
+        String input = "test09_+@mail.af.two.three.four.five.com";
+
+        Assert.assertEquals(("<A HREF=\"mailto:" + input + "\">" + input + "</A>").toLowerCase(), HtmlParser.substituteEmailAddress(input));
     }
 
+    @Test
     public void testsubstitiuteEmailInUrl() {
-    	String input = "http://www.supercool.com/name=super@cool.com";
-    	
-    	// url decode
-    	String firstStep = HtmlParser.substituteURL(input);
-    	
-    	assertEquals("<A HREF=\"" + input +"\">"+ input + "</A>", HtmlParser.substituteEmailAddress(firstStep) );
+        String input = "http://www.supercool.com/name=super@cool.com";
+
+        // url decode
+        String firstStep = HtmlParser.substituteURL(input);
+
+        Assert.assertEquals("<A HREF=\"" + input + "\">" + input + "</A>", HtmlParser.substituteEmailAddress(firstStep));
     }
 }

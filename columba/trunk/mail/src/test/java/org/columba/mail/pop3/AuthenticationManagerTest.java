@@ -16,38 +16,43 @@
 
 package org.columba.mail.pop3;
 
-import junit.framework.TestCase;
 
 import org.columba.mail.util.AuthenticationManager;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class AuthenticationManagerTest extends TestCase {
+public class AuthenticationManagerTest {
 
+    @Test
 	public void testCompare1() {
 		int a = AuthenticationManager.APOP;
 		int b = AuthenticationManager.LOGIN;
 		
-		assertEquals(1, AuthenticationManager.compare(a,b));
+		Assert.assertEquals(1, AuthenticationManager.compare(a,b));
 	}
-	
+
+    @Test
 	public void testCompare2() {
 		int a = AuthenticationManager.SASL_LOGIN;
 		int b = AuthenticationManager.LOGIN;
 		
-		assertEquals(0, AuthenticationManager.compare(a,b));
+		Assert.assertEquals(0, AuthenticationManager.compare(a,b));
 	}
 
+    @Test
 	public void testCompare3() {
 		int a = AuthenticationManager.POP_BEFORE_SMTP;
 		int b = AuthenticationManager.LOGIN;
 		
-		assertEquals(-1, AuthenticationManager.compare(a,b));
+		Assert.assertEquals(-1, AuthenticationManager.compare(a,b));
 	}
 
+    @Test
 	public void testCompare4() {
 		int a = AuthenticationManager.APOP;
 		int b = AuthenticationManager.SASL_DIGEST_MD5;
 		
-		assertEquals(0, AuthenticationManager.compare(a,b));
+		Assert.assertEquals(0, AuthenticationManager.compare(a,b));
 	}
 
 }

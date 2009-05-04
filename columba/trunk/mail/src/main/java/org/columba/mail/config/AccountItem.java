@@ -13,23 +13,18 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
 //
 //All Rights Reserved.
-
 package org.columba.mail.config;
-
 
 import org.columba.core.config.DefaultItem;
 import org.columba.core.xml.XmlElement;
 import org.columba.ristretto.parser.ParserException;
 
 public class AccountItem extends DefaultItem {
-  
-  	/*
-  	 * Add supported account formats here
-  	 * */
-  	public static final int POP3_ACCOUNT = 0,
-  													IMAP_ACCOUNT = 1,
-  													UNKNOWN_TYPE = -1;
-  	
+
+    /*
+     * Add supported account formats here
+     * */
+    public static final int POP3_ACCOUNT = 0,  IMAP_ACCOUNT = 1,  UNKNOWN_TYPE = -1;
     private AccountItem defaultAccount;
     //private boolean pop3;
     private Identity identity;
@@ -39,23 +34,19 @@ public class AccountItem extends DefaultItem {
     private SecurityItem pgp;
     private SpecialFoldersItem folder;
     private SpamItem spam;
-    
-		private int accountType = UNKNOWN_TYPE;
-		
+    private int accountType = UNKNOWN_TYPE;
+
     public AccountItem(XmlElement e) {
         super(e);
 
-        if (e.getElement("/popserver") != null)
-        {
-	        accountType = POP3_ACCOUNT;
+        if (e.getElement("/popserver") != null) {
+            accountType = POP3_ACCOUNT;
+        } else if (e.getElement("/imapserver") != null) {
+            accountType = IMAP_ACCOUNT;
+        } else {
+            accountType = UNKNOWN_TYPE;
         }
-        else if (e.getElement("/imapserver") != null)
-        {
-        	accountType = IMAP_ACCOUNT;  
-        }
-        else
-          accountType = UNKNOWN_TYPE;
-        
+
     }
 
     /*
@@ -64,28 +55,23 @@ public class AccountItem extends DefaultItem {
      * mail.us.myhost.com
      * 127.0.0.1
      * */
-    
-    public final String getAccountTypeDescription()
-    {
-    	switch(accountType)
-    	{
-    		case POP3_ACCOUNT:
-    		  return "POP3";
-    		case IMAP_ACCOUNT:
-    		  return "IMAP";
-    		default:
-    		  return "UNKNOWN";
-    	}
+    public final String getAccountTypeDescription() {
+        switch (accountType) {
+            case POP3_ACCOUNT:
+                return "POP3";
+            case IMAP_ACCOUNT:
+                return "IMAP";
+            default:
+                return "UNKNOWN";
+        }
     }
-    
-    public final int getAccountType()
-    {
-    	return accountType;  
+
+    public final int getAccountType() {
+        return accountType;
     }
-    
-    public boolean isPopAccount()
-    {
-      return (accountType == POP3_ACCOUNT);
+
+    public boolean isPopAccount() {
+        return (accountType == POP3_ACCOUNT);
     }
 
     public SpecialFoldersItem getSpecialFoldersItem() {
@@ -95,9 +81,7 @@ public class AccountItem extends DefaultItem {
 
         if (folder.getBoolean("use_default_account")) {
             // return default-account ImapItem instead 
-            SpecialFoldersItem item = MailConfig.getInstance().getAccountList()
-                                                          .getDefaultAccount()
-                                                          .getSpecialFoldersItem();
+            SpecialFoldersItem item = MailConfig.getInstance().getAccountList().getDefaultAccount().getSpecialFoldersItem();
 
             return item;
         }
@@ -107,8 +91,7 @@ public class AccountItem extends DefaultItem {
 
     private AccountItem getDefaultAccount() {
         if (defaultAccount == null) {
-            defaultAccount = MailConfig.getInstance().getAccountList()
-                                                 .getDefaultAccount();
+            defaultAccount = MailConfig.getInstance().getAccountList().getDefaultAccount();
         }
 
         return defaultAccount;
@@ -121,8 +104,7 @@ public class AccountItem extends DefaultItem {
 
         if (pop.getBoolean("use_default_account")) {
             // return default-account ImapItem instead 
-            PopItem item = MailConfig.getInstance().getAccountList()
-                                               .getDefaultAccount().getPopItem();
+            PopItem item = MailConfig.getInstance().getAccountList().getDefaultAccount().getPopItem();
 
             return item;
         }
@@ -131,13 +113,13 @@ public class AccountItem extends DefaultItem {
     }
 
     public IncomingItem getIncomingItem() {
-    	if( isPopAccount() ) {
-    		return getPopItem();
-    	} else {
-    		return getImapItem();
-    	}
+        if (isPopAccount()) {
+            return getPopItem();
+        } else {
+            return getImapItem();
+        }
     }
-    
+
     public OutgoingItem getSmtpItem() {
         if (smtp == null) {
             smtp = new OutgoingItem(getRoot().getElement("smtpserver"));
@@ -150,21 +132,23 @@ public class AccountItem extends DefaultItem {
 
         return smtp;
     }
-    
+
     public SpamItem getSpamItem() {
-        if ( spam == null) {
+        if (spam == null) {
             XmlElement parent = getRoot().getElement("spam");
             // create if not available
-            if ( parent == null) parent = getRoot().addSubElement("spam");
-            
+            if (parent == null) {
+                parent = getRoot().addSubElement("spam");
+            }
+
             spam = new SpamItem(parent);
         }
-        
+
         if (spam.getBoolean("use_default_account")) {
             // return default-account SpamItem instead 
             return getDefaultAccount().getSpamItem();
         }
-        
+
         return spam;
     }
 
@@ -175,8 +159,7 @@ public class AccountItem extends DefaultItem {
 
         if (pgp.getBoolean("use_default_account")) {
             // return default-account ImapItem instead 
-            SecurityItem item = MailConfig.getInstance().getAccountList()
-                                               .getDefaultAccount().getPGPItem();
+            SecurityItem item = MailConfig.getInstance().getAccountList().getDefaultAccount().getPGPItem();
 
             return item;
         }
@@ -191,9 +174,7 @@ public class AccountItem extends DefaultItem {
 
         if (imap.getBoolean("use_default_account")) {
             // return default-account ImapItem instead 
-            ImapItem item = MailConfig.getInstance().getAccountList()
-                                                .getDefaultAccount()
-                                                .getImapItem();
+            ImapItem item = MailConfig.getInstance().getAccountList().getDefaultAccount().getImapItem();
 
             return item;
         }
@@ -207,11 +188,9 @@ public class AccountItem extends DefaultItem {
     public Identity getIdentity() {
         if (identity == null) {
             XmlElement e = getRoot().getElement("identity");
-            if (Boolean.valueOf(e.getAttribute("use_default_account", "false"))
-                    .booleanValue()) {
+            if (Boolean.valueOf(e.getAttribute("use_default_account", "false")).booleanValue()) {
                 // return default-account identityItem instead
-                return MailConfig.getInstance().getAccountList().getDefaultAccount()
-                        .getIdentity();
+                return MailConfig.getInstance().getAccountList().getDefaultAccount().getIdentity();
             } else {
                 try {
                     identity = new Identity(e);

@@ -41,6 +41,4 @@ public class MHFolderFactory implements MailboxTstFactory {
                 FolderTstHelper.homeDirectory + "/folders/");
 
     }
-
-
 }

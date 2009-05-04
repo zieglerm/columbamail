@@ -17,25 +17,27 @@
 //All Rights Reserved.
 package org.columba.mail.gui.table.model;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
  * @author fdietz
  *
  */
-public class TableModelThreadedViewTest extends TestCase {
+public class TableModelThreadedViewTest{
 
     public static String[] columns = {"Subject", "From", "Date"};
 
 
+    @Test
     public void testParseReferences() {
         String references = "<ab@ab> <a@b>";
         
         String[] parsed = TableModelThreadedView.parseReferences(references);
         
-        assertEquals("<ab@ab>", parsed[0]);
-        assertEquals("<a@b>", parsed[1]);
+        Assert.assertEquals("<ab@ab>", parsed[0]);
+        Assert.assertEquals("<a@b>", parsed[1]);
     }
 
 }

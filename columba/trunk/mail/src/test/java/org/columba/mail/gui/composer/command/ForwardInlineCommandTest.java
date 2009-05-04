@@ -23,9 +23,10 @@ import java.util.List;
 import org.columba.core.command.NullWorkerStatusController;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.FolderTstHelper;
-import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.mail.gui.composer.ComposerModel;
 import org.columba.ristretto.message.InputStreamMimePart;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -33,18 +34,15 @@ import org.columba.ristretto.message.InputStreamMimePart;
  */
 public class ForwardInlineCommandTest extends AbstractComposerTst {
 
-    public ForwardInlineCommandTest(String arg0) {
-        super(arg0);
-        
-    }
     
     /**
      * @param arg0
      */
-    public ForwardInlineCommandTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public ForwardInlineCommandTest(Class factory) {
+        super(factory);
     }
 
+    @Test
     public void test() throws Exception {
 
         // add message "0.eml" as inputstream to folder
@@ -72,9 +70,10 @@ public class ForwardInlineCommandTest extends AbstractComposerTst {
 
         String subject = model.getSubject();
 
-        assertEquals("Subject", "Fwd: test", subject);
+        Assert.assertEquals("Subject", "Fwd: test", subject);
     }
-    
+
+    @Test
     public void testForewardWithAttachment() throws Exception {
         String input = FolderTstHelper.getString("0_attachment.eml");
 
@@ -95,9 +94,9 @@ public class ForwardInlineCommandTest extends AbstractComposerTst {
         ComposerModel model = command.getModel();
         List attachments = model.getAttachments();
  
-        assertEquals("There should be one attachment", 1, attachments.size());
+        Assert.assertEquals("There should be one attachment", 1, attachments.size());
         Object mimePart = attachments.get(0);
-        assertEquals(
+        Assert.assertEquals(
             "Should be type of StreamableMimePart",
             true,
             (mimePart instanceof InputStreamMimePart));

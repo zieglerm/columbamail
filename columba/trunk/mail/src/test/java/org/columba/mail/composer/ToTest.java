@@ -17,9 +17,10 @@
 //All Rights Reserved.
 package org.columba.mail.composer;
 
-import junit.framework.TestCase;
 
 import org.columba.ristretto.message.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -27,11 +28,12 @@ import org.columba.ristretto.message.Header;
  *
  * @author fdietz
  */
-public class ToTest extends TestCase {
+public class ToTest{
     /**
  * Check if Reply-To: headerfield is used as default
  *
  */
+    @Test
     public void testReplyTo() {
         String s = "donald@mail.com";
         Header header = new Header();
@@ -40,7 +42,7 @@ public class ToTest extends TestCase {
 
         String result = MessageBuilderHelper.createTo(header);
 
-        assertEquals(s, result);
+        Assert.assertEquals(s, result);
     }
 
     /**
@@ -48,6 +50,7 @@ public class ToTest extends TestCase {
  * headerfield is not available
  *
  */
+    @Test
     public void testReplyTo2() {
         String s = "donald.duck@mail.com";
         Header header = new Header();
@@ -55,7 +58,7 @@ public class ToTest extends TestCase {
 
         String result = MessageBuilderHelper.createTo(header);
 
-        assertEquals(s, result);
+        Assert.assertEquals(s, result);
     }
 
     /**
@@ -63,6 +66,7 @@ public class ToTest extends TestCase {
  * all To: and Cc: headerfields are concatenated correctly
  *
  */
+    @Test
     public void testReplyToAll() {
         String s = "donald@mail.com";
         Header header = new Header();
@@ -75,7 +79,7 @@ public class ToTest extends TestCase {
 
         String shouldbe = "donald@mail.com, dagobert.duck@mail.com, tick@mail.com, trick@mail.com, daisy@mail.com";
 
-        assertEquals(shouldbe, result);
+        Assert.assertEquals(shouldbe, result);
     }
 
     /**

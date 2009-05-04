@@ -19,6 +19,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.columba.mail.folder.command.MarkMessageCommand;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Add message to folder testcase.
@@ -28,16 +30,13 @@ import org.columba.mail.folder.command.MarkMessageCommand;
 public class AddMessageFolderTest extends AbstractFolderTst {
 
   
-    public AddMessageFolderTest(String arg0) {
-        super(arg0);
-    }
     /**
      * Constructor for CachedMHFolderTest.
      *
      * @param arg0
      */
-    public AddMessageFolderTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public AddMessageFolderTest(Class factory) {
+        super(factory);
     }
 
     /**
@@ -49,13 +48,14 @@ public class AddMessageFolderTest extends AbstractFolderTst {
      *
      * @throws Exception
      */
+    @Test
     public void testAddMessage() throws Exception {
 
         Object[] uids1 = getSourceFolder().getUids();
-        assertEquals("starting with empty folder", 0, uids1.length);
+        Assert.assertEquals("starting with empty folder", 0, uids1.length);
 
         IMailboxInfo info1 = getSourceFolder().getMessageFolderInfo();
-        assertEquals("starting with empty folder", 0, info1.getExists());
+        Assert.assertEquals("starting with empty folder", 0, info1.getExists());
 
         // add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -74,13 +74,13 @@ public class AddMessageFolderTest extends AbstractFolderTst {
         String output = FolderTstHelper.getStringFromInputStream(outputStream);
 
         // compare both messages
-        assertEquals("message source should be equal", input, output);
+        Assert.assertEquals("message source should be equal", input, output);
 
         Object[] uids = getSourceFolder().getUids();
-        assertEquals("one message should be in this folder", 1, uids.length);
+        Assert.assertEquals("one message should be in this folder", 1, uids.length);
 
         IMailboxInfo info = getSourceFolder().getMessageFolderInfo();
-        assertEquals("message-folderinfo exists", 1, info.getExists());
+        Assert.assertEquals("message-folderinfo exists", 1, info.getExists());
 
         // close streams
         inputStream.close();
@@ -91,13 +91,14 @@ public class AddMessageFolderTest extends AbstractFolderTst {
      * Check if MailFolderInfo is properly set based on message attributes.
      * <p>
      */
+    @Test
     public void testAddAttributesTest() throws Exception {
 
         Object[] uids1 = getSourceFolder().getUids();
-        assertEquals("starting with empty folder", 0, uids1.length);
+        Assert.assertEquals("starting with empty folder", 0, uids1.length);
 
         IMailboxInfo info1 = getSourceFolder().getMessageFolderInfo();
-        assertEquals("starting with empty folder", 0, info1.getExists());
+        Assert.assertEquals("starting with empty folder", 0, info1.getExists());
 
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -113,8 +114,8 @@ public class AddMessageFolderTest extends AbstractFolderTst {
 
         IMailboxInfo info = getSourceFolder().getMessageFolderInfo();
 
-        assertEquals("message-folderinfo exists", 1, info.getExists());
-        assertEquals("Number of unseen messages in folder", 0, info.getUnseen());
+        Assert.assertEquals("message-folderinfo exists", 1, info.getExists());
+        Assert.assertEquals("Number of unseen messages in folder", 0, info.getUnseen());
 
         // close streams
         inputStream.close();

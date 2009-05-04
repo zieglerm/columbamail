@@ -25,7 +25,9 @@ import org.columba.ristretto.imap.SequenceSet;
 import org.columba.ristretto.message.Header;
 import org.columba.ristretto.message.MailboxInfo;
 import org.columba.ristretto.message.MimeTree;
+import org.junit.Ignore;
 
+@Ignore
 public class TestServer implements IImapServer {
 
 	

@@ -25,6 +25,8 @@ import org.columba.mail.folder.FolderTstHelper;
 import org.columba.mail.folder.IMailboxInfo;
 import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.ristretto.message.Flags;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -32,15 +34,11 @@ import org.columba.ristretto.message.Flags;
  */
 public class CopyMessageCommandTest extends AbstractFolderTst {
 
-	public CopyMessageCommandTest(String arg0) {
-		super(arg0);
-	}
-
 	/**
 	 * @param arg0
 	 */
-	public CopyMessageCommandTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public CopyMessageCommandTest(Class factory) {
+		super(factory);
 	}
 
 	/**
@@ -48,6 +46,7 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testCopyMessage() throws Exception {
 		// add message "0.eml" as inputstream to folder
 		String input = FolderTstHelper.getString(0);
@@ -74,12 +73,12 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 		// create string from inputstream
 		String output = FolderTstHelper.getStringFromInputStream(outputStream);
 		// compare both messages
-		assertEquals(input, output);
+		Assert.assertEquals(input, output);
 		Object[] uids = getDestFolder().getUids();
-		assertEquals("one message should be in destination folder", 1,
+		Assert.assertEquals("one message should be in destination folder", 1,
 				uids.length);
 		IMailboxInfo info = getDestFolder().getMessageFolderInfo();
-		assertEquals("one message should be in destination folder", 1, info
+		Assert.assertEquals("one message should be in destination folder", 1, info
 				.getExists());
 		// close streams
 		inputStream.close();
@@ -92,6 +91,7 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testCopyMessageAttribute() throws Exception {
 		//  add message "0.eml" as inputstream to folder
 		String input = FolderTstHelper.getString(0);
@@ -123,7 +123,7 @@ public class CopyMessageCommandTest extends AbstractFolderTst {
 
 		Flags flags = getDestFolder().getFlags(uid);
 
-		assertEquals("copied message should be marked as not seen", false,
+		Assert.assertEquals("copied message should be marked as not seen", false,
 				flags.getSeen());
 		/*
 		 * assertEquals("copied message should be marked as recent", true, flags

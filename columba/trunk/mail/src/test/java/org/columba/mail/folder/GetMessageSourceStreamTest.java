@@ -17,6 +17,8 @@ package org.columba.mail.folder;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -25,17 +27,12 @@ import java.io.InputStream;
  */
 public class GetMessageSourceStreamTest extends AbstractFolderTst {
 
-    
-    public GetMessageSourceStreamTest(String arg0) {
-        super(arg0);
-    }
-    
     /**
      * @param factory
      * @param test
      */
-    public GetMessageSourceStreamTest(MailboxTstFactory factory, String test) {
-        super(factory, test);
+    public GetMessageSourceStreamTest(Class factory) {
+        super(factory);
     }
 
     /**
@@ -43,6 +40,7 @@ public class GetMessageSourceStreamTest extends AbstractFolderTst {
      * correct data.
      *
      */
+    @Test
     public void test() throws Exception {
         // add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -61,7 +59,7 @@ public class GetMessageSourceStreamTest extends AbstractFolderTst {
         String output = FolderTstHelper.getStringFromInputStream(outputStream);
 
         // compare both messages
-        assertEquals("message source should be equal", input, output);
+        Assert.assertEquals("message source should be equal", input, output);
 
         outputStream.close();
     }

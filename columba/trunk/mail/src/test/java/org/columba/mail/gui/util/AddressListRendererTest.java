@@ -15,13 +15,13 @@
 //All Rights Reserved.
 package org.columba.mail.gui.util;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.message.Address;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  */
-public class AddressListRendererTest extends TestCase {
+public class AddressListRendererTest {
 
     /**
      * Test to send an empty Address array to the list.
@@ -29,6 +29,7 @@ public class AddressListRendererTest extends TestCase {
      * an empty array is sent in.
      * @author redsolo
      */
+    @Test
     public void testRenderWithEmptyArray() {
         Address[] addresses = new Address[0];
         AddressListRenderer.renderToHTMLWithLinks(addresses);
@@ -37,33 +38,36 @@ public class AddressListRendererTest extends TestCase {
     /**
      * Test the rendering with only one address.
      */
+    @Test
     public void testRenderWithSingleItem() {
         Address[] addresses = new Address[] {new Address("email@internet.org")};
         String actual = AddressListRenderer.renderToHTMLWithLinks(addresses).toString();
         String expected = "<a href=\"mailto:email@internet.org\">email@internet.org</a>";
-        assertEquals("address wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
+        Assert.assertEquals("address wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
     }
 
     /**
      * Test the rendering with multiple addresses.
      */
+    @Test
     public void testRenderWithMultipleItems() {
         Address[] addresses = new Address[] {new Address("email@internet.org"), new Address("ftp@internet.org"), new Address("web@internet.org")};
         String actual = AddressListRenderer.renderToHTMLWithLinks(addresses).toString();
         String expected = "<a href=\"mailto:email@internet.org\">email@internet.org</a>, "
                 + "<a href=\"mailto:ftp@internet.org\">ftp@internet.org</a>, "
                 + "<a href=\"mailto:web@internet.org\">web@internet.org</a>";
-        assertEquals("addresses wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
+        Assert.assertEquals("addresses wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
     }
 
     /**
      * Test the rendering with multiple addresses with display names.
      */
+    @Test
     public void testRenderWithDisplayName() {
         Address[] addresses = new Address[] {new Address("Emil", "email@internet.org"), new Address("Alfred", "ftp@internet.org")};
         String actual = AddressListRenderer.renderToHTMLWithLinks(addresses).toString();
         String expected = "<a href=\"mailto:email@internet.org\">Emil &lt;email@internet.org&gt;</a>, "
             + "<a href=\"mailto:ftp@internet.org\">Alfred &lt;ftp@internet.org&gt;</a>";
-        assertEquals("address wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
+        Assert.assertEquals("address wasnt rendered correctly", expected.toLowerCase(), actual.toLowerCase());
     }
 }

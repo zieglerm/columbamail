@@ -18,6 +18,8 @@
 package org.columba.mail.folder;
 
 import java.io.ByteArrayInputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -27,16 +29,12 @@ import java.io.ByteArrayInputStream;
  *
  */
 public class AttributeTest extends AbstractFolderTst {
-
-    public AttributeTest(String arg0) {
-        super(arg0);
-    }
     /**
      * @param factory
      * @param test
      */
-    public AttributeTest(MailboxTstFactory factory, String test) {
-        super(factory, test);
+    public AttributeTest(Class factory) {
+        super(factory);
         
     }
 
@@ -44,6 +42,7 @@ public class AttributeTest extends AbstractFolderTst {
      * Check set/get attributes
      * @throws Exception
      */
+    @Test
     public void test() throws Exception {
 //      add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -59,6 +58,6 @@ public class AttributeTest extends AbstractFolderTst {
         
         Boolean result = (Boolean) getSourceFolder().getAttribute(uid, "columba.spam");
         
-        assertEquals("attribute columba.spam", Boolean.TRUE, result);
+        Assert.assertEquals("attribute columba.spam", Boolean.TRUE, result);
     }
 }

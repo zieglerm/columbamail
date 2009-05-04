@@ -17,81 +17,88 @@
 package org.columba.mail.main;
 
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class MessageOptionParserTest {
 
-public class MessageOptionParserTest extends TestCase {
-
+    @Test
 	public void testSingle() {
 		String input = "to=test@star.de";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(1, result.keySet().size());
-		assertEquals("test@star.de", result.get("to"));		
+		Assert.assertEquals(1, result.keySet().size());
+		Assert.assertEquals("test@star.de", result.get("to"));
 	}
-	
+
+    @Test
 	public void testSingleQuoted() {
 		String input = "\"to=test@star.de\"";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(1, result.keySet().size());
-		assertEquals("test@star.de", result.get("to"));		
+		Assert.assertEquals(1, result.keySet().size());
+		Assert.assertEquals("test@star.de", result.get("to"));
 	}
 
+    @Test
 	public void testSingleEscaped() {
 		String input = "subject=\\'High\\' comma!";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(1, result.keySet().size());
-		assertEquals("'High' comma!", result.get("subject"));		
+		Assert.assertEquals(1, result.keySet().size());
+		Assert.assertEquals("'High' comma!", result.get("subject"));
 	}
 
+    @Test
 	public void testMultiple() {
 		String input = "to=test@star.de,subject=this is amazing!";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(2, result.keySet().size());
-		assertEquals("test@star.de", result.get("to"));
-		assertEquals("this is amazing!", result.get("subject") );
+		Assert.assertEquals(2, result.keySet().size());
+		Assert.assertEquals("test@star.de", result.get("to"));
+		Assert.assertEquals("this is amazing!", result.get("subject") );
 	}
 
+    @Test
 	public void testSingleWithMultiValue() {
 		String input = "to='test@star.de,toast@star.de'";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(1, result.keySet().size());
-		assertEquals(2,((String[])result.get("to")).length);
-		assertEquals("test@star.de", ((String[])result.get("to"))[0] );		
-		assertEquals("toast@star.de", ((String[])result.get("to"))[1] );		
+		Assert.assertEquals(1, result.keySet().size());
+		Assert.assertEquals(2,((String[])result.get("to")).length);
+		Assert.assertEquals("test@star.de", ((String[])result.get("to"))[0] );
+		Assert.assertEquals("toast@star.de", ((String[])result.get("to"))[1] );
 	}
 
+    @Test
 	public void testMultipleWithMultiValue() {
 		String input = "to='test@star.de,toast@star.de',from='test@star.de,toast@star.de'";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(2, result.keySet().size());
-		assertEquals(2,((String[])result.get("to")).length);
-		assertEquals("test@star.de", ((String[])result.get("to"))[0] );		
-		assertEquals("toast@star.de", ((String[])result.get("to"))[1] );		
+		Assert.assertEquals(2, result.keySet().size());
+		Assert.assertEquals(2,((String[])result.get("to")).length);
+		Assert.assertEquals("test@star.de", ((String[])result.get("to"))[0] );
+		Assert.assertEquals("toast@star.de", ((String[])result.get("to"))[1] );
 
-		assertEquals(2,((String[])result.get("from")).length);
-		assertEquals("test@star.de", ((String[])result.get("from"))[0] );		
-		assertEquals("toast@star.de", ((String[])result.get("from"))[1] );		
+		Assert.assertEquals(2,((String[])result.get("from")).length);
+		Assert.assertEquals("test@star.de", ((String[])result.get("from"))[0] );
+		Assert.assertEquals("toast@star.de", ((String[])result.get("from"))[1] );
 	}
 
+    @Test
 	public void testMultipleMixed() {
 		String input = "to='test@star.de,toast@star.de',subject=Hello World!,from='test@star.de,toast@star.de'";
 		Map result = MessageOptionParser.parse(input);
 		
-		assertEquals(3, result.keySet().size());
-		assertEquals(2,((String[])result.get("to")).length);
-		assertEquals("test@star.de", ((String[])result.get("to"))[0] );		
-		assertEquals("toast@star.de", ((String[])result.get("to"))[1] );		
+		Assert.assertEquals(3, result.keySet().size());
+		Assert.assertEquals(2,((String[])result.get("to")).length);
+		Assert.assertEquals("test@star.de", ((String[])result.get("to"))[0] );
+		Assert.assertEquals("toast@star.de", ((String[])result.get("to"))[1] );
 
-		assertEquals(2,((String[])result.get("from")).length);
-		assertEquals("test@star.de", ((String[])result.get("from"))[0] );		
-		assertEquals("toast@star.de", ((String[])result.get("from"))[1] );
+		Assert.assertEquals(2,((String[])result.get("from")).length);
+		Assert.assertEquals("test@star.de", ((String[])result.get("from"))[0] );
+		Assert.assertEquals("toast@star.de", ((String[])result.get("from"))[1] );
 		
-		assertEquals("Hello World!", result.get("subject"));
+		Assert.assertEquals("Hello World!", result.get("subject"));
 	}
 }

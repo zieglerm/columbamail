@@ -22,7 +22,8 @@ import java.util.GregorianCalendar;
 
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
-import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -33,16 +34,8 @@ public class DateFilterTest extends AbstractFilterTst {
 	/**
 	 * @param arg0
 	 */
-	public DateFilterTest(String arg0) {
-		super(arg0);
-
-	}
-
-	/**
-	 * @param arg0
-	 */
-	public DateFilterTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public DateFilterTest(Class factory) {
+		super(factory);
 
 	}
 
@@ -51,6 +44,7 @@ public class DateFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testBefore() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -82,6 +76,7 @@ public class DateFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testAfter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -103,6 +98,6 @@ public class DateFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", false, result);
+		Assert.assertEquals("filter result", false, result);
 	}
 }

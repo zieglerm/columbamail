@@ -15,7 +15,6 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
-
 package org.columba.mail.config;
 
 import java.io.File;
@@ -30,7 +29,6 @@ import org.columba.core.xml.XmlIO;
 public class AccountList extends DefaultItem {
 
     protected int nextUid;
-
     protected AccountItem defaultAccount;
 
     public AccountList(XmlElement root) {
@@ -76,7 +74,9 @@ public class AccountList extends DefaultItem {
 
             int u = Integer.parseInt(e.getAttribute("uid"));
 
-            if (uid == u) { return new AccountItem(e); }
+            if (uid == u) {
+                return new AccountItem(e);
+            }
         }
 
         return null;
@@ -97,7 +97,9 @@ public class AccountList extends DefaultItem {
 
             if (to.indexOf(id) != -1) {
                 return pgpItem;
-            } else if (id.indexOf(to) != -1) { return pgpItem; }
+            } else if (id.indexOf(to) != -1) {
+                return pgpItem;
+            }
         }
 
         return null;
@@ -129,7 +131,9 @@ public class AccountList extends DefaultItem {
         XmlElement server;
         XmlElement identity;
 
-        if (address == null) { return get(0); }
+        if (address == null) {
+            return get(0);
+        }
 
         for (int i = 0; i < count(); i++) {
             account = getChildElement(i);
@@ -167,13 +171,11 @@ public class AccountList extends DefaultItem {
         xmlIo.load(url);
         XmlElement root = xmlIo.getRoot();
         // get pop3 or imap account xml node
-        XmlElement emptyAccount = root.getElement("/template/" + type
-                + "/account");
+        XmlElement emptyAccount = root.getElement("/template/" + type + "/account");
 
 
         if (emptyAccount != null) {
-            AccountItem newAccount = new AccountItem((XmlElement) emptyAccount
-                    .clone());
+            AccountItem newAccount = new AccountItem((XmlElement) emptyAccount.clone());
             newAccount.setInteger("uid", getNextUid());
             add(newAccount);
 
@@ -183,12 +185,12 @@ public class AccountList extends DefaultItem {
 
             String sigURL = "org/columba/mail/config/default_signature.txt";
             try {
-				DiskIO.copyResource(sigURL, signatureFile);
+                DiskIO.copyResource(sigURL, signatureFile);
 
-				newAccount.getIdentity().setSignature(signatureFile);
-			} catch (IOException e) {
-				//Do nothing
-			}
+                newAccount.getIdentity().setSignature(signatureFile);
+            } catch (IOException e) {
+                //Do nothing
+            }
 
 
             return newAccount;
@@ -233,10 +235,14 @@ public class AccountList extends DefaultItem {
 
     public AccountItem getDefaultAccount() {
         if (defaultAccount == null) {
-            defaultAccount = uidGet(getDefaultAccountUid());
+            int uid = getDefaultAccountUid();
+            if (-1 != uid) {
+                defaultAccount = uidGet(uid);
+            }
+
             // fall back to first account as default
-            if ( defaultAccount == null ) {
-            	defaultAccount = get(0);
+            if (defaultAccount == null) {
+                defaultAccount = get(0);
             }
         }
 

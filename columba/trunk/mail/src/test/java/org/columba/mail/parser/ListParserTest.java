@@ -19,48 +19,52 @@ package org.columba.mail.parser;
 
 import java.util.List;
 import java.util.Vector;
-
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  * 
  */
-public class ListParserTest extends TestCase {
+public class ListParserTest {
 
+    @Test
 	public void testCreateListFromStringNull() {
 
 		try {
 			ListParser.createListFromString(null);
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
+    @Test
 	public void testCreateListFromStringEmpty() {
 		String s = "";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 0", 0, l.size());
+		Assert.assertEquals("list size 0", 0, l.size());
 	}
 
+    @Test
 	public void testCreateListFromString() {
 		String s = "test@test.de";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 1", 1, l.size());
+		Assert.assertEquals("list size 1", 1, l.size());
 
-		assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("test@test.de", l.get(0));
 	}
 
+    @Test
 	public void testCreateListFromString2() {
 		String s = "test@test.de, test2@test2.de";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 2", 2, l.size());
+		Assert.assertEquals("list size 2", 2, l.size());
 
-		assertEquals("test@test.de", l.get(0));
-		assertEquals("test2@test2.de", l.get(1));
+		Assert.assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("test2@test2.de", l.get(1));
 
 	}
 
@@ -68,31 +72,33 @@ public class ListParserTest extends TestCase {
 	 * test if leading or trailing whitespaces are trimmed correctly
 	 * 
 	 */
+    @Test
 	public void testCreateListFromString3() {
 		String s = "test@test.de,test2@test2.de, MyGroup,  My Test Group";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 4", 4, l.size());
+		Assert.assertEquals("list size 4", 4, l.size());
 
-		assertEquals("test@test.de", l.get(0));
-		assertEquals("test2@test2.de", l.get(1));
-		assertEquals("MyGroup", l.get(2));
-		assertEquals("My Test Group", l.get(3));
+		Assert.assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("test2@test2.de", l.get(1));
+		Assert.assertEquals("MyGroup", l.get(2));
+		Assert.assertEquals("My Test Group", l.get(3));
 	}
 
 	/**
 	 * test if a comma doesn't disturb our parser if enclosed in double-quotes
 	 * 
 	 */
+    @Test
 	public void testCreateListFromString4() {
 		String s = "test@test.de, Firstname Lastname, \"Lastname, Firstname\"";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 3", 3, l.size());
+		Assert.assertEquals("list size 3", 3, l.size());
 
-		assertEquals("test@test.de", l.get(0));
-		assertEquals("Firstname Lastname", l.get(1));
-		assertEquals("Lastname, Firstname", l.get(2));
+		Assert.assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("Firstname Lastname", l.get(1));
+		Assert.assertEquals("Lastname, Firstname", l.get(2));
 
 	}
 
@@ -100,55 +106,61 @@ public class ListParserTest extends TestCase {
 	 * test if \" characters are removed in the list, we only need this in the
 	 * String representation
 	 */
+    @Test
 	public void testCreateListFromString5() {
 		String s = "test@test.de, \"Firstname Lastname\", \"Lastname, Firstname\"";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 3", 3, l.size());
+		Assert.assertEquals("list size 3", 3, l.size());
 
-		assertEquals("test@test.de", l.get(0));
-		assertEquals("Firstname Lastname", l.get(1));
-		assertEquals("Lastname, Firstname", l.get(2));
+		Assert.assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("Firstname Lastname", l.get(1));
+		Assert.assertEquals("Lastname, Firstname", l.get(2));
 	}
 
 	/**
 	 * Test displayname and address with and without comma
 	 */
+    @Test
 	public void testCreateListFromString6() {
 		String s = "test@test.de, \"Firstname Lastname\" <mail@mail.org>, \"Lastname, Firstname\" <mail@mail.org>";
 
 		List<String> l = ListParser.createListFromString(s);
-		assertEquals("list size 3", 3, l.size());
+		Assert.assertEquals("list size 3", 3, l.size());
 
-		assertEquals("test@test.de", l.get(0));
-		assertEquals("Firstname Lastname <mail@mail.org>", l.get(1));
-		assertEquals("Lastname, Firstname <mail@mail.org>", l.get(2));
+		Assert.assertEquals("test@test.de", l.get(0));
+		Assert.assertEquals("Firstname Lastname <mail@mail.org>", l.get(1));
+		Assert.assertEquals("Lastname, Firstname <mail@mail.org>", l.get(2));
 	}
 
+    @Test
 	public void testCreateStringFromListNull() {
 		try {
 			ListParser.createStringFromList(new Vector<String>(), null);
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
+    @Test
 	public void testCreateStringFromListNull2() {
 		try {
 			ListParser.createStringFromList(null, ";");
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
+    @Test
 	public void testCreateStringFromListEmpty() {
 
 		List<String> list = new Vector<String>();
 
 		String result = ListParser.createStringFromList(list, ";");
-		assertEquals("", result);
+		Assert.assertEquals("", result);
 	}
 
+    @Test
 	public void testCreateStringFromList() {
 
 		List<String> list = new Vector<String>();
@@ -156,12 +168,13 @@ public class ListParserTest extends TestCase {
 		list.add("test2@test2.de");
 
 		String result = ListParser.createStringFromList(list, ",");
-		assertEquals("test@test.de, test2@test2.de, ", result);
+		Assert.assertEquals("test@test.de, test2@test2.de, ", result);
 	}
 	
 	/**
 	 * Test if \" character disturbs our parser
 	 */
+    @Test
 	public void testCreateStringFromList2() {
 
 		List<String> list = new Vector<String>();
@@ -169,7 +182,7 @@ public class ListParserTest extends TestCase {
 		list.add("\"My yours and he's list\"");
 
 		String result = ListParser.createStringFromList(list, ",");
-		assertEquals("test@test.de, My yours and he's list, ", result);
+		Assert.assertEquals("test@test.de, My yours and he's list, ", result);
 	}
 	
 
@@ -177,6 +190,7 @@ public class ListParserTest extends TestCase {
 	 * Test if "," inside a contact item is escaped correctly
 	 *
 	 */
+    @Test
 	public void testCreateStringFromList4() {
 
 		List<String> list = new Vector<String>();
@@ -185,13 +199,14 @@ public class ListParserTest extends TestCase {
 		list.add("\"Lastname, Firstname\"");
 		
 		String result = ListParser.createStringFromList(list, ",");
-		assertEquals("test@test.de, Firstname Lastname, \"Lastname, Firstname\", ", result);
+		Assert.assertEquals("test@test.de, Firstname Lastname, \"Lastname, Firstname\", ", result);
 	}
 	
 	/**
 	 * Test what parser does if contact item already contains an escaped 
 	 * representation
 	 */
+    @Test
 	public void testCreateStringFromList5() {
 
 		List<String> list = new Vector<String>();
@@ -200,9 +215,6 @@ public class ListParserTest extends TestCase {
 		list.add("\"Lastname, Firstname\" <mail@mail.org>");
 		
 		String result = ListParser.createStringFromList(list, ",");
-		assertEquals("test@test.de, Firstname Lastname <mail@mail.org>, \"Lastname, Firstname\" <mail@mail.org>, ", result);
+		Assert.assertEquals("test@test.de, Firstname Lastname <mail@mail.org>, \"Lastname, Firstname\" <mail@mail.org>, ", result);
 	}
-
-	
-
 }

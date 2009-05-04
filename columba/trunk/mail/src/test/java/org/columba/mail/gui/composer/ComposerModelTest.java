@@ -17,12 +17,14 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer;
 
-import junit.framework.TestCase;
+import org.junit.Ignore;
+
 
 /**
  * @author fdietz
  * 
  */
-public class ComposerModelTest extends TestCase {
+@Ignore
+public class ComposerModelTest {
 
 }

@@ -21,22 +21,20 @@ import java.io.ByteArrayInputStream;
 
 import org.columba.mail.folder.command.MarkMessageCommand;
 import org.columba.ristretto.message.Flags;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  *  
  */
 public class ExpungeFolderTest extends AbstractFolderTst {
-
-    public ExpungeFolderTest(String arg0) {
-        super(arg0);
-    }
     
     /**
      * @param arg0
      */
-    public ExpungeFolderTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public ExpungeFolderTest(Class factory) {
+        super(factory);
 
     }
 
@@ -45,6 +43,7 @@ public class ExpungeFolderTest extends AbstractFolderTst {
      * 
      * @throws Exception
      */
+    @Test
     public void testExpungeMessage() throws Exception {
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -65,9 +64,9 @@ public class ExpungeFolderTest extends AbstractFolderTst {
         getSourceFolder().expungeFolder();
 
         Object[] uids = getSourceFolder().getUids();
-        assertEquals("one message should be in source folder", 1, uids.length);
+        Assert.assertEquals("one message should be in source folder", 1, uids.length);
         IMailboxInfo info = getSourceFolder().getMessageFolderInfo();
-        assertEquals("one message should be in source folder", 1, info
+        Assert.assertEquals("one message should be in source folder", 1, info
                 .getExists());
         // close streams
         inputStream.close();
@@ -78,6 +77,7 @@ public class ExpungeFolderTest extends AbstractFolderTst {
      * 
      * @throws Exception
      */
+    @Test
     public void testExpungeMessage2() throws Exception {
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -93,9 +93,9 @@ public class ExpungeFolderTest extends AbstractFolderTst {
         getSourceFolder().expungeFolder();
 
         Object[] uids = getSourceFolder().getUids();
-        assertEquals("null message should be in source folder", 0, uids.length);
+        Assert.assertEquals("null message should be in source folder", 0, uids.length);
         IMailboxInfo info = getSourceFolder().getMessageFolderInfo();
-        assertEquals("null message should be in source folder", 0, info
+        Assert.assertEquals("null message should be in source folder", 0, info
                 .getExists());
         // close streams
         inputStream.close();

@@ -20,6 +20,8 @@ package org.columba.mail.filter.plugins;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -30,19 +32,12 @@ public class PriorityFilterTest extends AbstractFilterTst {
 	/**
 	 *  
 	 */
-	public PriorityFilterTest(String arg0) {
-		super(arg0);
+	public PriorityFilterTest(Class factory) {
+		super(factory);
 
 	}
 
-	/**
-	 *  
-	 */
-	public PriorityFilterTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
-
-	}
-
+    @Test
 	public void testHighest() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -60,9 +55,10 @@ public class PriorityFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 
+    @Test
 	public void testNormal() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -80,9 +76,10 @@ public class PriorityFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 
+    @Test
 	public void testLowest() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -100,6 +97,6 @@ public class PriorityFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 }

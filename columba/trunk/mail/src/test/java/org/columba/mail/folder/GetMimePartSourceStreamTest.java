@@ -19,6 +19,8 @@ package org.columba.mail.folder;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -26,17 +28,11 @@ import java.io.InputStream;
  */
 public class GetMimePartSourceStreamTest extends AbstractFolderTst {
 
-    public GetMimePartSourceStreamTest(String arg0) {
-        super(arg0);
-    }
-    
     /**
      * @param factory
-     * @param test
      */
-    public GetMimePartSourceStreamTest(MailboxTstFactory factory, String test) {
-        super(factory, test);
-
+    public GetMimePartSourceStreamTest(Class factory) {
+        super(factory);
     }
 
    
@@ -45,6 +41,7 @@ public class GetMimePartSourceStreamTest extends AbstractFolderTst {
      * 
      * @throws Exception
      */
+    @Test
     public void test() throws Exception {
         // add message "1.eml" as inputstream to folder
         String input = FolderTstHelper.getString(1);
@@ -66,6 +63,6 @@ public class GetMimePartSourceStreamTest extends AbstractFolderTst {
         input = FolderTstHelper.getString("1_1_mimepart.eml");
         
         // compare both messages
-        assertEquals("message source should be equal", input, output);
+        Assert.assertEquals("message source should be equal", input, output);
     }
 }

@@ -20,6 +20,8 @@ package org.columba.mail.filter.plugins;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -27,24 +29,18 @@ import org.columba.mail.folder.MailboxTstFactory;
  *  
  */
 public class SizeFilterTest extends AbstractFilterTst {
- /**
- * @param arg0
- */
-    public SizeFilterTest(String arg0) {
-        super(arg0);
-        
-    }
 
 	/**
 	 * Constructor for SizeFilterTest.
 	 *  
 	 * @param arg0
 	 */
-	public SizeFilterTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public SizeFilterTest(Class factory) {
+		super(factory);
 
 	}
-	
+
+    @Test
     public void testSizeFilter() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -68,6 +64,6 @@ public class SizeFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
 }

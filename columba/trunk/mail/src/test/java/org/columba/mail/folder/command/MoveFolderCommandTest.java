@@ -16,21 +16,18 @@
 package org.columba.mail.folder.command;
 
 import org.columba.mail.folder.AbstractFolderTst;
-import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Ignore;
 
 /**
  * Test cases for the MoveFolder command.
  * 
  * @author redsolo
  */
+@Ignore
 public class MoveFolderCommandTest extends AbstractFolderTst {
 
-	public MoveFolderCommandTest(String arg0) {
-		super(arg0);
-	}
-
-	public MoveFolderCommandTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public MoveFolderCommandTest(Class factory) {
+		super(factory);
 	}
 
 	/**
@@ -39,6 +36,7 @@ public class MoveFolderCommandTest extends AbstractFolderTst {
 	 * @throws Exception
 	 *             thrown for any bad reason if the command goes wrong.
 	 */
+    @Ignore
 	public void testMoveFolder() throws Exception {
 		// @author: fdietz
 		// Disabled this testcase, as it doesn't really fit into

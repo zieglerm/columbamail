@@ -17,22 +17,15 @@
 //All Rights Reserved.
 package org.columba.mail.composer;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 
 /**
  * @author fdietz
  */
-public class AllTests extends TestSuite {
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.columba.mail.composer");
-
-        //$JUnit-BEGIN$
-        suite.addTestSuite(SubjectTest.class);
-        suite.addTestSuite(ToTest.class);
-
-        //$JUnit-END$	
-        return suite;
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({SubjectTest.class,ToTest.class})
+public class AllTests {
+    
 }

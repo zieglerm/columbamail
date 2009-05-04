@@ -17,7 +17,9 @@
 //All Rights Reserved.
 package org.columba.mail.composer;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 
 
 /**
@@ -29,53 +31,57 @@ import junit.framework.TestCase;
  *
  * @author fdietz
  */
-public class SubjectTest extends TestCase {
+public class SubjectTest  {
     /**
  * Check if "Re: " is correctly prepended
  *
  */
+    @Test
     public void testReply() {
         String s = "Subject";
 
         String result = MessageBuilderHelper.createReplySubject(s);
 
-        assertEquals("Re: Subject", result);
+        Assert.assertEquals("Re: Subject", result);
     }
 
     /**
  * Check if "Fwd: " is correctly prepended
  *
  */
+    @Test
     public void testForward() {
         String s = "Subject";
 
         String result = MessageBuilderHelper.createForwardSubject(s);
 
-        assertEquals("Fwd: Subject", result);
+        Assert.assertEquals("Fwd: Subject", result);
     }
 
     /**
  * Check if "Re: " is only prepended if not already found in string
  *
  */
+    @Test
     public void testReply2() {
         String s = "Re: Subject";
 
         String result = MessageBuilderHelper.createReplySubject(s);
 
-        assertEquals("Re: Subject", result);
+        Assert.assertEquals("Re: Subject", result);
     }
 
     /**
  * Check if "Fwd: " is only prepended if not already found in string
  *
  */
+    @Test
     public void testForward2() {
         String s = "Fwd: Subject";
 
         String result = MessageBuilderHelper.createForwardSubject(s);
 
-        assertEquals("Fwd: Subject", result);
+        Assert.assertEquals("Fwd: Subject", result);
     }
 
     /**
@@ -83,12 +89,13 @@ public class SubjectTest extends TestCase {
  * <p>
  * Note, the missing space
  */
+    @Test
     public void testReply3() {
         String s = "Re:Subject";
 
         String result = MessageBuilderHelper.createReplySubject(s);
 
-        assertEquals("Re:Subject", result);
+        Assert.assertEquals("Re:Subject", result);
     }
 
     /**
@@ -97,73 +104,77 @@ public class SubjectTest extends TestCase {
  * Note, the missing space
  *
  */
+    @Test
     public void testForward3() {
         String s = "Fwd:Subject";
 
         String result = MessageBuilderHelper.createForwardSubject(s);
 
-        assertEquals("Fwd:Subject", result);
+        Assert.assertEquals("Fwd:Subject", result);
     }
 
     /**
  * Test if string is matched correctly.
  *
  */
+    @Test
     public void testAlreadyInString() {
         String s = "Test: Hallo";
 
         boolean result = MessageBuilderHelper.isAlreadyReply(s, "test:");
 
-        assertTrue(result);
+        Assert.assertTrue(result);
     }
 
     /**
  * Test for adding the "Re" when replying to mailing list messages.
  */
+    @Test
     public void testMailingListReplies() {
         String s = "[columba.devel] a subject";
         String result = MessageBuilderHelper.createReplySubject(s);
-        assertEquals("The \"Re:\" was not added to the subject",
+        Assert.assertEquals("The \"Re:\" was not added to the subject",
             "Re: [columba.devel] a subject", result);
 
         s = "Re:[columba-devel]test-subject";
         result = MessageBuilderHelper.createReplySubject(s);
-        assertEquals("The \"Re:\" was added to the subject",
+        Assert.assertEquals("The \"Re:\" was added to the subject",
             "Re:[columba-devel]test-subject", result);
 
         s = "[columba-devel] Re:] Test";
         result = MessageBuilderHelper.createReplySubject(s);
-        assertEquals("The \"Re:\" was added to the subject",
+        Assert.assertEquals("The \"Re:\" was added to the subject",
             "[columba-devel] Re:] Test", result);
 
         s = "[columba-devel] Re: Re: re: Re: Test";
         result = MessageBuilderHelper.createReplySubject(s);
-        assertEquals("The \"Re:\" was added to the subject",
+        Assert.assertEquals("The \"Re:\" was added to the subject",
             "[columba-devel] Re: Re: re: Re: Test", result);
     }
 
     /**
  * Test for adding the "fwd" when forwarding messages from a mailing list.
  */
+    @Test
     public void testMailingListForwards() {
         String s = "[columba.devel] a subject";
         String result = MessageBuilderHelper.createForwardSubject(s);
-        assertEquals("The \"Fwd:\" was not added to the subject",
+        Assert.assertEquals("The \"Fwd:\" was not added to the subject",
             "Fwd: [columba.devel] a subject", result);
 
         s = "Fwd:[columba-devel]test-subject";
         result = MessageBuilderHelper.createForwardSubject(s);
-        assertEquals("The \"Fwd:\" was added to the subject",
+        Assert.assertEquals("The \"Fwd:\" was added to the subject",
             "Fwd:[columba-devel]test-subject", result);
 
         s = "[columba-devel] Fwd:] Test";
         result = MessageBuilderHelper.createForwardSubject(s);
-        assertEquals("The \"Fwd:\" was added to the subject",
+        Assert.assertEquals("The \"Fwd:\" was added to the subject",
             "[columba-devel] Fwd:] Test", result);
 
         s = "[columba-devel] Fwd: Re: re: Re: Test";
         result = MessageBuilderHelper.createForwardSubject(s);
-        assertEquals("The \"Fwd:\" was added to the subject",
+        Assert.assertEquals("The \"Fwd:\" was added to the subject",
             "[columba-devel] Fwd: Re: re: Re: Test", result);
     }
 }

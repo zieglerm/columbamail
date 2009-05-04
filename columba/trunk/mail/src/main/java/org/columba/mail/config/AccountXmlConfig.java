@@ -13,7 +13,6 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
 //
 //All Rights Reserved.
-
 package org.columba.mail.config;
 
 import java.io.File;
@@ -21,12 +20,13 @@ import java.io.File;
 import org.columba.core.config.DefaultXmlConfig;
 
 public class AccountXmlConfig extends DefaultXmlConfig {
+
     private AccountList list;
 
     public AccountXmlConfig(File file) {
         super(file);
     }
-    
+
     public AccountList getAccountList() {
         if (list == null) {
             list = new AccountList(getRoot().getElement("/accountlist"));

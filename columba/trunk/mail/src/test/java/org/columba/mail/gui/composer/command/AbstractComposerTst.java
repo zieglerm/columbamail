@@ -20,10 +20,7 @@ package org.columba.mail.gui.composer.command;
 import java.io.File;
 
 import org.columba.core.io.DiskIO;
-import org.columba.mail.config.AccountList;
-import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.AbstractFolderTst;
-import org.columba.mail.folder.MailboxTstFactory;
 
 /**
  * @author fdietz
@@ -33,37 +30,36 @@ public class AbstractComposerTst extends AbstractFolderTst {
 
     private File file;
 
-    public AbstractComposerTst(String arg0) {
-        super(arg0);
-        
-    }
     /**
      * @param arg0
      */
-    public AbstractComposerTst(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public AbstractComposerTst(Class factory) {
+        super(factory);
     }
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Override
+    public void setUp() throws Exception {
 
-    	super.setUp();
-    	    
-        //AccountList list = MailConfig.getInstance().getAccountList();
-        //list.addEmptyAccount("pop3");
+        super.setUp();
+
+    //AccountList list = MailConfig.getInstance().getAccountList();
+    //list.addEmptyAccount("pop3");
     }
 
     /**
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    @Override
+    public void tearDown() throws Exception {
 
         super.tearDown();
 
         // remove configuration directory
-        if ( file != null)
-        	DiskIO.deleteDirectory(file);
+        if (file != null) {
+            DiskIO.deleteDirectory(file);
+        }
     }
 }

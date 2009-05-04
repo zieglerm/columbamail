@@ -1,11 +1,31 @@
+// The contents of this file are subject to the Mozilla Public License Version
+// 1.1
+//(the "License"); you may not use this file except in compliance with the
+//License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+//
+//Software distributed under the License is distributed on an "AS IS" basis,
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+//for the specific language governing rights and
+//limitations under the License.
+//
+//The Original Code is "The Columba Project"
+//
+//The Initial Developers of the Original Code are Frederik Dietz and Timo
+// Stich.
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
+//
+//All Rights Reserved.
+
+
 /*
  * Created on 2003-11-02
  */
 package org.columba.mail.config;
 
-import junit.framework.TestCase;
 
 import org.columba.core.xml.XmlElement;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -13,10 +33,11 @@ import org.columba.core.xml.XmlElement;
  *
  * @author karlpeder
  */
-public class AccountItemTest extends TestCase {
+public class AccountItemTest{
     /*
  * Test for int hashCode().
  */
+    @Test
     public void testHashCode() {
         // first account item
         XmlElement xml = new XmlElement("account");
@@ -70,21 +91,22 @@ public class AccountItemTest extends TestCase {
         AccountItem item3 = new AccountItem(xml3);
 
         // should have the same hashcodes...
-        assertTrue("The hashcodes of item and item2 are not the same",
+        Assert.assertTrue("The hashcodes of item and item2 are not the same",
             item.hashCode() == item2.hashCode());
 
         // expect a different hashcode from a newly created item...
-        assertFalse("The hashcodes of item and a new object are the same",
+        Assert.assertFalse("The hashcodes of item and a new object are the same",
             item.hashCode() == (new AccountItem(new XmlElement())).hashCode());
 
         // expect a different hashcode for item and item3
-        assertFalse("The hashcodes of item and item3 are the same",
+        Assert.assertFalse("The hashcodes of item and item3 are the same",
             item.hashCode() == item3.hashCode());
     }
 
     /*
  * Test for boolean equals(Object)
  */
+    @Test
     public void testEqualsObject() {
         // first account item
         XmlElement xml = new XmlElement("account");
@@ -138,22 +160,22 @@ public class AccountItemTest extends TestCase {
         AccountItem item3 = new AccountItem(xml3);
 
         // test self equality...
-        assertTrue("Self equality failed for item", item.equals(item));
-        assertTrue("Self equality failed for item2", item2.equals(item2));
+        Assert.assertTrue("Self equality failed for item", item.equals(item));
+        Assert.assertTrue("Self equality failed for item2", item2.equals(item2));
 
         // item and item2 should be equal...
-        assertTrue("item and item2 are not equal", item.equals(item2));
-        assertTrue("item2 and item are not equal", item2.equals(item));
+        Assert.assertTrue("item and item2 are not equal", item.equals(item2));
+        Assert.assertTrue("item2 and item are not equal", item2.equals(item));
 
         // item and item2 should be two different objects
-        assertNotSame("item and item2 refers to the same object", item, item2);
+        Assert.assertNotSame("item and item2 refers to the same object", item, item2);
 
         // item should not be equal to a newly created item or null
-        assertFalse("item is equal to a newly created AccountItem",
+        Assert.assertFalse("item is equal to a newly created AccountItem",
             item.equals(new AccountItem(new XmlElement())));
-        assertFalse("item is equal to null", item.equals(null));
+        Assert.assertFalse("item is equal to null", item.equals(null));
 
         // item and item3 should not be equal
-        assertFalse("item and item3 are equal", item.equals(item3));
+        Assert.assertFalse("item and item3 are equal", item.equals(item3));
     }
 }

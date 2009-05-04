@@ -22,8 +22,9 @@ import java.io.InputStream;
 import org.columba.core.command.NullWorkerStatusController;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.FolderTstHelper;
-import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.mail.gui.composer.ComposerModel;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -31,18 +32,15 @@ import org.columba.mail.gui.composer.ComposerModel;
  */
 public class ReplyToMailingListCommandTest extends AbstractComposerTst {
 
-    public ReplyToMailingListCommandTest(String arg0) {
-        super(arg0);
-        
-    }
     
     /**
      * @param arg0
      */
-    public ReplyToMailingListCommandTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public ReplyToMailingListCommandTest(Class factory) {
+        super(factory);
     }
 
+    @Test
     public void test() throws Exception {
 
         // add message "0.eml" as inputstream to folder
@@ -70,6 +68,6 @@ public class ReplyToMailingListCommandTest extends AbstractComposerTst {
 
         String subject = model.getSubject();
 
-        assertEquals("Subject", "Re: test", subject);
+        Assert.assertEquals("Subject", "Re: test", subject);
     }
 }

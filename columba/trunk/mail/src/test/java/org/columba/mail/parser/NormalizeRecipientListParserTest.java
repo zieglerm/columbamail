@@ -2,21 +2,21 @@ package org.columba.mail.parser;
 
 import java.util.List;
 import java.util.Vector;
-
-import junit.framework.TestCase;
-
-public class NormalizeRecipientListParserTest extends TestCase {
+import org.junit.Assert;
+import org.junit.Test;
 
 
-	
+public class NormalizeRecipientListParserTest {
+
 	/*
 	 * test with null list
 	 */
+    @Test
 	public void testNormalizeRCPTVectorNull() {
 		
 		try {
 			new NormalizeRecipientListParser().normalizeRCPTVector(null);
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 	}
@@ -25,18 +25,20 @@ public class NormalizeRecipientListParserTest extends TestCase {
 	/*
 	 * test with empty list
 	 */
+    @Test
 	public void testNormalizeRCPTVectorEmptyList() {
 
 		List<String> list = new Vector<String>();
 		
 		List<String> result = new NormalizeRecipientListParser().normalizeRCPTVector(list);
-		assertEquals(0, result.size());
+		Assert.assertEquals(0, result.size());
 	}
 
 	
 	/*
 	 * Test with all kinds of input data
 	 */
+    @Test
 	public void testNormalizeRCPTVector() {
 
 		List<String> list = new Vector<String>();
@@ -46,10 +48,10 @@ public class NormalizeRecipientListParserTest extends TestCase {
 		list.add("\"Lastname, Firstname\" <mail@mail.org>");
 		
 		List<String> result = new NormalizeRecipientListParser().normalizeRCPTVector(list);
-		assertEquals(result.get(0),"<mail@mail.org>");
-		assertEquals(result.get(1),"<mail@mail.org>");
-		assertEquals(result.get(2),"<mail@mail.org>");
-		assertEquals(result.get(3),"<mail@mail.org>");
+		Assert.assertEquals(result.get(0),"<mail@mail.org>");
+		Assert.assertEquals(result.get(1),"<mail@mail.org>");
+		Assert.assertEquals(result.get(2),"<mail@mail.org>");
+		Assert.assertEquals(result.get(3),"<mail@mail.org>");
 	}
 
 }

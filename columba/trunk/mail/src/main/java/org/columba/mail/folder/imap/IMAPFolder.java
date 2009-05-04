@@ -446,7 +446,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 					&& found != deletedMessages
 					&& ((Integer) localUids.get(localUids.size() - 1))
 							.intValue() > largestRemoteUid) {
-				Flags flags = getHeaderList().remove(
+                Flags flags = getHeaderList().remove(
 						localUids.get(localUids.size() - 1)).getFlags();
 				fireMessageRemoved(localUids.remove(localUids.size() - 1),
 						flags);

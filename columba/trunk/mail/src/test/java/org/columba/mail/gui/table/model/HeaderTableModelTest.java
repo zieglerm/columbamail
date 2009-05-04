@@ -19,19 +19,19 @@ package org.columba.mail.gui.table.model;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
-
 import org.columba.mail.folder.headercache.MemoryHeaderList;
 import org.columba.mail.message.ColumbaHeader;
 import org.columba.mail.message.IHeaderList;
 import org.frapuccino.treetable.Tree;
 import org.frapuccino.treetable.TreeTable;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  *  
  */
-public class HeaderTableModelTest extends TestCase {
+public class HeaderTableModelTest {
 
     public static String[] columns = { "Subject", "From", "columba.date"};
 
@@ -58,13 +58,15 @@ public class HeaderTableModelTest extends TestCase {
      * Test number of columns after init
      *  
      */
+    @Test
     public void testColumns() {
         HeaderTableModel model = new HeaderTableModel(columns);
 
         // 3 columns table
-        assertEquals(3, model.getColumnCount());
+        Assert.assertEquals(3, model.getColumnCount());
     }
 
+    @Test
     public void testSet() {
         HeaderTableModel model = new HeaderTableModel(columns);
 
@@ -78,19 +80,20 @@ public class HeaderTableModelTest extends TestCase {
         model.set(list);
 
         // check number of tree nodes
-        assertEquals(2, model.getRootNode().getChildCount());
+        Assert.assertEquals(2, model.getRootNode().getChildCount());
 
         // check number of cached MessageNodes
         //assertEquals(2, model.getMap().size());
 
         // check number of JTable rows
-        assertEquals(2, model.getRowCount());
+        Assert.assertEquals(2, model.getRowCount());
 
         // check number of JTree rows
-        assertEquals(2, model.getTree().getRowCount());
+        Assert.assertEquals(2, model.getTree().getRowCount());
 
     }
 
+    @Test
     public void testRemove() {
         HeaderTableModel model = new HeaderTableModel(columns);
         Tree tree = new Tree();
@@ -105,17 +108,18 @@ public class HeaderTableModelTest extends TestCase {
         model.remove(new Object[] { new Integer(0)});
 
         // check number of tree nodes
-        assertEquals(1, model.getRootNode().getChildCount());
+        Assert.assertEquals(1, model.getRootNode().getChildCount());
         // check number of cached MessageNodes
         //assertEquals(1, model.getMap().size());
 
         // check number of JTable rows
-        assertEquals(1, model.getRowCount());
+        Assert.assertEquals(1, model.getRowCount());
 
         // check number of JTree rows
-        assertEquals(1, model.getTree().getRowCount());
+        Assert.assertEquals(1, model.getTree().getRowCount());
     }
 
+    @Test
     public void testModify() {
         HeaderTableModel model = new HeaderTableModel(columns);
         Tree tree = new Tree();

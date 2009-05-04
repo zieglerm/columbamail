@@ -25,29 +25,25 @@ import org.columba.core.command.NullWorkerStatusController;
 import org.columba.mail.command.MailFolderCommandReference;
 import org.columba.mail.folder.AbstractFolderTst;
 import org.columba.mail.folder.AbstractMessageFolder;
-import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author redsolo
  */
 public class MarkFolderAsReadCommandTest extends AbstractFolderTst {
-
-    public MarkFolderAsReadCommandTest(String arg0) {
-        super(arg0);
-    }
-    
     /**
      * @param factory folder factory
-     * @param test the name of the test
      */
-    public MarkFolderAsReadCommandTest(MailboxTstFactory factory, String test) {
-        super(factory, test);
+    public MarkFolderAsReadCommandTest(Class factory) {
+        super(factory);
     }
 
     /**
      * Test to mark a folder as read.
      * @throws Exception thrown by the command itself.
      */
+    @Test
     public void testExecute() throws Exception {
         AbstractMessageFolder folder = getSourceFolder();
 
@@ -57,29 +53,29 @@ public class MarkFolderAsReadCommandTest extends AbstractFolderTst {
         Object uid4 = folder.addMessage(createMessageStream("sub4", "body4"));
         Object uid5 = folder.addMessage(createMessageStream("sub5", "body5"));
 
-        assertNotNull("Msg 1's uid was null", uid1);
-        assertNotNull("Msg 2's uid was null", uid2);
-        assertNotNull("Msg 3's uid was null", uid3);
+        Assert.assertNotNull("Msg 1's uid was null", uid1);
+        Assert.assertNotNull("Msg 2's uid was null", uid2);
+        Assert.assertNotNull("Msg 3's uid was null", uid3);
 
         folder.markMessage(new Object[]{uid1, uid3, uid5}, MarkMessageCommand.MARK_AS_UNREAD);
         folder.markMessage(new Object[]{uid2, uid4}, MarkMessageCommand.MARK_AS_READ);
 
-        assertNotNull("Flags for msg 1 was null", folder.getFlags(uid1));
-        assertFalse("Msg 1 is read", folder.getFlags(uid1).getSeen());
-        assertNotNull("Flags for msg 2 was null", folder.getFlags(uid2));
-        assertTrue("Msg 2 is read", folder.getFlags(uid2).getSeen());
-        assertNotNull("Flags for msg 3 was null", folder.getFlags(uid3));
-        assertFalse("Msg 3 is read", folder.getFlags(uid3).getSeen());
+        Assert.assertNotNull("Flags for msg 1 was null", folder.getFlags(uid1));
+        Assert.assertFalse("Msg 1 is read", folder.getFlags(uid1).getSeen());
+        Assert.assertNotNull("Flags for msg 2 was null", folder.getFlags(uid2));
+        Assert.assertTrue("Msg 2 is read", folder.getFlags(uid2).getSeen());
+        Assert.assertNotNull("Flags for msg 3 was null", folder.getFlags(uid3));
+        Assert.assertFalse("Msg 3 is read", folder.getFlags(uid3).getSeen());
 
         MailFolderCommandReference references = new MailFolderCommandReference(folder);
         MarkFolderAsReadCommand command = new MarkFolderAsReadCommand(references);
         command.execute(NullWorkerStatusController.getInstance());
 
-        assertEquals("Message 1 isnt read", true, folder.getFlags(uid1).getSeen());
-        assertEquals("Message 2 isnt read", true, folder.getFlags(uid2).getSeen());
-        assertEquals("Message 3 isnt read", true, folder.getFlags(uid3).getSeen());
-        assertEquals("Message 4 isnt read", true, folder.getFlags(uid4).getSeen());
-        assertEquals("Message 5 isnt read", true, folder.getFlags(uid5).getSeen());
+        Assert.assertEquals("Message 1 isnt read", true, folder.getFlags(uid1).getSeen());
+        Assert.assertEquals("Message 2 isnt read", true, folder.getFlags(uid2).getSeen());
+        Assert.assertEquals("Message 3 isnt read", true, folder.getFlags(uid3).getSeen());
+        Assert.assertEquals("Message 4 isnt read", true, folder.getFlags(uid4).getSeen());
+        Assert.assertEquals("Message 5 isnt read", true, folder.getFlags(uid5).getSeen());
     }
 
     /**

@@ -20,6 +20,8 @@ package org.columba.mail.folder;
 import java.io.ByteArrayInputStream;
 
 import org.columba.ristretto.message.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -27,17 +29,13 @@ import org.columba.ristretto.message.Header;
  */
 public class GetHeaderFieldsTest extends AbstractFolderTst {
 
-    public GetHeaderFieldsTest(String arg0) {
-        super(arg0);
-    }
-    
+
     /**
      * @param factory
      * @param test
      */
-    public GetHeaderFieldsTest(MailboxTstFactory factory, String test) {
-        super(factory, test);
-
+    public GetHeaderFieldsTest(Class factory) {
+        super(factory);
     }
 
     /**
@@ -45,6 +43,7 @@ public class GetHeaderFieldsTest extends AbstractFolderTst {
      * 
      * @throws Exception
      */
+    @Test
     public void test() throws Exception {
         // add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -58,9 +57,9 @@ public class GetHeaderFieldsTest extends AbstractFolderTst {
         Header header = getSourceFolder().getHeaderFields(uid,
                 new String[] { "Subject", "From", "To"});
         
-        assertEquals("Subject", "test", header.get("Subject"));
-        assertEquals("From", "alice@mail.org", header.get("From"));
-        assertEquals("To", "bob@mail.org", header.get("To"));
+        Assert.assertEquals("Subject", "test", header.get("Subject"));
+        Assert.assertEquals("From", "alice@mail.org", header.get("From"));
+        Assert.assertEquals("To", "bob@mail.org", header.get("To"));
     }
 
 }

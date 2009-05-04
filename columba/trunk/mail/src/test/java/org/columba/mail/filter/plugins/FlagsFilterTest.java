@@ -21,6 +21,8 @@ import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.mail.folder.command.MarkMessageCommand;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -28,23 +30,16 @@ import org.columba.mail.folder.command.MarkMessageCommand;
  *
  */
 public class FlagsFilterTest extends AbstractFilterTst {
-	
-	/**
-     * @param arg0
-     */
-    public FlagsFilterTest(String arg0) {
-        super(arg0);
-        
-    }
     
     /**
      * @param arg0
      */
-    public FlagsFilterTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public FlagsFilterTest(Class factory) {
+        super(factory);
         
     }
 
+    @Test
     public void testIsSeen() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -62,9 +57,10 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
-    
+
+    @Test
     public void testIsNotSeen() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -82,9 +78,10 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
-    
+
+    @Test
     public void testIsExpunged() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -102,9 +99,10 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
-    
+
+    @Test
     public void testIsFlagged() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -122,9 +120,10 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
-    
+
+    @Test
     public void testIsRecent() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -142,9 +141,10 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
-    
+
+    @Test
     public void testIsSpam() throws Exception {
         // add message to folder
         Object uid = addMessage();
@@ -162,7 +162,7 @@ public class FlagsFilterTest extends AbstractFilterTst {
 
         // execute filter
         boolean result = filter.process(getSourceFolder(), uid);
-        assertEquals("filter result", true, result);
+        Assert.assertEquals("filter result", true, result);
     }
 
 }

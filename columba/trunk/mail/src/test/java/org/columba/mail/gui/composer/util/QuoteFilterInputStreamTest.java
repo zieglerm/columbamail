@@ -19,45 +19,49 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
 import org.columba.core.io.StreamUtils;
+import org.junit.Assert;
+import org.junit.Test;
 
 
-public class QuoteFilterInputStreamTest extends TestCase {
+public class QuoteFilterInputStreamTest {
+    @Test
     public void testOneLiner() throws IOException {
         String line = "This is a test";
         InputStream in = new ByteArrayInputStream(line.getBytes());
 
         StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
                     in));
-        assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
+        Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
 
+    @Test
     public void testMultiLiner1() throws IOException {
         String line = "This is a test\nForget the rest\n\n";
         InputStream in = new ByteArrayInputStream(line.getBytes());
 
         StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
                     in));
-        assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
+        Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
 
+    @Test
     public void testMultiLiner2() throws IOException {
         String line = "This is a test\nForget the rest\n\n\n";
         InputStream in = new ByteArrayInputStream(line.getBytes());
 
         StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
                     in));
-        assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
+        Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
 
+   @Test
     public void testMultiLiner3() throws IOException {
         String line = "\nThis is a test\nForget the rest\n\n\n";
         InputStream in = new ByteArrayInputStream(line.getBytes());
 
         StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
                     in));
-        assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
+        Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
 }

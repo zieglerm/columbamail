@@ -26,6 +26,8 @@ import org.columba.mail.folder.AbstractFolderTst;
 import org.columba.mail.folder.FolderTstHelper;
 import org.columba.mail.folder.MailboxTstFactory;
 import org.columba.ristretto.message.Flags;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -36,17 +38,14 @@ public class MarkMessageTest extends AbstractFolderTst {
 
 	private ByteArrayInputStream inputStream;
 
-	public MarkMessageTest(String arg0) {
-		super(arg0);
-	}
-
 	/**
 	 * @param arg0
 	 */
-	public MarkMessageTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public MarkMessageTest(Class factory) {
+		super(factory);
 	}
 
+    @Test
 	public void testMarkAsReadMessage() throws Exception {
 
 		//    	 create Command reference
@@ -63,10 +62,11 @@ public class MarkMessageTest extends AbstractFolderTst {
 
 		Flags flags = getSourceFolder().getFlags(uid);
 
-		assertEquals("message should be marked as read", true, flags.getSeen());
+		Assert.assertEquals("message should be marked as read", true, flags.getSeen());
 
 	}
 
+    @Test
 	public void testMarkAsFlaggedMessage() throws Exception {
 
 		//    	 create Command reference
@@ -84,11 +84,12 @@ public class MarkMessageTest extends AbstractFolderTst {
 
 		Flags flags = getSourceFolder().getFlags(uid);
 
-		assertEquals("message should be marked as flagged", true, flags
+		Assert.assertEquals("message should be marked as flagged", true, flags
 				.getFlagged());
 
 	}
 
+   @Test
 	public void testMarkAsExpungedMessage() throws Exception {
 
 		//   	 create Command reference
@@ -105,7 +106,7 @@ public class MarkMessageTest extends AbstractFolderTst {
 
 		Flags flags = getSourceFolder().getFlags(uid);
 
-		assertEquals("message should be marked as expunged", true, flags
+		Assert.assertEquals("message should be marked as expunged", true, flags
 				.getDeleted());
 
 	}
@@ -113,7 +114,8 @@ public class MarkMessageTest extends AbstractFolderTst {
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+    @Override
+	public void setUp() throws Exception {
 		// create folders, etc.
 		super.setUp();
 
@@ -129,7 +131,8 @@ public class MarkMessageTest extends AbstractFolderTst {
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+    @Override
+	public void tearDown() throws Exception {
 		// close streams
 		inputStream.close();
 

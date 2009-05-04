@@ -22,6 +22,8 @@ import java.awt.Color;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -29,22 +31,16 @@ import org.columba.mail.folder.MailboxTstFactory;
  */
 public class ColorFilterTest extends AbstractFilterTst {
 
-	/**
-	 * @param arg0
-	 */
-	public ColorFilterTest(String arg0) {
-		super(arg0);
-
-	}
 
 	/**
 	 * @param arg0
 	 */
-	public ColorFilterTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public ColorFilterTest(Class factory) {
+		super(factory);
 
 	}
 
+    @Test
 	public void test() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -62,6 +58,6 @@ public class ColorFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 }

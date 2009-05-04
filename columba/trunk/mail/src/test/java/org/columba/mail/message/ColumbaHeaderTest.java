@@ -15,7 +15,7 @@
 //All Rights Reserved.
 package org.columba.mail.message;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 
 /**
@@ -23,11 +23,12 @@ import junit.framework.TestCase;
  *
  * @author redsolo
  */
-public class ColumbaHeaderTest extends TestCase {
+public class ColumbaHeaderTest {
 
     /**
      * Tests that the set() method can take a Null pointer.
      */
+    @Test
     public void testSetWithNull() {
         ColumbaHeader header = new ColumbaHeader();
         header.set("value", null);

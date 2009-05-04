@@ -19,12 +19,13 @@ package org.columba.mail.parser;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.message.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class PassiveHeaderParserInputStreamTest extends TestCase {
-	
+public class PassiveHeaderParserInputStreamTest {
+
+    @Test
 	public void testFullRead() throws IOException {
 		String header = "Subject: nbla\r\n\r\n some message blabla\r\n";
 		
@@ -32,34 +33,35 @@ public class PassiveHeaderParserInputStreamTest extends TestCase {
 		
 		byte[] dummy = new byte[10000];
 
-		assertFalse(test.isHeaderAvailable());
+		Assert.assertFalse(test.isHeaderAvailable());
 		
-		assertEquals( header.length(), test.read(dummy));
-		assertTrue(test.isHeaderAvailable());
+		Assert.assertEquals( header.length(), test.read(dummy));
+		Assert.assertTrue(test.isHeaderAvailable());
 		
 		Header parsedHeader = test.getHeader();
 		
-		assertEquals("nbla", parsedHeader.get("Subject"));
+		Assert.assertEquals("nbla", parsedHeader.get("Subject"));
 		
 	}
-	
+
+    @Test
 	public void testPartRead() throws IOException {
 		String header = "Subject: nbla\r\n\r\nsome message blabla\r\n";
 		
 		PassiveHeaderParserInputStream test = new PassiveHeaderParserInputStream(new ByteArrayInputStream(header.getBytes()));
 		
-		assertFalse(test.isHeaderAvailable());
+		Assert.assertFalse(test.isHeaderAvailable());
 		
 		for( int i=0; i<17; i++) {
-			assertFalse(test.isHeaderAvailable());
+			Assert.assertFalse(test.isHeaderAvailable());
 			test.read();
 		}
 		
-		assertTrue(test.isHeaderAvailable());
+		Assert.assertTrue(test.isHeaderAvailable());
 		
 		Header parsedHeader = test.getHeader();
 		
-		assertEquals("nbla", parsedHeader.get("Subject"));
+		Assert.assertEquals("nbla", parsedHeader.get("Subject"));
 		
 	}
 

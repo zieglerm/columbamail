@@ -23,21 +23,20 @@ import java.io.InputStream;
 
 import org.columba.ristretto.message.Attributes;
 import org.columba.ristretto.message.Flags;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
  */
 public class CopyMessageFolderTest extends AbstractFolderTst {
     
-    public CopyMessageFolderTest(String arg0) {
-        super(arg0);
-    }
     
     /**
      * @param arg0
      */
-    public CopyMessageFolderTest(MailboxTstFactory factory, String arg0) {
-        super(factory, arg0);
+    public CopyMessageFolderTest(Class factory) {
+        super(factory);
     }
 
    
@@ -50,6 +49,7 @@ public class CopyMessageFolderTest extends AbstractFolderTst {
      * 
      * @throws Exception
      */
+    @Test
     public void testCopyMessageAttribute2() throws Exception {
         //		 add message "0.eml" as inputstream to folder
         String input = FolderTstHelper.getString(0);
@@ -82,11 +82,11 @@ public class CopyMessageFolderTest extends AbstractFolderTst {
 
         Flags flags = getDestFolder().getFlags(uid);
 
-        assertEquals("copied message should be marked as not seen", false,
+        Assert.assertEquals("copied message should be marked as not seen", false,
                 flags.getSeen());
-        assertEquals("copied message should be marked as flagged", true, flags
+        Assert.assertEquals("copied message should be marked as flagged", true, flags
                 .getFlagged());
-        assertEquals("copied message should be marked as not expunged", false,
+        Assert.assertEquals("copied message should be marked as not expunged", false,
                 flags.getDeleted());
         // close streams
         inputStream.close();

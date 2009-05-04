@@ -18,17 +18,18 @@ package org.columba.mail.folder.mbox;
 
 import java.io.ByteArrayInputStream;
 
-import junit.framework.TestCase;
-
 import org.columba.mail.folder.MHFolderFactory;
 import org.columba.ristretto.io.Source;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MboxDataStorageTest extends TestCase {
+public class MboxDataStorageTest {
 
 	private static final String mail1 = "From: alice1@columba-mail.org\r\nTo: bob@columba-mail.org\r\n\r\ntest 1 mail";
 	private static final String mail2 = "From: alice2@columba-mail.org\r\nTo: bob@columba-mail.org\r\n\r\ntest   2  mail";
 	private static final String mail3 = "From: alice3@columba-mail.org\r\nTo: bob@columba-mail.org\r\n\r\ntest    3    mail";
-	
+
+    @Test
 	public void testSaveMessage() throws Exception {
 		MboxDataStorage storage = new MboxDataStorage(new MHFolderFactory().createFolder(100));
 		
@@ -36,14 +37,15 @@ public class MboxDataStorageTest extends TestCase {
 		
 		Source source = storage.getMessageSource(new Integer(1));
 		
-		assertEquals(mail1, source.toString());
+		Assert.assertEquals(mail1, source.toString());
 		
 		storage.removeMessage(new Integer(1));
 		
-		assertFalse(storage.exists(new Integer(1)));
-		assertEquals(storage.getMessageCount(), 0);
+		Assert.assertFalse(storage.exists(new Integer(1)));
+		Assert.assertEquals(storage.getMessageCount(), 0);
 	}
-	
+
+    @Test
 	public void testSaveMultipleMessages() throws Exception {
 		MboxDataStorage storage = new MboxDataStorage(new MHFolderFactory().createFolder(100));
 		
@@ -51,7 +53,7 @@ public class MboxDataStorageTest extends TestCase {
 		storage.saveMessage(new Integer(2), new ByteArrayInputStream(mail2.getBytes("US-ASCII")));
 		
 		Source source = storage.getMessageSource(new Integer(1));
-		assertEquals(mail1, source.toString());
+		Assert.assertEquals(mail1, source.toString());
 		source = null;
 		
 		storage.saveMessage(new Integer(3), new ByteArrayInputStream(mail3.getBytes("US-ASCII")));
@@ -60,9 +62,10 @@ public class MboxDataStorageTest extends TestCase {
 		storage.removeMessage(new Integer(3));
 
 		source = storage.getMessageSource(new Integer(2));
-		assertEquals(mail2, source.toString());
+		Assert.assertEquals(mail2, source.toString());
 	}
-	
+
+    @Test
 	public void testLoadSave() throws Exception {
 		MboxDataStorage storage = new MboxDataStorage(new MHFolderFactory().createFolder(100));
 		
@@ -73,7 +76,7 @@ public class MboxDataStorageTest extends TestCase {
 		
 		storage.load();
 		Source source = storage.getMessageSource(new Integer(1));
-		assertEquals(mail1, source.toString());
+		Assert.assertEquals(mail1, source.toString());
 		
 	}
 

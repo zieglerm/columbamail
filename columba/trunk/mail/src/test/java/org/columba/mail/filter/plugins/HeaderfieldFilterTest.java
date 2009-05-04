@@ -20,6 +20,8 @@ package org.columba.mail.filter.plugins;
 import org.columba.mail.filter.MailFilterCriteria;
 import org.columba.mail.filter.MailFilterFactory;
 import org.columba.mail.folder.MailboxTstFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author fdietz
@@ -27,23 +29,13 @@ import org.columba.mail.folder.MailboxTstFactory;
  */
 public class HeaderfieldFilterTest extends AbstractFilterTst {
 
-	/**
+    /**
 	 * Constructor for HeaderfieldFilterTest.
 	 * 
 	 * @param arg0
 	 */
-	public HeaderfieldFilterTest(String arg0) {
-		super(arg0);
-
-	}
-
-	/**
-	 * Constructor for HeaderfieldFilterTest.
-	 * 
-	 * @param arg0
-	 */
-	public HeaderfieldFilterTest(MailboxTstFactory factory, String arg0) {
-		super(factory, arg0);
+	public HeaderfieldFilterTest(Class factory) {
+		super(factory);
 
 	}
 
@@ -52,6 +44,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testSubjectContainsFilter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -70,7 +63,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 
 	/**
@@ -78,6 +71,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testSubjectContainsFailedFilter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -96,7 +90,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", false, result);
+		Assert.assertEquals("filter result", false, result);
 	}
 
 	/**
@@ -104,6 +98,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testSubjectContainsNotFilter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -122,7 +117,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 
 	/**
@@ -130,6 +125,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testFromFilter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -149,7 +145,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 
 	/**
@@ -157,6 +153,7 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 	 * 
 	 * @throws Exception
 	 */
+    @Test
 	public void testCustomHeaderFilter() throws Exception {
 		// add message to folder
 		Object uid = addMessage();
@@ -175,6 +172,6 @@ public class HeaderfieldFilterTest extends AbstractFilterTst {
 
 		// execute filter
 		boolean result = filter.process(getSourceFolder(), uid);
-		assertEquals("filter result", true, result);
+		Assert.assertEquals("filter result", true, result);
 	}
 }
