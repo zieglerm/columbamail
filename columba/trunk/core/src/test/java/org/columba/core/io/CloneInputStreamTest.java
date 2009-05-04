@@ -19,12 +19,15 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Random;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 
-public class CloneInputStreamTest extends TestCase {
+public class CloneInputStreamTest{
     byte[] test;
 
+    @Test
     public void testCloneSingle() throws Exception {
         InputStream master = new ByteArrayInputStream(test);
         CloneStreamMaster model = new CloneStreamMaster(master);
@@ -45,11 +48,12 @@ public class CloneInputStreamTest extends TestCase {
         }
 
         for (int i = 0; i < 20000; i++) {
-            assertTrue(result1[i] == test[i]);
-            assertTrue(result2[i] == test[i]);
+            Assert.assertTrue(result1[i] == test[i]);
+            Assert.assertTrue(result2[i] == test[i]);
         }
     }
 
+    @Test
     public void testEOFSingle() throws Exception {
         InputStream master = new ByteArrayInputStream(test);
         CloneStreamMaster model = new CloneStreamMaster(master);
@@ -63,9 +67,10 @@ public class CloneInputStreamTest extends TestCase {
             pos++;
         }
 
-        assertTrue(pos == 20001);
+        Assert.assertTrue(pos == 20001);
     }
 
+    @Test
     public void testCloneMulti() throws Exception {
         InputStream master = new ByteArrayInputStream(test);
         CloneStreamMaster model = new CloneStreamMaster(master);
@@ -86,11 +91,12 @@ public class CloneInputStreamTest extends TestCase {
         }
 
         for (int i = 0; i < 20000; i++) {
-            assertTrue(result1[i] == test[i]);
-            assertTrue(result2[i] == test[i]);
+            Assert.assertTrue(result1[i] == test[i]);
+            Assert.assertTrue(result2[i] == test[i]);
         }
     }
 
+    @Test
     public void testEOFMulti1() throws Exception {
         InputStream master = new ByteArrayInputStream(test);
         CloneStreamMaster model = new CloneStreamMaster(master);
@@ -106,9 +112,10 @@ public class CloneInputStreamTest extends TestCase {
             pos += lastRead;
         }
 
-        assertTrue(pos == 19999);
+        Assert.assertTrue(pos == 19999);
     }
 
+    @Test
     public void testEOFMulti2() throws Exception {
         InputStream master = new ByteArrayInputStream(test);
         CloneStreamMaster model = new CloneStreamMaster(master);
@@ -124,14 +131,13 @@ public class CloneInputStreamTest extends TestCase {
             pos += lastRead;
         }
 
-        assertTrue(pos == 20000);
+        Assert.assertTrue(pos == 20000);
     }
 
-    /* (non-Javadoc)
- * @see junit.framework.TestCase#setUp()
- */
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @Before
+    public void setUp() throws Exception {
+        
 
         Random random = new Random();
         test = new byte[20000];

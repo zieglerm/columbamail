@@ -23,58 +23,54 @@ import java.util.Random;
 import junit.framework.TestCase;
 
 import org.columba.core.base.ListTools;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author timo
  *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
  */
-public class ListToolsTest extends TestCase {
-    LinkedList listFull_Integer;
-    LinkedList listFull_String;
-    Random random;
+public class ListToolsTest {
+
+    static LinkedList listFull_Integer;
+    static LinkedList listFull_String;
+    static Random random;
 
     /**
- * Constructor for ListToolsTest.
- * @param arg0
- */
-    public ListToolsTest(String arg0) {
-        super(arg0);
-    }
-
+     * Constructor for ListToolsTest.
+     * @param arg0
+     */
     public void testIntersect() {
         /*
-LinkedList testList = new LinkedList(listFull_I);
+        LinkedList testList = new LinkedList(listFull_I);
 
-ListTools.intersect(testList,listFull_I);
-assertTrue(testList.equals(listFull_I));
+        ListTools.intersect(testList,listFull_I);
+        assertTrue(testList.equals(listFull_I));
 
-testList = new LinkedList(listFull_I);
+        testList = new LinkedList(listFull_I);
 
-ListTools.intersect(testList,new LinkedList());
-assertTrue(testList.size()==0);
+        ListTools.intersect(testList,new LinkedList());
+        assertTrue(testList.size()==0);
 
-testList = new LinkedList(listFull_I);
+        testList = new LinkedList(listFull_I);
 
-ListTools.intersect(testList,listPart1_I);
-assertTrue(testList.equals(listPart1_I));
+        ListTools.intersect(testList,listPart1_I);
+        assertTrue(testList.equals(listPart1_I));
 
-testList = new LinkedList(listFull_I);
+        testList = new LinkedList(listFull_I);
 
-ListTools.intersect(testList,listPart2_I);
-assertTrue(testList.equals(listPart2_I));
+        ListTools.intersect(testList,listPart2_I);
+        assertTrue(testList.equals(listPart2_I));
 
-testList = new LinkedList(listPart1_I);
+        testList = new LinkedList(listPart1_I);
 
-ListTools.intersect(testList,listPart2_I);
-assertTrue(testList.size()==0);
-*/
+        ListTools.intersect(testList,listPart2_I);
+        assertTrue(testList.size()==0);
+         */
     }
 
+    @Test
     public void testSubstract() {
         testSubstractOnLists(listFull_Integer);
     }
@@ -93,45 +89,46 @@ assertTrue(testList.size()==0);
                 listPart2.add(it.next());
             }
         }
-    
+
         // test if the size of self substracted list is 0
         ListTools.substract(testList, listFull);
-        assertTrue(testList.size() == 0);
+        Assert.assertTrue(testList.size() == 0);
 
         testList = new LinkedList(listFull);
 
         // tests, if the list substracted with an empty list is equal to itself
         ListTools.substract(testList, new LinkedList());
-        assertTrue(testList.equals(listFull));
+        Assert.assertTrue(testList.equals(listFull));
 
         testList = new LinkedList(listFull);
 
         // tests, if the listPart substracted
         ListTools.substract(testList, listPart1);
         Collections.sort(listPart2);
-        assertTrue(testList.equals(listPart2));
+        Assert.assertTrue(testList.equals(listPart2));
 
         testList = new LinkedList(listFull);
 
         ListTools.substract(testList, listPart2);
-        assertTrue(testList.equals(listPart1));
+        Assert.assertTrue(testList.equals(listPart1));
 
         testList = new LinkedList(listPart1);
 
         ListTools.substract(testList, listPart2);
-        assertTrue(testList.equals(listPart1));
+        Assert.assertTrue(testList.equals(listPart1));
 
         testList = new LinkedList(listFull);
 
         ListTools.substract(testList, listPart1);
         ListTools.substract(testList, listPart2);
-        assertTrue(testList.size() == 0);
+        Assert.assertTrue(testList.size() == 0);
     }
 
     /**
- * @see junit.framework.TestCase#setUp()
- */
-    protected void setUp() throws Exception {
+     * @see junit.framework.TestCase#setUp()
+     */
+    @BeforeClass
+    public static void setUp() throws Exception {
         random = new Random();
 
         listFull_Integer = new LinkedList();

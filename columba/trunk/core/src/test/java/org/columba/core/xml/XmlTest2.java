@@ -17,16 +17,14 @@
 //All Rights Reserved.
 package org.columba.core.xml;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
+import org.junit.Assert;
 
 /**
  * Test case for TextUtils class.
  *
  * @author fdietz
  */
-public class XmlTest2 extends TestCase {
+public class XmlTest2{
     public void testEscapeText() {
         String source = "Heinz M?ller <heinz@mail.com>";
 

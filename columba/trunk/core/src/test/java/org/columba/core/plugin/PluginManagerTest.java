@@ -23,19 +23,23 @@ import junit.framework.TestCase;
 
 import org.columba.api.plugin.IPluginManager;
 import org.columba.core.io.DiskIO;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author fdietz
  *
  */
-public class PluginManagerTest extends TestCase {
+public class PluginManagerTest {
 
-	private File file;
+	private static File file;
 
 	/*
 	 * @see TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+    @BeforeClass
+	public static void setUp() throws Exception {
 		// create config-folder
 		file = new File("test_config");
 		file.mkdir();
@@ -45,11 +49,13 @@ public class PluginManagerTest extends TestCase {
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+    @AfterClass
+	public static void tearDown() throws Exception {
 		// remove configuration directory
 		DiskIO.deleteDirectory(file);
 	}
 
+    @Test
 	public void test() {
 		IPluginManager manager = PluginManager.getInstance();
 		manager.initExternalPlugins();

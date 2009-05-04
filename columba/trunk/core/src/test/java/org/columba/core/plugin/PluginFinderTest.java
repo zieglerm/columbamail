@@ -19,22 +19,24 @@ package org.columba.core.plugin;
 
 import java.io.File;
 
-import junit.framework.TestCase;
-
 import org.columba.core.io.DiskIO;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author fdietz
  *
  */
-public class PluginFinderTest extends TestCase {
+public class PluginFinderTest {
 
-	private File file;
+	private static File file;
 
 	/*
 	 * @see TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+    @BeforeClass
+	public static void setUp() throws Exception {
 		// create config-folder
 		file = new File("test_config");
 		file.mkdir();
@@ -44,11 +46,13 @@ public class PluginFinderTest extends TestCase {
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+    @AfterClass
+	public static void tearDown() throws Exception {
 		// remove configuration directory
 		DiskIO.deleteDirectory(file);
 	}
 
+    @Test
 	public void test() {
 		// find all possible plugin directories
 		File[] pluginFolders = PluginFinder.searchPlugins();

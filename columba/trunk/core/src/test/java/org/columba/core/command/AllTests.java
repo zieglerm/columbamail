@@ -15,22 +15,16 @@
 //All Rights Reserved.
 package org.columba.core.command;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 
 /**
  * @author Timo Stich (tstich@users.sourceforge.net)
  *
  */
+@RunWith(Suite.class)
+@SuiteClasses({DefaultProcessorTest.class})
 public class AllTests {
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.columba.api.command");
-
-        //$JUnit-BEGIN$
-        suite.addTest(new TestSuite(DefaultProcessorTest.class));
-
-        //$JUnit-END$
-        return suite;
-    }
 }

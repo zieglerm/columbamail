@@ -81,7 +81,7 @@ public class Config implements IConfig {
 	 */
 	public Config(File thePath) {
 		if (thePath == null) {
-			thePath = DefaultConfigDirectory.getDefaultPath();;
+			thePath = DefaultConfigDirectory.getDefaultPath();
 		}
 
 		this.path = thePath;
@@ -103,7 +103,12 @@ public class Config implements IConfig {
 
 	public static Config getInstance() {
 		if (instance == null) {
-			throw new RuntimeException("Must call Constructor first!");
+            //timsparg this would fail the junit tests
+            //added call to default contructor, shouldnt
+            //this be a facory instead?
+			//throw new RuntimeException("Must call Constructor first!");
+
+            new Config(null);
 		}
 
 		return instance;

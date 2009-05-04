@@ -13,24 +13,23 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003. 
 //
 //All Rights Reserved.
-
 package org.columba.core.util;
 
 import java.security.NoSuchAlgorithmException;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.columba.core.base.Blowfish;
+import org.junit.Test;
 
-public class BlowfishTest extends TestCase {
+public class BlowfishTest {
 
-	public void test1() throws NoSuchAlgorithmException {
-		String test = "This is the blowfish teststring";
-		
-		String result = Blowfish.encrypt(test.toCharArray());
-		
-		Assert.assertEquals(test, new String(Blowfish.decrypt(result)));
-	}
-	
+    @Test
+    public void test1() throws NoSuchAlgorithmException {
+        String test = "This is the blowfish teststring";
+
+        String result = Blowfish.encrypt(test.toCharArray());
+
+        Assert.assertEquals(test, new String(Blowfish.decrypt(result)));
+    }
 }

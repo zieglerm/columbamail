@@ -39,7 +39,7 @@ public class OSInfo {
 	 * @see #org.columba.core.base.OSInfo.isWinNTPlatform()
 	 */
 	public static boolean isWin32Platform() {
-		return (isWindowsPlatform() || isWinNTPlatform());
+		return (isWinNTPlatform() || isWindowsPlatform());
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class OSInfo {
 	 * @see #org.columba.core.base.OSInfo.isWinXP()
 	 */
 	public static boolean isWinNTPlatform() {
-		return (isWinNT() || isWin2K() || isWin2K3() || isWinXP());
+		return (isWinXP() || isWin2K3()|| isWin2K() || isWinNT() );
 	}
 
 	/**

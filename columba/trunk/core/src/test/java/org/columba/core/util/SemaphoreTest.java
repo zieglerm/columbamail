@@ -15,81 +15,84 @@
 //All Rights Reserved.
 package org.columba.core.util;
 
-import junit.framework.TestCase;
-
 import org.columba.core.base.Semaphore;
 import org.columba.core.base.StopWatch;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author redsolo
  */
-public class SemaphoreTest extends TestCase {
+public class SemaphoreTest{
 
     /**
      * Tests the constructors.
      */
+    @Test
     public void testConstructors() {
         Semaphore semaphore = new Semaphore();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
 
         semaphore.hold();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
 
         semaphore.release();
-        assertTrue("The semaphore has not been released", !semaphore.isHolding());
+        Assert.assertTrue("The semaphore has not been released", !semaphore.isHolding());
 
         semaphore = new Semaphore(false);
-        assertTrue("The semaphore is holding.", !semaphore.isHolding());
+        Assert.assertTrue("The semaphore is holding.", !semaphore.isHolding());
 
         semaphore.hold();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
 
         semaphore.release();
-        assertTrue("The semaphore has not been released", !semaphore.isHolding());
+        Assert.assertTrue("The semaphore has not been released", !semaphore.isHolding());
     }
 
     /**
      * Test the hold() and release() methods.
      */
+    @Test
     public void testHold() {
         Semaphore semaphore = new Semaphore();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
 
         semaphore.hold();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
 
         semaphore.release();
-        assertTrue("The semaphore has not been released", !semaphore.isHolding());
+        Assert.assertTrue("The semaphore has not been released", !semaphore.isHolding());
 
         semaphore.hold();
-        assertTrue("The semaphore is not holding.", semaphore.isHolding());
+        Assert.assertTrue("The semaphore is not holding.", semaphore.isHolding());
     }
 
     /**
      * Test a single thread wait on the semaphore.
      * @throws InterruptedException thrown for any good reason if the test failed.
      */
+    @Test
     public void testSingleWait() throws InterruptedException {
         Semaphore semaphore = new Semaphore();
 
         StopWatch timer = new StopWatch();
         semaphore.waitUntilReleased(50);
         if (timer.getTiming() < 25) {
-            fail("Single thread did not wait for semaphore.");
+           Assert.fail("Single thread did not wait for semaphore.");
         }
 
         semaphore.hold();
         timer.start();
         semaphore.waitUntilReleased(50);
         if (timer.getTiming() < 25) {
-            fail("Single thread did not wait for semaphore.");
+            Assert.fail("Single thread did not wait for semaphore.");
         }
 
         semaphore.release();
         timer.start();
         semaphore.waitUntilReleased(100);
         if (timer.getTiming() > 25) {
-            fail("Single thread did wait for semaphore.");
+            Assert.fail("Single thread did wait for semaphore.");
         }
     }
 }

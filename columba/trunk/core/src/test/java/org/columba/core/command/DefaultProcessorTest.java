@@ -15,16 +15,14 @@
 //All Rights Reserved.
 package org.columba.core.command;
 
-
-import junit.framework.TestCase;
-
-import org.columba.api.command.IWorkerStatusController;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Timo Stich (tstich@users.sourceforge.net)
  * 
  */
-public class DefaultProcessorTest extends TestCase {
+public class DefaultProcessorTest{
 	private CommandProcessor processor;
 
 	int executedID;
@@ -36,10 +34,8 @@ public class DefaultProcessorTest extends TestCase {
 	 * 
 	 * @param arg0
 	 */
-	public DefaultProcessorTest(String arg0) {
-		super(arg0);
-	}
 
+    @Test
 	public void testAddOp_PriorityOrdering() {
 		processor = new CommandProcessor(false);
 
@@ -63,28 +59,29 @@ public class DefaultProcessorTest extends TestCase {
 		command5.setPriority(Command.NORMAL_PRIORITY);
 		processor.addOp(command5);
 
-		assertEquals(
+		Assert.assertEquals(
 				3,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(0))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				1,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(1))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				2,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(2))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				5,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(3))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				4,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(4))
 						.getOperation()).getId());
 	}
 
+    @Test
 	public void testAddOp_PriorityOrderingWithSynchronized() {
 		processor = new CommandProcessor(false);
 
@@ -110,28 +107,29 @@ public class DefaultProcessorTest extends TestCase {
 		command5.setPriority(Command.NORMAL_PRIORITY);
 		processor.addOp(command5, Command.FIRST_EXECUTION);
 
-		assertEquals(
+		Assert.assertEquals(
 				1,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(0))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				2,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(1))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				3,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(2))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				4,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(3))
 						.getOperation()).getId());
-		assertEquals(
+		Assert.assertEquals(
 				5,
 				((TestCommand) ((OperationItem) processor.operationQueue.get(4))
 						.getOperation()).getId());
 	}
 
+    @Test
 	public void testReserveForRealtime() throws Exception {
 		processor = new CommandProcessor(false);
 
@@ -139,11 +137,12 @@ public class DefaultProcessorTest extends TestCase {
 		while (processor.getWorker(Command.NORMAL_PRIORITY) != null)
 			;
 
-		assertEquals(1, processor.worker.size());
+		Assert.assertEquals(1, processor.worker.size());
 
-		assertTrue(processor.getWorker(Command.REALTIME_PRIORITY) != null);
+		Assert.assertTrue(processor.getWorker(Command.REALTIME_PRIORITY) != null);
 	}
 
+    @Test
 	public void testRunOne() throws Exception {
 		processor = new CommandProcessor(false);
 
@@ -157,22 +156,23 @@ public class DefaultProcessorTest extends TestCase {
 		processor.addOp(command2, Command.FIRST_EXECUTION);
 
 		processor.startOperation();
-		assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
 
 		Thread.sleep(1000);
 
-		assertEquals(1, executedID);
-		assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
+		Assert.assertEquals(1, executedID);
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
 
 		processor.startOperation();
-		assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
 
 		Thread.sleep(1000);
 
-		assertEquals(2, executedID);
-		assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
+		Assert.assertEquals(2, executedID);
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
 	}
 
+    @Test
 	public void testRunMultiple() throws Exception {
 		processor = new CommandProcessor(false);
 
@@ -187,14 +187,15 @@ public class DefaultProcessorTest extends TestCase {
 
 		processor.startOperation();
 		processor.startOperation();
-		assertEquals(CommandProcessor.MAX_WORKERS - 2, processor.worker.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS - 2, processor.worker.size());
 
 		Thread.sleep(1000);
 
-		assertEquals(2, executedID);
-		assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
+		Assert.assertEquals(2, executedID);
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
 	}
 
+    @Test
 	public void testRunMax() throws Exception {
 		processor = new CommandProcessor(false);
 
@@ -209,18 +210,19 @@ public class DefaultProcessorTest extends TestCase {
 		processor.startOperation();
 		processor.startOperation();
 		processor.startOperation();
-		assertEquals(1, processor.worker.size());
+		Assert.assertEquals(1, processor.worker.size());
 
 		Thread.sleep(1000);
 
-		assertEquals(1, processor.operationQueue.size());
-		assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
+		Assert.assertEquals(1, processor.operationQueue.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
 
 		processor.startOperation();
-		assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
-		assertEquals(0, processor.operationQueue.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS - 1, processor.worker.size());
+		Assert.assertEquals(0, processor.operationQueue.size());
 	}
 
+    @Test
 	public void testRunRealtime() throws Exception {
 		processor = new CommandProcessor(true);
 
@@ -242,8 +244,7 @@ public class DefaultProcessorTest extends TestCase {
 
 		Thread.sleep(3000);
 
-		assertEquals(0, processor.operationQueue.size());
-		assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
+		Assert.assertEquals(0, processor.operationQueue.size());
+		Assert.assertEquals(CommandProcessor.MAX_WORKERS, processor.worker.size());
 	}
-
 }

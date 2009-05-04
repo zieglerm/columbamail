@@ -15,34 +15,29 @@
 //All Rights Reserved.
 package org.columba.core.util;
 
-import junit.framework.TestCase;
 
 import org.columba.core.base.BooleanCompressor;
+import org.junit.Assert;
+import org.junit.Test;
 
 
-public class BooleanCompressorTest extends TestCase {
+public class BooleanCompressorTest {
     private Boolean[] test = {
         Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE
     };
 
-    /**
- * Constructor for BooleanCompressorTest.
- * @param arg0
- */
-    public BooleanCompressorTest(String arg0) {
-        super(arg0);
-    }
 
+    @Test
     public void test() {
         int testInt = BooleanCompressor.compress(test);
 
-        assertTrue(testInt == 25);
+        Assert.assertTrue(testInt == 25);
 
         Boolean[] result = new Boolean[test.length];
 
         for (int i = 0; i < test.length; i++) {
             result[i] = BooleanCompressor.decompress(testInt, i);
-            assertTrue(result[i].equals(test[i]));
+            Assert.assertTrue(result[i].equals(test[i]));
         }
     }
 }

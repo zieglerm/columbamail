@@ -1,3 +1,18 @@
+//The contents of this file are subject to the Mozilla Public License Version 1.1
+//(the "License"); you may not use this file except in compliance with the
+//License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+//
+//Software distributed under the License is distributed on an "AS IS" basis,
+//WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+//for the specific language governing rights and
+//limitations under the License.
+//
+//The Original Code is "The Columba Project"
+//
+//The Initial Developers of the Original Code are Frederik Dietz and Timo Stich.
+//Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
+//
+//All Rights Reserved.
 package org.columba.core.io;
 
 import java.io.ByteArrayInputStream;
@@ -5,13 +20,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
-public class StreamCacheTest extends TestCase {
+public class StreamCacheTest {
 
-	File tempDir = new File("test_temp/");
-	
+	static File tempDir = new File("test_temp/");
+
+    @Test
 	public void testAdd() throws IOException {
 		byte[] random = new byte[1000];
 		new Random().nextBytes(random);
@@ -25,23 +43,24 @@ public class StreamCacheTest extends TestCase {
 		in.read(test);		
 		in.close();
 		
-		assertEquals(1000, cache.getActSize());
+		Assert.assertEquals(1000, cache.getActSize());
 		
 		in = cache.get("test1");
 		in.read(test);
 		in.close();
 		
 		for( int i=0; i<1000; i++) {
-			assertEquals(test[i], random[i]);			
+			Assert.assertEquals(test[i], random[i]);
 		}
 		
 		cache.clear();
 		
-		assertEquals( 0, cache.getActSize());
+		Assert.assertEquals( 0, cache.getActSize());
 		
-		assertEquals( 0, tempDir.list().length);
+		Assert.assertEquals( 0, tempDir.list().length);
 	}
-	
+
+    @Test
 	public void testMaxsize() throws IOException, InterruptedException {
 		byte[] random1 = new byte[1000];
 		byte[] random2 = new byte[1000];
@@ -59,7 +78,7 @@ public class StreamCacheTest extends TestCase {
 		in.read(test);		
 		in.close();
 		
-		assertEquals(1000, cache.getActSize());
+		Assert.assertEquals(1000, cache.getActSize());
 
 		Thread.sleep(100);
 
@@ -67,8 +86,8 @@ public class StreamCacheTest extends TestCase {
 		in.read(test);		
 		in.close();
 
-		assertEquals(1000, cache.getActSize());
-		assertEquals(null, cache.get("test1"));
+		Assert.assertEquals(1000, cache.getActSize());
+		Assert.assertEquals(null, cache.get("test1"));
 		
 		
 		in = cache.get("test2");
@@ -76,7 +95,7 @@ public class StreamCacheTest extends TestCase {
 		in.close();
 		
 		for( int i=0; i<1000; i++) {
-			assertEquals(test[i], random2[i]);			
+			Assert.assertEquals(test[i], random2[i]);
 		}
 
 		cache.setMaxSize(2000);		
@@ -84,24 +103,25 @@ public class StreamCacheTest extends TestCase {
 		in.read(test);		
 		in.close();
 
-		assertEquals(2000, cache.getActSize());
+		Assert.assertEquals(2000, cache.getActSize());
 
 		in = cache.get("test3");
 		in.read(test);
 		in.close();
 		
 		for( int i=0; i<1000; i++) {
-			assertEquals(test[i], random3[i]);			
+			Assert.assertEquals(test[i], random3[i]);
 		}
 		
 		cache.clear();
 		
-		assertEquals( 0, cache.getActSize());
+		Assert.assertEquals( 0, cache.getActSize());
 		
-		assertEquals( 0, tempDir.list().length);
+		Assert.assertEquals( 0, tempDir.list().length);
 	}
 
-	protected void tearDown() throws Exception {
+    @AfterClass
+	public static void tearDown() throws Exception {
 		File[] rest = tempDir.listFiles();
 		for( int i=0; i<rest.length; i++) {
 			rest[i].delete();

@@ -15,10 +15,9 @@
 //All Rights Reserved.
 package org.columba.core.util;
 
-import junit.framework.TestCase;
-
 import org.columba.core.base.StopWatch;
-
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Tests for the StopWatch class.
@@ -27,11 +26,13 @@ import org.columba.core.base.StopWatch;
  *
  * @author redsolo
  */
-public class StopWatchTest extends TestCase {
+public class StopWatchTest {
+
     /**
- * Tests to start the StopWatch and then stop it.
- * @throws InterruptedException thrown if a <code>Thread.sleep()</code> fail.
- */
+     * Tests to start the StopWatch and then stop it.
+     * @throws InterruptedException thrown if a <code>Thread.sleep()</code> fail.
+     */
+    @Test
     public void testStop() throws InterruptedException {
         StopWatch watch = new StopWatch();
         StopWatch watch2 = new StopWatch();
@@ -42,14 +43,15 @@ public class StopWatchTest extends TestCase {
         long difference = watch.getTiming() - watch2.getTiming();
 
         if (Math.abs(difference) < 40) {
-            fail("Stopwatch wasnt stopped.");
+            Assert.fail("Stopwatch wasnt stopped.");
         }
     }
 
     /**
- * Tests to restarts the StopWatch and then stop it.
- * @throws InterruptedException thrown if a <code>Thread.sleep()</code> fail.
- */
+     * Tests to restarts the StopWatch and then stop it.
+     * @throws InterruptedException thrown if a <code>Thread.sleep()</code> fail.
+     */
+    @Test
     public void testStart() throws InterruptedException {
         StopWatch watch = new StopWatch();
         StopWatch watch2 = new StopWatch();
@@ -62,14 +64,15 @@ public class StopWatchTest extends TestCase {
         long difference = watch.getTiming() - watch2.getTiming();
 
         if (Math.abs(difference) < 40) {
-            fail("Stopwatch wasnt restarted correctly.");
+            Assert.fail("Stopwatch wasnt restarted correctly.");
         }
     }
 
     /**
- * Test to start the timer and stop it, and see that it returns a valid time.
- * @throws InterruptedException thrown if the sleep was interrupted.
- */
+     * Test to start the timer and stop it, and see that it returns a valid time.
+     * @throws InterruptedException thrown if the sleep was interrupted.
+     */
+    @Test
     public void testTiming() throws InterruptedException {
         StopWatch watch = new StopWatch();
 
@@ -77,8 +80,8 @@ public class StopWatchTest extends TestCase {
         watch.stop();
 
         if (watch.getTiming() < 100) {
-            fail("Stopwatch returned too small value. expected > 100 but was <" +
-                watch.getTiming() + ">");
+            Assert.fail("Stopwatch returned too small value. expected > 100 but was <" +
+                    watch.getTiming() + ">");
         }
     }
 }

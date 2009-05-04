@@ -17,21 +17,14 @@
 //All Rights Reserved.
 package org.columba.core.plugin;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author fdietz
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({PluginFinderTest.class, PluginManagerTest.class})
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.columba.core.plugin");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(PluginFinderTest.class);
-        suite.addTestSuite(PluginManagerTest.class);
-        //$JUnit-END$
-        return suite;
-    }
 }

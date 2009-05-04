@@ -15,9 +15,8 @@
 //All Rights Reserved.
 package org.columba.core.util;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author timo
@@ -27,15 +26,7 @@ import junit.framework.TestSuite;
  * To enable and disable the creation of type comments go to
  * Window>Preferences>Java>Code Generation.
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ListToolsTest.class, BooleanCompressorTest.class})
 public class AllTests {
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.columba.core.util");
-
-        //$JUnit-BEGIN$
-        suite.addTest(new TestSuite(ListToolsTest.class));
-        suite.addTest(new TestSuite(BooleanCompressorTest.class));
-
-        //$JUnit-END$
-        return suite;
-    }
 }
