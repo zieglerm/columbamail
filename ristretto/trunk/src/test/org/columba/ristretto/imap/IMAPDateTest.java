@@ -38,37 +38,41 @@ package org.columba.ristretto.imap;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class IMAPDateTest extends TestCase {
+public class IMAPDateTest {
     
+	@Test
     public void test1() {
         TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
         Calendar calendar = Calendar.getInstance(tz);
         calendar.set(2004,2,8,18,32,30);
         
         IMAPDateTime date = new IMAPDateTime( calendar.getTime(), tz );
-        assertEquals("\"08-Mar-2004 18:32:30 +0100\"", date.toString());
+        Assert.assertEquals("\"08-Mar-2004 18:32:30 +0100\"", date.toString());
         
     }
     
+	@Test
     public void test2() {
         TimeZone tz = TimeZone.getTimeZone("Europe/London");
         Calendar calendar = Calendar.getInstance(tz);
         calendar.set(2004,2,16,8,2,3);
         
         IMAPDateTime date = new IMAPDateTime( calendar.getTime(), tz );
-        assertEquals("\"16-Mar-2004 08:02:03 +0000\"", date.toString());
+        Assert.assertEquals("\"16-Mar-2004 08:02:03 +0000\"", date.toString());
         
     }
 
+	@Test
     public void test3() {
         TimeZone tz = TimeZone.getTimeZone("America/Los_Angeles");
         Calendar calendar = Calendar.getInstance(tz);
         calendar.set(2004,2,16,8,12,3);
         
         IMAPDateTime date = new IMAPDateTime( calendar.getTime(), tz );
-        assertEquals("\"16-Mar-2004 08:12:03 -0800\"", date.toString());
+        Assert.assertEquals("\"16-Mar-2004 08:12:03 -0800\"", date.toString());
         
     }
 }

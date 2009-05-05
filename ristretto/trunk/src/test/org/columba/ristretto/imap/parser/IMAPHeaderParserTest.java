@@ -35,14 +35,13 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPHeader;
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.message.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author frd
@@ -50,17 +49,10 @@ import org.columba.ristretto.message.Header;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class IMAPHeaderParserTest extends TestCase {
+public class IMAPHeaderParserTest{
 
-	/**
-	 * Constructor for HeaderParserTest.
-	 * @param arg0
-	 */
-	public IMAPHeaderParserTest(String arg0) {
-		super(arg0);
-	}
-
-	//	uw-imapd, cyrus-imapd
+		//	uw-imapd, cyrus-imapd
+	@Test
 	public void testParse() throws Exception {
 		String testData =
 			"* 23 FETCH (UID 24 BODY[HEADER.FIELDS (Subject From To Cc Date Size Message-Id In-Reply-To References Content-Type)] {0}\r\n";
@@ -81,7 +73,7 @@ public class IMAPHeaderParserTest extends TestCase {
 	
 		Header header = imapHeader.getHeader();
 		
-		assertTrue(imapHeader.getUid().intValue() == 24);
+		Assert.assertTrue(imapHeader.getUid().intValue() == 24);
 
 		// now test if all headerfields were parsed correctly
 		Assert.assertEquals(
@@ -99,6 +91,7 @@ public class IMAPHeaderParserTest extends TestCase {
 	// but note that "UID 17" is at the end, instead
 	//
 	// Communigate Pro Server
+	@Test
 	public void testParse2() throws Exception {
 		String testData =
 			"* 23 FETCH (BODY[HEADER.FIELDS (Subject From To Cc Date Size Message-Id In-Reply-To References Content-Type)] {0}\r\n";
@@ -119,7 +112,7 @@ public class IMAPHeaderParserTest extends TestCase {
 
 		Header header = imapHeader.getHeader();
 		
-		assertTrue(imapHeader.getUid().intValue() == 24 );
+		Assert.assertTrue(imapHeader.getUid().intValue() == 24 );
 
 		// now test if all headerfields were parsed correctly
 		Assert.assertEquals(

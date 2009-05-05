@@ -7,8 +7,12 @@ import java.util.Random;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class VariableSizeFileBufferTest extends TestCase {
 
+	@Test
 	public void testOneBlock() throws IOException {
 		VariableSizeFileBuffer buffer = new VariableSizeFileBuffer();
 		
@@ -22,17 +26,18 @@ public class VariableSizeFileBufferTest extends TestCase {
 		// First write some stuff
 		out.write(test);
 		
-		assertEquals(buffer.getSize(), test.length);
+		Assert.assertEquals(buffer.getSize(), test.length);
 		
 		// Read it back
 		for( int i=0; i<test.length; i++) {
-			assertEquals((byte)in.read(), test[i]);
+			Assert.assertEquals((byte)in.read(), test[i]);
 		}
 		
 		// Must be eof
-		assertEquals(-1, in.read());
+		Assert.assertEquals(-1, in.read());
 	}
 
+	@Test
 	public void testMoreBlocks() throws IOException {
 		VariableSizeFileBuffer buffer = new VariableSizeFileBuffer();
 		
@@ -46,18 +51,18 @@ public class VariableSizeFileBufferTest extends TestCase {
 		// First write some stuff
 		out.write(test);
 		
-		assertEquals(buffer.getSize(), test.length);
+		Assert.assertEquals(buffer.getSize(), test.length);
 		
 		// Read it back
 		for( int i=0; i<test.length; i++) {
-			assertEquals((byte)in.read(), test[i]);
+			Assert.assertEquals((byte)in.read(), test[i]);
 		}
 		
 		// Must be eof
-		assertEquals(-1, in.read());
+		Assert.assertEquals(-1, in.read());
 	}
 	
-	
+	@Test
 	public void testInterleaved() throws IOException {
 		VariableSizeFileBuffer buffer = new VariableSizeFileBuffer();
 		
@@ -73,20 +78,15 @@ public class VariableSizeFileBufferTest extends TestCase {
 		// First write some stuff
 		out.write(test);
 		
-		assertEquals(buffer.getSize(), test.length * j);
+		Assert.assertEquals(buffer.getSize(), test.length * j);
 		
 		// Read it back
 		for( int i=0; i<test.length; i++) {
-			assertEquals((byte)in.read(), test[i]);
+			Assert.assertEquals((byte)in.read(), test[i]);
 		}
 
 		// Must be eof
-		assertEquals(-1, in.read());
+		Assert.assertEquals(-1, in.read());
 		}
-	}
-	
-	
-	
-
-	
+	}	
 }

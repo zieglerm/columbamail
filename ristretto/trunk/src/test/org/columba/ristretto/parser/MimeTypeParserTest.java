@@ -35,34 +35,28 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.message.MimeType;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MimeTypeParserTest extends TestCase {
-
-	/**
-	 * Constructor for MimeTypeParserTest.
-	 * @param arg0
-	 */
-	public MimeTypeParserTest(String arg0) {
-		super(arg0);
-	}
+public class MimeTypeParserTest {
 	
+	@Test
 	public void testSimple() {
 		try {
 			MimeType result = MimeTypeParser.parse("text/plain");
-			assertTrue( result.equals(new MimeType("text", "plain")));
+			Assert.assertTrue( result.equals(new MimeType("text", "plain")));
 			
 		} catch (ParserException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Test
 	public void testWithParameter() {
 		try {
 			MimeType result = MimeTypeParser.parse("text/plain; boundary=\"tralala\"");
-			assertTrue( result.equals(new MimeType("text", "plain")));
+			Assert.assertTrue( result.equals(new MimeType("text", "plain")));
 			
 		} catch (ParserException e) {
 			e.printStackTrace();

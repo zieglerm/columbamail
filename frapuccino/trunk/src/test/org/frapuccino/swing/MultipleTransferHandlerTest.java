@@ -22,16 +22,14 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
-
-import org.frapuccino.swing.MultipleTransferHandler;
-
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author redsolo
  */
-public class MultipleTransferHandlerTest extends TestCase {
+public class MultipleTransferHandlerTest{
 
     private MultipleTransferHandler handler;
     private DataFlavorTransferHandler filelistHandler;
@@ -39,7 +37,8 @@ public class MultipleTransferHandlerTest extends TestCase {
     private DataFlavorTransferHandler imageHandler;
 
     /** {@inheritDoc} */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         handler = new MultipleTransferHandler();
 
         filelistHandler = new DataFlavorTransferHandler(DataFlavor.javaFileListFlavor, TransferHandler.NONE);
@@ -53,63 +52,68 @@ public class MultipleTransferHandlerTest extends TestCase {
     /**
      * Tests the add/remove methods.
      */
+    @Test
     public void testListTransferHandlers() {
         handler = new MultipleTransferHandler();
 
         handler.addTransferHandler(imageHandler);
         handler.addTransferHandler(new DataFlavorTransferHandler(DataFlavor.javaFileListFlavor));
-        assertEquals("The transfer handlers list is not the correct size.", 2, handler.getTransferHandlers().size());
+        Assert.assertEquals("The transfer handlers list is not the correct size.", 2, handler.getTransferHandlers().size());
         handler.addTransferHandler(imageHandler);
-        assertEquals("The transfer handlers list is not the correct size.", 2, handler.getTransferHandlers().size());
+        Assert.assertEquals("The transfer handlers list is not the correct size.", 2, handler.getTransferHandlers().size());
         handler.removeTransferHandler(imageHandler);
-        assertEquals("The transfer handlers list is not the correct size.", 1, handler.getTransferHandlers().size());
+        Assert.assertEquals("The transfer handlers list is not the correct size.", 1, handler.getTransferHandlers().size());
         handler.removeTransferHandler(new DataFlavorTransferHandler(null));
-        assertEquals("The transfer handlers list is not the correct size.", 1, handler.getTransferHandlers().size());
+        Assert.assertEquals("The transfer handlers list is not the correct size.", 1, handler.getTransferHandlers().size());
     }
 
     /**
      * Test that the multiple transfer handler returns correct on the canImport() method.
      */
+    @Test
     public void testCanImport() {
-        assertTrue("The handler should return true on importing file lists.",
+        Assert.assertTrue("The handler should return true on importing file lists.",
                 handler.canImport(null, new DataFlavor[] {DataFlavor.javaFileListFlavor}));
-        assertTrue("The handler should return true on importing images.",
+        Assert.assertTrue("The handler should return true on importing images.",
                 handler.canImport(null, new DataFlavor[] {DataFlavor.imageFlavor}));
-        assertFalse("The handler should return false on importing unicode text.",
+        Assert.assertFalse("The handler should return false on importing unicode text.",
                 handler.canImport(null, new DataFlavor[] {DataFlavor.getTextPlainUnicodeFlavor()}));
     }
 
     /**
      * Tests the getSourceAction().
      */
+    @Test
     public void testImportData() {
         MockTransferable transferable = new MockTransferable();
         handler.importData(null, transferable);
-        assertSame("The transferable did not return the data from the right data flavor",
+        Assert.assertSame("The transferable did not return the data from the right data flavor",
                 DataFlavor.imageFlavor,
                 transferable.returnedTransferDataFlavor);
-        assertEquals("The importData was not called in the image handler", 1, imageHandler.importDataCallCount);
-        assertEquals("The importData was called in the file list handler", 0, filelistHandler.importDataCallCount);
-        assertEquals("The importData was called in the string handler", 0, stringHandler.importDataCallCount);
+        Assert.assertEquals("The importData was not called in the image handler", 1, imageHandler.importDataCallCount);
+        Assert.assertEquals("The importData was called in the file list handler", 0, filelistHandler.importDataCallCount);
+        Assert.assertEquals("The importData was called in the string handler", 0, stringHandler.importDataCallCount);
     }
 
     /**
      * Tests the getSourceAction().
      * This returns only the default handlers actions.
      */
+    @Test
     public void testSourceActions() {
-        assertEquals("Expected no actions for the file list handler.", TransferHandler.NONE, handler.getSourceActions(null));
+        Assert.assertEquals("Expected no actions for the file list handler.", TransferHandler.NONE, handler.getSourceActions(null));
         handler.setDragSourceTransferHandler(imageHandler);
-        assertEquals("Expected no actions for the file list handler.", TransferHandler.MOVE, handler.getSourceActions(null));
+        Assert.assertEquals("Expected no actions for the file list handler.", TransferHandler.MOVE, handler.getSourceActions(null));
     }
 
     /**
      * test that the drag source is correct.
      */
+    @Test
     public void testDragSourceHandler() {
-        assertSame("Expected the file list as the source handler.", filelistHandler, handler.getDragSourceTransferHandler());
+        Assert.assertSame("Expected the file list as the source handler.", filelistHandler, handler.getDragSourceTransferHandler());
         handler.setDragSourceTransferHandler(imageHandler);
-        assertSame("Expected the image as the source handler.", imageHandler, handler.getDragSourceTransferHandler());
+        Assert.assertSame("Expected the image as the source handler.", imageHandler, handler.getDragSourceTransferHandler());
     }
 
     /**
@@ -140,6 +144,7 @@ public class MultipleTransferHandlerTest extends TestCase {
         }
 
         /** {@inheritDoc} */
+        @Override
         public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
             boolean canImport = false;
             for (int i = 0; i < transferFlavors.length; i++) {
@@ -148,18 +153,22 @@ public class MultipleTransferHandlerTest extends TestCase {
             return canImport;
         }
         /** {@inheritDoc} */
+        @Override
         protected Transferable createTransferable(JComponent c) {
             return super.createTransferable(c);
         }
         /** {@inheritDoc} */
+        @Override
         protected void exportDone(JComponent source, Transferable data, int action) {
             exportDataCallCount++;
         }
         /** {@inheritDoc} */
+        @Override
         public int getSourceActions(JComponent c) {
             return actions;
         }
         /** {@inheritDoc} */
+        @Override
         public boolean importData(JComponent comp, Transferable t) {
             boolean wasImported = false;
             importDataCallCount++;
@@ -167,7 +176,7 @@ public class MultipleTransferHandlerTest extends TestCase {
                 try {
                     t.getTransferData(supportedFlavor);
                 } catch (Exception e) {
-                    TestCase.fail("Exception: " + e);
+                    Assert.fail("Exception: " + e);
                 }
                 wasImported = true;
             }

@@ -22,15 +22,14 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
-
-import org.frapuccino.swing.SortedTreeModelDecorator;
-
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author redsolo
  */
-public class SortedTreeModelDecoratorTest extends TestCase {
+public class SortedTreeModelDecoratorTest {
 
     private DefaultMutableTreeNode orgRootNode;
     private DefaultTreeModel orgModel;
@@ -38,8 +37,8 @@ public class SortedTreeModelDecoratorTest extends TestCase {
     private SortedTreeModelDecorator sortedModel;
 
     /** {@inheritDoc} */
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         orgRootNode = new DefaultMutableTreeNode();
         orgModel = new DefaultTreeModel(orgRootNode);
 
@@ -60,69 +59,75 @@ public class SortedTreeModelDecoratorTest extends TestCase {
     /**
      * Test to sort a simple one level tree.
      */
+    @Test
     public void testGetChild() {
-        assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(orgRootNode, 1), sortedModel.getChild(orgRootNode, 0));
-        assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 1));
-        assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
-        assertSame("Expected the same object at index 2 in the sorted list", orgModel.getChild(orgRootNode, 2), sortedModel.getChild(orgRootNode, 3));
+        Assert.assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(orgRootNode, 1), sortedModel.getChild(orgRootNode, 0));
+        Assert.assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 1));
+        Assert.assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
+        Assert.assertSame("Expected the same object at index 2 in the sorted list", orgModel.getChild(orgRootNode, 2), sortedModel.getChild(orgRootNode, 3));
     }
 
     /**
      * Test to sort a simple two level tree.
      */
+    @Test
     public void testSort() {
         Object orgCChild = orgModel.getChild(orgRootNode, 0);
         Object expCChild = sortedModel.getChild(orgRootNode, 1);
-        assertSame("The b child was not the same object", orgCChild, expCChild);
+        Assert.assertSame("The b child was not the same object", orgCChild, expCChild);
         Object cChild = expCChild;
-        assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(cChild, 2), sortedModel.getChild(cChild, 0));
-        assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(cChild, 1), sortedModel.getChild(cChild, 1));
-        assertSame("Expected the same object at index 2 in the sorted list", orgModel.getChild(cChild, 3), sortedModel.getChild(cChild, 2));
-        assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(cChild, 0), sortedModel.getChild(cChild, 3));
+        Assert.assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(cChild, 2), sortedModel.getChild(cChild, 0));
+        Assert.assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(cChild, 1), sortedModel.getChild(cChild, 1));
+        Assert.assertSame("Expected the same object at index 2 in the sorted list", orgModel.getChild(cChild, 3), sortedModel.getChild(cChild, 2));
+        Assert.assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(cChild, 0), sortedModel.getChild(cChild, 3));
     }
 
     /**
      * Tests the isLeaf() method.
      */
+    @Test
     public void testIsLeaf() {
         Object orgCChild = orgModel.getChild(orgRootNode, 0);
-        assertEquals("The B child is not a child as it is in the original model.", orgModel.isLeaf(orgCChild), sortedModel.isLeaf(orgCChild));
+        Assert.assertEquals("The B child is not a child as it is in the original model.", orgModel.isLeaf(orgCChild), sortedModel.isLeaf(orgCChild));
     }
 
     /**
      * Tests the getChildCount() method.
      */
+    @Test
     public void testGetChildCount() {
-        assertEquals("The number of childs of the root is not correct", 5, sortedModel.getChildCount(orgRootNode));
-        assertEquals("The number of childs of the root is not correct", orgModel.getChildCount(orgRootNode), sortedModel.getChildCount(orgRootNode));
+        Assert.assertEquals("The number of childs of the root is not correct", 5, sortedModel.getChildCount(orgRootNode));
+        Assert.assertEquals("The number of childs of the root is not correct", orgModel.getChildCount(orgRootNode), sortedModel.getChildCount(orgRootNode));
         Object orgCChild = orgModel.getChild(orgRootNode, 0);
-        assertEquals("The number of childs of the B child is not correct", 4, sortedModel.getChildCount(orgCChild));
-        assertEquals("The number of childs of the B child is not correct", orgModel.getChildCount(orgCChild), sortedModel.getChildCount(orgCChild));
+        Assert.assertEquals("The number of childs of the B child is not correct", 4, sortedModel.getChildCount(orgCChild));
+        Assert.assertEquals("The number of childs of the B child is not correct", orgModel.getChildCount(orgCChild), sortedModel.getChildCount(orgCChild));
     }
 
     /**
      * Tests the getIndexOfChild() method.
      */
+    @Test
     public void testGetIndexOfChild() {
-        assertEquals("The child should be the middle child in the sorted list.", 1,
+        Assert.assertEquals("The child should be the middle child in the sorted list.", 1,
                 sortedModel.getIndexOfChild(orgRootNode, orgModel.getChild(orgRootNode, 0)));
-        assertEquals("The child should be the first child in the sorted list.", 0,
+        Assert.assertEquals("The child should be the first child in the sorted list.", 0,
                 sortedModel.getIndexOfChild(orgRootNode, orgModel.getChild(orgRootNode, 1)));
-        assertEquals("The child should be the last child in the sorted list.", 3,
+        Assert.assertEquals("The child should be the last child in the sorted list.", 3,
                 sortedModel.getIndexOfChild(orgRootNode, orgModel.getChild(orgRootNode, 2)));
-        assertEquals("The child should be the last child in the sorted list.", 2,
+        Assert.assertEquals("The child should be the last child in the sorted list.", 2,
                 sortedModel.getIndexOfChild(orgRootNode, orgModel.getChild(orgRootNode, 3)));
     }
 
     /**
      * Tests the addTreeModeListener() method.
      */
+    @Test
     public void testAddListener() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
 
         orgModel.insertNodeInto(orgRootNode, new DefaultMutableTreeNode("aaa"), 0);
-        assertNotNull("The insert event wasnt fired correctly", listener.treeNodesInsertedEvent);
+        Assert.assertNotNull("The insert event wasnt fired correctly", listener.treeNodesInsertedEvent);
         listener.clearEvents();
 
         /*orgModel.removeNodeFromParent(orgRootNode.getFirstLeaf());
@@ -130,23 +135,24 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         listener.clearEvents();*/
 
         orgModel.setRoot(new DefaultMutableTreeNode("NEW ROOT"));
-        assertNotNull("The tree structure change event wasnt fired correctly", listener.treeStructureChangedEvent);
+        Assert.assertNotNull("The tree structure change event wasnt fired correctly", listener.treeStructureChangedEvent);
     }
 
     /**
      * Tests the removeTreeModelListener() method.
      */
+    @Test
     public void testRemoveListener() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
 
         orgModel.insertNodeInto(orgRootNode, new DefaultMutableTreeNode("aaa"), 0);
-        assertNotNull("The insert event wasnt fired correctly", listener.treeNodesInsertedEvent);
+        Assert.assertNotNull("The insert event wasnt fired correctly", listener.treeNodesInsertedEvent);
         listener.clearEvents();
         sortedModel.removeTreeModelListener(listener);
 
         orgModel.insertNodeInto(orgRootNode, new DefaultMutableTreeNode("aaa"), 0);
-        assertNull("The listener received the inserted event", listener.treeNodesInsertedEvent);
+        Assert.assertNull("The listener received the inserted event", listener.treeNodesInsertedEvent);
         listener.clearEvents();
 
         /*orgModel.removeNodeFromParent(orgRootNode.getFirstLeaf());
@@ -154,12 +160,13 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         listener.clearEvents();*/
 
         orgModel.setRoot(new DefaultMutableTreeNode("NEW ROOT"));
-        assertNull("The listener received the tree structure change event", listener.treeStructureChangedEvent);
+        Assert.assertNull("The listener received the tree structure change event", listener.treeStructureChangedEvent);
     }
 
     /**
      * Tests that the tree nodes inserted event is thrown and with the correct indexes.
      */
+    @Test
     public void testNodesInsertedEvent() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -170,10 +177,10 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         assertTreeEvent(listener.treeNodesInsertedEvent, orgRootNode, 1, "inserted");
         Object[] paths = listener.treeNodesInsertedEvent.getPath();
         int[] newChildIndexes = listener.treeNodesInsertedEvent.getChildIndices();
-        assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
-        assertEquals("The number of new childs was not correct.", 1, newChildIndexes.length);
-        assertEquals("The new node's index was not sorted in the model.", 2, newChildIndexes[0]);
-        assertSame("The model has a different object for the event's index", newNode, sortedModel.getChild(orgRootNode, newChildIndexes[0]));
+        Assert.assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
+        Assert.assertEquals("The number of new childs was not correct.", 1, newChildIndexes.length);
+        Assert.assertEquals("The new node's index was not sorted in the model.", 2, newChildIndexes[0]);
+        Assert.assertSame("The model has a different object for the event's index", newNode, sortedModel.getChild(orgRootNode, newChildIndexes[0]));
 
         listener.clearEvents();
         MutableTreeNode orgCChild = (MutableTreeNode) orgModel.getChild(orgRootNode, 0);
@@ -181,15 +188,16 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         orgModel.insertNodeInto(newNode, orgCChild, 0);
         paths = listener.treeNodesInsertedEvent.getPath();
         newChildIndexes = listener.treeNodesInsertedEvent.getChildIndices();
-        assertSame("The event did not occur with the B node as the parent", orgCChild, paths[1]);
-        assertEquals("The number of new childs was not correct.", 1, newChildIndexes.length);
-        assertEquals("The new node's index was not sorted in the model.", 1, newChildIndexes[0]);
-        assertSame("The model has a different object for the event's index", newNode, sortedModel.getChild(orgCChild, newChildIndexes[0]));
+        Assert.assertSame("The event did not occur with the B node as the parent", orgCChild, paths[1]);
+        Assert.assertEquals("The number of new childs was not correct.", 1, newChildIndexes.length);
+        Assert.assertEquals("The new node's index was not sorted in the model.", 1, newChildIndexes[0]);
+        Assert.assertSame("The model has a different object for the event's index", newNode, sortedModel.getChild(orgCChild, newChildIndexes[0]));
     }
 
     /**
      * Tests that the tree nodes removed event is thrown and with the correct indexes.
      */
+    @Test
     public void testNodesRemovedEvent() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -206,9 +214,9 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         // CC-AA-HH-GG-KK - original model before change (the order does not change)
         //  1  0  3  2  4 - sorted model before change
 
-        assertEquals("The number of removed childs wasnt correct", 1, removedIndexes.length);
-        assertEquals("The index of the child wasnt correct", 3, removedIndexes[0]);
-        assertSame("The object from the event isnt the one that was removed", orgHChild, removedChildren[0]);
+        Assert.assertEquals("The number of removed childs wasnt correct", 1, removedIndexes.length);
+        Assert.assertEquals("The index of the child wasnt correct", 3, removedIndexes[0]);
+        Assert.assertSame("The object from the event isnt the one that was removed", orgHChild, removedChildren[0]);
     }
 
     /**
@@ -216,6 +224,7 @@ public class SortedTreeModelDecoratorTest extends TestCase {
      * This tests a simple node changed, ie the string that represents the tree node in the UI
      * hasnt changed. ie, it keeps it place in the sorted children list.
      */
+    @Test
     public void testNodesChangedEvent() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -224,10 +233,10 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         orgModel.nodeChanged(orgCChild);
         Object[] paths = listener.treeNodeChangedEvent.getPath();
         int[] changedIndexes = listener.treeNodeChangedEvent.getChildIndices();
-        assertEquals("The number changed nodes is not correct", 1, changedIndexes.length);
-        assertEquals("The changed node's index was not the correct one", 1, changedIndexes[0]);
-        assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
-        assertSame("The changed object from the event is not the one that was changed.", orgCChild, listener.treeNodeChangedEvent.getChildren()[0]);
+        Assert.assertEquals("The number changed nodes is not correct", 1, changedIndexes.length);
+        Assert.assertEquals("The changed node's index was not the correct one", 1, changedIndexes[0]);
+        Assert.assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
+        Assert.assertSame("The changed object from the event is not the one that was changed.", orgCChild, listener.treeNodeChangedEvent.getChildren()[0]);
     }
 
     /**
@@ -235,6 +244,7 @@ public class SortedTreeModelDecoratorTest extends TestCase {
      * If the string that represents a tree node has changed, then the whole children list must
      * be sorted and this will enforce many childs to relocate into new indexes. This method tests this.
      */
+    @Test
     public void testNodeNameChanged() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -275,6 +285,7 @@ public class SortedTreeModelDecoratorTest extends TestCase {
      * If the string that represents a tree node has changed, then the whole children list must
      * be sorted and this will enforce many childs to relocate into new indexes. This method tests this.
      */
+    @Test
     public void testNodeNameChangedReversed() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -312,6 +323,7 @@ public class SortedTreeModelDecoratorTest extends TestCase {
     /**
      * Test to change just the first node in the original list.
      */
+    @Test
     public void testFirstNodeChange() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -339,6 +351,7 @@ public class SortedTreeModelDecoratorTest extends TestCase {
     /**
      * Tests that the tree nodes inserted event is thrown and with the correct indexes.
      */
+    @Test
     public void testTreeStructureChangedEvent() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -346,15 +359,16 @@ public class SortedTreeModelDecoratorTest extends TestCase {
 
         orgModel.nodeStructureChanged(orgCChild);
         Object[] paths = listener.treeStructureChangedEvent.getPath();
-        assertNull("The index list should be null", listener.treeStructureChangedEvent.getChildIndices());
-        assertNull("The children list should be null", listener.treeStructureChangedEvent.getChildren());
-        assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
-        assertSame("The event did not occur with the root node as the parent", orgCChild, paths[1]);
+        Assert.assertNull("The index list should be null", listener.treeStructureChangedEvent.getChildIndices());
+        Assert.assertNull("The children list should be null", listener.treeStructureChangedEvent.getChildren());
+        Assert.assertSame("The event did not occur with the root node as the parent", orgRootNode, paths[0]);
+        Assert.assertSame("The event did not occur with the root node as the parent", orgCChild, paths[1]);
     }
 
     /**
      * Tests that the tree model sends out a tree structure change and that the new comparator is used.
      */
+    @Test
     public void testSetComparator() {
         Comparator reverseAlphabetic = new Comparator() {
             /** {@inheritDoc} */
@@ -364,21 +378,22 @@ public class SortedTreeModelDecoratorTest extends TestCase {
         };
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
-        assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 1));
-        assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
+        Assert.assertSame("Expected the same object at index 1 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 1));
+        Assert.assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
 
         sortedModel.setSortingComparator(reverseAlphabetic);
 
-        assertNotNull("The tree structure event wasnt fired.", listener.treeStructureChangedEvent);
-        assertSame("The structure changed event did not have the correct path", orgRootNode, listener.treeStructureChangedEvent.getPath()[0]);
+        Assert.assertNotNull("The tree structure event wasnt fired.", listener.treeStructureChangedEvent);
+        Assert.assertSame("The structure changed event did not have the correct path", orgRootNode, listener.treeStructureChangedEvent.getPath()[0]);
 
-        assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 3));
-        assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
+        Assert.assertSame("Expected the same object at index 3 in the sorted list", orgModel.getChild(orgRootNode, 0), sortedModel.getChild(orgRootNode, 3));
+        Assert.assertSame("Expected the same object at index 0 in the sorted list", orgModel.getChild(orgRootNode, 3), sortedModel.getChild(orgRootNode, 2));
     }
 
     /**
      * Test that the decorator isnt listening on the original if theres no listeners on the decorator.
      */
+    @Test
     public void testEmptyListeners() {
         DummyTreeListener listener = new DummyTreeListener();
         sortedModel.addTreeModelListener(listener);
@@ -386,13 +401,13 @@ public class SortedTreeModelDecoratorTest extends TestCase {
 
         orgCChild.setUserObject("11");
         orgModel.nodeChanged(orgCChild);
-        assertNotNull("The listener wasnt notified", listener.treeNodeChangedEvent);
+        Assert.assertNotNull("The listener wasnt notified", listener.treeNodeChangedEvent);
 
         listener.treeNodeChangedEvent = null;
         sortedModel.removeTreeModelListener(listener);
         orgCChild.setUserObject("99");
         orgModel.nodeChanged(orgCChild);
-        assertNull("The listener was notified even though it shouldnt be listening", listener.treeNodeChangedEvent);
+        Assert.assertNull("The listener was notified even though it shouldnt be listening", listener.treeNodeChangedEvent);
     }
 
     /**
@@ -402,14 +417,14 @@ public class SortedTreeModelDecoratorTest extends TestCase {
      * @param event the actual event.
      */
     private void assertChildArray(int[] expectedIndexArray, Object[] expectedObjectArray, TreeModelEvent event) {
-        assertTrue("The testcase is not correct setup", expectedIndexArray.length == expectedObjectArray.length);
-        assertTrue("The tree event differs in number of child indicies", expectedIndexArray.length == event.getChildIndices().length);
-        assertTrue("The tree event differs in number of child objects", expectedObjectArray.length == event.getChildren().length);
+        Assert.assertTrue("The testcase is not correct setup", expectedIndexArray.length == expectedObjectArray.length);
+        Assert.assertTrue("The tree event differs in number of child indicies", expectedIndexArray.length == event.getChildIndices().length);
+        Assert.assertTrue("The tree event differs in number of child objects", expectedObjectArray.length == event.getChildren().length);
 
         for (int i = 0; i < expectedIndexArray.length; i++) {
-            assertEquals("Child at pos " + i + " has not the correct index", expectedIndexArray[i], event.getChildIndices()[i]);
+            Assert.assertEquals("Child at pos " + i + " has not the correct index", expectedIndexArray[i], event.getChildIndices()[i]);
             Object actualChildAtIndex = sortedModel.getChild(getParent(event), expectedIndexArray[i]);
-            assertSame("The child at pos " + i + " is not the correct object", expectedObjectArray[i], actualChildAtIndex);
+            Assert.assertSame("The child at pos " + i + " is not the correct object", expectedObjectArray[i], actualChildAtIndex);
         }
     }
 
@@ -421,14 +436,14 @@ public class SortedTreeModelDecoratorTest extends TestCase {
      * @param type the type of event, is used in assertion messages.
      */
     private void assertTreeEvent(TreeModelEvent event, Object rootNode, int childCount, String type) {
-        assertNotNull("The " + type + " node event is null", event);
+        Assert.assertNotNull("The " + type + " node event is null", event);
         int[] changedIndexes = event.getChildIndices();
         Object[] changedChildren = event.getChildren();
 
-        assertNotNull("The " + type + " indicies array was null.", changedIndexes);
-        assertNotNull("The " + type + " children array was null.", changedChildren);
-        assertEquals("The number of " + type + " nodes is not correct", childCount, changedIndexes.length);
-        assertSame("The event did not occur with the root node as the parent", rootNode, event.getPath()[0]);
+        Assert.assertNotNull("The " + type + " indicies array was null.", changedIndexes);
+        Assert.assertNotNull("The " + type + " children array was null.", changedChildren);
+        Assert.assertEquals("The number of " + type + " nodes is not correct", childCount, changedIndexes.length);
+        Assert.assertSame("The event did not occur with the root node as the parent", rootNode, event.getPath()[0]);
     }
 
     /**

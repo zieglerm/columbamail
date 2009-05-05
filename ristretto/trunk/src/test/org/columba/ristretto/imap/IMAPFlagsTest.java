@@ -35,22 +35,26 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class IMAPFlagsTest extends TestCase {
+
+public class IMAPFlagsTest{
 	
+	@Test
 	public void testEmtpy() {
 		IMAPFlags flags = new IMAPFlags();
 		Assert.assertEquals( flags.toString(), "()" );
 	}
 
+	@Test
 	public void testOne() {
 		IMAPFlags flags = new IMAPFlags();
 		flags.setAnswered(true);
 		Assert.assertEquals( flags.toString(), "(\\Answered)" );
 	}
 
+	@Test
 	public void testMulti() {
 		IMAPFlags flags = new IMAPFlags();
 		flags.setAnswered(true);

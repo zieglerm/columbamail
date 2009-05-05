@@ -39,8 +39,6 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.coder.Base64;
 import org.columba.ristretto.io.ConnectionDroppedException;
 import org.columba.ristretto.log.RistrettoLogger;
@@ -48,8 +46,12 @@ import org.columba.ristretto.message.MailboxInfo;
 import org.columba.ristretto.message.MimeTree;
 import org.columba.ristretto.testserver.SimpleTestServerSession;
 import org.columba.ristretto.testserver.TestServer;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class IMAPProtocolTest extends TestCase {
+public class IMAPProtocolTest {
 
     /** JDK 1.4+ logging framework logger, used for logging. */
     private static final Logger LOG = Logger.getLogger("org.columba.ristretto.imap");
@@ -57,6 +59,7 @@ public class IMAPProtocolTest extends TestCase {
     private TestServer testServer;
 	boolean flagsUpdated = false;
     
+	@Test
     public void testOpenCloseConnection() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGOUT\r\n", "* BYE IMAP4rev1 Server logging out\r\n0 OK LOGOUT completed\r\n");
@@ -66,15 +69,16 @@ public class IMAPProtocolTest extends TestCase {
 		IMAPProtocol protocol = new IMAPProtocol("localhost", 50110);
 		
         protocol.openPort();
-        assertEquals( IMAPProtocol.NON_AUTHENTICATED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.NON_AUTHENTICATED, protocol.getState());
         
         protocol.logout();
-        assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
         
 		testServer.stop();
 		System.out.println("--- next test");
     }
     
+	@Test
     public void testPreAuthOpenCloseConnection() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* PREAUTH IMAP4rev1 server logged in as Smith\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGOUT\r\n", "* BYE IMAP4rev1 Server logging out\r\n0 OK LOGOUT completed\r\n");
@@ -84,15 +88,16 @@ public class IMAPProtocolTest extends TestCase {
 		IMAPProtocol protocol = new IMAPProtocol("localhost", 50110);
 		
         protocol.openPort();
-        assertEquals( IMAPProtocol.AUTHENTICATED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.AUTHENTICATED, protocol.getState());
         
         protocol.logout();
-        assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
         
 		testServer.stop();        
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testConnectionRefused() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* BYE IMAP4rev1 Connection refused\r\n","LOGOUT");
 
@@ -102,16 +107,17 @@ public class IMAPProtocolTest extends TestCase {
 		
         try {
             protocol.openPort();
-            fail();
+            Assert.fail();
         } catch (IMAPException e) {
-            assertEquals( "IMAP4rev1 Connection refused", e.getMessage() );
+        	Assert.assertEquals( "IMAP4rev1 Connection refused", e.getMessage() );
         }
-        assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());        
+        Assert.assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());        
         
 		testServer.stop();
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testCapabilitiy() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 CAPABILITY\r\n", "* CAPABILITY IMAP4rev1 STARTTLS AUTH=GSSAPI\r\n0 OK CAPABILITY completed\r\n");
@@ -126,7 +132,7 @@ public class IMAPProtocolTest extends TestCase {
         protocol.openPort();
         String[] serverCaps = protocol.capability();
         for( int i=0; i<capas.length; i++) {
-            assertEquals(capas[i], serverCaps[i]);
+        	Assert.assertEquals(capas[i], serverCaps[i]);
         }
         protocol.logout();        
 
@@ -134,6 +140,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
     
+	@Test
     public void testNoop() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 NOOP\r\n", "0 OK NOOP completed\r\n");
@@ -151,6 +158,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testAuthenticate() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 AUTHENTICATE LOGIN\r\n", "+ \r\n");
@@ -164,13 +172,14 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.authenticate("LOGIN", "test", "user".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.logout();        
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testLogin() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -182,13 +191,14 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.logout();        
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testDropConnection() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN\0");
@@ -200,9 +210,9 @@ public class IMAPProtocolTest extends TestCase {
         protocol.openPort();
         try {
 			protocol.login("SMITH", "SESAME".toCharArray());
-			assertTrue(false);
+			Assert.assertTrue(false);
 		} catch (ConnectionDroppedException e) {
-			assertTrue(true);
+			Assert.assertTrue(true);
 			
 		} finally {
 			testServer.stop();
@@ -210,6 +220,7 @@ public class IMAPProtocolTest extends TestCase {
 		}
     }
     
+	@Test
     public void testCreate() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -223,7 +234,7 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.create("owatagusiam/");        
         protocol.logout();        
 
@@ -231,6 +242,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
     
+	@Test
     public void testDelete() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -244,7 +256,7 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.delete("blurdybloop");        
         protocol.logout();        
 
@@ -252,6 +264,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testRename() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -265,7 +278,7 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.rename("blurdybloop", "sarasoop");        
         protocol.logout();        
 
@@ -273,6 +286,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testSubscribe() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN completed\r\n");
@@ -286,7 +300,7 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.subscribe("#news.comp.mail.mime");        
         protocol.logout();        
 
@@ -294,6 +308,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
     
+	@Test
     public void testList() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -307,11 +322,11 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         ListInfo[] result = protocol.list("~/Mail/","%");
-        assertEquals(2,  result.length);
-        assertEquals( "~/Mail/foo", result[0].getName());
-        assertEquals( "~/Mail/meetings", result[1].getName());
+        Assert.assertEquals(2,  result.length);
+        Assert.assertEquals( "~/Mail/foo", result[0].getName());
+        Assert.assertEquals( "~/Mail/meetings", result[1].getName());
         
         protocol.logout();        
 
@@ -319,6 +334,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testNamespace() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -332,14 +348,14 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         
         NamespaceCollection result = protocol.namespace();
 
-        assertEquals( "", result.getPersonalNamespace().getPrefix());
-		assertEquals("/", result.getPersonalNamespace().getDelimiter());
-		assertEquals( null, result.getOtherUserNamespace());
-		assertEquals( null, result.getSharedNamespace());
+        Assert.assertEquals( "", result.getPersonalNamespace().getPrefix());
+        Assert.assertEquals("/", result.getPersonalNamespace().getDelimiter());
+        Assert.assertEquals( null, result.getOtherUserNamespace());
+        Assert.assertEquals( null, result.getSharedNamespace());
 		
         protocol.logout();        
 
@@ -347,6 +363,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+	@Test
     public void testUnsubscribe() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -360,7 +377,7 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.unsubscribe("#news.comp.mail.mime");        
         protocol.logout();        
 
@@ -368,7 +385,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
-    
+    @Test
     public void testLsub() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n", "LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -382,10 +399,10 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());        
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         ListInfo[] result = protocol.lsub("#news.","comp.mail.*");
-        assertEquals(1,  result.length);
-        assertEquals( "#news.comp.mail.mime", result[0].getName());
+        Assert.assertEquals(1,  result.length);
+        Assert.assertEquals( "#news.comp.mail.mime", result[0].getName());
         
         protocol.logout();        
 
@@ -393,6 +410,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
     
+    @Test
     public void testStatus() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -407,13 +425,14 @@ public class IMAPProtocolTest extends TestCase {
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
         MailboxStatus status = protocol.status("blurdybloop", new String[] {"UIDNEXT","MESSAGES"});
-        assertEquals(status.getName(), "blurdybloop");
+        Assert.assertEquals(status.getName(), "blurdybloop");
         
         protocol.logout();        
 
 		testServer.stop();
     }
 
+    @Test
     public void testSelect() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -426,16 +445,17 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         MailboxInfo info = protocol.select("blurdybloop");
-        assertTrue(info.isWriteAccess());
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertTrue(info.isWriteAccess());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         protocol.logout();        
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
     
+    @Test
     public void testClose() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -449,17 +469,18 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         protocol.close();
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);        
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);        
         protocol.logout();        
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
 
+    @Test
     public void testExpunge() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -473,17 +494,18 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         int[] expunged = protocol.expunge();
-        assertEquals( 4, expunged.length);
+        Assert.assertEquals( 4, expunged.length);
         protocol.logout();        
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
 
+    @Test
     public void testSearch() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -498,9 +520,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         Calendar cal = Calendar.getInstance();
         cal.set(1994,1,1);
@@ -513,13 +535,13 @@ public class IMAPProtocolTest extends TestCase {
         };
         
         Integer[] result = protocol.search(testSearch);
-        assertEquals( 3, result.length);
+        Assert.assertEquals( 3, result.length);
         
         testSearch = new SearchKey[] {
                  new SearchKey( SearchKey.TEXT, "string not in mailbox")
         };
         result = protocol.search(testSearch);
-        assertEquals( 0, result.length);
+        Assert.assertEquals( 0, result.length);
         
         protocol.logout();        
 
@@ -527,6 +549,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+    @Test
     public void testStore() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -540,9 +563,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         IMAPFlags flags = new IMAPFlags();
         flags.setFlagged(true);
         flags.setDeleted(true);
@@ -554,6 +577,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
     
+    @Test
     public void testUnsolicitedQuit() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -567,14 +591,15 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
 
 		testServer.stop();
 		System.out.println("--- next test");
     }
     
+    @Test
     public void testFetchFlags() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -589,19 +614,19 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         IMAPFlags[] flags = protocol.fetchFlags(SequenceSet.getAll());
-        assertEquals( 1, flags.length );
-        assertTrue( flags[0].getFlagged() );
-        assertTrue( flags[0].getDeleted() );
+        Assert.assertEquals( 1, flags.length );
+        Assert.assertTrue( flags[0].getFlagged() );
+        Assert.assertTrue( flags[0].getDeleted() );
 
         flags = protocol.uidFetchFlags(new SequenceSet((Integer)flags[0].getUid()));
-        assertEquals( 1, flags.length );
-        assertTrue( flags[0].getFlagged() );
-        assertTrue( flags[0].getDeleted() );
+        Assert.assertEquals( 1, flags.length );
+        Assert.assertTrue( flags[0].getFlagged() );
+        Assert.assertTrue( flags[0].getDeleted() );
         
         protocol.logout();        
 
@@ -609,6 +634,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
+    @Test
     public void testFetchHeaderLiteral() throws Exception {
     	flagsUpdated = false;
     	
@@ -624,9 +650,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         protocol.addIMAPListener(new IMAPListener() {
 
@@ -667,8 +693,8 @@ public class IMAPProtocolTest extends TestCase {
         });
         
         IMAPHeader[] header = protocol.uidFetchHeaderFields(new SequenceSet(192),new String[] {"Subject", "Date", "From", "To", "Reply-To", "Message-ID", "In-Reply-To", "References"});
-        assertEquals( 1, header.length );
-        assertTrue( flagsUpdated );
+        Assert.assertEquals( 1, header.length );
+        Assert.assertTrue( flagsUpdated );
         
         protocol.logout();        
 
@@ -677,7 +703,7 @@ public class IMAPProtocolTest extends TestCase {
     }
     
     
-    
+    @Test
     public void testNoUnsolicitedFlagsResponse() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -691,9 +717,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         protocol.addIMAPListener(new IMAPListener() {
 
@@ -703,7 +729,7 @@ public class IMAPProtocolTest extends TestCase {
 			}
 
 			public void flagsChanged(String mailbox, IMAPFlags flags) {
-				assertTrue(false);
+				Assert.assertTrue(false);
 			}
 
 			public void existsChanged(String mailbox, int exists) {
@@ -740,7 +766,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }
 
-    
+    @Test
     public void testFetchBodystructure() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -754,9 +780,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         MimeTree flags = protocol.uidFetchBodystructure(1216);
         
@@ -765,6 +791,8 @@ public class IMAPProtocolTest extends TestCase {
 		testServer.stop();
 		System.out.println("--- next test");
     }
+    
+    @Test
     public void testNoUnsolicitedFlagsResponse2() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -778,9 +806,9 @@ public class IMAPProtocolTest extends TestCase {
 		
         protocol.openPort();
         protocol.login("SMITH", "SESAME".toCharArray());
-        assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
+        Assert.assertEquals( protocol.getState(), IMAPProtocol.AUTHENTICATED);
         protocol.select("blurdybloop");
-        assertEquals( IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals( IMAPProtocol.SELECTED, protocol.getState());
         
         protocol.addIMAPListener(new IMAPListener() {
 
@@ -790,7 +818,7 @@ public class IMAPProtocolTest extends TestCase {
 			}
 
 			public void flagsChanged(String mailbox, IMAPFlags flags) {
-				assertTrue(false);
+				Assert.assertTrue(false);
 			}
 
 			public void existsChanged(String mailbox, int exists) {
@@ -820,8 +848,8 @@ public class IMAPProtocolTest extends TestCase {
         IMAPFlags flags = new IMAPFlags();
         flags.setJunk(true);
         int[] expunged = protocol.expunge();
-        assertEquals(1,expunged.length);
-        assertEquals(495,expunged[0]);
+        Assert.assertEquals(1,expunged.length);
+        Assert.assertEquals(495,expunged[0]);
         
         protocol.logout();        
 
@@ -829,6 +857,7 @@ public class IMAPProtocolTest extends TestCase {
 		System.out.println("--- next test");
     }    
     
+    @Test
     public void testIdle() throws Exception {
 		SimpleTestServerSession testSession = new SimpleTestServerSession("* OK IMAP4rev1 Service Ready\r\n","LOGOUT");
 		testSession.addDialog("0 LOGIN SMITH SESAME\r\n", "0 OK LOGIN copmleted\r\n");
@@ -856,7 +885,7 @@ public class IMAPProtocolTest extends TestCase {
 			}
 
 			public void existsChanged(String mailbox, int exists) {
-				assertEquals(4, exists);
+				Assert.assertEquals(4, exists);
 				flagsUpdated = true;
 			}
 
@@ -886,10 +915,10 @@ public class IMAPProtocolTest extends TestCase {
         protocol.login("SMITH", "SESAME".toCharArray());
         protocol.select("blurdybloop");
         protocol.idle();        
-        assertEquals(IMAPProtocol.IDLE, protocol.getState());
-        assertTrue(flagsUpdated);
+        Assert.assertEquals(IMAPProtocol.IDLE, protocol.getState());
+        Assert.assertTrue(flagsUpdated);
         protocol.fetchFlags(new SequenceSet(4));
-        assertEquals(IMAPProtocol.SELECTED, protocol.getState());
+        Assert.assertEquals(IMAPProtocol.SELECTED, protocol.getState());
         
         protocol.logout();
         
@@ -898,17 +927,15 @@ public class IMAPProtocolTest extends TestCase {
     }
     
     
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
+    
+    @Before
+    public void setUp() throws Exception {
         LOG.setLevel(Level.ALL);
         RistrettoLogger.setLogStream(System.out);
     }
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
+    
+    @After
+    public void tearDown() throws Exception {
         testServer.stop();
     }
     

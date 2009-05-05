@@ -35,47 +35,51 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.smtp.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.parser.ParserException;
 import org.columba.ristretto.smtp.SMTPResponse;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SMTPResponseParserTest extends TestCase {
+public class SMTPResponseParserTest {
 
+	@Test
     public void testSingleMessage() throws ParserException {
         String responseString = "250 OK\r\n";
         SMTPResponse response = SMTPResponseParser.parse(responseString);
         
-        assertTrue( response.getCode() == 250);
-        assertTrue( response.getMessage().equals("OK"));
-        assertFalse( response.isHasSuccessor() );
+        Assert.assertTrue( response.getCode() == 250);
+        Assert.assertTrue( response.getMessage().equals("OK"));
+        Assert.assertFalse( response.isHasSuccessor() );
     }
     
+	@Test
     public void testSingleNoMessage() throws ParserException {
         String responseString = "250\r\n";
         SMTPResponse response = SMTPResponseParser.parse(responseString);
         
-        assertTrue( response.getCode() == 250);
-        assertTrue( response.getMessage() == null);
-        assertFalse( response.isHasSuccessor() );
+        Assert.assertTrue( response.getCode() == 250);
+        Assert.assertTrue( response.getMessage() == null);
+        Assert.assertFalse( response.isHasSuccessor() );
     }
     
+	@Test
     public void testSingleGreeting() throws ParserException {
         String responseString = "220 smtp.domain greeting\r\n";
         SMTPResponse response = SMTPResponseParser.parse(responseString);
         
-        assertTrue( response.getCode() == 220);
-        assertTrue( response.getDomain().equals("smtp.domain"));
-        assertTrue( response.getMessage().equals("greeting"));
-        assertFalse( response.isHasSuccessor() );
+        Assert.assertTrue( response.getCode() == 220);
+        Assert.assertTrue( response.getDomain().equals("smtp.domain"));
+        Assert.assertTrue( response.getMessage().equals("greeting"));
+        Assert.assertFalse( response.isHasSuccessor() );
     }
     
+	@Test
     public void testSingleMessageSuccessor() throws ParserException {
         String responseString = "250-OK\r\n";
         SMTPResponse response = SMTPResponseParser.parse(responseString);
         
-        assertTrue( response.getCode() == 250);
-        assertTrue( response.getMessage().equals("OK"));
-        assertTrue( response.isHasSuccessor() );
+        Assert.assertTrue( response.getCode() == 250);
+        Assert.assertTrue( response.getMessage().equals("OK"));
+        Assert.assertTrue( response.isHasSuccessor() );
     }
    }

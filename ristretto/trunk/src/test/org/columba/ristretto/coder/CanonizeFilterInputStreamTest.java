@@ -39,10 +39,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class CanonizeFilterInputStreamTest extends TestCase {
+public class CanonizeFilterInputStreamTest {
 
+	@Test
 	public void testCR() throws IOException {
 		String test = "This is a test\r";
 		StringBuffer result = new StringBuffer();
@@ -54,9 +56,10 @@ public class CanonizeFilterInputStreamTest extends TestCase {
 			read = in.read();
 		}
 		
-		assertTrue( "This is a test\r\n".equals( result.toString() ));
+		Assert.assertTrue( "This is a test\r\n".equals( result.toString() ));
 	}
 
+	@Test
 	public void testLF() throws IOException {
 		String test = "This is a test\n";
 		StringBuffer result = new StringBuffer();
@@ -68,9 +71,10 @@ public class CanonizeFilterInputStreamTest extends TestCase {
 			read = in.read();
 		}
 		
-		assertTrue( "This is a test\r\n".equals( result.toString() ));
+		Assert.assertTrue( "This is a test\r\n".equals( result.toString() ));
 	}
 
+	@Test
 	public void testCRLF() throws IOException {
 		String test = "This is a test\r\n";
 		StringBuffer result = new StringBuffer();
@@ -82,9 +86,10 @@ public class CanonizeFilterInputStreamTest extends TestCase {
 			read = in.read();
 		}
 		
-		assertTrue( "This is a test\r\n".equals( result.toString() ));
+		Assert.assertTrue( "This is a test\r\n".equals( result.toString() ));
 	}
 
+	@Test
 	public void testEOF() throws IOException {
 		String test = "This is a test\r\n";
 		StringBuffer result = new StringBuffer();
@@ -94,10 +99,10 @@ public class CanonizeFilterInputStreamTest extends TestCase {
 		
 		int read = in.read(buffer);
 		
-		assertTrue(read == 16);
+		Assert.assertTrue(read == 16);
 
 		read = in.read(buffer);
-		assertTrue(read == -1);
+		Assert.assertTrue(read == -1);
 	}
 
 

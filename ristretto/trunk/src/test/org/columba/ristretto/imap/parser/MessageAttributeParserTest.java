@@ -35,25 +35,27 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.message.Attributes;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MessageAttributeParserTest extends TestCase {
+public class MessageAttributeParserTest {
 
+	@Test
 	public void test1() {
 		String testString = "(FLAGS (\\Seen) UID 255)";
 		Attributes test = MessageAttributeParser.parse(testString);
-		assertTrue(test.get("FLAGS").equals("(\\Seen)"));
-		assertTrue(test.get("UID").equals("255"));
+		Assert.assertTrue(test.get("FLAGS").equals("(\\Seen)"));
+		Assert.assertTrue(test.get("UID").equals("255"));
 	}
 
+	@Test
 	public void test2() {
 		String testString = "(FLAGS (\\Seen) UID 255 BODY[HEADER.FIELDS (Subject From To Cc Date Size Message-Id In-Reply-To References Content-Type)] {389})";
 		Attributes test = MessageAttributeParser.parse(testString);
-		assertTrue(test.get("FLAGS").equals("(\\Seen)"));
-		assertTrue(test.get("UID").equals("255"));
-		assertTrue(test.get("BODY").equals("{389}"));
+		Assert.assertTrue(test.get("FLAGS").equals("(\\Seen)"));
+		Assert.assertTrue(test.get("UID").equals("255"));
+		Assert.assertTrue(test.get("BODY").equals("{389}"));
 	}
 
 }

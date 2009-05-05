@@ -41,10 +41,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.columba.ristretto.io.SequenceInputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class SequenceInputStreamTest extends TestCase {
+public class SequenceInputStreamTest {
 
 	protected List createStreams() {
 		List streams = new ArrayList();
@@ -56,36 +56,40 @@ public class SequenceInputStreamTest extends TestCase {
 		return streams;
 	}
 
+	@Test
 	public void testConstructor() throws IOException {
 		SequenceInputStream in =
 			new SequenceInputStream(
 				new ByteArrayInputStream("This ".getBytes()),
 				new ByteArrayInputStream("is ".getBytes()));
 		
-		assertTrue(in.available() == 8);
+		Assert.assertTrue(in.available() == 8);
 	}
 
+	@Test
 	public void testAvailable() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
-		assertTrue(in.available() == 14);
+		Assert.assertTrue(in.available() == 14);
 
 	}
 
+	@Test
 	public void testRead1() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
-		assertTrue(in.read() == 'T');
-		assertTrue(in.read() == 'h');
-		assertTrue(in.read() == 'i');
-		assertTrue(in.read() == 's');
-		assertTrue(in.read() == ' ');
-		assertTrue(in.read() == 'i');
-		assertTrue(in.read() == 's');
-		assertTrue(in.read() == ' ');
-		assertTrue(in.read() == 'a');
+		Assert.assertTrue(in.read() == 'T');
+		Assert.assertTrue(in.read() == 'h');
+		Assert.assertTrue(in.read() == 'i');
+		Assert.assertTrue(in.read() == 's');
+		Assert.assertTrue(in.read() == ' ');
+		Assert.assertTrue(in.read() == 'i');
+		Assert.assertTrue(in.read() == 's');
+		Assert.assertTrue(in.read() == ' ');
+		Assert.assertTrue(in.read() == 'a');
 	}
 
+	@Test
 	public void testReadEOF1() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
@@ -93,38 +97,42 @@ public class SequenceInputStreamTest extends TestCase {
 			in.read();
 		}
 
-		assertTrue(in.read() == -1);
+		Assert.assertTrue(in.read() == -1);
 	}
 
+	@Test
 	public void testRead2() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
 		byte[] buffer = new byte[14];
-		assertTrue(in.read(buffer) == 14);
+		Assert.assertTrue(in.read(buffer) == 14);
 	}
 
+	@Test
 	public void testEOF2() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
 		byte[] buffer = new byte[20];
-		assertTrue(in.read(buffer) == 14);
+		Assert.assertTrue(in.read(buffer) == 14);
 	}
 
+	@Test
 	public void testEOF3() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
 		byte[] buffer = new byte[14];
-		assertTrue(in.read(buffer) == 14);
-		assertTrue(in.read(buffer) == -1);
+		Assert.assertTrue(in.read(buffer) == 14);
+		Assert.assertTrue(in.read(buffer) == -1);
 	}
 
+	@Test
 	public void testSkip1() throws IOException {
 		List streams = createStreams();
 		SequenceInputStream in = new SequenceInputStream(streams);
 		in.skip(10);
-		assertTrue(in.read() == 't');
-		assertTrue(in.read() == 'e');
-		assertTrue(in.read() == 's');
-		assertTrue(in.read() == 't');
+		Assert.assertTrue(in.read() == 't');
+		Assert.assertTrue(in.read() == 'e');
+		Assert.assertTrue(in.read() == 's');
+		Assert.assertTrue(in.read() == 't');
 	}
 }

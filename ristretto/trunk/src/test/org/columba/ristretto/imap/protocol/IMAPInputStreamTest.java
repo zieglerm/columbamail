@@ -36,12 +36,9 @@
 package org.columba.ristretto.imap.protocol;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
 import java.util.Random;
-
-import junit.framework.TestCase;
 
 import org.columba.ristretto.imap.IMAPException;
 import org.columba.ristretto.imap.IMAPFlags;
@@ -49,8 +46,10 @@ import org.columba.ristretto.imap.IMAPInputStream;
 import org.columba.ristretto.imap.IMAPListener;
 import org.columba.ristretto.imap.IMAPProtocol;
 import org.columba.ristretto.imap.IMAPResponse;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class IMAPInputStreamTest extends TestCase {
+public class IMAPInputStreamTest {
 	
 	boolean IMAPHandlerCalled; 
 	
@@ -61,10 +60,11 @@ public class IMAPInputStreamTest extends TestCase {
 		
 		IMAPResponse response = imap.readResponse();
 		
-		assertEquals( "() \"/\" {0}", response.getResponseMessage() );
-		assertEquals( "12345678", response.getData("{0}").toString());
+		Assert.assertEquals( "() \"/\" {0}", response.getResponseMessage() );
+		Assert.assertEquals( "12345678", response.getData("{0}").toString());
 	}
 	
+	@Test
 	public void testLiteralMultiple() throws Exception {
 		String test = "* LIST () {8}\r\n12345678 {8}\r\n87654321\r\n";
 		InputStream in = new ByteArrayInputStream( test.getBytes() );		
@@ -72,11 +72,12 @@ public class IMAPInputStreamTest extends TestCase {
 		
 		IMAPResponse response = imap.readResponse();
 		
-		assertTrue( response.getResponseMessage().equals("() {0} {1}") );
-		assertTrue( response.getData("{0}").toString().equals("12345678"));
-		assertTrue( response.getData("{1}").toString().equals("87654321"));
+		Assert.assertTrue( response.getResponseMessage().equals("() {0} {1}") );
+		Assert.assertTrue( response.getData("{0}").toString().equals("12345678"));
+		Assert.assertTrue( response.getData("{1}").toString().equals("87654321"));
 	}
 	
+	@Test
 	public void testReadBodyNonBlock1() throws Exception {
 	    byte[] test = new byte[100000];
 	    new Random().nextBytes(test);
@@ -88,10 +89,11 @@ public class IMAPInputStreamTest extends TestCase {
 	    InputStream result = imap.readBodyNonBlocking();
 	    
 	    for( int i=0; i<100000; i++) {
-	        assertEquals( test[i], (byte) result.read());	    
+	    	Assert.assertEquals( test[i], (byte) result.read());	    
 	    }
 	}
 
+	@Test
 	public void testReadBodyNonBlock2() throws Exception {
 	    byte[] test = new byte[1000];
 	    new Random().nextBytes(test);
@@ -103,10 +105,11 @@ public class IMAPInputStreamTest extends TestCase {
 	    InputStream result = imap.readBodyNonBlocking();
 	    
 	    for( int i=0; i<1000; i++) {
-	        assertEquals( test[i], (byte) result.read());	    
+	    	Assert.assertEquals( test[i], (byte) result.read());	    
 	    }
 	}
 
+	@Test
 	public void testReadBodyNonBlock3() throws Exception {
 	    byte[] test = "This is short body".getBytes("US-ASCII");
 	    String text = "* 12 FETCH (BODY \"This is short body\" )\r\n";
@@ -117,10 +120,11 @@ public class IMAPInputStreamTest extends TestCase {
 	    InputStream result = imap.readBodyNonBlocking();
 	    
 	    for( int i=0; i<test.length; i++) {
-	        assertEquals( test[i], (byte) result.read());	    
+	    	Assert.assertEquals( test[i], (byte) result.read());	    
 	    }
 	}
 
+	@Test
 	public void testReadBodyNonBlockUnsolicited() throws Exception {
 		IMAPHandlerCalled = false;
 	    byte[] test = "This is short body".getBytes("US-ASCII");
@@ -134,7 +138,7 @@ public class IMAPInputStreamTest extends TestCase {
 	    	public void flagsChanged(String mailbox, IMAPFlags flags) {}
 	    	
 	    	public void existsChanged(String mailbox, int exists) {
-	    		assertEquals(2048, exists);
+	    		Assert.assertEquals(2048, exists);
 	    		
 	    		IMAPHandlerCalled = true;
 	    	}
@@ -153,13 +157,14 @@ public class IMAPInputStreamTest extends TestCase {
 	    
 	    
 	    InputStream result = imap.readBodyNonBlocking();
-	    assertTrue( IMAPHandlerCalled );
+	    Assert.assertTrue( IMAPHandlerCalled );
 	    
 	    for( int i=0; i<test.length; i++) {
-	        assertEquals( test[i], (byte) result.read());	    
+	    	Assert.assertEquals( test[i], (byte) result.read());	    
 	    }
 	}
 
+	@Test
 	public void testReadBodyNonBlockUnsolicitedError() throws Exception {
 		IMAPHandlerCalled = false;
 	    String text = "* NO Error 6 processing FETCH command.\r\nR511 NO Error 6 processing FETCH command.\r\n";
@@ -189,9 +194,9 @@ public class IMAPInputStreamTest extends TestCase {
 			InputStream result = imap.readBodyNonBlocking();
 			
 			// An Exception should have been thrown!
-			assertTrue(false);			
+			Assert.assertTrue(false);			
 		} catch (IMAPException e) {
-			assertTrue(true);
+			Assert.assertTrue(true);
 		}
 	}
 

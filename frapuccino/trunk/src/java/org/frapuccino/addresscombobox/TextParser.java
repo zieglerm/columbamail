@@ -113,6 +113,7 @@ public final class TextParser {
 		*/
 	}
 
+    @SuppressWarnings("empty-statement")
 	public static int getRightIndex(String str, Pattern charPattern, int pos) {
 		Matcher matcher = charPattern.matcher(str);		
 		int index = pos;

@@ -35,58 +35,64 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.SequenceSet;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SequenceSetParserTest extends TestCase {
+public class SequenceSetParserTest {
 
+	@Test
 	public void testSingle1() throws ParserException {		
 		String input = "*";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals(input, result.toString() );		
+		Assert.assertEquals(input, result.toString() );		
 	}
 	
+	@Test
 	public void testSingle2() throws ParserException {		
 		String input = "1";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals(input, result.toString() );		
+		Assert.assertEquals(input, result.toString() );		
 	}
 
+	@Test
 	public void testMulti1() throws ParserException {		
 		String input = "1,3,2";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals("1:3", result.toString() );		
+		Assert.assertEquals("1:3", result.toString() );		
 	}
 
+	@Test
 	public void testMulti2() throws ParserException {		
 		String input = "1,3,2:4";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals("1:4", result.toString() );		
+		Assert.assertEquals("1:4", result.toString() );		
 	}
 
+	@Test
 	public void testMulti3() throws ParserException {		
 		String input = "1,3,*:5";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals("1,3,5:*", result.toString() );		
+		Assert.assertEquals("1,3,5:*", result.toString() );		
 	}
 
+	@Test
 	public void testMulti4() throws ParserException {		
 		String input = "1:3,*:1";
 		
 		SequenceSet result = SequenceSetParser.parse(input);
 		
-		assertEquals("1:*", result.toString() );		
+		Assert.assertEquals("1:*", result.toString() );		
 	}
 }

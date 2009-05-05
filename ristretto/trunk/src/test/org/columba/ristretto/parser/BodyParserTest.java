@@ -37,31 +37,24 @@ package org.columba.ristretto.parser;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.message.LocalMimePart;
 import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimePart;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class BodyParserTest extends TestCase {
-
-	/**
-	 * Constructor for BodyParserTest.
-	 * @param arg0
-	 */
-	public BodyParserTest(String arg0) {
-		super(arg0);
-	}
+public class BodyParserTest {
 	
+	@Test
 	public void testSimpleBody() {
 		MimeHeader mimeHeader = new MimeHeader();
 		String testmail = "This is a test\r\n";		
 		try {
 			LocalMimePart message = BodyParser.parseMimePart(mimeHeader, new CharSequenceSource(testmail));
 			Source source = message.getBody();
-			assertTrue( source.length() == testmail.length() );			
+			Assert.assertTrue( source.length() == testmail.length() );			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParserException e) {
@@ -69,6 +62,7 @@ public class BodyParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testMultipartBody() {
 		MimeHeader mimeHeader = new MimeHeader("multipart","mixed");
 		mimeHeader.putContentParameter("boundary","+?*");
@@ -76,12 +70,12 @@ public class BodyParserTest extends TestCase {
 		try {
 			LocalMimePart message = BodyParser.parseMimePart(mimeHeader, new CharSequenceSource(testmail));
 			Source source = message.getBody();
-			assertTrue( source.length() == testmail.length() );
-			assertTrue( message.countChilds() == 2);
+			Assert.assertTrue( source.length() == testmail.length() );
+			Assert.assertTrue( message.countChilds() == 2);
 			Source body1 = ((LocalMimePart)message.getChild(0)).getBody();
-			assertEquals( "1", body1.toString());
+			Assert.assertEquals( "1", body1.toString());
 			Source body2 = ((LocalMimePart)message.getChild(1)).getBody();
-			assertTrue(  body2.toString().equals("2"));
+			Assert.assertTrue(  body2.toString().equals("2"));
 						
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -90,6 +84,7 @@ public class BodyParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testMultipartBody2() {
 		MimeHeader mimeHeader = new MimeHeader("multipart","mixed");
 		mimeHeader.putContentParameter("boundary","=_alternative 0047EBBC85256D9F_=");
@@ -97,12 +92,12 @@ public class BodyParserTest extends TestCase {
 		try {
 			LocalMimePart message = BodyParser.parseMimePart(mimeHeader, new CharSequenceSource(testmail));
 			Source source = message.getBody();
-			assertTrue( source.length() == testmail.length() );
-			assertTrue( message.countChilds() == 2);
+			Assert.assertTrue( source.length() == testmail.length() );
+			Assert.assertTrue( message.countChilds() == 2);
 			Source body1 = ((LocalMimePart)message.getChild(0)).getBody();
-			assertTrue( body1.toString().equals("1"));
+			Assert.assertTrue( body1.toString().equals("1"));
 			Source body2 = ((LocalMimePart)message.getChild(1)).getBody();
-			assertTrue(  body2.toString().equals("2"));
+			Assert.assertTrue(  body2.toString().equals("2"));
 						
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -111,6 +106,7 @@ public class BodyParserTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testMultipartMultipartBody() {
 		MimeHeader mimeHeader = new MimeHeader("multipart","mixed");
 		mimeHeader.putContentParameter("boundary","boundary");
@@ -118,15 +114,15 @@ public class BodyParserTest extends TestCase {
 		try {
 			LocalMimePart message = BodyParser.parseMimePart(mimeHeader, new CharSequenceSource(testmail));
 			Source source = message.getBody();
-			assertTrue( source.length() == testmail.length() );
-			assertTrue( message.countChilds() == 2);
+			Assert.assertTrue( source.length() == testmail.length() );
+			Assert.assertTrue( message.countChilds() == 2);
 			Source body1 = ((LocalMimePart)message.getChild(0)).getBody();
-			assertTrue( body1.toString().equals("1"));
+			Assert.assertTrue( body1.toString().equals("1"));
 			MimePart nestedMultipart = (MimePart)message.getChild(1);
 			Source body21 = ((LocalMimePart)nestedMultipart.getChild(0)).getBody();
-			assertTrue( body21.toString().equals("21"));
+			Assert.assertTrue( body21.toString().equals("21"));
 			Source body22 = ((LocalMimePart)nestedMultipart.getChild(1)).getBody();
-			assertTrue( body22.toString().equals("22"));
+			Assert.assertTrue( body22.toString().equals("22"));
 						
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -135,6 +131,7 @@ public class BodyParserTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testMultipartBodyNoStartBoundary() {
 	    MimeHeader mimeHeader = new MimeHeader("multipart","mixed");
 	    mimeHeader.putContentParameter("boundary","willNotFind");
@@ -144,14 +141,15 @@ public class BodyParserTest extends TestCase {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    } catch (ParserException e) {
-	        assertTrue(true);
+	    	Assert.assertTrue(true);
 	        System.err.println( e.getSource() );
 	        return;
 	    }
 	    
-	    assertTrue( false );
+	    Assert.assertTrue( false );
 	}
 	
+	@Test
 	public void testMultipartBodyMissingEndBoundary() {
 		MimeHeader mimeHeader = new MimeHeader("multipart","mixed");
 		mimeHeader.putContentParameter("boundary","+?*");
@@ -159,12 +157,12 @@ public class BodyParserTest extends TestCase {
 		try {
 			LocalMimePart message = BodyParser.parseMimePart(mimeHeader, new CharSequenceSource(testmail));
 			Source source = message.getBody();
-			assertTrue( source.length() == testmail.length() );
-			assertTrue( message.countChilds() == 2);
+			Assert.assertTrue( source.length() == testmail.length() );
+			Assert.assertTrue( message.countChilds() == 2);
 			Source body1 = ((LocalMimePart)message.getChild(0)).getBody();
-			assertEquals( "1", body1.toString());
+			Assert.assertEquals( "1", body1.toString());
 			Source body2 = ((LocalMimePart)message.getChild(1)).getBody();
-			assertEquals(  "2", body2.toString());
+			Assert.assertEquals(  "2", body2.toString());
 						
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -35,25 +35,25 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.AppendInfo;
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author tstich
  *
  */
-public class AppendInfoParserTest extends TestCase {
+public class AppendInfoParserTest {
 
+	@Test
 	public void test() throws ParserException {
 		IMAPResponse response = IMAPResponseParser.parse("A003 OK [APPENDUID 38505 3955] APPEND completed\n");
 		AppendInfo info = AppendInfoParser.parse(response);
 		
-		assertEquals(38505, info.getUidValidity());
-		assertEquals(3955, info.getUid());
-		
+		Assert.assertEquals(38505, info.getUidValidity());
+		Assert.assertEquals(3955, info.getUid());
 	}
 	
 }

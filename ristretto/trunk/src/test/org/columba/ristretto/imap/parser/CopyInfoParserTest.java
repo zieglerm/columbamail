@@ -35,11 +35,11 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.CopyInfo;
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author tstich
@@ -47,15 +47,16 @@ import org.columba.ristretto.parser.ParserException;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class CopyInfoParserTest extends TestCase {
+public class CopyInfoParserTest {
 
+	@Test
 	public void test() throws ParserException {
 		IMAPResponse response = IMAPResponseParser.parse("A003 OK [COPYUID 38505 304,319:320 3956:3958] Done\n");
 		CopyInfo info = CopyInfoParser.parse(response);
 		
-		assertEquals(38505, info.getUidValidity());
-		assertEquals("304,319:320", info.getSrcUids().toString());
-		assertEquals("3956:3958", info.getDestUids().toString());		
+		Assert.assertEquals(38505, info.getUidValidity());
+		Assert.assertEquals("304,319:320", info.getSrcUids().toString());
+		Assert.assertEquals("3956:3958", info.getDestUids().toString());		
 	}
 
 }

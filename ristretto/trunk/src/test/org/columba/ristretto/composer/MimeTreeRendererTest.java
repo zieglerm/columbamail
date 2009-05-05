@@ -38,8 +38,7 @@ package org.columba.ristretto.composer;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Date;
-
-import junit.framework.TestCase;
+import java.util.TimeZone;
 
 import org.columba.ristretto.io.CharSequenceSource;
 import org.columba.ristretto.message.Address;
@@ -49,9 +48,22 @@ import org.columba.ristretto.message.LocalMimePart;
 import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimeType;
 import org.columba.ristretto.message.StreamableMimePart;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class MimeTreeRendererTest extends TestCase {
+public class MimeTreeRendererTest {
 	
+	@BeforeClass
+	public static void setUp() throws Exception {
+		//timsparg
+		//need to set the timezone to what i guess is German
+		// time so that the test can pass
+		TimeZone t = TimeZone.getTimeZone("GMT+1");
+		TimeZone.setDefault(t);
+	}
+	
+	@Test
 	public void testComposeSimple() {
 		Header header = new Header(); 
 		String body = "Body";
@@ -81,12 +93,13 @@ public class MimeTreeRendererTest extends TestCase {
 			String message = result.toString();
 			System.out.println( message );
 			
-			assertEquals( "Content-Type: text/plain; charset=\"us-ascii\"\r\nDate: Thu, 1 Jan 1970 01:00:00 +0100\r\nSubject: This is a test mail\r\nContent-Transfer-Encoding: 7bit\r\nTo: \"Timo Stich\" <tstich@users.sourceforge.net>\r\nFrom: \"Timo Stich\" <tstich@users.sourceforge.net>\r\n\r\nBody" , message);			
+			Assert.assertEquals( "Content-Type: text/plain; charset=\"us-ascii\"\r\nDate: Thu, 1 Jan 1970 01:00:00 +0100\r\nSubject: This is a test mail\r\nContent-Transfer-Encoding: 7bit\r\nTo: \"Timo Stich\" <tstich@users.sourceforge.net>\r\nFrom: \"Timo Stich\" <tstich@users.sourceforge.net>\r\n\r\nBody" , message);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@Test
 	public void testComposeMultipartMixed() {
 		Header header = new Header(); 
 		String body = "Body";
@@ -128,6 +141,7 @@ public class MimeTreeRendererTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testComposeQPEncoded() {
 		Header header = new Header(); 
 		String body = "This is a ?est";

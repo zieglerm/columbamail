@@ -37,86 +37,89 @@ package org.columba.ristretto.coder;
 
 import java.nio.charset.Charset;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class QuotedPrintableTest extends TestCase {
+public class QuotedPrintableTest {
 
-	/**
-	 * Constructor for QuotedPrintableTest.
-	 * @param arg0
-	 */
-	public QuotedPrintableTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testDecodeNone() {
 		String input = "This is a Test";
 		CharSequence result = QuotedPrintable.decode(input, Charset.forName("US-ASCII"));
 		
-		assertTrue(result.toString().equals("This is a Test"));
+		Assert.assertTrue(result.toString().equals("This is a Test"));
 	}
 
+	@Test
 	public void testDecodeSimple() {
 		String input = "This is a =" + Integer.toHexString((int)'T')+ "est";
 		CharSequence result = QuotedPrintable.decode(input, Charset.forName("US-ASCII"));
 		
-		assertTrue(result.toString().equals("This is a Test"));
+		Assert.assertTrue(result.toString().equals("This is a Test"));
 	}
 
+	@Test
 	public void testDecodeMulti() {
 		String input = "This is a =FC=DCe";
 		CharSequence result = QuotedPrintable.decode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a \u00fc\u00dce"));
+		Assert.assertTrue(result.toString().equals("This is a \u00fc\u00dce"));
 	}
 
+	@Test
 	public void testDecode8Bit() {
 		String input = "This is a =" + Integer.toHexString((int)'\u00dc')+ "est";
 		CharSequence result = QuotedPrintable.decode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a \u00dcest"));
+		Assert.assertTrue(result.toString().equals("This is a \u00dcest"));
 	}
 	
+	@Test
 	public void testDecodeSoftLB() {
 		String input = "This is a=\r\n Test";
 		CharSequence result = QuotedPrintable.decode(input, Charset.forName("US-ASCII"));
 		
-		assertTrue(result.toString().equals("This is a Test"));
+		Assert.assertTrue(result.toString().equals("This is a Test"));
 	}
 	
+	@Test
 	public void testEncodedNone() {
 		String input = "This is a\tTest";
 		CharSequence result = QuotedPrintable.encode(input, Charset.forName("US-ASCII"));
 		
-		assertTrue(result.toString().equals("This is a\tTest"));
+		Assert.assertTrue(result.toString().equals("This is a\tTest"));
 	}
 	
+	@Test
 	public void testEncodedSimple() {
 		String input = "This is a \u00e4est";
 		CharSequence result = QuotedPrintable.encode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
+		Assert.assertTrue(result.toString().equals("This is a =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
 	}
 
+	@Test
 	public void testEncodedLineBreak() {
 		String input = "This is a\r\n \u00e4est";
 		CharSequence result = QuotedPrintable.encode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a\r\n =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
+		Assert.assertTrue(result.toString().equals("This is a\r\n =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
 	}
 
+	@Test
 	public void testEncodedLineBreakWhitespace1() {
 		String input = "This is a \r\n \u00e4est";
 		CharSequence result = QuotedPrintable.encode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a=20\r\n =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
+		Assert.assertTrue(result.toString().equals("This is a=20\r\n =" + Integer.toHexString((int)'\u00e4').toUpperCase()+ "est"));
 	}
 	
+	@Test
 	public void testEncodedLineBreakWhitespace2() {
 		String input = "This is a very long line that has in total some f\u00e4nfundsiebzig +1 characters";
 		CharSequence result = QuotedPrintable.encode(input, Charset.forName("ISO-8859-1"));
 		
-		assertTrue(result.toString().equals("This is a very long line that has in total some f=" + Integer.toHexString((int)'\u00e4').toUpperCase()+"nfundsiebzig +1 charact=\r\ners"));
+		Assert.assertTrue(result.toString().equals("This is a very long line that has in total some f=" + Integer.toHexString((int)'\u00e4').toUpperCase()+"nfundsiebzig +1 charact=\r\ners"));
 	}
 
 }

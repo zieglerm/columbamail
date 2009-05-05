@@ -35,38 +35,41 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.imap.MailboxStatus;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MailboxStatusParserTest extends TestCase {
+public class MailboxStatusParserTest {
     
+	@Test
     public void testStatus1() throws Exception {
         IMAPResponse response = IMAPResponseParser.parse("* STATUS blurdybloop (MESSAGES 231 UIDNEXT 44292)\r\n");
         MailboxStatus status = MailboxStatusParser.parse(response);
         
-        assertEquals("blurdybloop", status.getName());
-        assertEquals(231, status.getMessages());
-        assertEquals(44292, status.getUidNext());
+        Assert.assertEquals("blurdybloop", status.getName());
+        Assert.assertEquals(231, status.getMessages());
+        Assert.assertEquals(44292, status.getUidNext());
     }
 
+	@Test
     public void testStatus2() throws Exception {
         IMAPResponse response = IMAPResponseParser.parse("* STATUS \"blurdy\"oop\" (MESSAGES 231 UIDNEXT 44292)\r\n");
         MailboxStatus status = MailboxStatusParser.parse(response);
         
-        assertEquals("blurdy\"oop", status.getName());
-        assertEquals(231, status.getMessages());
-        assertEquals(44292, status.getUidNext());
+        Assert.assertEquals("blurdy\"oop", status.getName());
+        Assert.assertEquals(231, status.getMessages());
+        Assert.assertEquals(44292, status.getUidNext());
     }
 
+	@Test
     public void testStatus3() throws Exception {
         IMAPResponse response = IMAPResponseParser.parse("* STATUS blurdybloop (RECENT 231 UNSEEN 2 UIDVALIDITY 44292)\r\n");
         MailboxStatus status = MailboxStatusParser.parse(response);
         
-        assertEquals("blurdybloop", status.getName());
-        assertEquals(2, status.getUnseen());
-        assertEquals(231, status.getRecent());
-        assertEquals(44292, status.getUidValidity());
+        Assert.assertEquals("blurdybloop", status.getName());
+        Assert.assertEquals(2, status.getUnseen());
+        Assert.assertEquals(231, status.getRecent());
+        Assert.assertEquals(44292, status.getUidValidity());
     }
 }

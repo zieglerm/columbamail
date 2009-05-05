@@ -74,8 +74,6 @@ public class IMAPProtocolTest {
         protocol.logout();
         Assert.assertEquals( IMAPProtocol.NOT_CONNECTED, protocol.getState());
         
-		testServer.stop();
-		System.out.println("--- next test");
     }
     
 	@Test
@@ -937,6 +935,7 @@ public class IMAPProtocolTest {
     @After
     public void tearDown() throws Exception {
         testServer.stop();
+        System.out.println("--- next test");
     }
     
     

@@ -40,8 +40,7 @@ public class CramMD5Mechanism implements AuthenticationMechanism, CallbackHandle
                     user, server.getService(), server.getHostName(),
                     new Hashtable(), this);
             byte[] serverChallenge = server.authReceive();
-            LOG.fine(new String(serverChallenge));
-            
+            LOG.fine(new String(serverChallenge));            
             byte[] response = sasl.evaluateChallenge(serverChallenge);
             LOG.fine(new String(response));
             server.authSend(response);            

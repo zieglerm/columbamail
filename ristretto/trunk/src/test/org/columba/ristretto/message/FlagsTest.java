@@ -35,49 +35,46 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.message;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class FlagsTest extends TestCase {
+public class FlagsTest{
 
-    /**
-     * Constructor for FlagsTest.
-     *
-     * @param arg0 name of test.
-     */
-    public FlagsTest(String arg0) {
-        super(arg0);
-    }
-
+	@Test
     public void testGet() {
         Flags testFlags = new Flags();
-        assertFalse(testFlags.get(Flags.ANSWERED));
-        assertFalse(testFlags.get(Flags.SEEN));
-        assertFalse(testFlags.get(Flags.FLAGGED));
+        Assert.assertFalse(testFlags.get(Flags.ANSWERED));
+        Assert.assertFalse(testFlags.get(Flags.SEEN));
+        Assert.assertFalse(testFlags.get(Flags.FLAGGED));
     }
 
+	@Test
     public void testSet() {
         Flags testFlags = new Flags();
         testFlags.set(Flags.ANSWERED);
-        assertTrue("The flag wasnt set correctly.", testFlags.get(Flags.ANSWERED));
+        Assert.assertTrue("The flag wasnt set correctly.", testFlags.get(Flags.ANSWERED));
     }
 
+	@Test
     public void testClear() {
         Flags testFlags = new Flags();
         testFlags.set(Flags.ANSWERED);
         testFlags.clear(Flags.ANSWERED);
-        assertFalse(testFlags.get(Flags.ANSWERED));
+        Assert.assertFalse(testFlags.get(Flags.ANSWERED));
     }
 
+	@Test
     public void testToggle() {
         Flags testFlags = new Flags();
         testFlags.set(Flags.ANSWERED);
         testFlags.toggle(Flags.ANSWERED);
-        assertFalse(testFlags.get(Flags.ANSWERED));
+        Assert.assertFalse(testFlags.get(Flags.ANSWERED));
     }
 
     /**
      * Test the equals() method.
      */
+	@Test
     public void testEquals() {
         Flags expected = new Flags();
         expected.setAnswered(true);
@@ -88,22 +85,23 @@ public class FlagsTest extends TestCase {
         actual.setAnswered(true);
         actual.setDraft(false);
         actual.setFlagged(true);
-        assertTrue("The equals() method returned false, when the objects were equal", actual.equals(expected));
-        assertTrue("The equals() method returned false, when the objects were equal", expected.equals(actual));
-        assertFalse("The objects are equal though one is null", expected.equals(null));
+        Assert.assertTrue("The equals() method returned false, when the objects were equal", actual.equals(expected));
+        Assert.assertTrue("The equals() method returned false, when the objects were equal", expected.equals(actual));
+        Assert.assertFalse("The objects are equal though one is null", expected.equals(null));
 
         actual = new Flags();
         actual.setAnswered(true);
         actual.setDraft(true);
         actual.setFlagged(true);
-        assertFalse("The equals() method returned true, when the objects were unequal", actual.equals(expected));
-        assertFalse("The equals() method returned true, when the objects were unequal", expected.equals(actual));
-        assertFalse("The equals() method returned true, when the objects were of different types", expected.equals(new Integer(4)));
+        Assert.assertFalse("The equals() method returned true, when the objects were unequal", actual.equals(expected));
+        Assert.assertFalse("The equals() method returned true, when the objects were unequal", expected.equals(actual));
+        Assert.assertFalse("The equals() method returned true, when the objects were of different types", expected.equals(new Integer(4)));
     }
 
     /**
      * Test the hashcode() method.
      */
+	@Test
     public void testHashCode() {
         Flags expected = new Flags();
         expected.setAnswered(true);
@@ -114,19 +112,20 @@ public class FlagsTest extends TestCase {
         actual.setAnswered(true);
         actual.setDraft(false);
         actual.setFlagged(true);
-        assertEquals("The hashCode() returned differnt value for equal objects.", expected.hashCode(), actual.hashCode());
+        Assert.assertEquals("The hashCode() returned differnt value for equal objects.", expected.hashCode(), actual.hashCode());
 
         actual = new Flags();
         actual.setAnswered(true);
         actual.setDraft(true);
         actual.setFlagged(true);
-        assertTrue("The hashCode() returned same value for unequal objects", actual.hashCode() != expected.hashCode());
+        Assert.assertTrue("The hashCode() returned same value for unequal objects", actual.hashCode() != expected.hashCode());
     }
 
     /**
      * Test the clone() method.
      *
      */
+	@Test
     public void testClone() {
 
         Flags expected = new Flags();
@@ -135,8 +134,8 @@ public class FlagsTest extends TestCase {
         expected.setFlagged(true);
 
         Flags actual = (Flags) expected.clone();
-        assertNotSame("The object is the same object after a clone", expected, actual);
-        assertEquals("The objects are not equal", expected, actual);
-        assertEquals("The object's flags are not equal", expected.getFlags(), actual.getFlags());
+        Assert.assertNotSame("The object is the same object after a clone", expected, actual);
+        Assert.assertEquals("The objects are not equal", expected, actual);
+        Assert.assertEquals("The object's flags are not equal", expected.getFlags(), actual.getFlags());
     }
 }

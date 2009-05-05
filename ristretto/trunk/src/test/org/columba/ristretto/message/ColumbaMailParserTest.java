@@ -40,25 +40,17 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.parser.MessageParser;
 import org.columba.ristretto.parser.ParserException;
+import org.junit.Test;
 
-public class ColumbaMailParserTest extends TestCase {
+public class ColumbaMailParserTest {
 
 	private static final Pattern mailboxPattern = Pattern.compile("(\r?\n?From [^\r\n]+\r?\n)");
 	
-	/**
-	 * Constructor for ColumbaMailParserTest.
-	 * @param arg0
-	 */
-	public ColumbaMailParserTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testMailboxes() {
 		try {
 			testMailBox(new File("src/test/org/columba/ristretto/message/testsuite.mbox"));

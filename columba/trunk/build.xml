@@ -509,10 +509,12 @@
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />
 				</fileset>
+                <!--
 				<fileset dir="${src.mail.test}">
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />
 				</fileset>
+                -->
 				<fileset dir="${src.calendar.test}">
 					<include name="**/*Test*.java" />
 					<exclude name="**/AllTests.java" />

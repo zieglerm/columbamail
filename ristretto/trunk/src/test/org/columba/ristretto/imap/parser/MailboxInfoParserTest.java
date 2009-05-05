@@ -35,13 +35,14 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap.parser;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.imap.IMAPResponse;
 import org.columba.ristretto.message.MailboxInfo;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class MailboxInfoParserTest extends TestCase {
+public class MailboxInfoParserTest{
     
+	@Test
     public void testInfo1() throws Exception {
         IMAPResponse[] responses = new IMAPResponse[] {
                 IMAPResponseParser.parse( "* 172 EXISTS\r\n"),
@@ -60,19 +61,20 @@ public class MailboxInfoParserTest extends TestCase {
         	mailboxInfo = MailboxInfoParser.parse( responses[i], mailboxInfo );
         }
         
-        assertEquals( mailboxInfo.getRecent(), 1);
-        assertEquals( mailboxInfo.getExists(), 172);
-        assertEquals( mailboxInfo.getFirstUnseen(), 12);
-        assertEquals( mailboxInfo.getUidValidity(), 857529045);
-        assertEquals( mailboxInfo.getFirstUnseen(), 12);
-        assertTrue( mailboxInfo.isWriteAccess());
+        Assert.assertEquals( mailboxInfo.getRecent(), 1);
+        Assert.assertEquals( mailboxInfo.getExists(), 172);
+        Assert.assertEquals( mailboxInfo.getFirstUnseen(), 12);
+        Assert.assertEquals( mailboxInfo.getUidValidity(), 857529045);
+        Assert.assertEquals( mailboxInfo.getFirstUnseen(), 12);
+        Assert.assertTrue( mailboxInfo.isWriteAccess());
         
         String[] flags = new String[] { "\\Answered", "\\Flagged", "\\Deleted", "\\Seen", "\\Draft" };
         for( int i=0; i<flags.length; i++) {
-            assertEquals( flags[i], mailboxInfo.getDefinedFlags()[i]);
+        	Assert.assertEquals( flags[i], mailboxInfo.getDefinedFlags()[i]);
         }
     }
     
+	@Test
     public void testInfo2() throws Exception {
         IMAPResponse[] responses = new IMAPResponse[] {
                 IMAPResponseParser.parse( "* 172 EXISTS\r\n"),
@@ -88,14 +90,15 @@ public class MailboxInfoParserTest extends TestCase {
         	mailboxInfo = MailboxInfoParser.parse( responses[i], mailboxInfo );
         }
         
-        assertEquals( mailboxInfo.getRecent(), 1);
-        assertEquals( mailboxInfo.getExists(), 172);
-        assertEquals( mailboxInfo.getFirstUnseen(), 12);
-        assertEquals( mailboxInfo.getUidValidity(), -1);
-        assertTrue( !mailboxInfo.isWriteAccess());
+        Assert.assertEquals( mailboxInfo.getRecent(), 1);
+        Assert.assertEquals( mailboxInfo.getExists(), 172);
+        Assert.assertEquals( mailboxInfo.getFirstUnseen(), 12);
+        Assert.assertEquals( mailboxInfo.getUidValidity(), -1);
+        Assert.assertTrue( !mailboxInfo.isWriteAccess());
         
     }
 
+	@Test
     public void testInfo3() throws Exception {
         IMAPResponse[] responses = new IMAPResponse[] {
                 IMAPResponseParser.parse( "* 217 EXISTS\r\n"),
@@ -113,11 +116,11 @@ public class MailboxInfoParserTest extends TestCase {
         	mailboxInfo = MailboxInfoParser.parse( responses[i], mailboxInfo );
         }
         
-        assertEquals( mailboxInfo.getRecent(), 0);
-        assertEquals( mailboxInfo.getExists(), 217);
-        assertEquals( mailboxInfo.getFirstUnseen(), 217);
-        assertEquals( mailboxInfo.getUidValidity(), 396150377);
-        assertTrue( mailboxInfo.isWriteAccess());
+        Assert.assertEquals( mailboxInfo.getRecent(), 0);
+        Assert.assertEquals( mailboxInfo.getExists(), 217);
+        Assert.assertEquals( mailboxInfo.getFirstUnseen(), 217);
+        Assert.assertEquals( mailboxInfo.getUidValidity(), 396150377);
+        Assert.assertTrue( mailboxInfo.isWriteAccess());
         
     }
 

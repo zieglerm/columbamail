@@ -38,10 +38,10 @@ package org.columba.ristretto.message.io;
 import java.io.IOException;
 import java.util.Random;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.MemBufferInputStream;
 import org.columba.ristretto.io.MemBufferOutputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author tstich
@@ -49,8 +49,9 @@ import org.columba.ristretto.io.MemBufferOutputStream;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class MemBufferOutputStreamTest extends TestCase {
+public class MemBufferOutputStreamTest{
 
+	@Test
 	public void testIOArray() throws IOException {		
 		MemBufferOutputStream out = new MemBufferOutputStream();
 	
@@ -64,13 +65,14 @@ public class MemBufferOutputStreamTest extends TestCase {
 		byte[] test = new byte[1024];
 		
 		int read = in.read(test);
-		assertEquals( input.length, read);
+		Assert.assertEquals( input.length, read);
 		
 		for( int i=0; i<read; i++) {
-			assertEquals( input[i], test[i]);
+			Assert.assertEquals( input[i], test[i]);
 		}
 	}
 	
+	@Test
 	public void testIOSingle() throws IOException {		
 		MemBufferOutputStream out = new MemBufferOutputStream();
 	
@@ -82,11 +84,11 @@ public class MemBufferOutputStreamTest extends TestCase {
 		
 		for( int i=0; i<input.length; i++) {
 			out.write( input[i] );
-			assertEquals( 1, in.available());
+			Assert.assertEquals( 1, in.available());
 			
 			test = in.read();
-			assertEquals( input[i], test);
-			assertEquals( -1, in.read());
+			Assert.assertEquals( input[i], test);
+			Assert.assertEquals( -1, in.read());
 		}
 	}
 	

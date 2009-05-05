@@ -40,10 +40,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class LogOutputStreamTest extends TestCase {
+public class LogOutputStreamTest {
     
+	@Test
     public void test1() throws IOException {
         byte[] result = "C: This is a simple line".getBytes();
         byte[] test = "This is a simple line".getBytes();
@@ -54,9 +56,10 @@ public class LogOutputStreamTest extends TestCase {
         
         logStream.write(test);
         
-        assertTrue( Arrays.equals( result, log.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, log.toByteArray()));
     }
 
+	@Test
     public void test2() throws IOException {
         byte[] result = "C: This is a multiple\nC: line".getBytes();
         byte[] test = "This is a multiple\nline".getBytes();
@@ -67,9 +70,10 @@ public class LogOutputStreamTest extends TestCase {
         
         logStream.write(test);
         
-        assertTrue( Arrays.equals( result, log.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, log.toByteArray()));
     }
 
+	@Test
     public void test3() throws IOException {
         byte[] result = "C: This is a multiple\nC: line\n".getBytes();
         byte[] test = "This is a multiple\nline\n".getBytes();
@@ -80,7 +84,7 @@ public class LogOutputStreamTest extends TestCase {
         
         logStream.write(test);
         
-        assertTrue( Arrays.equals( result, log.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, log.toByteArray()));
     }
 
     

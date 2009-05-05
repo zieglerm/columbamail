@@ -24,7 +24,7 @@
 	<property name="build.coverage.instrumented.dir" value="${build.dir}/instrumented-classes"/>
 	<property name="build.junit.xmlreport.dir" value="${build.dir}/testreport-xml"/>
 
-    <property name="ownclasspath" value="${dest}:${src}/lib/junit.jar:${src}/lib/jcoverage.jar"/>
+    <property name="ownclasspath" value="${dest}:lib/junit-4.5.jar:$lib/jcoverage.jar"/>
 
     <!-- Common targets =================================== -->
 
@@ -77,7 +77,6 @@
 		<mkdir dir="${test-dest}"/>
 		<javac srcdir="${src.test}" destdir="${test-dest}" encoding="ISO-8859-1" debug="yes">
 		 <classpath>
-
 		  <pathelement path="${src.test}"/>
 		  <pathelement path="${ownclasspath}"/>
 		 </classpath>

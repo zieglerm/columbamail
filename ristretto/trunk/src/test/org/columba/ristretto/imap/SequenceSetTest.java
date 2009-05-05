@@ -35,128 +35,145 @@
  * ***** END LICENSE BLOCK ***** */
 package org.columba.ristretto.imap;
 
-import junit.framework.TestCase;
 import junitx.framework.ArrayAssert;
 
-public class SequenceSetTest extends TestCase {
+import org.junit.Assert;
+import org.junit.Test;
+
+
+public class SequenceSetTest {
     
+	@Test
     public void testAll1() {
         SequenceSet s = new SequenceSet();
         s.addAll();
         s.addAll();
         
-        assertEquals("1:*", s.toString());
+        Assert.assertEquals("1:*", s.toString());
         
         ArrayAssert.assertEquals(new int[] {1,2,3}, s.toArray(3) );
     }
     
+	@Test
     public void testAll2() {
         SequenceSet s = new SequenceSet();
         s.addAll();
         s.add(100);
         
-        assertEquals("1:*", s.toString());
+        Assert.assertEquals("1:*", s.toString());
     }
 
+	@Test
     public void testAll3() {
         SequenceSet s = new SequenceSet();
         s.addAll();
         s.add(100,200);
         
-        assertEquals("1:*", s.toString());
+        Assert.assertEquals("1:*", s.toString());
     }
 
+	@Test
     public void testAll6() {
         SequenceSet s = new SequenceSet();
         s.add(1,100);
         s.add(100,SequenceEntry.STAR);
         
-        assertEquals("1:*", s.toString());
+        Assert.assertEquals("1:*", s.toString());
     }
 
+	@Test
     public void testAll7() {
         SequenceSet s = new SequenceSet();
         s.add(1,100);
         s.add(500);
         s.add(100, SequenceEntry.STAR);
         
-        assertEquals("1:*", s.toString());
+        Assert.assertEquals("1:*", s.toString());
     }
 
+	@Test
     public void testAll8() {
         SequenceSet s = new SequenceSet();
         s.add(1,10);
         s.add(100, SequenceEntry.STAR);
         
-        assertEquals("1:10,100:*", s.toString());
+        Assert.assertEquals("1:10,100:*", s.toString());
         ArrayAssert.assertEquals(new int[] {1,2,3,4,5,6,7,8,9,10,100,101,102}, s.toArray(102));
     }
     
+	@Test
     public void testOpenRange1() {
         SequenceSet s = new SequenceSet();
         s.add(1,10);
         s.add(100);
         
-        assertEquals("1:10,100", s.toString());
+        Assert.assertEquals("1:10,100", s.toString());
         
         ArrayAssert.assertEquals(new int[] {1,2,3,4,5,6,7,8,9,10,100}, s.toArray(13));
     }
 
+	@Test
     public void testOpenRange2() {
         SequenceSet s = new SequenceSet();
         s.add(10,1);
         s.add(8);
         
-        assertEquals("1:10", s.toString());
+        Assert.assertEquals("1:10", s.toString());
         ArrayAssert.assertEquals(new int[] {1,2,3,4,5,6,7,8,9,10}, s.toArray(13));
     }
 
+	@Test
     public void testOpenRange3() {
         SequenceSet s = new SequenceSet();
         s.add(1,10);
         s.add(8,10);
         
-        assertEquals("1:10", s.toString());
+        Assert.assertEquals("1:10", s.toString());
         ArrayAssert.assertEquals(new int[] {1,2,3,4,5,6,7,8,9,10}, s.toArray(13));
         
     }
 
+	@Test
     public void testOpenRange4() {
         SequenceSet s = new SequenceSet();
         s.add(10, SequenceEntry.STAR);
         s.add(8,9);
         
-        assertEquals("8:*", s.toString());
+        Assert.assertEquals("8:*", s.toString());
         ArrayAssert.assertEquals(new int[] {8,9,10,11,12,13}, s.toArray(13));
     }
     
+	@Test
     public void testOpenRange5() {
         SequenceSet s = new SequenceSet();
         s.add(SequenceEntry.STAR,10);
         s.add(8);
         
-        assertEquals("8,10:*", s.toString());
+        Assert.assertEquals("8,10:*", s.toString());
         ArrayAssert.assertEquals(new int[] {8,10,11,12,13}, s.toArray(13));
     }
 
+	@Test
     public void testRange1() {
         SequenceSet s = new SequenceSet();
         s.add(10,9);
         s.add(5,8);
         
-        assertEquals("5:10", s.toString());
+        Assert.assertEquals("5:10", s.toString());
         ArrayAssert.assertEquals(new int[] {5,6,7,8,9,10}, s.toArray(13));
     }
     
+	@Test
     public void testRange2() {
         SequenceSet s = new SequenceSet();
         s.add(5,10);
         s.add(5,10);
         
-        assertEquals("5:10", s.toString());
+        Assert.assertEquals("5:10", s.toString());
         ArrayAssert.assertEquals(new int[] {5,6,7,8,9,10}, s.toArray(13));
     }
 
+	@Test
     public void testRange3() {
         SequenceSet s = new SequenceSet();
         s.add(7);
@@ -164,10 +181,11 @@ public class SequenceSetTest extends TestCase {
         s.add(10);
         s.add(6);
         
-        assertEquals("5:7,10", s.toString());
+        Assert.assertEquals("5:7,10", s.toString());
         ArrayAssert.assertEquals(new int[] {5,6,7,10}, s.toArray(13));
     }
 
+	@Test
     public void testRange4() {
         SequenceSet s = new SequenceSet();
         s.add(7);
@@ -175,10 +193,11 @@ public class SequenceSetTest extends TestCase {
         s.add(10);
         s.add(6);
         
-        assertEquals("5:10", s.toString());
+        Assert.assertEquals("5:10", s.toString());
         ArrayAssert.assertEquals(new int[] {5,6,7,8,9,10}, s.toArray(13));
     }
     
+	@Test
     public void testRange5() {
         SequenceSet s = new SequenceSet();
         s.add(3,10);
@@ -186,38 +205,41 @@ public class SequenceSetTest extends TestCase {
         s.add(2,20);
         s.add(5,100);
         
-        assertEquals("2:100", s.toString());
+        Assert.assertEquals("2:100", s.toString());
     }
 
 
+	@Test
     public void testSingle1() {
         SequenceSet s = new SequenceSet();
         s.add(1);
         s.add(SequenceEntry.STAR);
         
-        assertEquals("1,*", s.toString());
+        Assert.assertEquals("1,*", s.toString());
         ArrayAssert.assertEquals(new int[] {1,13}, s.toArray(13));        
     }
     
+	@Test
     public void testSingle2() {
         SequenceSet s = new SequenceSet();
         s.add(1);
         s.add(2,5);
         s.add(6);
         
-        assertEquals("1:6", s.toString());
+        Assert.assertEquals("1:6", s.toString());
         ArrayAssert.assertEquals(new int[] {1,2,3,4,5,6}, s.toArray(13));        
     }
     
+	@Test
     public void testConstructor() {
     	int[] test = new int[] {1,2,3,4,5,6,7,8,9,10};
     	SequenceSet s = new SequenceSet(test,0,4);
-        assertEquals("1:4", s.toString());
+    	Assert.assertEquals("1:4", s.toString());
         
         s = new SequenceSet(test,4,4);
-        assertEquals("5:8", s.toString());
+        Assert.assertEquals("5:8", s.toString());
 
         s = new SequenceSet(test,8,2);
-        assertEquals("9:10", s.toString());   
+        Assert.assertEquals("9:10", s.toString());   
     }
 }

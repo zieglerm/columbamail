@@ -38,13 +38,13 @@ package org.columba.ristretto.parser;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.message.Message;
+import org.junit.Test;
 
-public class MessageParserTest extends TestCase {
+public class MessageParserTest{
 
+	@Test
 	public void testAllMailsinTestFolder() throws IOException {
 		File dir = new File("src/test/org/columba/ristretto/parser/testmails");
 		File[] testMails = dir.listFiles();

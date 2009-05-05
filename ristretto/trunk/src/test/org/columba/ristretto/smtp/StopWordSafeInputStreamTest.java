@@ -39,10 +39,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class StopWordSafeInputStreamTest extends TestCase {
+public class StopWordSafeInputStreamTest  {
 
+	@Test
     public void test1() throws IOException {
         String test = "bla\r\n.\r\nbla";
         InputStream in = new StopWordSafeInputStream( new ByteArrayInputStream(test.getBytes()));
@@ -54,9 +56,10 @@ public class StopWordSafeInputStreamTest extends TestCase {
             read = in.read();
         }
         
-        assertTrue(result.toString().equals("bla\r\n..\r\nbla"));        
+        Assert.assertTrue(result.toString().equals("bla\r\n..\r\nbla"));        
     }
     
+	@Test
     public void test2() throws IOException {
         String test = "bla 15.10.\r\nbla";
         InputStream in = new StopWordSafeInputStream( new ByteArrayInputStream(test.getBytes()));
@@ -68,6 +71,6 @@ public class StopWordSafeInputStreamTest extends TestCase {
             read = in.read();
         }
         
-        assertTrue(result.toString().equals("bla 15.10.\r\nbla"));        
+        Assert.assertTrue(result.toString().equals("bla 15.10.\r\nbla"));        
     }
 }

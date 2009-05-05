@@ -40,14 +40,15 @@ import java.io.IOException;
 import java.util.Random;
 
 import org.columba.ristretto.io.AsyncInputStream;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class AsyncSourceInputStreamTest extends TestCase {
+public class AsyncSourceInputStreamTest {
 
     byte[] test = new byte[1000];
 
-    
+    @Test
     public void test1() throws IOException {
         AsyncInputStream in = new AsyncInputStream(new ByteArrayInputStream(test), test.length);
         
@@ -58,16 +59,17 @@ public class AsyncSourceInputStreamTest extends TestCase {
         
         for( int i=0; i<1000; i++) {
             // this will eventually block
-            assertEquals(test[i], (byte) in.read());            
+        	Assert.assertEquals(test[i], (byte) in.read());            
         }
         
         // blocking worked if it took us more than 1 sec
-        assertTrue( System.currentTimeMillis() - time > 1000);
+        Assert.assertTrue( System.currentTimeMillis() - time > 1000);
     }
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Random r = new Random();
         r.nextBytes(test);
     }

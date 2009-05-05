@@ -38,10 +38,12 @@ package org.columba.ristretto.parser;
 import java.util.List;
 import java.util.Random;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class CharSequenceSearcherTest extends TestCase {
+public class CharSequenceSearcherTest {
 
+	@Test
 	public void test1() {
 		String pattern = "ababababca";
 		CharSequenceSearcher searcher = new CharSequenceSearcher(pattern.toCharArray());
@@ -61,7 +63,7 @@ public class CharSequenceSearcherTest extends TestCase {
 		
 		List result = searcher.match(testText);
 		for( int i=0; i<positions.length; i++) {
-			assertEquals(positions[i], ((Integer)result.get(i)).intValue());
+			Assert.assertEquals(positions[i], ((Integer)result.get(i)).intValue());
 		}
 		
 		

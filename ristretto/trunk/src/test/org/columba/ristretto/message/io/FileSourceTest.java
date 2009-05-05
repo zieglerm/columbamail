@@ -42,98 +42,99 @@ import java.util.regex.Pattern;
 
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.io.Source;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class FileSourceTest extends TestCase {
+public class FileSourceTest {
 
     private static final String TEST_FILENAME_STR = "src/test/org/columba/ristretto/message/io/FileSourceTest.eml";
 
-    /**
-     * Constructor for FileSourceTest.
-     *
-     * @param arg0 name of test
-     */
-    public FileSourceTest(String arg0) {
-        super(arg0);
-    }
-
+    @Test
     public void testLength() throws IOException {
     	File file = new File(TEST_FILENAME_STR);
         FileSource source = new FileSource(file);
-        assertEquals( file.length(), source.length() );
+        Assert.assertEquals( file.length(), source.length() );
     }
     
+    @Test
     public void testFromActualPosition1() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         source.seek(10);
         Source subsource = source.fromActualPosition();
-        assertTrue(subsource.next() == 't');
-        assertTrue(subsource.next() == 'e');
-        assertTrue(subsource.next() == 's');
-        assertTrue(subsource.next() == 't');
+        Assert.assertTrue(subsource.next() == 't');
+        Assert.assertTrue(subsource.next() == 'e');
+        Assert.assertTrue(subsource.next() == 's');
+        Assert.assertTrue(subsource.next() == 't');
     }
 
+    @Test
     public void testFromActualPosition2() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         source.seek(50);
         Source subsource = source.fromActualPosition();
-        assertEquals("is a test", subsource.toString());
+        Assert.assertEquals("is a test", subsource.toString());
     }
 
+    @Test
     public void testFromActualPosition3() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         source.seek(50);
         Source subsource = source.fromActualPosition();
         subsource.seek(5);
         Source subsubsource = subsource.fromActualPosition();
-        assertTrue(subsubsource.toString().equals("test"));
+        Assert.assertTrue(subsubsource.toString().equals("test"));
     }
 
+    @Test
     public void testNext() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
-        assertTrue(source.next() == 'T');
-        assertTrue(source.next() == 'h');
-        assertTrue(source.next() == 'i');
-        assertTrue(source.next() == 's');
+        Assert.assertTrue(source.next() == 'T');
+        Assert.assertTrue(source.next() == 'h');
+        Assert.assertTrue(source.next() == 'i');
+        Assert.assertTrue(source.next() == 's');
     }
 
+    @Test
     public void testRegexp() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         Pattern pattern = Pattern.compile("test");
         Matcher matcher = pattern.matcher(source);
-        assertTrue(matcher.find());
+        Assert.assertTrue(matcher.find());
     }
 
+    @Test
     public void testSeek() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         source.seek(10);
-        assertTrue(source.next() == 't');
-        assertTrue(source.next() == 'e');
-        assertTrue(source.next() == 's');
-        assertTrue(source.next() == 't');
+        Assert.assertTrue(source.next() == 't');
+        Assert.assertTrue(source.next() == 'e');
+        Assert.assertTrue(source.next() == 's');
+        Assert.assertTrue(source.next() == 't');
     }
 
+    @Test
     public void testSubSequence1() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         Source subsource = source.subSource(10, 13);
-        assertTrue(subsource.next() == 't');
-        assertTrue(subsource.next() == 'e');
-        assertTrue(subsource.next() == 's');
-        assertTrue(subsource.next() == 't');
+        Assert.assertTrue(subsource.next() == 't');
+        Assert.assertTrue(subsource.next() == 'e');
+        Assert.assertTrue(subsource.next() == 's');
+        Assert.assertTrue(subsource.next() == 't');
     }
 
+    @Test
     public void testSubSequence2() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         Source subsource = source.subSource(5, 9);
-        assertTrue(subsource.toString().equals("is a"));
+        Assert.assertTrue(subsource.toString().equals("is a"));
     }
 
+    @Test
     public void testSubSequence3() throws IOException {
         FileSource source = new FileSource(new File(TEST_FILENAME_STR));
         Source subsource = source.subSource(5, 9);
         Source subsubsource = subsource.subSource(0, 2);
-        assertTrue(subsubsource.toString().equals("is"));
+        Assert.assertTrue(subsubsource.toString().equals("is"));
     }
 
 }

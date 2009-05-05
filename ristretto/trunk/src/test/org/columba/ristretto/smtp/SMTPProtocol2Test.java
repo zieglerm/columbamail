@@ -39,15 +39,16 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.coder.Base64;
 import org.columba.ristretto.message.Address;
 import org.columba.ristretto.testserver.SimpleTestServerSession;
 import org.columba.ristretto.testserver.TestServer;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SMTPProtocol2Test extends TestCase {
+public class SMTPProtocol2Test{
 
+	@Test
     public void testOpenPort() throws IOException, SMTPException {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220 test.domain Hello\r\n", "QUIT\r\n");
         testSession.addDialog("QUIT\r\n", "250 bye\r\n");
@@ -56,13 +57,14 @@ public class SMTPProtocol2Test extends TestCase {
 
         SMTPProtocol protocol = new SMTPProtocol("localhost", 50025);
         
-        assertTrue( protocol.openPort().equals("test.domain") );
+        Assert.assertTrue( protocol.openPort().equals("test.domain") );
         
         protocol.quit();
         
         testServer.stop();
     }
     
+	@Test
     public void testOpenPort2() throws IOException, SMTPException {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220  ESMTP\r\n", "QUIT\r\n");
         testSession.addDialog("QUIT\r\n", "250 bye\r\n");
@@ -78,6 +80,7 @@ public class SMTPProtocol2Test extends TestCase {
         testServer.stop();
     }
     
+	@Test
     public void testAuthenticate() throws Exception {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220 test.domain Hello\r\n", "QUIT\r\n");
         testSession.addDialog("AUTH PLAIN\r\n", "334 continue\r\n");
@@ -88,7 +91,7 @@ public class SMTPProtocol2Test extends TestCase {
 
         SMTPProtocol protocol = new SMTPProtocol("localhost", 50025);
         
-        assertTrue( protocol.openPort().equals("test.domain") );
+        Assert.assertTrue( protocol.openPort().equals("test.domain") );
         protocol.auth("PLAIN", "test", "bar".toCharArray());
         
         protocol.quit();
@@ -96,6 +99,7 @@ public class SMTPProtocol2Test extends TestCase {
         testServer.stop();
     }
     
+	@Test
     public void testSimpleSession() throws IOException, SMTPException {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220 test.domain Hello\r\n", "QUIT\r\n");
         testSession.addDialog("MAIL FROM:<smith@bar.com>\r\n", "250 OK\r\n");
@@ -109,7 +113,7 @@ public class SMTPProtocol2Test extends TestCase {
 
         SMTPProtocol protocol = new SMTPProtocol("localhost", 50025);
         
-        assertTrue( protocol.openPort().equals("test.domain") );
+        Assert.assertTrue( protocol.openPort().equals("test.domain") );
         
         protocol.mail(new Address("smith@bar.com"));
         protocol.rcpt(new Address("Jones@foo.com"));
@@ -119,6 +123,7 @@ public class SMTPProtocol2Test extends TestCase {
         testServer.stop();
     }
     
+	@Test
     public void testEhloFail() throws IOException, SMTPException {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220  ESMTP\r\n", "QUIT\r\n");
         testSession.addDialog("EHLO [127.0.0.1]\r\n", "500 5.5.1 Command unrecognized: \"XXXX [67.84.198.179]\"\r\n");
@@ -134,7 +139,7 @@ public class SMTPProtocol2Test extends TestCase {
         protocol.openPort();
         try {
 			protocol.ehlo(local);
-			assertTrue(false);
+			Assert.assertTrue(false);
 		} catch (SMTPException e) {
 			
 		}
@@ -145,6 +150,7 @@ public class SMTPProtocol2Test extends TestCase {
         testServer.stop();
     }
     
+	@Test
     public void testCapabilities() throws Exception {
         SimpleTestServerSession testSession = new SimpleTestServerSession("220 test.domain Hello\r\n", "QUIT\r\n");
         testSession.addDialog("EHLO [127.0.0.1]\r\n", "250-foo.com greets bar.com\r\n250-AUTH=LOGIN PLAIN\r\n250 HELP\r\n");
@@ -153,12 +159,12 @@ public class SMTPProtocol2Test extends TestCase {
         TestServer testServer = new TestServer(50025, testSession);
 
         SMTPProtocol protocol = new SMTPProtocol("localhost", 50025);        
-        assertTrue( protocol.openPort().equals("test.domain") );
+        Assert.assertTrue( protocol.openPort().equals("test.domain") );
         
         String capas[] = protocol.ehlo(InetAddress.getByAddress(new byte[] {127,0,0,1}));
-        assertEquals(2,capas.length);
-        assertEquals("AUTH=LOGIN PLAIN", capas[0]);
-        assertEquals("HELP", capas[1]);
+        Assert.assertEquals(2,capas.length);
+        Assert.assertEquals("AUTH=LOGIN PLAIN", capas[0]);
+        Assert.assertEquals("HELP", capas[1]);
         
         protocol.quit();
         

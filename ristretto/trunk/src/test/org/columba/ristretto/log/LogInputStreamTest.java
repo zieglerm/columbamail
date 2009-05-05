@@ -41,12 +41,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class LogInputStreamTest extends TestCase {
+public class LogInputStreamTest {
     
     private byte[] buffer;
     
+    @Test
     public void test1() throws IOException {
         byte[] result = "S: This is a simple line".getBytes();
         byte[] test = "This is a simple line".getBytes();
@@ -57,9 +60,10 @@ public class LogInputStreamTest extends TestCase {
         
         System.out.println( new String( out.toByteArray()));
         
-        assertTrue( Arrays.equals( result, out.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, out.toByteArray()));
     }
 
+    @Test
     public void test2() throws IOException {
         byte[] result = "S: This is a multiple\nS: line".getBytes();
         byte[] test = "This is a multiple\nline".getBytes();
@@ -68,9 +72,10 @@ public class LogInputStreamTest extends TestCase {
         
         in.read(buffer);
         
-        assertTrue( Arrays.equals( result, out.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, out.toByteArray()));
     }
 
+    @Test
     public void test3() throws IOException {
         byte[] result = "S: This is a multiple\nS: line\n".getBytes();
         byte[] test = "This is a multiple\nline\n".getBytes();
@@ -79,14 +84,13 @@ public class LogInputStreamTest extends TestCase {
         
         in.read(buffer);
         
-        assertTrue( Arrays.equals( result, out.toByteArray()));
+        Assert.assertTrue( Arrays.equals( result, out.toByteArray()));
     }
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
-        super.setUp();
-        
+    @Before
+    public void setUp() throws Exception {
         buffer = new byte[1000];
     }
 

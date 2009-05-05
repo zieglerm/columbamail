@@ -40,14 +40,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
-import junit.framework.TestCase;
-
 import org.columba.ristretto.io.ByteBufferSource;
 import org.columba.ristretto.io.FileSource;
 import org.columba.ristretto.io.Source;
 import org.columba.ristretto.io.TempSourceFactory;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class TempSourceFactoryTest extends TestCase {
+public class TempSourceFactoryTest {
 
 	private StringBuffer bufferSmall;
 	private StringBuffer bufferBig;	
@@ -58,7 +59,8 @@ public class TempSourceFactoryTest extends TestCase {
 	/*
 	 * @see TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		Random random = new Random();
 		bufferSmall = new StringBuffer(SMALL);
 		for( long i=0; i<SMALL; i++ ) {
@@ -72,36 +74,40 @@ public class TempSourceFactoryTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testSmallInput() throws IOException {
 		InputStream in = new ByteArrayInputStream( bufferSmall.toString().getBytes("ISO-8859-1") );		
 		Source tempSource = TempSourceFactory.createTempSource(in, SMALL);
 
-		assertTrue( tempSource instanceof ByteBufferSource );
-		assertEquals( bufferSmall.toString(), tempSource.toString() );		
+		Assert.assertTrue( tempSource instanceof ByteBufferSource );
+		Assert.assertEquals( bufferSmall.toString(), tempSource.toString() );		
 	}
 
+	@Test
 	public void testSmallInputUnknownSize() throws IOException {
 		InputStream in = new ByteArrayInputStream( bufferSmall.toString().getBytes("ISO-8859-1") );		
 		Source tempSource = TempSourceFactory.createTempSource(in);
 
-		assertTrue( tempSource instanceof FileSource );
-		assertEquals( bufferSmall.toString(), tempSource.toString() );		
+		Assert.assertTrue( tempSource instanceof FileSource );
+		Assert.assertEquals( bufferSmall.toString(), tempSource.toString() );		
 	}
 
+	@Test
 	public void testBigInput() throws IOException {
 		InputStream in = new ByteArrayInputStream( bufferBig.toString().getBytes("ISO-8859-1") );		
 		Source tempSource = TempSourceFactory.createTempSource(in, BIG);
 
-		assertTrue( tempSource instanceof FileSource );
-		assertEquals( bufferBig.toString(), tempSource.toString() );		
+		Assert.assertTrue( tempSource instanceof FileSource );
+		Assert.assertEquals( bufferBig.toString(), tempSource.toString() );		
 	}
 
+	@Test
 	public void testBigInputUnknownSize() throws IOException {
 		InputStream in = new ByteArrayInputStream( bufferBig.toString().getBytes("ISO-8859-1") );		
 		Source tempSource = TempSourceFactory.createTempSource(in);
 
-		assertTrue( tempSource instanceof FileSource );
-		assertEquals( bufferBig.toString(), tempSource.toString() );		
+		Assert.assertTrue( tempSource instanceof FileSource );
+		Assert.assertEquals( bufferBig.toString(), tempSource.toString() );		
 	}
 
 }

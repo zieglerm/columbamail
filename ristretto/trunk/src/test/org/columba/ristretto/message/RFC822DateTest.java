@@ -41,68 +41,67 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class RFC822DateTest extends TestCase {
+public class RFC822DateTest {
 
-	/**
-	 * Constructor for RFC822DateTest.
-	 * @param arg0
-	 */
-	public RFC822DateTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testToString1() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
 		calendar.set( 2003, 1, 25, 16, 44, 33 );
 		Date testDate = calendar.getTime();
 		
 		String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("Europe/Berlin") );
-		assertEquals( "Tue, 25 Feb 2003 16:44:33 +0100", dateString);
+		Assert.assertEquals( "Tue, 25 Feb 2003 16:44:33 +0100", dateString);
 	}
 
+	@Test
 	public void testToString2() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Los_Angeles"));
 		calendar.set( 2003, 1, 24, 16, 44, 33 );
 		Date testDate = calendar.getTime();
 		
 		String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("America/Los_Angeles") );
-		assertEquals( "Mon, 24 Feb 2003 16:44:33 -0800", dateString);
+		Assert.assertEquals( "Mon, 24 Feb 2003 16:44:33 -0800", dateString);
 	}
 	
+	@Test
 	public void testToStringLeapYear() {
 	    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Los_Angeles"));
 	    calendar.set( 2004, 0, 5, 16, 44, 33 );
 	    Date testDate = calendar.getTime();
 	    
 	    String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("America/Los_Angeles") );
-	    assertTrue( dateString.equals("Mon, 5 Jan 2004 16:44:33 -0800"));
+	    Assert.assertTrue( dateString.equals("Mon, 5 Jan 2004 16:44:33 -0800"));
 	}
 	
+	@Test
 	public void testToStringLeapYear2() {
 	    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Los_Angeles"));
 	    calendar.set( 2004, 2, 1, 16, 44, 33 );
 	    Date testDate = calendar.getTime();
 	    
 	    String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("America/Los_Angeles") );
-	    assertTrue( dateString.equals("Mon, 1 Mar 2004 16:44:33 -0800"));
+	    Assert.assertTrue( dateString.equals("Mon, 1 Mar 2004 16:44:33 -0800"));
 	}
 	
+	@Test
 	public void testToStringLeapYear3() {
 	    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Los_Angeles"));
 	    calendar.set( 2004, 1, 29, 16, 44, 33 );
 	    Date testDate = calendar.getTime();
 	    
 	    String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("America/Los_Angeles") );
-	    assertTrue( dateString.equals("Sun, 29 Feb 2004 16:44:33 -0800"));
+	    Assert.assertTrue( dateString.equals("Sun, 29 Feb 2004 16:44:33 -0800"));
 	}
 	
+	@Test
 	public void testToString3() throws Exception {
 		String testStr = "Thu, 26 Jun 2003 17:33:14 +0200";
 		SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", new Locale("EN"));
 		Date testDate = formatter.parse(testStr);
 		String dateString = MessageDate.toString( testDate, TimeZone.getTimeZone("GMT+0200") );
-		assertTrue( dateString.equals(testStr));
+		Assert.assertTrue( dateString.equals(testStr));
 	}
 }

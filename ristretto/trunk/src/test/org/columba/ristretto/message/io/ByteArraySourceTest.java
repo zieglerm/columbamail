@@ -41,47 +41,39 @@ import java.util.regex.Pattern;
 
 import org.columba.ristretto.io.ByteBufferSource;
 import org.columba.ristretto.io.Source;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class ByteArraySourceTest {
 
-
-public class ByteArraySourceTest extends TestCase {
-
-	/**
-	 * Constructor for StringSourceTest.
-	 * @param arg0
-	 */
-	public ByteArraySourceTest(String arg0) {
-		super(arg0);
-	}
-	
+	@Test
 	public void testFromActualPosition1() {
 		try {
 			Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 			source.seek(10);
 			Source subsource = source.fromActualPosition();
-			assertTrue(subsource.next() == 't');
-			assertTrue(subsource.next() == 'e');
-			assertTrue(subsource.next() == 's');
-			assertTrue(subsource.next() == 't');
+			Assert.assertTrue(subsource.next() == 't');
+			Assert.assertTrue(subsource.next() == 'e');
+			Assert.assertTrue(subsource.next() == 's');
+			Assert.assertTrue(subsource.next() == 't');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testFromActualPosition2() {
 		try {
 			Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 			source.seek(5);
 			Source subsource = source.fromActualPosition();
-			assertTrue(subsource.toString().equals("is a test"));
+			Assert.assertTrue(subsource.toString().equals("is a test"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testFromActualPosition3() {
 		try {
 			Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
@@ -89,76 +81,75 @@ public class ByteArraySourceTest extends TestCase {
 			Source subsource = source.fromActualPosition();
 			subsource.seek(5);
 			Source subsubsource = subsource.fromActualPosition();
-			assertTrue(subsubsource.toString().equals("test"));
+			Assert.assertTrue(subsubsource.toString().equals("test"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testNext() {
 		try {
 			Source source = new ByteBufferSource("test".getBytes("ISO-8859-1"));
-			assertTrue(source.next() == 't');
-			assertTrue(source.next() == 'e');
-			assertTrue(source.next() == 's');
-			assertTrue(source.next() == 't');
+			Assert.assertTrue(source.next() == 't');
+			Assert.assertTrue(source.next() == 'e');
+			Assert.assertTrue(source.next() == 's');
+			Assert.assertTrue(source.next() == 't');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testRegexp() throws Exception {
 		Source test = new ByteBufferSource("This is a test\r\n--boundary\r\n".getBytes("ISO-8859-1"));
 
 		Pattern pattern = Pattern.compile("\\r\\n--boundary\\r\\n");
 		Matcher matcher = pattern.matcher(test);
-		assertTrue(matcher.find());
+		Assert.assertTrue(matcher.find());
 	}
 
-
+	@Test
 	public void testSeek() {
 		try {
 			Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 			source.seek(10);
-			assertTrue(source.next() == 't');
-			assertTrue(source.next() == 'e');
-			assertTrue(source.next() == 's');
-			assertTrue(source.next() == 't');
+			Assert.assertTrue(source.next() == 't');
+			Assert.assertTrue(source.next() == 'e');
+			Assert.assertTrue(source.next() == 's');
+			Assert.assertTrue(source.next() == 't');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testSubSequence1() {
 		try {
 			Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 			Source subsource = (Source) source.subSequence(10, 13);
-			assertTrue(subsource.next() == 't');
-			assertTrue(subsource.next() == 'e');
-			assertTrue(subsource.next() == 's');
-			assertTrue(subsource.next() == 't');
+			Assert.assertTrue(subsource.next() == 't');
+			Assert.assertTrue(subsource.next() == 'e');
+			Assert.assertTrue(subsource.next() == 's');
+			Assert.assertTrue(subsource.next() == 't');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
+	@Test
 	public void testSubSequence2() throws Exception {
 		Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 		Source subsource = (Source) source.subSequence(5, 9);
-		assertTrue(subsource.toString().equals("is a"));
+		Assert.assertTrue(subsource.toString().equals("is a"));
 	}
 
-
+	@Test
 	public void testSubSequence3() throws Exception {
 		Source source = new ByteBufferSource("This is a test".getBytes("ISO-8859-1"));
 		Source subsource = (Source) source.subSequence(5, 9);
 		Source subsubsource = (Source) subsource.subSequence(0, 2);
-		assertTrue(subsubsource.toString().equals("is"));
+		Assert.assertTrue(subsubsource.toString().equals("is"));
 	}
-
 
 }

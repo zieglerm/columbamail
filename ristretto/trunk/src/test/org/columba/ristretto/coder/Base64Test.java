@@ -38,94 +38,97 @@ package org.columba.ristretto.coder;
 import java.nio.ByteBuffer;
 import java.util.Random;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class Base64Test extends TestCase {
+public class Base64Test {
 
-	/**
-	 * Constructor for Base64Test.
-	 * @param arg0
-	 */
-	public Base64Test(String arg0) {
-		super(arg0);
-	}
-
+	@Test
 	public void testDecode1Pack0Pads() {
 		String input = "/4BA";
 		ByteBuffer decoded = Base64.decode(input);
 		
-		assertTrue( decoded.capacity()== 3);
-		assertTrue( decoded.get() == (byte) 0x0ff );
-		assertTrue( decoded.get()== (byte) 0x080 );
-		assertTrue( decoded.get() == (byte) 0x040 );		
+		Assert.assertTrue( decoded.capacity()== 3);
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.get()== (byte) 0x080 );
+		Assert.assertTrue( decoded.get() == (byte) 0x040 );		
 	}
 
+	@Test
 	public void testDecode2Pack0Pads() {
 		String input = "/4BA/4BA";
 		ByteBuffer decoded = Base64.decode(input);
 		
-		assertTrue( decoded.capacity() == 6);
-		assertTrue( decoded.get() == (byte) 0x0ff );
-		assertTrue( decoded.get() == (byte) 0x080 );
-		assertTrue( decoded.get() == (byte) 0x040 );		
-		assertTrue( decoded.get() == (byte) 0x0ff );
-		assertTrue( decoded.get() == (byte) 0x080 );
-		assertTrue( decoded.get() == (byte) 0x040 );		
+		Assert.assertTrue( decoded.capacity() == 6);
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.get() == (byte) 0x080 );
+		Assert.assertTrue( decoded.get() == (byte) 0x040 );		
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.get() == (byte) 0x080 );
+		Assert.assertTrue( decoded.get() == (byte) 0x040 );		
 	}
 
+	@Test
 	public void testDecode1Pack1Pads() {
 		String input = "/4A=";
 		ByteBuffer decoded = Base64.decode(input);
 		
-		assertTrue( decoded.limit() == 2);
-		assertTrue( decoded.get() == (byte) 0x0ff );
-		assertTrue( decoded.get() == (byte) 0x080 );
+		Assert.assertTrue( decoded.limit() == 2);
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.get() == (byte) 0x080 );
 	}
 
+	@Test
 	public void testDecode1Pack2Pads() {
 		String input = "/w==";
 		ByteBuffer decoded = Base64.decode(input);
 		
-		assertTrue( decoded.limit() == 1);
-		assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.limit() == 1);
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
 	}
 
+	@Test
 	public void testDecode1Pack2PadsAndGarbageAtEnd() {
 		String input = "/4== asldkfie sdhr oi";
 		ByteBuffer decoded = Base64.decode(input);
 		
-		assertTrue( decoded.limit() == 1);
-		assertTrue( decoded.get() == (byte) 0x0ff );
+		Assert.assertTrue( decoded.limit() == 1);
+		Assert.assertTrue( decoded.get() == (byte) 0x0ff );
 	}
 	
+	@Test
 	public void testEncode1Pack0Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080, (byte)0x040};
 		StringBuffer result = Base64.encode(ByteBuffer.wrap(input));
-		assertTrue(result.length() == 4);
-		assertTrue(result.toString().equals("/4BA"));
+		Assert.assertTrue(result.length() == 4);
+		Assert.assertTrue(result.toString().equals("/4BA"));
 	}
 
+	@Test
 	public void testEncode2Pack0Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080, (byte)0x040,(byte)0x0ff, (byte)0x080, (byte)0x040};
 		StringBuffer result = Base64.encode(ByteBuffer.wrap(input));
-		assertTrue(result.length() == 8);
-		assertTrue(result.toString().equals("/4BA/4BA"));
+		Assert.assertTrue(result.length() == 8);
+		Assert.assertTrue(result.toString().equals("/4BA/4BA"));
 	}
 
+	@Test
 	public void testEncode1Pack1Pads() {
 		byte[] input = {(byte)0x0ff, (byte)0x080};
 		StringBuffer result = Base64.encode(ByteBuffer.wrap(input));
-		assertTrue(result.length() == 4);
-		assertTrue(result.toString().equals("/4A="));
+		Assert.assertTrue(result.length() == 4);
+		Assert.assertTrue(result.toString().equals("/4A="));
 	}
 
+	@Test
 	public void testEncode1Pack2Pads() {
 		byte[] input = {(byte)0x0ff};
 		StringBuffer result = Base64.encode(ByteBuffer.wrap(input));
-		assertTrue(result.length() == 4);
-		assertTrue(result.toString().equals("/w=="));
+		Assert.assertTrue(result.length() == 4);
+		Assert.assertTrue(result.toString().equals("/w=="));
 	}
 	
+	@Test
 	public void testEncodeDecode() {
 		Random random = new Random();
 		//byte[] testInput = new byte[(int) (random.nextFloat() * 1024)];
@@ -135,10 +138,11 @@ public class Base64Test extends TestCase {
 		System.out.println( encoded );
 		ByteBuffer decoded = Base64.decode(encoded);
 		for( int i=0; i<testInput.length; i++) {
-			assertEquals(testInput[i],decoded.get());			
+			Assert.assertEquals(testInput[i],decoded.get());			
 		}
 	}
-	
+
+	@Test
 	public void testDecodeMalformed() {
 		String input = "tqEgx9G55r/vILHuwfYgu/27/cfPsNQgwPzH2LXluLO0z7TZLiC18Lryvbogv7XIrcDHIMPWsO26wCEh=";
 		
