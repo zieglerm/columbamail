@@ -3,12 +3,11 @@ package org.columba.mail.folder.imap;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.columba.core.command.CommandCancelledException;
-import org.columba.mail.imap.TstHeaderList;
-import org.columba.mail.imap.TstServer;
+import org.columba.mail.imap.TestHeaderList;
+import org.columba.mail.imap.TestServer;
 import org.columba.mail.message.ColumbaHeader;
 import org.columba.mail.message.IPersistantHeaderList;
 import org.columba.ristretto.imap.IMAPException;
@@ -20,11 +19,11 @@ public class IMAPSyncTest {
 
     @Test
     public void testSimpleNewMails() throws IOException, CommandCancelledException, IMAPException, Exception {
-        IPersistantHeaderList testList = new TstHeaderList();
+        IPersistantHeaderList testList = new TestHeaderList();
         MailboxStatus status = new MailboxStatus();
         status.setMessages(100);
         status.setUidNext(101);
-        TstServer testServer = new TstServer(status);
+        TestServer testServer = new TestServer(status);
 
         IMAPFolder folder = new IMAPFolder(testList, testServer);
 
@@ -64,11 +63,11 @@ public class IMAPSyncTest {
 
     @Test
     public void testSimpleRemovedMails() throws IOException, CommandCancelledException, IMAPException, Exception {
-        IPersistantHeaderList testList = new TstHeaderList();
+        IPersistantHeaderList testList = new TestHeaderList();
         MailboxStatus status = new MailboxStatus();
         status.setMessages(100);
         status.setUidNext(101);
-        TstServer testServer = new TstServer(status);
+        TestServer testServer = new TestServer(status);
 
         IMAPFolder folder = new IMAPFolder(testList, testServer);
 
@@ -103,11 +102,11 @@ public class IMAPSyncTest {
 
     @Test
     public void testNewAndRemovedMails() throws IOException, CommandCancelledException, IMAPException, Exception {
-        IPersistantHeaderList testList = new TstHeaderList();
+        IPersistantHeaderList testList = new TestHeaderList();
         MailboxStatus status = new MailboxStatus();
         status.setMessages(100);
         status.setUidNext(101);
-        TstServer testServer = new TstServer(status);
+        TestServer testServer = new TestServer(status);
 
         IMAPFolder folder = new IMAPFolder(testList, testServer);
 

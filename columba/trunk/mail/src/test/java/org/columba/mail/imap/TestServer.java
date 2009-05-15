@@ -3,6 +3,7 @@ package org.columba.mail.imap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
@@ -378,8 +379,16 @@ public class TestServer implements IImapServer {
 	}
 
 	public int getLargestRemoteUid(IMAPFolder folder) throws IOException, IMAPException, CommandCancelledException {
-		// TODO Auto-generated method stub
-		return 0;
+        Integer val;
+        int maxUid = 0;
+        for (Iterator it = headerList.headerIterator(); it.hasNext();) {
+            IColumbaHeader head = (IColumbaHeader) it.next();
+            val  =  (Integer) head.get("columba.uid");
+            if(val > maxUid){
+                maxUid = val;
+            }
+        }
+		return maxUid;
 	}
 
 }
