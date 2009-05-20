@@ -379,8 +379,10 @@ public class SMTPServer implements Observer  {
 						.getSupportedMechanisms(capas[i]);
 				Iterator it = authMechanisms.iterator();
 				while (it.hasNext()) {
-					supportedMechanisms.add(new Integer(AuthenticationManager
-							.getSaslCode((String) it.next())));
+					Integer saslCode = new Integer(AuthenticationManager
+							.getSaslCode((String) it.next()));
+					if (!saslCode.equals(-1))
+						supportedMechanisms.add(saslCode);
 				}
 
 				break;
