@@ -50,6 +50,7 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 	private static final int CRFOUND = 1;
 	private static final int PRINTLF = 2;
 	private static final int PRINTBUFFER = 3;
+	private static final int EOF = 4;
 	
 	
 	private int mode = 0;
@@ -83,6 +84,13 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 			return buffer;
 		}
 		
+		// print the last LF or -1
+		if( mode == EOF ) {
+			int b = buffer;
+			buffer = -1;
+			return b;
+		}
+		
 		// Nothing must be inserted, so we can read another byte
 		// from the inputstream;
 		int read = in.read();
@@ -106,6 +114,13 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 		// insert a CR and ensure that the next read byte is a LF.
 		if( read == '\n' && mode != CRFOUND ) {
 			mode = PRINTLF;
+			return '\r';
+		}
+		
+		// append CRLF at the end
+		if( read == -1) {
+			mode = EOF;
+			buffer = '\n';
 			return '\r';
 		}
 
