@@ -39,6 +39,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,7 +125,7 @@ public class QuotedPrintable {
 		return charset.decode(buffer);
 	}
 
-	/**
+/**
  * Encodes a CharSequence with QuotedPrintable Coding. 
  * <br>
  * <b>Note:</b> The input is transformed to canonical form before encoding
@@ -133,7 +134,21 @@ public class QuotedPrintable {
  * @param charset	The charactercoding that the input uses (e.g. ISO-8859-1)
  * @return a US-ASCII compatible {@link StringBuffer}
  */
-public static StringBuffer encode(CharSequence input, Charset charset) {
+	public static StringBuffer encode(CharSequence input, Charset charset) {
+		return encode(input, charset, null);
+	}
+
+	/**
+ * Encodes a CharSequence with QuotedPrintable Coding. 
+ * <br>
+ * <b>Note:</b> The input is transformed to canonical form before encoding
+ * 
+ * @param input	The input text in form of a {@link CharSequence}
+ * @param charset	The charactercoding that the input uses (e.g. ISO-8859-1)
+ * @param encodeBytes	a set of bytes which need to be encoded
+ * @return a US-ASCII compatible {@link StringBuffer}
+ */
+public static StringBuffer encode(CharSequence input, Charset charset, Set<Byte> encodeBytes) {
 		StringBuffer result = new StringBuffer(input.length());
 		CharBuffer current = CharBuffer.allocate(1);
 		ByteBuffer decoded;
@@ -156,7 +171,8 @@ public static StringBuffer encode(CharSequence input, Charset charset) {
 				&& !(lineLength == 74 || input.charAt(i + 1) == '\r' || input.charAt(i + 1) == '\n'))
 				|| (next >= 33
 					&& next != 61
-					&& next <= 126)) {
+					&& next <= 126
+					&& (encodeBytes == null || !encodeBytes.contains(new Byte(next))))) {
 				result.append((char) next);
 				lineLength++;
 			} else if (next == '\r') {

@@ -38,6 +38,7 @@ package org.columba.ristretto.coder;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Logger;
@@ -222,6 +223,8 @@ public class EncodedWord {
 		// Create encodedWords
 		Iterator it = words.iterator();
 		int lastWordEnd = 0;
+		HashSet<Byte> encodeBytes = new HashSet<Byte>();
+		encodeBytes.add(new Byte((byte)63));
 		while (it.hasNext()) {
 			int[] act = (int[]) it.next();
 
@@ -233,7 +236,7 @@ public class EncodedWord {
 				Matcher wsMatcher = whitespacePattern.matcher(rawWord);
 				rawWord = wsMatcher.replaceAll("_");
 
-				encodedPart = QuotedPrintable.encode(rawWord, charset);
+				encodedPart = QuotedPrintable.encode(rawWord, charset, encodeBytes);
 			} else {
 				encodedPart =
 					Base64.encode(charset.encode(CharBuffer.wrap(rawWord)));
