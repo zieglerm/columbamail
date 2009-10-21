@@ -39,7 +39,7 @@ public class VersionInfo {
 			
 			return (String) getVersionMethod.invoke(null,new Object[0]);
 		} catch (Exception e) {
-			return "CVS-" + DATE;
+			return "SVN-" + DATE;
 		} 
 	
 	}
