@@ -17,7 +17,6 @@ package org.columba.core.gui.util;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.Window;
 
@@ -25,7 +24,7 @@ import org.columba.core.gui.base.TransparentWindow;
 import org.columba.core.resourceloader.ImageLoader;
 
 
-public class StartUpFrame extends Frame {
+public class StartUpFrame {
     private Window window;
 
     public StartUpFrame() {
@@ -45,5 +44,7 @@ public class StartUpFrame extends Frame {
 
     public void setVisible(boolean b) {
         window.setVisible(b);
+        if (!b)
+        	window.dispose();
     }
 }
