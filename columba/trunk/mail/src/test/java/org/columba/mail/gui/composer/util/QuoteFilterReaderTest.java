@@ -15,22 +15,22 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 
 import org.columba.core.io.StreamUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 
-public class QuoteFilterInputStreamTest {
+public class QuoteFilterReaderTest {
     @Test
     public void testOneLiner() throws IOException {
         String line = "This is a test";
-        InputStream in = new ByteArrayInputStream(line.getBytes());
+        Reader in = new StringReader(line);
 
-        StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
+        StringBuffer result = StreamUtils.readReader(new QuoteFilterReader(
                     in));
         Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
@@ -38,9 +38,9 @@ public class QuoteFilterInputStreamTest {
     @Test
     public void testMultiLiner1() throws IOException {
         String line = "This is a test\nForget the rest\n\n";
-        InputStream in = new ByteArrayInputStream(line.getBytes());
+        Reader in = new StringReader(line);
 
-        StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
+        StringBuffer result = StreamUtils.readReader(new QuoteFilterReader(
                     in));
         Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
@@ -48,9 +48,9 @@ public class QuoteFilterInputStreamTest {
     @Test
     public void testMultiLiner2() throws IOException {
         String line = "This is a test\nForget the rest\n\n\n";
-        InputStream in = new ByteArrayInputStream(line.getBytes());
+        Reader in = new StringReader(line);
 
-        StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
+        StringBuffer result = StreamUtils.readReader(new QuoteFilterReader(
                     in));
         Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }
@@ -58,9 +58,9 @@ public class QuoteFilterInputStreamTest {
    @Test
     public void testMultiLiner3() throws IOException {
         String line = "\nThis is a test\nForget the rest\n\n\n";
-        InputStream in = new ByteArrayInputStream(line.getBytes());
+        Reader in = new StringReader(line);
 
-        StringBuffer result = StreamUtils.readCharacterStream(new QuoteFilterInputStream(
+        StringBuffer result = StreamUtils.readReader(new QuoteFilterReader(
                     in));
         Assert.assertTrue(result.toString().equals(line.replaceAll("(?m)^(.*)$", "> $1")));
     }

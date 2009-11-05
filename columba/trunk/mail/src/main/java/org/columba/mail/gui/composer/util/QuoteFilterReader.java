@@ -17,12 +17,12 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.util;
 
-import java.io.FilterInputStream;
+import java.io.FilterReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
 
 
-public class QuoteFilterInputStream extends FilterInputStream {
+public class QuoteFilterReader extends FilterReader {
     private static final int QUOTE = 0;
     private static final int BODY = 1;
     private static final int BODYSTART = 2;
@@ -34,7 +34,7 @@ public class QuoteFilterInputStream extends FilterInputStream {
     /**
      * @param arg0
      */
-    public QuoteFilterInputStream(InputStream arg0, String prefix)
+    public QuoteFilterReader(Reader arg0, String prefix)
         throws IOException {
         super(arg0);
 
@@ -54,14 +54,14 @@ public class QuoteFilterInputStream extends FilterInputStream {
     /**
      * @param arg0
      */
-    public QuoteFilterInputStream(InputStream arg0) throws IOException {
+    public QuoteFilterReader(Reader arg0) throws IOException {
         this(arg0, "> ");
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see java.io.InputStream#read()
+     * @see java.io.Reader#read()
      */
     public int read() throws IOException {
         int result = -1;
@@ -111,9 +111,9 @@ public class QuoteFilterInputStream extends FilterInputStream {
     /*
      * (non-Javadoc)
      * 
-     * @see java.io.InputStream#read(byte[], int, int)
+     * @see java.io.Reader#read(char[], int, int)
      */
-    public int read(byte[] arg0, int arg1, int arg2) throws IOException {
+    public int read(char[] arg0, int arg1, int arg2) throws IOException {
         int next;
 
         for (int i = 0; i < arg2; i++) {
@@ -127,7 +127,7 @@ public class QuoteFilterInputStream extends FilterInputStream {
                 }
             }
 
-            arg0[arg1 + i] = (byte) next;
+            arg0[arg1 + i] = (char) next;
         }
 
         return arg2;

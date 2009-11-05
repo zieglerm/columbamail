@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 
 /**
  * Contains utility methods for handling streams.
@@ -132,5 +133,27 @@ public class StreamUtils {
 		streamCopy(from, out);
 
 		return new ByteArrayInputStream(out.toByteArray());
+	}
+
+	/**
+	 * Reads a Reader into a StringBuffer.
+	 * 
+	 * @param reader
+	 *            the Reader to read from
+	 * @return the StringBuffer
+	 * @throws IOException
+	 */
+	public static StringBuffer readReader(Reader reader)
+			throws IOException {
+		StringBuffer result = new StringBuffer();
+
+		int read;
+		while ((read = reader.read()) > 0) {
+			result.append((char) read);
+		}
+
+		reader.close();
+
+		return result;
 	}
 }

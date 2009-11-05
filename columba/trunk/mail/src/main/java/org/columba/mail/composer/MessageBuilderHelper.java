@@ -387,6 +387,7 @@ public class MessageBuilderHelper {
 		}
 
 		String bodyMsg = StreamUtils.readCharacterStream(body).toString();
+		body.close();
 		return bodyMsg;
 	}
 

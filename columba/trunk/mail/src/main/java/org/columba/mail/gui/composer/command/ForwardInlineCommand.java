@@ -17,9 +17,9 @@
 //All Rights Reserved.
 package org.columba.mail.gui.composer.command;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.text.DateFormat;
@@ -37,12 +37,11 @@ import org.columba.mail.config.MailConfig;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.composer.ComposerController;
 import org.columba.mail.gui.composer.ComposerModel;
-import org.columba.mail.gui.composer.util.QuoteFilterInputStream;
+import org.columba.mail.gui.composer.util.QuoteFilterReader;
 import org.columba.mail.gui.util.AddressListRenderer;
 import org.columba.mail.parser.text.HtmlParser;
 import org.columba.mail.util.MailResourceLoader;
 import org.columba.ristretto.coder.Base64DecoderInputStream;
-import org.columba.ristretto.coder.CharsetDecoderInputStream;
 import org.columba.ristretto.coder.QuotedPrintableDecoderInputStream;
 import org.columba.ristretto.message.Address;
 import org.columba.ristretto.message.BasicHeader;
@@ -186,24 +185,10 @@ public class ForwardInlineCommand extends ForwardCommand {
 
 	protected String createQuotedBody(MimeHeader header, IMailbox folder,
 			Object[] uids, Integer[] address) throws IOException, Exception {
-		InputStream bodyStream = folder.getMimePartBodyStream(uids[0], address);
+		MimeTree mimePartTree = folder.getMimePartTree(uids[0]);
+        MimePart bodyPart = mimePartTree.getFromAddress(address);
 
-		// Do decoding stuff
-		switch (header.getContentTransferEncoding()) {
-		case MimeHeader.QUOTED_PRINTABLE: {
-			bodyStream = new QuotedPrintableDecoderInputStream(bodyStream);
-			break;
-		}
-
-		case MimeHeader.BASE64: {
-			bodyStream = new Base64DecoderInputStream(bodyStream);
-		}
-		}
-		String charset = header.getContentParameter("charset");
-		if (charset != null) {
-			bodyStream = new CharsetDecoderInputStream(bodyStream, Charset
-					.forName(charset));
-		}
+        String bodyText = MessageBuilderHelper.createBodyText(bodyPart);
 
         boolean wasHtml;
         if (header.getMimeType().getSubtype().equals("html"))
@@ -249,11 +234,9 @@ public class ForwardInlineCommand extends ForwardCommand {
             if (wasHtml) {
             	htmlbody = HtmlParser.removeComments(// comments are not displayed
                                                      // correctly in composer
-            			HtmlParser.getHtmlBody(StreamUtils.readCharacterStream(bodyStream)
-            					.toString()));
+            			HtmlParser.getHtmlBody(bodyText));
             } else {
-            	htmlbody = HtmlParser.substituteSpecialCharacters(
-            			StreamUtils.readCharacterStream(bodyStream).toString());
+            	htmlbody = HtmlParser.substituteSpecialCharacters(bodyText);
             }
             buf.append(htmlbody);
 
@@ -270,18 +253,12 @@ public class ForwardInlineCommand extends ForwardCommand {
 					DateFormat.MEDIUM).format(rfcHeader.getDate());
 			String from = rfcHeader.getFrom().toString();			
 
-			InputStream textbodyStream;
 			if (wasHtml) {
-				String textbody = HtmlParser.htmlToText(StreamUtils.readCharacterStream(bodyStream).
-						toString());
-
-				textbodyStream = new ByteArrayInputStream(textbody.getBytes());
-			} else {
-				textbodyStream = bodyStream;
+				bodyText = HtmlParser.htmlToText(bodyText);
 			}
 			// Text: Addition of > before each line
-			StringBuffer buf = StreamUtils.readCharacterStream(
-					new QuoteFilterInputStream(textbodyStream));
+			StringBuffer buf = StreamUtils.readReader(new QuoteFilterReader(
+					new StringReader(bodyText)));
 
 	        buf.insert(0, ">\n");
 			buf.insert(0, "> Date: " + date + "\n");
@@ -290,7 +267,6 @@ public class ForwardInlineCommand extends ForwardCommand {
 			quotedBody = buf.toString();
 		}
 
-		bodyStream.close();
 		return quotedBody;
 	}
 }
