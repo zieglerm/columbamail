@@ -83,7 +83,11 @@ public class DateParser {
 			try {
 				time = defaultFormat.parse(dateString).getTime();
 			} catch (ParseException e) {
-				e.printStackTrace();
+				try {
+					time = DateFormat.getInstance().parse(dateString).getTime();
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
 			}
 		}
 

@@ -268,14 +268,14 @@ public class XCSDocumentParser {
 	}
 
 	public void setDTStart(Calendar c) {
-		set(ICALENDAR.DTSTART, DateParser.createStringFromCalendar(c));
+		set(ICALENDAR.DTSTART, DateParser.createDateStringFromCalendar(c));
 	}
 
 	public Calendar getDTStart() {
 		String s = get(ICALENDAR.DTSTART);
 		Calendar c;
 		try {
-			c = DateParser.createCalendarFromString(s);
+			c = DateParser.createCalendarFromDateString(s);
 			return c;
 		} catch (IllegalArgumentException e) {
 			LOG.severe("date parsing exception");
@@ -287,14 +287,14 @@ public class XCSDocumentParser {
 	}
 
 	public void setDTEnd(Calendar c) {
-		set(ICALENDAR.DTEND, DateParser.createStringFromCalendar(c));
+		set(ICALENDAR.DTEND, DateParser.createDateStringFromCalendar(c));
 	}
 
 	public Calendar getDTEnd() {
 		String s = get(ICALENDAR.DTEND);
 		Calendar c;
 		try {
-			c = DateParser.createCalendarFromString(s);
+			c = DateParser.createCalendarFromDateString(s);
 			return c;
 		} catch (IllegalArgumentException e) {
 			LOG.severe("date parsing exception");
@@ -306,7 +306,7 @@ public class XCSDocumentParser {
 	}
 
 	public void setDTStamp(Calendar c) {
-		set(ICALENDAR.DTSTAMP, DateParser.createStringFromCalendar(c));
+		set(ICALENDAR.DTSTAMP, DateParser.createDateStringFromCalendar(c));
 	}
 
 	public Calendar getDTStamp() {
@@ -314,7 +314,7 @@ public class XCSDocumentParser {
 
 		Calendar c;
 		try {
-			c = DateParser.createCalendarFromString(s);
+			c = DateParser.createCalendarFromDateString(s);
 			return c;
 		} catch (IllegalArgumentException e) {
 			LOG.severe("date parsing exception");
