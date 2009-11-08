@@ -50,7 +50,8 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 	private static final int CRFOUND = 1;
 	private static final int PRINTLF = 2;
 	private static final int PRINTBUFFER = 3;
-	private static final int EOF = 4;
+	private static final int CRLFFOUND = 4;
+	private static final int EOF = 5;
 	
 	
 	private int mode = 0;
@@ -78,12 +79,6 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 			return '\n';
 		}
 		
-		// Print what was in the buffer
-		if( mode == PRINTBUFFER ) {
-			mode = NOOP;
-			return buffer;
-		}
-		
 		// print the last LF or -1
 		if( mode == EOF ) {
 			int b = buffer;
@@ -91,37 +86,57 @@ public class CanonizeFilterInputStream extends FilterInputStream {
 			return b;
 		}
 		
-		// Nothing must be inserted, so we can read another byte
-		// from the inputstream;
-		int read = in.read();
+		// take the next char
+		int read;
+		if( mode == PRINTBUFFER ) {
+			mode = NOOP;
+			read = buffer;
+		} else {
+			read = in.read();
+		}
 		
-		// if we read a CR next char must be a LF so go in CRFOUND mode
-		if( read == '\r' ) {
-			mode = CRFOUND;
-			return read;
-		}		
-
+		if( mode != CRFOUND ) {
+			// if we read a CR next char must be a LF so go in CRFOUND mode
+			if( read == '\r' ) {
+				mode = CRFOUND;
+				return read;
+			}
+			
+			// if we read a LF without being in CRFOUND mode we have to
+			// insert a CR and ensure that the next read byte is a LF.
+			if( read == '\n' ) {
+				mode = PRINTLF;
+				return '\r';
+			}
+		}
+		
 		// if we are in CRFOUND mode but the next char wasn't a LF
 		// save the read byte in the buffer and insert a LF
 		// Go to PRINTBUFFER mode so the read byte is read next.
-		if( read != '\n' && mode == CRFOUND ) {
-			mode = PRINTBUFFER;
-			buffer = read;
-			return '\n';
-		} 
-				
-		// if we read a LF without being in CRFOUND mode we have to
-		// insert a CR and ensure that the next read byte is a LF.
-		if( read == '\n' && mode != CRFOUND ) {
-			mode = PRINTLF;
-			return '\r';
+		if( mode == CRFOUND ) {
+			if( read != '\n' ) {
+				mode = PRINTBUFFER;
+				buffer = read;
+				return '\n';
+			} else {
+				mode = CRLFFOUND;
+				return read;
+			}
 		}
 		
-		// append CRLF at the end
-		if( read == -1) {
-			mode = EOF;
-			buffer = '\n';
-			return '\r';
+		// if we are at the end of the stream
+		if( read == -1 ) {
+			if ( mode == CRLFFOUND ) {
+				// if the last chars found were already CR LF just return -1
+				buffer = -1;
+				mode = EOF;
+				return buffer;
+			} else {
+				// if not then return a trailing CR LF
+				buffer = '\n';
+				mode = EOF;
+				return '\r';
+			}
 		}
 
 		// Everything is okay, return the read byte and go to NOOP

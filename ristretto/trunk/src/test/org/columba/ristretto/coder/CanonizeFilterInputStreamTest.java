@@ -46,7 +46,7 @@ public class CanonizeFilterInputStreamTest {
 
 	@Test
 	public void testCR() throws IOException {
-		String test = "This is a test\r";
+		String test = "This is a test\r\r";
 		StringBuffer result = new StringBuffer();
 		InputStream in = new CanonizeFilterInputStream( new ByteArrayInputStream(test.getBytes()));
 		
@@ -56,7 +56,7 @@ public class CanonizeFilterInputStreamTest {
 			read = in.read();
 		}
 		
-		Assert.assertTrue( "This is a test\r\n".equals( result.toString() ));
+		Assert.assertTrue( "This is a test\r\n\r\n\r\n".equals( result.toString() ));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class CanonizeFilterInputStreamTest {
 			read = in.read();
 		}
 		
-		Assert.assertTrue( "This is a test\r\n".equals( result.toString() ));
+		Assert.assertTrue( "This is a test\r\n\r\n".equals( result.toString() ));
 	}
 
 	@Test
