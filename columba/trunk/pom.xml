@@ -175,6 +175,7 @@
     <module>contact</module>
     <module>calendar</module>
     <module>plugins</module>
+    <module>columba</module>
   </modules>
 
   <distributionManagement>
