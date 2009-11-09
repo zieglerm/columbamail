@@ -38,8 +38,6 @@ import org.columba.ristretto.imap.IMAPDisconnectedException;
 import org.columba.ristretto.imap.IMAPException;
 import org.columba.ristretto.io.ConnectionDroppedException;
 
-import sun.net.ConnectionResetException;
-
 /**
  * Handles all exceptions catched by Worker.construct(). Opens error dialogs.
  * 
@@ -121,9 +119,6 @@ public class ExceptionHandler implements IExceptionListener {
 		} else if (e instanceof PortUnreachableException) {
 			errorMessage = GlobalResourceLoader.getString(RESOURCE_PATH,
 					"error", "port_unreachable_error");
-		} else if (e instanceof ConnectionResetException) {
-			errorMessage = GlobalResourceLoader.getString(RESOURCE_PATH,
-					"error", "connection_reset");
 		} else {
 			errorMessage = GlobalResourceLoader.getString(RESOURCE_PATH,
 					"error", "generic_socket_error");
