@@ -25,8 +25,8 @@ import org.columba.ristretto.message.Header;
  * @author fdietz
  *
  */
-public interface IColumbaHeader {
-	void copyColumbaKeys(IColumbaHeader header);
+public interface IColumbaHeader extends Cloneable {
+	void copyColumbaKeys(IColumbaHeader header) throws CloneNotSupportedException;
 
 	/* (non-Javadoc)
 	 * @see org.columba.mail.message.HeaderInterface#count()
@@ -74,5 +74,5 @@ public interface IColumbaHeader {
 
 	Boolean hasAttachments();
 	
-	public Object clone();
+	public Object clone() throws CloneNotSupportedException;
 }

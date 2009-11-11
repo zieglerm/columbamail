@@ -75,9 +75,14 @@
             <version>1.4</version>
         </dependency>
         <dependency>
-            <groupId>org.columba</groupId>
-            <artifactId>ristretto</artifactId>
-            <version>1.2</version>
+            <groupId>columba</groupId>
+            <artifactId>ristretto-common</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>columba</groupId>
+            <artifactId>ristretto-imap</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.columba</groupId>

@@ -90,6 +90,26 @@
       <version>1.4</version>
     </dependency>
     <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-common</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-imap</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-pop3</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>columba</groupId>
+      <artifactId>ristretto-smtp</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.columba</groupId>
       <artifactId>jscf</artifactId>
       <version>0.3</version>

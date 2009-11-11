@@ -132,7 +132,7 @@ public class ColumbaHeader implements IColumbaHeader {
 	 * get copied. The Header stays the same!
 	 * 
 	 */
-	public Object clone() {
+	public Object clone() throws CloneNotSupportedException {
 		ColumbaHeader clone = new ColumbaHeader();
 		clone.header = this.header;
 		clone.attributes = (Attributes) this.attributes.clone();
@@ -140,7 +140,7 @@ public class ColumbaHeader implements IColumbaHeader {
 		return clone;
 	}
 
-	public void copyColumbaKeys(IColumbaHeader header) {
+	public void copyColumbaKeys(IColumbaHeader header) throws CloneNotSupportedException {
 		header.setFlags((Flags) flags.clone());
 		header.setAttributes((Attributes) attributes.clone());
 	}

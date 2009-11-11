@@ -59,7 +59,7 @@ public class SendableHeader extends ColumbaHeader {
         attributes.put("columba.recipients", rcpt);
     }
 
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         SendableHeader clone = new SendableHeader();
         clone.attributes = (Attributes) this.attributes.clone();
         clone.flags = (Flags) this.flags.clone();
