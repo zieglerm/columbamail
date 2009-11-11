@@ -22,8 +22,8 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.sourceforge.net/svnroot/columba</connection>
-    <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/columba</developerConnection>
+    <connection>scm:svn:http://columba.svn.sourceforge.net/svnroot/columba</connection>
+    <developerConnection>scm:svn:https://columba.svn.sourceforge.net/svnroot/columba</developerConnection>
     <url>http://svn.sourceforge.net/viewvc/columba/</url>
   </scm>
   <developers>
@@ -148,7 +148,7 @@
     <repository>
       <id>columba</id>
       <name>Colunba main repository</name>
-      <url>https://columba.hora-obscura.de/dav_columba</url>
+      <url>https://www.hora-obscura.de/dav_columba</url>
     </repository>
   </repositories>
 
@@ -182,7 +182,7 @@
     <repository>
       <id>columba</id>
       <name>Columba main repository</name>
-      <url>dav:https://columba.hora-obscura.de/dav_columba</url>
+      <url>dav:https://www.hora-obscura.de/dav_columba</url>
     </repository>
   </distributionManagement>
 </project>
