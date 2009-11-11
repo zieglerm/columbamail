@@ -30,6 +30,7 @@
 	<classpathentry kind="src" path="plugins/org.columba.chat.altura/api"/>
 	<classpathentry kind="src" path="plugins/org.columba.chat.altura/res"/>
 	<classpathentry kind="src" path="plugins/org.columba.chat.altura/src"/>
+	<classpathentry kind="src" path="plugins/org.columba.core.CobraRenderer/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.core.HippoLookAndFeel/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.core.KunststoffLookAndFeel/src"/>
 	<classpathentry kind="src" path="plugins/org.columba.core.LiquidLookAndFeel/src"/>
@@ -70,6 +71,8 @@
 	<classpathentry kind="lib" path="lib/je-2.1.30.jar"/>
 	<classpathentry kind="lib" path="lib/jhall-2.0_02.jar"/>
 	<classpathentry kind="lib" path="lib/jython-2.2a1.jar"/>
+	<classpathentry kind="lib" path="plugins/org.columba.core.CobraRenderer/lib/cobra.jar"/>
+	<classpathentry kind="lib" path="plugins/org.columba.core.CobraRenderer/lib/js.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.FlyingSaucerRenderer/lib/cssparser-0-9-4-fs.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.FlyingSaucerRenderer/lib/jtidy-04aug2000r7.jar"/>
 	<classpathentry kind="lib" path="plugins/org.columba.core.FlyingSaucerRenderer/lib/core-renderer.jar"/>

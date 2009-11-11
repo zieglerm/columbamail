@@ -124,6 +124,7 @@
 
   <modules>
     <module>org.columba.chat.altura</module>
+    <module>org.columba.core.CobraRenderer</module>
     <module>org.columba.core.FlyingSaucerRenderer</module>
     <module>org.columba.core.HippoLookAndFeel</module>
     <module>org.columba.core.KunststoffLookAndFeel</module>
