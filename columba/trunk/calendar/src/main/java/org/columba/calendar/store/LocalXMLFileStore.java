@@ -162,17 +162,24 @@ public class LocalXMLFileStore {
 			Document document = null;
 			
 			// filename = "uuid.xcs"
-			while (files[nextIndex].getName().indexOf(".") == -1) {
+			while (!files[nextIndex].getName().endsWith(".xcs")) {
 				nextIndex++;
+				if (nextIndex >= files.length)
+					throw new StoreException();
 			}
 			
 			String filename = files[nextIndex].getName();
+			nextIndex++;
 
 			// remove ".xcs"
 			String uid = filename.substring(0, filename.indexOf("."));
-			document = load(uid);
 			
-			nextIndex++;
+			try {
+				document = load(uid);
+			} catch (StoreException e) {
+				throw e;
+			}
+			
 			return document;
 
 		}

@@ -165,29 +165,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 	 * @see org.columba.calendar.store.AbstractCalendarStore#getComponentInfoList()
 	 */
 	public IComponentInfoList getComponentInfoList() throws StoreException {
-
-		IComponentInfoList list = new ComponentInfoList();
-
-		Iterator it = dataStorage.iterator();
-		while (it.hasNext()) {
-			Document document = (Document) it.next();
-
-			IComponentInfo basicModel = null;
-			try {
-				basicModel = VCalendarModelFactory.unmarshall(document);
-			} catch (SyntaxException e) {
-				throw new StoreException(e);
-			} catch (IllegalArgumentException e) {
-				throw new StoreException(e);
-			}
-
-			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEventInfo event = (IEventInfo) basicModel;
-				list.add(event);
-			}
-		}
-
-		return list;
+		return getComponentInfoList(null);
 	}
 
 	public IComponentInfoList getComponentInfoList(String calendarId)
@@ -196,22 +174,21 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 
 		Iterator it = dataStorage.iterator();
 		while (it.hasNext()) {
-			Document document = (Document) it.next();
-
-			IComponentInfo basicModel = null;
 			try {
-				basicModel = VCalendarModelFactory.unmarshall(document);
-			} catch (SyntaxException e) {
-				throw new StoreException(e);
-			} catch (IllegalArgumentException e) {
-				throw new StoreException(e);
-			}
+				Document document = (Document) it.next();
 
-			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEventInfo event = (IEventInfo) basicModel;
-				if (event.getCalendar().equals(calendarId)) {
-					list.add(event);
+				IComponentInfo basicModel = null;
+
+				basicModel = VCalendarModelFactory.unmarshall(document);
+				if (basicModel.getType() == IComponent.TYPE.EVENT) {
+					IEventInfo event = (IEventInfo) basicModel;
+					if (calendarId == null || event.getCalendar().equals(calendarId)) {
+						list.add(event);
+					}
 				}
+			} catch (SyntaxException e) {
+			} catch (IllegalArgumentException e) {
+			} catch (StoreException e) {
 			}
 		}
 
@@ -219,28 +196,7 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 	}
 
 	public Iterator<String> getIdIterator() throws StoreException {
-		ArrayList<String> result = new ArrayList<String>();
-
-		Iterator it = dataStorage.iterator();
-		while (it.hasNext()) {
-			Document document = (Document) it.next();
-
-			IComponentInfo basicModel = null;
-			try {
-				basicModel = VCalendarModelFactory.unmarshall(document);
-			} catch (SyntaxException e) {
-				throw new StoreException(e);
-			} catch (IllegalArgumentException e) {
-				throw new StoreException(e);
-			}
-
-			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEventInfo event = (IEventInfo) basicModel;
-				result.add(event.getId());
-			}
-		}
-
-		return result.iterator();
+		return getIdIterator(null);
 	}
 
 	public Iterator<String> getIdIterator(String calendarId)
@@ -249,21 +205,20 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 
 		Iterator it = dataStorage.iterator();
 		while (it.hasNext()) {
-			Document document = (Document) it.next();
-
-			IComponentInfo basicModel = null;
 			try {
-				basicModel = VCalendarModelFactory.unmarshall(document);
-			} catch (SyntaxException e) {
-				throw new StoreException(e);
-			} catch (IllegalArgumentException e) {
-				throw new StoreException(e);
-			}
+				Document document = (Document) it.next();
 
-			if (basicModel.getType() == IComponent.TYPE.EVENT) {
-				IEventInfo event = (IEventInfo) basicModel;
-				if (event.getCalendar().equals(calendarId))
-					result.add(event.getId());
+				IComponentInfo basicModel = null;
+
+				basicModel = VCalendarModelFactory.unmarshall(document);
+				if (basicModel.getType() == IComponent.TYPE.EVENT) {
+					IEventInfo event = (IEventInfo) basicModel;
+					if (calendarId == null || event.getCalendar().equals(calendarId))
+						result.add(event.getId());
+				}
+			} catch (SyntaxException e) {
+			} catch (IllegalArgumentException e) {
+			} catch (StoreException e) {
 			}
 		}
 
