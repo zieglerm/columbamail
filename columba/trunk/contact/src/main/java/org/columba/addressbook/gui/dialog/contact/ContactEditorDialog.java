@@ -25,7 +25,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.Icon;
@@ -53,6 +57,7 @@ import org.columba.addressbook.model.PhoneModel;
 import org.columba.core.desktop.ColumbaDesktop;
 import org.columba.core.resourceloader.IconKeys;
 import org.columba.core.resourceloader.ImageLoader;
+import org.jdesktop.swingx.JXDatePicker;
 
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -230,7 +235,11 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 
 	private JLabel birthdayLabel;
 
-	private JComboBox birthdayComboBox;
+	private JPanel panel9;
+
+	private JCheckBox birthdayCheckBox;
+
+	private JXDatePicker birthdayDatePicker;
 
 	private JLabel notesLabel;
 
@@ -530,6 +539,16 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 				fillAddressView(m);
 			}
 
+			Date birthday = sourceModel.getBirthday();
+			if (birthday != null) {
+				birthdayDatePicker.setDate(birthday);
+				birthdayDatePicker.setEnabled(true);
+				birthdayCheckBox.setSelected(true);
+			} else {
+				birthdayDatePicker.setEnabled(false);
+				birthdayCheckBox.setSelected(false);
+			}
+
 			notesTextArea.setText(sourceModel.getNote());
 
 		} else {
@@ -576,6 +595,16 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 			fillAddressModel(AddressModel.TYPE_WORK, destModel);
 			fillAddressModel(AddressModel.TYPE_HOME, destModel);
 			fillAddressModel(AddressModel.TYPE_OTHER, destModel);
+
+			Date birthday = null;
+			if (birthdayCheckBox.isSelected()) {
+				try {
+					birthdayDatePicker.commitEdit();
+					birthday = birthdayDatePicker.getDate();
+				} catch (ParseException e) {
+				}
+			}
+			destModel.setBirthday(birthday);
 
 			destModel.setNote(notesTextArea.getText());
 
@@ -896,6 +925,8 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 
 				fillSortStringComboBox();
 			}
+		} else if (action.equals("BIRTHDAY_CHECKBOX")) {
+			birthdayDatePicker.setEnabled(birthdayCheckBox.isSelected());
 		}
 
 	}
@@ -1058,8 +1089,14 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 		officeTextField = new JTextField();
 		miscellaneousSeparator = compFactory.createSeparator(bundle
 				.getString("miscellaneousSeparator.text"));
+		panel9 = new JPanel();
 		birthdayLabel = new JLabel();
-		birthdayComboBox = new JComboBox();
+		birthdayCheckBox = new JCheckBox();
+		birthdayCheckBox.setActionCommand("BIRTHDAY_CHECKBOX");
+		birthdayCheckBox.addActionListener(this);
+		birthdayDatePicker = new JXDatePicker();
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.getDefault());
+		birthdayDatePicker.setFormats(new DateFormat[] {dateFormat});
 		notesLabel = new JLabel();
 		scrollPane3 = new JScrollPane();
 		notesTextArea = new JTextArea();
@@ -1621,11 +1658,28 @@ public class ContactEditorDialog extends JDialog implements ActionListener {
 						// ---- birthdayLabel ----
 						birthdayLabel.setText(bundle
 								.getString("birthdayLabel.text"));
-						birthdayLabel.setLabelFor(birthdayComboBox);
 						personalInfoPanel.add(birthdayLabel, cc.xywh(1, 25, 1,
 								1, CellConstraints.RIGHT,
 								CellConstraints.DEFAULT));
-						personalInfoPanel.add(birthdayComboBox, cc.xy(3, 25));
+
+						// ======== panel9 ========
+						{
+							panel9.setLayout(new FormLayout(new ColumnSpec[] {
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC },
+									RowSpec.decodeSpecs("fill:default")));
+
+							// ---- birthdayCheckBox ----
+							birthdayCheckBox.setSelected(false);
+							panel9.add(birthdayCheckBox, cc.xy(1, 1));
+
+							// ---- birthdayDatePicker ----
+							birthdayDatePicker.setEnabled(false);
+							panel9.add(birthdayDatePicker, cc.xy(3, 1));
+						}
+						personalInfoPanel.add(panel9, cc.xywh(3, 25, 5, 1));
+						birthdayLabel.setLabelFor(panel9);
 
 						// ---- notesLabel ----
 						notesLabel.setText(bundle.getString("notesLabel.text"));
