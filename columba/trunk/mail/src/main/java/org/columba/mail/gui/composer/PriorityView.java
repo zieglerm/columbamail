@@ -16,6 +16,8 @@
 package org.columba.mail.gui.composer;
 
 import java.awt.Component;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -37,17 +39,26 @@ import org.columba.mail.util.MailResourceLoader;
  * Window>Preferences>Java>Code Generation.
  */
 public class PriorityView extends JComboBox {
-    private static final String[] priorities = {
-        MailResourceLoader.getString("dialog", "composer", "highest"),
-        MailResourceLoader.getString("dialog", "composer", "high"),
-        MailResourceLoader.getString("dialog", "composer", "normal"),
-        MailResourceLoader.getString("dialog", "composer", "low"),
-        MailResourceLoader.getString("dialog", "composer", "lowest")
-    }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    private static Map<String, String> priorities = new HashMap<String, String>();
+    static {
+    	priorities.put("1", MailResourceLoader.getString("dialog", "composer", "highest"));
+    	priorities.put("2", MailResourceLoader.getString("dialog", "composer", "high"));
+    	priorities.put("3", MailResourceLoader.getString("dialog", "composer", "normal"));
+    	priorities.put("4", MailResourceLoader.getString("dialog", "composer", "low"));
+    	priorities.put("5", MailResourceLoader.getString("dialog", "composer", "lowest"));
+    }
+
+    private static ImageIcon image1 = MailImageLoader.getSmallIcon(
+            "priority-high.png");
+    // private static ImageIcon image2 = null;
+    // private static ImageIcon image3 = null;
+    private static ImageIcon image4 = MailImageLoader.getSmallIcon(
+            "priority-low.png");
+
     PriorityController controller;
 
     public PriorityView(PriorityController controller) {
-        super(priorities);
+        super(new String[] {"1", "2", "3", "4", "5"});
         this.controller = controller;
 
         setRenderer(new ComboBoxRenderer());
@@ -60,14 +71,6 @@ public class PriorityView extends JComboBox {
     }
 
      class ComboBoxRenderer extends JLabel implements ListCellRenderer {
-        private ImageIcon image1 = MailImageLoader.getSmallIcon(
-                "priority-high.png");
-
-        //private ImageIcon image2 = null;
-        //private ImageIcon image3 = null;
-        private ImageIcon image4 = MailImageLoader.getSmallIcon(
-                "priority-low.png");
-
         public ComboBoxRenderer() {
             setOpaque(true);
         }
@@ -88,7 +91,7 @@ public class PriorityView extends JComboBox {
                 return this;
             }
 
-            if (p.equals("Highest")) {
+            if (p.equals("1")) {
                 setIcon(image1);
             }
             /*
@@ -99,7 +102,7 @@ else if ( p.equals("High") )
 else if ( p.equals("Low") )
     setIcon( image3 );
  */
-            else if (p.equals("Lowest")) {
+            else if (p.equals("5")) {
                 setIcon(image4);
             } else {
                 setIcon(null);
@@ -112,7 +115,7 @@ else if ( p.equals("Low") )
                 setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             }
 
-            setText((String) value);
+            setText(priorities.get(p));
 
             return this;
         }

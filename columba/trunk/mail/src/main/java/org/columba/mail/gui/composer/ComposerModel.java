@@ -437,7 +437,7 @@ public class ComposerModel {
 
 	public String getPriority() {
 		if (message.getHeader().get("X-Priority") == null) {
-			return "Normal";
+			return "1";
 		} else {
 			return (String) message.getHeader().get("X-Priority");
 		}
