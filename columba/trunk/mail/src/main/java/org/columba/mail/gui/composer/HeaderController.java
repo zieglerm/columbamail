@@ -136,15 +136,15 @@ public class HeaderController {
 		if (b) {
 
 			String s = ListParser.createStringFromList(controller.getModel()
-					.getToList(), ",");
+					.getToList(), ",", true);
 			getView().getToComboBox().setText(s);
 
 			s = ListParser.createStringFromList(controller.getModel()
-					.getCcList(), ",");
+					.getCcList(), ",", true);
 			getView().getCcComboBox().setText(s);
 
 			s = ListParser.createStringFromList(controller.getModel()
-					.getBccList(), ",");
+					.getBccList(), ",", true);
 			getView().getBccComboBox().setText(s);
 
 		} else {

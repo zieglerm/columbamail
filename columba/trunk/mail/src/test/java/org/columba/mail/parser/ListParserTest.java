@@ -136,7 +136,7 @@ public class ListParserTest {
     @Test
 	public void testCreateStringFromListNull() {
 		try {
-			ListParser.createStringFromList(new Vector<String>(), null);
+			ListParser.createStringFromList(new Vector<String>(), null, false);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
@@ -145,7 +145,7 @@ public class ListParserTest {
     @Test
 	public void testCreateStringFromListNull2() {
 		try {
-			ListParser.createStringFromList(null, ";");
+			ListParser.createStringFromList(null, ";", false);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
@@ -156,7 +156,7 @@ public class ListParserTest {
 
 		List<String> list = new Vector<String>();
 
-		String result = ListParser.createStringFromList(list, ";");
+		String result = ListParser.createStringFromList(list, ";", false);
 		Assert.assertEquals("", result);
 	}
 
@@ -167,7 +167,7 @@ public class ListParserTest {
 		list.add("test@test.de");
 		list.add("test2@test2.de");
 
-		String result = ListParser.createStringFromList(list, ",");
+		String result = ListParser.createStringFromList(list, ",", true);
 		Assert.assertEquals("test@test.de, test2@test2.de, ", result);
 	}
 	
@@ -181,8 +181,8 @@ public class ListParserTest {
 		list.add("test@test.de");
 		list.add("\"My yours and he's list\"");
 
-		String result = ListParser.createStringFromList(list, ",");
-		Assert.assertEquals("test@test.de, My yours and he's list, ", result);
+		String result = ListParser.createStringFromList(list, ",", false);
+		Assert.assertEquals("test@test.de, My yours and he's list", result);
 	}
 	
 
@@ -198,7 +198,7 @@ public class ListParserTest {
 		list.add("Firstname Lastname");
 		list.add("\"Lastname, Firstname\"");
 		
-		String result = ListParser.createStringFromList(list, ",");
+		String result = ListParser.createStringFromList(list, ",", true);
 		Assert.assertEquals("test@test.de, Firstname Lastname, \"Lastname, Firstname\", ", result);
 	}
 	
@@ -214,7 +214,7 @@ public class ListParserTest {
 		list.add("\"Firstname Lastname\" <mail@mail.org>");
 		list.add("\"Lastname, Firstname\" <mail@mail.org>");
 		
-		String result = ListParser.createStringFromList(list, ",");
-		Assert.assertEquals("test@test.de, Firstname Lastname <mail@mail.org>, \"Lastname, Firstname\" <mail@mail.org>, ", result);
+		String result = ListParser.createStringFromList(list, ",", false);
+		Assert.assertEquals("test@test.de, Firstname Lastname <mail@mail.org>, \"Lastname, Firstname\" <mail@mail.org>", result);
 	}
 }

@@ -147,17 +147,18 @@ public class ListParser {
 	 * @return String representation, never <code>null</code
 	 */
 	public static String createStringFromList(List<String> list,
-			String separator) {
+			String separator, boolean trailingSeperator) {
 		if (list == null)
 			throw new IllegalArgumentException("list == null");
 		if (separator == null)
 			throw new IllegalArgumentException("separator == null");
 
 		StringBuffer output = new StringBuffer();
+		String seperatorstring = "";
 
 		for (Iterator it = list.iterator(); it.hasNext();) {
 			String address = (String) it.next();
-			if (address == null) {
+			if (address == null || address.equals("")) {
 				continue;
 			}
 			
@@ -184,16 +185,13 @@ public class ListParser {
 
 			address = addrSB.toString();
 			
+			output.append(seperatorstring);
 			output.append(address);
-			output.append(separator);
-			output.append(" ");
+			seperatorstring = separator + " ";
 		}
 
-		/*
-		if (output.length() > 0) {
-			output.deleteCharAt(output.length() - 1);
-		}
-		*/
+		if (trailingSeperator)
+			output.append(seperatorstring);
 
 		return output.toString();
 	}
