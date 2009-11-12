@@ -30,7 +30,7 @@ import org.columba.core.xml.XmlIO;
 /**
  * Manages profiles consisting of configuration folders.
  * <p>
- * Every profile has a name and a loation pointing to the configuration folder.
+ * Every profile has a name and a location pointing to the configuration folder.
  * <p>
  * A profiles.xml configuration file is saved in the default config directory,
  * storing all profiles information.
@@ -72,7 +72,7 @@ public class ProfileManager implements IProfileManager {
 	/**
 	 * default constructor
 	 */
-	public ProfileManager() {
+	private ProfileManager() {
 		super();
 
 		if (OSInfo.isWindowsPlatform()) {

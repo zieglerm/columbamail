@@ -5,7 +5,6 @@ package org.columba.mail.connector;
 
 import org.columba.addressbook.facade.IContactItem;
 import org.columba.core.util.NameParser;
-import org.columba.core.util.NameParser.Name;
 
 /**
  * Utilities to assist with using the addressbook facade

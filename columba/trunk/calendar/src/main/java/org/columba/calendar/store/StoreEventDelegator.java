@@ -28,7 +28,6 @@ import javax.swing.Timer;
 
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
-import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.IStoreListener;
@@ -62,7 +61,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 	/**
 	 * StoreEventDelegator method
 	 */
-	public StoreEventDelegator() {
+	private StoreEventDelegator() {
 		super();
 
 		itemRemovedList = new List[] { new ArrayList(500), new ArrayList(500) };
