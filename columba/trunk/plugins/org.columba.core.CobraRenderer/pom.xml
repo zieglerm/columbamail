@@ -22,15 +22,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.test.eschman</groupId>
+      <groupId>rhino</groupId>
       <artifactId>js</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${basedir}/lib/js.jar</systemPath>
+      <version>1.6R5</version>
     </dependency>
 
     <dependency>
-      <groupId>org.test.eschman</groupId>
+      <groupId>org.lobobrowser</groupId>
       <artifactId>cobra</artifactId>
       <version>0.98.4</version>
       <scope>system</scope>
