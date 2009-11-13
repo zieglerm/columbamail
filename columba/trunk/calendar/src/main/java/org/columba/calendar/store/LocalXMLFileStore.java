@@ -134,7 +134,7 @@ public class LocalXMLFileStore {
 		if (uid == null)
 			throw new IllegalArgumentException("uid == null");
 
-		return (getFile(uid) != null);
+		return getFile(uid).exists();
 	}
 
 	public Iterator iterator() throws StoreException {

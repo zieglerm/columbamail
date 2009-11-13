@@ -21,7 +21,6 @@ import org.columba.calendar.model.EventInfo;
 import org.columba.calendar.model.Recurrence;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
-import org.columba.calendar.model.api.IDateRange;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IRecurrence;
@@ -31,8 +30,6 @@ import org.columba.calendar.ui.base.CalendarHelper;
 import org.columba.core.facade.ServiceFacadeRegistry;
 
 import com.miginfocom.calendar.activity.Activity;
-import com.miginfocom.calendar.activity.ActivityDepository;
-import com.miginfocom.calendar.category.CategoryStructureEvent;
 
 public class BirthdayCalendarStore extends AbstractCalendarStore implements
 		ICalendarStore, FolderListener {
@@ -62,18 +59,13 @@ public class BirthdayCalendarStore extends AbstractCalendarStore implements
 				IContactModelPartial contact = iterator.next();
 				IContactModel model = folder.get(contact.getId());
 
-				IEventInfo eventInfo = createEventInfo(model);
-				if (eventInfo != null) {
-					// create new activity
-					Activity act = CalendarHelper
-							.createActivity((IEventInfo) eventInfo, this);
-					ActivityDepository.getInstance().addBrokedActivity(act,
-							this, CategoryStructureEvent.ADDED_CREATED);
-				}
+				createEventInfo(model);
 			}
 		} catch (ServiceNotFoundException e) {
 			e.printStackTrace();
 		}
+
+		addActivitiesToDepository();
 	}
 
 	protected IEventInfo createEventInfo(IContactModel contact) {
@@ -129,21 +121,6 @@ public class BirthdayCalendarStore extends AbstractCalendarStore implements
 			list.add(it.next());
 		}
 		return list;
-	}
-
-	public Iterator<String> findByDateRange(IDateRange dateRange)
-			throws StoreException {
-		return null;
-	}
-
-	public Iterator<String> findByStartDate(Calendar startDate)
-			throws StoreException {
-		return null;
-	}
-
-	public Iterator<String> findBySummary(String searchTerm)
-			throws StoreException {
-		return null;
 	}
 
 	public IComponentInfoList getComponentInfoList(String calendarId)
