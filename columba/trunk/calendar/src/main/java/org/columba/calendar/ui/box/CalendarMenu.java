@@ -13,7 +13,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
 import org.columba.calendar.base.api.ICalendarItem;
-import org.columba.calendar.config.Config;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.config.api.ICalendarList;
 
 public class CalendarMenu extends JPopupMenu {
@@ -22,7 +22,7 @@ public class CalendarMenu extends JPopupMenu {
 
 	public CalendarMenu(ActionListener l) {
 
-		ICalendarList list = Config.getInstance().getCalendarList();
+		ICalendarList list = CalendarList.getInstance();
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			ICalendarItem folder = e.nextElement();

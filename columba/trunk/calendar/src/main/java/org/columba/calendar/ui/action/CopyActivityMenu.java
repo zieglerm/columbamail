@@ -29,9 +29,8 @@ import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.CopyEventCommand;
-import org.columba.calendar.config.Config;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.config.api.ICalendarList;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
 import org.columba.calendar.ui.calendar.api.IActivitySelectionChangedListener;
@@ -62,7 +61,7 @@ public class CopyActivityMenu extends IMenu implements
 	public CopyActivityMenu(IFrameMediator controller) {
 		super(controller, "Copy", "CopyActivity");
 
-		ICalendarList list = Config.getInstance().getCalendarList();
+		ICalendarList list = CalendarList.getInstance();
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			final ICalendarItem calendarItem = e.nextElement();
@@ -77,8 +76,9 @@ public class CopyActivityMenu extends IMenu implements
 							.getSelectedActivity();
 
 					// copy activity
-					ICalendarStore store = CalendarStoreFactory.getInstance()
-							.getLocaleStore();
+					ICalendarStore store = activity.getStore();
+					if (store == null || calendarItem.getStore().isReadOnly(activity.getId()))
+						return;
 
 					Command command = new CopyEventCommand(
 							new CalendarCommandReference(store, calendarItem,
@@ -104,11 +104,15 @@ public class CopyActivityMenu extends IMenu implements
 		else {
 			setEnabled(true);
 
-			// enable all menuitems
-			Enumeration<JMenuItem> e = table.elements();
-			while (e.hasMoreElements()) {
-				JMenuItem m = e.nextElement();
-				m.setEnabled(true);
+			// enable menuitems
+			Enumeration<ICalendarItem> elements = CalendarList.getInstance().getElements();
+			if (elements.hasMoreElements()) {
+				ICalendarItem calendar = elements.nextElement();
+				JMenuItem menuItem = table.get(calendar.getId());
+				if (calendar.getStore().isReadOnly(null))
+					menuItem.setEnabled(false);
+				else
+					menuItem.setEnabled(true);
 			}
 
 			// retrieve selected activity

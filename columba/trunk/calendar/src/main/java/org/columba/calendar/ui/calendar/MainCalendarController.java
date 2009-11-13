@@ -199,8 +199,8 @@ public class MainCalendarController implements InteractionListener,
 		((DefaultDateArea) localDateAreaBean.getDateArea())
 				.addInteractionListener(this);
 
-		// ((DefaultDateArea) localDateAreaBean.getDateArea())
-		// .addActivityMoveListener(this);
+		((DefaultDateArea) localDateAreaBean.getDateArea())
+				.addActivityMoveListener(this);
 
 		((DefaultDateArea) localDateAreaBean.getDateArea())
 				.addActivityDragResizeListener(this);
@@ -365,15 +365,10 @@ public class MainCalendarController implements InteractionListener,
 	public void interactionOccured(InteractionEvent e) {
 		Object value = e.getCommand().getValue();
 
-		System.out.println("interactionOccured=" + value.toString());
-
 		if (MigUtil.equals(value, DefaultDateArea.AE_MOUSE_ENTERED)) {
 			// mouse hovers over activity
 			com.miginfocom.calendar.activity.Activity activity = ((ActivityView) e
 					.getInteractor().getInteracted()).getModel();
-			System.out.println("MouseOver - activity=" + activity.getID());
-			// System.out.println("summary=" + activity.getSummary());
-			// System.out.println("description=" + activity.getDescription());
 
 		}
 
@@ -446,7 +441,11 @@ public class MainCalendarController implements InteractionListener,
 	public void activityMoved(ActivityMoveEvent e) {
 
 		com.miginfocom.calendar.activity.Activity activity = e.getActivity();
-		System.out.println("activity moved=" + activity.getID());
+		Activity a = new Activity(activity);
+		if (a.getStore().isReadOnly(a.getId())) {
+			MutableDateRange newRange = e.getNewRange();
+			newRange.setToRange(activity.getDateRangeForReading());
+		}
 	}
 
 	/*
@@ -659,14 +658,12 @@ public class MainCalendarController implements InteractionListener,
 	 * @see com.miginfocom.calendar.datearea.ActivityDragResizeListener#activityDragResized(com.miginfocom.calendar.datearea.ActivityDragResizeEvent)
 	 */
 	public void activityDragResized(ActivityDragResizeEvent e) {
-		System.out.println(e);
-
 		com.miginfocom.calendar.activity.ActivityList activityList = (com.miginfocom.calendar.activity.ActivityList) e
 				.getSource();
 
 		for (int i = 0, size = activityList.size(); i < size; i++) {
-			System.out.println("Changed: " + activityList.get(i));
-			// TimeSpan span = activityList.get(i);
+			if (selectedActivity.getStore().isReadOnly(selectedActivity.getId()))
+				continue;
 
 			mediator.fireActivityMoved(selectedActivity);
 		}
@@ -734,9 +731,7 @@ public class MainCalendarController implements InteractionListener,
 			if (e.isPopupTrigger()) {
 				// show context menu
 				menu.show(e.getComponent(), p.x, p.y);
-				System.out.println("--> popup");
-			} else
-				System.out.println("--> no popup");
+			}
 		}
 
 		/**

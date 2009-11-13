@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -30,8 +29,6 @@ import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import org.jdesktop.swingx.decorator.RolloverHighlighter;
 
 public class CalendarList extends JXList {
-
-	private DefaultListModel listModel;
 
 	public CalendarList() {
 		super();

@@ -17,7 +17,6 @@
 //All Rights Reserved.
 package org.columba.calendar.config.api;
 
-import java.awt.Color;
 import java.util.Enumeration;
 
 import org.columba.calendar.base.api.ICalendarItem;
@@ -27,7 +26,7 @@ public interface ICalendarList {
 
 	public abstract Enumeration<ICalendarItem> getElements();
 	
-	public abstract ICalendarItem add(String id, ICalendarItem.TYPE type, String name, Color color);
+	public abstract ICalendarItem add(ICalendarItem item);
 	
 	public abstract ICalendarItem remove(String id);
 	

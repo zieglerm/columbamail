@@ -19,9 +19,11 @@ package org.columba.calendar.base.api;
 
 import java.awt.Color;
 
+import org.columba.calendar.store.api.ICalendarStore;
+
 public interface ICalendarItem {
 
-	enum TYPE {LOCAL, WEB, CALDAV};
+	enum CATEGORY {LOCAL, WEB, OTHER};
 	
 	public String getName();
 	
@@ -30,8 +32,10 @@ public interface ICalendarItem {
 	public Color getColor();
 	public void setColor(Color color);
 	
-	public TYPE getType();
+	public CATEGORY getCategory();
 	
 	public boolean isSelected();
 	public void setSelected(boolean selected);
+
+	public ICalendarStore getStore();
 }

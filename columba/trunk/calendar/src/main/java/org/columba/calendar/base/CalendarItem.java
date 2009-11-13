@@ -21,50 +21,50 @@ import java.awt.Color;
 
 import javax.swing.Icon;
 
+import org.columba.api.plugin.IExtensionInterface;
 import org.columba.calendar.base.api.ICalendarItem;
+import org.columba.calendar.store.api.ICalendarStore;
+import org.columba.core.config.DefaultItem;
 
 
-public class CalendarItem implements ICalendarItem {
-	private String name;
+public class CalendarItem implements ICalendarItem, IExtensionInterface {
+	protected DefaultItem item;
 
-	private String id;
-
-	private Color color;
-
-	private boolean selected;
-
-	private TYPE type;
+	protected ICalendarStore store;
 	
-	public CalendarItem(String id, ICalendarItem.TYPE type, String name, Color color) {
-		this.id = id;
-		this.type = type;
-		this.name = name;
-		this.color = color;
+	public CalendarItem(DefaultItem item) {
+		this.item = item;
 	}
 
 	/**
 	 * @return Returns the color.
 	 */
 	public Color getColor() {
-		return color;
+		int color = 0;
+		try {
+			color = Integer.parseInt(item.getString("property", "color"), 16);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return new Color(color);
 	}
 
 	/**
 	 * @return Returns the id.
 	 */
 	public String getId() {
-		return id;
+		return item.get("uid");
 	}
 
 	/**
 	 * @return Returns the name.
 	 */
 	public String getName() {
-		return name;
+		return item.getString("property", "name");
 	}
 
 	public void setSelected(boolean selected) {
-		this.selected = selected;
+		item.setBoolean("selected", selected);
 	}
 
 	public Icon getIcon() {
@@ -72,18 +72,22 @@ public class CalendarItem implements ICalendarItem {
 	}
 
 	public boolean isSelected() {
-		return selected;
+		return item.getBoolean("selected");
 	}
 
 	public String toString() {
-		return name;
+		return getName();
 	}
 
 	public void setColor(Color color) {
-		this.color = color;
+		item.setString("property", "color", Integer.toString(color.getRGB(), 16));
 	}
 
-	public TYPE getType() {
-		return type;
+	public CATEGORY getCategory() {
+		return CATEGORY.OTHER;
+	}
+
+	public ICalendarStore getStore() {
+		return store;
 	}
 }

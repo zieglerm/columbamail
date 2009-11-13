@@ -9,11 +9,11 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 
 import org.columba.api.gui.frame.IFrameMediator;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.ITodoInfo;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.search.BasicResultPanel;
 import org.columba.core.gui.search.StringCriteriaRenderer;
@@ -120,33 +120,35 @@ public class CalendarSearchProvider implements ISearchProvider {
 
 		List<ISearchResult> result = new Vector<ISearchResult>();
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		Iterator<ICalendarStore> itstore = CalendarList.getInstance().getStores();
+		while (itstore.hasNext()) {
+			ICalendarStore store = itstore.next();
 
-		if (searchCriteriaTechnicalName
-				.equals(CalendarSearchProvider.CRITERIA_SUMMARY_CONTAINS)) {
-
-			Iterator<String> it = store.findBySummary(searchTerm);
-			while (it.hasNext()) {
-				String id = it.next();
-				IComponentInfo c = store.get(id);
-
-				if (c.getType().equals(IComponent.TYPE.EVENT)) {
-					IEventInfo event = (IEventInfo) c;
-
-					result.add(new CalendarSearchResult(event.getEvent().getSummary(),
-							event.getEvent().getLocation(), SearchResultBuilder.createURI(
-									event.getCalendar(), event.getId()), c.getComponent()));
-				} else if (c.getType().equals(IComponent.TYPE.TODO)) {
-					ITodoInfo todo = (ITodoInfo) c;
-
-					result.add(new CalendarSearchResult(todo.getTodo().getSummary(), todo
-							.getTodo().getDescription(), SearchResultBuilder.createURI(
-							todo.getCalendar(), todo.getId()), c.getComponent()));
-				} else
-					throw new IllegalArgumentException(
-							"unsupported component type " + c.getType());
-
+			if (searchCriteriaTechnicalName
+					.equals(CalendarSearchProvider.CRITERIA_SUMMARY_CONTAINS)) {
+	
+				Iterator<String> it = store.findBySummary(searchTerm);
+				while (it.hasNext()) {
+					String id = it.next();
+					IComponentInfo c = store.get(id);
+	
+					if (c.getType().equals(IComponent.TYPE.EVENT)) {
+						IEventInfo event = (IEventInfo) c;
+	
+						result.add(new CalendarSearchResult(event.getEvent().getSummary(),
+								event.getEvent().getLocation(), SearchResultBuilder.createURI(
+										event.getCalendar(), event.getId()), c.getComponent()));
+					} else if (c.getType().equals(IComponent.TYPE.TODO)) {
+						ITodoInfo todo = (ITodoInfo) c;
+	
+						result.add(new CalendarSearchResult(todo.getTodo().getSummary(), todo
+								.getTodo().getDescription(), SearchResultBuilder.createURI(
+								todo.getCalendar(), todo.getId()), c.getComponent()));
+					} else
+						throw new IllegalArgumentException(
+								"unsupported component type " + c.getType());
+	
+				}
 			}
 		}
 

@@ -23,6 +23,7 @@ import java.util.Calendar;
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.command.AddEventCommand;
 import org.columba.calendar.command.CalendarCommandReference;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.Event;
 import org.columba.calendar.model.EventInfo;
 import org.columba.calendar.model.api.IDateRange;
@@ -30,7 +31,6 @@ import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.resourceloader.IconKeys;
 import org.columba.calendar.resourceloader.ResourceLoader;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.dialog.EditEventDialog;
 import org.columba.core.command.Command;
@@ -94,8 +94,9 @@ public class NewAppointmentAction extends AbstractColumbaAction {
 
 		if (dialog.success()) {
 
-			ICalendarStore store = CalendarStoreFactory.getInstance()
-					.getLocaleStore();
+			ICalendarStore store = CalendarList.getInstance().get(eventInfo.getCalendar()).getStore();
+			if (store == null || store.isReadOnly(null))
+				return;
 
 			Command command = new AddEventCommand(new CalendarCommandReference(
 					store), eventInfo);

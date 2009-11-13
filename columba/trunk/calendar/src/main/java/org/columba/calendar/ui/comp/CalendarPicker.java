@@ -30,7 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 
 import org.columba.calendar.base.api.ICalendarItem;
-import org.columba.calendar.config.Config;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.config.api.ICalendarList;
 
 public class CalendarPicker extends JComboBox {
@@ -41,10 +41,13 @@ public class CalendarPicker extends JComboBox {
 	public CalendarPicker() {
 		super();
 
-		ICalendarList list = Config.getInstance().getCalendarList();
+		ICalendarList list = CalendarList.getInstance();
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			ICalendarItem item = e.nextElement();
+			if (item.getStore().isReadOnly(null))
+				continue;
+
 			addItem(item);
 
 			// table.put(item.getId(), item.getName());

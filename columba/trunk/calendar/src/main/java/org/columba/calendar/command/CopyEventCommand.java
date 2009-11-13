@@ -37,18 +37,20 @@ public class CopyEventCommand extends Command {
 
 	@Override
 	public void execute(IWorkerStatusController worker) throws Exception {
-		ICalendarStore store = ((CalendarCommandReference) getReference())
+		ICalendarStore oldStore = ((CalendarCommandReference) getReference())
 				.getStore();
 
 		ICalendarItem calendar = ((CalendarCommandReference) getReference())
 				.getSrcCalendar();
+
+		ICalendarStore newStore = calendar.getStore();
 
 		IActivity eventItem = ((CalendarCommandReference) getReference())
 				.getActivity();
 
 		try {
 			// retrieve event from store
-			IEventInfo event = (IEventInfo) store.get(eventItem.getId());
+			IEventInfo event = (IEventInfo) oldStore.get(eventItem.getId());
 
 			IEventInfo copy = (IEventInfo) event.createCopy();
 
@@ -56,7 +58,7 @@ public class CopyEventCommand extends Command {
 			copy.setCalendar(calendar.getId());
 
 			// persist modified calendar
-			store.add(copy);
+			newStore.add(copy);
 
 		} catch (StoreException e1) {
 			JOptionPane.showMessageDialog(FrameManager.getInstance()

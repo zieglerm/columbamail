@@ -13,6 +13,7 @@ import org.columba.calendar.model.api.IDateRange;
  * @author fdietz
  */
 public interface ICalendarStore {
+	String getId();
 
 	IComponentInfo get(Object uid) throws StoreException;
 
@@ -31,6 +32,8 @@ public interface ICalendarStore {
 	Iterator<String> getIdIterator(String calendarId) throws StoreException;
 	
 	boolean exists(Object uid) throws StoreException;
+
+	boolean isReadOnly(String uid) throws StoreException;
 	
 	/**
 	 * Find all components including the specific <code>searchTerm</code> in the summary.

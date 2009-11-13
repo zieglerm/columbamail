@@ -17,15 +17,30 @@
 //All Rights Reserved.
 package org.columba.calendar.store;
 
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Vector;
+
 import javax.swing.event.EventListenerList;
 
+import org.columba.calendar.model.DateRange;
+import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IComponentInfoList;
+import org.columba.calendar.model.api.IDateRange;
+import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.model.api.IEventInfo;
+import org.columba.calendar.model.api.ITodo;
+import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.IStoreListener;
 import org.columba.calendar.store.api.StoreEvent;
 import org.columba.calendar.store.api.StoreException;
+import org.columba.calendar.ui.base.CalendarHelper;
 
-public abstract class AbstractCalendarStore {
+import com.miginfocom.calendar.activity.Activity;
+import com.miginfocom.calendar.activity.ActivityDepository;
+
+public abstract class AbstractCalendarStore implements ICalendarStore {
 
 	private EventListenerList listenerList = new EventListenerList();
 
@@ -36,6 +51,22 @@ public abstract class AbstractCalendarStore {
 		// TODO the dependency should be the other way around
 		addStorageListener(StoreEventDelegator.getInstance());
 
+	}
+
+	protected void addActivitiesToDepository() {
+		IComponentInfoList list = getComponentInfoList();
+		Iterator<IComponentInfo> it = list.iterator();
+		while (it.hasNext()) {
+			IComponentInfo item = (IComponentInfo) it.next();
+
+			if (item.getType() == IComponent.TYPE.EVENT) {
+				IEventInfo event = (IEventInfo) item;
+
+				Activity act = CalendarHelper.createActivity(event, this);
+
+				ActivityDepository.getInstance().addBrokedActivity(act, this);
+			}
+		}
 	}
 
 	public abstract IComponentInfo get(Object id) throws StoreException;
@@ -61,6 +92,102 @@ public abstract class AbstractCalendarStore {
 			throws StoreException;
 
 	public abstract boolean exists(Object id) throws StoreException;
+
+	/**
+	 * *********************** very slow search implementation
+	 * **********************
+	 */
+
+	/**
+	 * @see org.columba.calendar.store.api.ICalendarStore#findByDateRange(org.columba.calendar.model.api.IDateRange)
+	 */
+	public Iterator<String> findByDateRange(IDateRange dateRange)
+			throws StoreException {
+		Vector<String> result = new Vector<String>();
+
+		Iterator<String> it = getIdIterator();
+		while (it.hasNext()) {
+			String id = it.next();
+			IComponentInfo c = get(id);
+			if (c.getType().equals(IComponent.TYPE.EVENT)) {
+				IEvent event = (IEvent) c;
+				Calendar startDate = event.getDtStart();
+				Calendar endDate = event.getDtEnd();
+				IDateRange dr = new DateRange(startDate, endDate);
+				if (dateRange.equals(dr))
+					result.add(id);
+			} else if (c.getType().equals(IComponent.TYPE.TODO)) {
+				ITodo todo = (ITodo) c;
+				Calendar startDate = todo.getDtStart();
+				Calendar endDate = todo.getDue();
+				IDateRange dr = new DateRange(startDate, endDate);
+				if (dateRange.equals(dr))
+					result.add(id);
+			} else
+				throw new IllegalArgumentException(
+						"unsupported component type " + c.getType());
+		}
+
+		return result.listIterator();
+	}
+
+	/**
+	 * @see org.columba.calendar.store.api.ICalendarStore#findByStartDate(java.util.Calendar)
+	 */
+	public Iterator<String> findByStartDate(Calendar startDate)
+			throws StoreException {
+		Vector<String> result = new Vector<String>();
+
+		Iterator<String> it = getIdIterator();
+		while (it.hasNext()) {
+			String id = it.next();
+			IComponentInfo c = get(id);
+			if (c.getType().equals(IComponent.TYPE.EVENT)) {
+				IEvent event = (IEvent) c;
+				Calendar sd = event.getDtStart();
+				if (startDate.equals(sd))
+					result.add(id);
+			} else if (c.getType().equals(IComponent.TYPE.TODO)) {
+				ITodo todo = (ITodo) c;
+				Calendar sd = todo.getDtStart();
+				if (startDate.equals(sd))
+					result.add(id);
+			} else
+				throw new IllegalArgumentException(
+						"unsupported component type " + c.getType());
+		}
+
+		return result.listIterator();
+	}
+
+	/**
+	 * @see org.columba.calendar.store.api.ICalendarStore#findBySummary(java.lang.String)
+	 */
+	public Iterator<String> findBySummary(String searchTerm)
+			throws StoreException {
+		Vector<String> result = new Vector<String>();
+
+		Iterator<String> it = getIdIterator();
+		while (it.hasNext()) {
+			String id = it.next();
+			IComponentInfo c = get(id);
+			if (c.getType().equals(IComponent.TYPE.EVENT)) {
+				IEventInfo event = (IEventInfo) c;
+				String summary = event.getEvent().getSummary();
+				if (summary.indexOf(searchTerm) != -1)
+					result.add(id);
+			} else if (c.getType().equals(IComponent.TYPE.TODO)) {
+				ITodo todo = (ITodo) c;
+				String summary = todo.getSummary();
+				if (summary.indexOf(searchTerm) != -1)
+					result.add(id);
+			} else
+				throw new IllegalArgumentException(
+						"unsupported component type " + c.getType());
+		}
+
+		return result.listIterator();
+	}
 
 	/** ********************** event ****************************** */
 

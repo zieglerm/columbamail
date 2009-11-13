@@ -31,19 +31,19 @@ public class Event extends Component implements IEvent {
 
 	private Calendar dtEnd;
 
-	private String transsp;
+	private String transsp = "";
 
-	private String summary;
+	private String summary = "";
 
-	private String description;
+	private String description = "";
 
-	private String location;
+	private String location = "";
 
-	private String priority;
+	private String priority = "";
 
-	private String eventClass;
+	private String eventClass = "";
 	
-	private String status;
+	private String status = "";
 	
 	private boolean allDayEvent;
 	

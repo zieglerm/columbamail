@@ -27,7 +27,6 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.ExportCalendarCommand;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
 import org.columba.calendar.ui.list.api.CalendarSelectionChangedEvent;
@@ -75,8 +74,7 @@ public class ExportCalendarAction extends AbstractColumbaAction implements
 		if (fc.showSaveDialog(frameMediator.getContainer().getFrame()) == JFileChooser.APPROVE_OPTION) {
 			File destFile = fc.getSelectedFile();
 
-			ICalendarStore store = CalendarStoreFactory.getInstance()
-			.getLocaleStore();
+			ICalendarStore store = calendar.getStore();
 
 			Command command = new ExportCalendarCommand(
 					new CalendarCommandReference(store, calendar), destFile);

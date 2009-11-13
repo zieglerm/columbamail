@@ -23,9 +23,8 @@ import javax.swing.JOptionPane;
 
 import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.IActivity;
-import org.columba.calendar.model.api.IEvent;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IEventInfo;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
@@ -71,20 +70,28 @@ public class EditActivityAction extends AbstractColumbaAction implements
 
 		String id = (String) activity.getId();
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		ICalendarStore oldStore = activity.getStore();
+		if (oldStore == null || oldStore.isReadOnly(id))
+			return;
 
 		// retrieve event from store
 		try {
-			IEventInfo model = (IEventInfo) store.get(id);
+			IEventInfo model = (IEventInfo) oldStore.get(id);
 
 			EditEventDialog dialog = new EditEventDialog(m.getContainer()
 					.getFrame(), model);
 			if (dialog.success()) {
 				IEventInfo updatedModel = dialog.getModel();
 				
-				// update store
-				store.modify(id, updatedModel);
+				ICalendarStore newStore = CalendarList.getInstance().get(updatedModel
+						.getCalendar()).getStore();
+				// update
+				if (newStore == oldStore) {
+					newStore.modify(id, updatedModel);
+				} else {
+					newStore.add(updatedModel);
+					oldStore.remove(model.getId());
+				}
 			}
 
 		} catch (StoreException e1) {
@@ -100,9 +107,11 @@ public class EditActivityAction extends AbstractColumbaAction implements
 
 		if (event.getSelection().length == 0)
 			setEnabled(false);
-		else
-			setEnabled(true);
-
+		else {
+			IActivity activity = event.getSelection()[0];
+			ICalendarStore store = activity.getStore();
+			setEnabled(store != null && !store.isReadOnly(activity.getId()));
+		}
 	}
 
 }

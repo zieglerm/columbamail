@@ -23,7 +23,7 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.DeleteEventCommand;
-import org.columba.calendar.store.CalendarStoreFactory;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
 import org.columba.calendar.ui.calendar.api.IActivitySelectionChangedListener;
@@ -67,8 +67,9 @@ public class DeleteActivityAction extends AbstractColumbaAction implements
 
 		IActivity activity = c.getSelectedActivity();
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		ICalendarStore store = activity.getStore();
+		if (store == null || store.isReadOnly(activity.getId()))
+			return;
 
 		Command command = new DeleteEventCommand(new CalendarCommandReference(
 				store, activity));
@@ -80,8 +81,11 @@ public class DeleteActivityAction extends AbstractColumbaAction implements
 	public void selectionChanged(ActivitySelectionChangedEvent event) {
 		if (event.getSelection().length == 0)
 			setEnabled(false);
-		else
-			setEnabled(true);
+		else {
+			IActivity activity = event.getSelection()[0];
+			ICalendarStore store = activity.getStore();
+			setEnabled(store != null && !store.isReadOnly(activity.getId()));
+		}
 
 	}
 

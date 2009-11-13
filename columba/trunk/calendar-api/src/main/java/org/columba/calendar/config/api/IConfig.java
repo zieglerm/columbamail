@@ -21,8 +21,6 @@ import java.io.File;
 
 public interface IConfig {
 
-	public abstract ICalendarList getCalendarList();
-	
 	public abstract File getConfigDirectory();
 	
 }

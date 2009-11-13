@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.columba.calendar.base.api.ICalendarItem;
-import org.columba.calendar.config.Config;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.config.api.ICalendarList;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
 import org.columba.calendar.ui.list.api.CalendarSelectionChangedEvent;
@@ -68,6 +68,8 @@ public class CalendarListController implements ICalendarListView,
 
 	private Category webCategory;
 
+	private Category otherCategory;
+
 	private EventListenerList listenerList = new EventListenerList();
 
 	private ExtendablePopupMenu menu;
@@ -87,6 +89,7 @@ public class CalendarListController implements ICalendarListView,
 
 		localCategory = rootCategory.addSubCategory("local", "Local");
 		webCategory = rootCategory.addSubCategory("web", "Web");
+		otherCategory = rootCategory.addSubCategory("other", "Other");
 
 		loadCalendarPreferences();
 
@@ -141,13 +144,13 @@ public class CalendarListController implements ICalendarListView,
 	 * 
 	 */
 	private void loadCalendarPreferences() {
-		ICalendarList list = Config.getInstance().getCalendarList();
+		ICalendarList list = CalendarList.getInstance();
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			ICalendarItem item = e.nextElement();
 
 			Category category = createCalendar(item.getId(), item.getName(),
-					item.getColor().getRGB(), item.getType());
+					item.getColor().getRGB(), item.getCategory());
 
 			// if (calendarId.equals("work"))
 			// category.setPropertyDeep(Category.PROP_IS_HIDDEN, Boolean
@@ -176,13 +179,15 @@ public class CalendarListController implements ICalendarListView,
 	 * @param type
 	 */
 	public Category createCalendar(String calendarId, String name,
-			int colorInt, ICalendarItem.TYPE type) {
+			int colorInt, ICalendarItem.CATEGORY category) {
 
 		Category calendar = null;
-		if (type == ICalendarItem.TYPE.LOCAL)
+		if (category == ICalendarItem.CATEGORY.LOCAL)
 			calendar = localCategory.addSubCategory(calendarId, name);
-		else if (type == ICalendarItem.TYPE.WEB)
+		else if (category == ICalendarItem.CATEGORY.WEB)
 			calendar = webCategory.addSubCategory(calendarId, name);
+		else
+			calendar = otherCategory.addSubCategory(calendarId, name);
 
 		String bgName = AShapeUtil.DEFAULT_BACKGROUND_SHAPE_NAME;
 		String outlineName = AShapeUtil.DEFAULT_OUTLINE_SHAPE_NAME;

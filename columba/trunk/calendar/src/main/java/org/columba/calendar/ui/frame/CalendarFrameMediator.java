@@ -30,12 +30,12 @@ import org.columba.api.gui.frame.IContainer;
 import org.columba.api.gui.frame.IDock;
 import org.columba.api.gui.frame.IDockable;
 import org.columba.calendar.base.api.IActivity;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IComponent;
 import org.columba.calendar.model.api.IComponentInfo;
 import org.columba.calendar.model.api.IDateRange;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.resourceloader.ResourceLoader;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.action.ActivityMovedAction;
 import org.columba.calendar.ui.action.EditActivityAction;
@@ -348,8 +348,10 @@ public class CalendarFrameMediator extends DockFrameController implements
 
 			if (selection.length == 1) {
 
-				ICalendarStore store = CalendarStoreFactory.getInstance()
-						.getLocaleStore();
+				ICalendarStore store = CalendarList.getInstance().get(selection[0].getCalendarId()).getStore();
+				if (store == null)
+					return;
+
 				IComponentInfo c = store.get(selection[0].getId());
 
 				if (c.getType().equals(IComponent.TYPE.EVENT)) {

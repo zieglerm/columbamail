@@ -22,6 +22,7 @@ import org.columba.calendar.model.Recurrence;
 import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IRecurrence;
+import org.columba.calendar.store.api.ICalendarStore;
 
 import com.miginfocom.calendar.activity.Activity;
 import com.miginfocom.calendar.activity.DefaultActivity;
@@ -31,7 +32,7 @@ import com.miginfocom.util.dates.ImmutableDateRange;
 
 public class CalendarHelper {
 
-	public static Activity createActivity(IEventInfo model) {
+	public static Activity createActivity(IEventInfo model, ICalendarStore store) {
 
 		long startMillis = model.getEvent().getDtStart().getTimeInMillis();
 		long endMillis = model.getEvent().getDtEnd().getTimeInMillis();
@@ -40,7 +41,7 @@ public class CalendarHelper {
 				false, null, null);
 
 		// A recurring event
-		Activity act = new DefaultActivity(dr, model.getId());
+		Activity act = new DefaultActivity(dr, store.getId() + ':' + model.getId());
 		act.setSummary(model.getEvent().getSummary());
 		act.setLocation(model.getEvent().getLocation());
 		act.setDescription(model.getEvent().getDescription());
@@ -55,7 +56,7 @@ public class CalendarHelper {
 				r.setUntilDate(columbaRecurrence.getEndDate());
 			act.setRecurrence(r);
 		}
-				
+
 		String calendar = model.getCalendar();
 		// this is for the calendar component and only used internally
 		act.setCategoryIDs(new Object[] { calendar });

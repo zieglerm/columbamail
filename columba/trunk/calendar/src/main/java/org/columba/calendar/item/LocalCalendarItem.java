@@ -15,28 +15,21 @@
 //Portions created by Frederik Dietz and Timo Stich are Copyright (C) 2003.
 //
 //All Rights Reserved.
-package org.columba.calendar.base.api;
+package org.columba.calendar.item;
 
-import java.util.Calendar;
+import org.columba.calendar.base.CalendarItem;
+import org.columba.calendar.store.LocalCalendarStore;
+import org.columba.core.config.DefaultItem;
 
-import org.columba.calendar.store.api.ICalendarStore;
+public class LocalCalendarItem extends CalendarItem {
 
-/**
- * Activity as shown in the main calendar component.
- * 
- * @author fdietz
- */
-public interface IActivity {
+	public LocalCalendarItem(DefaultItem item) {
+		super(item);
 
-	public abstract String getId();
+		store = LocalCalendarStore.getInstance();
+	}
 
-	public abstract String getSummary();
-
-	public abstract Calendar getDtStart();
-
-	public abstract Calendar getDtEnd();
-	
-	public abstract String getCalendarId();
-
-	public abstract ICalendarStore getStore();
+	public CATEGORY getCategory() {
+		return CATEGORY.LOCAL;
+	}
 }

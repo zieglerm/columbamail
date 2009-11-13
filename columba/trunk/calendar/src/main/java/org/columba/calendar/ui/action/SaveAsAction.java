@@ -27,7 +27,7 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.SaveEventToFileCommand;
-import org.columba.calendar.store.CalendarStoreFactory;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
 import org.columba.calendar.ui.calendar.api.IActivitySelectionChangedListener;
@@ -77,8 +77,9 @@ public class SaveAsAction extends AbstractColumbaAction implements
 		if (fc.showSaveDialog(frameMediator.getContainer().getFrame()) == JFileChooser.APPROVE_OPTION) {
 			File destFile = fc.getSelectedFile();
 
-			ICalendarStore store = CalendarStoreFactory.getInstance()
-					.getLocaleStore();
+			ICalendarStore store = activity.getStore();
+			if (store == null)
+				return;
 
 			Command command = new SaveEventToFileCommand(
 					new CalendarCommandReference(store, activity), destFile);

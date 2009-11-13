@@ -29,9 +29,8 @@ import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.MoveEventCommand;
-import org.columba.calendar.config.Config;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.config.api.ICalendarList;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.calendar.api.ActivitySelectionChangedEvent;
 import org.columba.calendar.ui.calendar.api.IActivitySelectionChangedListener;
@@ -48,7 +47,7 @@ public class MoveActivityMenu extends IMenu implements
 	public MoveActivityMenu(IFrameMediator controller) {
 		super(controller, "Move", "MoveActivity");
 
-		ICalendarList list = Config.getInstance().getCalendarList();
+		ICalendarList list = CalendarList.getInstance();
 		Enumeration<ICalendarItem> e = list.getElements();
 		while (e.hasMoreElements()) {
 			final ICalendarItem calendarItem = e.nextElement();
@@ -66,8 +65,9 @@ public class MoveActivityMenu extends IMenu implements
 					IActivity activity = m.getCalendarView()
 							.getSelectedActivity();
 
-					ICalendarStore store = CalendarStoreFactory.getInstance()
-							.getLocaleStore();
+					ICalendarStore store = activity.getStore();
+					if (store == null || calendarItem.getStore().isReadOnly(null))
+						return;
 
 					Command command = new MoveEventCommand(
 							new CalendarCommandReference(store, calendarItem,

@@ -1,11 +1,12 @@
 package org.columba.calendar.facade;
 
 import java.net.URI;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IEventInfo;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.calendar.ui.dialog.EditEventDialog;
@@ -24,8 +25,17 @@ public class DialogFacade {
 		String componentId = s.substring(componentIndex + 1,
 				folderIndex);
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		ICalendarStore store = null;
+		Iterator<ICalendarStore> it = CalendarList.getInstance().getStores();
+		while (it.hasNext()) {
+			ICalendarStore st = it.next();
+			if (st.exists(activityId)) {
+				store = st;
+				break;
+			}
+		}
+		if (store == null)
+			return;
 
 		// retrieve event from store
 		try {

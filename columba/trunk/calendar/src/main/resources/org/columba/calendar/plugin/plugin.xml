@@ -5,7 +5,11 @@
         version="1.0" 
         category="Application" 
         enabled="true">
-        
+
+  <extensionlist id="org.columba.calendar.item">
+    <extension id="LocalCalendarItem" class="org.columba.calendar.item.LocalCalendarItem" />
+  </extensionlist>
+
   <extensionlist id="org.columba.core.component">
     <extension id="FrenchVanillaCalendar" class="org.columba.calendar.CalendarComponent" />
   </extensionlist>

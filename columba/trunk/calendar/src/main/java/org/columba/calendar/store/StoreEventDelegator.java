@@ -118,7 +118,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 					// we only update changes for events currently
 					if (model.getType() == IComponent.TYPE.EVENT) {
 						Activity act = CalendarHelper
-								.createActivity((IEventInfo) model);
+								.createActivity((IEventInfo) model, store);
 
 						ActivityDepository.getInstance().addBrokedActivity(act,
 								this, CategoryStructureEvent.ADDED_CREATED);
@@ -163,7 +163,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 
 						// create new activity
 						Activity act = CalendarHelper
-								.createActivity((IEventInfo) model);
+								.createActivity((IEventInfo) model, store);
 						ActivityDepository.getInstance().addBrokedActivity(act,
 								this, CategoryStructureEvent.ADDED_CREATED);
 					}

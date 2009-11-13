@@ -36,23 +36,29 @@ public class MoveEventCommand extends Command {
 
 	@Override
 	public void execute(IWorkerStatusController worker) throws Exception {
-		ICalendarStore store = ((CalendarCommandReference) getReference())
+		ICalendarStore oldStore = ((CalendarCommandReference) getReference())
 				.getStore();
 		ICalendarItem calendar = ((CalendarCommandReference) getReference())
 				.getSrcCalendar();
+		ICalendarStore newStore = calendar.getStore();
 
 		IActivity eventItem = ((CalendarCommandReference) getReference())
 				.getActivity();
 
 		try {
 			// retrieve event from store
-			IEventInfo event = (IEventInfo) store.get(eventItem.getId());
+			IEventInfo event = (IEventInfo) oldStore.get(eventItem.getId());
 
 			// set new calendar id
 			event.setCalendar(calendar.getId());
 
-			// persist modified calendar
-			store.modify(eventItem.getId(), event);
+			// modify calendar
+			if (newStore == oldStore) {
+				newStore.modify(eventItem.getId(), event);
+			} else {
+				newStore.add(event);
+				oldStore.remove(eventItem.getId());
+			}
 		} catch (StoreException e) {
 			JOptionPane.showMessageDialog(FrameManager.getInstance()
 					.getActiveFrame(), e.getMessage());

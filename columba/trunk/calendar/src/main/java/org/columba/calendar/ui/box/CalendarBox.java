@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -20,12 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-import org.columba.calendar.model.api.IComponent;
-import org.columba.calendar.model.api.IComponentInfo;
-import org.columba.calendar.model.api.IComponentInfoList;
-import org.columba.calendar.model.api.IEvent;
 import org.columba.calendar.model.api.IEventInfo;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
 import org.columba.calendar.ui.dialog.EditEventDialog;
@@ -130,18 +124,18 @@ public class CalendarBox extends JPanel implements IComponentBox {
 	}
 
 	private List<IEventInfo> populateListModel(String calendarId) {
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+//		ICalendarStore store = CalendarStoreFactory.getInstance()
+//				.getLocaleStore();
 
-		IComponentInfoList infoList = store.getComponentInfoList(calendarId);
+//		IComponentInfoList infoList = store.getComponentInfoList(calendarId);
 		List<IEventInfo> eventList = new ArrayList<IEventInfo>();
-		Iterator<IComponentInfo> it = infoList.iterator();
+/*		Iterator<IComponentInfo> it = infoList.iterator();
 		while (it.hasNext()) {
 			IComponentInfo info = it.next();
 			if (info.getType().equals(IComponent.TYPE.EVENT)) {
 				eventList.add((IEventInfo) info);
 			}
-		}
+		}*/
 		return eventList;
 	}
 
@@ -167,8 +161,11 @@ public class CalendarBox extends JPanel implements IComponentBox {
 
 	private void openEditCalendarEventDialog(IEventInfo selected) {
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		ICalendarStore store = org.columba.calendar.config.CalendarList.getInstance().get(
+				selected.getCalendar()).getStore();
+
+		if (store == null)
+			return;
 
 		// retrieve event from store
 		try {

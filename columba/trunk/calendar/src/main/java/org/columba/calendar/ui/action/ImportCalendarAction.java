@@ -27,7 +27,6 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.command.CalendarCommandReference;
 import org.columba.calendar.command.ImportCalendarCommand;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
 import org.columba.calendar.ui.list.api.CalendarSelectionChangedEvent;
@@ -85,8 +84,7 @@ public class ImportCalendarAction extends AbstractColumbaAction implements
 			File[] sourceFiles = fc.getSelectedFiles();
 
 			if (sourceFiles.length >= 1) {
-				ICalendarStore store = CalendarStoreFactory.getInstance()
-						.getLocaleStore();
+				ICalendarStore store = calendar.getStore();
 
 				Command command = new ImportCalendarCommand(
 						new CalendarCommandReference(store, calendar), sourceFiles);

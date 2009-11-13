@@ -23,7 +23,6 @@ import org.columba.api.gui.frame.IFrameMediator;
 import org.columba.calendar.base.api.IActivity;
 import org.columba.calendar.command.ActivityMovedCommand;
 import org.columba.calendar.command.CalendarCommandReference;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.ui.calendar.api.ICalendarView;
 import org.columba.calendar.ui.frame.api.ICalendarMediator;
@@ -63,8 +62,9 @@ public class ActivityMovedAction extends AbstractColumbaAction {
 
 		IActivity activity = c.getSelectedActivity();
 
-		ICalendarStore store = CalendarStoreFactory.getInstance()
-				.getLocaleStore();
+		ICalendarStore store = activity.getStore();
+		if (store == null || store.isReadOnly(activity.getId()))
+			return;
 
 		Command command = new ActivityMovedCommand(
 				new CalendarCommandReference(store, activity));

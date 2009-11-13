@@ -21,6 +21,9 @@ import java.beans.PropertyVetoException;
 import java.util.Calendar;
 
 import org.columba.calendar.base.api.IActivity;
+import org.columba.calendar.base.api.ICalendarItem;
+import org.columba.calendar.config.CalendarList;
+import org.columba.calendar.store.api.ICalendarStore;
 
 import com.miginfocom.util.PropertyKey;
 
@@ -35,7 +38,10 @@ public class Activity implements IActivity {
 	}
 
 	public String getId() {
-		return (String) wrapped.getID();
+		String id = (String)wrapped.getID();
+		int pos = id.indexOf(':');
+
+		return id.substring(pos+1);
 	}
 
 	public String getProperty(String propertyKey) {
@@ -72,6 +78,13 @@ public class Activity implements IActivity {
 		Object[] categories = wrapped.getCategoryIDs();
 		
 		return (String) categories[0];
+	}
+
+	public ICalendarStore getStore() {
+		ICalendarItem calendar = CalendarList.getInstance().get(getCalendarId());
+		if (calendar != null)
+			return calendar.getStore();
+		return null;
 	}
 
 }

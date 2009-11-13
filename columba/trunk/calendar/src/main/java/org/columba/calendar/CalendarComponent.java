@@ -17,15 +17,8 @@
 //All Rights Reserved.
 package org.columba.calendar;
 
-import java.io.InputStream;
-
 import org.apache.commons.cli.CommandLine;
-import org.columba.api.plugin.IExtensionHandlerKeys;
-import org.columba.api.plugin.PluginHandlerNotFoundException;
-import org.columba.api.plugin.PluginMetadata;
-import org.columba.calendar.store.CalendarStoreFactory;
 import org.columba.core.component.api.IComponentPlugin;
-import org.columba.core.plugin.PluginManager;
 
 /**
  * @author fdietz
@@ -75,7 +68,6 @@ public class CalendarComponent implements IComponentPlugin {
 	 * @see org.columba.core.main.IComponentPlugin#postStartup()
 	 */
 	public void postStartup() {
-		CalendarStoreFactory.getInstance().getLocaleStore();
 	}
 
 	/**
