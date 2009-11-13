@@ -23,11 +23,8 @@ import java.util.Iterator;
 
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
-import org.columba.calendar.base.CalendarItem;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IRecurrence;
-import org.columba.core.config.DefaultItem;
-import org.columba.core.xml.XmlElement;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,16 +43,10 @@ public class CalendarImporterTest {
     public void testImportCalendar() {
         
         File example1 = new File("src/test/resources/SunbirdEvents.ics");
-        DefaultItem node = new DefaultItem(new XmlElement());
-        node.setString("uid", "example");
-        node.setString("type", "LocalCalendarItem");
-        node.setString("name", "example");
-        node.setString("color", null);
-        CalendarItem calendarItem = new CalendarItem(node);
         CalendarImporter importer = new CalendarImporter();
         Iterator<IEventInfo> i = null;
         try {
-            i = importer.importCalendar(calendarItem, example1);
+            i = importer.importCalendar("example", example1);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -115,16 +106,10 @@ public class CalendarImporterTest {
     @Test
     public void testImportCalendarRecurrence() {
         File example1 = new File("src/test/resources/SunbirdRecurrendEvents.ics");
-        DefaultItem node = new DefaultItem(new XmlElement());
-        node.setString("uid", "example");
-        node.setString("type", "LocalCalendarItem");
-        node.setString("name", "example");
-        node.setString("color", null);
-        CalendarItem calendarItem = new CalendarItem(node);
         CalendarImporter importer = new CalendarImporter();
         Iterator<IEventInfo> i = null;
         try {
-            i = importer.importCalendar(calendarItem, example1);
+            i = importer.importCalendar("example", example1);
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Got following exception:" + e.getMessage());

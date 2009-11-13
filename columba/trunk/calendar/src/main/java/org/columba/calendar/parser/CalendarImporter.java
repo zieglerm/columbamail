@@ -19,6 +19,7 @@ package org.columba.calendar.parser;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -42,7 +43,6 @@ import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.RRule;
 
 import org.columba.calendar.base.UUIDGenerator;
-import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.model.Event;
 import org.columba.calendar.model.EventInfo;
 import org.columba.calendar.model.Recurrence;
@@ -57,10 +57,14 @@ public class CalendarImporter {
 		super();
 	}
 
-	public Iterator<IEventInfo> importCalendar(ICalendarItem calendarItem, File file) throws Exception {
-		Vector<IEventInfo> v = new Vector<IEventInfo>();
-
+	public Iterator<IEventInfo> importCalendar(String calendarId, File file) throws Exception {
 		FileInputStream in = new FileInputStream(file);
+
+		return importCalendar(calendarId, in);
+	}
+
+	public Iterator<IEventInfo> importCalendar(String calendarId, InputStream in) throws Exception {
+		Vector<IEventInfo> v = new Vector<IEventInfo>();
 
 		CalendarBuilder builder = new CalendarBuilder();
 
@@ -302,7 +306,7 @@ public class CalendarImporter {
 				for (String category : categories) 
 					event.addCategory(category);
 				
-				IEventInfo eventInfo = new EventInfo(uid, calendarItem.getId(), event);
+				IEventInfo eventInfo = new EventInfo(uid, calendarId, event);
 
 				v.add(eventInfo);
 			} else if (component.getName().equals(Component.VTIMEZONE)) {

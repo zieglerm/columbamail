@@ -52,7 +52,7 @@ public class ImportCalendarCommand extends Command {
 		for (int i = 0; i < sourceFiles.length; i++) {
 
 			Iterator<IEventInfo> it = new CalendarImporter()
-					.importCalendar(calendar, sourceFiles[i]);
+					.importCalendar(calendar.getId(), sourceFiles[i]);
 
 			while (it.hasNext()) {
 				IEventInfo event = it.next();

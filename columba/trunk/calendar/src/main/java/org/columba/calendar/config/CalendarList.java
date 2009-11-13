@@ -42,8 +42,7 @@ public class CalendarList implements ICalendarList {
 
 	private int nextUid = 1;
 
-	private static CalendarList instance = new CalendarList(CalendarConfig
-			.getInstance().getCalendarConfig().getElement("/list"));
+	private static CalendarList instance;
 
 	private CalendarList(XmlElement listNode) {
 		this.listNode = listNode;
@@ -100,6 +99,10 @@ public class CalendarList implements ICalendarList {
 	}
 
 	public static CalendarList getInstance() {
+		if (instance == null) {
+			instance = new CalendarList(CalendarConfig
+					.getInstance().getCalendarConfig().getElement("/list"));
+		}
 		return instance;
 	}
 

@@ -9,6 +9,7 @@
   <extensionlist id="org.columba.calendar.item">
     <extension id="LocalCalendarItem" class="org.columba.calendar.item.LocalCalendarItem" />
     <extension id="BirthdayCalendarItem" class="org.columba.calendar.item.BirthdayCalendarItem" />
+    <extension id="WebICalCalendarItem" class="org.columba.calendar.item.WebICalCalendarItem" />
   </extensionlist>
 
   <extensionlist id="org.columba.core.component">
