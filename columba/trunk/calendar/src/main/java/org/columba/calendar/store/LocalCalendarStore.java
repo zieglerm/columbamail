@@ -32,8 +32,11 @@ import org.columba.calendar.parser.SyntaxException;
 import org.columba.calendar.parser.VCalendarModelFactory;
 import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.calendar.store.api.StoreException;
+import org.columba.calendar.ui.base.CalendarHelper;
 import org.columba.core.io.DiskIO;
 import org.jdom.Document;
+
+import com.miginfocom.calendar.activity.Activity;
 
 public class LocalCalendarStore extends AbstractCalendarStore implements
 		ICalendarStore {
@@ -164,9 +167,14 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		if (id == null)
 			throw new IllegalArgumentException("id == null");
 
+		IComponentInfo info = get(id);
+		Activity activity = null;
+		if (info instanceof IEventInfo) {
+			activity = CalendarHelper.createActivity((IEventInfo)info, this);
+		}
 		dataStorage.remove(id);
 
-		super.remove(id);
+		super.remove(activity == null ? id : activity.getID());
 	}
 
 	public boolean isReadOnly(String uid) throws StoreException {
