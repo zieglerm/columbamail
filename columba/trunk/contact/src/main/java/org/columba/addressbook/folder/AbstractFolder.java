@@ -79,7 +79,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 */
 	protected void fireItemAdded(String uid) {
 
-		IFolderEvent e = new FolderEvent(this, null);
+		IFolderEvent e = new FolderEvent(this, uid);
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 
@@ -98,7 +98,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 */
 	protected void fireItemRemoved(String uid) {
 
-		IFolderEvent e = new FolderEvent(this, null);
+		IFolderEvent e = new FolderEvent(this, uid);
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 
@@ -117,7 +117,7 @@ public abstract class AbstractFolder extends AddressbookTreeNode implements
 	 */
 	protected void fireItemChanged(String uid) {
 
-		IFolderEvent e = new FolderEvent(this, null);
+		IFolderEvent e = new FolderEvent(this, uid);
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 
