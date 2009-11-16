@@ -55,8 +55,6 @@ public class LocalCalendarStore extends AbstractCalendarStore implements
 		DiskIO.ensureDirectory(directory);
 
 		dataStorage = new LocalXMLFileStore(directory);
-
-		addActivitiesToDepository();
 	}
 
 	public static LocalCalendarStore getInstance() {

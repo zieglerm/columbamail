@@ -64,8 +64,6 @@ public class BirthdayCalendarStore extends AbstractCalendarStore implements
 		} catch (ServiceNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		addActivitiesToDepository();
 	}
 
 	protected IEventInfo createEventInfo(IContactModel contact) {

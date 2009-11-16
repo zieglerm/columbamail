@@ -17,7 +17,11 @@
 //All Rights Reserved.
 package org.columba.calendar;
 
+import java.util.Iterator;
+
 import org.apache.commons.cli.CommandLine;
+import org.columba.calendar.config.CalendarList;
+import org.columba.calendar.store.api.ICalendarStore;
 import org.columba.core.component.api.IComponentPlugin;
 
 /**
@@ -68,6 +72,11 @@ public class CalendarComponent implements IComponentPlugin {
 	 * @see org.columba.core.main.IComponentPlugin#postStartup()
 	 */
 	public void postStartup() {
+		Iterator<ICalendarStore> it = CalendarList.getInstance().getStores();
+		while (it.hasNext()) {
+			ICalendarStore store = it.next();
+			store.initActivities();
+		}
 	}
 
 	/**

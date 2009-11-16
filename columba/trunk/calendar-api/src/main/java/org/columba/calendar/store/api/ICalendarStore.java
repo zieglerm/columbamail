@@ -15,6 +15,8 @@ import org.columba.calendar.model.api.IDateRange;
 public interface ICalendarStore {
 	String getId();
 
+	void initActivities() throws StoreException;
+
 	IComponentInfo get(Object uid) throws StoreException;
 
 	void add(IComponentInfo calendarModel) throws StoreException;

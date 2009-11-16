@@ -20,19 +20,23 @@ public class WebICalCalendarStore extends AbstractCalendarStore {
 	Map<String, String> contactEventMap;
 
 	String id;
+	URL url;
 
 	public WebICalCalendarStore(String id, String stringUrl) {
 		this.id = id;
 
 		map = new HashMap<String, IEventInfo>();
-
-		URL url = null;
+		url = null;
 		try {
 			url = new URL(stringUrl);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	public void initActivities() throws StoreException {
+		map = new HashMap<String, IEventInfo>();
 
 		URLConnection connection;
 		try {
@@ -48,7 +52,7 @@ public class WebICalCalendarStore extends AbstractCalendarStore {
 			e.printStackTrace();
 		}
 
-		addActivitiesToDepository();
+		super.initActivities();
 	}
 
 	public String getId() {

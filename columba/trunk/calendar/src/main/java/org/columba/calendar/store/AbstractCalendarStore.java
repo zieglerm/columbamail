@@ -53,7 +53,7 @@ public abstract class AbstractCalendarStore implements ICalendarStore {
 
 	}
 
-	protected void addActivitiesToDepository() {
+	public void initActivities() throws StoreException {
 		IComponentInfoList list = getComponentInfoList();
 		Iterator<IComponentInfo> it = list.iterator();
 		while (it.hasNext()) {
