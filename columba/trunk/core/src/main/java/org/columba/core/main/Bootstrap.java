@@ -268,6 +268,10 @@ public class Bootstrap {
 		PluginManager.getInstance().addExtensionHandlers(
 				"org/columba/mail/plugin/extensionhandler.xml");
 
+		// load calendar extension handler
+		PluginManager.getInstance().addExtensionHandlers(
+				"org/columba/calendar/plugin/extensionhandler.xml");
+
 		// load all internal core plugins
 		String path = "org/columba/core/plugin/plugin.xml";
 		PluginManager.getInstance().addPlugin(path);
