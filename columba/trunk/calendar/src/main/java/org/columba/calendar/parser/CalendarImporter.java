@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Vector;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
@@ -79,7 +78,6 @@ public class CalendarImporter {
 		for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
 			net.fortuna.ical4j.model.Component component = (net.fortuna.ical4j.model.Component) i
 					.next();
-			// System.out.println("Component [" + component.getName() + "]");
 
 			// only import VEVENT and VTODO for now
 			if (component.getName().equals(Component.VEVENT)) {
@@ -109,9 +107,6 @@ public class CalendarImporter {
 					Property property = (Property) j.next();
 					String name = property.getName();
 					String value = property.getValue();
-
-					// System.out.println("Property [" + property.getName() + ", "
-					//		+ property.getValue() + "]");
 
 					if (name.equals(Property.DTSTART)) {
 						DtStart dtStart1 = (DtStart) property;
@@ -223,19 +218,12 @@ public class CalendarImporter {
 							count = rrule.getRecur().getCount();
 						if (rrule.getRecur().getInterval() > 0)
 							interval = rrule.getRecur().getInterval();
+						else
+							interval = 1;
 						weekdays = rrule.getRecur().getDayList();
-						/*for (Iterator iter = rrule.getRecur().getWeekNoList().iterator(); iter.hasNext(); ) {
-							Object o = iter.next();
-							System.out.println("weeknolist = " + o);
-						}
-						for (Iterator iter = rrule.getRecur().getMonthList().iterator(); iter.hasNext(); ) {
-							Object o = iter.next();
-							System.out.println("monthlist = " + o);
-						}*/
 						if (rrule.getRecur().getUntil() != null) {
 							until = Calendar.getInstance();
 							until.setTime(rrule.getRecur().getUntil());
-							// System.out.println("until = " + until);
 						}
 					}
 
@@ -313,9 +301,6 @@ public class CalendarImporter {
 				for (Iterator j = component.getProperties().iterator(); j
 						.hasNext();) {
 					Property property = (Property) j.next();
-
-					System.out.println("Property [" + property.getName() + ", "
-							+ property.getValue() + "]");
 				}
 			} else if (component.getName().equals(Component.VTODO)) {
 				
@@ -324,9 +309,6 @@ public class CalendarImporter {
 					Property property = (Property) j.next();
 					String name = property.getName();
 					String value = property.getValue();
-
-					System.out.println("Property [" + property.getName() + ", "
-							+ property.getValue() + "]");
 				}
 
 			}
@@ -339,7 +321,6 @@ public class CalendarImporter {
 	
 	public static String correctUid(String value) {
 		// if there is no string given, return a number
-		Random r = new Random();
 		if (value == null || value.length() == 0)
 			return (new UUIDGenerator()).newUUID();
 		return value.replaceAll("[^a-z,0-9,A-Z,_-]", "-");

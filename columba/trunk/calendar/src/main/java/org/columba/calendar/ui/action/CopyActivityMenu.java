@@ -106,7 +106,7 @@ public class CopyActivityMenu extends IMenu implements
 
 			// enable menuitems
 			Enumeration<ICalendarItem> elements = CalendarList.getInstance().getElements();
-			if (elements.hasMoreElements()) {
+			while (elements.hasMoreElements()) {
 				ICalendarItem calendar = elements.nextElement();
 				JMenuItem menuItem = table.get(calendar.getId());
 				if (calendar.getStore().isReadOnly(null))
