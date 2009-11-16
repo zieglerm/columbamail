@@ -40,6 +40,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import org.columba.calendar.base.CalendarItem;
+import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IRecurrence;
 import org.columba.calendar.ui.comp.CalendarPicker;
@@ -391,7 +392,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 			
 			String calendar = model.getCalendar();
 			if ( calendar != null )
-				calendarPicker.setSelectedItem(model.getCalendar());
+				calendarPicker.setSelectedItem(CalendarList.getInstance().get(calendar));
 			else
 				calendarPicker.setSelectedIndex(0);
 
