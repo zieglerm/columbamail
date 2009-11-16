@@ -71,16 +71,14 @@ public class EditActivityAction extends AbstractColumbaAction implements
 		String id = (String) activity.getId();
 
 		ICalendarStore oldStore = activity.getStore();
-		if (oldStore == null || oldStore.isReadOnly(id))
-			return;
 
 		// retrieve event from store
 		try {
 			IEventInfo model = (IEventInfo) oldStore.get(id);
 
 			EditEventDialog dialog = new EditEventDialog(m.getContainer()
-					.getFrame(), model);
-			if (dialog.success()) {
+					.getFrame(), model, oldStore.isReadOnly(id));
+			if (dialog.success() && !oldStore.isReadOnly(id)) {
 				IEventInfo updatedModel = dialog.getModel();
 				
 				ICalendarStore newStore = CalendarList.getInstance().get(updatedModel
@@ -103,14 +101,10 @@ public class EditActivityAction extends AbstractColumbaAction implements
 	}
 
 	public void selectionChanged(ActivitySelectionChangedEvent event) {
-
-
 		if (event.getSelection().length == 0)
 			setEnabled(false);
 		else {
-			IActivity activity = event.getSelection()[0];
-			ICalendarStore store = activity.getStore();
-			setEnabled(store != null && !store.isReadOnly(activity.getId()));
+			setEnabled(true);
 		}
 	}
 

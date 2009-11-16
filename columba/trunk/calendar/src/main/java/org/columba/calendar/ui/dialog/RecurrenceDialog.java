@@ -49,6 +49,8 @@ public class RecurrenceDialog extends JDialog implements ActionListener {
 
 	private IEventInfo model;
 	
+	private boolean readOnly;
+	
 	private boolean success = false;
 	
 	// frequency
@@ -65,12 +67,13 @@ public class RecurrenceDialog extends JDialog implements ActionListener {
 	JRadioButton rUntilDate = new JRadioButton();
 	DatePicker endDatePicker;
 
-	public RecurrenceDialog(Frame parentFrame, IEventInfo model) {
+	public RecurrenceDialog(Frame parentFrame, IEventInfo model, boolean readOnly) {
 		super(parentFrame, true);
 
 		endDatePicker = new DatePicker();
 		
 		this.model = model;
+		this.readOnly = readOnly;
 
 		setLayout(new BorderLayout());
 		getContentPane().add(
@@ -227,7 +230,7 @@ public class RecurrenceDialog extends JDialog implements ActionListener {
 				endDatePicker.setEnabled(false);
 				r.setEndType(IRecurrence.RECURRENCE_END_FOREVER);
 			}
-		} else {
+		} else if (!readOnly) {
 			if (freqComboBox.getSelectedItem().equals(RECURRENCE_DAILY)) {
 				r.setType(IRecurrence.RECURRENCE_DAILY);
 			} else if (freqComboBox.getSelectedItem().equals(RECURRENCE_WEEKLY)) {
@@ -274,6 +277,8 @@ public class RecurrenceDialog extends JDialog implements ActionListener {
 		okButton.addActionListener(this);
 		okButton.setActionCommand("OK"); //$NON-NLS-1$
 		okButton.setDefaultCapable(true);
+		if (readOnly)
+			okButton.setEnabled(false);
 		getRootPane().setDefaultButton(okButton);
 
 		ButtonWithMnemonic helpButton = new ButtonWithMnemonic(

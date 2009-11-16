@@ -41,7 +41,7 @@ public class DialogFacade {
 		try {
 			IEventInfo model = (IEventInfo) store.get(activityId);
 
-			EditEventDialog dialog = new EditEventDialog(null, model);
+			EditEventDialog dialog = new EditEventDialog(null, model, store.isReadOnly(activityId));
 			if (dialog.success()) {
 				IEventInfo updatedModel = dialog.getModel();
 

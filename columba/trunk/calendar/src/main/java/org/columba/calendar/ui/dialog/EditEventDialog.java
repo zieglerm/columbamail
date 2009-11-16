@@ -94,14 +94,17 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 	DatePicker endDayDatePicker;
 
+	boolean readOnly;
+
 	boolean success = false;
 
 	private IEventInfo model;
 
-	public EditEventDialog(JFrame parentFrame, IEventInfo model) {
+	public EditEventDialog(JFrame parentFrame, IEventInfo model, boolean readOnly) {
 		super(parentFrame, true);
 
 		this.model = model;
+		this.readOnly = readOnly;
 
 		startDayDatePicker = new DatePicker();
 
@@ -167,6 +170,8 @@ public class EditEventDialog extends JDialog implements ActionListener {
 		okButton.addActionListener(this);
 		okButton.setActionCommand("OK"); //$NON-NLS-1$
 		okButton.setDefaultCapable(true);
+		if (readOnly)
+			okButton.setEnabled(false);
 		getRootPane().setDefaultButton(okButton);
 
 		ButtonWithMnemonic helpButton = new ButtonWithMnemonic(
@@ -397,7 +402,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 			
 			categoriesTextField.setText(model.getEvent().getCategories());
 			
-		} else {
+		} else if (!readOnly) {
 			model.getEvent().setSummary(summaryTextField.getText());
 			model.getEvent().setLocation(locationTextField.getText());
 			model.getEvent().setCategories(categoriesTextField.getText());
@@ -488,7 +493,7 @@ public class EditEventDialog extends JDialog implements ActionListener {
 				endTimePicker.setEnabled(true);
 			}
 		} else if (action.equals("RecurrenceDialog")) {
-			RecurrenceDialog r = new RecurrenceDialog(null, model);
+			RecurrenceDialog r = new RecurrenceDialog(null, model, readOnly);
 			if (r.success()) {
 				model = r.getModel();
 			}

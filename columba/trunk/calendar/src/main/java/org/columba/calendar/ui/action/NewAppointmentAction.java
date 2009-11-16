@@ -90,7 +90,7 @@ public class NewAppointmentAction extends AbstractColumbaAction {
 		// FIXME calendar?
 		IEventInfo eventInfo = new EventInfo(model.getId(), "", model);
 
-		EditEventDialog dialog = new EditEventDialog(null, eventInfo);
+		EditEventDialog dialog = new EditEventDialog(null, eventInfo, false);
 
 		if (dialog.success()) {
 
