@@ -48,13 +48,6 @@ public class AbstractFolderTstCase {
      */
     @Before
     public void setUp() throws Exception {
-
-        //		 create config-folder
-        File file = new File("test_config");
-        file.mkdir();
-
-        //new Config(file);
-
         Logging.DEBUG = true;
         Logging.createDefaultHandler();
 

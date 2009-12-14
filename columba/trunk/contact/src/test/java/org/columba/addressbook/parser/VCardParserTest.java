@@ -49,6 +49,7 @@ public class VCardParserTest  {
 				new FileOutputStream("test.vcf"));
 
 		VCardParser.write(c, out);
+		new File("test.vcf").delete();
 	}
 
     @Test

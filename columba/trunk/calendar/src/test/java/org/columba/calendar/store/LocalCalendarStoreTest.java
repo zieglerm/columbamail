@@ -89,14 +89,16 @@ public class LocalCalendarStoreTest {
 
     @After
     public void tearDown() throws Exception {
-//		// delete all data in directory
-//		File[] list = file.listFiles();
-//
-//		for (int i = 0; i < list.length; i++) {
-//			list[i].delete();
-//		}
-//
-//		// delete folder
-//		file.delete();
+		// delete all data in directory
+    	File storeFile = new File(file.getName(), "store");
+		File[] list = storeFile.listFiles();
+
+		for (int i = 0; i < list.length; i++) {
+			list[i].delete();
+		}
+		storeFile.delete();
+
+		// delete folder
+		file.delete();
     }
 }
