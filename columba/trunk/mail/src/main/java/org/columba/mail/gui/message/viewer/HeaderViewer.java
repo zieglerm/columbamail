@@ -47,11 +47,16 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import org.columa.core.config.IDefaultItem;
+import org.columba.addressbook.facade.IContactFacade;
+import org.columba.addressbook.facade.IFolder;
+import org.columba.addressbook.facade.IFolderFacade;
+import org.columba.api.exception.ServiceNotFoundException;
 import org.columba.core.config.DefaultItem;
 import org.columba.core.gui.base.AscendingIcon;
 import org.columba.core.resourceloader.ImageLoader;
 import org.columba.core.xml.XmlElement;
 import org.columba.mail.config.MailConfig;
+import org.columba.mail.connector.ServiceConnector;
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.frame.MailFrameMediator;
 import org.columba.mail.gui.frame.ThreePaneMailFrameController;
@@ -61,6 +66,7 @@ import org.columba.mail.gui.message.action.ComposeMessageAction;
 import org.columba.mail.gui.message.action.OpenAttachmentAction;
 import org.columba.mail.gui.message.action.SaveAsAttachmentAction;
 import org.columba.mail.parser.text.HtmlParser;
+import org.columba.mail.resourceloader.MailImageLoader;
 import org.columba.ristretto.message.Address;
 import org.columba.ristretto.message.BasicHeader;
 import org.columba.ristretto.message.Header;
@@ -672,6 +678,18 @@ public class HeaderViewer extends JPanel {
 	}
 
 	private JComponent[] createRecipientComponentArray(Address[] addressArray) {
+		IFolderFacade folderFacade = null;
+		IContactFacade contactFacade = null;
+		IFolder collectedAddressesFolder = null;
+		try {
+			folderFacade = ServiceConnector.getFolderFacade();
+			contactFacade = ServiceConnector.getContactFacade();
+			collectedAddressesFolder = folderFacade.getCollectedAddresses();
+		} catch (ServiceNotFoundException e) {
+			e.printStackTrace();
+		}
+
+
 		Vector v = new Vector();
 		for (int j = 0; j < addressArray.length; j++) {
 			final Address adr = addressArray[j];
@@ -708,6 +726,23 @@ public class HeaderViewer extends JPanel {
 
 			button.addMouseListener(new PopupListener(
 					createAddressPopupMenu(label)));
+
+			if (folderFacade != null && contactFacade != null) {
+				List<IFolder> folders = folderFacade.getAllFolders();
+
+				for (Iterator<IFolder> it = folders.iterator(); it.hasNext();) {
+					IFolder folder = it.next();
+
+					if (collectedAddressesFolder != null &&
+							collectedAddressesFolder.getId().equals(folder.getId()))
+						continue;
+
+					if (contactFacade.findByEmailAddress(folder.getId(), adr.getMailAddress()) != null) {
+						button.setIcon(MailImageLoader.getSmallIcon("contact-new.png"));
+					}
+				}
+			}
+
 
 			v.add(button);
 		}
