@@ -55,8 +55,8 @@ public final class HtmlParser {
             Pattern.CASE_INSENSITIVE);
     private static final Pattern TRIM_SPACE_PATTERN = Pattern.compile("\n\\s+",
             Pattern.CASE_INSENSITIVE);
-    private static final Pattern HEADER_REMOVAL_PATTERN = Pattern.compile("<html[^<]*<body[^>]*>",
-            Pattern.CASE_INSENSITIVE);
+    private static final Pattern HEADER_REMOVAL_PATTERN = Pattern.compile("<html.*<body[^>]*>",
+            Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern STRIP_TAGS_PATTERN = Pattern.compile("<[^>]*>",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern COMMENTS_REMOVAL_PATTERN = Pattern.compile("<!--[^-]*-->",
@@ -404,7 +404,6 @@ prot + "://  protocol and ://
 
                     case ' ':
 
-                        //sb.append("&nbsp;");
                         if (ss.substring(i).startsWith("    ")) {
                             sb.append("&nbsp; ");
                             i = i + 2;
@@ -414,6 +413,9 @@ prot + "://  protocol and ://
                         } else if (ss.substring(i).startsWith("  ")) {
                             sb.append("&nbsp; ");
                             i = i + 2;
+                        } else if (i == 0) {
+                            sb.append("&nbsp;");
+                            i++;
                         } else {
                             sb.append(' ');
                             i++;
@@ -849,7 +851,9 @@ prot + "://  protocol and ://
         int tagStart = lowerCaseContent.indexOf("<body");
 
         // search for closing bracket separately to account for attributes in tag
-        int tagStartClose = lowerCaseContent.indexOf(">", tagStart) + 1;
+        int tagStartClose = 0;
+        if (tagStart != -1)
+        	tagStartClose = lowerCaseContent.indexOf(">", tagStart) + 1;
         int tagEnd = lowerCaseContent.indexOf("</body>");
 
         // correct limits if body tags where not found
