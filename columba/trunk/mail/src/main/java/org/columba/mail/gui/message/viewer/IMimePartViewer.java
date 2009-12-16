@@ -17,6 +17,8 @@
 //All Rights Reserved.
 package org.columba.mail.gui.message.viewer;
 
+import java.util.List;
+
 import org.columba.mail.folder.IMailbox;
 import org.columba.mail.gui.frame.MailFrameMediator;
 
@@ -39,11 +41,11 @@ public interface IMimePartViewer extends IViewer{
      * 
      * @param folder			selected folder
      * @param uid				selected message
-     * @param address			mimepart address
+     * @param bodyParts			list of bodyParts to display
      * @param mediator			top-level mediator
      * @throws Exception
      */
-    void view(IMailbox folder, Object uid, Integer[] address, MailFrameMediator mediator) throws Exception;
+    void view(IMailbox folder, Object uid, List bodyParts, MailFrameMediator mediator) throws Exception;
  
  
 }

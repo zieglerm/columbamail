@@ -19,13 +19,12 @@ import org.columba.ristretto.message.MimePart;
  */
 public class MessageParser {
 
-	private static DocumentParser parser = new DocumentParser();
-	
 	/**
 	 * @param bodyText
 	 * @throws Exception
 	 */
-	public static String transformTextToHTML(String bodyText, String css, boolean enableSmilies) throws Exception {
+	public static String transformTextToHTML(String bodyText, String css,
+			boolean enableSmilies, boolean encapsulate) throws Exception {
 		String body = null;
 
 		// substitute special characters like:
@@ -46,8 +45,11 @@ public class MessageParser {
 			body = DocumentParser.addSmilies(body);
 		}
 
+		body = "<P>" + body + "</P>";
+
 		// encapsulate bodytext in html-code
-		body = transformToHTML(new StringBuffer(body), css);
+		if (encapsulate)
+			body = transformToHTML(new StringBuffer(body), css);
 
 		return body;
 	}
@@ -57,13 +59,13 @@ public class MessageParser {
 	 * encapsulate bodytext in HTML code
 	 * 
 	 */
-	private static String transformToHTML(StringBuffer buf, String css) {
+	public static String transformToHTML(StringBuffer buf, String css) {
 		// prepend
 		buf.insert(0, "<HTML><HEAD>" + css
-				+ "</HEAD><BODY class=\"bodytext\"><P>");
+				+ "</HEAD><BODY class=\"bodytext\">");
 
 		// append
-		buf.append("</P></BODY></HTML>");
+		buf.append("</BODY></HTML>");
 
 		return buf.toString();
 	}

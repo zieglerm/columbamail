@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -232,9 +233,21 @@ public class MessageController extends JPanel implements CharsetListener,
 			throw new CommandCancelledException(
 					"Message does not exist anymore.");
 
-		MimePart mp = chooseBodyPart(mimePartTree);
-		if (mp != null)
-			bodytextViewer.view(folder, uid, mp.getAddress(), this
+		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
+				.getRoot().getElement("/options/html");
+
+		// Which Bodypart shall be shown? (html/plain)
+		String preferedSubtype;
+		if ((Boolean.valueOf(html.getAttribute("prefer")).booleanValue())) {
+			preferedSubtype = "html";
+		} else {
+			preferedSubtype = "plain";
+		}
+
+		List parts = mimePartTree.getInlineParts(mimePartTree.getRootMimeNode(),
+				"text", preferedSubtype);
+
+		bodytextViewer.view(folder, uid, parts, this
 					.getFrameController());
 
 		spamStatusViewer.view(folder, uid, this.getFrameController());
@@ -295,44 +308,6 @@ public class MessageController extends JPanel implements CharsetListener,
 
 	public Object getSelectedMessageId() {
 		return uid;
-	}
-
-	private MimePart chooseBodyPart(MimeTree mimePartTree) {
-		MimePart bodyPart = null;
-
-		XmlElement html = MailConfig.getInstance().getMainFrameOptionsConfig()
-				.getRoot().getElement("/options/html");
-
-		// ensure that there is an HTML part in the email, otherwise JTextPanel
-		// throws a RuntimeException
-
-		// Which Bodypart shall be shown? (html/plain)
-		if ((Boolean.valueOf(html.getAttribute("prefer")).booleanValue())
-				&& hasHtmlPart(mimePartTree.getRootMimeNode())) {
-			bodyPart = mimePartTree.getFirstTextPart("html");
-		} else {
-			bodyPart = mimePartTree.getFirstTextPart("plain");
-		}
-
-		return bodyPart;
-
-	}
-
-	private boolean hasHtmlPart(MimePart mimeTypes) {
-
-		if (mimeTypes.getHeader().getMimeType().equals(
-				new MimeType("text", "plain")))
-			return true; // exit immediately
-
-		java.util.List children = mimeTypes.getChilds();
-
-		for (int i = 0; i < children.size(); i++) {
-			if (hasHtmlPart(mimeTypes.getChild(i)))
-				return true;
-		}
-
-		return false;
-
 	}
 
 	/**

@@ -21,7 +21,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -300,71 +299,60 @@ public class TextViewer extends JPanel implements IMimePartViewer, Observer,
 	 *      java.lang.Object, java.lang.Integer[],
 	 *      org.columba.mail.gui.frame.MailFrameMediator)
 	 */
-	public void view(IMailbox folder, Object uid, Integer[] address,
+	public void view(IMailbox folder, Object uid, List bodyParts,
 			MailFrameMediator mediator) throws Exception {
 
 		this.folder = folder;
 		this.uid = uid;
 
-		MimePart bodyPart = null;
 		InputStream bodyStream;
 
 		MimeTree mimePartTree = folder.getMimePartTree(uid);
 
-		bodyPart = mimePartTree.getFromAddress(address);
-
-		if (bodyPart == null) {
-			bodyStream = new ByteArrayInputStream("<No Message-Text>"
-					.getBytes());
+		if (bodyParts.size() == 0) {
+			body = MessageParser.transformTextToHTML("<No Message-Text>", css,
+					enableSmilies, true);
 		} else {
-			// Shall we use the HTML-IViewer?
-			htmlMessage = bodyPart.getHeader().getMimeType().getSubtype()
-					.equals("html");
+			body = "";
+			for (int i = 0; i < bodyParts.size(); i++) {
+				MimePart bodyPart = (MimePart) bodyParts.get(i);
+				htmlMessage = bodyPart.getHeader().getMimeType().getSubtype()
+						.equals("html");
 
-			bodyStream = folder.getMimePartBodyStream(uid, bodyPart
-					.getAddress());
+				bodyStream = folder.getMimePartBodyStream(uid, bodyPart
+						.getAddress());
+				bodyStream = MessageParser.decodeBodyStream(bodyPart, bodyStream);
+
+				// Which Charset shall we use ?
+				Charset charset = ((CharsetOwnerInterface) mediator).getCharset();
+				charset = MessageParser.extractCharset(charset, bodyPart);
+
+				bodyStream = new FallbackCharsetDecoderInputStream(bodyStream,
+						charset);
+
+				// Read Stream in String
+				StringBuffer text = StreamUtils.readCharacterStream(bodyStream);
+
+				// if HTML stripping is enabled
+				if (isHTMLStrippingEnabled()) {
+					// strip HTML message -> remove all HTML tags
+					text = new StringBuffer(HtmlParser.stripHtmlTags(text.toString(),
+							true));
+
+					htmlMessage = false;
+				}
+
+				if (htmlMessage) {
+					// Download any CIDs in the html mail
+					body += HtmlParser.getHtmlBody(downloadCIDParts(text.toString(), mimePartTree));
+				} else {
+					body += MessageParser.transformTextToHTML(text.toString(), css,
+							enableSmilies, false);
+				}
+			}
+
+			body = MessageParser.transformToHTML(new StringBuffer(body), css);
 		}
-
-		bodyStream = MessageParser.decodeBodyStream(bodyPart, bodyStream);
-
-		// Which Charset shall we use ?
-		if (!htmlMessage) {
-			Charset charset = ((CharsetOwnerInterface) mediator).getCharset();
-			charset = MessageParser.extractCharset(charset, bodyPart);
-
-			bodyStream = new FallbackCharsetDecoderInputStream(bodyStream,
-					charset);
-		}
-
-		// Read Stream in String
-		StringBuffer text = StreamUtils.readCharacterStream(bodyStream);
-
-		// if HTML stripping is enabled
-		if (isHTMLStrippingEnabled()) {
-			// strip HTML message -> remove all HTML tags
-			text = new StringBuffer(HtmlParser.stripHtmlTags(text.toString(),
-					true));
-
-			htmlMessage = false;
-		}
-
-		if (htmlMessage) {
-			// this is a HTML message
-			body = text.toString();
-
-			// Download any CIDs in the html mail
-			body = downloadCIDParts(body, mimePartTree);
-
-		} else {
-			// this is a text/plain message
-
-			body = MessageParser.transformTextToHTML(text.toString(), css,
-					enableSmilies);
-
-			// setText(body);
-
-		}
-
 	}
 
 	private boolean isHTMLStrippingEnabled() {
