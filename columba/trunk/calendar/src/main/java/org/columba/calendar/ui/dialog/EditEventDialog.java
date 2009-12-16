@@ -40,6 +40,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import org.columba.calendar.base.CalendarItem;
+import org.columba.calendar.base.api.ICalendarItem;
 import org.columba.calendar.config.CalendarList;
 import org.columba.calendar.model.api.IEventInfo;
 import org.columba.calendar.model.api.IRecurrence;
@@ -390,9 +391,9 @@ public class EditEventDialog extends JDialog implements ActionListener {
 			
 			allDayCheckBox.setSelected(model.getEvent().isAllDayEvent());
 			
-			String calendar = model.getCalendar();
-			if ( calendar != null )
-				calendarPicker.setSelectedItem(CalendarList.getInstance().get(calendar));
+			ICalendarItem calendar = CalendarList.getInstance().get(model.getCalendar());
+			if (calendar != null)
+				calendarPicker.setSelectedItem(calendar);
 			else
 				calendarPicker.setSelectedIndex(0);
 
