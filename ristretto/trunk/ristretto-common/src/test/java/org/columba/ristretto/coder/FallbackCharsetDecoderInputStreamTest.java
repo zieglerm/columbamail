@@ -50,7 +50,7 @@ public class FallbackCharsetDecoderInputStreamTest {
 	public void testISO_8859_1butwindows_1252() {
 		String test = "\u2014mple";
 		try {
-			InputStream in = new FallbackCharsetDecoderInputStream( new ByteArrayInputStream( test.getBytes("windows-1252")), Charset.forName("ISO-8859-1") );
+			InputStream in = new FallbackCharsetDecoderInputStream( new ByteArrayInputStream( test.getBytes("windows-1252")), Charset.forName("us-ascii") );
 			//InputStream in = new FallbackCharsetDecoderInputStream( new ByteArrayInputStream( test.getBytes("windows-1252")), Charset.forName("windows-1252") );
 			StringBuffer result = new StringBuffer();
 			int next = in.read();

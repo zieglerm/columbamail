@@ -121,11 +121,15 @@ public class FallbackCharsetDecoderInputStream extends FilterInputStream {
 			result = decoder.decode(inBytes, outChars, in.available() == 0);
 		} while(outChars.position() == 0);
 		
+		outChars.rewind();
 		ByteBuffer test = charset.encode(outChars);
-		while( test.capacity() == 0 && fallback()) {
+		// if the decoder was unable to perform decoding it returns a
+		// char but i get an underflow result
+		while( (result.isUnderflow() || test.capacity() == 0) && fallback()) {
 			inBytes.rewind();
 			outChars.clear();
 			result = decoder.decode(inBytes, outChars, in.available() == 0);
+			outChars.rewind();
 			test = charset.encode(outChars);
 		}		
 		
