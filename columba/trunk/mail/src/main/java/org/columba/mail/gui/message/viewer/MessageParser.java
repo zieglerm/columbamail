@@ -121,20 +121,18 @@ public class MessageParser {
 			}
 
 			if (charsetName == null) {
-				// There is no charset info -> the default system charset is
-				// used
+				// default charset is us-ascii according to RFC 2045 5.2
+				charsetName = "us-ascii";
+			}
+
+			try {
+				charset = Charset.forName(charsetName);
+			} catch (UnsupportedCharsetException e) {
 				charsetName = System.getProperty("file.encoding");
 				charset = Charset.forName(charsetName);
-			} else {
-				try {
-					charset = Charset.forName(charsetName);
-				} catch (UnsupportedCharsetException e) {
-					charsetName = System.getProperty("file.encoding");
-					charset = Charset.forName(charsetName);
-				} catch (IllegalCharsetNameException e) {
-					charsetName = System.getProperty("file.encoding");
-					charset = Charset.forName(charsetName);
-				}
+			} catch (IllegalCharsetNameException e) {
+				charsetName = System.getProperty("file.encoding");
+				charset = Charset.forName(charsetName);
 			}
 
 			// ((CharsetOwnerInterface) mediator).setCharset(charset);
