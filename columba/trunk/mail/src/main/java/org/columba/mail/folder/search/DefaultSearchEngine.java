@@ -30,8 +30,6 @@ import org.columba.api.plugin.IExtension;
 import org.columba.api.plugin.IExtensionHandler;
 import org.columba.core.base.ListTools;
 import org.columba.core.filter.AbstractFilter;
-import org.columba.core.filter.Filter;
-import org.columba.core.filter.FilterCriteria;
 import org.columba.core.filter.FilterRule;
 import org.columba.core.filter.IFilter;
 import org.columba.core.filter.IFilterCriteria;
@@ -62,7 +60,7 @@ public class DefaultSearchEngine {
 	 * Filter plugins are cached and reused, instead of re-instanciated all the
 	 * time
 	 */
-	private static Hashtable filterCache;
+	private Hashtable filterCache;
 
 	/**
 	 * AbstractMessageFolder on which the search is applied
