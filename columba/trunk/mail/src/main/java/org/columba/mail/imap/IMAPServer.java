@@ -1260,6 +1260,9 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 	 */
 	public void markMessage(Object[] uids, int variant, IMAPFolder folder)
 			throws IOException, IMAPException, CommandCancelledException {
+		if (uids == null || uids.length == 0)
+			return;
+
 		try {
 			ensureSelectedState(folder);
 
