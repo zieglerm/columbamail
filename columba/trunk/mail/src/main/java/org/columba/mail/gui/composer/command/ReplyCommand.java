@@ -17,6 +17,7 @@
 package org.columba.mail.gui.composer.command;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
@@ -196,7 +197,8 @@ public class ReplyCommand extends Command {
         MimeTree mimePartTree = folder.getMimePartTree(uids[0]);
         MimePart bodyPart = mimePartTree.getFromAddress(address);
 
-        String bodyText = MessageBuilderHelper.createBodyText(bodyPart);
+        InputStream bodyStream = folder.getMimePartBodyStream(uids[0], address);
+        String bodyText = MessageBuilderHelper.createBodyText(bodyPart, bodyStream);
 
         boolean wasHtml;
         if (header.getMimeType().getSubtype().equals("html"))

@@ -352,13 +352,11 @@ public class MessageBuilderHelper {
 	 *            A <code>Message</code> which contains the bodytext of the
 	 *            message we want reply/forward.
 	 */
-	public static String createBodyText(MimePart mimePart) throws IOException {
+	public static String createBodyText(MimePart mimePart, InputStream body) throws IOException {
 		StreamableMimePart bodyPart = (StreamableMimePart) mimePart;
 		String charsetName = bodyPart.getHeader()
 				.getContentParameter("charset");
 		int encoding = bodyPart.getHeader().getContentTransferEncoding();
-
-		InputStream body = bodyPart.getInputStream();
 
 		switch (encoding) {
 		case MimeHeader.QUOTED_PRINTABLE: {

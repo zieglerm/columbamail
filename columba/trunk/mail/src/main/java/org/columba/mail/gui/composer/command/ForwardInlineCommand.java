@@ -188,7 +188,8 @@ public class ForwardInlineCommand extends ForwardCommand {
 		MimeTree mimePartTree = folder.getMimePartTree(uids[0]);
         MimePart bodyPart = mimePartTree.getFromAddress(address);
 
-        String bodyText = MessageBuilderHelper.createBodyText(bodyPart);
+        InputStream bodyStream = folder.getMimePartBodyStream(uids[0], address);
+        String bodyText = MessageBuilderHelper.createBodyText(bodyPart, bodyStream);
 
         boolean wasHtml;
         if (header.getMimeType().getSubtype().equals("html"))
