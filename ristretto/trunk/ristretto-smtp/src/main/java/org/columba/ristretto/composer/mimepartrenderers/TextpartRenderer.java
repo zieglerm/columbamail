@@ -41,6 +41,7 @@ import org.columba.ristretto.coder.CharsetEncoderInputStream;
 import org.columba.ristretto.coder.QuotedPrintableEncoderInputStream;
 import org.columba.ristretto.composer.MimePartRenderer;
 import org.columba.ristretto.io.SequenceInputStream;
+import org.columba.ristretto.io.StreamUtils;
 import org.columba.ristretto.message.MimeHeader;
 import org.columba.ristretto.message.MimePart;
 import org.columba.ristretto.message.StreamableMimePart;
@@ -74,6 +75,23 @@ public class TextpartRenderer extends MimePartRenderer {
         Charset charset = header.getCharset();
 
         InputStream body =
+            new CharsetEncoderInputStream(
+                new CanonizeFilterInputStream(
+                    ((StreamableMimePart) part).getInputStream()),
+                charset);
+
+        // check if there are encoding problems and fall back to UTF-8 in that case
+        StringBuffer bodyString = StreamUtils.readInString(body);
+        for (int i = 0; i < bodyString.length(); i++) {
+        	if (bodyString.charAt(i) == 0) {
+        		header.setMimeType(header.getMimeType());
+        		header.putContentParameter("charset", "UTF-8");
+        		charset = header.getCharset();
+        		break;
+        	}
+        }
+
+        body =
             new CharsetEncoderInputStream(
                 new CanonizeFilterInputStream(
                     ((StreamableMimePart) part).getInputStream()),
