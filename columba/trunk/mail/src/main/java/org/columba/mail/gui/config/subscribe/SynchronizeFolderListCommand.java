@@ -127,9 +127,15 @@ public class SynchronizeFolderListCommand extends Command {
 			// If this folder has children add them
 			// TODO: In the future we should try to fetch additional children on demand
 			// when the tree of the dialog is opened
-			if( info.getParameter(ListInfo.HASCHILDREN)) {
-				result.addAll(Arrays.asList(store.list("", info.getName()
-						+ store.getDelimiter() + '%')));				
+			if (store.isSupported("CHILDREN")) {
+				if( info.getParameter(ListInfo.HASCHILDREN)) {
+					result.addAll(Arrays.asList(store.list("", info.getName()
+							+ store.getDelimiter() + '%')));				
+				}
+			} else {
+				ListInfo[] childlist = store.list("", info.getName() + store.getDelimiter() + '%');
+				if (childlist.length > 0)
+					result.addAll(Arrays.asList(childlist));
 			}
 		}
 
