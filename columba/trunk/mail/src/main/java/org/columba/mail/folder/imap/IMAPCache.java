@@ -55,6 +55,9 @@ public class IMAPCache implements Runnable {
 
 	public MimeTree getMimeTree(IMAPFolder folder, Object uid) throws IOException {
 		InputStream in = cache.get(createMimeTreeKey(folder, uid));
+		if (in == null)
+			in = cache.get(createOldMimeTreeKey(folder, uid));
+
 		if( in != null ) {
 			try {
 				return (MimeTree) new ObjectInputStream(in).readObject();
@@ -82,15 +85,26 @@ public class IMAPCache implements Runnable {
 	}
 
 	public InputStream getMimeBody(IMAPFolder folder, Object uid, Integer[] address) {
-		return cache.get(createMimeBodyKey(folder, uid, address));
+		InputStream in = cache.get(createMimeBodyKey(folder, uid, address));
+		if (in == null)
+			in = cache.get(createOldMimeBodyKey(folder, uid, address));
+		return in;
+	}
+
+	protected String createOldMimeBodyKey(IMAPFolder folder, Object uid, Integer[] address) {
+		return folder.getId() + uid.toString() + addressToString(address);
 	}
 
 	protected String createMimeBodyKey(IMAPFolder folder, Object uid, Integer[] address) {
-		return folder.getId() + uid.toString() +  addressToString(address);
+		return folder.getId() + "_" + uid.toString() + "_" + addressToString(address);
+	}
+
+	protected String createOldMimeTreeKey(IMAPFolder folder, Object uid) {
+		return folder.getId() + uid.toString();
 	}
 
 	protected String createMimeTreeKey(IMAPFolder folder, Object uid) {
-		return folder.getId() + uid.toString();
+		return folder.getId() + "_" + uid.toString();
 	}
 
 	protected String addressToString(Integer[] address) {
