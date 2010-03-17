@@ -211,9 +211,10 @@ public abstract class AbstractFolder extends DefaultMutableTreeNode implements I
 	 */
 	public String getTreePath() {
 		TreeNode[] treeNode = getPathToRoot(this, 0);
+		if (treeNode.length == 1)
+			return "/";
 
 		StringBuffer path = new StringBuffer();
-
 		for (int i = 1; i < treeNode.length; i++) {
 			AbstractFolder folder = (AbstractFolder) treeNode[i];
 			path.append("/" + folder.getName());

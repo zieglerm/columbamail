@@ -32,6 +32,12 @@ public class SelectSearchFolderDialog extends SelectFolderDialog {
 		super(mediator);
 	}
 
+	protected void initComponents() {
+		super.initComponents();
+
+		tree.setRootVisible(true);
+	}
+
 	public void valueChanged(TreeSelectionEvent e) {
 		IMailFolder node = (IMailFolder) tree.getLastSelectedPathComponent();
 
