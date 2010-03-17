@@ -35,7 +35,7 @@ public class SelectSearchFolderDialog extends SelectFolderDialog {
 	protected void initComponents() {
 		super.initComponents();
 
-		tree.setRootVisible(true);
+		tree.setRootVisible(false);
 	}
 
 	public void valueChanged(TreeSelectionEvent e) {
