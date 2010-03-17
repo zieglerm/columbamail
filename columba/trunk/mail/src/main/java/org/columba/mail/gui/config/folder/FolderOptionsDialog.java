@@ -447,7 +447,8 @@ public class FolderOptionsDialog extends JDialog implements ActionListener,
 			unreadLabel2.setText(Integer.toString(info.getUnseen()));
 			recentLabel2.setText(Integer.toString(info.getRecent()));
 
-			locationLabel2.setText(folder.getDirectoryFile().getPath());
+			File directoryFile = folder.getDirectoryFile();
+			locationLabel2.setText(directoryFile != null ? directoryFile.getPath() : "");
 
 			IFolderItem item = folder.getConfiguration();
 			XmlElement property = item.getElement("property"); //$NON-NLS-1$
