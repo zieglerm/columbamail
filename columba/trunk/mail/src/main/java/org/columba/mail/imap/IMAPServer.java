@@ -1596,7 +1596,8 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 			break;
 		}
 
-		case MarkMessageCommand.MARK_AS_ANSWERED: {
+		case MarkMessageCommand.MARK_AS_ANSWERED:
+		case MarkMessageCommand.MARK_AS_UNANSWERED: {
 			result.setAnswered(true);
 
 			break;
@@ -1608,7 +1609,8 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 			break;
 		}
-		case MarkMessageCommand.MARK_AS_DRAFT: {
+		case MarkMessageCommand.MARK_AS_DRAFT:
+		case MarkMessageCommand.MARK_AS_NOTDRAFT: {
 			result.setDraft(true);
 
 			break;

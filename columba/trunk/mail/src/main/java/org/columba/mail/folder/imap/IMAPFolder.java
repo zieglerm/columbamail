@@ -628,6 +628,14 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		SearchKey junkKey = new SearchKey(SearchKey.KEYWORD, "JUNK");
 		List remoteJunkUids = Arrays.asList(getServer().search(junkKey, this));
 
+		SearchKey answeredKey = new SearchKey(SearchKey.ANSWERED);
+		List remoteAnsweredUids = Arrays.asList(getServer().search(answeredKey,
+				this));
+
+		SearchKey draftKey = new SearchKey(SearchKey.DRAFT);
+		List remoteDraftUids = Arrays.asList(getServer().search(draftKey,
+				this));
+
 		// update the local flags and ensure that the MailboxInfo is correct
 		ICloseableIterator headerIterator = getHeaderList().headerIterator();
 
@@ -636,6 +644,8 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		int recent = 0;
 		int deleted = 0;
 		int junk = 0;
+		int answered = 0;
+		int draft = 0;
 
 		while (headerIterator.hasNext()) {
 			IColumbaHeader header = (IColumbaHeader) headerIterator.next();
@@ -676,6 +686,18 @@ public class IMAPFolder extends AbstractRemoteFolder {
 				junk++;
 			}
 
+			index = Collections.binarySearch(remoteAnsweredUids, uid);
+			flag.setAnswered(index >= 0);
+			if (flag.getAnswered()) {
+				answered++;
+			}
+
+			index = Collections.binarySearch(remoteDraftUids, uid);
+			flag.setDraft(index >= 0);
+			if (flag.getDraft()) {
+				draft++;
+			}
+
 			if (!flag.equals(oldFlag)) {
 				getHeaderList().update(uid, header);
 
@@ -687,7 +709,9 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		if (remoteJunkUids.size() != junk || remoteRecentUids.size() != recent
 				|| remoteFlaggedUids.size() != flagged
 				|| remoteDeletedUids.size() != deleted
-				|| remoteUnseenUids.size() != unseen) {
+				|| remoteUnseenUids.size() != unseen
+				|| remoteAnsweredUids.size() != answered
+				|| remoteDraftUids.size() != draft) {
 			// Something is wrong
 			// Sync again
 
