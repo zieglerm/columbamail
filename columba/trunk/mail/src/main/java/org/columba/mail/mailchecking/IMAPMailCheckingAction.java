@@ -63,7 +63,7 @@ public class IMAPMailCheckingAction extends AbstractMailCheckingAction {
 			if( child instanceof IMAPFolder ) {
 				IMAPFolder folder = (IMAPFolder) child;
 				
-				if( folder.getName().equalsIgnoreCase("INBOX") || folder.getConfiguration().getBooleanWithDefault("activeSync", false)) {
+				if( folder.getName().equalsIgnoreCase("INBOX") || folder.getConfiguration().getBooleanWithDefault("activeSync", true)) {
 					MailFolderCommandReference r = new MailFolderCommandReference(folder);
 					CommandProcessor.getInstance().addOp(new CheckForNewMessagesCommand(this, r));					
 				}

@@ -49,7 +49,6 @@ import org.columba.mail.folder.headercache.CachedHeaderfields;
 import org.columba.mail.folder.search.DefaultSearchEngine;
 import org.columba.mail.folder.search.IMAPQueryEngine;
 import org.columba.mail.imap.IImapServer;
-import org.columba.mail.message.ColumbaHeader;
 import org.columba.mail.message.ICloseableIterator;
 import org.columba.mail.message.IColumbaHeader;
 import org.columba.mail.message.IHeaderList;
@@ -595,6 +594,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 			fireFolderPropertyChanged();
 		}
 
+		mailboxSyncEnabled = true;
 	}
 
 	private void synchronizeFlags(MailboxStatus status) throws Exception,
@@ -748,9 +748,6 @@ public class IMAPFolder extends AbstractRemoteFolder {
 	 */
 	public void innerCopy(IMailbox destiny, Object[] uids) throws Exception {
 		IMAPFolder destFolder = (IMAPFolder) destiny;
-		IHeaderList srcHeaderList = getHeaderList();
-		IPersistantHeaderList destHeaderList = (IPersistantHeaderList) destFolder
-				.getHeaderList();
 
 		Object[] destUids = getServer().copy(destFolder, uids, this);
 
@@ -764,43 +761,12 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		if (destUids.length == 0)
 			return;
 
-		// update headerlist of destination-folder
-		// -> this is necessary to reflect the changes visually
-		// but only do it if the target folder is still in sync!
-
-		Integer largestDestUid = new Integer(-1);
-		ICloseableIterator it = destHeaderList.keyIterator();
-		while (it.hasNext()) {
-			Integer uid = (Integer) it.next();
-			if (largestDestUid.compareTo(uid) < 0) {
-				largestDestUid = uid;
-			}
+		if (destFolder.mailboxSyncEnabled) {
+			// Trigger Synchronization
+			CommandProcessor.getInstance().addOp(
+					new CheckForNewMessagesCommand(
+							new MailFolderCommandReference(destFolder)));
 		}
-		it.close();
-
-		if (((Integer) destUids[0]).intValue() == largestDestUid.intValue() + 1) {
-			int j = 0;
-			for (int i = 0; i < uids.length; i++) {
-				IColumbaHeader destHeader = srcHeaderList.get(uids[i]);
-				// Was this message actually copied?
-				if (destHeader != null) {
-					// Copy the header
-					destHeader = (IColumbaHeader) destHeader.clone();
-
-					destHeader.set("columba.uid", destUids[j]);
-					destHeaderList.add(destHeader, destUids[j]);
-
-					// We need IMAPFlags
-					IMAPFlags flags = new IMAPFlags(destHeader.getFlags()
-							.getFlags());
-					flags.setUid(destUids[j]);
-
-					destFolder.fireMessageAdded(flags.getUid(), flags);
-					j++;
-				}
-			}
-		}
-
 	}
 
 	/**
@@ -948,16 +914,12 @@ public class IMAPFolder extends AbstractRemoteFolder {
 			getServer().setFlags(new Object[] { uid }, imapFlags, this);
 		}
 
-		// Parser the header
-		Header header = withHeaderInputStream.getHeader();
-
-		// update the HeaderList
-		IColumbaHeader cHeader = new ColumbaHeader(header,
-				(Attributes) attributes.clone(), imapFlags);
-
-		getHeaderList().add(cHeader, uid);
-
-		fireMessageAdded(uid, cHeader.getFlags());
+		if (mailboxSyncEnabled) {
+			// Trigger Synchronization
+			CommandProcessor.getInstance().addOp(
+					new CheckForNewMessagesCommand(
+							new MailFolderCommandReference(this)));
+		}
 
 		return uid;
 	}
@@ -1069,20 +1031,11 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 		Integer uid = getServer().append(withHeaderInputStream, this);
 
-		if (getServer().isSelected(this)) {
-			// update the HeaderList
-			Header header = withHeaderInputStream.getHeader();
-			ColumbaHeader h = new ColumbaHeader(header);
-			getHeaderList().add(h, uid);
-
-			fireMessageAdded(uid, h.getFlags());
-		} else {
-			if (mailboxSyncEnabled) {
-				// Trigger Synchronization
-				CommandProcessor.getInstance().addOp(
-						new CheckForNewMessagesCommand(
-								new MailFolderCommandReference(this)));
-			}
+		if (mailboxSyncEnabled) {
+			// Trigger Synchronization
+			CommandProcessor.getInstance().addOp(
+					new CheckForNewMessagesCommand(
+							new MailFolderCommandReference(this)));
 		}
 
 		return uid;
