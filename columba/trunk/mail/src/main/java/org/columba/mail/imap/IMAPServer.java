@@ -634,6 +634,10 @@ public class IMAPServer implements IMAPListener, Observer, IImapServer {
 
 	public int getLargestRemoteUid(IMAPFolder folder) throws IOException, IMAPException, CommandCancelledException {
 		MailboxStatus status = getStatus(folder);
+		return getLargestRemoteUid(folder, status);
+	}
+
+	public int getLargestRemoteUid(IMAPFolder folder, MailboxStatus status) throws IOException, IMAPException, CommandCancelledException {
 		if(status.getUidNext() < 0 && status.getMessages() > 0 ) {
 			return fetchUid(new SequenceSet(status.getMessages()), folder);
 		} else {

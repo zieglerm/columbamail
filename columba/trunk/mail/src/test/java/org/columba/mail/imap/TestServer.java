@@ -391,4 +391,9 @@ public class TestServer implements IImapServer {
 		return maxUid;
 	}
 
+	public int getLargestRemoteUid(IMAPFolder folder, MailboxStatus status)
+			throws IOException, IMAPException, CommandCancelledException {
+		return getLargestRemoteUid(folder);
+	}
+
 }

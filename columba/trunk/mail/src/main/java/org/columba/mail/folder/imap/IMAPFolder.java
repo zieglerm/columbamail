@@ -279,7 +279,7 @@ public class IMAPFolder extends AbstractRemoteFolder {
 		int largestLocalUid = localUids.size() > 0 ? ((Integer) localUids
 				.get(localUids.size() - 1)).intValue() : -1;
 
-		int largestRemoteUid = getServer().getLargestRemoteUid(this);
+		int largestRemoteUid = getServer().getLargestRemoteUid(this, status);
 
 		if (localUids.size() == status.getMessages()
 				&& largestRemoteUid == largestLocalUid) {

@@ -512,5 +512,7 @@ public interface IImapServer {
 
 	
 	public int getLargestRemoteUid(IMAPFolder folder) throws IOException, IMAPException, CommandCancelledException;
+
+	public int getLargestRemoteUid(IMAPFolder folder, MailboxStatus status) throws IOException, IMAPException, CommandCancelledException;
 	
 }
