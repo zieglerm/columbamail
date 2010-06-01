@@ -254,6 +254,10 @@ public class IMAPFolder extends AbstractRemoteFolder {
 
 		Object[] result = new Object[0];
 
+		// do not sync folders which have a Noselect flag
+		if (!getConfiguration().getBooleanWithDefault("selectable", true))
+			return result;
+
 		// Check if the mailbox has changed
 		MailboxStatus status = getServer().getStatus(this);
 
