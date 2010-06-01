@@ -63,7 +63,7 @@ public class MemBufferInputStream extends InputStream {
 	 */
 	public int read() throws IOException {
 		if( buffer.size() == pos) return -1;
-		else return buffer.get(pos++);
+		else return buffer.get(pos++) & 0xff;
 	}
 
 	/**
