@@ -87,7 +87,7 @@ public class MemBufferOutputStreamTest{
 			Assert.assertEquals( 1, in.available());
 			
 			test = in.read();
-			Assert.assertEquals( input[i], test);
+			Assert.assertEquals( input[i] & 0xff, test);
 			Assert.assertEquals( -1, in.read());
 		}
 	}
