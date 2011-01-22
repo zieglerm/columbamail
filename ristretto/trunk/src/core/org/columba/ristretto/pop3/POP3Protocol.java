@@ -666,9 +666,12 @@ public class POP3Protocol implements AuthenticationServer {
 	 * @throws POP3Exception
 	 */
 	public void quit() throws IOException, POP3Exception {
+		POP3Response response;
+		
 		try {
 			mutex.lock();
 			sendCommand("QUIT", null );
+			response = readSingleLineResponse();
 		} finally {
 			mutex.release();
 			socket.close();
@@ -678,8 +681,9 @@ public class POP3Protocol implements AuthenticationServer {
 			socket = null;
 		
 			state = NOT_CONNECTED;
-
 		}
+		
+		if( !response.isOK() ) throw new POP3Exception ( response);
 	}
 
 	/**
