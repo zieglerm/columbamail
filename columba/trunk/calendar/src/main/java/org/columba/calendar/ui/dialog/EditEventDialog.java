@@ -371,24 +371,29 @@ public class EditEventDialog extends JDialog implements ActionListener {
 			locationTextField.setText(model.getEvent().getLocation());
 			categoriesTextField.setText(model.getEvent().getCategories());
 			descriptionTextArea.setText(model.getEvent().getDescription());
-			
-			if (model.getEvent().isAllDayEvent()) {
-				// disable time pickers
-				startTimePicker.setEnabled(false);
-				endTimePicker.setEnabled(false);
-			} else {
-				// enable time pickers
-				startTimePicker.setEnabled(true);
-				endTimePicker.setEnabled(true);
-			}
 
 			Calendar start = model.getEvent().getDtStart();
 			startDayDatePicker.setDate(start);
 			startTimePicker.setTime(start.get(Calendar.HOUR_OF_DAY), start.get(Calendar.MINUTE));
+
 			Calendar end = model.getEvent().getDtEnd();
+			if (model.getEvent().isAllDayEvent()) {
+				// use 24:00 on the previous day instead of 00:00 on the next day
+				endTimePicker.setTime(24, 0);
+				end.roll(Calendar.DAY_OF_MONTH, false);
+
+				// disable time pickers
+				startTimePicker.setEnabled(false);
+				endTimePicker.setEnabled(false);
+			} else {
+				endTimePicker.setTime(end.get(Calendar.HOUR_OF_DAY), end.get(Calendar.MINUTE));
+
+				// enable time pickers
+				startTimePicker.setEnabled(true);
+				endTimePicker.setEnabled(true);
+			}
 			endDayDatePicker.setDate(end);
-			endTimePicker.setTime(end.get(Calendar.HOUR_OF_DAY), end.get(Calendar.MINUTE));
-			
+
 			allDayCheckBox.setSelected(model.getEvent().isAllDayEvent());
 			
 			ICalendarItem calendar = CalendarList.getInstance().get(model.getCalendar());
@@ -412,41 +417,43 @@ public class EditEventDialog extends JDialog implements ActionListener {
 
 			Calendar start = startDayDatePicker.getDate();
 			Calendar end = endDayDatePicker.getDate();
-			int startHour = 0;
-			int startMinutes = 0;
-			int endHour = 0;
-			int endMinutes = 0;
 			
+			start.set(Calendar.SECOND, 0);
+			start.set(Calendar.MILLISECOND, 0);
+			end.set(Calendar.SECOND, 0);
+			end.set(Calendar.MILLISECOND, 0);
+
+			int rollfield;
 			if (allDayCheckBox.isSelected()) {
-				
 				// disable time pickers
 				startTimePicker.setEnabled(false);
 				endTimePicker.setEnabled(false);
 				
-				startHour = 0;
-				startMinutes = 0;
-				start.set(Calendar.HOUR_OF_DAY, startHour);
-				start.set(Calendar.MINUTE, startMinutes);
+				start.set(Calendar.HOUR_OF_DAY, 0);
+				start.set(Calendar.MINUTE, 0);
 
-				endHour = 0;
-				endMinutes = 0;
-				end.set(Calendar.HOUR_OF_DAY, endHour);
-				end.set(Calendar.MINUTE, endMinutes);
+				end.set(Calendar.HOUR_OF_DAY, 24);
+				end.set(Calendar.MINUTE, 0);
 
+				rollfield = Calendar.DAY_OF_MONTH;
 			} else {
 				// enable time pickers
 				startTimePicker.setEnabled(true);
 				endTimePicker.setEnabled(true);
 
-				startHour = startTimePicker.getHour();
-				startMinutes = startTimePicker.getMinutes();
-				start.set(Calendar.HOUR_OF_DAY, startHour);
-				start.set(Calendar.MINUTE, startMinutes);
+				start.set(Calendar.HOUR_OF_DAY, startTimePicker.getHour());
+				start.set(Calendar.MINUTE, startTimePicker.getMinutes());
 
-				endHour = endTimePicker.getHour();
-				endMinutes = endTimePicker.getMinutes();
-				end.set(Calendar.HOUR_OF_DAY, endHour);
-				end.set(Calendar.MINUTE, endMinutes);
+				end.set(Calendar.HOUR_OF_DAY, endTimePicker.getHour());
+				end.set(Calendar.MINUTE, endTimePicker.getHour());
+
+				rollfield = Calendar.HOUR_OF_DAY;
+			}
+
+			// make sure end occurs after start
+			if (end.compareTo(start) <= 0) {
+				end = (Calendar)start.clone();
+				end.roll(rollfield, true);
 			}
 			
 			model.getEvent().setDtStart(start);

@@ -38,7 +38,7 @@ import org.columba.core.base.Mutex;
 
 import com.miginfocom.calendar.activity.Activity;
 import com.miginfocom.calendar.activity.ActivityDepository;
-import com.miginfocom.calendar.category.CategoryStructureEvent;
+import com.miginfocom.util.dates.TimeSpanListEvent;
 
 /**
  * StoreEventDelegator class
@@ -121,7 +121,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 								.createActivity((IEventInfo) model, store);
 
 						ActivityDepository.getInstance().addBrokedActivity(act,
-								this, CategoryStructureEvent.ADDED_CREATED);
+								this, TimeSpanListEvent.ADDED_CREATED);
 					}
 				} catch (StoreException e) {
 					// TODO Auto-generated catch block
@@ -156,7 +156,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 					// we only update changes for events currently
 					if (model.getType() == IComponent.TYPE.EVENT) {
 
-						String activityId = model.getId();
+						String activityId = CalendarHelper.getActivityId(model, store);
 						// remove old activity
 						ActivityDepository.getInstance()
 								.removeBrokedActivityById(activityId);
@@ -165,7 +165,7 @@ public class StoreEventDelegator implements IStoreListener, ActionListener {
 						Activity act = CalendarHelper
 								.createActivity((IEventInfo) model, store);
 						ActivityDepository.getInstance().addBrokedActivity(act,
-								this, CategoryStructureEvent.ADDED_CREATED);
+								this, TimeSpanListEvent.ADDED_CREATED);
 					}
 				} catch (StoreException e) {
 					// TODO Auto-generated catch block
