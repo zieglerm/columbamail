@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import org.columba.core.desktop.ColumbaDesktop;
+import org.columba.core.gui.dialog.ErrorDialog;
 import org.columba.core.gui.htmlviewer.api.IHTMLViewerPlugin;
 import org.lobobrowser.html.HtmlRendererContext;
 import org.lobobrowser.html.gui.HtmlPanel;
@@ -47,7 +48,9 @@ public class CobraViewerPlugin extends JPanel implements
 
 			htmlPanel.setDocument(document, rendererContext);
 		} catch (Exception e) {
-			e.printStackTrace();
+			ErrorDialog.createDialog(e.getMessage(), e);
+		} catch (Error e) {
+			ErrorDialog.createDialog(e.getMessage(), e);
 		}
 	}
 

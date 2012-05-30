@@ -83,7 +83,7 @@ public class CreateSubFolderAction extends AbstractColumbaAction implements
 			// ok pressed
 			selection.setSourceFolder(dialog.getSelected());
 			selection.setFolderName(dialog.getName());
-			selection.setFolderType(dialog.getType());
+			selection.setFolderType(dialog.getFolderType());
 
 			CommandProcessor.getInstance().addOp(
 					new CreateSubFolderCommand(selection));

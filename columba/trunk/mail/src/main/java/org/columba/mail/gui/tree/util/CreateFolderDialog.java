@@ -291,7 +291,7 @@ public class CreateFolderDialog extends JDialog implements ActionListener {
 	/**
 	 * @return
 	 */
-	public String getType() {
+	public String getFolderType() {
 		return (String) typeBox.getSelectedItem();
 	}
 }
