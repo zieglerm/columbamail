@@ -212,7 +212,6 @@ public class MailboxNameUTF7Converter
 		}
 
 		String returnString = result.toString();
-		//System.out.println("schluﬂendlich :" + returnString);
 		return returnString;
 	}
 
