@@ -47,11 +47,10 @@ import org.junit.Test;
 public class FallbackCharsetDecoderInputStreamTest {
 
 	@Test
-	public void testISO_8859_1butwindows_1252() {
+	public void testUS_ASCII_butwindows_1252() {
 		String test = "\u2014mple";
 		try {
 			InputStream in = new FallbackCharsetDecoderInputStream( new ByteArrayInputStream( test.getBytes("windows-1252")), Charset.forName("us-ascii") );
-			//InputStream in = new FallbackCharsetDecoderInputStream( new ByteArrayInputStream( test.getBytes("windows-1252")), Charset.forName("windows-1252") );
 			StringBuffer result = new StringBuffer();
 			int next = in.read();
 			while( next != -1) {

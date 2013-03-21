@@ -119,19 +119,20 @@ public class FallbackCharsetDecoderInputStream extends FilterInputStream {
 
 			outChars.clear();
 			result = decoder.decode(inBytes, outChars, in.available() == 0);
-		} while(outChars.position() == 0);
+		} while( (outChars.position() == 0) && result.isUnderflow() );
 		
 		outChars.rewind();
-		ByteBuffer test = charset.encode(outChars);
-		// if the decoder was unable to perform decoding it returns a
-		// char but i get an underflow result
-		while( (result.isUnderflow() || test.capacity() == 0) && fallback()) {
+		while( !result.isUnderflow() && fallback() ) {
 			inBytes.rewind();
 			outChars.clear();
 			result = decoder.decode(inBytes, outChars, in.available() == 0);
 			outChars.rewind();
-			test = charset.encode(outChars);
-		}		
+		}
+
+		if ( !result.isUnderflow() ) {
+			outChars.append(decoder.replacement());
+			outChars.rewind();
+		}
 		
 		return outChars.position();
 	}
@@ -149,7 +150,7 @@ public class FallbackCharsetDecoderInputStream extends FilterInputStream {
 	}
 	
 	private void initDecoder() {
-		decoder = charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);		
+		decoder = charset.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT);		
 	}
 	
 
