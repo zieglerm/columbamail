@@ -315,7 +315,7 @@ public class BerkeleyDBHeaderList implements IPersistantHeaderList {
 			LOG.severe(e.getMessage());
 			throw new RuntimeException(e);
 		}
-		return new BerkeleyDBIterator( (StoredIterator)new StoredValueSet(db,headerBinding, false).iterator());
+		return new BerkeleyDBIterator(new StoredValueSet(db, headerBinding, false).storedIterator());
 	}
 
 	/* (non-Javadoc)
@@ -328,7 +328,7 @@ public class BerkeleyDBHeaderList implements IPersistantHeaderList {
 			LOG.severe(e.getMessage());
 			throw new RuntimeException(e);
 		}
-		return new BerkeleyDBIterator( (StoredIterator)new StoredKeySet(db, integerBinding, false).iterator());
+		return new BerkeleyDBIterator(new StoredKeySet(db, integerBinding, false).storedIterator());
 	}
 
 	/* (non-Javadoc)
