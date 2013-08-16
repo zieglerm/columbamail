@@ -292,6 +292,9 @@ public class SMTPServer implements Observer  {
 				try {
 					protocol.startTLS();
 					usingSSL = true;
+
+					// reinitialize the connection after STARTTLS
+					initialize();
 				} catch (Exception e) {
 					Object[] options = new String[] {
 							MailResourceLoader.getString("", "global", "ok")
