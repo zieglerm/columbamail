@@ -57,6 +57,7 @@ import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 
 /**
  * Implementation of the client side SMTP protocol.
@@ -182,6 +183,43 @@ public class SMTPProtocol implements AuthenticationServer {
 		}
 	}
 
+	/**
+	 * Opens a connection to the POP3 server using a SSL socket.
+	 * This is also known as the POPs protocol.
+	 * 
+	 * @throws IOException
+	 * @throws SSLException
+	 * @throws POP3Exception
+	 */
+	public String openSSLPort() throws IOException, SSLException, SMTPException {
+		socket = RistrettoSSLSocketFactory.getInstance().createSocket(host,
+				port);
+		socket.setSoTimeout(RistrettoConfig.getInstance().getTimeout());
+
+		// handshake (which cyper algorithms are used?)
+		((SSLSocket) socket).startHandshake();
+		
+		createStreams();
+		
+		SMTPResponse response = in.readSingleLineResponse();
+		if (response.isERR())
+			throw new SMTPException(response.getMessage());
+		String domain = response.getDomain();
+
+		// don't care what the server has to say here.
+		if (response.isHasSuccessor()) {
+			response = readSingleLineResponse();
+
+			while (response.isHasSuccessor() && response.isOK()) {
+				response = readSingleLineResponse();
+			}
+		}
+
+		state = PLAIN;
+
+		return domain;
+	}	
+	
 	private void createStreams() throws IOException {
 		if (RistrettoLogger.logStream != null) {
 			in = new SMTPInputStream(new LogInputStream(
