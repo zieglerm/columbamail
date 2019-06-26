@@ -123,7 +123,7 @@ public class HeaderParser {
 				if( lineWrapMatcher.matches()) {
 					if(lastValue != null) {
 						// Append this to the last value
-						lastValue += lineWrapMatcher.group(1);
+						lastValue += lineWrapMatcher.group(0);
 					}
 				}
 				
