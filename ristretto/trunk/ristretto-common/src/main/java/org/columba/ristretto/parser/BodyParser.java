@@ -169,7 +169,7 @@ public class BodyParser {
 			switch (message.charAt(boundaryStart - 1)) {
 			case '\n': {
 				boundaryStart--;
-				if (message.charAt(boundaryStart) == '\n') {
+				if (message.charAt(boundaryStart - 1) == '\r') {
 					boundaryStart--;
 				}
 				break;
